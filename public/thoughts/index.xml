@@ -2,22 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Thoughts on Hugo Hermit</title>
-    <link>https://example.com/thoughts/</link>
+    <link>https://confident-mclean-736f9a.netlify.com/thoughts/</link>
     <description>Recent content in Thoughts on Hugo Hermit</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
     
-	<atom:link href="https://example.com/thoughts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://confident-mclean-736f9a.netlify.com/thoughts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>On Style</title>
-      <link>https://example.com/thoughts/van-de-camps/</link>
+      <link>https://confident-mclean-736f9a.netlify.com/thoughts/style/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/thoughts/van-de-camps/</guid>
-      <description>Always buy used.</description>
+      <guid>https://confident-mclean-736f9a.netlify.com/thoughts/style/</guid>
+      <description>I&#39;m passionate about many things, one of which being my style.
+Let&#39;s define style as something cohesive - this style is composed of every aspect of one&#39;s life, from how they present themselves with their clothing to their organizational systems and their attitude towards their work.
+The curation of a set of strong, cohesive principles are able to strengthen the ability of an individual to exude greater confidence, enhance productivity, and improve livelihood.</description>
     </item>
     
   </channel>

@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>web on Hugo Hermit</title>
-    <link>https://example.com/tags/web/</link>
+    <link>https://confident-mclean-736f9a.netlify.com/tags/web/</link>
     <description>Recent content in web on Hugo Hermit</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
     
-	<atom:link href="https://example.com/tags/web/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://confident-mclean-736f9a.netlify.com/tags/web/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Building this Website</title>
-      <link>https://example.com/projects/building-site/</link>
+      <link>https://confident-mclean-736f9a.netlify.com/projects/building-site/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://example.com/projects/building-site/</guid>
-      <description>Here&#39;s a brief explanation of how this website came together.</description>
+      <guid>https://confident-mclean-736f9a.netlify.com/projects/building-site/</guid>
+      <description>This website is written with org-mode, powered by Hugo, and hosted with Netlify.</description>
     </item>
     
   </channel>
