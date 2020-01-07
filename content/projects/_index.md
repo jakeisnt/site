@@ -1,13 +1,9 @@
 +++
-title = "Tutorials"
+title = "Projects"
 draft = false
 [menu.main]
   weight = 2001
-  identifier = "tutorials"
+  identifier = "projects"
 +++
 
-How to accomplish things (both technical and non-technical) that I've had
-trouble with in the past.
-Either the current solution on the internet didn't fit my use case,
-I couldn't track down a solution, or I've discovered something cool
-I'd like to introduce to others.
+Here are some descriptions of projects I've worked on.

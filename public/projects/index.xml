@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Projects on Hugo Hermit</title>
+    <title>Tutorials on Jacob Chvatal</title>
     <link>https://confident-mclean-736f9a.netlify.com/projects/</link>
-    <description>Recent content in Projects on Hugo Hermit</description>
+    <description>Recent content in Tutorials on Jacob Chvatal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Mon, 30 Dec 2019 11:12:00 -0500</lastBuildDate>
     
 	<atom:link href="https://confident-mclean-736f9a.netlify.com/projects/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Arch Linux Configuration</title>
-      <link>https://confident-mclean-736f9a.netlify.com/projects/arch-config/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <title>Building this Website</title>
+      <link>https://confident-mclean-736f9a.netlify.com/projects/building-site/</link>
+      <pubDate>Mon, 30 Dec 2019 11:12:00 -0500</pubDate>
       
-      <guid>https://confident-mclean-736f9a.netlify.com/projects/arch-config/</guid>
-      <description>I currently do all of my work on a Dell XPS 9370 with an Arch Linux installation.</description>
+      <guid>https://confident-mclean-736f9a.netlify.com/projects/building-site/</guid>
+      <description>This website is written with org-mode, powered by Hugo, and hosted with Netlify.
+Why?
+I had several needs for making this website.
+ Easily updatable. My last website was my first serious attempt at web development without using a framework - making use only of HTML, CSS and Javascript - and hosted on an archaic static site deployment platform. As impressive as the Three.js visualizations on the site were, I had to dive into the code, then drag-and-drop upload the individual files to a host.</description>
     </item>
     
     <item>
-      <title>Building this Website</title>
-      <link>https://confident-mclean-736f9a.netlify.com/projects/building-site/</link>
+      <title>CDK Global Internship</title>
+      <link>https://confident-mclean-736f9a.netlify.com/projects/cdk/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://confident-mclean-736f9a.netlify.com/projects/building-site/</guid>
-      <description>This website is written with org-mode, powered by Hugo, and hosted with Netlify.</description>
+      <guid>https://confident-mclean-736f9a.netlify.com/projects/cdk/</guid>
+      <description>At CDK Global, I leveraged React.js and Redux to, along with a high school intern and two college interns, develop software used by an internal credit reporting team to monitor the number of credit checks made by individual car dealerships.
+Tech Stack We built a full-stack web application with a React.js front-end, making use of both Material UI and CDK Global&#39;s proprietary React components as well as Redux and thunk for asynchronous global state management.</description>
     </item>
     
   </channel>

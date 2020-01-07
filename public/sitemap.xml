@@ -3,15 +3,46 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://confident-mclean-736f9a.netlify.com/projects/building-site/</loc>
+    <lastmod>2019-12-30T11:12:00-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://confident-mclean-736f9a.netlify.com/categories/</loc>
+    <lastmod>2019-12-30T11:12:00-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://confident-mclean-736f9a.netlify.com/</loc>
+    <lastmod>2019-12-30T11:12:00-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://confident-mclean-736f9a.netlify.com/tags/</loc>
+    <lastmod>2019-12-30T11:12:00-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://confident-mclean-736f9a.netlify.com/projects/</loc>
+    <lastmod>2019-12-30T11:12:00-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://confident-mclean-736f9a.netlify.com/categories/updates/</loc>
+    <lastmod>2019-12-30T11:12:00-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://confident-mclean-736f9a.netlify.com/tags/web/</loc>
+    <lastmod>2019-12-30T11:12:00-05:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://confident-mclean-736f9a.netlify.com/about/</loc>
   </url>
   
   <url>
-    <loc>https://confident-mclean-736f9a.netlify.com/projects/arch-config/</loc>
-  </url>
-  
-  <url>
-    <loc>https://confident-mclean-736f9a.netlify.com/projects/building-site/</loc>
+    <loc>https://confident-mclean-736f9a.netlify.com/projects/cdk/</loc>
   </url>
   
   <url>
@@ -19,27 +50,15 @@
   </url>
   
   <url>
-    <loc>https://confident-mclean-736f9a.netlify.com/</loc>
-  </url>
-  
-  <url>
     <loc>https://confident-mclean-736f9a.netlify.com/thoughts/style/</loc>
   </url>
   
   <url>
-    <loc>https://confident-mclean-736f9a.netlify.com/projects/</loc>
-  </url>
-  
-  <url>
-    <loc>https://confident-mclean-736f9a.netlify.com/tags/</loc>
+    <loc>https://confident-mclean-736f9a.netlify.com/categories/reviews/</loc>
   </url>
   
   <url>
     <loc>https://confident-mclean-736f9a.netlify.com/thoughts/</loc>
-  </url>
-  
-  <url>
-    <loc>https://confident-mclean-736f9a.netlify.com/tags/web/</loc>
   </url>
   
 </urlset>

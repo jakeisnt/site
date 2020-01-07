@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Hugo Hermit</title>
+    <title>Tags on Jacob Chvatal</title>
     <link>https://confident-mclean-736f9a.netlify.com/tags/</link>
-    <description>Recent content in Tags on Hugo Hermit</description>
+    <description>Recent content in Tags on Jacob Chvatal</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Mon, 30 Dec 2019 11:12:00 -0500</lastBuildDate>
     
 	<atom:link href="https://confident-mclean-736f9a.netlify.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>web</title>
+      <link>https://confident-mclean-736f9a.netlify.com/tags/web/</link>
+      <pubDate>Mon, 30 Dec 2019 11:12:00 -0500</pubDate>
+      
+      <guid>https://confident-mclean-736f9a.netlify.com/tags/web/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>fear</title>
@@ -17,15 +27,6 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://confident-mclean-736f9a.netlify.com/tags/fear/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>web</title>
-      <link>https://confident-mclean-736f9a.netlify.com/tags/web/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://confident-mclean-736f9a.netlify.com/tags/web/</guid>
       <description></description>
     </item>
     
