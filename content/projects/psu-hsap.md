@@ -10,6 +10,9 @@ variety of mathematics and programming paradigms pertaining to generating prime
 numbers, working with superclusters, and partitioning sparse graphs through the
 development of OpenMP-parallelized C++ libraries.
 
+All of our work was created under the PDX-Math-HSAP GitHub organization, which
+can be found at <https://github.com/orgs/PDX-Math-HSAP/>.
+
 
 ## Primes {#primes}
 
@@ -19,7 +22,9 @@ succession; in other words, a prime sieve. We began with a naive implementation
 of the Sieve of Erasnosthenes, an ancient Greek method developed to locate
 primes in the first 100 numbers, then made certain optimizations such as
 prematurely excluding all even numbers and all multiples of three from our prime
-search for greater efficiency.
+search for greater efficiency. We ended up utilizing the Sieve of Atkin to
+find primes, utilizing both a modulo 2 and a modulo 6 implementation to
+determine whether numbers are primes.
 
 
 ## Sparse Matrices {#sparse-matrices}
@@ -44,12 +49,6 @@ unclear how the initial fruit was obtained. Feel free to view these as arbitrary
 | banana | 0     | 1      | 0      |
 | carrot | 1     | 1      | 1      |
 
-The graph represented by such a matrix resembles the following:
-
-```latex
-$ the graph goes here$
-```
-
 To save a significant amount of space when working with large
 graphs, these matrices can be represented in compressed-sparse row format
 instead - denoting both the row in which the '1' occurs as well as the column
@@ -59,6 +58,8 @@ This arrangement is able to save us x amount of space while avoiding any
 increase in time complexity - the value of an element given its coordinate in
 a non-compressed matrix can be determined with more operations, but is still a
 constant-time operation with regards to the number of cells seen.
+
+To be continued with future
 
 
 ## Matrix Algorithms {#matrix-algorithms}

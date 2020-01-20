@@ -6,4 +6,4 @@ draft = false
   identifier = "projects"
 +++
 
-Here are some descriptions of projects I've worked on.
+Descriptions of projects I've worked on.
