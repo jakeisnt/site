@@ -7,10 +7,31 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Mon, 30 Dec 2019 11:12:00 -0500</lastBuildDate>
+    <lastBuildDate>Fri, 17 Jan 2020 20:59:00 -0500</lastBuildDate>
     
 	<atom:link href="https://confident-mclean-736f9a.netlify.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Poo-NU</title>
+      <link>https://confident-mclean-736f9a.netlify.com/projects/poo-nu/</link>
+      <pubDate>Fri, 17 Jan 2020 20:59:00 -0500</pubDate>
+      
+      <guid>https://confident-mclean-736f9a.netlify.com/projects/poo-nu/</guid>
+      <description>Started at HackHarvard with a team of three other Northeastern students and myself, Poo-NU is an application to help Northeastern students locate the closest available restroom. The application can be found at https://github.com/jakechvatal/poo-nu.
+The application is built with a React Native front-end with Material UI components and Bootstrap formatting. It interfaces with a GraphQL backend layer that makes queries to a MySQL databases. We selected these technologies primarily because we each wanted to learn how to use one of the technologies we chose; I had no experience with GraphQL and very little with React Native, so I learned how to apply my React knowledge to a cross-platform application and to adjust to a new form of querying and API definiton.</description>
+    </item>
+    
+    <item>
+      <title>School Projects</title>
+      <link>https://confident-mclean-736f9a.netlify.com/projects/neu-projects/</link>
+      <pubDate>Fri, 17 Jan 2020 00:00:00 -0500</pubDate>
+      
+      <guid>https://confident-mclean-736f9a.netlify.com/projects/neu-projects/</guid>
+      <description>Here are some interesting school projects I&#39;ve worked on during school. Code for these projects can be provided upon request.
+StackLang Interpreter (CS2500A) Wrote an interpreter for a small, stack-based programming language with lambdas, thunks and continuations in Racket&#39;s Intermediate Student Language DSL. Continued to TA this course and teach other students how to craft their own interpreters following similar principles.
+MiniCraft (CS2500A): Wrote a top-down two-dimensional variation of Minecraft in Racket&#39;s ISL DSL wherein players can traverse a world, place and destroy different types of blocks with special effects such as exploding TNT.</description>
+    </item>
     
     <item>
       <title>Building this Website</title>
@@ -35,14 +56,32 @@ Tech Stack We built a full-stack web application with a React.js front-end, maki
     </item>
     
     <item>
+      <title>Dotfiles</title>
+      <link>https://confident-mclean-736f9a.netlify.com/projects/dotfiles/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://confident-mclean-736f9a.netlify.com/projects/dotfiles/</guid>
+      <description>I&#39;ve spent a lot of time configuring my Arch Linux System. My initial installation is catalogued in Arch Linux Configuration; this is a description of the work I&#39;ve done to make the installation mine.
+Color Scheme I&#39;ve based my entire color scheme on Doom Emacs&amp;rsquo; &amp;lsquo;Doom-one&amp;rsquo; theme, borrowing from the colors used for both the background and the syntax highlighting and reverse-engineered using both the original configuration file and the ```xcolor``` program as a last resort.</description>
+    </item>
+    
+    <item>
       <title>On Style</title>
       <link>https://confident-mclean-736f9a.netlify.com/thoughts/style/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://confident-mclean-736f9a.netlify.com/thoughts/style/</guid>
-      <description>I&#39;m passionate about many things, one of which being my style.
-Let&#39;s define style as something cohesive - this style is composed of every aspect of one&#39;s life, from how they present themselves with their clothing to their organizational systems and their attitude towards their work.
-The curation of a set of strong, cohesive principles are able to strengthen the ability of an individual to exude greater confidence, enhance productivity, and improve livelihood.</description>
+      <description>Style is important to every aspect of life.</description>
+    </item>
+    
+    <item>
+      <title>Portland State University HSAP</title>
+      <link>https://confident-mclean-736f9a.netlify.com/projects/psu-hsap/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://confident-mclean-736f9a.netlify.com/projects/psu-hsap/</guid>
+      <description>During a high-school summer, I was able to participate in an iteration of the Department of Defense&#39;s High School Apprenticeship program through Portland State University. Along with two other high school students, we explored a variety of mathematics and programming paradigms pertaining to generating prime numbers, working with superclusters, and partitioning sparse graphs through the development of OpenMP-parallelized C++ libraries.
+All of our work was created under the PDX-Math-HSAP GitHub organization, which can be found at https://github.</description>
     </item>
     
   </channel>

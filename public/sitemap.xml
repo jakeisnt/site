@@ -3,6 +3,26 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://confident-mclean-736f9a.netlify.com/</loc>
+    <lastmod>2020-01-17T20:59:00-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://confident-mclean-736f9a.netlify.com/projects/poo-nu/</loc>
+    <lastmod>2020-01-17T20:59:00-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://confident-mclean-736f9a.netlify.com/projects/</loc>
+    <lastmod>2020-01-17T20:59:00-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://confident-mclean-736f9a.netlify.com/projects/neu-projects/</loc>
+    <lastmod>2020-01-17T00:00:00-05:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://confident-mclean-736f9a.netlify.com/projects/building-site/</loc>
     <lastmod>2019-12-30T11:12:00-05:00</lastmod>
   </url>
@@ -13,17 +33,7 @@
   </url>
   
   <url>
-    <loc>https://confident-mclean-736f9a.netlify.com/</loc>
-    <lastmod>2019-12-30T11:12:00-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://confident-mclean-736f9a.netlify.com/tags/</loc>
-    <lastmod>2019-12-30T11:12:00-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://confident-mclean-736f9a.netlify.com/projects/</loc>
     <lastmod>2019-12-30T11:12:00-05:00</lastmod>
   </url>
   
@@ -46,6 +56,10 @@
   </url>
   
   <url>
+    <loc>https://confident-mclean-736f9a.netlify.com/projects/dotfiles/</loc>
+  </url>
+  
+  <url>
     <loc>https://confident-mclean-736f9a.netlify.com/tags/fear/</loc>
   </url>
   
@@ -54,11 +68,19 @@
   </url>
   
   <url>
+    <loc>https://confident-mclean-736f9a.netlify.com/projects/psu-hsap/</loc>
+  </url>
+  
+  <url>
     <loc>https://confident-mclean-736f9a.netlify.com/categories/reviews/</loc>
   </url>
   
   <url>
     <loc>https://confident-mclean-736f9a.netlify.com/thoughts/</loc>
+  </url>
+  
+  <url>
+    <loc>https://confident-mclean-736f9a.netlify.com/tutorials/</loc>
   </url>
   
 </urlset>

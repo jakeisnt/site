@@ -1,6 +1,6 @@
 +++
 title = "Portland State University HSAP"
-draft = true
+draft = false
 +++
 
 During a high-school summer, I was able to participate in an iteration of the
@@ -59,10 +59,10 @@ increase in time complexity - the value of an element given its coordinate in
 a non-compressed matrix can be determined with more operations, but is still a
 constant-time operation with regards to the number of cells seen.
 
-To be continued with future
+To be continued and updated in the future.
 
 
-## Matrix Algorithms {#matrix-algorithms}
+## <span class="org-todo todo TODO">TODO</span> Matrix Algorithms {#matrix-algorithms}
 
 
-## Supercluster Usage {#supercluster-usage}
+## <span class="org-todo todo TODO">TODO</span> Supercluster Usage {#supercluster-usage}
