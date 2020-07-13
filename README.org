@@ -1,0 +1,5 @@
+#+TITLE: jacob.chvatal.com
+
+This is the index of my personal website, found [[https://jacob.chvatal.com][here]].
+It's designed to be minimal, providing a brief overview of who I am as well as a variety of links to other services with no JavaScript involved.
+No frameworks, no nonsense. Why load several megabytes of data if I only need ~3 kb for something that looks good and conveys all of the right information?
