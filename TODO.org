@@ -1,0 +1,17 @@
+#+TITLE: Todo
+* TODO move css to git submodule
+css should be shared across all sites with the same design langauge
+* TODO add a /now page
+:PROPERTIES:
+:ID:       5e2d1073-bfe9-4087-b440-f6eb403e2020
+:END:
+maybe this should go on the wiki or a blog or something
+this should be a quick org mode file that can be easily linked to
+to provide an overview of what i am currently doing and link to other things
+do i even need/want to expose this?
+* TODO figure out how to add a website image that will show as a preview
+:PROPERTIES:
+:ID:       69f287ad-15f6-4cd7-8123-aaaa8216a0a8
+:END:
+interested in doing this for linkedin and maybe messaging services or other sites
+* TODO add pgp key
