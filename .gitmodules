@@ -1,3 +1,6 @@
 [submodule "public/styles"]
 	path = public/styles
 	url = https://github.com/jakechv/styles.git
+[submodule "src/jakechv"]
+	path = src/jakechv
+	url = https://github.com/jakechv/jakechv
