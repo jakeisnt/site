@@ -42,7 +42,8 @@ it would be better to operate on orgparse upstream,
 but I can do this after I've implemented the function here.
 It'll be easy to integrate as orgparse feeds plaintext
 by default anyways.
-* TODO render project descriptions
+* DONE render project descriptions
+CLOSED: [2020-08-05 Wed 01:03]
 I want to be able to display information about my projects
 without tracking them in multiple places.
 The best way to do this is to work off of their READMEs.
@@ -72,3 +73,6 @@ I could also do the work for multiple different configurations and provide a
 user-configurable option as an environment variable or similar.
 This seems like the best thing to do going forward.
 This is a good idea for a web framework, too!
+
+I think I spent more time writing *about* this than I did writing it;
+I ended up implementing the submodule strategy.
