@@ -1,7 +1,9 @@
 #+TITLE: Todo
-* TODO move css to git submodule
+* DONE move css to git submodule
+CLOSED: [2020-08-04 Tue 19:33]
 css should be shared across all sites with the same design langauge
-* TODO add a /now page
+* DONE add a /now page
+CLOSED: [2020-08-04 Tue 19:33]
 :PROPERTIES:
 :ID:       5e2d1073-bfe9-4087-b440-f6eb403e2020
 :END:
@@ -15,3 +17,5 @@ do i even need/want to expose this?
 :END:
 interested in doing this for linkedin and maybe messaging services or other sites
 * TODO add pgp key
+* TODO improve css for /now page
+* TODO enable links on /now page
