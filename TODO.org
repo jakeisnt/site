@@ -17,13 +17,16 @@ do i even need/want to expose this?
 :END:
 interested in doing this for linkedin and maybe messaging services or other sites
 * TODO add pgp key
-* TODO improve css for /now page
+* DONE improve css for /now page
+CLOSED: [2020-08-04 Tue 23:45]
 currently it looks good but kind of boring
 * TODO enable links on /now page
 currently links are not rendered as part of the orgparse library
 when they are, make sure that they're rendered in the jinja template
-* TODO Git push on save for README
-i want it to be as seamless as possible!
+* TODO Add dark mode
+Dark mode can be approached entirely with CSS3 so this can be tackled
+without javascript. If it doesn't work in every browser, whatever; dark mode isn't super important.
+This should later be added to the CSS framework if testing here goes well.
 * CANCELLED consider changing site style and fusing /now with main page
 CLOSED: [2020-08-04 Tue 23:26]
 :LOGBOOK:
