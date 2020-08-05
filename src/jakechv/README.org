@@ -1,0 +1,20 @@
+** Hey, I'm [[https://jacob.chvatal.com][Jacob Chvatal]].
+*** I'm interested in:
+- Formal verification
+- Programming language development
+- Interdisciplinary, accessible design
+
+*** I'm working on:
+- Prototyping a data management service at Intel 
+- (Incoming) the Scandinavian grain market at Skira
+- Developing Sieve, a multimedia inspiration platform for creative people
+- Transforming the way I build and manage software with Nix and NixOS
+
+*** I'm learning about:
+- Formal verification and Homotopy Type Theory with Coq, Idris and Haskell
+- Compiler construction and static analysis with Rust and Ocaml
+
+#+ORG_NOW_EXPORT: false
+If you'd like, you can [[https://wiki.chvatal.com][check out my notes]] or [[https://blog.chvatal.com][keep up with my blog]].
+
+(This note also serves as my [[https://sivers.org/nowff][/now page]], as seen [[https://jacob.chvatal.com/now][here]].) 

@@ -2,5 +2,5 @@
 	path = public/styles
 	url = https://github.com/jakechv/styles.git
 [submodule "jakechv"]
-	path = jakechv
+	path = src/jakechv
 	url = https://github.com/jakechv/jakechv
