@@ -3,13 +3,12 @@
 from orgparse import load, loads
 import jinja2
 
-def render_template(site):
+def render_template(site, template_file):
     """Renders a template with the website's structure.
     """
     templateLoader = jinja2.FileSystemLoader(searchpath="./")
     templateEnv = jinja2.Environment(loader=templateLoader)
-    TEMPLATE_FILE = "now.html"
-    template = templateEnv.get_template(TEMPLATE_FILE)
+    template = templateEnv.get_template(template_file)
     return template.render(site=site)
 
 def parse_list(list_text):
@@ -49,4 +48,4 @@ def write_file(text, path):
     f.write(text)
 
 parsed_file = parse_file('src/jakechv/README.org')
-write_file(render_template(parsed_file), "./public/now/index.html")
+write_file(render_template(parsed_file, "./src/templates/now.html"), "./public/now/index.html")
