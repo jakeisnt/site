@@ -18,4 +18,12 @@ do i even need/want to expose this?
 interested in doing this for linkedin and maybe messaging services or other sites
 * TODO add pgp key
 * TODO improve css for /now page
+currently it looks good but kind of boring
 * TODO enable links on /now page
+currently links are not rendered as part of the orgparse library
+when they are, make sure that they're rendered in the jinja template
+* TODO Git push on save for README
+i want it to be as seamless as possible!
+* TODO consider changing site style and fusing /now with main page
+thats kind of the purpose my main page serves anyways?
+why have the same information in multiple places?
