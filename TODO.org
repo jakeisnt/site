@@ -27,3 +27,5 @@ i want it to be as seamless as possible!
 * TODO consider changing site style and fusing /now with main page
 thats kind of the purpose my main page serves anyways?
 why have the same information in multiple places?
+* TODO parse and add text that is not in list form
+i may want to explain some of my decisions!
