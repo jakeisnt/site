@@ -11,7 +11,7 @@
 - Transforming the way I build and manage software with Nix and NixOS
 
 *** I'm learning about:
-- Formal verification and Homotopy Type Theory with Coq, Idris and Haskell
+- Formal verification with Coq, Idris and Haskell
 - Compiler construction and static analysis with Rust and Ocaml
 
 #+ORG_NOW_EXPORT: false
