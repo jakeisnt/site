@@ -24,8 +24,37 @@ currently links are not rendered as part of the orgparse library
 when they are, make sure that they're rendered in the jinja template
 * TODO Git push on save for README
 i want it to be as seamless as possible!
-* TODO consider changing site style and fusing /now with main page
-thats kind of the purpose my main page serves anyways?
-why have the same information in multiple places?
+* CANCELLED consider changing site style and fusing /now with main page
+CLOSED: [2020-08-04 Tue 23:26]
+:LOGBOOK:
+- State "CANCELLED"  from "TODO"       [2020-08-04 Tue 23:26] \\
+  'Now' should explain what I'm doing *now*, while my home page should serve as a more general summary.
+:END:
+That's kind of the purpose my main page serves anyways?
+Why have the same information in multiple places?
 * TODO parse and add text that is not in list form
-i may want to explain some of my decisions!
+I may want to explain some of my decisions!
+Rather than correcting after the fact,
+it would be better to operate on orgparse upstream,
+but I can do this after I've implemented the function here.
+It'll be easy to integrate as orgparse feeds plaintext
+by default anyways.
+* TODO render project descriptions
+I want to be able to display information about my projects
+without tracking them in multiple places.
+The best way to do this is to work off of their READMEs.
+By adding each project as a submodule and using .org files,
+I can render each to a /projects page with a brief summary,
+potentially including an image for each project that follows
+a specific custom.
+
+Not sure whether it's better to work off of URLs or submodules here;
+URLs can change, but it's harder for this to happen when I control them.
+It really depends on whether I want CI to automatically update my submodules
+every so often or not.
+
+I don't think I need a specific page for each project;
+those are explained by each individual GitHub projects' README
+(and other documentation) by themselves.
+If needed, other resources can be linked in the README summaries
+and will be immediately accessible from GitHub.
