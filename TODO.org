@@ -76,3 +76,14 @@ based on my pinned repositories on GitHub. This will require me to
 ensure that each pinned repository is either mine or follows my heuristic
 for displaying blurbs of information. Here is how to query those repositories:
 https://stackoverflow.com/questions/43352056/how-do-i-make-an-api-call-to-github-for-a-users-pinned-repositories#43358500
+* TODO add single page application configuration
+it's possible that in the future i'll want a single page application
+rather than spreading all of this information to all of these different pages.
+figure out a good way to 'combine' existing templates with a format that
+provides a well-designed single page application experience.
+* TODO implement single source of truth templating
+the tasks for this effort are specified in https://github.com/jakechv/jakechv,
+and information should be sourced from each of the pages there.
+* TODO continuous integration
+currently, i have to run these scripts manually to update all of my information.
+these scripts can and should be run automatically so i don't have to think about them!
