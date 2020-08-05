@@ -63,12 +63,6 @@ those are explained by each individual GitHub projects' README
 If needed, other resources can be linked in the README summaries
 and will be immediately accessible from GitHub.
 
-I can reduce my number of 'sources of truth' by rendering my projects
-based on my pinned repositories on GitHub. This will require me to
-ensure that each pinned repository is either mine or follows my heuristic
-for displaying blurbs of information. Here is how to query those repositories:
-https://stackoverflow.com/questions/43352056/how-do-i-make-an-api-call-to-github-for-a-users-pinned-repositories#43358500
-
 I could also do the work for multiple different configurations and provide a
 user-configurable option as an environment variable or similar.
 This seems like the best thing to do going forward.
@@ -76,3 +70,9 @@ This is a good idea for a web framework, too!
 
 I think I spent more time writing *about* this than I did writing it;
 I ended up implementing the submodule strategy.
+* TODO add option for snagging pinned repos for /projects
+I can reduce my number of 'sources of truth' by rendering my projects
+based on my pinned repositories on GitHub. This will require me to
+ensure that each pinned repository is either mine or follows my heuristic
+for displaying blurbs of information. Here is how to query those repositories:
+https://stackoverflow.com/questions/43352056/how-do-i-make-an-api-call-to-github-for-a-users-pinned-repositories#43358500
