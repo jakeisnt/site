@@ -1,11 +1,4 @@
  @import url("styles/main.css");
- body {
-     max-width: 18em;
-     position: absolute;
-     top: 50%;
-     left: 50%;
-     transform: translate(-50%, -50%);
- }
 
 h1 { 
     display: block;
