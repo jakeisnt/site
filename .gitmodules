@@ -4,3 +4,9 @@
 [submodule "src/jakechv"]
 	path = src/jakechv
 	url = https://github.com/jakechv/jakechv
+[submodule "src/templates/nix-cfg"]
+	path = src/templates/nix-cfg
+	url = https://github.com/jakechv/nix-cfg
+[submodule "src/templates/sieve"]
+	path = src/templates/sieve
+	url = https://github.com/jakechv/sieve
