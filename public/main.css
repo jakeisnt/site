@@ -10,6 +10,11 @@ ul {
     list-style: none;
     padding-left: 18px;
 }
+
+ul p { 
+    margin-left: -18px;
+}
+
 li:before {
     display: inline-block;
     margin-left: -18px;

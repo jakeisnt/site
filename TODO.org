@@ -5,17 +5,17 @@ css should be shared across all sites with the same design langauge
 * DONE add a /now page
 CLOSED: [2020-08-04 Tue 19:33]
 :PROPERTIES:
-:ID:       5e2d1073-bfe9-4087-b440-f6eb403e2020
-:END:
-maybe this should go on the wiki or a blog or something
+:ID:       5e2d1073-bfe9-4087-b440-f6eb403e2020 :END: maybe this should go on the wiki or a blog or something
 this should be a quick org mode file that can be easily linked to
 to provide an overview of what i am currently doing and link to other things
 do i even need/want to expose this?
-* TODO figure out how to add a website image that will show as a preview
+* DONE figure out how to add a website image that will show as a preview
+CLOSED: [2020-08-05 Wed 19:28]
 :PROPERTIES:
 :ID:       69f287ad-15f6-4cd7-8123-aaaa8216a0a8
 :END:
 interested in doing this for linkedin and maybe messaging services or other sites
+https://andrejgajdos.com/how-to-create-a-link-preview/ this is how you can do it
 * TODO add pgp key
 * DONE improve css for /now page
 CLOSED: [2020-08-04 Tue 23:45]
@@ -23,6 +23,7 @@ currently it looks good but kind of boring
 * TODO enable links on /now page
 currently links are not rendered as part of the orgparse library
 when they are, make sure that they're rendered in the jinja template
+this requires rewriting the orgparse library...
 * TODO Add dark mode
 Dark mode can be approached entirely with CSS3 so this can be tackled
 without javascript. If it doesn't work in every browser, whatever; dark mode isn't super important.
@@ -76,6 +77,15 @@ based on my pinned repositories on GitHub. This will require me to
 ensure that each pinned repository is either mine or follows my heuristic
 for displaying blurbs of information. Here is how to query those repositories:
 https://stackoverflow.com/questions/43352056/how-do-i-make-an-api-call-to-github-for-a-users-pinned-repositories#43358500
+
+https://github.com/graphql-python/gql
+use this to query for the flagged repos to get the readmes
+this. then
+https://www.programcreek.com/python/example/83386/wget.download
+with raw.githubusercontent.com
+then
+read from the files where we put it
+same process as before! nice!
 * TODO add single page application configuration
 it's possible that in the future i'll want a single page application
 rather than spreading all of this information to all of these different pages.

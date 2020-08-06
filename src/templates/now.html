@@ -17,8 +17,12 @@
     {% for subheading in site.subheadings %}
     <h2>{{subheading['title']}}</h2>
     <ul>
-    {% for text in subheading['body'] %}
-        <li>{{text}}</li>
+        {% for text in subheading['body'] %}
+        {% if text['li'] is defined %}
+        <li>{{text['li']}}</li>
+        {% else %}
+        <p>{{text['line']}}</p>
+        {% endif %}
         {% endfor %}
         </ul>
     {% endfor %}
