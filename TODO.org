@@ -36,7 +36,8 @@ CLOSED: [2020-08-04 Tue 23:26]
 :END:
 That's kind of the purpose my main page serves anyways?
 Why have the same information in multiple places?
-* TODO parse and add text that is not in list form
+* DONE parse and add text that is not in list form
+CLOSED: [2020-08-05 Wed 20:05]
 I may want to explain some of my decisions!
 Rather than correcting after the fact,
 it would be better to operate on orgparse upstream,
