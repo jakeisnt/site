@@ -87,6 +87,9 @@ with raw.githubusercontent.com
 then
 read from the files where we put it
 same process as before! nice!
+
+This also means that I won't have to worry about submodules.
+I can snag the latest version of the content directly from the repository
 * TODO add single page application configuration
 it's possible that in the future i'll want a single page application
 rather than spreading all of this information to all of these different pages.
