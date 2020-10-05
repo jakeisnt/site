@@ -101,3 +101,9 @@ and information should be sourced from each of the pages there.
 * TODO continuous integration
 currently, i have to run these scripts manually to update all of my information.
 these scripts can and should be run automatically so i don't have to think about them!
+* TODO fix site building and query READMEs
+currently, readmes are read from sub repositories
+as i don't want to give netlify access to these repositories,
+i should instead query github's gql api to get the readmes and fetch their first paragraphs
+
+this would make automatically updating based on different projects much easier as well
