@@ -1,8 +1,9 @@
 { pkgs ? import <nixpkgs> { } }:
 
-# { pkgs ? import (fetchTarball "https://git.io/Jf0cc") { } }:
-
 let
+  moz_overlay = import (builtins.fetchTarball
+    "https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz");
+  nixpkgs = import <nixpkgs> { overlays = [ moz_overlay ]; };
   orgparse = pkgs.python38Packages.buildPythonPackage rec {
     pname = "orgparse";
     version = "0.1.4";
@@ -20,11 +21,17 @@ let
     doCheck = false;
   };
 
+  ruststable = (nixpkgs.latest.rustChannels.stable.rust.override {
+    extensions = [ "rust-src" "rust-analysis" ];
+  });
+
   customPython = pkgs.python38.buildEnv.override { extraLibs = [ orgparse ]; };
 
 in pkgs.mkShell {
-  buildInputs = [
+  buildInputs = with nixpkgs; [
     customPython
+    rustup
+    ruststable
 
     # keep this line if you use bash
     pkgs.bashInteractive

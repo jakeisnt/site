@@ -107,3 +107,7 @@ as i don't want to give netlify access to these repositories,
 i should instead query github's gql api to get the readmes and fetch their first paragraphs
 
 this would make automatically updating based on different projects much easier as well
+* TODO add a site for the new web thing
+maybe create transpiler from html
+maybe create a new target for current transpiler from org mode
+either way, make it fun! hot reloading would be cool too . wonder if i can do that
