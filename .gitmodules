@@ -1,9 +1,6 @@
 [submodule "public/styles"]
 	path = public/styles
 	url = https://github.com/jakechv/styles
-[submodule "src/projects/nix-cfg"]
-	path = src/projects/nix-cfg
-	url = https://github.com/jakechv/nix-cfg
 [submodule "src/projects/sieve"]
 	path = src/projects/sieve
 	url = https://github.com/jakechv/sieve
