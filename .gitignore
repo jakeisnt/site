@@ -7,5 +7,5 @@ secrets.py
 
 
 # Added by cargo
-
 /target
+/result
