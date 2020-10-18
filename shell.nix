@@ -27,11 +27,14 @@ let
 
   customPython = pkgs.python38.buildEnv.override { extraLibs = [ orgparse ]; };
 
+  sources = import ./nix/sources.nix;
+  rust = import ./nix/rust.nix { inherit sources; };
+  pkgs = import sources.nixpkgs { };
+
 in pkgs.mkShell {
   buildInputs = with nixpkgs; [
     customPython
-    rustup
-    ruststable
+    rust
 
     # keep this line if you use bash
     pkgs.bashInteractive

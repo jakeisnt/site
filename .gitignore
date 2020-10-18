@@ -4,3 +4,8 @@
 tmp/
 
 secrets.py
+
+
+# Added by cargo
+
+/target
