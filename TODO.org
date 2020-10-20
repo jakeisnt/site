@@ -111,3 +111,6 @@ this would make automatically updating based on different projects much easier a
 maybe create transpiler from html
 maybe create a new target for current transpiler from org mode
 either way, make it fun! hot reloading would be cool too . wonder if i can do that
+
+* TODO Use Lighthouse metrics for improving site accessibility and performance
+* TODO Packet optimization, manipulate CSS requesting, etc.
