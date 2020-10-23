@@ -4,6 +4,8 @@ This is the index of my personal website, found [[https://jacob.chvatal.com][her
 It's designed to be minimal, providing a brief overview of who I am as well as a variety of links to other services with no JavaScript involved.
 No frameworks, no nonsense. Why load several megabytes of data if I only need ~3 kb for something that looks good and conveys all of the right information?
 
+100% score on the [[https://www.foo.software/lighthouse][Lighthouse audit]].
+
 * Goals
 - completely optimize a site: display only what i feel is necessary
 - shoot for the less than 10 packet goal, showing off rendering and loading tricks
@@ -13,3 +15,4 @@ No frameworks, no nonsense. Why load several megabytes of data if I only need ~3
 
 * Rust and Nix
 https://christine.website/blog/how-i-start-nix-2020-03-08
+https://secretgeek.github.io/html_wysiwyg/html.html html quine
