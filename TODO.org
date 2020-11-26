@@ -114,3 +114,6 @@ either way, make it fun! hot reloading would be cool too . wonder if i can do th
 
 * TODO Use Lighthouse metrics for improving site accessibility and performance
 * TODO Packet optimization, manipulate CSS requesting, etc.
+
+* me_irl
+https://www.youtube.com/watch?v=dFUlAQZB9Ng
