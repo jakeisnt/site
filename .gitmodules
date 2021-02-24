@@ -1,9 +1,0 @@
-[submodule "public/styles"]
-	path = public/styles
-	url = https://github.com/jakechv/styles
-[submodule "src/projects/sieve"]
-	path = src/projects/sieve
-	url = https://github.com/jakechv/sieve
-[submodule "src/jakechv"]
-	path = src/jakechv
-	url = https://github.com/jakechv/jakechv
