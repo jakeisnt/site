@@ -12,7 +12,3 @@ No frameworks, no nonsense. Why load several megabytes of data if I only need ~3
   to prevent blocking actions and documenting these decisions
 - custom static site generation from other sources
 - research into 'minimal tech' and keeping it simple
-
-* Rust and Nix
-https://christine.website/blog/how-i-start-nix-2020-03-08
-https://secretgeek.github.io/html_wysiwyg/html.html html quine
