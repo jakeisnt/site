@@ -1,12 +1,5 @@
 import { css } from './css.js';
 
-function create(name, attrs, parent) {
-  let elem = document.createElement(name);
-  elem = { ... elem, ...attrs };
-  (parent ?? document.body).appendChild(elem);
-  return elem;
-}
-
 // final goal:
 // mimic how this one works! https://mtg-interieur.fr/
 // - small circle leading large cursor
