@@ -33,25 +33,9 @@ function circularCursor() {
 
   console.log(objToCss(css));
 
-  // determine whether a string is dash-cased
-  function isDashCase(str) {
-    // vestigial regex:
-    // [[a-z]|-]*\w+
-    // return !(/^[A-Z]/.test(word));
-    // a dash case string simply does not contain capital letters
-   return word === word.toLowerCase();
-  }
-
-  // convert a dash-delimited string to camelCase
-  function camelCase(str) {
-    return input.toLowerCase().replace(/-(.)/g, function(match, group1) {
-        return group1.toUpperCase();
-    });
-  }
-
   // convert a camelCase string to dash-case
   function dashCase(str) {
-    return str.toLowerCase().replace(/([A-Z])/g, (match, group1) => `-${group1.toLowerCase()}`);
+    return str.replace(/([A-Z])/g, (match, group1) => `-${group1.toLowerCase()}`);
   }
 
   // Your CSS as text
