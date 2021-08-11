@@ -1,121 +1,92 @@
+title_strings = ["JAKEISNT"];
 
-function tb4_makeArray(n){
-	this.length = n;
-	return this.length;
-}
+const repeat_forever = true;
+const num_repeats = 1;
+const speed = 80;
+const inputDelay = 100;
+const available_chars = "★☆✚☯❤☺⚠❁❊✳✩◍░▊▐☰𝍖⌖⌬⍜⍚⎕⎖〪〫❀" + Array.from(new Set(title_strings.join('').split(''))).join('');
 
-site_name = "JAKEISNT";
+let num_cycles = 1;
+let count_affected = 0;
+let currMsgIdx = 0;
+let timer = null;
+let can_continue = true;
 
-// array of size 1?
-tb4_messages = [site_name];
-
-repeat_forever = false;
-num_repeats = 1;
-
-speed = 80;
-inputDelay = 100;
-
-var num_cycles = 1;
-
-var available_chars = site_name + "★☆✚☯❤☺⚠❁❊✳✩◍░▊▐☰𝍖⌖⌬⍜⍚⎕⎖〪〫❀";
-var count_affected = 0;
-var tb4_stsmsg = "";
-var tb4_currMsg = 0;
-var tb4_timer = null;
-var can_continue=true;
-
-// determine whether a string contains a character
-function string_contains(str, ch) {
-	return str.search(ch) == -1;
-}
-
-// addss a new character to the chars to choose from if it doesn't already exist
-function tb4_addChar(ch){
-	if (string_contains(available_chars, ch)){
-		available_chars = available_chars+ch;
-	}
-}
-
-// for each char of each possible message, add it to the available chars
-tb4_messages.forEach(function(message) {
-	message.split('').forEach(tb4_addChar)
-});
-
-function tb4_shuffle(arr){
-	var k;
-	for (i=0; i<arr.length; i++){
-		k = Math.round(Math.random() * (arr.length - i - 1)) + i;
+// swap all of the elements in the provided array with one another at random
+function shuffle(arr){
+	for (i=0; i < arr.length; i++){
+		let k = Math.round(Math.random() * (arr.length - i - 1)) + i;
 		temp = arr[i];arr[i]=arr[k];arr[k]=temp;
 	}
 	return arr;
 }
 
-tb4_arr = new tb4_makeArray(tb4_messages[tb4_currMsg].length);
-tb4_sts = new tb4_makeArray(tb4_messages[tb4_currMsg].length);
+// fill an array with a sequence of characters starting at start
+function fillRange(start, end) {
+  return new Array(end - start + 1).fill().map((item, index) => start + index);
+};
 
-for (var i=0; i<tb4_messages[tb4_currMsg].length; i++) tb4_arr[i] = i;
+arr = shuffle(fillRange(0, title_strings[currMsgIdx].length));
+sts = new Array(title_strings[currMsgIdx].length);
 
-tb4_arr = tb4_shuffle(tb4_arr);
-
-for (var i=0; i<tb4_messages[tb4_currMsg].length; i++){
-	tb4_sts[i] = tb4_messages[tb4_currMsg].charAt(tb4_arr[i]);
+for (var i=0; i<title_strings[currMsgIdx].length; i++){
+	sts[i] = title_strings[currMsgIdx].charAt(arr[i]);
 }
 
-function tb4_setChar(k){
+
+function setChar(k){
 	r = Math.round(Math.random() * available_chars.length);
-	tb4_sts[k] = available_chars.charAt(r);
-	tb4_stsmsg = "";
-	for (var i=0; i<tb4_sts.length; i++)
-	tb4_stsmsg += tb4_sts[i];
-	document.title = tb4_stsmsg;
-	if (available_chars.charAt(r) == tb4_messages[tb4_currMsg].charAt(k)){
-		tb4_stsmsg = "";
-		for (var i=0; i<tb4_sts.length; i++) tb4_stsmsg += tb4_sts[i];
-		document.title = tb4_stsmsg;
+	sts[k] = available_chars.charAt(r);
+
+	document.title = sts.join('');
+
+	if (available_chars.charAt(r) == title_strings[currMsgIdx].charAt(k)){
+		stsmsg = "";
+		for (var i=0; i<sts.length; i++) stsmsg += sts[i];
+		document.title = stsmsg;
 		count_affected++;
 		return;
 	}
-	setTimeout("tb4_setChar("+k+")", speed);
+
+	setTimeout(() => setChar(k), speed);
 }
+
 function init(){
-	if (can_continue){
-		tb4_messages[tb4_currMsg].split('').forEach(function(char, charIndex) {
-			tb4_msgchar = char;
-			tb4_setChar(charIndex);
+	if (can_continue) {
+		title_strings[currMsgIdx].split('').forEach((char, charIndex) => {
+			msgchar = char;
+			setChar(charIndex);
 		})
 
 		can_continue = false;
-		tb4_delay=200;
+		delay = 200;
 	}
 
-	if (count_affected == tb4_messages[tb4_currMsg].length){
-		if (tb4_currMsg == tb4_messages.length-1){
+	if (count_affected == title_strings[currMsgIdx].length){
+		if (currMsgIdx == title_strings.length-1){
 			if ((!repeat_forever) && (num_cycles == num_repeats)){
-				clearTimeout(tb4_timer);
+				clearTimeout(timer);
 				return;
 			}
-			tb4_currMsg=0;
+			currMsgIdx = 0;
 			num_cycles++;
-		}
-		else {
-			tb4_currMsg++;
-		}
-		tb4_arr = new tb4_makeArray(tb4_messages[tb4_currMsg].length);
-		tb4_sts = new tb4_makeArray(tb4_messages[tb4_currMsg].length);
-		for (var i=0; i<tb4_messages[tb4_currMsg].length; i++){
-			tb4_arr[i] = i;
-			can_continue = true;
-			count_affected = 0;
-			tb4_delay = inputDelay;
+		} else {
+			currMsgIdx++;
 		}
 
-		tb4_arr = tb4_shuffle(tb4_arr);
-		for (var i=0; i<tb4_messages[tb4_currMsg].length; i++){
-			tb4_sts[i] = tb4_messages[tb4_currMsg].charAt(tb4_arr[i]);
-		}
+		arr = shuffle(fillRange(0, title_strings[currMsgIdx].length));
+		sts = new Array(title_strings[currMsgIdx].length);
+
+		title_strings[currMsgIdx].split('').forEach((_, i, currMsg) => {
+			sts[i] = currMsg[arr[i]];
+		});
+
+		can_continue = true;
+		count_affected = 0;
+		delay = inputDelay;
 	}
 
-	tb4_timer = setTimeout("init()", tb4_delay);
+	timer = setTimeout(init, delay);
 }
 
 init();
