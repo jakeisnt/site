@@ -7,8 +7,6 @@ function create(name, attrs, parent) {
   return elem;
 }
 
-// Your CSS as text
-// https://stackoverflow.com/questions/707565/how-do-you-add-css-with-javascript
 const styles = `
     #invertedcursor {
       position: absolute;
