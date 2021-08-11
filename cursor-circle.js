@@ -7,6 +7,12 @@ function create(name, attrs, parent) {
   return elem;
 }
 
+// final goal:
+// mimic how this one works! https://mtg-interieur.fr/
+// - small circle leading large cursor
+// - maybe inversion of text under? maybe covering the text?
+// - 'absorbed' into larger bubbles that react when about to click on them!
+
 const styles = `
     #invertedcursor {
       position: absolute;
