@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <style>
- @import url("https://jakeisnt.github.io/styles/main.css");
+@import url("https://jakeisnt.github.io/styles/main.css");
+html, body {
+  overflow: hidden;
+}
 body {
   margin: 0;
   display: flex;
-  padding: 20px;
+  padding-left: 20px;
   flex-direction: column;
   justify-content: center;
   height: 100%;
@@ -13,15 +16,8 @@ body {
   cursor: none;
   color: #000;
   background-color: #fff;
-}
-
-#coolcircle {
-  position: absolute;
-  z-index: 0,
-  background: #fff,
-  top: 0,
-  left: 0,
-  mix-blend-mode: difference;
+  width: 100vw;
+  height: 100vh;
 }
 </style>
 <head>
@@ -50,7 +46,6 @@ body {
 <script src="src/title.js"></script>
 <script src="src/cursor.js"></script>
 <main>
-<div id="coolcircle"></div>
 Hey, welcome to my site.
 
 I'm a student at <a href="https://northeastern.edu" target="_blank" rel='noreferrer'>Northeastern</a>
