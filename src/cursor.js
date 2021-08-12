@@ -7,8 +7,8 @@
 const styles = `
     #invertedcursor {
       position: absolute;
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
       background: #fff;
       border-radius: 50%;
       top: 0;
@@ -34,7 +34,8 @@ const styles = `
       pointer-events: none;
     }
 `
-
+// enable controls that allow disabling css rules across the document: eg disable all shadows on the page
+// (tracks a 'virtual' index of css rules, then uses these to determine what real css rules to remove, where, and when)
 function mouseOverCircle() {
   const mouseover = `
     #mouseover-circle {
@@ -45,6 +46,7 @@ function mouseOverCircle() {
       border-radius: 50%;
       bottom: 20px;
       right: 20px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
       z-index: 5;
     }
     `;
@@ -64,22 +66,47 @@ function addListener(name, callback) {
   window.addEventListener(name, callback);
 }
 
+// if the cursor is over something we can mouse over:
+// - grow the ball following the cursor
+// - make it hide behind the ui element
+// when our cursor leaves:
+// - reverse the process
+
 function circularCursor() {
   UI.css(styles);
-  const cursor = UI.create("div", {id: "invertedcursor"})();
+  const ball = UI.create("div", {id: "invertedcursor"})();
   UI.create("div", {id: "funcircle"})();
+
+  let mouseX = 0;
+  let mouseY = 0;
+
+  let ballX = 0;
+  let ballY = 0;
+
+  const speed = 0.04;
+
+  function followCursor() {
+    let distX = mouseX - ballX;
+    let distY = mouseY - ballY;
+
+    ballX = ballX + (distX * speed)
+    ballY = ballY + (distY * speed)
+
+    ball.style.left = ballX + "px";
+    ball.style.top = ballY + "px";
+
+    requestAnimationFrame(followCursor);
+  }
+
+  followCursor();
+
 
   // document and window can both listen for this event;
   // document is higher in the listener hierarchy so it triggers first,
   // though either can perform either functionality
   addListener("mousemove", (e) => {
-    cursor.style.top = e.pageY + "px";
-    cursor.style.left = e.pageX + "px";
-
-    // if another component is nearby:
-    // - decrease the size of the cursor
-    // - expand the size of the other object
-    // i am stupid we have event listeners for this!!
+    mouseX = event.pageX;
+    mouseY = event.pageY;
   });
 }
 
