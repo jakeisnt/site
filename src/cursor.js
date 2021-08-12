@@ -34,6 +34,11 @@ const styles = `
       pointer-events: none;
     }
 `
+
+let mousedOverCircle = false;
+let circleX = null;
+let circleY = null;
+
 // enable controls that allow disabling css rules across the document: eg disable all shadows on the page
 // (tracks a 'virtual' index of css rules, then uses these to determine what real css rules to remove, where, and when)
 function mouseOverCircle() {
@@ -51,11 +56,20 @@ function mouseOverCircle() {
     }
     `;
 
+
   UI.css(mouseover);
-  UI.create("div", {
+  const circ = UI.create("div", {
     id: "mouseover-circle",
     events: {
-      mouseover: e => {console.log("event fired!")},
+      mouseover: (e) => {
+        const rect = circ.getBoundingClientRect();
+        const xPos = (rect.right + rect.left) / 2;
+        const yPos = (rect.bottom + rect.top) / 2;
+        mousedOverCircle = true;
+        circleX = xPos;
+        circleY = yPos;
+      },
+      mouseleave: e => { mousedOverCircle = false; }
     },
   }
   )();
@@ -69,6 +83,7 @@ function addListener(name, callback) {
 // if the cursor is over something we can mouse over:
 // - grow the ball following the cursor
 // - make it hide behind the ui element
+// or: make it go behind the ui element, then expand to show right behind it!
 // when our cursor leaves:
 // - reverse the process
 
@@ -86,11 +101,11 @@ function circularCursor() {
   const speed = 0.04;
 
   function followCursor() {
-    let distX = mouseX - ballX;
-    let distY = mouseY - ballY;
+    let distX = (mousedOverCircle ? circleX : mouseX) - ballX;
+    let distY = (mousedOverCircle ? circleY : mouseY) - ballY;
 
-    ballX = ballX + (distX * speed)
-    ballY = ballY + (distY * speed)
+    ballX = ballX + (distX * speed);
+    ballY = ballY + (distY * speed);
 
     ball.style.left = ballX + "px";
     ball.style.top = ballY + "px";
