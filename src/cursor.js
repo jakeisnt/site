@@ -54,7 +54,16 @@ function mouseOverCircle() {
   `;
 
   UI.css(styles);
-  UI.create("div", {id: "mouseover-circle"},
+  UI.create("div", {
+    id: "mouseover-circle",
+    onmouseover: 1,
+    // problem: need string of callback to add it to the html element
+    // cannot query possible events for a dom node
+    // the used fn, if named, is not guaranteed to have global sscope at runtime, bc that would be bad
+    // BUT the ref is in scope when this obj
+    // LOL we can just paste the code in?
+    // pasting the code doesn't work; apparently the html supports a limited subset of js - recognized the function keyword but not an immediately invoked expression
+  },
     UI.create("div"),
     UI.create("div"),
     UI.create("div")
@@ -86,5 +95,4 @@ function circularCursor() {
 }
 
 mouseOverCircle();
-
 if(!Utils.isMobile()) circularCursor();
