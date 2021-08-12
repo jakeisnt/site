@@ -17,6 +17,7 @@ const styles = `
       z-index: 2;
       mix-blend-mode: difference;
       transition: transform .2s;
+      pointer-events: none;
     }
 `
 
