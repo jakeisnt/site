@@ -33,40 +33,27 @@ const styles = `
       transition: transform .2s;
       pointer-events: none;
     }
+    #mouseover-circle {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      background: #000;
+      border-radius: 50%;
+      bottom: 20,
+      right: 20;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+    }
 `
 
 function mouseOverCircle() {
-  const styles = `
-    #mouseover-circle {
-      position: absolute;
-      width: 750px;
-      height: 2200px;
-      background: #fff;
-      border-radius: 50%;
-      top: 0;
-      left: 0;
-      transform: translate(-50%, -50%);
-      z-index: 2;
-      mix-blend-mode: difference;
-      transition: transform .2s;
-      pointer-events: none;
-    }
-  `;
-
-  UI.css(styles);
+  // UI.css(mouseover); // currently broken
   UI.create("div", {
     id: "mouseover-circle",
-    onmouseover: 1,
-    // problem: need string of callback to add it to the html element
-    // cannot query possible events for a dom node
-    // the used fn, if named, is not guaranteed to have global sscope at runtime, bc that would be bad
-    // BUT the ref is in scope when this obj
-    // LOL we can just paste the code in?
-    // pasting the code doesn't work; apparently the html supports a limited subset of js - recognized the function keyword but not an immediately invoked expression
-  },
-    UI.create("div"),
-    UI.create("div"),
-    UI.create("div")
+    events: {
+      mouseover: e => {console.log("event fired!")},
+    },
+  }
   )();
 }
 
@@ -94,5 +81,5 @@ function circularCursor() {
   });
 }
 
-mouseOverCircle();
 if(!Utils.isMobile()) circularCursor();
+mouseOverCircle();
