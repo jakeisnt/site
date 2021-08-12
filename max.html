@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="en-us">
 <style>
- @import url("https://jakeisnt.github.io/styles/main.css");
-* {
-    cursor: none;
+@import url("https://jakeisnt.github.io/styles/main.css");
+html, body {
+  overflow: hidden;
 }
- body {
-    margin: 0;
-    display: flex;
-    padding: 20px;
-    flex-direction: column;
-    justify-content: center;
- }
+body {
+  margin: 0;
+  display: flex;
+  padding-left: 20px;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  min-height: 100%;
+  cursor: none;
+  color: #000;
+  background-color: #fff;
+  width: 100vw;
+  height: 100vh;
+}
 </style>
 <head>
 <title>JAKEISNT</title>
-<meta charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta property="og:title" content="JAKEISNT" />
@@ -35,8 +41,10 @@
 <link rel="me" href="https://merveilles.town/@jakeisnt">
 </head>
 <body>
-<script src="title.js"></script>
-<script src="cursor.js"></script>
+<script src="lib/utils.js"></script>
+<script src="lib/ui.js"></script>
+<script src="src/title.js"></script>
+<script src="src/cursor.js"></script>
 <main>
 Hey, welcome to my site.
 
