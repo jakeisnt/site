@@ -1,10 +1,9 @@
-import { css } from './css.js';
-
 // final goal:
 // mimic how this one works! https://mtg-interieur.fr/
 // - small circle leading large cursor
 // - maybe inversion of text under? maybe covering the text?
 // - 'absorbed' into larger bubbles that react when about to click on them!
+
 
 const styles = `
     #invertedcursor {
@@ -38,8 +37,8 @@ function circularCursor() {
     );
   }
 
-  css(styles);
-  create("div", {id: "invertedcursor"});
+  UI.css(styles);
+  UI.create("div", {id: "invertedcursor"});
 }
 
 circularCursor();
