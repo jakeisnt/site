@@ -14,7 +14,7 @@ const styles = `
       top: 0;
       left: 0;
       transform: translate(-50%, -50%);
-      z-index: 2;
+      z-index: -100;
       transition: transform .2s;
       pointer-events: none;
     }
@@ -57,12 +57,11 @@ function mouseOverCircle() {
     }
     `;
 
-
   UI.css(mouseover);
   const circ = UI.create("div", {
     id: "mouseover-circle",
     events: {
-      mouseover: (e) => {
+      mouseenter: (e) => {
         const rect = circ.getBoundingClientRect();
         const xPos = (rect.right + rect.left) / 2;
         const yPos = (rect.bottom + rect.top) / 2;
@@ -80,21 +79,7 @@ function mouseOverCircle() {
   )();
 }
 
-// just in case i want to register and manage these myself in some way
-function addListener(name, callback) {
-  window.addEventListener(name, callback);
-}
-
-// if the cursor is over something we can mouse over:
-// - grow the ball following the cursor
-// - make it hide behind the ui element
-// or: make it go behind the ui element, then expand to show right behind it!
-// when our cursor leaves:
-// - reverse the process
-
-
 // circle that keeps expanding after mouseover until it colors the foreground!!!
-
 function circularCursor() {
   UI.css(styles);
   const ball = UI.create("div", {id: "invertedcursor"})();
@@ -124,7 +109,7 @@ function circularCursor() {
     ballX = ballX + (distX * moveSpeed);
     ballY = ballY + (distY * moveSpeed);
 
-    const growSpeed = moveSpeed / distX;
+    const growSpeed = moveSpeed / distX * 5;
 
     ball.style.left = ballX + "px";
     ball.style.top = ballY + "px";
@@ -132,14 +117,14 @@ function circularCursor() {
     if(mousedOverCircle) {
       const maxWidth = (circleWidth + 20);
       const maxHeight = (circleHeight + 20);
-      if(ballWidth < maxWidth || ballHeight < maxHeight) {
+      if(ballWidth < maxWidth && ballHeight < maxHeight) {
         ballWidth += (maxWidth * growSpeed);
         ballHeight += (maxHeight * growSpeed);
 
         ball.style.width = ballWidth + "px";
         ball.style.height = ballHeight + "px";
       }
-    } else if(ballWidth > defaultWidth || ballHeight > defaultHeight) {
+    } else if(ballWidth > defaultWidth && ballHeight > defaultHeight) {
       ballWidth -= (circleWidth * growDecSpeed);
       ballHeight -= (circleHeight * growDecSpeed);
 
@@ -152,15 +137,14 @@ function circularCursor() {
 
   followCursor();
 
-
   // document and window can both listen for this event;
   // document is higher in the listener hierarchy so it triggers first,
   // though either can perform either functionality
-  addListener("mousemove", (e) => {
+  window.addEventListener("mousemove", (e) => {
     mouseX = event.pageX;
     mouseY = event.pageY;
   });
 }
 
-if(!Utils.isMobile()) circularCursor();
 mouseOverCircle();
+if(!Utils.isMobile()) circularCursor();
