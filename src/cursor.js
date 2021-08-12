@@ -112,8 +112,10 @@ function circularCursor() {
   let ballWidth = defaultWidth;
   let ballHeight = defaultHeight;
 
-  const moveSpeed = 0.04;
-  const growSpeed = 0.01;
+  const moveSpeed = 0.08;
+  const growDecSpeed = 0.02;
+
+  // should finish growing right when the ball gets to the destination!
 
   function followCursor() {
     let distX = (mousedOverCircle ? circleX : mouseX) - ballX;
@@ -122,20 +124,24 @@ function circularCursor() {
     ballX = ballX + (distX * moveSpeed);
     ballY = ballY + (distY * moveSpeed);
 
+    const growSpeed = moveSpeed / distX;
+
     ball.style.left = ballX + "px";
     ball.style.top = ballY + "px";
 
     if(mousedOverCircle) {
-      if(ballWidth < (circleWidth + 20) || ballHeight < (circleHeight + 20)) {
-        ballWidth += (circleWidth * growSpeed);
-        ballHeight += (circleHeight * growSpeed);
+      const maxWidth = (circleWidth + 20);
+      const maxHeight = (circleHeight + 20);
+      if(ballWidth < maxWidth || ballHeight < maxHeight) {
+        ballWidth += (maxWidth * growSpeed);
+        ballHeight += (maxHeight * growSpeed);
 
         ball.style.width = ballWidth + "px";
         ball.style.height = ballHeight + "px";
       }
-    } else if(ballWidth > defaultWidth || ballHeight < defaultHeight) {
-      ballWidth -= (circleWidth * growSpeed);
-      ballHeight -= (circleHeight * growSpeed);
+    } else if(ballWidth > defaultWidth || ballHeight > defaultHeight) {
+      ballWidth -= (circleWidth * growDecSpeed);
+      ballHeight -= (circleHeight * growDecSpeed);
 
       ball.style.width = ballWidth + "px";
       ball.style.height = ballHeight + "px";
