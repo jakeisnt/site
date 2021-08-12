@@ -81,6 +81,7 @@ function circularCursor() {
     // if another component is nearby:
     // - decrease the size of the cursor
     // - expand the size of the other object
+    // i am stupid we have event listeners for this!!
   });
 }
 
