@@ -9,13 +9,12 @@ const styles = `
       position: absolute;
       width: 50px;
       height: 50px;
-      background: #fff;
+      background: gray;
       border-radius: 50%;
       top: 0;
       left: 0;
       transform: translate(-50%, -50%);
       z-index: 2;
-      mix-blend-mode: difference;
       transition: transform .2s;
       pointer-events: none;
     }
@@ -36,8 +35,10 @@ const styles = `
 `
 
 let mousedOverCircle = false;
-let circleX = null;
-let circleY = null;
+let circleX = 0;
+let circleY = 0;
+let circleWidth = 0;
+let circleHeight = 0;
 
 // enable controls that allow disabling css rules across the document: eg disable all shadows on the page
 // (tracks a 'virtual' index of css rules, then uses these to determine what real css rules to remove, where, and when)
@@ -65,9 +66,13 @@ function mouseOverCircle() {
         const rect = circ.getBoundingClientRect();
         const xPos = (rect.right + rect.left) / 2;
         const yPos = (rect.bottom + rect.top) / 2;
+        const height = rect.bottom - rect.top;
+        const width = rect.right - rect.left;
         mousedOverCircle = true;
         circleX = xPos;
         circleY = yPos;
+        circleWidth = width;
+        circleHeight = height;
       },
       mouseleave: e => { mousedOverCircle = false; }
     },
@@ -87,6 +92,9 @@ function addListener(name, callback) {
 // when our cursor leaves:
 // - reverse the process
 
+
+// circle that keeps expanding after mouseover until it colors the foreground!!!
+
 function circularCursor() {
   UI.css(styles);
   const ball = UI.create("div", {id: "invertedcursor"})();
@@ -98,17 +106,40 @@ function circularCursor() {
   let ballX = 0;
   let ballY = 0;
 
-  const speed = 0.04;
+  const defaultWidth = 50;
+  const defaultHeight = 50;
+
+  let ballWidth = defaultWidth;
+  let ballHeight = defaultHeight;
+
+  const moveSpeed = 0.04;
+  const growSpeed = 0.01;
 
   function followCursor() {
     let distX = (mousedOverCircle ? circleX : mouseX) - ballX;
     let distY = (mousedOverCircle ? circleY : mouseY) - ballY;
 
-    ballX = ballX + (distX * speed);
-    ballY = ballY + (distY * speed);
+    ballX = ballX + (distX * moveSpeed);
+    ballY = ballY + (distY * moveSpeed);
 
     ball.style.left = ballX + "px";
     ball.style.top = ballY + "px";
+
+    if(mousedOverCircle) {
+      if(ballWidth < (circleWidth + 20) || ballHeight < (circleHeight + 20)) {
+        ballWidth += (circleWidth * growSpeed);
+        ballHeight += (circleHeight * growSpeed);
+
+        ball.style.width = ballWidth + "px";
+        ball.style.height = ballHeight + "px";
+      }
+    } else if(ballWidth > defaultWidth || ballHeight < defaultHeight) {
+      ballWidth -= (circleWidth * growSpeed);
+      ballHeight -= (circleHeight * growSpeed);
+
+      ball.style.width = ballWidth + "px";
+      ball.style.height = ballHeight + "px";
+    }
 
     requestAnimationFrame(followCursor);
   }
