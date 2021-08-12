@@ -4,7 +4,6 @@
 // - maybe inversion of text under? maybe covering the text?
 // - 'absorbed' into larger bubbles that react when about to click on them!
 
-
 const styles = `
     #invertedcursor {
       position: absolute;
