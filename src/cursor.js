@@ -53,4 +53,4 @@ function circularCursor() {
   });
 }
 
-if(!Utils.hasTouchScreen()) circularCursor();
+if(!Utils.isMobile()) circularCursor();
