@@ -53,16 +53,4 @@ function circularCursor() {
   });
 }
 
-function verifyMobile() {
-  if(Utils.isMobile()) {
-    // unregister mouse events
-    // register touch events
-  } else {
-    // unregister touch events
-    // register mouse events
-    }
-}
-
-setInterval(verifyMobile, 5000);
-
-if(!Utils.isMobile()) circularCursor();
+if(!Utils.hasTouchScreen()) circularCursor();
