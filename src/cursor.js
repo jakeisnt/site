@@ -7,8 +7,8 @@
 const styles = `
     #invertedcursor {
       position: absolute;
-      width: 80px;
-      height: 80px;
+      width: 40px;
+      height: 40px;
       background: #fff;
       border-radius: 50%;
       top: 0;
