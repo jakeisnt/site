@@ -38,17 +38,17 @@ const styles = `
 function mouseOverCircle() {
   const mouseover = `
     #mouseover-circle {
-      position: absolute;
+      position: fixed;
       width: 80px;
       height: 80px;
       background: #000;
       border-radius: 50%;
-      bottom: 20,
-      right: 20;
-      transform: translate(-50%, -50%);
+      bottom: 20px;
+      right: 20px;
       z-index: 5;
     }
     `;
+
   UI.css(mouseover);
   UI.create("div", {
     id: "mouseover-circle",
