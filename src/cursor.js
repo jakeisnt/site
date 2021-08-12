@@ -35,6 +35,10 @@ const styles = `
     }
 `
 
+function addListener(name, callback) {
+  window.addEventListener(name, callback);
+}
+
 function circularCursor() {
   UI.css(styles);
   const cursor = UI.create("div", {id: "invertedcursor"});
@@ -43,7 +47,7 @@ function circularCursor() {
   // document and window can both listen for this event;
   // document is higher in the listener hierarchy so it triggers first,
   // though either can perform either functionality
-  window.addEventListener("mousemove", (e) => {
+  addListener("mousemove", (e) => {
     cursor.style.top = e.pageY + "px";
     cursor.style.left = e.pageX + "px";
   });
