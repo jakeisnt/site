@@ -33,6 +33,10 @@ const styles = `
       transition: transform .2s;
       pointer-events: none;
     }
+`
+
+function mouseOverCircle() {
+  const mouseover = `
     #mouseover-circle {
       position: absolute;
       width: 80px;
@@ -44,10 +48,8 @@ const styles = `
       transform: translate(-50%, -50%);
       z-index: 5;
     }
-`
-
-function mouseOverCircle() {
-  // UI.css(mouseover); // currently broken
+    `;
+  UI.css(mouseover);
   UI.create("div", {
     id: "mouseover-circle",
     events: {
