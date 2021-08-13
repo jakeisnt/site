@@ -76,28 +76,41 @@ function circularCursor() {
     ball.style.left = ballX + "px";
     ball.style.top = ballY + "px";
 
-    if(mousedOverCircle) { // if moused over, increase size to enclose elem
+    if(mousedOverCircle) { // if moused over, change size to enclose elem
       const maxWidth = circleWidth * 1.2;
       const maxHeight = circleHeight * 1.2;
 
       const growSpeedX = Math.abs(moveSpeed / distX * 5);
       const growSpeedY = Math.abs(moveSpeed / distY * 5);
 
-      if(ballWidth < maxWidth) {
+      if(ballWidth !== maxWidth) {
+        ballWidth = ballWidth < maxWidth
+          ? capMax(ballWidth + maxWidth * growSpeedX, maxWidth)
+          : capMin(ballWidth - maxWidth * growSpeedX, circleWidth)
+
         ballWidth = capMax(ballWidth + maxWidth * growSpeedX, maxWidth);
         ball.style.width = ballWidth + "px";
       }
-      if(ballHeight < maxHeight) {
-        ballHeight = capMax(ballHeight + maxHeight * growSpeedY, maxHeight);
+      if(ballHeight !== maxHeight) {
+        ballHeight = ballHeight < maxHeight
+          ? capMax(ballHeight + maxHeight * growSpeedY, maxHeight)
+          : capMin(ballHeight - maxHeight * growSpeedY, maxHeight)
+
         ball.style.height = ballHeight + "px";
       }
-    } else { // if mouse moves off, decrease size to usual
-      if(ballWidth > defaultWidth) {
-        ballWidth = capMin(ballWidth - circleWidth * growDecSpeed, defaultWidth);
+    } else { // if mouse moves off, change size to usual
+      if(ballWidth !== defaultWidth) {
+        ballWidth = ballWidth > defaultWidth
+          ? capMin(ballWidth - circleWidth * growDecSpeed, defaultWidth)
+          : capMax(ballWidth + circleWidth * growDecSpeed, defaultWidth);
+
         ball.style.width = ballWidth + "px";
       }
-      if(ballHeight > defaultHeight) {
-        ballHeight = capMin(ballHeight - circleHeight * growDecSpeed, defaultHeight);
+      if(ballHeight !== defaultHeight) {
+        ballHeight = ballHeight > defaultHeight
+          ? capMin(ballHeight - circleHeight * growDecSpeed, defaultHeight)
+          : capMax(ballHeight + circleHeight * growDecSpeed, defaultHeight)
+
         ball.style.height = ballHeight + "px";
       }
     }
