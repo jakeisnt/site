@@ -78,17 +78,23 @@ function circularCursor() {
       const maxWidth = circleWidth + 20;
       const maxHeight = circleHeight + 20;
 
-      if(ballWidth < maxWidth) ballWidth += maxWidth * growSpeedX;
-      if(ballHeight < maxHeight) ballHeight += maxHeight * growSpeedY;
-
-      ball.style.width = ballWidth + "px";
-      ball.style.height = ballHeight + "px";
+      if(ballWidth < maxWidth) {
+        ballWidth += maxWidth * growSpeedX;
+        ball.style.width = ballWidth + "px";
+      }
+      if(ballHeight < maxHeight) {
+        ballHeight += maxHeight * growSpeedY;
+        ball.style.height = ballHeight + "px";
+      }
     } else {
-      if(ballWidth > defaultWidth) ballWidth -= (circleWidth * growDecSpeed);
-      if(ballHeight > defaultHeight) ballHeight -= (circleHeight * growDecSpeed);
-
-      ball.style.width = ballWidth + "px";
-      ball.style.height = ballHeight + "px";
+      if(ballWidth > defaultWidth) {
+        ballWidth -= (circleWidth * growDecSpeed);
+        ball.style.width = ballWidth + "px";
+      }
+      if(ballHeight > defaultHeight) {
+        ballHeight -= (circleHeight * growDecSpeed);
+        ball.style.height = ballHeight + "px";
+      }
     }
 
     requestAnimationFrame(followCursor);
