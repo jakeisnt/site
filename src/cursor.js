@@ -155,7 +155,8 @@ function mouseOverCircle() {
 }
 
 function linkListener() {
-  Array.prototype.slice.call(document.links).forEach(link => {
+  Array.prototype.slice.call(document.getElementsByTagName('a'))
+    .forEach(link => {
     link.addEventListener("mouseenter", e => focusElem(link));
     link.addEventListener("mouseleave", (e) => { mousedOverCircle = false; });
   })
