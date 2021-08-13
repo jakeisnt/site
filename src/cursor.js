@@ -18,21 +18,7 @@ const styles = `
       transition: transform .2s;
       pointer-events: none;
     }
-    #funcircle {
-      position: absolute;
-      width: 750px;
-      height: 2200px;
-      background: #fff;
-      border-radius: 50%;
-      top: 0;
-      left: 0;
-      transform: translate(-50%, -50%);
-      z-index: 2;
-      mix-blend-mode: difference;
-      transition: transform .2s;
-      pointer-events: none;
-    }
-`
+`;
 
 let mousedOverCircle = false;
 let circleX = 0;
@@ -61,29 +47,36 @@ function mouseOverCircle() {
   const circ = UI.create("div", {
     id: "mouseover-circle",
     events: {
-      mouseenter: (e) => {
-        const rect = circ.getBoundingClientRect();
-        const xPos = (rect.right + rect.left) / 2;
-        const yPos = (rect.bottom + rect.top) / 2;
-        const height = rect.bottom - rect.top;
-        const width = rect.right - rect.left;
-        mousedOverCircle = true;
-        circleX = xPos;
-        circleY = yPos;
-        circleWidth = width;
-        circleHeight = height;
-      },
-      mouseleave: e => { mousedOverCircle = false; }
+      mouseenter: (e) => focusElem(circ),
+      mouseleave: unfocusElem
     },
   }
   )();
+}
+
+function focusElem(elem) {
+  const rect = elem.getBoundingClientRect();
+  const xPos = (rect.right + rect.left) / 2;
+  const yPos = (rect.bottom + rect.top) / 2;
+  const height = rect.bottom - rect.top;
+  const width = rect.right - rect.left;
+  console.log(width);
+  console.log(height);
+  mousedOverCircle = true;
+  circleX = xPos;
+  circleY = yPos;
+  circleWidth = width;
+  circleHeight = height;
+}
+
+function unfocusElem() {
+  mousedOverCircle = false;
 }
 
 // circle that keeps expanding after mouseover until it colors the foreground!!!
 function circularCursor() {
   UI.css(styles);
   const ball = UI.create("div", {id: "invertedcursor"})();
-  UI.create("div", {id: "funcircle"})();
 
   let mouseX = 0;
   let mouseY = 0;
@@ -115,16 +108,17 @@ function circularCursor() {
     ball.style.top = ballY + "px";
 
     if(mousedOverCircle) {
-      const maxWidth = (circleWidth + 20);
-      const maxHeight = (circleHeight + 20);
-      if(ballWidth < maxWidth && ballHeight < maxHeight) {
+      const maxWidth = circleWidth + 20;
+      const maxHeight = circleHeight + 20;
+
+      if(ballWidth < maxWidth || ballHeight < maxHeight) {
         ballWidth += (maxWidth * growSpeed);
         ballHeight += (maxHeight * growSpeed);
 
         ball.style.width = ballWidth + "px";
         ball.style.height = ballHeight + "px";
       }
-    } else if(ballWidth > defaultWidth && ballHeight > defaultHeight) {
+    } else if(ballWidth > defaultWidth || ballHeight > defaultHeight) {
       ballWidth -= (circleWidth * growDecSpeed);
       ballHeight -= (circleHeight * growDecSpeed);
 
@@ -137,14 +131,18 @@ function circularCursor() {
 
   followCursor();
 
-  // document and window can both listen for this event;
-  // document is higher in the listener hierarchy so it triggers first,
-  // though either can perform either functionality
   window.addEventListener("mousemove", (e) => {
     mouseX = event.pageX;
     mouseY = event.pageY;
   });
 }
 
+function linkListener() {
+  let link = document.getElementById("neulink");
+  link.addEventListener("mouseenter", e => focusElem(link));
+  link.addEventListener("mouseleave", (e) => { mousedOverCircle = false; });
+}
+
+linkListener();
 mouseOverCircle();
 if(!Utils.isMobile()) circularCursor();
