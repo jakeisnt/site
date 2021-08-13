@@ -10,8 +10,6 @@ function focusElem(elem) {
   const yPos = (rect.bottom + rect.top) / 2;
   const height = rect.bottom - rect.top;
   const width = rect.right - rect.left;
-  console.log(width);
-  console.log(height);
   mousedOverCircle = true;
   circleX = xPos;
   circleY = yPos;
@@ -25,11 +23,14 @@ function unfocusElem() {
 
 // circle that keeps expanding after mouseover until it colors the foreground!!!
 function circularCursor() {
+  const defaultWidth = 50;
+  const defaultHeight = 50;
+
   const styles = `
       #invertedcursor {
         position: absolute;
-        width: 50px;
-        height: 50px;
+        width: ${defaultWidth}px;
+        height: ${defaultHeight}px;
         background: gray;
         border-radius: 50%;
         top: 0;
@@ -50,49 +51,53 @@ function circularCursor() {
   let ballX = 0;
   let ballY = 0;
 
-  const defaultWidth = 50;
-  const defaultHeight = 50;
-
   let ballWidth = defaultWidth;
   let ballHeight = defaultHeight;
 
   const moveSpeed = 0.08;
   const growDecSpeed = 0.02;
 
-  // should finish growing right when the ball gets to the destination!
+  function capMax(val, max) {
+    return val > max ? max : val;
+  }
 
+  function capMin(val, max) {
+    return val < max ? max : val;
+  }
+
+  // should finish growing right when the ball gets to the destination!
   function followCursor() {
     let distX = (mousedOverCircle ? circleX : mouseX) - ballX;
     let distY = (mousedOverCircle ? circleY : mouseY) - ballY;
 
-    ballX = ballX + (distX * moveSpeed);
-    ballY = ballY + (distY * moveSpeed);
-
-    const growSpeedX = moveSpeed / Math.abs(distX) * 5;
-    const growSpeedY = moveSpeed / Math.abs(distY) * 5;
+    ballX += distX * moveSpeed;
+    ballY += distY * moveSpeed;
 
     ball.style.left = ballX + "px";
     ball.style.top = ballY + "px";
 
-    if(mousedOverCircle) {
-      const maxWidth = circleWidth + 20;
-      const maxHeight = circleHeight + 20;
+    if(mousedOverCircle) { // if moused over, increase size to enclose elem
+      const maxWidth = circleWidth * 1.2;
+      const maxHeight = circleHeight * 1.2;
+
+      const growSpeedX = Math.abs(moveSpeed / distX * 5);
+      const growSpeedY = Math.abs(moveSpeed / distY * 5);
 
       if(ballWidth < maxWidth) {
-        ballWidth += maxWidth * growSpeedX;
+        ballWidth = capMax(ballWidth + maxWidth * growSpeedX, maxWidth);
         ball.style.width = ballWidth + "px";
       }
       if(ballHeight < maxHeight) {
-        ballHeight += maxHeight * growSpeedY;
+        ballHeight = capMax(ballHeight + maxHeight * growSpeedY, maxHeight);
         ball.style.height = ballHeight + "px";
       }
-    } else {
+    } else { // if mouse moves off, decrease size to usual
       if(ballWidth > defaultWidth) {
-        ballWidth -= (circleWidth * growDecSpeed);
+        ballWidth = capMin(ballWidth - circleWidth * growDecSpeed, defaultWidth);
         ball.style.width = ballWidth + "px";
       }
       if(ballHeight > defaultHeight) {
-        ballHeight -= (circleHeight * growDecSpeed);
+        ballHeight = capMin(ballHeight - circleHeight * growDecSpeed, defaultHeight);
         ball.style.height = ballHeight + "px";
       }
     }
@@ -100,12 +105,12 @@ function circularCursor() {
     requestAnimationFrame(followCursor);
   }
 
-  followCursor();
-
-  window.addEventListener("mousemove", (e) => {
+  window.addEventListener("mousemove", e => {
     mouseX = event.pageX;
     mouseY = event.pageY;
   });
+
+  followCursor();
 }
 
 // enable controls that allow disabling css rules across the document: eg disable all shadows on the page
@@ -137,9 +142,10 @@ function mouseOverCircle() {
 }
 
 function linkListener() {
-  let link = document.getElementById("neulink");
-  link.addEventListener("mouseenter", e => focusElem(link));
-  link.addEventListener("mouseleave", (e) => { mousedOverCircle = false; });
+  Array.prototype.slice.call(document.links).forEach(link => {
+    link.addEventListener("mouseenter", e => focusElem(link));
+    link.addEventListener("mouseleave", (e) => { mousedOverCircle = false; });
+  })
 }
 
 linkListener();
