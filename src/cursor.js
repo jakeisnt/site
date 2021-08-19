@@ -43,7 +43,7 @@ function circularCursor() {
   `;
 
   UI.css(styles);
-  const ball = UI.create("div", {id: "invertedcursor"})();
+  const ball = UI.create("div", {id: "invertedcursor"})().node;
 
   let mouseX = 0;
   let mouseY = 0;
@@ -147,7 +147,8 @@ function mouseOverCircle() {
   const circ = UI.create("div", {
     id: "mouseover-circle",
     events: {
-      mouseenter: (e) => focusElem(circ),
+      // later: add mixin support to wrap nodes!
+      mouseenter: (e) => focusElem(circ.node),
       mouseleave: unfocusElem
     },
   }
