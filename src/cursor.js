@@ -126,6 +126,13 @@ function circularCursor() {
   followCursor();
 }
 
+const Hoverable = UI.mixin({
+    events: {
+      mouseenter: (e, elem) => focusElem(elem),
+      mouseleave: unfocusElem
+    },
+})
+
 // enable controls that allow disabling css rules across the document: eg disable all shadows on the page
 // (tracks a 'virtual' index of css rules, then uses these to determine what real css rules to remove, where, and when)
 function mouseOverCircle() {
@@ -144,22 +151,14 @@ function mouseOverCircle() {
     `;
 
   UI.css(mouseover);
-  const circ = UI.create("div", {
-    id: "mouseover-circle",
-    events: {
-      // later: add mixin support to wrap nodes!
-      mouseenter: (e) => focusElem(circ.node),
-      mouseleave: unfocusElem
-    },
-  }
-  )();
+  Hoverable(UI.create("div", { id: "mouseover-circle" }))();
 }
 
 function linkListener() {
   Array.prototype.slice.call(document.getElementsByTagName('a'))
     .forEach(link => {
-    link.addEventListener("mouseenter", e => focusElem(link));
-    link.addEventListener("mouseleave", (e) => { mousedOverCircle = false; });
+      link.addEventListener("mouseenter", e => focusElem(link));
+      link.addEventListener("mouseleave", (e) => { mousedOverCircle = false; });
   })
 }
 
