@@ -133,48 +133,16 @@ const Hoverable = UI.mixin({
   },
 })
 
-// circle type logic
-// heavily inspired by https://github.com/peterhry/CircleType
-// const radiansPerDegree = Math.PI / 180;
-// function degreesToRadians(deg) { return deg * radiansPerDegree; }
-
-// function getLetterRotation(metrics, r) {
-//   return metrics.reduce((data, { width }) => {
-//     const rotation = radiansToDegrees(width / r);
-
-//     return {
-//       theta: data.theta + rotation,
-//       rotations: data.rotations.concat([data.theta + (rotation / 2)]),
-//     };
-//   }, { theta: 0, rotations: [] });
-// }
-
-// function CircleType() {
-//   const { fontSize, lineHeight } = window.getComputedStyle(this.element);
-//   const letters = null; // TODO: get all of the letters!
-
-//   function layout(radius, dir, lineHeight) {
-//     const origin = `center ${originY / fontSize}em`;
-//     const innerRadius - radius - lineHeight;
-
-//   }
-
-//   UI.create('div');
-// }
-
 function CircleType() {
 
-  UI.svgString(document.body,
-    `
-<svg width="200" height="200">
+  UI.svgString(`<svg width="200" height="200">
 <defs>
     <path id="textPath" d="M10 50 C10 0 90 0 90 50"/>
 </defs>
 <text fill="red">
-    <textPath xlink:href="#textPath">Text on a Path</textPath>
-  </text>
-      </svg>
-    `
+<textPath xlink:href="#textPath">Text on a Path</textPath>
+</text>
+      </svg>`
   );
 
   return UI.svg("svg",
