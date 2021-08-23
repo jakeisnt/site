@@ -134,10 +134,20 @@ const Hoverable = UI.mixin({
 })
 
 function CircleType() {
-
+ // m: starting point
+ // c: three control points - start, end, and arc
+ // can use q for two control points on bezier curve
+ //https://vanseodesign.com/web-design/svg-paths-curve-commands/
+ // mozilla web docs are super useful too: https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
+  //
+  // TODO:
+  // - add canvas render of curved text
+  // - try css render
+  // - perform calculations to render with svg file
    UI.svgString(`
  <svg viewBox="0 0 500 500">
-     <path id="curve" d="M 10 10 H 90 V 90 H 10 L 10 10" />
+
+    <path d="M100,200  C100,100  400,100  400,200  c100,200  400,100  300,0" fill="none" stroke="#000" stroke-width="2px" />
      <text width="500">
        <textPath xlink:href="#curve">Dangerous Curves Ahead</textPath>
      </text>
