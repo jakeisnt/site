@@ -133,6 +133,70 @@ const Hoverable = UI.mixin({
     },
 })
 
+// circle type logic
+// heavily inspired by https://github.com/peterhry/CircleType
+// const radiansPerDegree = Math.PI / 180;
+// function degreesToRadians(deg) { return deg * radiansPerDegree; }
+
+// function getLetterRotation(metrics, r) {
+//   return metrics.reduce((data, { width }) => {
+//     const rotation = radiansToDegrees(width / r);
+
+//     return {
+//       theta: data.theta + rotation,
+//       rotations: data.rotations.concat([data.theta + (rotation / 2)]),
+//     };
+//   }, { theta: 0, rotations: [] });
+// }
+
+// function CircleType() {
+//   const { fontSize, lineHeight } = window.getComputedStyle(this.element);
+//   const letters = null; // TODO: get all of the letters!
+
+//   function layout(radius, dir, lineHeight) {
+//     const origin = `center ${originY / fontSize}em`;
+//     const innerRadius - radius - lineHeight;
+
+//   }
+
+//   UI.create('div');
+// }
+
+function CircleType() {
+
+// <svg width="200" height="200">
+// <defs>
+//     <path id="textPath" d="M10 50 C10 0 90 0 90 50"/>
+// </defs>
+// <text fill="red">
+//     <textPath xlink:href="#textPath">Text on a Path</textPath>
+// </text>
+//     </svg>
+  const imgText = `
+<svg width="300" height="200">
+    <rect width="100%" height="100%" fill="green" />
+</svg>
+  `;
+
+  svg.setAttribute("width", 100);
+  svg.setAttribute("height", 100);
+
+  // const rect = document.create
+
+  const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+  // const svg = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+
+  // const elem = UI.create('div', {id: "arst"})();
+  // elem.innerHtml = imgText;
+
+  svg.setAttribute("innerHtml", imgText);
+  document.body.appendChild(svg)
+
+  UI.svg({width: 100, height: 100});
+
+    // '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="40" cy="40" r="40" stroke="red" stroke-width="4" fill="blue" /></svg>';
+}
+
 // enable controls that allow disabling css rules across the document: eg disable all shadows on the page
 // (tracks a 'virtual' index of css rules, then uses these to determine what real css rules to remove, where, and when)
 function mouseOverCircle() {
@@ -165,3 +229,4 @@ function linkListener() {
 linkListener();
 mouseOverCircle();
 if(!Utils.isMobile()) circularCursor();
+CircleType();
