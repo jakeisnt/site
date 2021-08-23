@@ -137,7 +137,7 @@ function CircleType() {
 
    UI.svgString(`
  <svg viewBox="0 0 500 500">
-     <path id="curve" d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97" />
+     <path id="curve" d="M 10 10 H 90 V 90 H 10 L 10 10" />
      <text width="500">
        <textPath xlink:href="#curve">Dangerous Curves Ahead</textPath>
      </text>
