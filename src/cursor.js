@@ -178,21 +178,21 @@ function CircleType() {
 </svg>
   `;
 
-  svg.setAttribute("width", 100);
-  svg.setAttribute("height", 100);
+  // svg.setAttribute("width", 100);
+  // svg.setAttribute("height", 100);
 
   // const rect = document.create
 
-  const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+  // const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
   // const svg = document.createElementNS("http://www.w3.org/2000/svg", "defs");
 
   // const elem = UI.create('div', {id: "arst"})();
   // elem.innerHtml = imgText;
 
-  svg.setAttribute("innerHtml", imgText);
-  document.body.appendChild(svg)
-
-  UI.svg({width: 100, height: 100});
+  UI.svg("svg",
+    {width: 100, height: 100},
+    UI.svg("rect", { width: "100%", height: "100%", fill: "green" })
+  )();
 
     // '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="40" cy="40" r="40" stroke="red" stroke-width="4" fill="blue" /></svg>';
 }
