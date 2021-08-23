@@ -172,26 +172,14 @@ function CircleType() {
 //     <textPath xlink:href="#textPath">Text on a Path</textPath>
 // </text>
 //     </svg>
-  const imgText = `
-<svg width="300" height="200">
-    <rect width="100%" height="100%" fill="green" />
-</svg>
-  `;
-
-  // svg.setAttribute("width", 100);
-  // svg.setAttribute("height", 100);
-
-  // const rect = document.create
-
-  // const defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
-  // const svg = document.createElementNS("http://www.w3.org/2000/svg", "defs");
-
-  // const elem = UI.create('div', {id: "arst"})();
-  // elem.innerHtml = imgText;
 
   UI.svg("svg",
-    {width: 100, height: 100},
-    UI.svg("rect", { width: "100%", height: "100%", fill: "green" })
+    { width: 200, height: 200 },
+    UI.svg("defs", null,
+      UI.svg("path", { id: "textPath", d: "M10 50 C10 0 90 0 90 50" })),
+
+    UI.svg("text", { fill: "red" },
+      UI.svg("textPath", {"xlink:href": "#textPath"}, "text on a path"))
   )();
 
     // '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="40" cy="40" r="40" stroke="red" stroke-width="4" fill="blue" /></svg>';
