@@ -127,10 +127,10 @@ function circularCursor() {
 }
 
 const Hoverable = UI.mixin({
-    events: {
-      mouseenter: (e, elem) => focusElem(elem),
-      mouseleave: unfocusElem
-    },
+  events: {
+    mouseenter: (e, elem) => focusElem(elem),
+    mouseleave: unfocusElem
+  },
 })
 
 // circle type logic
@@ -164,25 +164,26 @@ const Hoverable = UI.mixin({
 
 function CircleType() {
 
-// <svg width="200" height="200">
-// <defs>
-//     <path id="textPath" d="M10 50 C10 0 90 0 90 50"/>
-// </defs>
-// <text fill="red">
-//     <textPath xlink:href="#textPath">Text on a Path</textPath>
-// </text>
-//     </svg>
+  UI.svgString(document.body,
+    `
+<svg width="200" height="200">
+<defs>
+    <path id="textPath" d="M10 50 C10 0 90 0 90 50"/>
+</defs>
+<text fill="red">
+    <textPath xlink:href="#textPath">Text on a Path</textPath>
+  </text>
+      </svg>
+    `
+  );
 
-  UI.svg("svg",
+  return UI.svg("svg",
     { width: 200, height: 200 },
     UI.svg("defs", null,
       UI.svg("path", { id: "textPath", d: "M10 50 C10 0 90 0 90 50" })),
-
     UI.svg("text", { fill: "red" },
-      UI.svg("textPath", {"xlink:href": "#textPath"}, "text on a path"))
+      UI.svg("textPath", {"xlink:href": "#textPath"}, "text on a path")),
   )();
-
-    // '<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="40" cy="40" r="40" stroke="red" stroke-width="4" fill="blue" /></svg>';
 }
 
 // enable controls that allow disabling css rules across the document: eg disable all shadows on the page
@@ -200,7 +201,7 @@ function mouseOverCircle() {
       box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
       z-index: 5;
     }
-    `;
+  `;
 
   UI.css(mouseover);
   Hoverable(UI.create("div", { id: "mouseover-circle" }))();
@@ -211,7 +212,7 @@ function linkListener() {
     .forEach(link => {
       link.addEventListener("mouseenter", e => focusElem(link));
       link.addEventListener("mouseleave", (e) => { mousedOverCircle = false; });
-  })
+    })
 }
 
 linkListener();
