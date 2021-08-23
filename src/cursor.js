@@ -135,23 +135,32 @@ const Hoverable = UI.mixin({
 
 function CircleType() {
 
-  UI.svgString(`<svg width="200" height="200">
-<defs>
-    <path id="textPath" d="M10 50 C10 0 90 0 90 50"/>
-</defs>
-<text fill="red">
-<textPath xlink:href="#textPath">Text on a Path</textPath>
-</text>
-      </svg>`
+  UI.svgString(`
+<svg viewBox="0 0 500 500">
+    <path id="curve" d="M73.2,148.6c4-6.1,65.5-96.8,178.6-95.6c111.3,1.2,170.8,90.3,175.1,97" />
+    <text width="500">
+      <textPath xlink:href="#curve">Dangerous Curves Ahead</textPath>
+    </text>
+  </svg>
+    `
   );
+  UI.css(`
+path {
+  fill: transparent;
+}
 
-  return UI.svg("svg",
-    { width: 200, height: 200 },
-    UI.svg("defs", null,
-      UI.svg("path", { id: "textPath", d: "M10 50 C10 0 90 0 90 50" })),
-    UI.svg("text", { fill: "red" },
-      UI.svg("textPath", {"xlink:href": "#textPath"}, "text on a path")),
-  )();
+text {
+  fill: #FF9800;
+}
+    `);
+
+  // return UI.svg("svg",
+  //   { width: 50, height: 50 },
+  //   UI.svg("defs", null,
+  //     UI.svg("path", { id: "textPath", d: "M10 50 C10 0 90 0 90 50" })),
+  //   UI.svg("text", { fill: "red" },
+  //     UI.svg("textPath", {"xlink:href": "#textPath"}, "Text on a path")),
+  // )();
 }
 
 // enable controls that allow disabling css rules across the document: eg disable all shadows on the page
