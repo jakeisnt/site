@@ -1,7 +1,7 @@
 function shuffleTitle(
   titleStrings = ["JAKEISNT"],
 	repeatForever = false,
-	numRepeats = 1,
+	numRepeats = 3,
 	speed = 80,
 	inputDelay = 100,
 	extraChars = "★☆✚☯❤☺⚠❁❊✳✩◍░▊▐☰𝍖⌖⌬⍜⍚⎕⎖〪〫❀",
