@@ -151,7 +151,7 @@ function mouseOverCircle() {
     `;
 
   UI.css(mouseover);
-  Hoverable(UI.create("div", { id: "mouseover-circle" }))();
+  ThemeToggle(Hoverable(UI.create("div", { id: "mouseover-circle" })))();
 }
 
 function linkListener() {

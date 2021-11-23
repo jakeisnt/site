@@ -5,7 +5,7 @@ function arrayUpTo(n) {
 
 // fold for non lists
 function nonListFold(fn, ls, base) {
-  return ArrayUpTo(ls.length).reduce((prev, curI) => fn(prev, ls[curI]), base)
+  return arrayUpTo(ls.length).reduce((prev, curI) => fn(prev, ls[curI]), base)
 }
 
 // map for non lists
@@ -15,7 +15,9 @@ function nonListMap(ls, fn) {
 
 // filter for non lists
 function nonListFilter(ls, pred) {
-  return ArrayUpTo(ls.length).filter((curI) => pred(ls[curI]))
+  return arrayUpTo(ls.length)
+    .map((i) => ls[i])
+    .filter((el) => pred(el))
 }
 
 // get all css rules
@@ -27,18 +29,19 @@ function getCSSRules() {
 
 // get all media rules
 function getMediaRules() {
-  return nonListFilter(getMediaRules(), (r) => r instanceof CSSMediaRule)
+  return nonListFilter(getCSSRules(), (r) => r instanceof CSSMediaRule)
 }
 
 // parse css rule key and value
 function parseRule(rule) {
-  return rule.media.mediaText.slice(1, ruletext.length - 1).split(": ")
+  const ruletext = rule.media.mediaText;
+  return ruletext.slice(1, ruletext.length - 1).split(": ")
 }
 
 // transform rule object value according to fn
-function warpRuleObj(rule, setFn) {
+function warpRule(rule, setFn) {
   const [rname, rtext] = parseRule(rule);
-  rule.media.mediaText = "(" + ruleName + ": " + setFn(rtext) + ")"
+  rule.media.mediaText = "(" + rname + ": " + setFn(rtext) + ")"
 }
 
 // get a media rule with provided rule name
@@ -51,8 +54,6 @@ function warpMediaRule(ruleName, setFn) {
   nonListMap(getMediaRules(), (rule) => {
     const [rname, rtext] = parseRule(rule)
     if (rname === ruleName) {
-      console.log("warping rule")
-      console.log(rname)
       warpRule(rule, setFn)
     }
   })
