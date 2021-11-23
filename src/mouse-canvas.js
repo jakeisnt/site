@@ -6,6 +6,8 @@
  * - circleHeight
  */
 
+const STROKE_WIDTH = 15;
+
 // a background canvas to draw on
 function MainCanvas() {
   let coordX = 0;
@@ -36,8 +38,8 @@ function MainCanvas() {
   function draw(e) {
     if(!mousedOverCircle) {
         ctx.beginPath();
-        ctx.lineWidth = defaultWidth;
-        ctx.lineCap = "round";
+        ctx.lineWidth = STROKE_WIDTH;
+        ctx.lineCap = "square";
         ctx.strokeStyle = isDarkMode() ? "red" : "#ACD3ED";
         ctx.moveTo(coordX, coordY);
         reposition(e);
