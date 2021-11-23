@@ -6,8 +6,6 @@
  * - circleHeight
  */
 
-
-
 function MainCanvas() {
   let coordX = 0;
   let coordY = 0;
@@ -56,17 +54,14 @@ function MainCanvas() {
 
   function start(e) {
     if(!mousedOverCircle) {
-      console.log("starting to draw :33");
       document.addEventListener("mousemove", draw);
       reposition(e);
     }
   }
 
   function stop() {
-    console.log("not drawing anymore");
     document.removeEventListener("mousemove", draw);
   }
-
 
   document.addEventListener("mousedown", start)
   document.addEventListener("mouseup", stop)
