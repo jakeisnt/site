@@ -40,8 +40,8 @@ function warpMediaRule(ruleName, setFn) {
 // Toggle the CSS theme by changing the
 // 'prefers-color-scheme' user preference local to this site
 function toggleTheme() {
-  warpMediaRule("prefers-color-scheme",
-                (cscheme) => cscheme === "light" ? "dark" : "light";)
+  return warpMediaRule("prefers-color-scheme",
+                (cscheme) => cscheme === "light" ? "dark" : "light")
 }
 
 // is the browser currently in dark mode?

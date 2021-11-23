@@ -31,14 +31,16 @@ function MainCanvas() {
   ctx.scale(ctx.canvas.width / window.innerWidth, ctx.canvas.height / window.innerHeight)
 
   function draw(e) {
-    ctx.beginPath();
-    ctx.lineWidth = defaultWidth;
-    ctx.lineCap = "round";
-    ctx.strokeStyle = isDarkMode() ? "red" : "#ACD3ED";
-    ctx.moveTo(coordX, coordY);
-    reposition(e);
-    ctx.lineTo(coordX, coordY);
-    ctx.stroke();
+    if(!mousedOverCircle) {
+        ctx.beginPath();
+        ctx.lineWidth = defaultWidth;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = isDarkMode() ? "red" : "#ACD3ED";
+        ctx.moveTo(coordX, coordY);
+        reposition(e);
+        ctx.lineTo(coordX, coordY);
+        ctx.stroke();
+    }
   }
 
   // resize the canvas to the window size
