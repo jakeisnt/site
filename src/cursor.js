@@ -3,8 +3,6 @@ let circleX = 0;
 let circleY = 0;
 let circleWidth = 0;
 let circleHeight = 0;
-const defaultWidth = 50;
-const defaultHeight = 50;
 
 function focusElem(elem) {
   const rect = elem.getBoundingClientRect();
