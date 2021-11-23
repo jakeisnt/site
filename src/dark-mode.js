@@ -1,25 +1,3 @@
-// get array with elements [0 .. (n - 1)]
-function arrayUpTo(n) {
-  return Array.apply(null, Array(n)).map((_, i) => i);
-}
-
-// fold for non lists
-function nonListFold(fn, ls, base) {
-  return arrayUpTo(ls.length).reduce((prev, curI) => fn(prev, ls[curI]), base)
-}
-
-// map for non lists
-function nonListMap(ls, fn) {
-  return arrayUpTo(ls.length).map((i) => fn(ls[i]))
-}
-
-// filter for non lists
-function nonListFilter(ls, pred) {
-  return arrayUpTo(ls.length)
-    .map((i) => ls[i])
-    .filter((el) => pred(el))
-}
-
 // get all css rules
 function getCSSRules() {
   let ss = document.styleSheets[0];
