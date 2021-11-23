@@ -10,6 +10,21 @@ body {
    justify-content: center;
    cursor: url(icons/cursor.svg), auto;
 }
+@media (prefers-color-scheme: dark) {
+   body {
+      background-color: black;
+      color: white;
+   }
+   a:link {
+       color: gainsboro;
+   }
+   a:visited {
+       color: lightgray;
+   }
+   img {
+       filter: invert(90%);
+   }
+}
 </style>
 <head>
 <title>JAKEISNT</title>
