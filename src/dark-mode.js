@@ -24,7 +24,7 @@ function warpRule(rule, setFn) {
 
 // get a media rule with provided rule name
 function getMediaRule(ruleName) {
-  return getMediaRules().filter((r) => parseRule(r)[0] === ruleName)
+  return parseRule(getMediaRules().filter((r) => parseRule(r)[0] === ruleName)[0])[1]
 }
 
 // set a CSS media query rule to a particular value
@@ -40,10 +40,13 @@ function warpMediaRule(ruleName, setFn) {
 // Toggle the CSS theme by changing the
 // 'prefers-color-scheme' user preference local to this site
 function toggleTheme() {
-  warpMediaRule("prefers-color-scheme", (cscheme) => {
-    if (cscheme === "light") { return "dark"; }
-    else return "light";
-  })
+  return warpMediaRule("prefers-color-scheme",
+                (cscheme) => cscheme === "light" ? "dark" : "light")
+}
+
+// is the browser currently in dark mode?
+function isDarkMode() {
+  return getMediaRule("prefers-color-scheme") === "dark";
 }
 
 // toggle the CSS theme with UI!

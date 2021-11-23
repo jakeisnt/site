@@ -119,8 +119,8 @@ function circularCursor() {
   }
 
   window.addEventListener("mousemove", e => {
-    mouseX = event.pageX;
-    mouseY = event.pageY;
+    mouseX = event.clientX;
+    mouseY = event.clientY;
   });
 
   followCursor();
