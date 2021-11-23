@@ -6,7 +6,7 @@
  * - circleHeight
  */
 
-const STROKE_WIDTH = 15;
+const STROKE_WIDTH = 20;
 
 // a background canvas to draw on
 function MainCanvas() {
