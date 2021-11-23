@@ -46,6 +46,10 @@ function toggleTheme() {
   })
 }
 
+function isDarkMode() {
+  return getMediaRule("prefers-color-scheme") === "dark";
+}
+
 // toggle the CSS theme with UI!
 const ThemeToggle = UI.mixin({
   events: {
