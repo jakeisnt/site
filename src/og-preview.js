@@ -14,7 +14,7 @@ function parseHTML() {
 
 function request(type, url, data) {
   return new Promise((resolve, reject) => {
-    const req = new XMLHTTPRequest();
+    const req = new XMLHttpRequest();
 
     req.onreadystatechange = () => {
       if(this.readyState === RECV_STATE) {
@@ -25,9 +25,9 @@ function request(type, url, data) {
             case FT_JSON: resolve(JSON.parse(req.responseText));
             case FT_HTML: resolve(parseHTML(req.responseText));
             default: resolve(req.responseText);
-          } else {
-            reject({status: req.status, body: req.responseText });
           }
+        } else {
+          reject({status: req.status, body: req.responseText });
         }
       }
     }
@@ -39,6 +39,11 @@ function request(type, url, data) {
 
 function openGraphData(url) {
   const og_html = request(REQUEST_TYPES.GET, "https://facebook.com", null);
+  console.log(og_html);
   // get og tags in header
   // organize into description, image, etc
 }
+
+openGraphData()
+
+// oops! can't request open graph protocol information from arbitrary servers...
