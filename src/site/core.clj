@@ -9,7 +9,7 @@
   body {
   margin: 0;
   display: flex;
-  padding: 20px;
+  padding: 40px;
   flex-direction: column;
   justify-content: center; 
   }")
@@ -40,28 +40,26 @@
      [:link {:rel "icon" :type "image/png" :sizes "16x16" :href "icons/favicon-16x16.png"}]
      [:link {:rel "manifest" :href "/site.webmanifest"}]]
     [:body
-     [:main "
-Hey, welcome to my site.
+     [:main 
+      [:p "Hey, welcome to my site."]
 
-I'm a student at " [:a {:href "https://northeastern.edu" :target "_blank" :rel "noreferrer"} "Northeastern"] "
-interested in programming 
-languages, user interfaces 
-and sustainability. 
+      [:p
+       "I'm a student at " [:a {:href "https://northeastern.edu" :target "_blank" :rel "noreferrer"} "Northeastern"] [:br]
+       "interested in programming" [:br]
+       "languages, user interfaces" [:br]
+       "and sustainability." ]
 
-Feel free to look at " [:a {:href "https://wiki.jacob.chvatal.com"} "my notes"] ", 
-"[:a {:href "https://jakeisnt.substack.com/p/coming-soon"} "subscribe"] " to my newsletter,
-or check out my " [:a {:href "https://github.com/jakeisnt"} "code"] ".
+      [:p "Feel free to look at " [:a {:href "https://wiki.jacob.chvatal.com"} "my notes"]"," [:br]
+       [:a {:href "https://jakeisnt.substack.com/p/coming-soon"} "subscribe"] " to my newsletter," [:br]
+       "or check out my " [:a {:href "https://github.com/jakeisnt"} "code"] "."]
 
-My CV can be found "[:a {:href "https://cv.jacob.chvatal.com"} "here"]".
+      [:p "My CV can be found "[:a {:href "https://cv.jacob.chvatal.com"} "here"]"."]
 
-Contact me on " [:a {:href "https://twitter.com/jakeissnt"} "twitter"]", 
-"[:a {:href "https://reddit.com/user/jakeisnt"} "reddit"]", " [:a {:href "https://www.instagram.com/jakeisnt"} "instagram"]", 
-or "[:a {:href "mailto:jake at isnt period online" :target "_blank"} "via email"]" ("[:a {:href "./jakeisnt.asc"} "PGP key"]").
+      [:p "Contact me on " [:a {:href "https://twitter.com/jakeissnt"} "twitter"]"," [:br]
+       [:a {:href "https://reddit.com/user/jakeisnt"} "reddit"]", " [:a {:href "https://www.instagram.com/jakeisnt"} "instagram"] "," [:br]
+       "or " [:a {:href "mailto:jake at isnt period online" :target "_blank"} "via email"]" ("[:a {:href "./jakeisnt.asc"} "PGP key"]")."]
 
-Best, 
-Jacob Chvatal
-
-"]]
+      [:p "Best," [:br] "Jacob Chvatal"]]]
 
     [:footer
      [:div {:style "display: flex; flex-direction: row;"}
@@ -73,11 +71,9 @@ Jacob Chvatal
 
       [:a {:href "https://webring.xxiivv.com/#random" :target "_blank" :rel "noreferrer"}
        [:img {:src "icons/icon.black.svg" :style "margin-top:-3px;" :height 35 :width 34 :alt "[webring]"}]]]
-     "
-
-This site is optimized for speed.
-For more fun, click here.
-     "]))
+     [:div  {:style "margin-top:35px;"}
+      "This site is optimized for speed." [:br]
+      "For more fun, click here."]]))
 
 (defn -main
   "I don't do a whole lot ... yet."
