@@ -15,19 +15,37 @@
   justify-content: center; 
   }")
 
-(def info {:name "Jacob Chvatal"})
+(def info {:name "Jacob Chvatal"
+           :email "jake@isnt.online"
+           :twitter "jakeissnt"
+           :instagram "jakeisnt"
+           :mastodon "jakeisnt"
+           :github "jakeisnt"
+           :reddit "jakeisnt"
+           ;; needs data type
+           :number "+1 503-330-8568"})
 
 ;; play with ascii converters? ditherers? https://github.com/LauJensen/Claskii/blob/master/src/claskii.clj
 
 ;; TODO
 (defn gen-manifest 
   "Generate a 'site.webmanifest' file with the current information we have.
-  
+
   Generate the manifest information as a clojure structure,
   then convert it to JSON and serialize it to a file, 
   ensuring that the corresponding JSON structure is correct,"
   []
   "asdf")
+
+(defn email-to-web 
+  "Adds email to the web and attempts to mitigate spam by rewriting
+  it to something human readable, but not easily webcrawler interpretable.
+
+  Example:
+  jake@isnt.online => jake at isnt dot online
+  "
+  [email]
+  "blah")
 
 ;; how can i inject more personality into my website?
 ;; https://bypaulshen.com/ uses his sketches (& i love the layout)
@@ -81,14 +99,14 @@
 
       [:p "Feel free to look at " [:a {:href "https://wiki.jacob.chvatal.com"} "my notes"]"," [:br]
        [:a {:href "https://jakeisnt.substack.com/p/coming-soon"} "subscribe"] " to my newsletter," [:br]
-       "or check out my " [:a {:href "https://github.com/jakeisnt"} "code"] "."]
+       "or check out my " [:a {:href (str "https://github.com/" (:github info))} "code"] "."]
 
       [:p "My CV can be found "[:a {:href "https://cv.jacob.chvatal.com"} "here"]"."]
 
 
       ;; TODO phone number? 
-      [:p "Contact me on " [:a {:href "https://twitter.com/jakeissnt"} "twitter"]"," [:br]
-       [:a {:href "https://reddit.com/user/jakeisnt"} "reddit"]", " [:a {:href "https://www.instagram.com/jakeisnt"} "instagram"] "," [:br]
+      [:p "Contact me on " [:a {:href (str "https://twitter.com/" (:twitter info))} "twitter"]"," [:br]
+       [:a {:href (str "https://reddit.com/user/" (:reddit info))} "reddit"]", " [:a {:href (str "https://www.instagram.com/" (:instagram info))} "instagram"] "," [:br]
        "or " [:a {:href "mailto:jake at isnt period online" :target "_blank"} "via email"]" ("[:a {:href "./jakeisnt.asc"} "PGP key"]")."]
 
       [:p "Best," [:br] (:name info)]]]
@@ -99,7 +117,7 @@
       [:a {:href "https://creativecommons.org/licenses/by-nc-sa/4.0" :target "_blank" :rel "noreferrer"}
        [:img {:src "icons/cc.svg" :style "margin-right:5px;" :height 30 :width 30 :alt "[cc]"}]]
 
-      [:a {:href "https://merveilles.town/@jakeisnt" :target "_blank" :rel "noreferrer"}
+      [:a {:href (str "https://merveilles.town/@" (:mastodon info)) :target "_blank" :rel "noreferrer"}
        [:img {:src "icons/merveilles.svg" :height 30 :width 30 :alt "[merveilles]"}]]
 
       [:a {:href "https://webring.xxiivv.com/#random" :target "_blank" :rel "noreferrer"}
