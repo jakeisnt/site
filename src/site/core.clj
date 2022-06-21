@@ -4,6 +4,7 @@
             [hiccup.form :as form])
   (:gen-class))
 
+;; TODO we can improve this import...
 (def style 
   "@import url(\"https://jakeisnt.github.io/styles/main.css\");
   body {
@@ -14,27 +15,56 @@
   justify-content: center; 
   }")
 
-; (defn gen-opengraph []
-;   )
+(def info {:name "Jacob Chvatal"})
+
+;; play with ascii converters? ditherers? https://github.com/LauJensen/Claskii/blob/master/src/claskii.clj
+
+;; TODO
+(defn gen-manifest 
+  "Generate a 'site.webmanifest' file with the current information we have.
+  
+  Generate the manifest information as a clojure structure,
+  then convert it to JSON and serialize it to a file, 
+  ensuring that the corresponding JSON structure is correct,"
+  []
+  "asdf")
+
+;; how can i inject more personality into my website?
+;; https://bypaulshen.com/ uses his sketches (& i love the layout)
 
 
-(defn gen-page []
+; ideas:
+; - expose .edn file used to generate this (presumably with more info) directly over the web,
+;   so we can snag a nicer data representation than html off the internet live
+; - when converting to dynamic website, play with andreas gyasin's ideas of moving text on the page;
+;   we want the process to be reversible, and we do not want to pollute this page with any more bloat than necessary
+
+(defn gen-homepage 
+  "Generate a homepage for the website."
+  [info]
   (hp/html5 
     {:lang "en-us"}
     [:style style]
     [:head
-     [:title "Jacob Chvatal"]
+     [:title (:name info)]
      [:meta {:charset "utf-8"}]
-     [:meta {:property "og:title" :content "Jacob Chvatal"}]
+     [:meta {:property "og:title" :content (:name info)}]
      [:meta {:property "og:type" :content "website"}]
+
+
+     ;; TODO host current avatar in one place so it can be dynamically loaded. i don't like the idea of using the github avatar - i want to control it myself! updating a new avatar should update some social media profiles to also use that avatar. 
      [:meta {:property "og:image" :content "https://avatars0.githubusercontent.com/u/29869612?s=400&u=32e0c272cbfcc32b8e9585f74ce57d197aa14fb0&v=4"}]
+
+     ;; TODO better description
      [:meta {:name "description" :content "Jacob Chvatal's personal website."}]
+     ;; TODO keywords as list, assess keywords, etc.
      [:meta {:name "keywords" :content "jacob, chvatal, webring, programming, languages"}]
-     [:meta {:name "author" :content "Jacob Chvatal"}]
+     [:meta {:name "author" :content (:name info)}]
      [:meta {:name "robots" :content "follow"}]
      [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0"}]
      [:meta {:name "theme-color" :content "#fff"}]
 
+     ;; TODO new icon (make myself?)
      [:link {:rel "apple-touch-icon" :sizes "180x180" :href "icons/apple-touch-icon.png"}]
      [:link {:rel "icon" :type "image/png" :sizes "32x32" :href "icons/favicon-32x32.png"}]
      [:link {:rel "icon" :type "image/png" :sizes "16x16" :href "icons/favicon-16x16.png"}]
@@ -47,7 +77,7 @@
        "I'm a student at " [:a {:href "https://northeastern.edu" :target "_blank" :rel "noreferrer"} "Northeastern"] [:br]
        "interested in programming" [:br]
        "languages, user interfaces" [:br]
-       "and sustainability." ]
+       "and sustainability."]
 
       [:p "Feel free to look at " [:a {:href "https://wiki.jacob.chvatal.com"} "my notes"]"," [:br]
        [:a {:href "https://jakeisnt.substack.com/p/coming-soon"} "subscribe"] " to my newsletter," [:br]
@@ -55,12 +85,15 @@
 
       [:p "My CV can be found "[:a {:href "https://cv.jacob.chvatal.com"} "here"]"."]
 
+
+      ;; TODO phone number? 
       [:p "Contact me on " [:a {:href "https://twitter.com/jakeissnt"} "twitter"]"," [:br]
        [:a {:href "https://reddit.com/user/jakeisnt"} "reddit"]", " [:a {:href "https://www.instagram.com/jakeisnt"} "instagram"] "," [:br]
        "or " [:a {:href "mailto:jake at isnt period online" :target "_blank"} "via email"]" ("[:a {:href "./jakeisnt.asc"} "PGP key"]")."]
 
-      [:p "Best," [:br] "Jacob Chvatal"]]]
+      [:p "Best," [:br] (:name info)]]]
 
+    ;; TODO is this the right way to use the footer? find out!
     [:footer
      [:div {:style "display: flex; flex-direction: row;"}
       [:a {:href "https://creativecommons.org/licenses/by-nc-sa/4.0" :target "_blank" :rel "noreferrer"}
@@ -71,11 +104,12 @@
 
       [:a {:href "https://webring.xxiivv.com/#random" :target "_blank" :rel "noreferrer"}
        [:img {:src "icons/icon.black.svg" :style "margin-top:-3px;" :height 35 :width 34 :alt "[webring]"}]]]
-     [:div  {:style "margin-top:35px;"}
+
+     [:div {:style "margin-top:35px;"}
       "This site is optimized for speed." [:br]
-      "For more fun, click here."]]))
+      "More fun experiments to come."]]))
 
 (defn -main
-  "I don't do a whole lot ... yet."
+  "Generate a website and print it to STDOUT!"
   [& args]
-  (println (gen-page)))
+  (println (gen-homepage info)))
