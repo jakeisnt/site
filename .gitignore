@@ -23,4 +23,4 @@ pom.xml.asc
 .hgignore
 .hg/
 
-/src/site/.nrepl_port
+src/site/.nrepl_port
