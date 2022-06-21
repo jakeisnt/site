@@ -22,3 +22,5 @@ pom.xml.asc
 /.prepl-port
 .hgignore
 .hg/
+
+/src/site/.nrepl_port
