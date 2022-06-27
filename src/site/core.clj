@@ -7,7 +7,9 @@
 ;; TODO we probably don't need this import
 (def style 
   "html { font-family: monospace, monospace; }
-  body { max-width: 20rem; margin: 0; padding: 1rem 2rem; }")
+  body { max-width: 20rem; margin: 0; padding: 1rem 2rem; }
+  .foot { padding-right: 0.5rem; }
+  ")
 
 ;; TODO we can improve this import...
 (def info {:name "Jake Chvatal"
@@ -93,9 +95,9 @@
       [:p "Chat soon," [:br] (:name info)]]
 [:div
       [:div {:style "display: flex; flex-direction: row;"}
-       [:a {:href "https://creativecommons.org/licenses/by-nc-sa/4.0" :target "_blank" :rel "noreferrer"} "[cc]"]
-       [:a {:href "./jakeisnt.asc"} "[pgp]"]
-       [:a {:href (str "https://are.na/" (:arena info))} "[are.na]"]]]]))
+       [:a.foot {:href "https://creativecommons.org/licenses/by-nc-sa/4.0" :target "_blank" :rel "noreferrer"} "[cc]"]
+       [:a.foot {:href "./jakeisnt.asc"} "[pgp]"]
+       [:a.foot {:href (str "https://are.na/" (:arena info))} "[are.na]"]]]]))
 
 (defn -main
   "Generate a website and print it to STDOUT!"
