@@ -15,6 +15,9 @@
   justify-content: center; 
   }")
 
+
+
+;; TODO we can improve this import...
 (def info {:name "Jacob Chvatal"
            :email "jake@isnt.online"
            :twitter "jakeissnt"
@@ -49,7 +52,6 @@
 
 ;; how can i inject more personality into my website?
 ;; https://bypaulshen.com/ uses his sketches (& i love the layout)
-
 
 ; ideas:
 ; - expose .edn file used to generate this (presumably with more info) directly over the web,
