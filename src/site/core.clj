@@ -86,15 +86,15 @@
               I work to build better interfaces to today's computers and teach people to take control of their technology.
               "]]
 
-      [:p "I believe that software should be built to last.
-          Software should be modular, disciplined, and easy to understand.
-          It should run on devices twenty years old just as easily as on my device today."]
+      [:p "I also maintain that code should be written to last.
+          Ideal software is modular, disciplined, and very readable.
+          It should run on devices twenty years old as easily as on my device today."]
 
       [:p {:open true}
        ;; [:summary "work"]
        [:span 
-        "I cherish high impact roles that benefit everyone involved." [:br]
-        "At " [:a {:href "https://skira.se"} "Skira"]" I helped revolutionize the scandinavian grain industry " [:br]
+        "I value flexible and high impact roles with missions that benefit everyone involved." [:br]
+        "At " [:a {:href "https://skira.se"} "Skira"]" I helped democratize "[:br ]" the scandinavian grain market " [:br]
         "and at " [:a {:href "https://theroutingcompany.com"} "TRC"] " provided equitable access to public transportation." [:br]
         "Also " 
           [:a {:href "https://contra.work"} "contra"] " "
