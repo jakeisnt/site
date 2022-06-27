@@ -6,8 +6,8 @@
 
 ;; TODO we probably don't need this import
 (def style 
-  "html { font-family: sans-serif; }
-  body { max-width: 17rem; margin: 0; padding: 1rem 2rem; }")
+  "html { font-family: monospace, monospace; }
+  body { max-width: 20rem; margin: 0; padding: 1rem 2rem; }")
 
 ;; TODO we can improve this import...
 (def info {:name "Jake Chvatal"
@@ -67,12 +67,12 @@
        " interested in user interfaces, programming languages and sustainability."]
 
       [:p "I believe that everyone deserves the ability to use computing to express themselves. 
-          To this end, I aim to build better interfaces - from web UIs to Unix service layers - that improve the way in which people control and understand their computers."]
+          To this end, I aim to build better interfaces - from web UIs to unix service layers - that improve the ways in which people understand and interact with their computers."]
 
-      [:p "I value high impact roles with missions that benefit everyone involved. (" [:a {:href "https://cv.jacob.chvatal.com"} "My full CV's here"] ")."]
+      [:p "I value high impact roles with missions that benefit everyone involved. " [:a {:href "https://cv.jacob.chvatal.com"} "My full CV's here"] "."]
 
       [:p 
-       "At " [:a {:href "https://skira.se"} "Skira"]" I helped democratize "[:br ]" the scandinavian grain market " [:br]
+       "At " [:a {:href "https://skira.se"} "Skira"]", I helped democratize "[:br ]" the scandinavian grain market, " [:br]
        "and at " [:a {:href "https://theroutingcompany.com"} "TRC"] " provide equitable access to public transportation." [:br]
        "Also " 
        [:a {:href "https://contra.work"} "contra"] " "
