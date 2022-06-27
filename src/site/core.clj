@@ -12,10 +12,6 @@
   main { max-width: 17rem; }
   ")
 
-;; whether to render images or just text!
-(def show-imgs nil)
-
-
 ;; TODO we can improve this import...
 (def info {:name "Jacob Chvatal"
            :email "jake@isnt.online"
@@ -74,65 +70,48 @@
      [:link {:rel "manifest" :href "/site.webmanifest"}]]
     [:body
      [:main 
-      [:p "Hey, welcome to my site."]
+      [:p "Hey! I'm Jake, a student at " [:a {:href "https://northeastern.edu" :target "_blank" :rel "noreferrer"} "NEU"]
+       " interested in user interfaces, programming languages and sustainability."]
 
-      ; [:p
-      ;  "I'm a student at " [:a {:href "https://northeastern.edu" :target "_blank" :rel "noreferrer"} "Northeastern"] [:br]
-      ;  "interested in programming languages, design systems, user interfaces and sustainability."]
-
-      [:p {:open true}
-       ;;[:summary "mission"]
-       [:span "I believe that everyone deserves the ability to express themselves with technology. 
-              I work to build better interfaces to today's computers and teach people to take control of their technology.
-              "]]
+      [:p "I believe that everyone deserves the ability to express themselves with computing. 
+          I build better interfaces to today's computers and teach people to take control of their technology."]
 
       [:p "I also maintain that code should be written to last.
-          Ideal software is modular, disciplined, and very readable.
+          Ideal software is simple, modular and easily understood.
           It should run on devices twenty years old as easily as on my device today."]
 
-      [:p {:open true}
-       ;; [:summary "work"]
-       [:span 
-        "I value flexible and high impact roles with missions that benefit everyone involved." [:br]
-        "At " [:a {:href "https://skira.se"} "Skira"]" I helped democratize "[:br ]" the scandinavian grain market " [:br]
-        "and at " [:a {:href "https://theroutingcompany.com"} "TRC"] " provided equitable access to public transportation." [:br]
-        "Also " 
-          [:a {:href "https://contra.work"} "contra"] " "
-          [:a {:href "https://psu.edu"} "psu"] " "
-          [:a {:href "https://nixos.org"} "nixos"] " "
-          [:a {:href "https://intel.com"} "intel"] " "
-          [:a {:href "https://cdkglobal.com"} "cdk"] "."]]
+      [:p "I value high impact roles with missions that benefit everyone involved."]
 
-      [:p {:open true}
-       ;;[:summary "contact"]
-       [:span "Here are my " [:a {:href "https://wiki.jacob.chvatal.com"} "notes"]", "
-        [:a {:href (str "https://github.com/" (:github info))} "code"] " and " [:a {:href "https://cv.jacob.chvatal.com"} "cv"] "." [:br]
+      [:p 
+       "At " [:a {:href "https://skira.se"} "Skira"]" I helped democratize "[:br ]" the scandinavian grain market " [:br]
+       "and at " [:a {:href "https://theroutingcompany.com"} "TRC"] " provide equitable access to public transportation." [:br]
+       "Also " 
+       [:a {:href "https://contra.work"} "contra"] " "
+       [:a {:href "https://psu.edu"} "psu"] " "
+       [:a {:href "https://nixos.org"} "nixos"] " "
+       [:a {:href "https://intel.com"} "intel"] " "
+       [:a {:href "https://cdkglobal.com"} "cdk"] "."]
 
-        "I'm on " [:a {:href (str "https://twitter.com/" (:twitter info))} "twitter"] " and " 
-        [:a {:href (str "https://www.instagram.com/" (:instagram info))} "instagram"] "." [:br]
-        [:a {:href "mailto:jake@isnt.online" :target "_blank"} "Email"] " or " [:a {:href (str "sms://" (:phone info))} "text"] " me if you'd like."]]
+      [:p 
+       "Here are my " [:a {:href "https://wiki.jacob.chvatal.com"} "notes"]", "
+       [:a {:href (str "https://github.com/" (:github info))} "code"] " and " [:a {:href "https://cv.jacob.chvatal.com"} "cv"] "." [:br]
 
-      [:p "Chat soon," [:br] (:name info)]]]
+       "I'm on " [:a {:href (str "https://twitter.com/" (:twitter info))} "twitter"] " and " 
+       [:a {:href (str "https://www.instagram.com/" (:instagram info))} "instagram"] "." [:br]
+       [:a {:href "mailto:jake@isnt.online" :target "_blank"} "Email"] " or " [:a {:href (str "sms://" (:phone info))} "text"] " me if you'd like."]
 
-    ;; TODO is this the right way to use the footer? find out!
-    [:footer
-     [:div {:style "display: flex; flex-direction: row;"}
-      [:a {:href "https://creativecommons.org/licenses/by-nc-sa/4.0" :target "_blank" :rel "noreferrer"} "[cc]"]
-      ; [:img {:src "icons/cc.svg" :style "margin-right:5px;" :height 30 :width 30 :alt "[cc]"}] ]
+      [:p "Chat soon," [:br] (:name info)]]
 
-      ;; [:a {:href (str "https://merveilles.town/@" (:mastodon info)) :target "_blank" :rel "noreferrer"} "[masto]"]
-      ;; [:img {:src "icons/merveilles.svg" :height 30 :width 30 :alt "[merveilles]"}]]
+     ;; TODO is this the right way to use the footer? find out!
+     [:footer
+      [:div {:style "display: flex; flex-direction: row;"}
+       [:a {:href "https://creativecommons.org/licenses/by-nc-sa/4.0" :target "_blank" :rel "noreferrer"} "[cc]"]
+       [:a {:href "./jakeisnt.asc"} "[pgp]"]
+       [:a {:href (str "https://are.na/" (:arena info))} "[are.na]"] ]
 
-      [:a {:href "./jakeisnt.asc"} "[pgp]"]
-      [:a {:href (str "https://are.na/" (:arena info))} "[are.na]"]
-
-      ;; [:a {:href "https://webring.xxiivv.com/#random" :target "_blank" :rel "noreferrer"} "[ring]"]
-      ;;[:img {:src "icons/icon.black.svg" :style "margin-top:-3px;" :height 35 :width 34 :alt "[webring]"}]]
-      ]
-
-     [:div {:style "margin-top:1rem;"}
-      "This site is optimized for speed." [:br]
-      "Alternative experiments to come."]]))
+      [:div {:style "margin-top: 1rem;"}
+       "This site is optimized for speed." [:br]
+       "More web experiments soon!"]]]))
 
 (defn -main
   "Generate a website and print it to STDOUT!"
