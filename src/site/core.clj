@@ -70,7 +70,7 @@
        " interested in user interfaces, programming languages and sustainability."]
 
       [:p "I believe that everyone deserves the ability to use computing to express themselves. 
-          To this end, I aim to build better interfaces - from web UIs to "[:a {:href "https://github.com/jakeisnt/nixcfg/"} "unix service layers"]" - that improve the ways in which people understand and interact with their computers."]
+          To this end, I aim to build better interfaces - from web UIs to "[:a {:href "https://github.com/jakeisnt/nixcfg/"} "unix service layers"]" - that improve ways in which people understand and interact with their computers."]
 
       [:p "I value high impact roles with missions that benefit everyone involved."]
 
