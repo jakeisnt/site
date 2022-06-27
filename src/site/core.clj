@@ -18,6 +18,7 @@
            :github "jakeisnt"
            :reddit "jakeisnt"
            :arena "jake-isnt"
+           :cv "https://cv.jacob.chvatal.com"
            :phone "15033308568" })
 
 ;; play with ascii converters? ditherers? https://github.com/LauJensen/Claskii/blob/master/src/claskii.clj
@@ -79,7 +80,7 @@
        [:a {:href "https://psu.edu"} "psu"] ", "
        [:a {:href "https://intel.com"} "intel"] ", "
        [:a {:href "https://cdkglobal.com"} "cdk"] "." [:br]
-       "More details on " [:a {:href "https://cv.jacob.chvatal.com"} "my full CV"] "."]
+       "More details on " [:a {:href (:cv info)} "my full CV"] "."]
 
       [:p 
        "Check out my " [:a {:href "https://wiki.jacob.chvatal.com"} "notes"] " and "
