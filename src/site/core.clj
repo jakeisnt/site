@@ -66,8 +66,8 @@
       [:p "Hey! I'm Jake, a student at " [:a {:href "https://northeastern.edu" :target "_blank" :rel "noreferrer"} "NEU"]
        " interested in user interfaces, programming languages and sustainability."]
 
-      [:p "I believe that everyone deserves the ability to express themselves with computing. 
-          I build better interfaces to today's computers and teach people to take control of their technology."]
+      [:p "I believe that everyone deserves the ability to use computing to express themselves. 
+          To this end, I aim to build better interfaces - from web UIs to Unix service layers - that improve the way in which people control and understand their computers."]
 
       [:p "I value high impact roles with missions that benefit everyone involved. (" [:a {:href "https://cv.jacob.chvatal.com"} "My full CV's here"] ")."]
 
