@@ -62,23 +62,17 @@
      [:meta {:property "og:title" :content (:name info)}]
      [:meta {:property "og:type" :content "website"}]
 
-
-     ;; TODO host current avatar in one place so it can be dynamically loaded. i don't like the idea of using the github avatar - i want to control it myself! updating a new avatar should update some social media profiles to also use that avatar. 
-     [:meta {:property "og:image" :content "https://avatars0.githubusercontent.com/u/29869612?s=400&u=32e0c272cbfcc32b8e9585f74ce57d197aa14fb0&v=4"}]
+     ;; TODO avatar? i don't like this one, really.
+     ;; [:meta {:property "og:image" :content "https://avatars0.githubusercontent.com/u/29869612?s=400&u=32e0c272cbfcc32b8e9585f74ce57d197aa14fb0&v=4"}]
 
      ;; TODO better description
-     [:meta {:name "description" :content "Jacob Chvatal's personal website."}]
+     [:meta {:name "description" :content "hi im jake chvatal"}]
      ;; TODO keywords as list, assess keywords, etc.
      [:meta {:name "keywords" :content "jacob, chvatal, webring, programming, languages"}]
      [:meta {:name "author" :content (:name info)}]
      [:meta {:name "robots" :content "follow"}]
      [:meta {:name "viewport" :cntent "width=device-width, initial-scale=1.0"}]
      [:meta {:name "theme-color" :content "#fff"}]
-
-     ;; TODO new icon (make myself?). drop these for now.
-     ; [:link {:rel "apple-touch-icon" :sizes "180x180" :href "icons/apple-touch-icon.png"}]
-     ; [:link {:rel "icon" :type "image/png" :sizes "32x32" :href "icons/favicon-32x32.png"}]
-     ; [:link {:rel "icon" :type "image/png" :sizes "16x16" :href "icons/favicon-16x16.png"}]
      [:link {:rel "manifest" :href "/site.webmanifest"}]]
     [:body
      [:main 
@@ -90,16 +84,23 @@
        "languages, user interfaces" [:br]
        "and sustainability."]
 
+      ;; mission statement
+      ;; Fundamentally, I believe that everyone deserves the right and ability to customize their computers to work for them.
+      ;; I believe that everyone deserves fast, powerful computers that serve their needs rather than the other way around.
+
+      [:p 
+       "I love working in high-impact roles that provide value able to benefit everyone involved." [:br]
+       "At " [:a {:href "https://skira.se"} "Skira"]", I helped revolutionize the Scandinavian grain industry," [:br]
+       "and at " [:a {:href "https://theroutingcompany.com"} "The Routing Company"] " I worked to provide equitable access to public transportation." ]
+
       [:p "Feel free to look at " [:a {:href "https://wiki.jacob.chvatal.com"} "my notes"]"," [:br]
         [:a {:href (str "https://github.com/" (:github info))} "my code"] " or " [:a {:href "https://cv.jacob.chvatal.com"} "my CV"] "."]
 
       [:p "I'm on " [:a {:href (str "https://twitter.com/" (:twitter info))} "twitter"] " and " 
        [:a {:href (str "https://www.instagram.com/" (:instagram info))} "instagram"] "." [:br]
        [:a {:href "mailto:jake@isnt.online" :target "_blank"} "Email"] " or " [:a {:href (str "sms://" (:phone info))} "text"] " me if you'd like."]
-       
-       ;; "("[:a {:href "./jakeisnt.asc"} "PGP key"]")."
 
-      [:p "Best," [:br] (:name info)]]]
+      [:p "Chat soon," [:br] (:name info)]]]
 
     ;; TODO is this the right way to use the footer? find out!
     [:footer
@@ -109,8 +110,9 @@
 
       [:a {:href (str "https://merveilles.town/@" (:mastodon info)) :target "_blank" :rel "noreferrer"} "[masto]"]
        ;; [:img {:src "icons/merveilles.svg" :height 30 :width 30 :alt "[merveilles]"}]]
+      [:a {:href "./jakeisnt.asc"} "[pgp]"]
 
-      [:a {:href "https://webring.xxiivv.com/#random" :target "_blank" :rel "noreferrer"} "[ring]"]
+      ;; [:a {:href "https://webring.xxiivv.com/#random" :target "_blank" :rel "noreferrer"} "[ring]"]
        ;;[:img {:src "icons/icon.black.svg" :style "margin-top:-3px;" :height 35 :width 34 :alt "[webring]"}]]
      ]
 
