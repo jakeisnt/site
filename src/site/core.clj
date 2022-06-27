@@ -13,7 +13,7 @@
   ")
 
 ;; TODO we can improve this import...
-(def info {:name "Jacob Chvatal"
+(def info {:name "Jake Chvatal"
            :email "jake@isnt.online"
            :twitter "jakeissnt"
            :instagram "jakeisnt"
@@ -62,7 +62,7 @@
      ;; TODO better description
      [:meta {:name "description" :content "hi im jake chvatal"}]
      ;; TODO keywords as list, assess keywords, etc.
-     [:meta {:name "keywords" :content "jacob, chvatal, webring, programming, languages"}]
+     [:meta {:name "keywords" :content "jake, chvatal, webring, programming, languages"}]
      [:meta {:name "author" :content (:name info)}]
      [:meta {:name "robots" :content "follow"}]
      [:meta {:name "viewport" :cntent "width=device-width, initial-scale=1.0"}]
