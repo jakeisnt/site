@@ -4,7 +4,7 @@
             [hiccup.form :as form])
   (:gen-class))
 
-;; TODO we can improve this import...
+;; TODO we probably don't need this import
 (def style 
   "@import url(\"https://jakeisnt.github.io/styles/main.css\");
   body {
@@ -14,7 +14,6 @@
   flex-direction: column;
   justify-content: center; 
   }")
-
 
 
 ;; TODO we can improve this import...
@@ -127,7 +126,7 @@
 
      [:div {:style "margin-top:35px;"}
       "This site is optimized for speed." [:br]
-      "More fun experiments to come."]]))
+      "Alternative experiments to come."]]))
 
 (defn -main
   "Generate a website and print it to STDOUT!"
