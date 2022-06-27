@@ -69,17 +69,17 @@
       [:p "I believe that everyone deserves the ability to use computing to express themselves. 
           To this end, I aim to build better interfaces - from web UIs to unix service layers - that improve the ways in which people understand and interact with their computers."]
 
-      [:p "I value high impact roles with missions that benefit everyone involved. " [:a {:href "https://cv.jacob.chvatal.com"} "My full CV's here"] "."]
+      [:p "I value high impact roles with missions that benefit everyone involved."]
 
       [:p 
-       "At " [:a {:href "https://skira.se"} "Skira"]", I helped democratize "[:br ]" the scandinavian grain market, " [:br]
-       "and at " [:a {:href "https://theroutingcompany.com"} "TRC"] " provide equitable access to public transportation." [:br]
-       "Also " 
-       [:a {:href "https://contra.work"} "contra"] " "
-       [:a {:href "https://psu.edu"} "psu"] " "
-       [:a {:href "https://nixos.org"} "nixos"] " "
-       [:a {:href "https://intel.com"} "intel"] " "
-       [:a {:href "https://cdkglobal.com"} "cdk"] "."]
+       "At " [:a {:href "https://skira.se"} "Skira"]", I helped democratize "[:br ]" the Scandinavian grain market, " [:br]
+       "and at " [:a {:href "https://theroutingcompany.com"} "TRC"] " I provide equitable access to public transportation." [:br]
+       "Others: " 
+       [:a {:href "https://sandboxnu.edu"} "sbox"] ", "
+       [:a {:href "https://psu.edu"} "psu"] ", "
+       [:a {:href "https://intel.com"} "intel"] ", "
+       [:a {:href "https://cdkglobal.com"} "cdk"] "." [:br]
+       "More details on " [:a {:href "https://cv.jacob.chvatal.com"} "my full CV"] "."]
 
       [:p 
        "Check out my " [:a {:href "https://wiki.jacob.chvatal.com"} "notes"] " and "
