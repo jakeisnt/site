@@ -7,13 +7,11 @@
 ;; TODO we probably don't need this import
 (def style 
   "@import url(\"https://jakeisnt.github.io/styles/main.css\");
-  body {
-  margin: 0;
-  display: flex;
-  padding: 2rem;
-  flex-direction: column;
-  justify-content: center; 
-  }")
+  body { margin: 0; display: flex; padding: 2rem; flex-direction: column; justify-content: center; }
+  details { padding-top: 0.5rem; } 
+  summary { padding-bottom: 0.5rem; }
+  main { max-width: 17rem; }
+  ")
 
 ;; whether to render images or just text!
 (def show-imgs nil)
@@ -27,6 +25,7 @@
            :mastodon "jakeisnt"
            :github "jakeisnt"
            :reddit "jakeisnt"
+           :arena "jake-isnt"
            :phone "15033308568" })
 
 ;; play with ascii converters? ditherers? https://github.com/LauJensen/Claskii/blob/master/src/claskii.clj
@@ -84,21 +83,31 @@
        "languages, user interfaces" [:br]
        "and sustainability."]
 
-      ;; mission statement
-      ;; Fundamentally, I believe that everyone deserves the right and ability to customize their computers to work for them.
-      ;; I believe that everyone deserves fast, powerful computers that serve their needs rather than the other way around.
+      [:p {:open true}
+       ;;[:summary "mission"]
+       [:span "I believe that everyone deserves the ability to express themselves with technology. Computers belong to us, not to corporations, and we deserve our bicycles of the mind."]]
 
-      [:p 
-       "I love working in high-impact roles that provide value able to benefit everyone involved." [:br]
-       "At " [:a {:href "https://skira.se"} "Skira"]", I helped revolutionize the Scandinavian grain industry," [:br]
-       "and at " [:a {:href "https://theroutingcompany.com"} "The Routing Company"] " I worked to provide equitable access to public transportation." ]
+      [:p {:open true}
+       ;; [:summary "work"]
+       [:span 
+        "I love high impact roles that benefit everyone involved." [:br]
+        "At " [:a {:href "https://skira.se"} "Skira"]" I helped revolutionize the scandinavian grain industry, " [:br]
+        "and at " [:a {:href "https://theroutingcompany.com"} "TRC"] " provided equitable access to public transportation." [:br]
+        "Also " 
+          [:a {:href "https://contra.work"} "contra"] " "
+          [:a {:href "https://psu.edu"} "psu"] " "
+          [:a {:href "https://nixos.org"} "nixos"] " "
+          [:a {:href "https://intel.com"} "intel"] " "
+          [:a {:href "https://cdkglobal.com"} "cdk"] "."]]
 
-      [:p "Feel free to look at " [:a {:href "https://wiki.jacob.chvatal.com"} "my notes"]"," [:br]
-        [:a {:href (str "https://github.com/" (:github info))} "my code"] " or " [:a {:href "https://cv.jacob.chvatal.com"} "my CV"] "."]
+      [:p {:open true}
+       ;;[:summary "contact"]
+       [:span "Here are my " [:a {:href "https://wiki.jacob.chvatal.com"} "notes"]", "
+        [:a {:href (str "https://github.com/" (:github info))} "code"] " and " [:a {:href "https://cv.jacob.chvatal.com"} "cv"] "." [:br]
 
-      [:p "I'm on " [:a {:href (str "https://twitter.com/" (:twitter info))} "twitter"] " and " 
-       [:a {:href (str "https://www.instagram.com/" (:instagram info))} "instagram"] "." [:br]
-       [:a {:href "mailto:jake@isnt.online" :target "_blank"} "Email"] " or " [:a {:href (str "sms://" (:phone info))} "text"] " me if you'd like."]
+        "I'm on " [:a {:href (str "https://twitter.com/" (:twitter info))} "twitter"] " and " 
+        [:a {:href (str "https://www.instagram.com/" (:instagram info))} "instagram"] "." [:br]
+        [:a {:href "mailto:jake@isnt.online" :target "_blank"} "Email"] " or " [:a {:href (str "sms://" (:phone info))} "text"] " me if you'd like."]]
 
       [:p "Chat soon," [:br] (:name info)]]]
 
@@ -106,15 +115,17 @@
     [:footer
      [:div {:style "display: flex; flex-direction: row;"}
       [:a {:href "https://creativecommons.org/licenses/by-nc-sa/4.0" :target "_blank" :rel "noreferrer"} "[cc]"]
-       ; [:img {:src "icons/cc.svg" :style "margin-right:5px;" :height 30 :width 30 :alt "[cc]"}] ]
+      ; [:img {:src "icons/cc.svg" :style "margin-right:5px;" :height 30 :width 30 :alt "[cc]"}] ]
 
-      [:a {:href (str "https://merveilles.town/@" (:mastodon info)) :target "_blank" :rel "noreferrer"} "[masto]"]
-       ;; [:img {:src "icons/merveilles.svg" :height 30 :width 30 :alt "[merveilles]"}]]
+      ;; [:a {:href (str "https://merveilles.town/@" (:mastodon info)) :target "_blank" :rel "noreferrer"} "[masto]"]
+      ;; [:img {:src "icons/merveilles.svg" :height 30 :width 30 :alt "[merveilles]"}]]
+
       [:a {:href "./jakeisnt.asc"} "[pgp]"]
+      [:a {:href (str "https://are.na/" (:arena info))} "[are.na]"]
 
       ;; [:a {:href "https://webring.xxiivv.com/#random" :target "_blank" :rel "noreferrer"} "[ring]"]
-       ;;[:img {:src "icons/icon.black.svg" :style "margin-top:-3px;" :height 35 :width 34 :alt "[webring]"}]]
-     ]
+      ;;[:img {:src "icons/icon.black.svg" :style "margin-top:-3px;" :height 35 :width 34 :alt "[webring]"}]]
+      ]
 
      [:div {:style "margin-top:1rem;"}
       "This site is optimized for speed." [:br]
