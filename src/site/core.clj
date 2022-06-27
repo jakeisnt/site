@@ -10,10 +10,13 @@
   body {
   margin: 0;
   display: flex;
-  padding: 40px;
+  padding: 2rem;
   flex-direction: column;
   justify-content: center; 
   }")
+
+;; whether to render images or just text!
+(def show-imgs nil)
 
 
 ;; TODO we can improve this import...
@@ -24,8 +27,7 @@
            :mastodon "jakeisnt"
            :github "jakeisnt"
            :reddit "jakeisnt"
-           ;; needs data type
-           :number "+1 503-330-8568"})
+           :phone "15033308568" })
 
 ;; play with ascii converters? ditherers? https://github.com/LauJensen/Claskii/blob/master/src/claskii.clj
 
@@ -38,16 +40,6 @@
   ensuring that the corresponding JSON structure is correct,"
   []
   "asdf")
-
-(defn email-to-web 
-  "Adds email to the web and attempts to mitigate spam by rewriting
-  it to something human readable, but not easily webcrawler interpretable.
-
-  Example:
-  jake@isnt.online => jake at isnt dot online
-  "
-  [email]
-  "blah")
 
 ;; how can i inject more personality into my website?
 ;; https://bypaulshen.com/ uses his sketches (& i love the layout)
@@ -80,13 +72,13 @@
      [:meta {:name "keywords" :content "jacob, chvatal, webring, programming, languages"}]
      [:meta {:name "author" :content (:name info)}]
      [:meta {:name "robots" :content "follow"}]
-     [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0"}]
+     [:meta {:name "viewport" :cntent "width=device-width, initial-scale=1.0"}]
      [:meta {:name "theme-color" :content "#fff"}]
 
-     ;; TODO new icon (make myself?)
-     [:link {:rel "apple-touch-icon" :sizes "180x180" :href "icons/apple-touch-icon.png"}]
-     [:link {:rel "icon" :type "image/png" :sizes "32x32" :href "icons/favicon-32x32.png"}]
-     [:link {:rel "icon" :type "image/png" :sizes "16x16" :href "icons/favicon-16x16.png"}]
+     ;; TODO new icon (make myself?). drop these for now.
+     ; [:link {:rel "apple-touch-icon" :sizes "180x180" :href "icons/apple-touch-icon.png"}]
+     ; [:link {:rel "icon" :type "image/png" :sizes "32x32" :href "icons/favicon-32x32.png"}]
+     ; [:link {:rel "icon" :type "image/png" :sizes "16x16" :href "icons/favicon-16x16.png"}]
      [:link {:rel "manifest" :href "/site.webmanifest"}]]
     [:body
      [:main 
@@ -99,32 +91,30 @@
        "and sustainability."]
 
       [:p "Feel free to look at " [:a {:href "https://wiki.jacob.chvatal.com"} "my notes"]"," [:br]
-       [:a {:href "https://jakeisnt.substack.com/p/coming-soon"} "subscribe"] " to my newsletter," [:br]
-       "or check out my " [:a {:href (str "https://github.com/" (:github info))} "code"] "."]
+        [:a {:href (str "https://github.com/" (:github info))} "my code"] " or " [:a {:href "https://cv.jacob.chvatal.com"} "my CV"] "."]
 
-      [:p "My CV can be found "[:a {:href "https://cv.jacob.chvatal.com"} "here"]"."]
-
-
-      ;; TODO phone number? 
-      [:p "Contact me on " [:a {:href (str "https://twitter.com/" (:twitter info))} "twitter"]"," [:br]
-       [:a {:href (str "https://reddit.com/user/" (:reddit info))} "reddit"]", " [:a {:href (str "https://www.instagram.com/" (:instagram info))} "instagram"] "," [:br]
-       "or " [:a {:href "mailto:jake at isnt period online" :target "_blank"} "via email"]" ("[:a {:href "./jakeisnt.asc"} "PGP key"]")."]
+      [:p "I'm on " [:a {:href (str "https://twitter.com/" (:twitter info))} "twitter"] " and " 
+       [:a {:href (str "https://www.instagram.com/" (:instagram info))} "instagram"] "." [:br]
+       [:a {:href "mailto:jake@isnt.online" :target "_blank"} "Email"] " or " [:a {:href (str "sms://" (:phone info))} "text"] " me if you'd like."]
+       
+       ;; "("[:a {:href "./jakeisnt.asc"} "PGP key"]")."
 
       [:p "Best," [:br] (:name info)]]]
 
     ;; TODO is this the right way to use the footer? find out!
     [:footer
      [:div {:style "display: flex; flex-direction: row;"}
-      [:a {:href "https://creativecommons.org/licenses/by-nc-sa/4.0" :target "_blank" :rel "noreferrer"}
-       [:img {:src "icons/cc.svg" :style "margin-right:5px;" :height 30 :width 30 :alt "[cc]"}]]
+      [:a {:href "https://creativecommons.org/licenses/by-nc-sa/4.0" :target "_blank" :rel "noreferrer"} "[cc]"]
+       ; [:img {:src "icons/cc.svg" :style "margin-right:5px;" :height 30 :width 30 :alt "[cc]"}] ]
 
-      [:a {:href (str "https://merveilles.town/@" (:mastodon info)) :target "_blank" :rel "noreferrer"}
-       [:img {:src "icons/merveilles.svg" :height 30 :width 30 :alt "[merveilles]"}]]
+      [:a {:href (str "https://merveilles.town/@" (:mastodon info)) :target "_blank" :rel "noreferrer"} "[masto]"]
+       ;; [:img {:src "icons/merveilles.svg" :height 30 :width 30 :alt "[merveilles]"}]]
 
-      [:a {:href "https://webring.xxiivv.com/#random" :target "_blank" :rel "noreferrer"}
-       [:img {:src "icons/icon.black.svg" :style "margin-top:-3px;" :height 35 :width 34 :alt "[webring]"}]]]
+      [:a {:href "https://webring.xxiivv.com/#random" :target "_blank" :rel "noreferrer"} "[ring]"]
+       ;;[:img {:src "icons/icon.black.svg" :style "margin-top:-3px;" :height 35 :width 34 :alt "[webring]"}]]
+     ]
 
-     [:div {:style "margin-top:35px;"}
+     [:div {:style "margin-top:1rem;"}
       "This site is optimized for speed." [:br]
       "Alternative experiments to come."]]))
 
