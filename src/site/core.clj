@@ -7,7 +7,7 @@
 ;; TODO we probably don't need this import
 (def style 
   "html { font-family: sans-serif; }
-  body { max-width: 17rem; margin: 0; padding-left: 2rem; padding-top: 1rem; }")
+  body { max-width: 17rem; margin: 0; padding: 1rem 2rem; }")
 
 ;; TODO we can improve this import...
 (def info {:name "Jake Chvatal"
@@ -52,17 +52,13 @@
      [:meta {:charset "utf-8"}]
      [:meta {:property "og:title" :content (:name info)}]
      [:meta {:property "og:type" :content "website"}]
-
-     ;; TODO avatar? i don't like this one, really.
-     ;; [:meta {:property "og:image" :content "https://avatars0.githubusercontent.com/u/29869612?s=400&u=32e0c272cbfcc32b8e9585f74ce57d197aa14fb0&v=4"}]
-
      ;; TODO better description
-     [:meta {:name "description" :content "hi im jake chvatal"}]
+     [:meta {:name "description" :content "jake chvatal's website"}]
      ;; TODO keywords as list, assess keywords, etc.
      [:meta {:name "keywords" :content "jake, chvatal, webring, programming, languages"}]
      [:meta {:name "author" :content (:name info)}]
      [:meta {:name "robots" :content "follow"}]
-     [:meta {:name "viewport" :cntent "width=device-width, initial-scale=1.0"}]
+     [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0"}]
      [:meta {:name "theme-color" :content "#fff"}]
      [:link {:rel "manifest" :href "/site.webmanifest"}]]
     [:body
@@ -102,10 +98,7 @@
       [:div {:style "display: flex; flex-direction: row;"}
        [:a {:href "https://creativecommons.org/licenses/by-nc-sa/4.0" :target "_blank" :rel "noreferrer"} "[cc]"]
        [:a {:href "./jakeisnt.asc"} "[pgp]"]
-       [:a {:href (str "https://are.na/" (:arena info))} "[are.na]"]]]
-
-     ;; TODO is this the right way to use the footer? find out!
-     ]))
+       [:a {:href (str "https://are.na/" (:arena info))} "[are.na]"]]]]))
 
 (defn -main
   "Generate a website and print it to STDOUT!"
