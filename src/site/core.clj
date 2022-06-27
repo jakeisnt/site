@@ -6,10 +6,9 @@
 
 ;; TODO we probably don't need this import
 (def style 
-  "@import url(\"https://jakeisnt.github.io/styles/main.css\");
-  body { margin: 0; display: flex; padding: 2rem; flex-direction: column; justify-content: center; }
-  details { padding-top: 0.5rem; } 
-  summary { padding-bottom: 0.5rem; }
+  "
+  html { font-family: sans-serif; }
+  body { margin: 0; display: flex; padding-left: 2rem; padding-top: 1rem; flex-direction: column; justify-content: center; }
   main { max-width: 17rem; }
   ")
 
@@ -77,21 +76,25 @@
      [:main 
       [:p "Hey, welcome to my site."]
 
-      [:p
-       "I'm a student at " [:a {:href "https://northeastern.edu" :target "_blank" :rel "noreferrer"} "Northeastern"] [:br]
-       "interested in programming" [:br]
-       "languages, user interfaces" [:br]
-       "and sustainability."]
+      ; [:p
+      ;  "I'm a student at " [:a {:href "https://northeastern.edu" :target "_blank" :rel "noreferrer"} "Northeastern"] [:br]
+      ;  "interested in programming languages, design systems, user interfaces and sustainability."]
 
       [:p {:open true}
        ;;[:summary "mission"]
-       [:span "I believe that everyone deserves the ability to express themselves with technology. Computers belong to us, not to corporations, and we deserve our bicycles of the mind."]]
+       [:span "I believe that everyone deserves the ability to express themselves with technology. 
+              I work to build better interfaces to today's computers and teach people to take control of their technology.
+              "]]
+
+      [:p "I believe that software should be built to last.
+          Software should be modular, disciplined, and easy to understand.
+          It should run on devices twenty years old just as easily as on my device today."]
 
       [:p {:open true}
        ;; [:summary "work"]
        [:span 
-        "I love high impact roles that benefit everyone involved." [:br]
-        "At " [:a {:href "https://skira.se"} "Skira"]" I helped revolutionize the scandinavian grain industry, " [:br]
+        "I cherish high impact roles that benefit everyone involved." [:br]
+        "At " [:a {:href "https://skira.se"} "Skira"]" I helped revolutionize the scandinavian grain industry " [:br]
         "and at " [:a {:href "https://theroutingcompany.com"} "TRC"] " provided equitable access to public transportation." [:br]
         "Also " 
           [:a {:href "https://contra.work"} "contra"] " "
