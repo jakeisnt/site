@@ -1,18 +1,18 @@
-#+TITLE: jacob.chvatal.com
+#+TITLE: jake.chvatal.com
 
-This is the index of my personal website, found [[https://jacob.chvatal.com][here]].
-It's designed to be minimal, providing a brief overview of who I am as well as a variety of links to other services with no JavaScript involved.
-No frameworks, no nonsense. Why load several megabytes of data if I only need ~3 kb for something that looks good and conveys all of the right information?
-
+This is the index of my personal website found [[https://jake.chvatal.com][here]].
 100% score on the [[https://www.foo.software/lighthouse][Lighthouse audit]].
 
 * Goals
-- completely optimize a site: display only what i feel is necessary
-- shoot for the less than 10 packet goal, showing off rendering and loading tricks
-  to prevent blocking actions and documenting these decisions
-- custom static site generation from other sources
-- research into 'minimal tech' and keeping it simple
+- Personal landing page with links
+- No external resources loaded
+- SEO Optimized
+- Ten packets (to load instantly)
 
 * Running
-This website locally renders its sources through a Clojure script. ``` lein run > index.html ``` regenerates the home page from a source configuration.
+To render the website:
+#+BEGIN_SRC sh
+lein run > index.html
+#+END_SRC
 
+The website's written in Clojure because it provides, IMO, the most ergonomic HTML DSL available, `hiccup`. Though other languages provide similar facilities, Clojure provides the nicest syntax without incurring the up-front development costs associated with strong types or legacy work associated with other lisps.
