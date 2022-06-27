@@ -6,11 +6,8 @@
 
 ;; TODO we probably don't need this import
 (def style 
-  "
-  html { font-family: sans-serif; }
-  body { margin: 0; display: flex; padding-left: 2rem; padding-top: 1rem; flex-direction: column; justify-content: center; }
-  main { max-width: 17rem; }
-  ")
+  "html { font-family: sans-serif; }
+  body { max-width: 17rem; margin: 0; padding-left: 2rem; padding-top: 1rem; }")
 
 ;; TODO we can improve this import...
 (def info {:name "Jake Chvatal"
@@ -101,13 +98,14 @@
        [:a {:href "mailto:jake@isnt.online" :target "_blank"} "Email"] " or " [:a {:href (str "sms://" (:phone info))} "text"] " me if you'd like."]
 
       [:p "Chat soon," [:br] (:name info)]]
-
-     ;; TODO is this the right way to use the footer? find out!
-     [:footer
+[:div
       [:div {:style "display: flex; flex-direction: row;"}
        [:a {:href "https://creativecommons.org/licenses/by-nc-sa/4.0" :target "_blank" :rel "noreferrer"} "[cc]"]
        [:a {:href "./jakeisnt.asc"} "[pgp]"]
-       [:a {:href (str "https://are.na/" (:arena info))} "[are.na]"]]]]))
+       [:a {:href (str "https://are.na/" (:arena info))} "[are.na]"]]]
+
+     ;; TODO is this the right way to use the footer? find out!
+     ]))
 
 (defn -main
   "Generate a website and print it to STDOUT!"
