@@ -69,7 +69,7 @@
       [:p "I believe that everyone deserves the ability to express themselves with computing. 
           I build better interfaces to today's computers and teach people to take control of their technology."]
 
-      [:p "I value high impact roles with missions that benefit everyone involved. (" [:a {:href "https://cv.jacob.chvatal.com"} "My CV's here"] ")."]
+      [:p "I value high impact roles with missions that benefit everyone involved. (" [:a {:href "https://cv.jacob.chvatal.com"} "My full CV's here"] ")."]
 
       [:p 
        "At " [:a {:href "https://skira.se"} "Skira"]" I helped democratize "[:br ]" the scandinavian grain market " [:br]
@@ -82,8 +82,8 @@
        [:a {:href "https://cdkglobal.com"} "cdk"] "."]
 
       [:p 
-       "Here are my " [:a {:href "https://wiki.jacob.chvatal.com"} "notes"]", "
-       [:a {:href (str "https://github.com/" (:github info))} "code"] " and "  "." [:br]
+       "Check out my " [:a {:href "https://wiki.jacob.chvatal.com"} "notes"] " and "
+       [:a {:href (str "https://github.com/" (:github info))} "code"] "!" [:br]
 
        "I'm on " [:a {:href (str "https://twitter.com/" (:twitter info))} "twitter"] " and " 
        [:a {:href (str "https://www.instagram.com/" (:instagram info))} "instagram"] "." [:br]
