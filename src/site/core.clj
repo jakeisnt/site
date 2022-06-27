@@ -107,11 +107,7 @@
       [:div {:style "display: flex; flex-direction: row;"}
        [:a {:href "https://creativecommons.org/licenses/by-nc-sa/4.0" :target "_blank" :rel "noreferrer"} "[cc]"]
        [:a {:href "./jakeisnt.asc"} "[pgp]"]
-       [:a {:href (str "https://are.na/" (:arena info))} "[are.na]"] ]
-
-      [:div {:style "margin-top: 1rem;"}
-       "This site is optimized for speed." [:br]
-       "More web experiments soon!"]]]))
+       [:a {:href (str "https://are.na/" (:arena info))} "[are.na]"]]]]))
 
 (defn -main
   "Generate a website and print it to STDOUT!"
