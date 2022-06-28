@@ -67,6 +67,25 @@
      [:link {:rel "manifest" :href "/site.webmanifest"}]]
     [:body body]))
 
+(defn table-homepage
+  "Generate a structured table homepage for the website"
+  [info]
+  (webpage 
+    ""
+    info
+    [:main
+     [:div 
+     [:table
+      [:thead [:tr [:th "Information"]]]
+      ;; TODO auto generate this thing
+      [:tbody 
+       [:tr [:td "Name"] [:td (:name info)]]
+       [:tr [:td "Contact"] [:td ]]
+       ;; etc...
+       ]]
+     
+     ]]))
+
 
 (defn gen-homepage 
   "Generate a homepage for the website."
