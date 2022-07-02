@@ -70,7 +70,7 @@
 
 
 (defn article 
-  "Generate a journal article"
+  "Generate a journal article abiding by the https://journal.miso.town specification"
   [info]
   [:article 
    [:h1 (str (:date info))] ;; must be ISO 8601: YYYY-MM-DD
