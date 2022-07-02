@@ -45,6 +45,7 @@
 ;   we want the process to be reversible, and we do not want to pollute this page with any more bloat than necessary
 
 
+
 (defn webpage
   "Generate a webpage body thing"
   [style info body]
@@ -66,6 +67,30 @@
      [:meta {:name "theme-color" :content "#fff"}]
      [:link {:rel "manifest" :href "/site.webmanifest"}]]
     [:body body]))
+
+
+(defn article 
+  "Generate a journal article"
+  [info]
+  [:article 
+   [:h1 (str (:date info))] ;; must be ISO 8601: YYYY-MM-DD
+   [:p (:body info)]])
+
+(defn journal
+  "Generate a journal page for a website"
+  [articles]
+  (webpage 
+    false
+    {:name "journal - jake chvatal"}
+    [:main
+    (conj  
+      [:h1 "jake's journal"]
+      (map article articles))]))
+
+
+;; TODO:
+;; inspired by structured data, old technical sheets and printouts, as well as interfaces like nushell and neil.computer,
+;; create a table view that mirrors some query of key value pairs that can be queried for by a client requesting an edn file (or a JSON file?) hosted by the server!
 
 (defn table-homepage
   "Generate a structured table homepage for the website"
