@@ -20,7 +20,7 @@
            :github "jakeisnt"
            :reddit "jakeisnt"
            :arena "jake-isnt"
-           :cv "https://cv.jacob.chvatal.com"
+           :cv "https://cv.jake.chvatal.com"
            :phone "15033308568" })
 
 ;; play with ascii converters? ditherers? https://github.com/LauJensen/Claskii/blob/master/src/claskii.clj
