@@ -78,7 +78,7 @@
        "At " [:a {:href "https://skira.se"} "Skira"]", I helped democratize "[:br ]" the Scandinavian grain market, " [:br]
        "and at " [:a {:href "https://theroutingcompany.com"} "TRC"] " I provide equitable access to public transportation." [:br]
        "Others: " 
-       [:a {:href "https://sandboxnu.edu"} "sbox"] ", "
+       [:a {:href "https://sandboxnu.com"} "sbox"] ", "
        [:a {:href "https://psu.edu"} "psu"] ", "
        [:a {:href "https://intel.com"} "intel"] ", "
        [:a {:href "https://cdkglobal.com"} "cdk"] "." [:br]
