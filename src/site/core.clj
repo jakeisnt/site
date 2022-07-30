@@ -6,8 +6,8 @@
 
 ;; TODO we probably don't need this import
 (def style 
-  "html { font-family: monospace, monospace; }
-  body { max-width: 20rem; margin: 0; padding: 1rem 2rem; }
+  "html { font-size: 20px; letter-spacing: 1px; font-family: \"Helvetica Neue\", Arial, sans-serif; word-wrap: break-word; hyphens: auto; }
+  body { max-width: 16rem; margin: 0; padding: 1rem 2rem; }
   .foot { padding-right: 0.5rem; }
   ")
 
@@ -20,7 +20,7 @@
            :github "jakeisnt"
            :reddit "jakeisnt"
            :arena "jake-isnt"
-           :cv "https://cv.jake.chvatal.com"
+           :cv "http://cv.jake.chvatal.com"
            :phone "15033308568" })
 
 ;; play with ascii converters? ditherers? https://github.com/LauJensen/Claskii/blob/master/src/claskii.clj
@@ -66,13 +66,13 @@
      [:link {:rel "manifest" :href "/site.webmanifest"}]]
     [:body
      [:main 
-      [:p "Hey! I'm Jake, a student at " [:a {:href "https://northeastern.edu" :target "_blank" :rel "noreferrer"} "NEU"]
+      [:p "Hey! I'm Jake, a student at " [:a {:href "https://northeastern.edu" :target "_blank" :rel "noreferrer"} "Northeastern"]
        " interested in user interfaces, programming languages and sustainability."]
 
       [:p "I believe that everyone deserves the ability to use computing to express themselves. 
           To this end, I aim to build better interfaces - from web UIs to "[:a {:href "https://github.com/jakeisnt/nixcfg/"} "unix service layers"]" - that improve ways in which people understand and interact with their computers."]
 
-      [:p "I value high impact roles with missions that benefit everyone involved."]
+      [:p "I value high impact roles at organizations with missions that directly benefit people."]
 
       [:p 
        "At " [:a {:href "https://skira.se"} "Skira"]", I helped democratize "[:br ]" the Scandinavian grain market, " [:br]
