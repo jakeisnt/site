@@ -6,7 +6,7 @@
 
 ;; TODO we probably don't need this import
 (def style 
-  "html { font-size: 20px; letter-spacing: 1px; font-family: \"Helvetica Neue\", Arial, sans-serif; word-wrap: break-word; hyphens: auto; }
+  "html { font-size: 18px; letter-spacing: 1px; font-family: \"Helvetica Neue\", Arial, sans-serif; word-wrap: break-word; hyphens: auto; }
   body { max-width: 16rem; margin: 0; padding: 1rem 2rem; }
   .foot { padding-right: 0.5rem; }
   ")
