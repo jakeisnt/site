@@ -3,6 +3,11 @@
 *.log
 tmp/
 
+.cpcache/
+.shadow-cljs/
+node_modules/
+public/
+
 secrets.py
 
 # Added by cargo
