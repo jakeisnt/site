@@ -29,3 +29,6 @@ pom.xml.asc
 .hg/
 
 src/site/.nrepl_port
+
+.direnv/
+!.direnv/.git-keep
