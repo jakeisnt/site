@@ -93,7 +93,8 @@ body { max-width: 16rem; margin: 0; padding: 1rem 2rem; }
 
 
 (gen-homepage)
-(with-open-file (str "./site.html"
+
+(with-open-file (str "./index.html"
                      :direction :output
                      :if-exists :supersede
                      :if-does-not-exist :create)
