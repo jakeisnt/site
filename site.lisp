@@ -20,7 +20,6 @@
 (defvar *style* "
 html { font-size: 18px; letter-spacing: 1px; font-family: \"Helvetica Neue\", Arial, sans-serif; word-wrap: break-word; hyphens: auto; }
 body { max-width: 16rem; margin: 0; padding: 1rem 2rem; }
-a { margin-right: -5px; }
 .foot { padding-right: 0.5rem; }
 ")
 
@@ -37,19 +36,6 @@ a { margin-right: -5px; }
 
 ;; example of a flute html template:
 (in-package :flute-user)
-(element-string (html
-              (head
-               (link :rel "...")
-               (script :src "..."))
-              (body
-               (div :id "a" :class "b"
-                    (p :style "color: red"
-                       "Some text")
-                    "Some text in div"
-                    (img :src "/img/dog.png")
-                    (a '(:href "/cat")
-                       (img '((:src . "/img/cat.png"))))))))
-
 
 (defun gen-homepage ()
   (html
@@ -79,7 +65,7 @@ a { margin-right: -5px; }
 
      (p
       "At " (a :href "https://skira.se" "Skira") ", I helped democratize " (br) " the Scandinavian grain market, " (br)
-      "and at " (a :href "https://theroutingcompany.com" "TRC") " I provide equitable access to public transportation." (br)
+
       "Others: "
       (a :href "https://sandboxnu.com" "sbox") ", "
       (a :href "https://psu.edu" "psu") ", "
