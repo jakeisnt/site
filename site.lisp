@@ -9,6 +9,8 @@
 ;; https://gist.github.com/privet-kitty/e5abd3f09485c5828af81ad02e8c2baf
 ;; worth looking into;;
 
+;; writing javascript code with common lisp: https://40ants.com/lisp-project-of-the-day/2020/05/0071-parenscript.html
+;; how do we make a nice way of interactively compiling it? is there a good way to set up a dev server to do this kind of thing?
 
 ;; TODO: make a macro to reduce noise here
 ;; (defmacro defparameters)
