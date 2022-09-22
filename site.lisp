@@ -1,5 +1,7 @@
 (load "~/quicklisp/setup.lisp")
 
+(load "./js.lisp")
+
 (ql:quickload :flute)
 (ql:quickload :flute-test)
 (ql:quickload 'css-lite)
@@ -66,6 +68,9 @@
    (head
     (title *name*)
     (style *style*)
+    (script
+     (ps (greeting-callback))
+     )
     (meta :charset "utf-8")
     (meta :property "og:title" :content *name*)
     (meta :property "og:type" :content "website")
