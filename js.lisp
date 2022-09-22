@@ -15,22 +15,31 @@
                      :direction :output
                      :if-exists :supersede
                      :if-does-not-exist :create)
-  (format str (ps
-    (defun dyn-load (src id)
-      (let ((s (chain document (create-element "script"))))
-        (chain s (set-attribute "src" src))
-        (chain s (set-attribute "id" id))
-        s))
+  (format
+   str
+   (ps
+     ;; dynamically load documentation from a script,
+     ;; associating it with an id
+     (defun dyn-load (src id)
+       (let ((s (chain document (create-element "script"))))
+         (chain console (log "i am hypothesis"))
+         (chain s (set-attribute "src" src))
+         (chain s (set-attribute "id" id))
+         (chain s (set-attribute "async" t))
+         s))
 
-    (defun load-hypothesis ()
-      (dyn-load "https://hypothes.is/embed.js" "hypothesis"))
+     ;; load the hypothesis browser extension
+     (defun load-hypothesis ()
+       (chain
+        document
+        body
+        (append-child
+         (dyn-load "https://hypothes.is/embed.js" "hypothesis"))))
 
-    (defun unload-hypothesis ()
-      (let ((annotator-link (chain document (query-selector "link[type=\"application/annotator+html\"]"))))
-        (if annotator-link
-            (let ((destroy-event (new (-Event "destroy")))) (chain annotator-link (dispatch-event destroy-event))))))
-    (defun greeting-callback ()
-      (alert "Hello World"))
+     ;; unload the hypothesis browser extension
+     (defun unload-hypothesis ()
+       (let ((annotator-link (chain document (query-selector "link[type=\"application/annotator+html\"]"))))
+         (if annotator-link
+             (let ((destroy-event (new (-Event "destroy")))) (chain annotator-link (dispatch-event destroy-event))))))
 
-    (load-hypothesis)
-    (greeting-callback))))
+     (load-hypothesis))))
