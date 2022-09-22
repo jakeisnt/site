@@ -47,14 +47,11 @@
            (let ((destroy-event (new (-Event "destroy")))) (chain annotator-link (dispatch-event destroy-event)))))
 
      (defun toggle-hypothesis ()
-       (print "loading hypothesis")
        (let ((annotator-link (hypothesis-annotator-link)))
-         (print "trying to print annotator link")
-         (print annotator-link)
          (if annotator-link
              (unload-hypothesis annotator-link)
              (load-hypothesis))))
 
-
+     ;; respect the current state of the checkbox when loading hypothes.is
      (let ((hypothesis-doc (chain document (get-element-by-id "hypothesis-checkbox"))))
        (if (chain hypothesis-doc checked) (load-hypothesis))))))
