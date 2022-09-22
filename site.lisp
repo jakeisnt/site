@@ -66,7 +66,6 @@
    (head
     (title *name*)
     (style *style*)
-    (script :src "./lib.js")
     (meta :charset "utf-8")
     (meta :property "og:title" :content *name*)
     (meta :property "og:type" :content "website")
@@ -111,7 +110,11 @@
       (div :style "display: flex; flex-direction: row;"
            (a :class "foot" :href "https://creativecommons.org/licenses/by-nc-sa/4.0" :target "_blank" :rel "noreferrer" "[cc]")
            (a :class "foot" :href "./jakeisnt.asc" "[pgp]")
-           (a :class "foot" :href (concatenate 'string "https://are.na" *arena*) "[are.na]")))))))
+           (a :class "foot" :href (concatenate 'string "https://are.na" *arena*) "[are.na]"))))
+
+          ;; load scripts at the end
+
+          (script :type "text/javascript" :src "./lib.js" ""))))
 
 
 (with-open-file (str "./index.html"

@@ -7,7 +7,7 @@
 ;; evaluation in an immutable fashion. that would be cool.
 
 (defpackage ps-code
-  (:use "COMMON-LISP" "PARENSCRIPT" ))  ;; :cl :parenscript (should be identical lol)
+  (:use :cl :parenscript))  ;; :cl :parenscript (should be identical lol)
 
 (in-package ps-code)
 
@@ -15,7 +15,7 @@
                      :direction :output
                      :if-exists :supersede
                      :if-does-not-exist :create)
-  (ps
+  (format str (ps
     (defun dyn-load (src id)
       (let ((s (chain document (create-element "script"))))
         (chain s (set-attribute "src" src))
@@ -33,4 +33,4 @@
       (alert "Hello World"))
 
     (load-hypothesis)
-    (greeting-callback)))
+    (greeting-callback))))
