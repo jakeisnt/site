@@ -46,6 +46,7 @@
        (if annotator-link
            (let ((destroy-event (new (-Event "destroy")))) (chain annotator-link (dispatch-event destroy-event)))))
 
+     ;; toggle the hypothesis extension on or off
      (defun toggle-hypothesis ()
        (let ((annotator-link (hypothesis-annotator-link)))
          (if annotator-link
