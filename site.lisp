@@ -60,6 +60,11 @@
 (defparameter *cv* "https://cv.jake.chvatal.com")
 (defparameter *phone* "15033308568")
 
+
+(define-element checkbox-menu ()
+  (div :style "margin-top: 1rem; padding: 0.5rem 0.25rem; max-width: 10rem; border: 1px solid black; background-color: hsl(0, 0%, 96.5%);"
+       (input :type "checkbox" :id "hypothesis-checkbox" :checked "false" :onclick "toggleHypothesis()" "hypothes.is")))
+
 (defun gen-homepage ()
   (html
    :lang "en-us"
@@ -111,8 +116,8 @@
            (a :class "foot" :href "https://creativecommons.org/licenses/by-nc-sa/4.0" :target "_blank" :rel "noreferrer" "[cc]")
            (a :class "foot" :href "./jakeisnt.asc" "[pgp]")
            (a :class "foot" :href (concatenate 'string "https://are.na" *arena*) "[are.na]")))
-     (div :style "padding-top: 1rem"
-      (input :type "checkbox" :id "hypothesis-checkbox" :checked "false" :onclick "toggleHypothesis()" "hypothes.is")))
+
+     (checkbox-menu))
     ;; load scripts at the end
 
     (script :type "text/javascript" :src "./lib.js" ""))))
