@@ -7,6 +7,8 @@
 (defpackage flute-page
   (:use :cl :flute))
 
+(setf css-lite:*indent-css* 2)
+
 ;; https://gist.github.com/privet-kitty/e5abd3f09485c5828af81ad02e8c2baf
 ;; worth looking into;;
 
