@@ -2,9 +2,12 @@
 
 (ql:quickload :flute)
 (ql:quickload :flute-test)
+(ql:quickload 'css-lite)
 
 (defpackage flute-page
   (:use :cl :flute))
+
+(setf css-lite:*indent-css* 2)
 
 ;; https://gist.github.com/privet-kitty/e5abd3f09485c5828af81ad02e8c2baf
 ;; worth looking into;;
@@ -19,12 +22,31 @@
 
 ;; (defv name "jake")
 
-(defparameter *style* "
+(in-package :flute-page)
+
+(defparameter *font-url*
+  "
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
-html { font-size: 18px; font-family: \"Noto Sans\", sans-serif; word-wrap: break-word; hyphens: auto; }
-body { max-width: 16rem; margin: 0; padding: 1rem 2rem; }
-.foot { padding-right: 0.5rem; }
 ")
+
+(defparameter *style* 
+  (concatenate
+   'string
+   *font-url*
+   (css-lite:css
+     (("html")
+      (:font-size "18px"
+       :font-family "\"Noto Sans\", sans-serif"
+       :word-wrap "break-word"
+       :hyphens "auto")))
+   (css-lite:css
+     (("body")
+      (:max-width "16rem"
+       :margin 0
+       :padding "1rem 2rem")))
+   (css-lite:css
+     ((".foot")
+      (:padding-right "0.5rem")))))
 
 
 (defparameter *name* "Jake Chvatal")
@@ -38,8 +60,10 @@ body { max-width: 16rem; margin: 0; padding: 1rem 2rem; }
 (defparameter *cv* "https://cv.jake.chvatal.com")
 (defparameter *phone* "15033308568")
 
-;; example of a flute html template:
-(in-package :flute-page)
+
+(define-element checkbox-menu ()
+  (div :style "margin-top: 1rem; padding: 0.5rem 0.25rem; max-width: 10rem; border: 1px solid black; background-color: hsl(0, 0%, 96.5%);"
+       (input :type "checkbox" :id "hypothesis-checkbox" :checked "false" :onclick "toggleHypothesis()" "hypothes.is")))
 
 (defun gen-homepage ()
   (html
@@ -91,10 +115,13 @@ body { max-width: 16rem; margin: 0; padding: 1rem 2rem; }
       (div :style "display: flex; flex-direction: row;"
            (a :class "foot" :href "https://creativecommons.org/licenses/by-nc-sa/4.0" :target "_blank" :rel "noreferrer" "[cc]")
            (a :class "foot" :href "./jakeisnt.asc" "[pgp]")
-           (a :class "foot" :href (concatenate 'string "https://are.na" *arena*) "[are.na]")))))))
+           (a :class "foot" :href (concatenate 'string "https://are.na" *arena*) "[are.na]")))
 
+     (checkbox-menu))
+    ;; load scripts at the end
 
-(gen-homepage)
+    (script :type "text/javascript" :src "./lib.js" ""))))
+
 
 (with-open-file (str "./index.html"
                      :direction :output
