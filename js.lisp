@@ -2,32 +2,35 @@
 
 (ql:quickload :parenscript)
 
-(defpackage ps-tutorial
-  (:use :parenscript))
-
-(in-package :ps-tutorial)
-
 ;; i want common lisp to have some traversable evaluation tree
 ;; in which i can view previous or future states of the editor before and after
 ;; evaluation in an immutable fashion. that would be cool.
 
-(ps
-  (defun dyn-load (src id)
-    (let ((s (chain document (create-element "script"))))
-      (chain s (set-attribute "src" src))
-      (chain s (set-attribute "id" id))
-      s))
+(defpackage ps-code
+  (:use "COMMON-LISP" "PARENSCRIPT" ))  ;; :cl :parenscript (should be identical lol)
 
-  (defun load-hypothesis ()
-    (dyn-load "https://hypothes.is/embed.js" "hypothesis"))
+(in-package ps-code)
 
-  (defun unload-hypothesis ()
-    (let ((annotator-link (chain document (query-selector "link[type=\"application/annotator+html\"]"))))
-      (if annotator-link
-        (let ((destroy-event (new (-Event "destroy"))))
-          (chain annotator-link (dispatch-event destroy-event))))))
+(with-open-file (str "./lib.js"
+                     :direction :output
+                     :if-exists :supersede
+                     :if-does-not-exist :create)
+  (ps
+    (defun dyn-load (src id)
+      (let ((s (chain document (create-element "script"))))
+        (chain s (set-attribute "src" src))
+        (chain s (set-attribute "id" id))
+        s))
 
-  (defun greeting-callback ()
-    (alert "Hello World"))
+    (defun load-hypothesis ()
+      (dyn-load "https://hypothes.is/embed.js" "hypothesis"))
 
-  (greeting-callback))
+    (defun unload-hypothesis ()
+      (let ((annotator-link (chain document (query-selector "link[type=\"application/annotator+html\"]"))))
+        (if annotator-link
+            (let ((destroy-event (new (-Event "destroy")))) (chain annotator-link (dispatch-event destroy-event))))))
+    (defun greeting-callback ()
+      (alert "Hello World"))
+
+    (load-hypothesis)
+    (greeting-callback)))

@@ -1,17 +1,11 @@
 (load "~/quicklisp/setup.lisp")
 
-(load "./js.lisp")
-
 (ql:quickload :flute)
 (ql:quickload :flute-test)
 (ql:quickload 'css-lite)
-(ql:quickload :parenscript)
 
 (defpackage flute-page
   (:use :cl :flute))
-
-(defpackage ps-code
-  (:use :parenscript))
 
 (setf css-lite:*indent-css* 2)
 
@@ -27,29 +21,6 @@
 ;;   `(defparameter ,(read-from-string (format nil "~{~a~}" name)) ,val))
 
 ;; (defv name "jake")
-(in-package ps-code)
-
-(defconstant *code*
-  (ps (defun dyn-load (src id)
-        (let ((s (chain document (create-element "script"))))
-          (chain s (set-attribute "src" src))
-          (chain s (set-attribute "id" id))
-          s))
-
-    (defun load-hypothesis ()
-      (dyn-load "https://hypothes.is/embed.js" "hypothesis"))
-
-    (defun unload-hypothesis ()
-      (let ((annotator-link (chain document (query-selector "link[type=\"application/annotator+html\"]"))))
-        (if annotator-link
-            (let ((destroy-event (new (-Event "destroy"))))
-              (chain annotator-link (dispatch-event destroy-event))))))
-
-    (defun greeting-callback ()
-      (alert "Hello World"))
-    (load-hypothesis)
-    (greeting-callback)))
-
 
 (in-package :flute-page)
 
@@ -95,7 +66,7 @@
    (head
     (title *name*)
     (style *style*)
-    (script *code*)
+    (script :src "./lib.js")
     (meta :charset "utf-8")
     (meta :property "og:title" :content *name*)
     (meta :property "og:type" :content "website")
@@ -142,8 +113,6 @@
            (a :class "foot" :href "./jakeisnt.asc" "[pgp]")
            (a :class "foot" :href (concatenate 'string "https://are.na" *arena*) "[are.na]")))))))
 
-
-(gen-homepage)
 
 (with-open-file (str "./index.html"
                      :direction :output
