@@ -2,6 +2,7 @@
 
 (ql:quickload :flute)
 (ql:quickload :flute-test)
+(ql:quickload 'css-lite)
 
 (defpackage flute-page
   (:use :cl :flute))
@@ -19,12 +20,31 @@
 
 ;; (defv name "jake")
 
-(defparameter *style* "
+(in-package :flute-page)
+
+(defparameter *font-url*
+"
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
-html { font-size: 18px; font-family: \"Noto Sans\", sans-serif; word-wrap: break-word; hyphens: auto; }
-body { max-width: 16rem; margin: 0; padding: 1rem 2rem; }
-.foot { padding-right: 0.5rem; }
 ")
+
+(defparameter *style* 
+  (concatenate
+   'string
+   *font-url*
+   (css-lite:css
+     (("html")
+      (:font-size "18px"
+       :font-family "\"Noto Sans\", sans-serif"
+       :word-wrap "break-word"
+       :hyphens "auto")))
+   (css-lite:css
+     (("body")
+      (:max-width "16rem"
+       :margin 0
+       :padding "1rem 2rem")))
+   (css-lite:css
+     ((".foot")
+      (:padding-right "0.5rem")))))
 
 
 (defparameter *name* "Jake Chvatal")
@@ -37,9 +57,6 @@ body { max-width: 16rem; margin: 0; padding: 1rem 2rem; }
 (defparameter *arena* "jake-isnt")
 (defparameter *cv* "https://cv.jake.chvatal.com")
 (defparameter *phone* "15033308568")
-
-;; example of a flute html template:
-(in-package :flute-page)
 
 (defun gen-homepage ()
   (html
