@@ -18,11 +18,13 @@
   (format
    str
    (ps
+     (defun print (txt)
+       (chain console (log txt)))
+
      ;; dynamically load documentation from a script,
      ;; associating it with an id
      (defun dyn-load (src id)
        (let ((s (chain document (create-element "script"))))
-         (chain console (log "i am hypothesis"))
          (chain s (set-attribute "src" src))
          (chain s (set-attribute "id" id))
          (chain s (set-attribute "async" t))
@@ -36,10 +38,23 @@
         (append-child
          (dyn-load "https://hypothes.is/embed.js" "hypothesis"))))
 
-     ;; unload the hypothesis browser extension
-     (defun unload-hypothesis ()
-       (let ((annotator-link (chain document (query-selector "link[type=\"application/annotator+html\"]"))))
-         (if annotator-link
-             (let ((destroy-event (new (-Event "destroy")))) (chain annotator-link (dispatch-event destroy-event))))))
+     (defun hypothesis-annotator-link ()
+       (chain document (query-selector "link[type=\"application/annotator+html\"]")))
 
-     (load-hypothesis))))
+     ;; unload the hypothesis browser extension
+     (defun unload-hypothesis (annotator-link)
+       (if annotator-link
+           (let ((destroy-event (new (-Event "destroy")))) (chain annotator-link (dispatch-event destroy-event)))))
+
+     (defun toggle-hypothesis ()
+       (print "loading hypothesis")
+       (let ((annotator-link (hypothesis-annotator-link)))
+         (print "trying to print annotator link")
+         (print annotator-link)
+         (if annotator-link
+             (unload-hypothesis annotator-link)
+             (load-hypothesis))))
+
+
+     (let ((hypothesis-doc (chain document (get-element-by-id "hypothesis-checkbox"))))
+       (if (chain hypothesis-doc checked) (load-hypothesis))))))
