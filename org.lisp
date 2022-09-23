@@ -1,34 +1,120 @@
 (load "~/quicklisp/setup.lisp")
 
-(ql:quickload :cl-org-mode)
-(ql:quickload :trivia)
+(defpackage parse-org
+  (:use :cl :trivia))
 
-(defpackage org-test
-  (:use :cl :cl-org-mode :trivia))
+(in-package parse-org)
 
-(in-package org-test)
 
-(defparameter *file*
-  (cl-org-mode::read-org-file
-   (pathname "./README.org")))
+;; what does our file have?
+;; file: title, metadata, body
+;; body: listof (or heading text code)
+;; heading: title, body
+;; text: listof 
+;; code: language, contents
 
-(setf *file* (cl-org-mode::node.next-node *file*))
+(defstruct file title metadata body)
+(defstruct heading title body)
+(heading-p (make-header :title "asdf" :body "asdf"))
 
-*file*
+(defstruct link text url)
 
-(cl-org-mode::node.text *file*)
-(cl-org-mode::node.heading *file*)
-(cl-org-mode::node.children *file*)
-(cl-org-mode::node.pathname *file*)
+;; parse an org-mode file
+(defun parse (fname)
+  (with-open-file (stream fname :direction :input :if-does-not-exist nil)
+    (if stream (parse-stream stream))))
 
-(cl-org-mode::node.text (cl-org-mode::node.next-node *file*))
+;; parse a stream assuming we're at the start of a line
+(defun parse-line (stream)
+  (let ((char (read-char stream)))
+    (case char
+      ((#\#) (parse-macro-line-or-comment stream))
+      ((#\*) (parse-heading stream))
+      ((#\-) (parse-bullet stream))
+      (otherwise (parse-text stream)))))
 
-(defun print-org-file (file-path)
-  (let ((org-file (cl-org-mode::node.next-node (cl-org-mode::read-org-file file-path))))
-    (match org-file
-      ((type cl-org-mode::outline-node) (cl-org-mode::node.heading org-file))
-      ((type cl-org-mode::text-node) (cl-org-mode::node.text org-file))
-      ((type cl-org-mode::src-node) (cl-org-mode::node.text org-file))
-      (otherwise "pee"))))
+(defun parse-bullet (stream)
+  (read-char stream)
+  (let ((bullet-text (take char until eol)))
+    (make-bullet :text bullet-text)))
 
-(print-org-file (pathname "/home/jake/site/README.org"))
+(defun parse-heading (stream)
+  ;; toss the first char
+
+
+  ;; take characters until we hit a newline
+  ;; this becomes our title
+  (let ((header-rank (+ 1 (take stars until space))) ;; number
+        (title (take char until newline))            ;; string
+        (next-header-result (parse-line stream)))    ;; (list of rest of file)
+
+
+    ;; this is where we provide the 'exit' continuation, right?
+    ;; if the user
+    (if (<= header-rank (rank current-header))
+        (list
+         current-header
+
+         (make-header :title title :body ...))
+        (list
+         ;; append to current header
+
+
+         ))
+
+    ;; problem: what happens if the next line is a heading and has a lower level than us?
+    ;; we don't want to make that a child of this!
+    ;; solution: parse lines until we get a heading-p back with a lower priority than us.
+    ;; this tells us when we append rather than nesting into the body of this header.
+    ;; we then return the whole list of things here.
+
+    ;; real solution: we pass a continuation that they invoke;
+    ;; we want to give them the opportunity to take two paths:
+    ;; - adding to this header (so we need the header 'rank'
+    ;; - escaping this header to the main list
+
+    ;; - with mutation, we just pass the header and let them either setf the list to append to it or return,
+    ;; - and we take the return value
+    ;; - without mutation, we
+    ))
+
+
+
+
+;; the input test file:
+(defconstant +test-path+ "./README.org")
+
+;; the expected file format:
+(defconstant +expected-readme-out+
+  (make-file
+   :title "jake.chvatal.com"
+   :metadata (make-hash-table)
+   :body (list
+          (list
+           'newline
+           "This is the index of my personal website found "
+           (make-link :text "here" :url "https://jake.isnt.online")
+           "."
+           'newline
+           "100% score on the "
+           (make-link :text "Lighthouse audit" :url "https://foo.software/lighthouse")
+           "."
+           'newline)
+
+          (make-heading
+           :title "Goals"
+           :body (list
+                  (make-bullet :text "Personal landing page with links")
+                  (make-bullet :text "No external resources loaded")
+                  (make-bullet :text "SEO Optimized")
+                  (make-bullet :text "Ten packets (to load instantly)")
+                  'newline))
+
+          (make-heading
+           :title "Running"
+           :body (list
+                  "To render the website:"
+                  (make-code :lang "sh" :body "lein run > index.html")
+                  'newline
+                  "The website's written in Clojure because it provides, IMO, the most ergonomic HTML DSL available, `hiccup`. Though other languages provide similar facilities, Clojure provides the nicest syntax without incurring the up-front development costs associated with strong types or legacy work associated with other lisps."
+                  )))))
