@@ -10,6 +10,8 @@
 
 (setf css-lite:*indent-css* 2)
 
+;; https://hg.stevelosh.com/stevelosh.com/file/tip/generate.lisp is legendary
+
 ;; https://gist.github.com/privet-kitty/e5abd3f09485c5828af81ad02e8c2baf
 ;; worth looking into;;
 
