@@ -3,13 +3,13 @@
 This is the index of my personal website found [[https://jake.chvatal.com][here]].
 100% score on the [[https://www.foo.software/lighthouse][Lighthouse audit]].
 
-** Goals
+* Goals
 - Personal landing page with links
 - No external resources loaded
 - SEO Optimized
 - Ten packets (to load instantly)
 
-** Running
+* Running
 To render the website:
 #+BEGIN_SRC sh
 lein run > index.html
