@@ -26,7 +26,7 @@
 (defun parse (fname)
   "parse an org-mode file to an internal, struct-based representation"
   (with-open-file (stream fname :direction :input :if-does-not-exist nil)
-    (if stream (parse (tokenize stream)) 'no-stream)))
+    (if stream (tokenize stream) 'no-stream)))
 
 ;;  --- Tokenize ---
 
@@ -35,16 +35,29 @@
 ;; A text token with a body
 (defstruct text-tok body)
 
+(defun make-adjustable-string (s)
+  "Make a string that's easily appendable to."
+  (make-array (length s)
+              :fill-pointer (length s)
+              :adjustable t
+              :initial-contents s
+              :element-type (array-element-type s)))
+
+(defun push-char (str c)
+  "Push a character to an adjustable string."
+  (vector-push-extend c str))
+
 (defun take-until (stream end-on)
   "take from a stream until a particular character is received"
-  (let ((num-chars-taken 0))
+  (let ((chars (make-adjustable-string "")))
     (loop for next-char = (read-char stream nil :eof)
-          until (eq next-char end-on)
-          do (setf num-chars-taken (1+ num-chars-taken)))
-    num-chars-taken))
+          until (or (eq next-char end-on) (eq next-char :eof))
+          do (push-char chars next-char))
+    chars))
 
 (defun tokenize (stream)
   "parse a line from a stream, assuming we're at the start of a line, then continue"
+  (print "parsing line")
   (let ((char (read-char stream)))
     (case char
       ;; ((#\#) (tokenize-macro-line-or-comment stream))
@@ -56,7 +69,7 @@
   "Tokenize a text node until EOL"
   (let ((body (take-until stream #\n)))
     (cons
-     (make-text-tok body)
+     (make-text-tok :body body)
      (tokenize stream))))
 
 ;; this has to both produce a valid header at every step and add the given argument to the end of the header
