@@ -13,54 +13,65 @@
 ;; text: listof 
 ;; code: language, contents
 
+;; The contents of an org-mode file
 (defstruct file title metadata body)
-(defstruct heading title body)
-(heading-p (make-header :title "asdf" :body "asdf"))
 
+;; A heading with its corresponding body
+(defstruct heading title body)
+;; (heading-p (make-header :title "asdf" :body "asdf"))
+
+;; a link with text and a url
 (defstruct link text url)
 
-;; parse an org-mode file
+;; parse an org-mode file to an internal, struct-based representation
 (defun parse (fname)
   (with-open-file (stream fname :direction :input :if-does-not-exist nil)
     (if stream (parse-stream stream))))
 
-;; parse a stream assuming we're at the start of a line
+;; parse a stream, assuming we're at the start of a line
 (defun parse-line (stream)
   (let ((char (read-char stream)))
     (case char
       ((#\#) (parse-macro-line-or-comment stream))
       ((#\*) (parse-heading stream))
-      ((#\-) (parse-bullet stream))
+      ((#\-) (parse-heading stream))
       (otherwise (parse-text stream)))))
 
-(defun parse-bullet (stream)
+;; interpret a bullet point (a heading)
+(defun parse-heading (stream)
   (read-char stream)
   (let ((bullet-text (take char until eol)))
     (make-bullet :text bullet-text)))
 
+;; take from the stream until a particular character is received
+(defun take-until (stream end-on)
+  (let ((num-chars-taken 0))
+    (loop for next-char = (read-char stream nil :eof)
+          until (eq next-char end-on)
+          do (setf num-chars-taken (1+ num-chars-taken)))
+    num-chars-taken))
+
 (defun parse-heading (stream)
-  ;; toss the first char
+  ;; take characters until we hit a newline; this becomes our title
+  (let ((header-rank (length (take-until stream #\SPACE))) ;; number
+        (title (take-until stream #\n))                    ;; string
+        (next-header-result (parse-line stream))) ;; (list of rest of file)
 
 
-  ;; take characters until we hit a newline
-  ;; this becomes our title
-  (let ((header-rank (+ 1 (take stars until space))) ;; number
-        (title (take char until newline))            ;; string
-        (next-header-result (parse-line stream)))    ;; (list of rest of file)
-
-
-    ;; this is where we provide the 'exit' continuation, right?
-    ;; if the user
-    (if (<= header-rank (rank current-header))
+    ;; take from the next header
+    (if (<= header-rank (header-rank current-header))
         (list
          current-header
 
-         (make-header :title title :body ...))
-        (list
-         ;; append to current header
+         (make-header
+          :rank header-rank
+          :title title
+          :body ...)) ;; append to current header
 
 
-         ))
+
+
+        )
 
     ;; problem: what happens if the next line is a heading and has a lower level than us?
     ;; we don't want to make that a child of this!
@@ -77,7 +88,6 @@
     ;; - and we take the return value
     ;; - without mutation, we
     ))
-
 
 
 
