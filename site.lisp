@@ -2,8 +2,8 @@
 
 (ql:quickload :flute)
 (ql:quickload :flute-test)
-(ql:quickload :parenscript)
 (ql:quickload 'css-lite)
+(ql:quickload :parenscript)
 
 (defpackage flute-page
   (:use :cl :flute))
@@ -67,7 +67,6 @@
 (define-element checkbox-menu ()
   (div :style "margin-top: 1rem; padding: 0.5rem 0.25rem; max-width: 10rem; border: 1px solid black; background-color: hsl(0, 0%, 96.5%);"
        (input :type "checkbox" :id "hypothesis-checkbox" :checked "false" :onclick (parenscript:ps (toggle-hypothesis)) "hypothes.is")))
-       (input :type "checkbox" :id "hypothesis-checkbox" :checked "false" :onclick "toggleHypothesis()" "hypothes.is")))
 
 (defun gen-homepage ()
   (html
@@ -120,7 +119,6 @@
            (a :class "foot" :href "https://creativecommons.org/licenses/by-nc-sa/4.0" :target "_blank" :rel "noreferrer" "[cc]")
            (a :class "foot" :href "./jakeisnt.asc" "[pgp]")
            (a :class "foot" :href (concatenate 'string "https://are.na/" *arena*) "[are.na]")))
-
 
      (checkbox-menu))
     ;; load scripts at the end
