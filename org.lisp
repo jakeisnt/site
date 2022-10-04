@@ -23,71 +23,84 @@
 ;; a link with text and a url
 (defstruct link text url)
 
-;; parse an org-mode file to an internal, struct-based representation
 (defun parse (fname)
+  "parse an org-mode file to an internal, struct-based representation"
   (with-open-file (stream fname :direction :input :if-does-not-exist nil)
-    (if stream (parse-stream stream))))
+    (if stream (parse-stream stream) 'no-stream)))
 
-;; parse a stream, assuming we're at the start of a line
-(defun parse-line (stream)
+(defun parse-line (stream cur-rank)
+  "parse a line from a stream, assuming we're at the start of a line, then continue"
   (let ((char (read-char stream)))
     (case char
-      ((#\#) (parse-macro-line-or-comment stream))
-      ((#\*) (parse-heading stream))
-      ((#\-) (parse-heading stream))
+      ((#\#) (parse-macro-line-or-comment stream cur-rank))
+      ((#\*) (parse-heading stream cur-rank))
+      ((#\-) (parse-bullet stream))
       (otherwise (parse-text stream)))))
 
-;; interpret a bullet point (a heading)
-(defun parse-heading (stream)
-  (read-char stream)
-  (let ((bullet-text (take char until eol)))
-    (make-bullet :text bullet-text)))
 
-;; take from the stream until a particular character is received
+;; how do we approach this in a single pass?
+;; we need to give the child some way to add itself to me and produce me,
+;;  but also need some way to make a children of this
+
+;; this is my monad
+;; it accumulates the entire result in a closure
+;; we close over the current header at every time? is that correct?
+
+
+;; we have the linear scan to tokenize, but how do we build it back up in a tail recursive fashion?
+;; what if we go backwards?
+
+;; i.e.:
+;; we see text, we add text to list and continue
+;; we see a heading, we add text to body of heading and continue with heading as the list
+;; we see a smaller heading, we
+;; yes! this works. let's split tokenization and parsing
+
+
+(lambda (header new-elem)
+  (cond
+    ((header-p new-elem)
+     (if (< (:rank header) (:rank new-elem))
+         )
+     ))
+
+  (if (< (:rank header)))
+  (make-header
+   :rank  header-rank
+   :title title
+   :body  (append body (list new-elem))))
+
+;; this has to both produce a valid header at every step and add the given argument to the end of the header
+
+
+(defun parse-bullet (stream cur-rank)
+  "parse a bullet, assuming we've just seen a bullet point"
+  (read-char stream)     ; skip the first char; it's blank according to the spec
+  (let ((bullet-text (take-until #\n))) ; take characters until we hit a newline
+    (make-bullet :text bullet-text)))   ; make the bullet with those characters!
+
 (defun take-until (stream end-on)
+  "take from a stream until a particular character is received"
   (let ((num-chars-taken 0))
     (loop for next-char = (read-char stream nil :eof)
           until (eq next-char end-on)
           do (setf num-chars-taken (1+ num-chars-taken)))
     num-chars-taken))
 
-(defun parse-heading (stream)
-  ;; take characters until we hit a newline; this becomes our title
-  (let ((header-rank (length (take-until stream #\SPACE))) ;; number
-        (title (take-until stream #\n))                    ;; string
-        (next-header-result (parse-line stream))) ;; (list of rest of file)
-
+(defun parse-heading (stream cur-rank)
+   "Parse an Org-mode heading"
+  (let ((header-rank (length (take-until stream #\SPACE))) ; the rank of the current header
+        (title (take-until stream #\n)) ; the title of the current header
+        (next-header-result (parse-line stream))) ; the rest of the file, parsed
 
     ;; take from the next header
     (if (<= header-rank (header-rank current-header))
-        (list
-         current-header
-
+        (cons
          (make-header
           :rank header-rank
           :title title
-          :body ...)) ;; append to current header
-
-
-
-
-        )
-
-    ;; problem: what happens if the next line is a heading and has a lower level than us?
-    ;; we don't want to make that a child of this!
-    ;; solution: parse lines until we get a heading-p back with a lower priority than us.
-    ;; this tells us when we append rather than nesting into the body of this header.
-    ;; we then return the whole list of things here.
-
-    ;; real solution: we pass a continuation that they invoke;
-    ;; we want to give them the opportunity to take two paths:
-    ;; - adding to this header (so we need the header 'rank'
-    ;; - escaping this header to the main list
-
-    ;; - with mutation, we just pass the header and let them either setf the list to append to it or return,
-    ;; - and we take the return value
-    ;; - without mutation, we
-    ))
+          :body ...)
+         next-header-result))))
 
 
 
