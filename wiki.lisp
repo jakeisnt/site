@@ -26,7 +26,7 @@
     (:html
      :lang "en-us"
      (:head
-      (:title "wiki or something"))
+      (:title (concatenate 'string (org::file-title org) " | Jake Chvatal")))
      (:body
       (when (org::file-title org)
         (:h1 (org::file-title org)))
@@ -34,7 +34,4 @@
             collect (render-org-node node))))))
 
 (defun render-org-file (fname)
-  (print (org::parse fname))
   (render-org (org::parse fname)))
-
-(render-org-file "./README.org")
