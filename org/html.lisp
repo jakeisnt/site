@@ -47,7 +47,9 @@
        (:p (render-text-body (parser::text-body node))))
       ((parser::bullet-p node)
        (:ul (:li (render-text-body (parser::bullet-body node)))))
-      ((parser::code-block-p node) (:code (parser::code-block-body node))))))
+      ((parser::code-block-p node) (:pre (:code
+                                          :class (concatenate 'string "language-" (parser::code-block-lang node))
+                                          (parser::code-block-body node)))))))
 
 (defun render-org (org)
   "Render an org file struct as an html page"
@@ -55,7 +57,10 @@
     (:html
      :lang "en-us"
      (:head
-      (:title (concatenate 'string (parser::file-title org) " | Jake Chvatal")))
+      (:title (concatenate 'string (parser::file-title org) " | Jake Chvatal"))
+      (:link :rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css")
+      (:script :src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js")
+      (:script "hljs.highlightAll();"))
      (:body
       (when (parser::file-title org)
         (:h1 (parser::file-title org)))
