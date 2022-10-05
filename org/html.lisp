@@ -17,14 +17,22 @@
       ((defs::link-p txt) (:a :href (defs::link-url txt) (defs::link-title txt)))
       (t "fell through the cracks"))))
 
-(defmacro render-header-body (header)
-  `(loop for node in (parser::header-body ,header)
-        collect (render-org-node node)))
-
-
 (defmacro render-text-body (body-list)
   `(loop for txt in ,body-list
          collect (render-text-elem txt)))
+
+(defmacro render-header (header)
+  `(let ((title (parser::header-title ,header)))
+    (spinneret::with-html
+      (case (parser::header-rank ,header)
+        (0 (:h2 title))
+        (1 (:h3 title))
+        (2 (:h4 title))
+        (otherwise (:h5 title))))))
+
+(defmacro render-header-body (header)
+  `(loop for node in (parser::header-body ,header)
+        collect (render-org-node node)))
 
 (defun render-org-node (node)
   "Render an org-mode node as HTML."
@@ -33,7 +41,7 @@
       ((parser::header-p node)
        (:section
         (cons
-         (:h2 (parser::header-title node))
+         (render-header node)
          (render-header-body node))))
       ((parser::text-p node)
        (:p (render-text-body (parser::text-body node))))
