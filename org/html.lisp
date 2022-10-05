@@ -7,7 +7,7 @@
 (ql:quickload 'css-lite)
 (ql:quickload :parenscript)
 
-(defpackage html
+(defpackage org-html
   (:use :cl :spinneret))
 
 (defun render-text-elem (txt)

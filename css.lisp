@@ -22,7 +22,7 @@
        :hyphens "auto")))
    (css-lite:css
      (("body")
-      (:max-width "16rem"
+      (:max-width "24rem"
        :margin 0
        :padding "1rem 2rem")))
    (css-lite:css
