@@ -1,5 +1,5 @@
 (load "~/quicklisp/setup.lisp")
-(load "./util.lisp")
+;; (load "./util.lisp")
 
 (ql:quickload 'css-lite)
 
@@ -27,4 +27,4 @@
      ((".foot")
       (:padding-right "0.5rem")))))
 
-(util::write-file "./style.css" *style*)
+;; (util::write-file "./style.css" *style*)

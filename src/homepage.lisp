@@ -1,5 +1,5 @@
 (load "~/quicklisp/setup.lisp")
-(load "./util.lisp")
+(load "./src/util.lisp")
 
 (ql:quickload :spinneret)
 (ql:quickload 'css-lite)

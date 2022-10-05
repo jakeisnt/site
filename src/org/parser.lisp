@@ -68,7 +68,7 @@
   "Parse tokens into a recursive structure from a token list."
   (let ((cur-tok (car token-list)))
     (if (not cur-tok)
-        acc
+        (if (file-p acc) acc (make-file :body acc))
         (parse-tokens
          (cdr token-list)
          (cond

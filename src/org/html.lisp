@@ -66,15 +66,17 @@
       ((parser::header-p node) (header node))
       ((parser::text-p node) (text node))
       ((parser::bullet-p node) (bullet node))
-      ((parser::code-block-p node) (code-block node)))))
+      ((parser::code-block-p node) (code-block node))
+      (t nil))))
 
 (defun render-org (org)
   "Render an org file struct as an html page"
+  (print org)
   (spinneret::with-html
     (:html
      :lang "en-us"
      (:head
-      (:title (concatenate 'string (parser::file-title org) " | Jake Chvatal"))
+      (:title (concatenate 'string (or (parser::file-title org) "") " | Jake Chvatal"))
       (:link :rel "stylesheet" :href "./style.css")
       (:link :rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css")
       (:script :src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js")

@@ -1,5 +1,6 @@
 (load "~/quicklisp/setup.lisp")
 
+(load "./src/util.lisp")
 (load "./src/org/defs.lisp")
 
 (ql:quickload :string-case)
@@ -37,18 +38,6 @@
   "Push a character to an adjustable string."
   (vector-push-extend c str))
 
-(defun string-postfixesp (larger smaller)
-  "Determine whether the assumed smaller string postfixes the larger."
-  (let ((sm-len (length smaller))
-        (lg-len (length larger)))
-    (and
-     (>= lg-len sm-len)
-     (string= smaller larger :start2 (- lg-len sm-len) :end2 lg-len))))
-
-(defun without-postfix (larger smaller)
-  "Produce the larger string without its assumed postfix, smaller"
-  (subseq larger 0 (- (length larger) (length smaller))))
-
 (defun take-until (stream end-on)
   "Take until we get a specific char or string"
   (if (stringp end-on)
@@ -61,8 +50,8 @@
     (loop for next-char = (safe-read-char stream)
           do (push-char chars next-char)
           until (or (eq next-char :eof)
-                    (string-postfixesp chars end-on)))
-    (without-postfix chars end-on)))
+                    (util::string-postfixesp chars end-on)))
+    (util::without-postfix chars end-on)))
 
 (defun take-until-char (stream end-on)
   "take from a stream until a particular character is received"
@@ -71,9 +60,14 @@
           until (or (eq next-char end-on)
                     (eq next-char :eof)
                     (and (stringp end-on)
-                         (string-postfixesp chars end-on)))
+                         (util::string-postfixesp chars end-on)))
           do (push-char chars next-char))
     chars))
+
+(defun tokenize-properties (stream)
+  "Tokenize a property drawer."
+  (take-until stream ":END:")
+  :ignore)
 
 (defun tokenize (stream)
   "parse a line from a stream, assuming we're at the start of a line, then continue"
@@ -86,6 +80,7 @@
            ((#\#) (tokenize-macro-line-or-comment stream))
            ((#\*) (tokenize-heading stream))
            ((#\-) (tokenize-bullet stream))
+           ((#\:) (tokenize-properties stream)) ; TODO: not guaranteed here
            (otherwise (tokenize-text char stream)))
          (tokenize stream)))))
 
@@ -136,11 +131,11 @@
               do (let ()
                    (push-char buffer next-char)
                    ;;  if we find a link,parse the rest of the string from it and reset the buffer
-                   (if (string-postfixesp buffer "[[")
+                   (if (util::string-postfixesp buffer "[[")
                        (let ()
                         (setq res (cons (parse-link stream)
                                         (cons
-                                         (without-postfix buffer "[[")
+                                         (util::without-postfix buffer "[[")
                                          res)))
                         (setq buffer (make-adjustable-string ""))))))
         (reverse (cons buffer res)))))
