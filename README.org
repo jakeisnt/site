@@ -13,9 +13,9 @@ This is the index of my personal website found [[https://jake.chvatal.com][here]
 fake body
 
 * Running
-To render the website:
+To render the website, use `sbcl` or something:
 #+BEGIN_SRC sh
-lein run > index.html
+sbcl
 #+END_SRC
 
 This website is written in common lisp because common lisp is a good programming language.
