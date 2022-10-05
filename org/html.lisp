@@ -1,6 +1,6 @@
 (load "~/quicklisp/setup.lisp")
 (load "./parser.lisp")
-(load "./defs.lisp ")
+(load "./defs.lisp")
 
 (ql:quickload :spinneret)
 (ql:quickload 'css-lite)
@@ -11,11 +11,10 @@
 
 (defun render-text-elem (txt)
   "Render a text element."
-  (print txt)
   (spinneret::with-html
     (cond
       ((stringp txt) (:span txt))
-      ((link-p txt) (:a :href (link-url txt) (link-title txt)))
+      ((defs::link-p txt) (:a :href (defs::link-url txt) (defs::link-title txt)))
       (t "fell through the cracks"))))
 
 (defun render-org-node (node)
@@ -30,7 +29,7 @@
         ((parser::text-p node)
          (:p (loop for txt in (parser::text-body node)
                    collect (render-text-elem txt))))
-        ((parser::bullet-p node) (:ul (:li (parser::bullet-body node))))
+        ((parser::bullet-p node) (:li (parser::bullet-body node)))
         ((parser::code-block-p node) (:code (parser::code-block-body node))))))
 
 (defun render-org (org)
@@ -48,3 +47,5 @@
 
 (defun render-org-file (fname)
   (render-org (parser::parse fname)))
+
+;; (render-org-file "../README.org")

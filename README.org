@@ -18,4 +18,4 @@ To render the website:
 lein run > index.html
 #+END_SRC
 
-The website's written in Clojure because it provides, IMO, the most ergonomic HTML DSL available, `hiccup`. Though other languages provide similar facilities, Clojure provides the nicest syntax without incurring the up-front development costs associated with strong types or legacy work associated with other lisps.
+This website is written in common lisp because common lisp is a good programming language.

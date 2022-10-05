@@ -122,8 +122,8 @@
   (let* ((link-text (take-until stream "]]"))
          (body (cl-ppcre::split "\\]\\[" link-text)))
     (if (eq (length body) 2)
-        (make-link :title (cadr body) :url (car body))
-        (make-link :url (car body)))))
+        (defs::make-link :title (cadr body) :url (car body))
+        (defs::make-link :url (car body)))))
 
 
   (defun tokenize-text-until (text-line)
@@ -138,7 +138,10 @@
                    ;;  if we find a link,parse the rest of the string from it and reset the buffer
                    (if (string-postfixesp buffer "[[")
                        (let ()
-                        (setq res (cons (parse-link stream) (cons buffer res)))
+                        (setq res (cons (parse-link stream)
+                                        (cons
+                                         (without-postfix buffer "[[")
+                                         res)))
                         (setq buffer (make-adjustable-string ""))))))
         (reverse (cons buffer res)))))
 
