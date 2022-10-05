@@ -1,7 +1,7 @@
 (load "~/quicklisp/setup.lisp")
-(load "./org/parser.lisp")
-(load "./org/defs.lisp")
-(load "./util.lisp")
+(load "./src/org/parser.lisp")
+(load "./src/org/defs.lisp")
+(load "./src/util.lisp")
 
 (ql:quickload :spinneret)
 (ql:quickload 'css-lite)
@@ -19,38 +19,54 @@
       (t "fell through the cracks"))))
 
 (defmacro render-text-body (body-list)
+  "Render the body of a text element."
   `(loop for txt in ,body-list
          collect (render-text-elem txt)))
 
-(defmacro render-header (header)
+(defmacro header-head (header)
+  "Render the header of a text element."
   `(let ((title (parser::header-title ,header)))
-    (spinneret::with-html
-      (case (parser::header-rank ,header)
-        (0 (:h2 title))
-        (1 (:h3 title))
-        (2 (:h4 title))
-        (otherwise (:h5 title))))))
+     (spinneret::with-html
+       (case (parser::header-rank ,header)
+         (0 (:h2 title))
+         (1 (:h3 title))
+         (2 (:h4 title))
+         (otherwise (:h5 title))))))
 
-(defmacro render-header-body (header)
+(defmacro header-body (header)
   `(loop for node in (parser::header-body ,header)
-        collect (render-org-node node)))
+         collect (render-org-node node)))
+
+(defun header (node)
+  (spinneret::with-html
+    (:section
+     (cons
+      (header-head node)
+      (header-body node)))))
+
+(defun text (node)
+  (spinneret::with-html
+    (:p (render-text-body (parser::text-body node)))))
+
+(defun bullet (node)
+  (spinneret::with-html
+    (:ul (:li (render-text-body (parser::bullet-body node))))))
+
+(defun code-block (node)
+  (spinneret::with-html
+    (:pre
+     (:code
+      :class (concatenate 'string "language-" (parser::code-block-lang node))
+      (parser::code-block-body node)))))
 
 (defun render-org-node (node)
   "Render an org-mode node as HTML."
   (spinneret::with-html
     (cond
-      ((parser::header-p node)
-       (:section
-        (cons
-         (render-header node)
-         (render-header-body node))))
-      ((parser::text-p node)
-       (:p (render-text-body (parser::text-body node))))
-      ((parser::bullet-p node)
-       (:ul (:li (render-text-body (parser::bullet-body node)))))
-      ((parser::code-block-p node) (:pre (:code
-                                          :class (concatenate 'string "language-" (parser::code-block-lang node))
-                                          (parser::code-block-body node)))))))
+      ((parser::header-p node) (header node))
+      ((parser::text-p node) (text node))
+      ((parser::bullet-p node) (bullet node))
+      ((parser::code-block-p node) (code-block node)))))
 
 (defun render-org (org)
   "Render an org file struct as an html page"
@@ -72,4 +88,4 @@
 (defun render-org-file (fname)
   (spinneret::with-html-string (render-org (parser::parse fname))))
 
-(util::write-file "./test.html" (render-org-file "./README.org"))
+;; (util::write-file "./test.html" (render-org-file "./README.org"))
