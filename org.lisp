@@ -2,18 +2,21 @@
 
 (ql:quickload :string-case)
 
-(defpackage parse-org
+(defpackage org
   (:use :cl :string-case))
 
-(in-package parse-org)
+(in-package org)
 
 ;; The contents of an org-mode file
 (defstruct file title metadata body)
 ;; A heading with its corresponding body
 (defstruct header title body rank)
-
-;; a link with text and a url
-;; (defstruct link text url)
+;; a passage of plain text
+(defstruct text body)
+;; a bullet point
+(defstruct bullet body)
+;; a code block
+(defstruct code-block lang body)
 
 (defun parse (fname)
   "parse an org-mode file to an internal, struct-based representation"
@@ -21,6 +24,7 @@
     (if stream (parse-all (tokenize stream)) 'no-stream)))
 
 (defun parse-all (tks)
+  "Parse a list of tokens"
   (parse-tokens (reverse tks) ()))
 
 (defun take-while (pred list)
@@ -35,6 +39,7 @@
     (subseq list (length to-rm))))
 
 (defun is-below-headerp (cur-header-rank elem)
+  "Does the current element rank below the current header rank?"
   (or (not (header-p elem))
       (> (header-rank elem) cur-header-rank)))
 
@@ -66,6 +71,16 @@
          (cdr token-list)
          (cond
            ((header-tok-p cur-tok) (split-header cur-tok acc))
+           ((text-tok-p cur-tok)
+            (cons (make-text :body (text-tok-body cur-tok)) acc))
+           ((title-tok-p cur-tok)
+            (make-file :title (title-tok-title cur-tok) :body acc))
+           ((code-block-tok-p cur-tok)
+            (cons (make-code-block
+                   :lang (code-block-tok-lang cur-tok)
+                   :body (code-block-tok-body cur-tok)) acc))
+           ((bullet-tok-p cur-tok)
+            (cons (make-bullet :body (bullet-tok-body cur-tok)) acc))
            (t (cons cur-tok acc)))))))
 
 ;;  --- Tokenize ---
@@ -154,15 +169,6 @@
   (make-bullet-tok
    :body (text-tok-body (tokenize-text nil stream))))
 
-(defun tokenize-macro-line-or-comment (stream)
-  "Tokenize a macro line or comment"
-  (let ((cmd (take-until stream #\space)))
-    (string-case
-        (cmd)
-      ("+TITLE:" (parse-title stream))
-      ("+BEGIN_SRC" (parse-code-block stream))
-      (t "Not sure what this macro is"))))
-
 (defun parse-title (stream)
   "Parse a document title from a stream."
   (let ((title-text (take-until stream #\newline)))
@@ -176,6 +182,16 @@
     (make-code-block-tok
       :lang lang
       :body body)))
+
+
+(defun tokenize-macro-line-or-comment (stream)
+  "Tokenize a macro line or comment"
+  (let ((cmd (take-until stream #\space)))
+    (string-case
+        (cmd)
+      ("+TITLE:" (parse-title stream))
+      ("+BEGIN_SRC" (parse-code-block stream))
+      (t "Not sure what this macro is"))))
 
 
 (defun tokenize-text (last-char stream)
