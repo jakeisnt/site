@@ -43,7 +43,7 @@
     (:div :style "margin-top: 1rem; padding: 0.5rem 0.25rem; max-width: 10rem; border: 1px solid black; background-color: hsl(0, 0%, 96.5%);"
           (:input :type "checkbox" :id "hypothesis-checkbox" :checked "false" :onclick (parenscript:ps (toggle-hypothesis)) "hypothes.is"))))
 
-(defun gen-homepage ()
+(defun homepage ()
   (spinneret::with-html
     (:html
      :lang "en-us"
@@ -100,6 +100,3 @@
 
       ;; load scripts at the end
       (:script :type "text/javascript" :src "./lib.js" "")))))
-
-
-(util::write-file "./index.html" (spinneret::with-html-string (gen-homepage)))

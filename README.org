@@ -19,3 +19,5 @@ sbcl
 #+END_SRC
 
 This website is written in common lisp because common lisp is a good programming language.
+* Deployment
+For github pages rendering reasons, the folder that deploys the site must be named `/docs`.
