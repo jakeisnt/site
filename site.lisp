@@ -1,4 +1,5 @@
 (load "~/quicklisp/setup.lisp")
+(load "./util.lisp")
 
 (ql:quickload :flute)
 (ql:quickload :flute-test)
@@ -7,8 +8,6 @@
 
 (defpackage flute-page
   (:use :cl :flute))
-
-(setf css-lite:*indent-css* 2)
 
 ;; https://hg.stevelosh.com/stevelosh.com/file/tip/generate.lisp is legendary
 
@@ -26,30 +25,6 @@
 ;; (defv name "jake")
 
 (in-package :flute-page)
-
-(defparameter *font-url*
-  "
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
-")
-
-(defparameter *style* 
-  (concatenate
-   'string
-   *font-url*
-   (css-lite:css
-     (("html")
-      (:font-size "18px"
-       :font-family "\"Noto Sans\", sans-serif"
-       :word-wrap "break-word"
-       :hyphens "auto")))
-   (css-lite:css
-     (("body")
-      (:max-width "16rem"
-       :margin 0
-       :padding "1rem 2rem")))
-   (css-lite:css
-     ((".foot")
-      (:padding-right "0.5rem")))))
 
 
 (defparameter *name* "Jake Chvatal")
@@ -73,7 +48,7 @@
    :lang "en-us"
    (head
     (title *name*)
-    (style *style*)
+    (link :rel "stylesheet" :href "./style.css")
     (meta :charset "utf-8")
     (meta :property "og:title" :content *name*)
     (meta :property "og:type" :content "website")
@@ -121,13 +96,9 @@
            (a :class "foot" :href (concatenate 'string "https://are.na/" *arena*) "[are.na]")))
 
      (checkbox-menu))
-    ;; load scripts at the end
 
+    ;; load scripts at the end
     (script :type "text/javascript" :src "./lib.js" ""))))
 
 
-(with-open-file (str "./index.html"
-                     :direction :output
-                     :if-exists :supersede
-                     :if-does-not-exist :create)
-  (format str (elem-str (gen-homepage))))
+(util::write-file "./index.html" (elem-str (gen-homepage)))
