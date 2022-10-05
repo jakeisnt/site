@@ -17,20 +17,29 @@
       ((defs::link-p txt) (:a :href (defs::link-url txt) (defs::link-title txt)))
       (t "fell through the cracks"))))
 
+(defmacro render-header-body (header)
+  `(loop for node in (parser::header-body ,header)
+        collect (render-org-node node)))
+
+
+(defmacro render-text-body (body-list)
+  `(loop for txt in ,body-list
+         collect (render-text-elem txt)))
+
 (defun render-org-node (node)
   "Render an org-mode node as HTML."
   (spinneret::with-html
-      (cond
-        ((parser::header-p node)
-         (cons
-          (:h2 (parser::header-title node))
-          (loop for node in (parser::header-body node)
-                collect (render-org-node node))))
-        ((parser::text-p node)
-         (:p (loop for txt in (parser::text-body node)
-                   collect (render-text-elem txt))))
-        ((parser::bullet-p node) (:li (parser::bullet-body node)))
-        ((parser::code-block-p node) (:code (parser::code-block-body node))))))
+    (cond
+      ((parser::header-p node)
+       (:section
+        (cons
+         (:h2 (parser::header-title node))
+         (render-header-body node))))
+      ((parser::text-p node)
+       (:p (render-text-body (parser::text-body node))))
+      ((parser::bullet-p node)
+       (:ul (:li (render-text-body (parser::bullet-body node)))))
+      ((parser::code-block-p node) (:code (parser::code-block-body node))))))
 
 (defun render-org (org)
   "Render an org file struct as an html page"

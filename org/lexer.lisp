@@ -59,9 +59,9 @@
   "take from a stream until a particular character is received"
   (let ((chars (make-adjustable-string "")))
     (loop for next-char = (safe-read-char stream)
+          do (push-char chars next-char)
           until (or (eq next-char :eof)
-                    (string-postfixesp chars end-on))
-          do (push-char chars next-char))
+                    (string-postfixesp chars end-on)))
     (without-postfix chars end-on)))
 
 (defun take-until-char (stream end-on)
