@@ -1,89 +1,12 @@
 (load "~/quicklisp/setup.lisp")
 
 (ql:quickload :string-case)
+(ql:quickload :cl-ppcre)
 
-(defpackage org
-  (:use :cl :string-case))
+(defpackage lexer
+  (:use :cl :string-case :cl-ppcre))
 
-(in-package org)
-
-;; The contents of an org-mode file
-(defstruct file title metadata body)
-;; A heading with its corresponding body
-(defstruct header title body rank)
-;; a passage of plain text
-(defstruct text body)
-;; a bullet point
-(defstruct bullet body)
-;; a code block
-(defstruct code-block lang body)
-
-(defun parse (fname)
-  "parse an org-mode file to an internal, struct-based representation"
-  (with-open-file (stream fname :direction :input :if-does-not-exist nil)
-    (if stream (parse-all (tokenize stream)) 'no-stream)))
-
-(defun parse-all (tks)
-  "Parse a list of tokens"
-  (parse-tokens (reverse tks) ()))
-
-(defun take-while (pred list)
-  "Keep top elements from the list that fail the predicate"
-  (loop for x in list
-        while (funcall pred x)
-        collect x))
-
-(defun drop-while (pred list)
-  "Drop top elements from the list that fail the predicate"
-  (let ((to-rm (take-while pred list)))
-    (subseq list (length to-rm))))
-
-(defun is-below-headerp (cur-header-rank elem)
-  "Does the current element rank below the current header rank?"
-  (or (not (header-p elem))
-      (> (header-rank elem) cur-header-rank)))
-
-(defun split-header (cur-header cur-doc)
-  "Split the current document based on the current header;
-   place everything in the cur-doc below the rank of the header
-   in the header's body.
-  "
-  (let
-      ((cur-header-title (header-tok-title cur-header))
-       (cur-header-rank (header-tok-rank cur-header)))
-    (cons
-     (make-header
-      :rank cur-header-rank
-      :title cur-header-title
-      :body (take-while
-             (lambda (elem) (is-below-headerp cur-header-rank elem))
-             cur-doc))
-     (drop-while
-      (lambda (elem) (is-below-headerp cur-header-rank elem))
-      cur-doc))))
-
-(defun parse-tokens (token-list acc)
-  "Parse tokens into a recursive structure from a token list."
-  (let ((cur-tok (car token-list)))
-    (if (not cur-tok)
-        acc
-        (parse-tokens
-         (cdr token-list)
-         (cond
-           ((header-tok-p cur-tok) (split-header cur-tok acc))
-           ((text-tok-p cur-tok)
-            (cons (make-text :body (text-tok-body cur-tok)) acc))
-           ((title-tok-p cur-tok)
-            (make-file :title (title-tok-title cur-tok) :body acc))
-           ((code-block-tok-p cur-tok)
-            (cons (make-code-block
-                   :lang (code-block-tok-lang cur-tok)
-                   :body (code-block-tok-body cur-tok)) acc))
-           ((bullet-tok-p cur-tok)
-            (cons (make-bullet :body (bullet-tok-body cur-tok)) acc))
-           (t (cons cur-tok acc)))))))
-
-;;  --- Tokenize ---
+(in-package lexer)
 
 ;; A header token with a rank and title
 (defstruct header-tok rank title)
@@ -97,7 +20,7 @@
 (defstruct bullet-tok body)
 
 (defun safe-read-char (stream)
-  "Safely read a character"
+  "Safely read a character from a stream"
   (read-char stream nil :eof))
 
 (defun make-adjustable-string (s)
@@ -180,24 +103,51 @@
   (let ((lang (take-until stream #\newline))
         (body (take-until stream "#+END_SRC")))
     (make-code-block-tok
-      :lang lang
-      :body body)))
-
+     :lang lang
+     :body body)))
 
 (defun tokenize-macro-line-or-comment (stream)
   "Tokenize a macro line or comment"
   (let ((cmd (take-until stream #\space)))
     (string-case
-        (cmd)
+      (cmd)
       ("+TITLE:" (parse-title stream))
       ("+BEGIN_SRC" (parse-code-block stream))
       (t "Not sure what this macro is"))))
 
+(defun parse-link (stream)
+  "Parse a link with a possible title and mandatory URL"
+  (let* ((link-text (take-until stream "]]"))
+         (body (cl-ppcre::split "\\]\\[" link-text)))
+    (if (eq (length body) 2)
+        (make-link :title (cadr body) :url (car body))
+        (make-link :url (car body))))
+
+
+  (defun tokenize-text-until (text-line)
+    "Tokenize text and find special cool things in it"
+    (with-open-stream (s (make-string-input-stream text-line))
+      (let ((res ())
+            (buffer (make-adjustable-string "")))
+        (loop for next-char = (safe-read-char stream)
+              until (eq next-char :eof)
+              do (dolist
+                     (push-char buffer next-char)
+                   ;;  if we find a link,parse the rest of the string from it and reset the buffer
+                   (if (string-postfixesp buffer "[[")
+                       (dolist
+                           (setq res (cons (parse-link s) buffer res))
+                         (setq buffer (make-adjustable-string ""))))))
+        (reverse (cons buffer res)))))
+
 
 (defun tokenize-text (last-char stream)
   "Tokenize a text node until EOL. Append the char if it exists."
-  (let ((body (take-until stream #\newline)))
-    (make-text-tok :body (if last-char (concatenate 'string (list last-char) body) body))))
+  (let*
+    ((body (take-until stream #\newline))
+     (fixed-body (if last-char (concatenate 'string (list last-char) body) body))
+     (tokenized-body (tokenize-text-until fixed-body)))
+    (make-text-tok :body tokenized-body)))
 
 (defun tokenize-heading (stream)
   "tokenize an Org-mode heading"
