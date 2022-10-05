@@ -7,23 +7,10 @@
 
 (in-package parse-org)
 
-
-
-
-
-;; what does our file have?
-;; file: title, metadata, body
-;; body: listof (or heading text code)
-;; heading: title, body
-;; text: listof 
-;; code: language, contents
-
 ;; The contents of an org-mode file
 (defstruct file title metadata body)
-
 ;; A heading with its corresponding body
 (defstruct header title body rank)
-;; (heading-p (make-header :title "asdf" :body "asdf"))
 
 ;; a link with text and a url
 ;; (defstruct link text url)
@@ -48,9 +35,6 @@
     (subseq list (length to-rm))))
 
 (defun is-below-headerp (cur-header-rank elem)
-  (print "is the following elem below the current header rank?")
-  (print cur-header-rank)
-  (print elem)
   (or (not (header-p elem))
       (> (header-rank elem) cur-header-rank)))
 
@@ -59,7 +43,6 @@
    place everything in the cur-doc below the rank of the header
    in the header's body.
   "
-  (print cur-header)
   (let
       ((cur-header-title (header-tok-title cur-header))
        (cur-header-rank (header-tok-rank cur-header)))
@@ -95,9 +78,11 @@
 (defstruct title-tok title)
 ;; a code block
 (defstruct code-block-tok lang body)
+;; a bullet point
 (defstruct bullet-tok body)
 
 (defun safe-read-char (stream)
+  "Safely read a character"
   (read-char stream nil :eof))
 
 (defun make-adjustable-string (s)
@@ -198,7 +183,6 @@
   (let ((body (take-until stream #\newline)))
     (make-text-tok :body (if last-char (concatenate 'string (list last-char) body) body))))
 
-
 (defun tokenize-heading (stream)
   "tokenize an Org-mode heading"
   (let ((header-rank (length (take-until stream #\SPACE))) ; the rank of the current header
@@ -206,42 +190,3 @@
     (make-header-tok
      :rank header-rank
      :title title)))
-
-
-;; the input test file:
-;; (defconstant +test-path+ "./README.org")
-
-;; the expected file format:
-;; (defconstant +expected-readme-out+
-;;   (make-file
-;;    :title "jake.chvatal.com"
-;;    :metadata (make-hash-table)
-;;    :body (list
-;;           (list
-;;            'newline
-;;            "This is the index of my personal website found "
-;;            (make-link :text "here" :url "https://jake.isnt.online")
-;;            "."
-;;            'newline
-;;            "100% score on the "
-;;            (make-link :text "Lighthouse audit" :url "https://foo.software/lighthouse")
-;;            "."
-;;            'newline)
-
-;;           (make-heading
-;;            :title "Goals"
-;;            :body (list
-;;                   (make-bullet :text "Personal landing page with links")
-;;                   (make-bullet :text "No external resources loaded")
-;;                   (make-bullet :text "SEO Optimized")
-;;                   (make-bullet :text "Ten packets (to load instantly)")
-;;                   'newline))
-
-;;           (make-heading
-;;            :title "Running"
-;;            :body (list
-;;                   "To render the website:"
-;;                   (make-code :lang "sh" :body "lein run > index.html")
-;;                   'newline
-;;                   "The website's written in Clojure because it provides, IMO, the most ergonomic HTML DSL available, `hiccup`. Though other languages provide similar facilities, Clojure provides the nicest syntax without incurring the up-front development costs associated with strong types or legacy work associated with other lisps."
-;;                   )))))
