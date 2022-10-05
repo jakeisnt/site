@@ -1,6 +1,7 @@
 (load "~/quicklisp/setup.lisp")
-(load "./parser.lisp")
-(load "./defs.lisp")
+(load "./org/parser.lisp")
+(load "./org/defs.lisp")
+(load "./util.lisp")
 
 (ql:quickload :spinneret)
 (ql:quickload 'css-lite)
@@ -58,6 +59,7 @@
      :lang "en-us"
      (:head
       (:title (concatenate 'string (parser::file-title org) " | Jake Chvatal"))
+      (:link :rel "stylesheet" :href "./style.css")
       (:link :rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css")
       (:script :src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js")
       (:script "hljs.highlightAll();"))
@@ -68,6 +70,6 @@
             collect (render-org-node node))))))
 
 (defun render-org-file (fname)
-  (render-org (parser::parse fname)))
+  (spinneret::with-html-string (render-org (parser::parse fname))))
 
-;; (render-org-file "../README.org")
+(util::write-file "./test.html" (render-org-file "./README.org"))

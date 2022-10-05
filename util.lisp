@@ -3,7 +3,7 @@
 (defpackage util
   (:use :cl))
 
-(in-package :util)
+(in-package util)
 
 (defun write-file (path contents)
   (with-open-file (str path

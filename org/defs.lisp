@@ -1,4 +1,3 @@
-
 (load "~/quicklisp/setup.lisp")
 
 (defpackage defs
