@@ -9,8 +9,6 @@
 
 (in-package parser)
 
-;; a link
-(defstruct link title url)
 ;; The contents of an org-mode file
 (defstruct file title metadata body)
 ;; A heading with its corresponding body
@@ -53,8 +51,8 @@
    in the header's body.
   "
   (let
-      ((cur-header-title (header-tok-title cur-header))
-       (cur-header-rank (header-tok-rank cur-header)))
+      ((cur-header-title (lexer::header-tok-title cur-header))
+       (cur-header-rank (lexer::header-tok-rank cur-header)))
     (cons
      (make-header
       :rank cur-header-rank
@@ -76,13 +74,13 @@
          (cond
            ((lexer::header-tok-p cur-tok) (split-header cur-tok acc))
            ((lexer::text-tok-p cur-tok)
-            (cons (make-text :body (text-tok-body cur-tok)) acc))
+            (cons (make-text :body (lexer::text-tok-body cur-tok)) acc))
            ((lexer::title-tok-p cur-tok)
-            (make-file :title (title-tok-title cur-tok) :body acc))
+            (make-file :title (lexer::title-tok-title cur-tok) :body acc))
            ((lexer::code-block-tok-p cur-tok)
             (cons (make-code-block
-                   :lang (code-block-tok-lang cur-tok)
-                   :body (code-block-tok-body cur-tok)) acc))
+                   :lang (lexer::code-block-tok-lang cur-tok)
+                   :body (lexer::code-block-tok-body cur-tok)) acc))
            ((lexer::bullet-tok-p cur-tok)
-            (cons (make-bullet :body (bullet-tok-body cur-tok)) acc))
+            (cons (make-bullet :body (lexer::bullet-tok-body cur-tok)) acc))
            (t (cons cur-tok acc)))))))

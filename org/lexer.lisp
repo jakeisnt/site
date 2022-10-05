@@ -1,5 +1,7 @@
 (load "~/quicklisp/setup.lisp")
 
+(load "./defs.lisp")
+
 (ql:quickload :string-case)
 (ql:quickload :cl-ppcre)
 
@@ -121,23 +123,23 @@
          (body (cl-ppcre::split "\\]\\[" link-text)))
     (if (eq (length body) 2)
         (make-link :title (cadr body) :url (car body))
-        (make-link :url (car body))))
+        (make-link :url (car body)))))
 
 
   (defun tokenize-text-until (text-line)
     "Tokenize text and find special cool things in it"
-    (with-open-stream (s (make-string-input-stream text-line))
+    (with-open-stream (stream (make-string-input-stream text-line))
       (let ((res ())
             (buffer (make-adjustable-string "")))
         (loop for next-char = (safe-read-char stream)
               until (eq next-char :eof)
-              do (dolist
-                     (push-char buffer next-char)
+              do (let ()
+                   (push-char buffer next-char)
                    ;;  if we find a link,parse the rest of the string from it and reset the buffer
                    (if (string-postfixesp buffer "[[")
-                       (dolist
-                           (setq res (cons (parse-link s) buffer res))
-                         (setq buffer (make-adjustable-string ""))))))
+                       (let ()
+                        (setq res (cons (parse-link stream) (cons buffer res)))
+                        (setq buffer (make-adjustable-string ""))))))
         (reverse (cons buffer res)))))
 
 
