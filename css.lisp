@@ -6,9 +6,7 @@
 (setf css-lite:*indent-css* 2)
 
 (defparameter *font-url*
-  "
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
-")
+  "@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');")
 
 (defparameter *style*
   (concatenate
