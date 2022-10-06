@@ -20,7 +20,7 @@
 (defun convert-link (txt)
   (spinneret::with-html
     (let* ((url (defs::link-url txt))
-          (title (defs::link-title txt))
+          (title (or (defs::link-title txt) url))
           (is-internal
             (or
              (util::string-prefixesp url  "id:")

@@ -107,12 +107,11 @@
      href=https://engineering.shopify.com/blogs/engineering/what-is-nix>[what is nix?]</a>
      <span></span>
     <ul>
-     <li><span> It&#39;s the simplest way to quickly iterate and try new programs. From 
-       `nix-shell` to `nix-env` to configuration options like 
-       `windowManager.xmonad.enable`, it&#39;s incredibly easy to swap parts of your 
-       system in very few lines of code. A lot of the grunt work has been done already 
-       to ensure that common configurations are perfectly functional and reproducible 
-       out of the box.</span>
+     <li><span> It&#39;s the simplest way to quickly iterate and try new programs. From </span>
+      <span> to </span><span> to configuration options like </span><span>, it&#39;s 
+       incredibly easy to swap parts of your system in very few lines of code. A lot of 
+       the grunt work has been done already to ensure that common configurations are 
+       perfectly functional and reproducible out of the box.</span>
     </ul>
     <ul>
      <li><span> It&#39;s trivial to revert the state of your system. All it takes is 
@@ -270,11 +269,11 @@
    <section>
     <h3>Good practices</h3>
     <ul>
-     <li><span> Create a separate partition for all of your nix derivations, /nix</span>
+     <li><span> Create a separate partition for all of your nix derivations, </span>
+      <span></span>
     </ul>
     <ul>
-     <li><span> Label all of your disks so that `hardware-configuration.nix` is 
-       reproducible</span>
+     <li><span> Label all of your disks so that </span><span> is reproducible</span>
     </ul>
    </section>
    <section>
@@ -292,22 +291,22 @@
     <section>
      <h4>partition</h4>
      <p><span>partition for space for nixos</span>
-     <p><span>sudo fdisk /dev/sda</span>
+     <p><span>sudo fdisk </span><span>sda</span>
      <p><span>new</span>
      <p><span>partition</span>
      <p><span>sector1</span>
      <p><span>no selection for start of partition</span>
      <p><span>no selection for last sector</span>
      <p><span>w to write to disk</span>
-     <p><span>sudo mkfs.ext4 -j -L nixos /dev/sda1</span>
+     <p><span>sudo mkfs.ext4 -j -L nixos </span><span>sda1</span>
     </section>
    </section>
    <section>
     <h3>Installation Outline</h3>
     <p><span>Make sure to name your disks; some configurations use some disk names by 
       default.</span>
-    <p><span>nixos-generate-config --root /mnt</span>
-    <p><span>Edit /mnt/etc/nixos/configuration.nix.</span>
+    <p><span>nixos-generate-config --root </span><span></span>
+    <p><span>Edit </span><span>etc</span><span>configuration.nix.</span>
     <p><span>Uncomment:</span>
     <ul>
      <li><span> localization for us</span>
@@ -316,7 +315,7 @@
      <li><span> terminal font and keymap</span>
     </ul>
     <ul>
-     <li><span> timezone = America/NewYork, America/Los_Angeles, etc. These are defined 
+     <li><span> timezone = America</span><span>Los_Angeles, etc. These are defined 
        somewhere on your system.</span>
     </ul>
     <p><span>UEFI systems:</span>
@@ -332,8 +331,7 @@
       to add other OS to the grub</span>
     <p><span>menu. This failed when I tried it (I may have accidentally damaged the 
       partition table, though) but it might work for you.</span>
-    <p><span>You may have to manually start the SSH daemon: `sudo systemctl start 
-      sshd`</span>
+    <p><span>You may have to manually start the SSH daemon: </span><span></span>
    </section>
   </section>
   <section>
@@ -342,17 +340,17 @@
     <li><span> If the configuration isn&#39;t running properly after successfully 
       refreshing it,</span>
    </ul>
-   <p><span> you can use `nixos-rebuild boot` instead of `... refresh` to use the new 
+   <p><span> you can use </span><span> instead of </span><span> to use the new 
      configuration</span>
-   <p><span> on the next boot but not enable it immediately. The `nixos-rebuild` 
-     utilities aside from `switch` all come in handy when fixing a broken 
+   <p><span> on the next boot but not enable it immediately. The </span><span> 
+     utilities aside from </span><span> all come in handy when fixing a broken 
      configuration.</span>
    <ul>
     <li><span> Write your own script to wrap common Nix commands. The command-line 
       utilities aren&#39;t great, but you can just wrap others to create your own! 
-      (Who in their right mind would provide so many different names for programs 
-      `nixos-rebuild`, `nix-env`, `nix-shell` -- it&#39;s difficult to know which one 
-      to even query the manpage for unless you&#39;re very familiar with Nix(OS) 
+      (Who in their right mind would provide so many different names for programs </span>
+     <span>, </span><span>, </span><span> -- it&#39;s difficult to know which one to 
+      even query the manpage for unless you&#39;re very familiar with Nix(OS) 
       already.)</span>
    </ul>
   </section>
@@ -430,23 +428,38 @@
    <p><span></span><a class=external
     href=https://blog.container-solutions.com/step-towards-future-configuration-infrastructure-management-nix>
      [configuring infra in nix]</a><span></span>
-   <p><span>
-     https://davedellacosta.com/posts/2019-03-29-why-nixos-is-hard-and-how-to-fix.html
-     </span>
-   <p><span>https://github.com/dustinlacewell/dotfiles</span>
-   <p><span>https://github.com/nix-community/nixos-generators image builders for nix</span>
-   <p><span>https://github.com/nix-community/todomvc-nix: canonical example for nix, 
-     works with or without flakes apparently.</span>
-   <p><span>https://lemire.me/blog/2020/05/22/programming-inside-a-container/ 
+   <p><span></span><a class=external
+    href=https://davedellacosta.com/posts/2019-03-29-why-nixos-is-hard-and-how-to-fix.html>
+     [https://davedellacosta.com/posts/2019-03-29-why-nixos-is-hard-and-how-to-fix.html]
+     </a><span></span>
+   <p><span></span><a class=external href=https://github.com/dustinlacewell/dotfiles>
+     [https://github.com/dustinlacewell/dotfiles]</a><span></span>
+   <p><span></span><a class=external
+    href=https://github.com/nix-community/nixos-generators>
+     [https://github.com/nix-community/nixos-generators]</a><span>image builders for 
+     nix</span>
+   <p><span></span><a class=external
+    href=https://github.com/nix-community/todomvc-nix:>
+     [https://github.com/nix-community/todomvc-nix:]</a><span>canonical example for 
+     nix, works with or without flakes apparently.</span>
+   <p><span></span><a class=external
+    href="https://lemire.me/blog/2020/05/22/programming-inside-a-container/">
+     [https://lemire.me/blog/2020/05/22/programming-inside-a-container/]</a><span>
      programming inside of containers</span>
-   <p><span>
-     https://unix.stackexchange.com/questions/522822/different-methods-to-run-a-non-nixos-executable-on-nixos
-     </span>
-   <p><span>https://github.com/NixOS/nixpkgs/issues/26067 making a nix service 
+   <p><span></span><a class=external
+    href=https://unix.stackexchange.com/questions/522822/different-methods-to-run-a-non-nixos-executable-on-nixos>
+     [https://unix.stackexchange.com/questions/522822/different-methods-to-run-a-non-nixos-executable-on-nixos]
+     </a><span></span>
+   <p><span></span><a class=external
+    href=https://github.com/NixOS/nixpkgs/issues/26067>
+     [https://github.com/NixOS/nixpkgs/issues/26067]</a><span>making a nix service 
      abstraction layer, abstracting over systemd to produce a more generic solution</span>
-   <p><span>https://grahamc.com/blog/erase-your-darlings</span>
-   <p><span>https://gitlab.com/vdemeester/home this seems like a config worth looking 
-     through!</span>
+   <p><span></span><a class=external
+    href=https://grahamc.com/blog/erase-your-darlings>
+     [https://grahamc.com/blog/erase-your-darlings]</a><span></span>
+   <p><span></span><a class=external href=https://gitlab.com/vdemeester/home>
+     [https://gitlab.com/vdemeester/home]</a><span>this seems like a config worth 
+     looking through!</span>
    <p><span></span><a class=external
     href=https://www.johnbcoughlin.com/posts/nix-dynamic-linking/index.html>
      [debugging a dynamic linking bug in a nix project]</a><span></span>
@@ -480,16 +493,19 @@
     <h3>TODO [[https://serokell.io/blog/dimensions-haskell-singletons][Dimensions and 
      Haskell: Singletons in Action]]</h3>
     <p><span>Captured On: [2020-10-18 Sun 16:36]</span>
-    <p><span>https://github.com/Trundle/NixOS-WSL nixos on wsl</span>
-    <p><span>https://github.com/telent/nixwrt build images for MIPS using nixpkgs</span>
-    <p><span>https://github.com/serokell/deploy-rs nix flake deploy tool</span>
-    <p><span>https://bou.ke/blog/nix/ very cool nix configuration and deployment</span>
+    <p><span></span><a class=external href=https://github.com/Trundle/NixOS-WSL>
+      [https://github.com/Trundle/NixOS-WSL]</a><span>nixos on wsl</span>
+    <p><span></span><a class=external href=https://github.com/telent/nixwrt>
+      [https://github.com/telent/nixwrt]</a><span>build images for MIPS using nixpkgs</span>
+    <p><span></span><a class=external href=https://github.com/serokell/deploy-rs>
+      [https://github.com/serokell/deploy-rs]</a><span>nix flake deploy tool</span>
+    <p><span></span><a class=external href="https://bou.ke/blog/nix/">
+      [https://bou.ke/blog/nix/]</a><span>very cool nix configuration and deployment</span>
     <p><span>get a nix shell for your whole configuration!</span>
     <p><span>const ua = event.request.headers.get(&#39;User-Agent&#39;);</span>
-    <p><span>if (url.pathname === &#39;/&#39; &amp;&amp; ua.match(/\bNix\//) != null) 
-      {</span>
-    <p><span> return new Response(&#39;&#39;, { status: 302, headers: { location: 
-      `https://github.com/bouk/b/archive/master.tar.gz` } });</span>
+    <p><span>if (url.pathname === &#39;</span><span>\bNix\</span><span>) != null) {</span>
+    <p><span> return new Response(&#39;&#39;, { status: 302, headers: { location: </span>
+     <span> } });</span>
     <p><span>}</span>
    </section>
   </section>
@@ -497,8 +513,7 @@
    <h2>Flake tips</h2>
    <p><span>Do not be afraid to use the --help flag! I&#39;ve learned a lotfrom it.</span>
    <ul>
-    <li><span> Update a specific input: `nix flake update --update-input 
-      spicetify-nix`</span>
+    <li><span> Update a specific input: </span><span></span>
    </ul>
    <p><span> do</span>
   </section>

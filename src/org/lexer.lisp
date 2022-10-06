@@ -38,18 +38,41 @@
   "Push a character to an adjustable string."
   (vector-push-extend c str))
 
+;; current problem:
+;; -> we hit a char, and stop on it
+;; -> then we don't skip that char when we continue to parse
+
 (defun take-until (stream end-on)
   "Take until we get a specific char or string"
   (if (stringp end-on)
       (take-until-string stream end-on)
       (take-until-char stream end-on)))
 
+
+
+;; note: this doesnt always work cos always len of the first;
+;; should be the length of whatever we end on
+(defun take-until-or (stream end-on end-on2)
+  "take from a stream until a particular character is received"
+  (let ((chars (make-adjustable-string "")))
+    (loop for next-char = (safe-read-char stream)
+          until (or (eq next-char end-on)
+                    (eq next-char end-on2)
+                    (eq next-char :eof)
+                    (and (stringp end-on)
+                         (util::string-postfixesp chars end-on)
+                         (util::string-postfixesp chars end-on)))
+          do (push-char chars next-char))
+    chars))
+
 (defun take-until-string (stream end-on)
   "take from a stream until a particular character is received
    omits the string we terminate on"
   (let ((chars (make-adjustable-string "")))
     (loop for next-char = (safe-read-char stream)
-          do (push-char chars next-char)
+          do (when (not (eq next-char :eof))
+               (print chars)
+               (push-char chars next-char))
           until (or (eq next-char :eof)
                     (util::string-postfixesp chars end-on)))
     (util::without-postfix chars end-on)))
@@ -125,7 +148,7 @@
 
 (defun parse-char (stream make chars)
   (let ((bold-cont (take-until stream chars)))
-    (funcall make :text bold-cont)))
+    (funcall make bold-cont)))
 
 ;; buffer assumed to be in scope here
 (defmacro tfit (chars)
@@ -139,19 +162,46 @@
 ;;  (("/" ital "/") make-ital)
 ;;  (("`" verb "`") make-verb))
 
+(defun make-naive-link (txt)
+  ;; http was cut so we manually add it backlol
+  (defs::make-link :url (concatenate 'string "http" txt)))
 
+
+;; 'chars' are the chars to be cut from the end of our recognizing buffer,
+;; so they're the chars we match on.
+;; the rest of them will be pulled off later
+;; there is definitely a way to handle this in a more elegant, generic way2
 (defmacro tapp2 (parser chars)
   `(let ()
-     (setq res (cons (funcall #'parser stream)
+     (setq res (cons (,parser stream)
+                     ;; NOTE: this only works because we watn everyting to have the same len,
+                     ;; and without postfix uses len to do this
                      (cons (util::without-postfix buffer ,chars) res)))
      (setq buffer (make-adjustable-string ""))))
+
+(defun parse-naive-link (stream)
+  "Parse a link with a possible title and mandatory URL"
+  (let* ((link-text (take-until-or stream #\space #\newline)))
+    (make-naive-link link-text)))
 
 ;; stream and buffer are assumed to be in scope here
 (defmacro tapp (make chars)
-  `(let ()
-     (setq res (cons (parse-char stream ,make ,chars)
+  `(let ((parsed (parse-char stream ,make ,chars)))
+     (setq res (cons parsed
                      (cons (util::without-postfix buffer ,chars) res)))
      (setq buffer (make-adjustable-string ""))))
+
+;; problem: http should start a naive link!
+;; we could change this in the wiki or just change the parser to support this
+
+(defun make-bold (txt)
+  (defs::make-bold :text txt))
+
+(defun make-ital (txt)
+  (defs::make-ital :text txt))
+
+(defun make-verb (txt)
+  (defs::make-verb :text txt))
 
 (defun tokenize-text-until (text-line)
   "Tokenize text and find special cool things in it"
@@ -163,10 +213,11 @@
             do (let ()
                  (push-char buffer next-char)
                  (cond
+                   ((tfit "http") (tapp2 parse-naive-link "http")) ;we need an 'or space newline' here
                    ((tfit "[[") (tapp2 parse-link "[["))
-                   ((tfit "*")  (tapp defs::make-bold "*"))
-                   ((tfit "/")  (tapp defs::make-ital "/"))
-                   ((tfit "`")  (tapp defs::make-verb "`")))))
+                   ((tfit "*")  (tapp #'make-bold "*"))
+                   ((tfit "/")  (tapp #'make-ital "/"))
+                   ((tfit "`")  (tapp #'make-verb "`")))))
       (reverse (cons buffer res)))))
 
 

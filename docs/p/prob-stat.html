@@ -109,7 +109,7 @@
     <p><span>$S \equiv S_{\infty} = \sum_{k=0}^{\infty}r^{k} = \frac{1}{1 - r}$, for 
       $|r| &lt; 1$</span>
     <ul>
-     <li><span> </span><a class=external href=PDF>[]</a><span> :: $p_{Y}(k) = (1 - 
+     <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: $p_{Y}(k) = (1 - 
        p)^{k - 1}p$</span>
     </ul>
     <ul>
@@ -123,28 +123,27 @@
    <section>
     <h3>Binomial Distribution</h3>
     <p><span>Given n _independent_ trials with two outcomes and a constant P(success) 
-      for each outcome, $P(k) = (^{n}_{k}) * p^{k}(1 - p)^{n - k}$ for $k = 0, 1, 2, 
-      \dots, n$.</span>
+      for each outcome, $P(k) = (^{n}_{k}) </span><span></span>
     <ul>
-     <li><span> </span><a class=external href=PDF>[]</a><span> :: $P(X = k) = 
-       (^{n}_{k}) * p^{k}(1 - p)^{n - k}$</span>
+     <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: $P(X = k) = 
+       (^{n}_{k}) </span><span></span>
     </ul>
     <p><span> + calculate: use ~binompdf~</span>
     <ul>
-     <li><span> </span><a class=external href=CDF>[]</a><span> :: $P(X \leq t) = 
-       \sum_{k=0}^{t}(^{n}_{k}) * p^{k}(1 - p)^{n - k}$</span>
+     <li><span> </span><a class=external href=CDF>[CDF]</a><span> :: $P(X \leq t) = 
+       \sum_{k=0}^{t}(^{n}_{k}) </span><span></span>
     </ul>
     <p><span> + calculate: use ~binomcdf~</span>
     <ul>
-     <li><span> </span><a class=external href="Expected Value">[]</a><span> :: $E(X) = 
-       np$</span>
+     <li><span> </span><a class=external href="Expected Value">[Expected Value]</a>
+      <span> :: $E(X) = np$</span>
     </ul>
    </section>
    <section>
     <h3>Bernoulli Distribution</h3>
     <p><span>Essentially a </span><a class=external href="Binomial Distribution">
       [Binomial Distribution]</a><span> where $n = 1$.</span>
-    <p><span>$P(k) = (^{1}_{k}) * p^{k}(1 - p)^{1 - k}$</span>
+    <p><span>$P(k) = (^{1}_{k}) </span><span></span>
    </section>
    <section>
     <h3>Hypergeometric Distribution</h3>
@@ -160,27 +159,28 @@
      <li><span> $k$ items are success; $N - k$ items are failures.</span>
     </ul>
     <p><span>This can be considered a generalization of the </span><a class=external
-     href="Binomial Distribution">[]</a><span>.</span>
+     href="Binomial Distribution">[Binomial Distribution]</a><span>.</span>
    </section>
    <section>
     <h3>Uniform Distribution</h3>
     <p><span>All values in a range are equally likely.</span>
     <p><span>For some interval $[a, b]$:</span>
     <ul>
-     <li><span> </span><a class=external href=PDF>[]</a><span> :: $\frac{1}{b - a}$</span>
+     <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: $\frac{1}{b - a}$</span>
     </ul>
     <ul>
-     <li><span> </span><a class=external href=CDF>[]</a><span> :: $\frac{x - a}{b - a}$</span>
+     <li><span> </span><a class=external href=CDF>[CDF]</a><span> :: $\frac{x - a}{b - 
+       a}$</span>
     </ul>
    </section>
    <section>
     <h3>Exponential Distribution</h3>
     <ul>
-     <li><span> </span><a class=external href=PDF>[]</a><span> :: $f_{X}(x) = \lambda 
-       e^{-\lambda x}$ for $x \geq 0$</span>
+     <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: $f_{X}(x) = 
+       \lambda e^{-\lambda x}$ for $x \geq 0$</span>
     </ul>
     <ul>
-     <li><span> </span><a class=external href=CDF>[]</a><span> :: $F_{X}(x) = 1 - 
+     <li><span> </span><a class=external href=CDF>[CDF]</a><span> :: $F_{X}(x) = 1 - 
        e^{-\lambda x}$</span>
     </ul>
     <ul>
@@ -201,12 +201,12 @@
     <p><span>Poisson is often used to approximate the binomial distribution: given 
       that $n$ is large ($n \geq 100$) and $p$ is small, we can let $\lambda = np$!</span>
     <p><span>In other words, $\lambda := np$ -&gt; (average number of occurences per 
-      unit) * (length of observation period)</span>
+      unit) </span><span></span>
     <p><span>Use ~poissonpdf~ and ~poissoncdf~ calculator unctions to approximate 
       this.</span>
     <ul>
-     <li><span> </span><a class=external href=PDF>[]</a><span> :: $p_{X}(k) = P(X = k) 
-       := \frac{\lambda^{k}e^{-\lambda}}{k!}$</span>
+     <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: $p_{X}(k) = P(X = 
+       k) := \frac{\lambda^{k}e^{-\lambda}}{k!}$</span>
     </ul>
     <ul>
      <li><span> mean :: $E(X) = \lambda$</span>
@@ -313,14 +313,14 @@
      the tin - it&#39;s a value that represents the proportionally weighted, expected 
      result.</span>
    <p><span>For example, if I have a 5% chance at $100 and a 95% chance at $20, the 
-     expected value would be $100 * 0.05 + 0.95 * 20$, so $24.</span>
+     expected value would be $100 </span><span> 20$, so $24.</span>
    <section>
     <h3>Discrete</h3>
-    <p><span>$E(X) = \sum_{all \ k} k * p_{X}(k)$</span>
+    <p><span>$E(X) = \sum_{all \ k} k </span><span></span>
    </section>
    <section>
     <h3>Continuous</h3>
-    <p><span>$E(X) = \int_{-\infty}^{\infty} x * p_{X}(x) dx$</span>
+    <p><span>$E(X) = \int_{-\infty}^{\infty} x </span><span></span>
    </section>
    <section>
     <h3>Other Properties</h3>
@@ -460,7 +460,7 @@
      <h4>Finding Mean, stdev, sample from given problem</h4>
      <p><span>$u = np$</span>
      <p><span>$\sigma = \sqrt{np(1-p)}$</span>
-     <p><span>$P(X=a) = nCa * P(a)^{a}(1-P(a))^{n-a}$ ~ ~binompdf~ w/ n, P(a), a</span>
+     <p><span>$P(X=a) = nCa </span><span></span>
      <p><span>Finding P in range: $P(a &lt; X \leq b) = cdf(500, b, P(x)) - cdf(500, a, 
        P(x))$ gives CDF for that range!</span>
     </section>
@@ -468,8 +468,7 @@
      <h4>Find cdf of discrete set of scenarios</h4>
      <p><span>1. Write out each possible scenario and associated value of random 
        variable</span>
-     <p><span>2. Use P(scenario) * (num occurences of scenario) for each random 
-       variable value to compute some P(X=res) for each</span>
+     <p><span>2. Use P(scenario) </span><span></span>
      <p><span>3. Assemble into table; P(X=k) for values x=1, x=2, x=3 for example.</span>
     </section>
     <section>
@@ -501,13 +500,13 @@
      <p><span>1. Find marginal pdfs for each; for x, integrate by dy, and for y 
        integrate by dx</span>
      <p><span>2. Set up integral for $E(XY)$; this should be some $\int_{c}^{d} 
-       \int_{a}^{b} x*y*f_{XY}(x,y) dx dy$ for bounds $a \leq x \leq b$ and $c \leq y 
-       \leq d$ . If bounds overlap, reference the relationship between them (i.e. $0 
-       &lt; y &lt; x &lt; 1 \implies a=y, b=1, c=0, d=1$), as the bounds of one are 
-       dependent on the bounds for the other.</span>
-     <p><span>3. Find the </span><a class=external href=Covariance>[]</a><span> 
-       $Cov(X,Y) := E(XY) - E(X)E(Y)$. Use the marginal PDFs and integrate to find 
-       corresponding $E$, then follow the formula</span>
+       \int_{a}^{b} x</span><span>f_{XY}(x,y) dx dy$ for bounds $a \leq x \leq b$ and 
+       $c \leq y \leq d$ . If bounds overlap, reference the relationship between them 
+       (i.e. $0 &lt; y &lt; x &lt; 1 \implies a=y, b=1, c=0, d=1$), as the bounds of 
+       one are dependent on the bounds for the other.</span>
+     <p><span>3. Find the </span><a class=external href=Covariance>[Covariance]</a>
+      <span> $Cov(X,Y) := E(XY) - E(X)E(Y)$. Use the marginal PDFs and integrate to 
+       find corresponding $E$, then follow the formula</span>
     </section>
     <section>
      <h4>finding c for some pdf with constant to solve for</h4>
