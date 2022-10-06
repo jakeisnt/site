@@ -127,12 +127,29 @@
   (let ((bold-cont (take-until stream chars)))
     (funcall make :text bold-cont)))
 
+;; buffer assumed to be in scope here
 (defmacro tfit (chars)
   `(util::string-postfixesp buffer ,chars))
 
+
+;; ideal ux:
+;; (scan-match
+;;  (("[[" mb-link "]]") parse-link)
+;;  (("*" bold "*") make-bold)
+;;  (("/" ital "/") make-ital)
+;;  (("`" verb "`") make-verb))
+
+
+(defmacro tapp2 (parser chars)
+  `(let ()
+     (setq res (cons (funcall #'parser stream)
+                     (cons (util::without-postfix buffer ,chars) res)))
+     (setq buffer (make-adjustable-string ""))))
+
+;; stream and buffer are assumed to be in scope here
 (defmacro tapp (make chars)
   `(let ()
-     (setq res (cons (parse-char (parse-char stream ,make ,chars))
+     (setq res (cons (parse-char stream ,make ,chars)
                      (cons (util::without-postfix buffer ,chars) res)))
      (setq buffer (make-adjustable-string ""))))
 
@@ -146,23 +163,10 @@
             do (let ()
                  (push-char buffer next-char)
                  (cond
-                   ((tfit "[[") (tapp defs"[[" (parse-link stream)))
-                   ((tfit "*")  (tapp (parse-char stream "*" defs::make-bold) "*"))
-                   ((tfit "/")  (tapp (parse-ital stream "/" defs::make-bold) "/"))
-                   ((tfit "`")  (tapp (parse-verb stream) "`"))
-
-                   )
-                 ;;  if we find a link,parse the rest of the string from it and reset the buffer
-
-
-                 (when (util::string-postfixesp buffer "[[")
-                   (let ()
-                     (setq res (cons (parse-link stream)
-                                     (cons
-                                      (util::without-postfix buffer "[[")
-                                      res)))
-                     (setq buffer (make-adjustable-string ""))))
-                 ))
+                   ((tfit "[[") (tapp2 parse-link "[["))
+                   ((tfit "*")  (tapp defs::make-bold "*"))
+                   ((tfit "/")  (tapp defs::make-ital "/"))
+                   ((tfit "`")  (tapp defs::make-verb "`")))))
       (reverse (cons buffer res)))))
 
 
