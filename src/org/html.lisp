@@ -38,6 +38,9 @@
     (cond
       ((stringp txt) (:span txt))
       ((defs::link-p txt) (convert-link txt))
+      ((defs::bold-p txt) (:b (defs::bold-text txt)))
+      ((defs::ital-p txt) (:i (defs::ital-text txt)))
+      ((defs::verb-p txt) (:pre txt))
       (t "fell through the cracks"))))
 
 (defmacro render-text-body (body-list)

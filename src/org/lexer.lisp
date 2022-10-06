@@ -145,6 +145,13 @@
         (defs::make-link :url (car body)))))
 
 
+;; take-until can terminate on eof before we find that last character
+;; we should explicitly be informed if this happens;
+;; currently, it'll chunk everything after some starting character until eol
+;; into the constructor of one of these things,
+;; rather than giving up and returning text.
+;; we should see if we actually found the closing char,
+;; and just return a string if we didn't
 (defun parse-char (stream make chars)
   (let ((bold-cont (take-until stream chars)))
     (funcall make bold-cont)))
@@ -178,6 +185,10 @@
                      (cons (util::without-postfix buffer ,chars) res)))
      (setq buffer (make-adjustable-string ""))))
 
+;; semantics of these inlines:
+;; if we hit a space or newline or eof before we find closing,
+;; we give up on the form and just return the text.
+
 (defun parse-naive-link (stream)
   "Parse a link with a possible title and mandatory URL"
   (let* ((link-text (take-until-or stream #\space #\newline)))
@@ -185,9 +196,11 @@
 
 ;; stream and buffer are assumed to be in scope here
 (defmacro tapp (make chars)
-  `(let ((parsed (parse-char stream ,make ,chars)))
-     (setq res (cons parsed
-                     (cons (util::without-postfix buffer ,chars) res)))
+  `(let ((parsed (parse-char stream ,make ,chars))
+         (sin-postfix (if (util::string-postfixesp buffer ,chars)
+                          (util::without-postfix buffer ,chars)
+                          buffer)))
+     (setq res (cons parsed (cons sin-postfix res)))
      (setq buffer (make-adjustable-string ""))))
 
 ;; problem: http should start a naive link!

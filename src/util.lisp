@@ -28,12 +28,17 @@
      (>= lg-len sm-len)
      (string= smaller larger :start2 0 :end2 sm-len))))
 
+
+        ;; (print "wrong sizes!!")
+        ;; (print larger)
+        ;; (print smaller)
 (defun without-postfix (larger smaller)
   "Produce the larger string without its assumed postfix, smaller"
-  (print "removing postfix")
-  (print larger)
-  (print smaller)
-  (subseq larger 0 (- (length larger) (length smaller))))
+  (let ((sm-len (length smaller))
+        (lg-len (length larger)))
+    (if (< lg-len sm-len)
+        larger
+        (subseq larger 0 (- lg-len sm-len)))))
 
 (defun without-prefix (larger smaller)
   "Produce the larger string without its assumed prefix, smaller"

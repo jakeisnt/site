@@ -138,8 +138,8 @@
      <li><span> Create three partitions:</span>
     </ul>
     <p><span> - a boot partition {~100 mb},</span>
-    <p><span> - a main partition {rest of disk, -1</span><span></span>
-    <p><span> - and a swap partition {1</span><span></span>
+    <p><span> - a main partition {rest of disk, -1</span><i>2 ram size}</i><span></span>
+    <p><span> - and a swap partition {1</span><i>2 ram capacity}</i><span></span>
     <ul>
      <li><span> Format each with the file system of your choice.</span>
     </ul>
@@ -153,13 +153,13 @@
     <h3>Mounting and Installing</h3>
     <p><span>This system&#39;s a UEFI system, so we&#39;ll have to mount two 
       partitions.</span>
-    <p><span>Mount your main partition to ~</span><span></span>
+    <p><span>Mount your main partition to ~</span><i>mnt~</i><span></span>
     <p><span>sh</span>
-    <p><span>mount nixos </span><span></span>
-    <p><span>your boot partition to ~</span><span>boot~:</span>
+    <p><span>mount nixos </span><i>mn</i><span></span>
+    <p><span>your boot partition to ~</span><i>mnt</i><span>boot~:</span>
     <p><span>sh</span>
-    <p><span>mkdir -p </span><span>boot</span>
-    <p><span>mount boot </span><span>boot</span>
+    <p><span>mkdir -p </span><i>mnt</i><span>boot</span>
+    <p><span>mount boot </span><i>mnt</i><span>boot</span>
     <p><span>assumes that you&#39;ve named your main and boot partitions 
       &#39;nixos&#39; and &#39;boot&#39; respectively.</span>
    </section>
@@ -174,8 +174,8 @@
 </code></pre>
    <section>
     <h3>Editing the Configuration</h3>
-    <p><span>You should now have two files visible in the ~</span><span>nixos~ 
-      directory:</span>
+    <p><span>You should now have two files visible in the ~</span><i>etc</i><span>
+      nixos~ directory:</span>
     <ul>
      <li><span> configuration.nix</span>
     </ul>

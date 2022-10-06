@@ -108,10 +108,11 @@
      <span></span>
     <ul>
      <li><span> It&#39;s the simplest way to quickly iterate and try new programs. From </span>
-      <span> to </span><span> to configuration options like </span><span>, it&#39;s 
-       incredibly easy to swap parts of your system in very few lines of code. A lot of 
-       the grunt work has been done already to ensure that common configurations are 
-       perfectly functional and reproducible out of the box.</span>
+      <pre></pre><span> to </span>
+      <pre></pre><span> to configuration options like </span>
+      <pre></pre><span>, it&#39;s incredibly easy to swap parts of your system in very 
+       few lines of code. A lot of the grunt work has been done already to ensure that 
+       common configurations are perfectly functional and reproducible out of the box.</span>
     </ul>
     <ul>
      <li><span> It&#39;s trivial to revert the state of your system. All it takes is 
@@ -269,11 +270,12 @@
    <section>
     <h3>Good practices</h3>
     <ul>
-     <li><span> Create a separate partition for all of your nix derivations, </span>
-      <span></span>
+     <li><span> Create a separate partition for all of your nix derivations, </span><i>
+       ni</i><span></span>
     </ul>
     <ul>
-     <li><span> Label all of your disks so that </span><span> is reproducible</span>
+     <li><span> Label all of your disks so that </span>
+      <pre></pre><span> is reproducible</span>
     </ul>
    </section>
    <section>
@@ -291,22 +293,23 @@
     <section>
      <h4>partition</h4>
      <p><span>partition for space for nixos</span>
-     <p><span>sudo fdisk </span><span>sda</span>
+     <p><span>sudo fdisk </span><i>dev</i><span>sda</span>
      <p><span>new</span>
      <p><span>partition</span>
      <p><span>sector1</span>
      <p><span>no selection for start of partition</span>
      <p><span>no selection for last sector</span>
      <p><span>w to write to disk</span>
-     <p><span>sudo mkfs.ext4 -j -L nixos </span><span>sda1</span>
+     <p><span>sudo mkfs.ext4 -j -L nixos </span><i>dev</i><span>sda1</span>
     </section>
    </section>
    <section>
     <h3>Installation Outline</h3>
     <p><span>Make sure to name your disks; some configurations use some disk names by 
       default.</span>
-    <p><span>nixos-generate-config --root </span><span></span>
-    <p><span>Edit </span><span>etc</span><span>configuration.nix.</span>
+    <p><span>nixos-generate-config --root </span><i>mn</i><span></span>
+    <p><span>Edit </span><i>mnt</i><span>etc</span><i>nixos</i><span>
+      configuration.nix.</span>
     <p><span>Uncomment:</span>
     <ul>
      <li><span> localization for us</span>
@@ -315,8 +318,8 @@
      <li><span> terminal font and keymap</span>
     </ul>
     <ul>
-     <li><span> timezone = America</span><span>Los_Angeles, etc. These are defined 
-       somewhere on your system.</span>
+     <li><span> timezone = America</span><i>NewYork, America</i><span>Los_Angeles, etc. 
+       These are defined somewhere on your system.</span>
     </ul>
     <p><span>UEFI systems:</span>
     <ul>
@@ -331,7 +334,8 @@
       to add other OS to the grub</span>
     <p><span>menu. This failed when I tried it (I may have accidentally damaged the 
       partition table, though) but it might work for you.</span>
-    <p><span>You may have to manually start the SSH daemon: </span><span></span>
+    <p><span>You may have to manually start the SSH daemon: </span>
+     <pre></pre><span></span>
    </section>
   </section>
   <section>
@@ -340,18 +344,20 @@
     <li><span> If the configuration isn&#39;t running properly after successfully 
       refreshing it,</span>
    </ul>
-   <p><span> you can use </span><span> instead of </span><span> to use the new 
-     configuration</span>
-   <p><span> on the next boot but not enable it immediately. The </span><span> 
-     utilities aside from </span><span> all come in handy when fixing a broken 
-     configuration.</span>
+   <p><span> you can use </span>
+    <pre></pre><span> instead of </span>
+    <pre></pre><span> to use the new configuration</span>
+   <p><span> on the next boot but not enable it immediately. The </span>
+    <pre></pre><span> utilities aside from </span>
+    <pre></pre><span> all come in handy when fixing a broken configuration.</span>
    <ul>
     <li><span> Write your own script to wrap common Nix commands. The command-line 
       utilities aren&#39;t great, but you can just wrap others to create your own! 
       (Who in their right mind would provide so many different names for programs </span>
-     <span>, </span><span>, </span><span> -- it&#39;s difficult to know which one to 
-      even query the manpage for unless you&#39;re very familiar with Nix(OS) 
-      already.)</span>
+     <pre></pre><span>, </span>
+     <pre></pre><span>, </span>
+     <pre></pre><span> -- it&#39;s difficult to know which one to even query the 
+      manpage for unless you&#39;re very familiar with Nix(OS) already.)</span>
    </ul>
   </section>
   <section>
@@ -503,9 +509,10 @@
       [https://bou.ke/blog/nix/]</a><span>very cool nix configuration and deployment</span>
     <p><span>get a nix shell for your whole configuration!</span>
     <p><span>const ua = event.request.headers.get(&#39;User-Agent&#39;);</span>
-    <p><span>if (url.pathname === &#39;</span><span>\bNix\</span><span>) != null) {</span>
+    <p><span>if (url.pathname === &#39;</span><i>&#39; &amp;&amp; ua.match(</i><span>
+      \bNix\</span><i></i><span>) != null) {</span>
     <p><span> return new Response(&#39;&#39;, { status: 302, headers: { location: </span>
-     <span> } });</span>
+     <pre></pre><span> } });</span>
     <p><span>}</span>
    </section>
   </section>
@@ -513,7 +520,8 @@
    <h2>Flake tips</h2>
    <p><span>Do not be afraid to use the --help flag! I&#39;ve learned a lotfrom it.</span>
    <ul>
-    <li><span> Update a specific input: </span><span></span>
+    <li><span> Update a specific input: </span>
+     <pre></pre><span></span>
    </ul>
    <p><span> do</span>
   </section>
