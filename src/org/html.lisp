@@ -12,6 +12,17 @@
 
 (in-package org-html)
 
+;; three cases:
+;; `id:`: this should find the file with the given id and link to it.
+;; `file:`: this should get the file at the path and link to it.
+;;          this could, unfortunately, be a relative path.
+;; `https://`: leave it alone. this link works.
+(defun convert-link (url)
+  (cond
+    ((util::string-prefixesp url "id:") url)
+    ((util::string-prefixesp url "file:") url)
+    (t url)))
+
 (defun render-text-elem (txt)
   "Render a text element."
   (spinneret::with-html

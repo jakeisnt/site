@@ -20,6 +20,14 @@
      (>= lg-len sm-len)
      (string= smaller larger :start2 (- lg-len sm-len) :end2 lg-len))))
 
+(defun string-prefixesp (larger smaller)
+  "Determine whether the assumed smaller string postfixes the larger."
+  (let ((sm-len (length smaller))
+        (lg-len (length larger)))
+    (and
+     (>= lg-len sm-len)
+     (string= smaller larger :start2 0 :end2 sm-len))))
+
 (defun without-postfix (larger smaller)
   "Produce the larger string without its assumed postfix, smaller"
   (subseq larger 0 (- (length larger) (length smaller))))
