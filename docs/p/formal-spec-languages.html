@@ -1,0 +1,91 @@
+"<html lang=en>
+ <head>
+  <meta charset=UTF-8>
+  <title>Formal Specification Langauges | Jake Chvatal</title>
+  <link rel=stylesheet
+        href=/home/jake/site/docs/style.css>
+  <link rel=stylesheet
+        href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
+  <script
+          src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
+  <script>hljs.highlightAll();</script>
+ </head>
+ <body>
+  <h1>Formal Specification Langauges</h1>
+  <section>
+   <h2>From Hillel Wayne&#39;s writing</h2>
+   <p><span>A notation to describe the design of a system without implementing it.</span>
+   <p><span>Can test the *design* for bugs rather than the implementation.</span>
+   <section>
+    <h3>Examples</h3>
+    <ul>
+     <li><span> </span><a href=https://en.wikipedia.org/wiki/Z_notation>z</a><span> :: 
+       The first specification language to reach widespread use. Relies on set theory 
+       to describe states and schemas to describe behavior, first catalogued as a way 
+       of managing &#39;data semantics&#39;.</span>
+    </ul>
+    <ul>
+     <li><span> </span><a href=https://alloytools.org>Alloy</a><span> :: A response to 
+       Z&#39;s complex syntax and tooling. Alloy is an attempt to simplify both of 
+       these, specifying everything as either a type signature or relationship between 
+       signatures.</span>
+    </ul>
+    <p><span> Alloy is popular for SAT problems and models; it easily visualizes 
+      models to share properties with nontechnical people as well. This would be the 
+      tool to try!</span>
+    <ul>
+     <li><span> </span><a href=https://en.wikipedia.org/wiki/TLA%2B>TLA^+</a><span> is 
+       a formal specification langauge used to model concurrent and distributed 
+       systems; it&#39;s best respected as testable pseudocode and is similar to the 
+       drawing of blueprints for complex software systems.</span>
+    </ul>
+    <p><span> It is also designed to check liveness properties of systems.</span>
+    <p><span> </span><a
+     href=https://medium.com/espark-engineering-blog/formal-methods-in-practice-8f20d72bce4f>
+      Hillel</a><span> has a good article on modeling a complex system in the software 
+      development world with formal methods.</span>
+    <ul>
+     <li><span> Prism :: Used to model *probabilistic* specifications, in which 
+       different things have different chances of happening and events are all 
+       dependent. Its syntax is very restrictive in order to be tractable, but the 
+       opportunity to model probabilistic systems is incredible.</span>
+    </ul>
+    <ul>
+     <li><span> Spin :: As expressive as TLA+, but written to model network protocols.</span>
+    </ul>
+    <p><span>There are a lot more, but I&#39;ll investigate them further as I learn 
+      more.</span>
+   </section>
+  </section>
+  <section>
+   <h2>Terms</h2>
+   <ul>
+    <li><span> Temporal logic :: Extending standard mathematical notation to allow 
+      temporal logic to change over time.</span>
+   </ul>
+   <p><span> Temporal logic of actions is a subset of this concept that scales to 
+     real world systems.</span>
+   <ul>
+    <li><span> Liveness properties :: Similar to the definition in the compiler 
+      sphere, liveness properties are properties of systems that must /eventually/ be 
+      true for the spec to be valid.</span>
+   </ul>
+  </section>
+  <section>
+   <h2>etc</h2>
+   <p><span>https://github.com/wimmers/munta</span>
+   <p><span>https://melcer.dev/projects.html</span>
+   <p><span></span><a
+    href=https://mobile.twitter.com/EremondiJoey/status/1314319848592216064>Joey 
+     Eremondi on Twitter: &amp;quot;Has anyone seen a &amp;quot;reference&amp;quot; 
+     implementation of an SMT solver? Not one that is fast like Z3 or CVC4, but one 
+     that implements the algorithm in a fairly straightforward way that&amp;#39;s 
+     slow but grokkable. I&amp;#39;m particularly interested in how it handles 
+     uninterpreted functions (UF).&amp;quot; / Twitter</a><span></span>
+   <p><span></span><a href=\"https://www.hillelwayne.com/post/alloydocs/\">alloy: the 
+     neat formal method</a><span></span>
+   <p><span>
+     http://www.ccs.neu.edu/home/pete/courses/Computer-Aided-Reasoning/2018-Fall/</span>
+  </section>
+ </body>
+</html>"
