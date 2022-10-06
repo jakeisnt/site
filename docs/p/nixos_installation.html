@@ -3,7 +3,7 @@
   <meta charset=UTF-8>
   <title>Setting Up NixOS: Dell XPS 9370 4K and EXWM | Jake Chvatal</title>
   <link rel=stylesheet
-        href=https://jake.isnt.online/style.css>
+        href=/home/jake/site/docs/style.css>
   <link rel=stylesheet
         href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
   <script
@@ -13,30 +13,30 @@
  <body>
   <h1>Setting Up NixOS: Dell XPS 9370 4K and EXWM</h1>
   <p><span>I&#39;ve long been tired of the dependency management of Linux and</span>
-  <p><span>wanted to try a new system: </span><a href=https://nixos.org>NixOS</a>
-   <span>. It&#39;s an operating system</span>
+  <p><span>wanted to try a new system: </span><a class=external
+   href=https://nixos.org>[NixOS]</a><span>. It&#39;s an operating system</span>
   <p><span>centered around system configuration -- a DevOps tool and</span>
   <p><span>a way to manage configuration files as well as a proper</span>
   <p><span>Linux-based operating system.</span>
   <p><span>I did have a bit of trouble installing it so I wanted to</span>
   <p><span>catalogue the process here.</span>
-  <p><span>To help with the installation, I referenced </span><a
-   href=https://gist.github.com/domenkozar/b3c945035af53fa816e0ac460f1df853>Domen 
-    Kozar&#39;s instructions</a><span>,</span>
-  <p><span></span><a href=https://github.com/jethrokuan/nix-config>Jethro&#39;s 
-    configuration</a><span> and </span><a
-   href="https://github.com/kylesferrazza/nix/">Kyle&#39;s configuration</a><span>. 
-    I also made substantial</span>
-  <p><span>use of the </span><a href=https://nixos.org/nixos/manual>NixOS manual</a>
-   <span> and its instructions. I&#39;ll be summarizing steps</span>
+  <p><span>To help with the installation, I referenced </span><a class=external
+   href=https://gist.github.com/domenkozar/b3c945035af53fa816e0ac460f1df853>[Domen 
+    Kozar&#39;s instructions]</a><span>,</span>
+  <p><span></span><a class=external href=https://github.com/jethrokuan/nix-config>
+    [Jethro&#39;s configuration]</a><span> and </span><a class=external
+   href="https://github.com/kylesferrazza/nix/">[Kyle&#39;s configuration]</a><span>
+    . I also made substantial</span>
+  <p><span>use of the </span><a class=external href=https://nixos.org/nixos/manual>
+    [NixOS manual]</a><span> and its instructions. I&#39;ll be summarizing steps</span>
   <p><span>taken by each of these articles; refer to the NixOS manual or the 
     instructions</span>
   <p><span>if you&#39;d like more information about the abbreviated steps.</span>
   <p><span>As the title says, I installed ~NixOS 20.03~ on the Dell XPS 9370 i7 UHD.</span>
   <p><span>I can&#39;t guarantee that these instructions will work for your system.</span>
   <p><span>My current configuration, including some of the code mentioned</span>
-  <p><span>in this article, can be found </span><a
-   href=https://github.com/jakechv/nix-cfg>here</a><span>.</span>
+  <p><span>in this article, can be found </span><a class=external
+   href=https://github.com/jakechv/nix-cfg>[here]</a><span>.</span>
   <p><span>Make sure that you have a flash drive handy with a capacity greater than 
     2 gigabytes.</span>
   <p><span>My first go used installation media that didn&#39;t have the entire ISO 
@@ -64,8 +64,9 @@
    </section>
    <section>
     <h3>Make an Installation Disk</h3>
-    <p><span>Download an ISO from </span><a href=https://nixos.org/download.html>the 
-      website</a><span>. I wouldn&#39;t recommend the graphical installation</span>
+    <p><span>Download an ISO from </span><a class=external
+     href=https://nixos.org/download.html>[the website]</a><span>. I wouldn&#39;t 
+      recommend the graphical installation</span>
     <p><span>CD, as it&#39;ll take substantially longer to boot and at the time of 
       this writing</span>
     <p><span>offers no real advantage over the minimal installation disk. You&#39;ll 
@@ -75,8 +76,8 @@
    <section>
     <h3>Install ISO</h3>
     <p><span>For Linux, I recommend using ~dd~ to write the media to your USB.</span>
-    <p><span>For Windows 10, I&#39;d recommend using </span><a href=https://rufus.ie>
-      Rufus</a><span>.</span>
+    <p><span>For Windows 10, I&#39;d recommend using </span><a class=external
+     href=https://rufus.ie>[Rufus]</a><span>.</span>
     <p><span>I used Rufus and had trouble with the installation media when writing the 
       ISO,</span>
     <p><span>but using DD mode worked well. I&#39;d recommend using that to start.</span>

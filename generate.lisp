@@ -2,17 +2,19 @@
 (load "./src/util.lisp")
 (load "./src/homepage.lisp")
 (load "./src/org/html.lisp")
+(load "./src/css.lisp")
 
 (ql:quickload :spinneret)
 
 (defparameter *site-location*  "~/site/docs/")
 (defparameter *wiki-location*  "~/wiki/")
-(defparameter org-html::*url* "https://jake.isnt.online")
+;; (defparameter org-html::*url* "https://jake.isnt.online")
 
 (defun string-append (str1 str2)
   (concatenate 'string str1 str2))
 
 (defun generate-homepage ()
+  "Generate the homepage!"
   (util::write-file
    (string-append *site-location* "index.html")
    (spinneret::with-html-string (homepage::homepage))))
@@ -39,6 +41,11 @@
             (change-file-path file-path)
             (org-html::render-org-file file-path))))
 
+;; (defun generate-global-css ()
+;;   (util::write-file "/home/jake/site/docs/style.css" (css::style)))
+
 (defun generate ()
   (generate-homepage)
-  (generate-wiki))
+  (generate-wiki)
+  ;; (generate-global-css)
+  )

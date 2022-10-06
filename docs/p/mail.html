@@ -3,7 +3,7 @@
   <meta charset=UTF-8>
   <title>Mail | Jake Chvatal</title>
   <link rel=stylesheet
-        href=https://jake.isnt.online/style.css>
+        href=/home/jake/site/docs/style.css>
   <link rel=stylesheet
         href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
   <script
@@ -37,9 +37,9 @@
    </ul>
    <p><span>https://github.com/tomav/docker-mailserver/blob/master/README.md</span>
    <p><span>https://github.com/icyphox/mael</span>
-   <p><span></span><a
+   <p><span></span><a class=external
     href="https://www.reddit.com/r/NEU/comments/hiqe2r/a_minimal_guide_to_sending_emails_through_office/">
-     sending mail through office365</a><span></span>
+     [sending mail through office365]</a><span></span>
    <p><span>https://stevelosh.com/blog/2012/10/the-homely-mutt/</span>
    <p><span>http://matt.might.net/articles/how-to-email/</span>
    <p><span>https://en.m.wikipedia.org/wiki/Anonymous_remailer</span>
@@ -50,28 +50,28 @@
   </section>
   <section>
    <h2>Setting up a NixOS email server</h2>
-   <p><span>I used Vultr&#39;s VPS; install NixOS with it </span><a
-    href=https://www.vultr.com/docs/install-nixos-on-vultr>adding the ISO with these 
-     instructions</a><span>, or using the ISO included with Vultr. (You&#39;ll still 
+   <p><span>I used Vultr&#39;s VPS; install NixOS with it </span><a class=external
+    href=https://www.vultr.com/docs/install-nixos-on-vultr>[adding the ISO with these 
+     instructions]</a><span>, or using the ISO included with Vultr. (You&#39;ll still 
      have to manually partition and install NixOS though).</span>
    <p><span>There are several nice preconfigured mail server options. I chose </span>
-    <a
+    <a class=external
     href=https://gitlab.com/simple-nixos-mailserver/nixos-mailserver/-/tree/nixos-20.09/mail-server/dovecot/imap_sieve>
-     nixos-simple-mailserver</a><span> and run NixOS 20.09, managed with flakes and 
-     merged into my system configurations. </span><a
-    href=https://nixos-mailserver.readthedocs.io/en/latest/index.html>The 
-     documentation</a><span> for the mail server is superb. </span><a
-    href=https://timput.com/posts/mailserver.html>This article</a><span> might also 
+     [nixos-simple-mailserver]</a><span> and run NixOS 20.09, managed with flakes and 
+     merged into my system configurations. </span><a class=external
+    href=https://nixos-mailserver.readthedocs.io/en/latest/index.html>[The 
+     documentation]</a><span> for the mail server is superb. </span><a class=external
+    href=https://timput.com/posts/mailserver.html>[This article]</a><span> might also 
      be useful but could be dated.</span>
    <p><span>As part of the instructions, you&#39;ll have to set up a reverse DNS 
-     record. </span><a
+     record. </span><a class=external
     href=https://www.vultr.com/docs/how-to-create-reverse-dns-or-ptr-records-in-the-vultr-control-panel>
-     Here&#39;s</a><span> how you handle that for Vultr.</span>
+     [Here&#39;s]</a><span> how you handle that for Vultr.</span>
    <p><span>On Namecheap, the DNS records took several hours to propagate. The 
      LetsEncrypt certificates in this mail server cannot be issued until your DNS 
      records go into effect, so be patient until this happens.</span>
-   <p><span></span><a href="http://www.asciiribbon.org/">use plain html email</a>
-    <span></span>
+   <p><span></span><a class=external href="http://www.asciiribbon.org/">[use plain 
+     html email]</a><span></span>
   </section>
   <section>
    <h2>Thunderbird configuration</h2>

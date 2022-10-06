@@ -17,13 +17,14 @@ body {
 }
 
 a {
-  color: #484848;
+  link:color;
+  *color1*:nil;
 }
 
-a:visited {
+a visited {
   color:#585858;
 }
 
-a:active {
+a active {
   color:blue;
 }

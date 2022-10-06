@@ -45,7 +45,8 @@
       (take-until-char stream end-on)))
 
 (defun take-until-string (stream end-on)
-  "take from a stream until a particular character is received"
+  "take from a stream until a particular character is received
+   omits the string we terminate on"
   (let ((chars (make-adjustable-string "")))
     (loop for next-char = (safe-read-char stream)
           do (push-char chars next-char)
@@ -122,24 +123,47 @@
         (defs::make-link :url (car body)))))
 
 
-  (defun tokenize-text-until (text-line)
-    "Tokenize text and find special cool things in it"
-    (with-open-stream (stream (make-string-input-stream text-line))
-      (let ((res ())
-            (buffer (make-adjustable-string "")))
-        (loop for next-char = (safe-read-char stream)
-              until (eq next-char :eof)
-              do (let ()
-                   (push-char buffer next-char)
-                   ;;  if we find a link,parse the rest of the string from it and reset the buffer
-                   (if (util::string-postfixesp buffer "[[")
-                       (let ()
-                        (setq res (cons (parse-link stream)
-                                        (cons
-                                         (util::without-postfix buffer "[[")
-                                         res)))
-                        (setq buffer (make-adjustable-string ""))))))
-        (reverse (cons buffer res)))))
+(defun parse-char (stream make chars)
+  (let ((bold-cont (take-until stream chars)))
+    (funcall make :text bold-cont)))
+
+(defmacro tfit (chars)
+  `(util::string-postfixesp buffer ,chars))
+
+(defmacro tapp (make chars)
+  `(let ()
+     (setq res (cons (parse-char (parse-char stream ,make ,chars))
+                     (cons (util::without-postfix buffer ,chars) res)))
+     (setq buffer (make-adjustable-string ""))))
+
+(defun tokenize-text-until (text-line)
+  "Tokenize text and find special cool things in it"
+  (with-open-stream (stream (make-string-input-stream text-line))
+    (let ((res ())
+          (buffer (make-adjustable-string "")))
+      (loop for next-char = (safe-read-char stream)
+            until (eq next-char :eof)
+            do (let ()
+                 (push-char buffer next-char)
+                 (cond
+                   ((tfit "[[") (tapp defs"[[" (parse-link stream)))
+                   ((tfit "*")  (tapp (parse-char stream "*" defs::make-bold) "*"))
+                   ((tfit "/")  (tapp (parse-ital stream "/" defs::make-bold) "/"))
+                   ((tfit "`")  (tapp (parse-verb stream) "`"))
+
+                   )
+                 ;;  if we find a link,parse the rest of the string from it and reset the buffer
+
+
+                 (when (util::string-postfixesp buffer "[[")
+                   (let ()
+                     (setq res (cons (parse-link stream)
+                                     (cons
+                                      (util::without-postfix buffer "[[")
+                                      res)))
+                     (setq buffer (make-adjustable-string ""))))
+                 ))
+      (reverse (cons buffer res)))))
 
 
 (defun tokenize-text (last-char stream)

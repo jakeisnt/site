@@ -74,11 +74,11 @@
        (:p (:span "I value high impact roles at organizations with missions that directly benefit people. ")
            (:span "At ")
            (:a :href "https://skira.se" "Skira")
-           (:span ", I helped democratize " " the Scandinavian grain market, ")
+           (:span " I helped democratize the Scandinavian grain market ")
            (:span "and at ")
            (:a :href "https://theroutingcompany.com" "TRC")
-           (:span " I helped provide equitable access to transporation worldwide. I've worked at a lot of other places; for that information, you can check out ")
-           (:a :href *cv* "my full CV")
+           (:span " I helped provide equitable access to public transporation. For the detailed rundown, you can check out ")
+           (:a :href *cv* "My CV")
            (:span "."))
 
        (:p

@@ -17,18 +17,27 @@
 ;; `file:`: this should get the file at the path and link to it.
 ;;          this could, unfortunately, be a relative path.
 ;; `https://`: leave it alone. this link works.
-(defun convert-link (url)
-  (cond
-    ((util::string-prefixesp url "id:") url)
-    ((util::string-prefixesp url "file:") url)
-    (t url)))
+(defun convert-link (txt)
+  (spinneret::with-html
+    (let* ((url (defs::link-url txt))
+          (title (defs::link-title txt))
+          (is-internal
+            (or
+             (util::string-prefixesp url  "id:")
+             (util::string-prefixesp url "file:"))))
+      (:a
+       :href url
+       :class (if is-internal "internal" "external")
+       (if is-internal
+           (concatenate 'string "{" title "}")
+           (concatenate 'string "[" title "]"))))))
 
 (defun render-text-elem (txt)
   "Render a text element."
   (spinneret::with-html
     (cond
       ((stringp txt) (:span txt))
-      ((defs::link-p txt) (:a :href (defs::link-url txt) (defs::link-title txt)))
+      ((defs::link-p txt) (convert-link txt))
       (t "fell through the cracks"))))
 
 (defmacro render-text-body (body-list)

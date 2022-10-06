@@ -5,5 +5,14 @@
 
 (in-package defs)
 
-;; a link
+;; a link ([[link][text]])
 (defstruct link title url)
+
+;; bold text (*text*)
+(defstruct bold text)
+
+;; italicised text (/text/)
+(defstruct ital text)
+
+;; verbatim text (`text`)
+(defstruct verb text)
