@@ -203,9 +203,6 @@
      (setq res (cons parsed (cons sin-postfix res)))
      (setq buffer (make-adjustable-string ""))))
 
-;; problem: http should start a naive link!
-;; we could change this in the wiki or just change the parser to support this
-
 (defun make-bold (txt)
   (defs::make-bold :text txt))
 
