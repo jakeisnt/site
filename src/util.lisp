@@ -10,7 +10,7 @@
                        :direction :output
                        :if-exists :supersede
                        :if-does-not-exist :create)
-    (format str "~S" contents)))
+    (write-sequence contents str)))
 
 (defun string-postfixesp (larger smaller)
   "Determine whether the assumed smaller string postfixes the larger."
