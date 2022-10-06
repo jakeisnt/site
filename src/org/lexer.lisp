@@ -71,7 +71,6 @@
   (let ((chars (make-adjustable-string "")))
     (loop for next-char = (safe-read-char stream)
           do (when (not (eq next-char :eof))
-               (print chars)
                (push-char chars next-char))
           until (or (eq next-char :eof)
                     (util::string-postfixesp chars end-on)))
@@ -217,7 +216,8 @@
                    ((tfit "[[") (tapp2 parse-link "[["))
                    ((tfit "*")  (tapp #'make-bold "*"))
                    ((tfit "/")  (tapp #'make-ital "/"))
-                   ((tfit "`")  (tapp #'make-verb "`")))))
+                   ((tfit "`")  (tapp #'make-verb "`"))
+                   ((tfit "$")  (tapp #'make-verb "$")))))
       (reverse (cons buffer res)))))
 
 

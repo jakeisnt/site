@@ -30,6 +30,9 @@
 
 (defun without-postfix (larger smaller)
   "Produce the larger string without its assumed postfix, smaller"
+  (print "removing postfix")
+  (print larger)
+  (print smaller)
   (subseq larger 0 (- (length larger) (length smaller))))
 
 (defun without-prefix (larger smaller)
