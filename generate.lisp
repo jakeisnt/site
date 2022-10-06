@@ -7,7 +7,7 @@
 
 (defparameter *site-location*  "~/site/docs/")
 (defparameter *wiki-location*  "~/wiki/")
-;; (defparameter *url* "https://jake.isnt.online")
+(defparameter org-html::*url* "https://jake.isnt.online")
 
 (defun string-append (str1 str2)
   (concatenate 'string str1 str2))
