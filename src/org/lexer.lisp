@@ -42,8 +42,13 @@
 ;; -> we hit a char, and stop on it
 ;; -> then we don't skip that char when we continue to parse
 
+
+
 (defun take-until (stream end-on)
-  "Take until we get a specific char or string"
+  "Take until we get a specific char or string;
+if we find it, return ('found str);
+if we don't, return ('missing str)
+"
   (if (stringp end-on)
       (take-until-string stream end-on)
       (take-until-char stream end-on)))
@@ -70,10 +75,10 @@
    omits the string we terminate on"
   (let ((chars (make-adjustable-string "")))
     (loop for next-char = (safe-read-char stream)
-          do (when (not (eq next-char :eof))
-               (push-char chars next-char))
           until (or (eq next-char :eof)
-                    (util::string-postfixesp chars end-on)))
+                    (util::string-postfixesp chars end-on))
+          do (when (not (eq next-char :eof))
+               (push-char chars next-char)))
     (util::without-postfix chars end-on)))
 
 (defun take-until-char (stream end-on)
