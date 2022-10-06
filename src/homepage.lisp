@@ -68,26 +68,24 @@
        (::p "I believe that everyone deserves the ability to use computing to express themselves.
           To this end, I aim to build better interfaces - from web UIs to " (:a :href "https://github.com/jakeisnt/nixcfg/" "unix service layers") " - that improve ways in which people understand and interact with their computers.")
 
-       (:p "I value high impact roles at organizations with missions that directly benefit people.")
+       (:p "I value high impact roles at organizations with missions that directly benefit people."
 
-       (:p
-        "At " (:a :href "https://skira.se" "Skira") ", I helped democratize " (:br) " the Scandinavian grain market, " (:br)
-        "and at " (:a :href "https://theroutingcompany.com" "TRC") " I helped provide equitable access to transporation worldwide."
+           "At " (:a :href "https://skira.se" "Skira") ", I helped democratize " " the Scandinavian grain market, "
+           "and at " (:a :href "https://theroutingcompany.com" "TRC") " I helped provide equitable access to transporation worldwide."
 
-        " Other experience includes "
-        (:a :href "https://sandboxnu.com" "sbox") ", "
-        (:a :href "https://psu.edu" "psu") ", "
-        (:a :href "https://intel.com" "intel") ", "
-        (:a :href "https://cdkglobal.com" "cdk") "." (:br)
-        "More details on " (:a :href *cv* "my full CV") ".")
+           " Other experience includes "
+           (:a :href "https://sandboxnu.com" "sbox") ", "
+           (:a :href "https://psu.edu" "psu") ", "
+           (:a :href "https://intel.com" "intel") ", "
+           (:a :href "https://cdkglobal.com" "cdk") "."
+           "More details on " (:a :href *cv* "my full CV") ".")
 
        (:p
         "Check out my " (:a :href "https://wiki.jacob.chvatal.com" "notes") " and "
-        (:a :href (concatenate 'string "https://github.com/" *github*) "code") "!" (:br))
-
-       (:p "I'm on " (:a :href (concatenate 'string "https://twitter.com/" *twitter*) "twitter") " and "
-          (:a :href (concatenate 'string "https://www.instagram.com/" *instagram*) "instagram") "." (:br)
-          (:a :href "mailto:jake@isnt.online" :target "_blank" "Email") " or "(:a :href (concatenate 'string "sms://" *phone*) "text")  " me if you'd like.")
+        (:a :href (concatenate 'string "https://github.com/" *github*) "code") "!"
+        "I'm on " (:a :href (concatenate 'string "https://twitter.com/" *twitter*) "twitter") " and "
+        (:a :href (concatenate 'string "https://www.instagram.com/" *instagram*) "instagram") "."
+        (:a :href "mailto:jake@isnt.online" :target "_blank" "Email") " or " (:a :href (concatenate 'string "sms://" *phone*) "text") " me if you'd like.")
 
        (:p "Chat soon," (:br) *name*)
        (:div
