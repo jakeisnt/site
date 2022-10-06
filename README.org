@@ -9,10 +9,15 @@ This is the index of my personal website found [[https://jake.chvatal.com][here]
 - SEO Optimized
 - Ten packets (to load instantly)
 
+** Subheader of Goals
+fake body
+
 * Running
-To render the website:
+To render the website, use `sbcl` or something:
 #+BEGIN_SRC sh
-lein run > index.html
+sbcl
 #+END_SRC
 
-The website's written in Clojure because it provides, IMO, the most ergonomic HTML DSL available, `hiccup`. Though other languages provide similar facilities, Clojure provides the nicest syntax without incurring the up-front development costs associated with strong types or legacy work associated with other lisps.
+This website is written in common lisp because common lisp is a good programming language.
+* Deployment
+For github pages rendering reasons, the folder that deploys the site must be named `/docs`.

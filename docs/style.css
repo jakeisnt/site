@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+html {
+  font-size:18px;
+  font-family:"Noto Sans", sans-serif;
+  word-wrap:break-word;
+  hyphens:auto;
+}
+
+body {
+  max-width:24rem;
+  margin:0;
+  padding:1rem 2rem;
+}
+
+.foot {
+  padding-right:0.5rem;
+}

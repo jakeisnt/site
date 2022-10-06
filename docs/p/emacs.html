@@ -1,0 +1,288 @@
+"<html lang=en>
+ <head>
+  <meta charset=UTF-8>
+  <title>Emacs | Jake Chvatal</title>
+  <link rel=stylesheet
+        href=/home/jake/site/docs/style.css>
+  <link rel=stylesheet
+        href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
+  <script
+          src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
+  <script>hljs.highlightAll();</script>
+ </head>
+ <body>
+  <h1>Emacs</h1>
+  <p><span>Emacs is a fully-featured programming environment.</span>
+  <p><span>It&#39;s often (or most commonly) referred to as a text editor, but this 
+    isn&#39;t the case. Other editors are designed to offer first-class interfaces 
+    for configuring keyboard shortcuts, text configurations, etc.</span>
+  <p><span>However, emacslisp is structured not to be used as an editor 
+    configuration with some additional logic capabilities, but rather as a 
+    fully-featured programming language with proper language facilities.</span>
+  <p><span>Emacs is my desktop environment. </span><a
+   href=id:126109c8-e5da-4acf-8045-8fd16ff9b94c>EXWM</a><span> was my window 
+    manaager, elfeed is my RSS reader, mu4e is my email client and so forth. The one 
+    program that does not have a proper Emacs interface is the web browser, so I use 
+    Firefox (and web apps) for most other tools.</span>
+  <p><span>This isn&#39;t to cause myself undue pain. It reduces context switching 
+    between the keyboard shortcuts of many programs and their keybindings, and 
+    allows time tracking, task tracking and information management (all fractured, 
+    often difficult concepts) to be managed by </span><a
+   href=id:18b350db-1be2-4aa4-8b28-06a09a43cef2>Org Mode</a><span> entirely within 
+    Emacs. This tight integration allows me to take notes and track time without 
+    having to switch contexts to other programs with other user interfaces.</span>
+  <p><span>^ I don&#39;t really stick to this anymore, because emacs is honestly not 
+    slow and performant. It&#39;s much better to treat Emacs as a text editor and 
+    have other purpose built programs. Though there is a future where all text 
+    editing configuration is orthogonal to programs and handled independently, it is 
+    far from here yet.</span>
+  <section>
+   <h2>Tools</h2>
+   <ul>
+    <li><span> </span><a href=https://github.com/karlicoss/cloudmacs>cloudmacs</a>
+     <span> :: allows you to self-host your emacs configuration and access it in the 
+      browser. :O</span>
+   </ul>
+  </section>
+  <section>
+   <h2>Frameworks</h2>
+   <ul>
+    <li><span> Doom Emacs :: The framework I use; focuses on optimization and concise 
+      configuration</span>
+   </ul>
+   <ul>
+    <li><span> Spacemacs :: I used to use this. It&#39;s too bloated for my tastes.</span>
+   </ul>
+   <ul>
+    <li><span> </span><a href=https://github.com/jkitchin/scimax>Scimax</a><span> :: 
+      Scientific Emacs framework. Set up to serve as a good introduction!</span>
+   </ul>
+  </section>
+  <section>
+   <h2>Configurations</h2>
+   <p><span>https://github.com/sulami/dotfiles/blob/master/emacs/.emacs/README.org: 
+     good example of a literate emacs configuration</span>
+   <p><span>http://aaronbedra.com/emacs.d/: great example of a configuration rendered 
+     as a webpage with org mode!</span>
+   <p><span>
+     https://www.reddit.com/r/emacs/comments/4srze9/watching_youtube_inside_emacs_25/ 
+     watching youtube in emacs</span>
+   <p><span>https://www.emacswiki.org/emacs/ExampleConfigurations</span>
+   <p><span>https://github.com/munen/emacs.d</span>
+   <p><span>https://github.com/jhamrick/emacs</span>
+   <p><span>https://github.com/howardabrams/dot-files</span>
+   <p><span>https://github.com/jethrokuan/dots</span>
+   <p><span>https://github.com/codygman/hci</span>
+   <p><span>https://github.com/zaeph/.emacs.d</span>
+   <p><span>https://github.com/Ambrevar/dotfiles</span>
+   <p><span>https://www.youtube.com/watch?app=desktop&amp;v=PKaJoqQQoIA configuring 
+     emacs configuration</span>
+   <p><span>https://github.com/shrysr/.emacs.d</span>
+   <p><span>https://github.com/purcell/emacs.d</span>
+   <p><span>https://github.com/zaeph/.emacs.d</span>
+   <p><span>https://github.com/munen/emacs.d</span>
+   <section>
+    <h3>Nix and Emacs configurations</h3>
+    <p><span>https://github.com/kinnala/nixemacs</span>
+    <p><span>https://github.com/benley/dotfiles/blob/master/overlays/emacs.nix</span>
+    <p><span>https://blog.jethro.dev/posts/nix_buffer_emacs/</span>
+    <p><span>https://github.com/purcell/nix-emacs-ci: test your emacs code against a 
+      wide variety of upstream configurations</span>
+    <p><span>
+      https://www.reddit.com/r/emacs/comments/ekr5ek/experimenting%5Fwith%5Fremembrance%5Fagents/
+      </span>
+    <p><span>https://github.com/zachcurry/emacs-anywhere use emacs anywhere</span>
+    <p><span></span><a href=\"https://blog.akinori.org/\">m g vs goto line in emacs</a>
+     <span></span>
+    <p><span>
+      https://www.reddit.com/r/emacs/comments/hywxef/visually_differentiate_between_links_to_files_and/
+       differentiate between links to files and links to websites in org</span>
+   </section>
+   <section>
+    <h3>Doom configuration</h3>
+    <p><span>https://github.com/forrestchang/.doom.d</span>
+    <p><span></span><a href=https://github.com/sunnyhasija/Academic-Doom-Emacs-Config>
+      sunnyhasija/Academic-Doom-Emacs-Config: My doom emacs configuration files</a>
+     <span></span>
+    <p><span>https://github.com/NatTuck/doom-config/blob/master/config.el#L12 -- nat 
+      tuck&#39;s</span>
+    <p><span>configuration</span>
+    <p><span>https://github.com/christabella/doom-emacs-config</span>
+    <p><span>https://tecosaur.github.io/emacs-config/config.html</span>
+    <p><span>https://dotdoom.rgoswami.me/config.html</span>
+    <p><span>https://github.com/christabella/doom-emacs-config</span>
+    <p><span></span><a
+     href=https://www.ethanaa.com/blog/switching-to-doom-emacs/#doom-emacs>
+      comprehensive instrs</a><span></span>
+   </section>
+   <section>
+    <h3>Optimisations</h3>
+    <ul>
+     <li><span> </span><a
+      href=\"http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/\">
+       don&#39;t change gc-cons-threshold</a><span> :: fix constant garbage collection 
+       by setting it very high when something happens, and changing afterwards to 
+       prevent constant garbage collection and freezing when the heap gets too big</span>
+    </ul>
+    <ul>
+     <li><span> https://anuragpeshne.github.io/essays/emacsSpeed.html :: other emacs 
+       pro tips</span>
+    </ul>
+   </section>
+  </section>
+  <section>
+   <h2>Community</h2>
+   <p><span></span><a href=https://github.com/howardabrams/pdx-emacs-hackers>Portland 
+     Emacs Hackers</a><span></span>
+  </section>
+  <section>
+   <h2>Package Suggestions</h2>
+   <ul>
+    <li><span> </span><a href=https://github.com/mtekman/org-tanglesync.el>tanglesync</a>
+     <span> :: sync org mode files with dotfiles external to them</span>
+   </ul>
+   <ul>
+    <li><span> </span><a href=https://github.com/alphapapa/matrix-client.el>emacs 
+      matrix client</a><span> emacs matrix client</span>
+   </ul>
+   <ul>
+    <li><span> </span><a href=https://github.com/casouri/OrgMark>mark</a><span> :: add 
+      drawings to org mode from your ipad, and </span><a
+     href=https://github.com/yati-sagade/orch>orch</a><span>, an alternative for 
+      Android</span>
+   </ul>
+   <ul>
+    <li><span> </span><a href=https://github.com/alraban/org-recoll>recoll</a><span> 
+      :: emacs binding for recoll text search engine</span>
+   </ul>
+   <ul>
+    <li><span> </span><a href=https://github.com/cpitclaudel/quick-peek>quick-peek</a>
+     <span> :: peek at a window inline!</span>
+   </ul>
+   <ul>
+    <li><span> </span><a href=https://github.com/legalnonsense/elgantt>elegantt</a>
+     <span> :: gantt chart (??) in org.</span>
+   </ul>
+   <ul>
+    <li><span> </span><a href=https://github.com/progfolio/doct>doct</a><span> :: 
+      declarative format for org capture templates. use this in the future - seems 
+      better!</span>
+   </ul>
+   <ul>
+    <li><span> </span><a href=https://www.emacswiki.org/emacs/KeyChord>KeyChord</a>
+     <span> :: binding commands to combinations of keystrokes</span>
+   </ul>
+   <ul>
+    <li><span> https://github.com/purcell/windswap</span>
+   </ul>
+   <ul>
+    <li><span> </span><a
+     href=\"https://www.reddit.com/r/emacs/comments/74hetz/emacs_everywhere/\">emacs 
+      everywhere</a><span></span>
+   </ul>
+   <ul>
+    <li><span> https://github.com/ibizaman/emacs-conflict emacs conflict</span>
+   </ul>
+   <ul>
+    <li><span> https://git.carcosa.net/jmcbray/gemini.el gemini server for emacs</span>
+   </ul>
+   <ul>
+    <li><span> https://www.emacswiki.org/emacs/TrampMode#toc1 tramp-mode for editing 
+      files on servers</span>
+   </ul>
+   <ul>
+    <li><span> </span><a href=https://github.com/purcell/windswap>swap emacs windows</a>
+     <span></span>
+   </ul>
+   <ul>
+    <li><span> https://github.com/Bad-ptr/persp-mode.el</span>
+   </ul>
+   <ul>
+    <li><span> https://github.com/davazp/graphql-mode gql mode for emacs</span>
+   </ul>
+   <ul>
+    <li><span> https://github.com/lassik/emacs-format-all-the-code autoformat source 
+      code for many languages</span>
+   </ul>
+  </section>
+  <section>
+   <h2>Links</h2>
+   <p><span></span><a
+    href=\"https://www.reddit.com/r/emacs/comments/hxu9dx/withemacs_what_you_need_to_know_about_hooks/\">
+     Brief guide to Emacs hooks</a><span></span>
+   <p><span></span><a
+    href=\"https://www.reddit.com/r/emacs/comments/74hetz/emacs_everywhere/\">emacs 
+     everywhere</a><span></span>
+   <p><span></span><a href=\"https://m.youtube.com/watch?v=dljNabciEGg\">literate 
+     devops with emacs</a><span></span>
+  </section>
+  <section>
+   <h2>Magit</h2>
+   <p><span>https://magit.vc/manual/forge/Token-Creation.html#Token-Creation magit 
+     has a cool interface for making pull requests, but the documentation does not 
+     make clear how fully featured it is...</span>
+  </section>
+  <section>
+   <h2>emacs</h2>
+   <p><span>https://karthinks.com/software/batteries-included-with-emacs/ fun things 
+     that come with emacs!</span>
+  </section>
+  <section>
+   <h2>Plugins</h2>
+   <p><span>https://github.com/abo-abo/avy jump to visible text with a character 
+     based decision tree</span>
+   <p><span>http://www.howardism.org/Technical/Emacs/templates-tutorial.html 
+     configure snippets in emacs</span>
+   <p><span>
+     https://www.youtube.com/watch?app=desktop&amp;v=gfZDwYeBlO4&amp;amp%3Bt=2785s 
+     &#39;play emacs like an instrument&#39;</span>
+   <p><span>https://www.youtube.com/watch?app=desktop&amp;v=4-ubCJF9htw emacs macros 
+     and hacks</span>
+   <section>
+    <h3>Mail</h3>
+    <p><span></span><a href=id:33d8ff6e-6fbe-4b4f-88f4-2c3a095868ce>Mail</a><span></span>
+    <p><span></span><a
+     href=https://emacs.stackexchange.com/questions/12927/reading-and-writing-email-with-emacs>
+      Overview of reading and writing email with Emacs</a><span></span>
+    <p><span></span><a
+     href=https://reddit.com/r/emacs/comments/hurwwg/mu4e_dealing_with_sending_html>
+      Mu4e - dealing with sending html</a><span></span>
+    <p><span></span><a
+     href=\"https://ryanwhittingham.com/using-multiple-email-accounts-with-mu4e/\">
+      Manage multiple emails with MU4E</a><span></span>
+    <p><span></span><a href=https://www.emacswiki.org/emacs/mu4e>emacs wiki MU4E</a>
+     <span></span>
+    <p><span></span><a
+     href=\"https://www.reddit.com/r/emacs/comments/6wqfp3/notmuch_delete_mail/\">Manage 
+      mail deletion with NotMuch</a><span></span>
+    <p><span></span><a
+     href=\"https://www.youtube.com/watch?app=desktop&amp;v=dljNabciEGg\">literate 
+      devops with emacs</a><span></span>
+    <p><span></span><a href=https://www.emacswiki.org/emacs/DirectoryVariables>using 
+      dir-locals</a><span></span>
+    <p><span></span><a
+     href=\"https://www.reddit.com/r/emacs/comments/hurwwg/mu4e_dealing_with_sending_html/\">
+      send html email with mu4e</a><span></span>
+    <p><span></span><a
+     href=\"https://www.reddit.com/r/emacs/comments/hv5m0z/muwizard_easily_setup_mu4e_accounts_on_emacs/\">
+      mu wizard for easily setting up mu4e</a><span></span>
+   </section>
+   <section>
+    <h3>Music</h3>
+    <p><span></span><a href=id:a2d0ed7c-5b6e-41b4-a6b9-4072075e66ff>Music</a><span></span>
+    <p><span></span><a href=\"https://bzg.fr/en/emacs-org-babel-overtone-intro.html/\">
+      Emacs Org and Overtone quick intro · Bastien Guerry - Liberté, informatique, 
+      choucroute.</a><span></span>
+    <p><span></span><a
+     href=\"https://www.reddit.com/r/emacs/comments/7yz1k2/using_emacs_43_music_with_mpd/\">
+      Using Emacs Music with MPD</a><span></span>
+    <p><span></span><a href=https://gitea.petton.fr/mpdel/mpdel>Emacs interface for 
+      MPD</a><span></span>
+    <p><span></span><a href=https://github.com/jorenvo/simple-mpc>Music Player Client 
+      for Emacs</a><span> </span>
+    <p><span></span><a href=\"https://lucidmanager.org/productivity/configure-emms/\">
+      Configure EMMS --- Emacs Multi-Media System on GNU/Linux</a><span></span>
+   </section>
+  </section>
+ </body>
+</html>"

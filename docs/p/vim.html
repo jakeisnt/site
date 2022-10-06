@@ -1,0 +1,153 @@
+"<html lang=en>
+ <head>
+  <meta charset=UTF-8>
+  <title>Vim | Jake Chvatal</title>
+  <link rel=stylesheet
+        href=/home/jake/site/docs/style.css>
+  <link rel=stylesheet
+        href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
+  <script
+          src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
+  <script>hljs.highlightAll();</script>
+ </head>
+ <body>
+  <h1>Vim</h1>
+  <p><span>Vim is a text editor with an easily configurable extension language. 
+    It&#39;s most frequently used as a </span><a
+   href=id:a5517310-76a5-4663-9ca3-34a56d7315e1>TUI</a><span> program but also has 
+    an (aft-used) graphical application distribution (Gvim).</span>
+  <p><span>I&#39;ve come to prefer the power of </span><a
+   href=id:62a9456a-e08a-4dc4-8e9d-310deffdb720>Emacs</a><span> but I do miss 
+    Vim&#39;s performance.</span>
+  <p><span>However, it has a first-class editor-based extension language that&#39;s 
+    written to prioritize text processing and configuration. Its extensive, literate 
+    keybindings that have made their way into every popular text editor as well as 
+    many other applications.</span>
+  <p><span>It&#39;s one of best text-editing tools in the Unix ecosystem, and Vim 
+    users often have a library of cli and tui programs that they use in conjunction 
+    with Vim to facilitate a desktop ecosystem without a GUI.</span>
+  <p><span>Vim is often preinstalled on Unix systems. If it&#39;s unavailable, such 
+    systems will likely still have vi (or busybox vi), so taking the time to learn 
+    vim keybindings is worthwhile for their flexibility throughout programming 
+    environments.</span>
+  <section>
+   <h2>Tools</h2>
+   <p><span>https://www.youtube.com/watch?app=desktop&amp;v=-I1b8BINyEw my vim 
+     workflow</span>
+   <p><span>
+     https://www.reddit.com/r/vim/comments/hvr09s/how_can_i_integrate_a_vim_text_editor_in_react/
+     </span><a href=id:c44cb88d-e082-429c-8045-6a4ad57d95d4>Web</a><span></span>
+   <p><span>http://marco-lopes.com/articles/Vim-and-Haskell-in-2019/ </span><a
+    href=id:ac8a8dae-3dc8-4017-b4d5-e20b8ff39ee0>Haskell</a><span></span>
+  </section>
+  <section>
+   <h2>Plugins</h2>
+   <ul>
+    <li><span> </span><a
+     href=\"https://www.reddit.com/r/vim/comments/hwdehp/vim_osc_livecoding/\">Vim OSC 
+      Livecoding</a><span> :: </span><a href=id:7e198e30-baa6-4903-a114-0971f1d0676f>
+      Livecoding</a><span> in vim</span>
+   </ul>
+   <ul>
+    <li><span> https://github.com/tpope/vim-projectionist :: configure and work with 
+      projects like projectile for vim!</span>
+   </ul>
+   <p><span> https://vimways.org/2018/death-by-a-thousand-files/ some random vim tips 
+     for working with large projects</span>
+   <section>
+    <h3>Vim spector</h3>
+    <p><span>vim debugging, essentially.</span>
+    <p><span>
+      https://www.reddit.com/r/vim/comments/i0lffn/thought_id_share_some_recent_vimspector/
+      </span>
+    <p><span>https://github.com/glacambre/firenvim embed nvim in the browser</span>
+    <p><span>https://www.reddit.com/r/vim/comments/h8pgor/til_conceal_in_vim/ prettify 
+      symbol mode, or conceal. having glyphs to replace multiple characters seems so 
+      much nicer - especially with ligatures! look to do this with a vim 
+      configuration.</span>
+    <p><span>https://vim.fandom.com/wiki/Editing_remote_files_via_scp_in_vim: the best 
+      way to use netrw to edit remote files in vim</span>
+   </section>
+  </section>
+  <section>
+   <h2>ideas</h2>
+   <p><span>
+     https://www.reddit.com/r/vim/comments/hxn5ue/how_do_i_use_macros_when_i_have_variable_amount/:
+      working with macros of variable length to optimally edit!</span>
+   <p><span></span><a
+    href=\"https://www.reddit.com/r/vim/comments/hm6b9d/help_vim_wpm_counter/\">wpm 
+     counter for vim</a><span></span>
+   <p><span></span><a
+    href=\"https://www.reddit.com/r/vim/comments/hz97jh/nerdtree_vs_defx_vs_nnn_which_one_do_you_prefer/\">
+     vim file browser recommendations</a><span></span>
+   <p><span>http://thedarnedestthing.com/space%20vim</span>
+   <p><span>http://vimsheet.com/</span>
+   <p><span>https://vim.rtorr.com/</span>
+  </section>
+  <section>
+   <h2>Shortcut Optimisations</h2>
+   <section>
+    <h3>Leader keys</h3>
+    <ul>
+     <li><span> Comma :: As it should always be followed with a space grammatically, 
+       every other key can be freely mapped to with no delay! You lose the 
+       functionality of backwards repeating though...</span>
+    </ul>
+    <ul>
+     <li><span> Space :: What doom emacs uses, my current key and what I&#39;m used to. 
+       This works fine, but the timeout definitely can impact the fluency of writing on 
+       occasion.</span>
+    </ul>
+    <ul>
+     <li><span> Semicolon :: Interesting option, but there seem to be some strange 
+       repeat patterns in specific modes.</span>
+    </ul>
+    <ul>
+     <li><span> \\ :: Controversial, it&#39;s pretty far away... but it&#39;s the 
+       default. Unclear whether bashing the pinkie to the right is a great motion (just 
+       like Emacs and the left).</span>
+    </ul>
+   </section>
+  </section>
+  <section>
+   <h2>Lua plugins and config</h2>
+   <p><span>I don&#39;t think lua is ready for NixOS yet - it seems to have some 
+     trouble finding plugins for the Lua path - but it&#39;s worth considering for 
+     the future.</span>
+   <ul>
+    <li><span> feline.nvim :: A good status line for NeoVim with Lua, much faster than 
+      status quo.</span>
+   </ul>
+   <ul>
+    <li><span> </span><a
+     href=https://reddit.com/r/neovim/comments/jqfjor/eslint_and_nvimlsp>Setting up 
+      NeoVim with its built in lsp server and ESLint</a><span></span>
+   </ul>
+   <ul>
+    <li><span> github.com/simrat39/rust-tools.nvim :: good tools for writing for rust 
+      with nvim!</span>
+   </ul>
+   <ul>
+    <li><span> https://www.reddit.com/r/neovim/comments/mqrmco/git_worktrees/ : 
+      working with git worktrees in nvim</span>
+   </ul>
+   <ul>
+    <li><span> gitabra :: working with magit in neovim</span>
+   </ul>
+   <p><span> </span><a
+    href=\"https://www.reddit.com/r/neovim/comments/m6vup7/full_lua_neovim_configuration/\">
+     good example of full lua neovim configuraion</a><span></span>
+   <p><span> - 
+     https://www.reddit.com/r/neovim/comments/mn8ipa/lsp_add_missing_imports_on_complete_using_the/
+      </span>
+   <p><span> - 
+     https://www.reddit.com/r/neovim/comments/mbtboe/neovim_05_lsp_treesitter_compe_indentblankline/
+     </span>
+   <p><span> - 
+     https://www.reddit.com/r/neovim/comments/mrae84/neovim_config_showcase/</span>
+   <p><span> - 
+     https://www.reddit.com/r/neovim/comments/mrep3l/speedup_your_prettier_formatting_using_prettierd/
+     </span>
+  </section>
+ </body>
+</html>"
