@@ -1,11 +1,13 @@
 (load "~/quicklisp/setup.lisp")
 (load "./src/util.lisp")
 (load "./src/homepage.lisp")
+(load "./src/org/html.lisp")
 
 (ql:quickload :spinneret)
 
 (defparameter *site-location*  "~/site/docs/")
 (defparameter *wiki-location*  "~/wiki/")
+;; (defparameter *url* "https://jake.isnt.online")
 
 (defun string-append (str1 str2)
   (concatenate 'string str1 str2))
@@ -35,7 +37,7 @@
   (loop for file-path in (directory "~/wiki/pages/**/*.org")
         do (util::write-file
             (change-file-path file-path)
-            (html::render-org-file file-path))))
+            (org-html::render-org-file file-path))))
 
 (defun generate ()
   (generate-homepage)

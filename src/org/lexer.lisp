@@ -95,10 +95,10 @@
     (make-title-tok :title title-text)))
 
 
-(defun parse-code-block (stream)
+(defun parse-code-block (stream cap)
   "Parse a code block from a stream."
   (let ((lang (take-until stream #\newline))
-        (body (take-until stream "#+END_SRC")))
+        (body (take-until stream (if cap  "#+END_SRC" "#+end_src"))))
     (make-code-block-tok
      :lang lang
      :body body)))
@@ -107,9 +107,10 @@
   "Tokenize a macro line or comment"
   (let ((cmd (take-until stream #\space)))
     (string-case
-      (cmd)
+        (cmd)
       ("+TITLE:" (parse-title stream))
-      ("+BEGIN_SRC" (parse-code-block stream))
+      ("+BEGIN_SRC" (parse-code-block stream t))
+      ("+begin_src" (parse-code-block stream nil))
       (t "Not sure what this macro is"))))
 
 (defun parse-link (stream)

@@ -64,11 +64,14 @@
       (lambda (elem) (is-below-headerp cur-header-rank elem))
       cur-doc))))
 
+;; NOTE: mega hack (probably)
+(defvar file-name nil)
+
 (defun parse-tokens (token-list acc)
   "Parse tokens into a recursive structure from a token list."
   (let ((cur-tok (car token-list)))
     (if (not cur-tok)
-        (if (file-p acc) acc (make-file :body acc))
+        (make-file :title file-name :body acc)
         (parse-tokens
          (cdr token-list)
          (cond
@@ -76,7 +79,8 @@
            ((lexer::text-tok-p cur-tok)
             (cons (make-text :body (lexer::text-tok-body cur-tok)) acc))
            ((lexer::title-tok-p cur-tok)
-            (make-file :title (lexer::title-tok-title cur-tok) :body acc))
+            (setq file-name (lexer::title-tok-title cur-tok))
+            acc)
            ((lexer::code-block-tok-p cur-tok)
             (cons (make-code-block
                    :lang (lexer::code-block-tok-lang cur-tok)

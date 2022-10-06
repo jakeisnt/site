@@ -10,6 +10,8 @@
 (defpackage org-html
   (:use :cl :spinneret))
 
+(in-package org-html)
+
 (defun render-text-elem (txt)
   "Render a text element."
   (spinneret::with-html
@@ -69,15 +71,16 @@
       ((parser::code-block-p node) (code-block node))
       (t nil))))
 
+(defparameter *url* "/home/jake/site/docs") ;; TODO may not be good practice
+
 (defun render-org (org)
   "Render an org file struct as an html page"
-  (print org)
   (spinneret::with-html
     (:html
      :lang "en-us"
      (:head
       (:title (concatenate 'string (or (parser::file-title org) "") " | Jake Chvatal"))
-      (:link :rel "stylesheet" :href "./style.css")
+      (:link :rel "stylesheet" :href (concatenate 'string *url* "/style.css"))
       (:link :rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css")
       (:script :src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js")
       (:script "hljs.highlightAll();"))
