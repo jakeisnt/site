@@ -33,6 +33,13 @@
 ;; should mousing over reveal alternative things for this path? is that right?
 
 ;; can mouse over to view three options; can click '...' (or scroll?) to view more?
+
+
+;; TODO before I merge this PR:
+;; - finish this pathlist.
+;; - make the homepage into an org-mode file.
+;; - generate an indexx file for the /p folder.
+
 (defmacro make-pathlist (ls)
   `(loop for pathpart in ls
          collect (:a :href (concatenate 'string root "/" pathpart) )
@@ -46,6 +53,6 @@
         (:div
          :class "sidebar"
          (:a :href root "~ ")
-         ;; (make-pathlist pathlist)
+         (make-pathlist pathlist)
 
          ))))
