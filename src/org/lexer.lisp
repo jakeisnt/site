@@ -254,6 +254,9 @@
       (reverse acc)
       (fd "http" " " #'make-naive-link
           (fd "http" (string #\newline) #'make-naive-link
+              ;; TODO: determining when to stop parsing a naive link is really hard.
+              ;; i should look at the org mode source code for this.
+              ;; it might be best just to parse these as plain text too.
               (fd "http" nil #'make-naive-link
                   (fd "[[" "]]" #'make-link
                       (fd "\\*" "\\*" #'make-bold
