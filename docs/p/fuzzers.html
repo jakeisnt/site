@@ -51,7 +51,7 @@
        responsibility to the testing, mostly</span>
      <p><span>this is why gradual typing are so exciting! you can shift towards a fully 
        typed environment and ensure that you add the types later, saving you a </span>
-      <span>ton</span><span> of the trouble of testing.</span>
+      <i>ton</i><span> of the trouble of testing.</span>
      <p><span>don&#39;t invest a lot of work into generating test cases if you already 
        have a super rich corpus of text to have your fuzzer draw from</span>
      <p><span>c had lots of undefined behavior, so a very strong property had to be 
@@ -100,7 +100,7 @@
      </ul>
      <p><span> focus fuzzing on hot paths and common paths rather than all of the 
        paths. bad things: not prioritizing bugs, not being able to focus on things that 
-       fuzzers care about. fuzzers can be </span><span>dynamic</span><span> - people 
+       fuzzers care about. fuzzers can be </span><i>dynamic</i><span> - people 
        don&#39;t necessarily want static checking!</span>
      <p><span>DSL to specify what you care about - take advantage of what you care 
        about in testing! in general this is an incredible view on this program</span>
@@ -110,20 +110,38 @@
    </section>
    <section>
     <h2>Resources</h2>
-    <p><span>stateless model checker for erlang</span>
-    <p><span>the creduce code</span>
-    <p><span>reinforcemenet learning for testing inputs!</span>
-    <p><span>OS for fuzzing optimization??</span>
-    <p><span>best fuzzer for C</span>
-    <p><span>fuzzing with grammars</span>
-    <p><span>a decent fuzzing article</span>
+    <p><a class=external href=https://concuerror.com/:>[https://concuerror.com/:]</a>
+     <span>stateless model checker for erlang</span>
+    <p><a class=external
+     href=https://github.com/csmith-project/creduce/blob/master/creduce/creduce.in>
+      [https://github.com/csmith-project/creduce/blob/master/creduce/creduce.in]</a>
+     <span>the creduce code</span>
+    <p><a class=external href=https://www.carolemieux.com/rlcheck_preprint.pdf>
+      [https://www.carolemieux.com/rlcheck_preprint.pdf]</a><span>reinforcemenet 
+      learning for testing inputs!</span>
+    <p><a class=external
+     href=https://gamozolabs.github.io/fuzzing/2020/12/06/fuzzos.html>
+      [https://gamozolabs.github.io/fuzzing/2020/12/06/fuzzos.html]</a><span>OS for 
+      fuzzing optimization??</span>
+    <p><a class=external href="https://embed.cs.utah.edu/csmith/">
+      [https://embed.cs.utah.edu/csmith/]</a><span>best fuzzer for C</span>
+    <p><a class=external href=https://www.fuzzingbook.org/html/Grammars.html>
+      [https://www.fuzzingbook.org/html/Grammars.html]</a><span>fuzzing with grammars</span>
+    <p><a class=external
+     href="https://blog.trailofbits.com/2018/12/31/fuzzing-like-its-1989/">
+      [https://blog.trailofbits.com/2018/12/31/fuzzing-like-its-1989/]</a><span>a 
+      decent fuzzing article</span>
     <p><span>delta debugging was mentioned as an interesting tactic to use</span>
     <ul>
-     <li><span> </span><span> :: built for C, but works pretty well on lots of 
-       languages! The code can be found </span>
+     <li><span> </span><a class=external href="https://embed.cs.utah.edu/creduce/">
+       [CReduce]</a><span> :: built for C, but works pretty well on lots of languages! 
+       The code can be found </span><a class=external
+      href=https://github.com/csmith-project/creduce/blob/master/creduce/creduce.in>
+       [here]</a>
     </ul>
     <ul>
-     <li><span> </span><span> :: a fuzzer written in OCaml</span>
+     <li><span> </span><a class=external href=https://ocaml.org/manual/afl-fuzz.html>
+       [AFL-Fuzz]</a><span> :: a fuzzer written in OCaml</span>
     </ul>
    </section>
   </main>

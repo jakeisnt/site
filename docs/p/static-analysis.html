@@ -16,7 +16,9 @@
     <a href=https://jake.isnt.online>~ </a>
    </div>
    <h1>Static Analysis</h1>
-   <p><span>some of these notes are prompted by this</span>
+   <p><a class=external href=http://www.paulgraham.com/thist.html>
+     [http://www.paulgraham.com/thist.html]</a><span>some of these notes are prompted 
+     by this</span>
    <p><span>scope</span>
    <ul>
     <li><span> lexical :: every inner level can access its outer levels - widely 
@@ -27,9 +29,9 @@
       not deducible at compile time l evel. This means that for some f wth the body x 
       = 3, call g, g has x = 3 in scope</span>
    </ul>
-   <p><span>intro functional languages: rabbit (first scheme compiler), sussman</span>
-    <span>steele lambda papers, FP languages su ch as Hope, Miranda and Scheme. franz 
-     lisp? Bliss language - c-level language from CMU?</span>
+   <p><span>intro functional languages: rabbit (first scheme compiler), 
+     sussman/steele lambda papers, FP languages su ch as Hope, Miranda and Scheme. 
+     franz lisp? Bliss language - c-level language from CMU?</span>
    <p><span>pdp-10 hack: remove cons cell from freelist, updated freelist, and 
      branching if the freelist was exhauste d to the gc in a single instruction!</span>
    <p><span>premature optimization is bad, no matter what. do not take shortcuts to 
@@ -56,7 +58,10 @@
      standardized code for a procedure? TODO</span>
    <p><span>compiler implementation as a tree of objects that could link back to 
      their parents? whoah</span>
-   <p><span>cool stuff </span><span>-- interesting?</span>
+   <p><a class=external href="https://github.com/julian-zucker?tab=repositories">
+     [https://github.com/julian-zucker?tab=repositories]</a><span>cool stuff </span>
+    <a class=external href=https://github.com/julian-zucker/arbiter>
+     [https://github.com/julian-zucker/arbiter]</a><span>-- interesting?</span>
    <p><span>these things are relatively communicative but i am not sure what they 
      mean</span>
    <p><span>DFA :: data-flow analysis - ? loop-invariant hoisting :: - ?</span>
@@ -66,9 +71,14 @@
    <p><span>copy propagation :: - ? induction-variable elimination :: - ?</span>
    <p><span>learn how to do more things with computer graphics! this area sounds 
      super interesting but i do not know much about it.</span>
-   <p><span>paper for orbit -- optimizing compiler for scheme </span><span>-- forgot 
-     this history thing</span>
-   <p><span>-- useful compiler jargon -- TODO compose my own dictionary!</span>
+   <p><span>paper for orbit -- optimizing compiler for scheme </span><a
+    class=external href=https://dl.acm.org/doi/10.1145/12276.13333>
+     [https://dl.acm.org/doi/10.1145/12276.13333]</a><a class=external
+    href="http://mumble.net/~jar/tproject/">[http://mumble.net/~jar/tproject/]</a>
+    <span>-- forgot this history thing</span>
+   <p><a class=external href=http://www.dourish.com/goodies/jargon.html>
+     [http://www.dourish.com/goodies/jargon.html]</a><span>-- useful compiler jargon 
+     -- TODO compose my own dictionary!</span>
    <p><span>assemblers :: norman adams. graph structure? linear text scheme? 
      serializing graph to minimize the span f rom jmps to the things they jump to. 
      push and pop vs push and a generational garbage collector</span>
@@ -112,15 +122,24 @@
     <li><span>- backwards union</span>
    </ul>
    <p><span>quickcheck properties for checking haskell code!</span>
-   <p><span>http:</span><span>ken.friislarsen.net</span><span>blog</span>
-   <p><span>-- why is algol important? do research TODO</span>
-   <p><span>http:</span><span>www.aosabook.org</span><span>en</span><span>llvm.html</span>
+   <p><a class=external href="http://ken.friislarsen.net/blog/">
+     [http://ken.friislarsen.net/blog/]</a>
+   <p><a class=external href=https://en.wikipedia.org/wiki/ALGOL>
+     [https://en.wikipedia.org/wiki/ALGOL]</a><span>-- why is algol important? do 
+     research TODO</span>
+   <p><a class=external href=http://www.aosabook.org/en/llvm.html>
+     [http://www.aosabook.org/en/llvm.html]</a>
    <p><span>type inf ocaml</span>
-   <p><span>-- neat</span>
-   <p><span>cool person</span>
-   <p><span>recall this</span>
-   <p><span>-- epigrams on programming</span>
-   <p><span>http:</span><span>www.aosabook.org</span><span>en</span><span>llvm.html</span>
+   <p><a class=external href="http://mumble.net/~jar/">[http://mumble.net/~jar/]</a>
+    <span>-- neat</span>
+   <p><a class=external href=https://en.wikipedia.org/wiki/Daniel_S._Weld>
+     [https://en.wikipedia.org/wiki/Daniel_S._Weld]</a><span>cool person</span>
+   <p><a class=external href=http://www.ccs.neu.edu/home/shivers/scribblings.html>
+     [http://www.ccs.neu.edu/home/shivers/scribblings.html]</a><span>recall this</span>
+   <p><a class=external href=https://en.wikipedia.org/wiki/Alan_Perlis>
+     [https://en.wikipedia.org/wiki/Alan_Perlis]</a><span>-- epigrams on programming</span>
+   <p><a class=external href=http://www.aosabook.org/en/llvm.html>
+     [http://www.aosabook.org/en/llvm.html]</a>
    <p><span>specific optimizations:</span>
    <ul>
     <li><span> dead code elimination. removes code not impacting program results. this</span>
@@ -160,8 +179,9 @@
    <p><span> optimization. we can hoist invariants outside of the loop, such as</span>
    <p><span> registers. these are some good examples of strength reduction that can 
      be</span>
-   <p><span> used:: https:</span><span>en.wikipedia.org</span><span>wiki</span><span>
-     Strength_reduction</span>
+   <p><span> used:: </span><a class=external
+    href=https://en.wikipedia.org/wiki/Strength_reduction>
+     [https://en.wikipedia.org/wiki/Strength_reduction]</a>
    <ul>
     <li><span> dataflow analysis :: gathering information about values calculated at 
       points</span>
@@ -172,14 +192,15 @@
      input,</span>
    <p><span> locally at each node until a fixpoint is reached -- kildall&#39;s 
      method.</span>
-   <p><span>https:</span><span>en.wikipedia.org</span><span>wiki</span><span>
-     Data-flow_analysis</span>
-   <p><span>https:</span><span>en.wikipedia.org</span><span>wiki</span><span>
-     Static_single_assignment_form</span>
-   <p><span>https:</span><span>en.wikipedia.org</span><span>wiki</span><span>
-     George_Hotz</span>
-   <p><span>https:</span><span>en.wikipedia.org</span><span>wiki</span><span>
-     Just-in-time_compilation</span>
+   <p><a class=external href=https://en.wikipedia.org/wiki/Data-flow_analysis>
+     [https://en.wikipedia.org/wiki/Data-flow_analysis]</a>
+   <p><a class=external
+    href=https://en.wikipedia.org/wiki/Static_single_assignment_form>
+     [https://en.wikipedia.org/wiki/Static_single_assignment_form]</a>
+   <p><a class=external href=https://en.wikipedia.org/wiki/George_Hotz>
+     [https://en.wikipedia.org/wiki/George_Hotz]</a>
+   <p><a class=external href=https://en.wikipedia.org/wiki/Just-in-time_compilation>
+     [https://en.wikipedia.org/wiki/Just-in-time_compilation]</a>
    <p><span>basic blocks :: - ?</span>
    <p><span>dynamic software updating :: - ?</span>
    <p><span>hot patching :: - ?</span>
@@ -206,16 +227,26 @@
    <section>
     <h2>NEXT A Mathematical Theory of Communication (1948) [pdf]</h2>
     <p><span>SCHEDULED: &lt;2020-05-01 Fri&gt;</span>
-    <p><span>A Mathematical Theory of Communication (1948) [pdf] - https:</span><span>
-      news.ycombinator.com</span><span>item?id=23035107</span>
-    <p><span>https:</span><span>hal.inria.fr</span><span>hal-01093327</span>
-    <p><span>https:</span><span>hal.inria.fr</span><span>tel-01102401</span>
-    <p><span>https:</span><span>sed-bso.gitlabpages.inria.fr</span><span>sonarqube</span>
-    <p><span>https:</span><span>hal.inria.fr</span><span>hal-01588422</span>
-    <p><span>https:</span><span>en.wikipedia.org</span><span>wiki</span><span>
-      Loop-invariant_code_motion</span>
-    <p><span>:: binary analysis, which is similar I suppose...</span>
-    <p>
+    <p><span>A Mathematical Theory of Communication (1948) [pdf] - </span><a
+     class=external href="https://news.ycombinator.com/item?id=23035107">
+      [https://news.ycombinator.com/item?id=23035107]</a>
+    <p><a class=external href=https://hal.inria.fr/hal-01093327>
+      [https://hal.inria.fr/hal-01093327]</a>
+    <p><a class=external href=https://hal.inria.fr/tel-01102401>
+      [https://hal.inria.fr/tel-01102401]</a>
+    <p><a class=external href="https://sed-bso.gitlabpages.inria.fr/sonarqube/">
+      [https://sed-bso.gitlabpages.inria.fr/sonarqube/]</a>
+    <p><a class=external href=https://hal.inria.fr/hal-01588422>
+      [https://hal.inria.fr/hal-01588422]</a>
+    <p><a class=external href=https://en.wikipedia.org/wiki/Loop-invariant_code_motion>
+      [https://en.wikipedia.org/wiki/Loop-invariant_code_motion]</a>
+    <p><a class=external
+     href=https://h313.info/blog/cpp/security/binary-analysis/2020/11/06/improve-software-debugging-with-binary-analysis.html>
+      [https://h313.info/blog/cpp/security/binary-analysis/2020/11/06/improve-software-debugging-with-binary-analysis.html]
+      </a><span>:: binary analysis, which is similar I suppose...</span>
+    <p><a class=external
+     href=https://gist.github.com/jakeisnt/7fa1f054770d52c8d49ccadc524e263e>[list of 
+      program analysis resources]</a>
    </section>
   </main>
  </body>

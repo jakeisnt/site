@@ -196,13 +196,12 @@
   "Try to find a matching pair on the line,
    converting the found split into an object if we find it"
 
+  ;; somewhere here, we are returning a cons, and in other cases we return a list
   (if (util::string-prefixesp line open-str)
       (let* ((without-prefix (util::without-prefix line open-str))
-            (without-prefix-len (length without-prefix)))
+             (without-prefix-len (length without-prefix)))
         (if close-str
             (let ((maybe-split (split-first without-prefix close-str)))
-              (print maybe-split)
-
               ;; if we successfully split on the char,
               (if (eq 2 (length maybe-split))
                   ;; apply the constructor to the first arg!
@@ -212,17 +211,23 @@
                     ;; if we found our thing at the last pos on the line,
                     (if (not (eq without-prefix-len (length leftover-string)))
                         ;; then we still make the object.
-                        (cons (funcall make-obj leftover-string) "")
+                        (list (funcall make-obj leftover-string) "")
                         ;; otherwise, we found nothing.
-                        (cons nil leftover-string)))))
+                        (list nil leftover-string)))))
             ;; if we don't have a postfix to look for, we take the rest of the line naively
-            (cons (funcall make-obj without-prefix) "")))
-      (cons nil line)))
+            (list (funcall make-obj without-prefix) "")))
+      (list nil line)))
 
 (defmacro fd (open-str close-str make-obj else)
   `(let ((maybe-found (try-find text-line ,open-str ,close-str ,make-obj)))
      (if (car maybe-found)
-         (tokenize-line (car (cdr maybe-found)) (cons (car maybe-found) acc))
+         (let ()
+           (print maybe-found)
+           (let ((remaining-string (car (cdr maybe-found)))
+                 (new-acc (cons (car maybe-found) acc)))
+             (print remaining-string)
+             (print new-acc)
+             (tokenize-line remaining-string new-acc)))
          ,else)))
 
 (defun fuse-subseq (acc cur)
