@@ -51,6 +51,8 @@
 
 ;; also, for the parser to work properly with this page,
 ;; we might want to group some things into paragraphs
+;; we might also want to see what we can do about that url thing on mobile;
+;; maybe it's a good idea to move it to the top of the screen and fix it there
 
 (defun homepage ()
   (spinneret::with-html
