@@ -1,5 +1,6 @@
 (load "~/quicklisp/setup.lisp")
 (load "./src/util.lisp")
+(load "./src/components.lisp")
 
 (ql:quickload :spinneret)
 (ql:quickload 'css-lite)
@@ -38,23 +39,6 @@
 (defparameter *phone* "15033308568")
 
 
-(defun checkbox-menu ()
-  (spinneret::with-html
-    (:div :class "checkbox-menu"
-          (:input
-           :type "checkbox"
-           :id "hypothesis-checkbox"
-           :checked "false"
-           :onclick (parenscript:ps (toggle-hypothesis))
-           "hypothes.is"))))
-
-(defun sidebar ()
-  (spinneret::with-html
-    (:div
-     :class "sidebar"
-     (:span "~ / ")
-     (:a :class "current" :href "https://jake.isnt.online" "home"))))
-
 ;; idea: route editor!
 ;; sidebar allows you to interactively add parts to your url
 ;; press some '+' button
@@ -67,6 +51,7 @@
 
 ;; also, for the parser to work properly with this page,
 ;; we might want to group some things into paragraphs
+
 (defun homepage ()
   (spinneret::with-html
     (:html
@@ -126,9 +111,9 @@
              (:a :class "foot" :href "./jakeisnt.asc" "[pgp]")
              (:a :class "foot" :href (concatenate 'string "https://are.na/" *arena*) "[are.na]"))
 
-       (checkbox-menu)
-       (sidebar)
-       )
+       ;; Components: load them in the body
+       (comp::checkbox-menu)
+       (comp::sidebar))
 
       ;; load scripts at the end
       (:script :type "text/javascript" :src "./lib.js" "")))))
