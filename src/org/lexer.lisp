@@ -108,6 +108,10 @@
      :lang lang
      :body body)))
 
+(defun split-first (line look-for)
+  "Split the line on the first occurence of the character."
+  (split look-for line :limit 2))
+
 (defun tokenize-macro-line-or-comment (stream)
   "Tokenize a macro line or comment"
   (let ((cmd (take-until stream #\space)))
@@ -117,51 +121,6 @@
       ("+begin_src" (parse-code-block stream nil))
       (t "Not sure what this macro is"))))
 
-(defun parse-char (stream make chars)
-  (let ((bold-cont (take-until stream chars)))
-    (funcall make bold-cont)))
-
-;; buffer assumed to be in scope here
-(defmacro tfit (chars)
-  `(util::string-postfixesp buffer ,chars))
-
-
-;; ideal ux:
-;; (scan-match
-;;  (("[[" mb-link "]]") parse-link)
-;;  (("*" bold "*") make-bold)
-;;  (("/" ital "/") make-ital)
-;;  (("`" verb "`") make-verb))
-;; semantics: prefer first occuring match, prefer longer match
-;; i wonder if we can sense for conflicts like parser generators in this grammar!
-;; that would be very cool;.
-
-
-;; 'chars' are the chars to be cut from the end of our recognizing buffer,
-;; so they're the chars we match on.
-;; the rest of them will be pulled off later
-;; there is definitely a way to handle this in a more elegant, generic way
-;; (see spec above)
-;; but i'm not entirely sure offhand how to encode it
-(defmacro tapp2 (parser chars)
-  `(let ()
-     (setq res (cons (,parser stream)
-                     ;; NOTE: this only works because we watn everyting to have the same len,
-                     ;; and without postfix uses len to do this
-                     (cons (util::without-postfix buffer ,chars) res)))
-     (setq buffer (make-adjustable-string ""))))
-
-;; stream and buffer are assumed to be in scope here
-(defmacro tapp (make chars)
-  `(let ((parsed (parse-char stream ,make ,chars))
-         (sin-postfix (if (util::string-postfixesp buffer ,chars)
-                          (util::without-postfix buffer ,chars)
-                          buffer)))
-     (setq res (cons parsed (cons sin-postfix res)))
-     (setq buffer (make-adjustable-string ""))))
-
-
-;; --- Makers ---
 ;; Assuming we've found matching parens,
 ;; give their contents to these functions to make the respective construct.
 (defun make-link (link-text)
@@ -183,10 +142,6 @@
 
 (defun make-verb (txt)
   (defs::make-verb :text txt))
-
-
-(defun split-first (line look-for)
-  (split look-for line :limit 2))
 
 (defun apply-first (pair fn)
   (cons (funcall fn (car pair)) (cdr pair)))
