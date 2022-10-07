@@ -194,32 +194,43 @@
 
 (defun try-find (line open-str close-str make-obj)
   "Try to find a matching pair on the line,
-   converting the found split into an object if we find it
-  "
+   converting the found split into an object if we find it"
+
   (if (util::string-prefixesp line open-str)
       (let* ((without-prefix (util::without-prefix line open-str))
-             (maybe-split (split-first look-for line)))
+            (without-prefix-len (length without-prefix)))
+        (if close-str
+            (let ((maybe-split (split-first without-prefix close-str)))
+              (print maybe-split)
 
-        ;; if we successfully split on the char,
-        (if (eq 2 (length maybe-split))
-            ;; apply the constructor to the first arg!
-            (apply-first maybe-substr make-obj)
-            ;; otherwise, extract the string and get nothing.
-            (cons nil (car maybe-split))))
+              ;; if we successfully split on the char,
+              (if (eq 2 (length maybe-split))
+                  ;; apply the constructor to the first arg!
+                  (apply-first maybe-split make-obj)
+                  ;; otherwise,
+                  (let ((leftover-string (car maybe-split)))
+                    ;; if we found our thing at the last pos on the line,
+                    (if (not (eq without-prefix-len (length leftover-string)))
+                        ;; then we still make the object.
+                        (cons (funcall make-obj leftover-string) "")
+                        ;; otherwise, we found nothing.
+                        (cons nil leftover-string)))))
+            ;; if we don't have a postfix to look for, we take the rest of the line naively
+            (cons (funcall make-obj without-prefix) "")))
       (cons nil line)))
 
-(defmacro fd (line open-str close-str make-obj else)
-  `(let ((maybe-found (try-find ,line ,open-str ,close-str ,make-obj)))
+(defmacro fd (open-str close-str make-obj else)
+  `(let ((maybe-found (try-find text-line ,open-str ,close-str ,make-obj)))
      (if (car maybe-found)
-         (tokenize-line (cdr maybe-found) (cons maybe-found acc))
+         (tokenize-line (car (cdr maybe-found)) (cons (car maybe-found) acc))
          ,else)))
 
 (defun fuse-subseq (acc cur)
-  (if (stringp (car acc))
+  (if (and (car acc) (stringp (car acc)))
       (cons
        (concatenate 'string (car acc) cur)
        (cdr acc))
-      (cons car acc)))
+      (cons cur acc)))
 
 ;; Start with the current string line.
 ;; Check the first characters, starting at [0],
@@ -234,16 +245,16 @@
 ;; If we fail to match any of these patterns,
 ;;   pop the current character off of the text line.
 (defun tokenize-line (text-line acc)
-  (if (eq text-line "")
+  (if (or (not text-line) (eq 0 (length text-line)))
       (reverse acc)
-      (block
-          (fd "http" (string #\space) make-naive-link
-              (fd "http" (string #\newline) make-naive-link
-                  (fd "[[" "]]" make-link
-                      (fd "*" "*" make-bold
-                          (fd "/" "/" make-ital
-                              (fd "`" "`" make-verb
-                                  (fd "$" "$" make-verb
+      (fd "http" " " #'make-naive-link
+          (fd "http" (string #\newline) #'make-naive-link
+              (fd "http" nil #'make-naive-link
+                  (fd "[[" "]]" #'make-link
+                      (fd "\\*" "\\*" #'make-bold
+                          (fd "/" "/" #'make-ital
+                              (fd "`" "`" #'make-verb
+                                  (fd "$" "$" #'make-verb
                                       (tokenize-line
                                        (subseq text-line 1)
                                        (fuse-subseq acc (subseq text-line 0 1)))))))))))))
@@ -254,7 +265,7 @@
   (let*
       ((body (take-until stream #\newline))
        (fixed-body (if last-char (concatenate 'string (list last-char) body) body))
-       (tokenized-body (tokenize-line fixed-body)))
+       (tokenized-body (tokenize-line fixed-body '())))
     (make-text-tok :body tokenized-body)))
 
 

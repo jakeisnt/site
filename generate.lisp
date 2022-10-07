@@ -31,7 +31,7 @@
 (defun make-pathlist (current-path)
   (list "p" (pathname-name current-path)))
 
-(defun make-file-path (current-path)
+(defun change-file-path (current-path)
   "Change a file path to a new name."
   (concatenate
    'string

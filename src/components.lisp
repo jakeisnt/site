@@ -39,14 +39,13 @@
          )
   )
 
-
-
+;; TODO this needs to be done still!
 (defun sidebar (pathlist)
   (let ((root "https://jake.isnt.online"))
     (spinneret::with-html
         (:div
          :class "sidebar"
-         ;; (:a :href root "~ ")
-         (make-pathlist pathlist)
+         (:a :href root "~ ")
+         ;; (make-pathlist pathlist)
 
          ))))

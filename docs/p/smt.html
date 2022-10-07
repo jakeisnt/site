@@ -11,67 +11,69 @@
   <script>hljs.highlightAll();</script>
  </head>
  <body>
-  <h1>SMT</h1>
-  <p><span></span><a class=external
-   href=https://jix.one/the-assembly-language-of-satisfiability.html>[src - maybe?]</a>
-   <span></span>
-  <section>
-   <h2>SAT solvers</h2>
+  <main>
+   <div class=sidebar>
+    <a href=https://jake.isnt.online>~ </a>
+   </div>
+   <h1>SMT</h1>
+   <p>
    <section>
-    <h3>Cons</h3>
-    <ul>
-     <li><span> Require input problem to be a propositional logic formula in 
-       conjunctive normal form (CNF). This is not a natural way to express most 
-       problems that require SAT</span>
-    </ul>
-    <ul>
-     <li><span> Computing CNF formulas is often bad and hard so SAT solvers aren&#39;t 
-       really at the right &quot;level&quot; for use by the working programmer</span>
-    </ul>
-    <ul>
-     <li><span> Look up </span>
-      <pre></pre><span> on google scholar - reveals lots of problems and tradeoffs that 
-       can be made</span>
-    </ul>
-   </section>
-   <section>
-    <h3>Why SMT over SAT?</h3>
-    <ul>
-     <li><span> SMT solvers allow more freedom in the expression of input problems - 
-       support integers, fixed width floats, arrays and potentially other datatypes, as 
-       well as common operations on those types, without requiring a specific normal 
-       form!</span>
-    </ul>
-    <ul>
-     <li><span> API that allows for the manipulation of the input formula exposed by 
-       the solver, unlike strict</span>
-    </ul>
-   </section>
-   <section>
-    <h3>How do they work?</h3>
+    <h2>SAT solvers</h2>
     <section>
-     <h4>Bit blasting</h4>
+     <h3>Cons</h3>
      <ul>
-      <li><span> Directly convert input formula into an equivalent Boolean formula in 
-        CNF</span>
+      <li><span> Require input problem to be a propositional logic formula in 
+        conjunctive normal form (CNF). This is not a natural way to express most 
+        problems that require SAT</span>
      </ul>
      <ul>
-      <li><span> Limited to formulas where every data type has a finite set of values</span>
+      <li><span> Computing CNF formulas is often bad and hard so SAT solvers aren&#39;t 
+        really at the right &quot;level&quot; for use by the working programmer</span>
      </ul>
      <ul>
-      <li><span> Need a SAT solver as a backend, any improvement to SAT translates 
-        directly to an improvement to an SMT solver - so this is just additional tooling 
-        around a SAT solver to make it much easier to use.</span>
+      <li><span> Look up </span><span>cardinality constraints CNF</span><span> on google 
+        scholar - reveals lots of problems and tradeoffs that can be made</span>
      </ul>
     </section>
     <section>
-     <h4>CDCL(T)</h4>
+     <h3>Why SMT over SAT?</h3>
      <ul>
-      <li><span> Definition: conflict driven cause learning - the algorithm employed by 
-        most modern SAT solvers.</span>
+      <li><span> SMT solvers allow more freedom in the expression of input problems - 
+        support integers, fixed width floats, arrays and potentially other datatypes, as 
+        well as common operations on those types, without requiring a specific normal 
+        form!</span>
+     </ul>
+     <ul>
+      <li><span> API that allows for the manipulation of the input formula exposed by 
+        the solver, unlike strict</span>
      </ul>
     </section>
+    <section>
+     <h3>How do they work?</h3>
+     <section>
+      <h4>Bit blasting</h4>
+      <ul>
+       <li><span> Directly convert input formula into an equivalent Boolean formula in 
+         CNF</span>
+      </ul>
+      <ul>
+       <li><span> Limited to formulas where every data type has a finite set of values</span>
+      </ul>
+      <ul>
+       <li><span> Need a SAT solver as a backend, any improvement to SAT translates 
+         directly to an improvement to an SMT solver - so this is just additional tooling 
+         around a SAT solver to make it much easier to use.</span>
+      </ul>
+     </section>
+     <section>
+      <h4>CDCL(T)</h4>
+      <ul>
+       <li><span> Definition: conflict driven cause learning - the algorithm employed by 
+         most modern SAT solvers.</span>
+      </ul>
+     </section>
+    </section>
    </section>
-  </section>
+  </main>
  </body>
 </html>

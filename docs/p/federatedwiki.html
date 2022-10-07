@@ -11,223 +11,226 @@
   <script>hljs.highlightAll();</script>
  </head>
  <body>
-  <h1>Federated Wiki</h1>
-  <section>
-   <h2>Status Quo</h2>
+  <main>
+   <div class=sidebar>
+    <a href=https://jake.isnt.online>~ </a>
+   </div>
+   <h1>Federated Wiki</h1>
    <section>
-    <h3>Wikipedia</h3>
-    <p><span>Pros:</span>
-    <ul>
-     <li><span> Single source of truth: it&#39;s a trustworthy source. People know to 
-       get their data from here.</span>
-    </ul>
-    <ul>
-     <li><span> Tons of information. Crowdsourcing has done the</span>
-    </ul>
-    <p><span>Cons:</span>
-    <ul>
-     <li><span> Because it&#39;s a single source of truth, there are constant fights 
-       over what belongs where that are often fruitless.</span>
-    </ul>
-    <ul>
-     <li><span> There are also strong arguments that are made for information being 
-       &#39;out of scope&#39; for wikipedia and belonging to a page or site that is 
-       more domain specific.</span>
-    </ul>
-    <ul>
-     <li><span> The organization is bloated and inneficient. They really don&#39;t need 
-       your donations.</span>
-    </ul>
-    <ul>
-     <li><span> The servers are centralized and controlled by a single private entity 
-       with the potenial to hold data (partially - sans clever parsers) captive.</span>
-    </ul>
+    <h2>Status Quo</h2>
+    <section>
+     <h3>Wikipedia</h3>
+     <p><span>Pros:</span>
+     <ul>
+      <li><span> Single source of truth: it&#39;s a trustworthy source. People know to 
+        get their data from here.</span>
+     </ul>
+     <ul>
+      <li><span> Tons of information. Crowdsourcing has done the</span>
+     </ul>
+     <p><span>Cons:</span>
+     <ul>
+      <li><span> Because it&#39;s a single source of truth, there are constant fights 
+        over what belongs where that are often fruitless.</span>
+     </ul>
+     <ul>
+      <li><span> There are also strong arguments that are made for information being 
+        &#39;out of scope&#39; for wikipedia and belonging to a page or site that is 
+        more domain specific.</span>
+     </ul>
+     <ul>
+      <li><span> The organization is bloated and inneficient. They really don&#39;t need 
+        your donations.</span>
+     </ul>
+     <ul>
+      <li><span> The servers are centralized and controlled by a single private entity 
+        with the potenial to hold data (partially - sans clever parsers) captive.</span>
+     </ul>
+    </section>
+    <section>
+     <h3>Wikia</h3>
+     <p><span>Pros:</span>
+     <ul>
+      <li><span> Tons of information with moderators who are experts on their domains.</span>
+     </ul>
+     <ul>
+      <li><span> Dedicated contributors, existing communities, easy to edit.</span>
+     </ul>
+     <p><span>Cons:</span>
+     <ul>
+      <li><span> Divided into lots of different wikis with no interoperability between 
+        them.</span>
+     </ul>
+     <ul>
+      <li><span> Tons of overlap between wikis (i.e. multiple star wars and minecraft 
+        ones, among other franchises and tropes)</span>
+     </ul>
+     <ul>
+      <li><span> Typically used for casual and hobby interests rather than professional 
+        writing and work - why?</span>
+     </ul>
+    </section>
+    <section>
+     <h3>Personal wiki implementation</h3>
+     <p><span>Pros:</span>
+     <ul>
+      <li><span> Super flexible.</span>
+     </ul>
+     <p><span>Cons:</span>
+     <ul>
+      <li><span> Not a consistent or reliable source of information, as it&#39;s 
+        typically controlled by one person.</span>
+     </ul>
+     <ul>
+      <li><span> Can be disorganized and things can easily become unmaintained.</span>
+     </ul>
+    </section>
+    <section>
+     <h3>Version control managed files</h3>
+     <p><span>Pros:</span>
+     <ul>
+      <li><span> Built-in consensus algorithm.</span>
+     </ul>
+     <p><span>Cons:</span>
+     <ul>
+      <li><span> Concurrent modification hurts.</span>
+     </ul>
+    </section>
    </section>
    <section>
-    <h3>Wikia</h3>
-    <p><span>Pros:</span>
+    <h2>Goals</h2>
     <ul>
-     <li><span> Tons of information with moderators who are experts on their domains.</span>
+     <li><span> Decentralized: share information from many sources without being 
+       controlled by any of them</span>
     </ul>
     <ul>
-     <li><span> Dedicated contributors, existing communities, easy to edit.</span>
-    </ul>
-    <p><span>Cons:</span>
-    <ul>
-     <li><span> Divided into lots of different wikis with no interoperability between 
-       them.</span>
+     <li><span> Open: should incorporate as many sources of knowledge as possible, and 
+       individual wikis should have tons of agency.</span>
     </ul>
     <ul>
-     <li><span> Tons of overlap between wikis (i.e. multiple star wars and minecraft 
-       ones, among other franchises and tropes)</span>
+     <li><span> Easy to use: it should be incredibly easy to contribute to and 
+       communicate with some sort of central wiki.</span>
     </ul>
-    <ul>
-     <li><span> Typically used for casual and hobby interests rather than professional 
-       writing and work - why?</span>
-    </ul>
+    <section>
+     <h3>Information Sources</h3>
+     <p><span>In order of priority:</span>
+     <p><span>1. Wikia sites (there are tons!)</span>
+     <p><span>2. Wikipedia</span>
+     <p><span>3. wiki.c2.org</span>
+     <p><span>4. Assorted third party wikis.</span>
+     <p><span>5. [perhaps] personal wikis</span>
+     <p><span>6. etc...</span>
+     <p><span>Fusing all of the Wikia sites into a single, cohesive wiki seems 
+       incredibly useful.</span>
+    </section>
+    <section>
+     <h3>Feature Ideas</h3>
+     <ul>
+      <li><span> shared &amp; enhanced pages :: fuse pages that cover similar or related 
+        topics together into one view.</span>
+     </ul>
+     <ul>
+      <li><span> consensus :: condense and share overlapping information, reducing the 
+        amount of duplication.</span>
+     </ul>
+     <ul>
+      <li><span> interoperable :: shift from one wiki to another easily.</span>
+     </ul>
+    </section>
    </section>
    <section>
-    <h3>Personal wiki implementation</h3>
-    <p><span>Pros:</span>
-    <ul>
-     <li><span> Super flexible.</span>
-    </ul>
-    <p><span>Cons:</span>
-    <ul>
-     <li><span> Not a consistent or reliable source of information, as it&#39;s 
-       typically controlled by one person.</span>
-    </ul>
-    <ul>
-     <li><span> Can be disorganized and things can easily become unmaintained.</span>
-    </ul>
+    <h2>Wiki IR related decentralized wiki idea (what we were talking about in chat, 
+     but not really what is above)</h2>
+    <p><span> - uses wiki IR standard to link together many peoples personal wikis</span>
+    <p><span> - there is an engine at the center (or several?) that crawl the 
+      wikiverse and attempt to bring together pages that are similar</span>
+    <p><span> - when pages are similar (by AI?, NLP measure), suggest several types of 
+      merging</span>
+    <p><span> - suggestion ways</span>
+    <p><span> - as part of wiki IR cli tool display suggestions</span>
+    <p><span> - make tiny website dashbaord backed by small webapp that phones to 
+      recomender engine</span>
+    <p><span> - types of page merging (between peoples federated wiki)</span>
+    <p><span> - link at the bottom of page to other pages with similar content (like 
+      webring)</span>
+    <p><span> - transclude entire other page to bottom of your page (and vice versa, 
+      both pages in the link transclude eachother)</span>
+    <p><span> - suggest that pages are merged using git-esque strategy (pull request, 
+      text diff</span><span>merge tools like mergely)</span>
+    <p><span> - q: where does consenus page live? on neither page? (next to ai 
+      engines) on one page? (one of the merge requesters &#39;wins&#39;, one 
+      conceceds), or both (they share :))</span>
+    <p><span> - goals of merging</span>
+    <p><span> - reduce information duplication</span>
+    <p><span> - instead of conflicts of information being resolved in backchannel of 
+      wikipedia, consensus arguments are disputed publicly through pull requests and 
+      accepted</span><span>rejected page links</span>
+    <p><span> - epic and cool</span>
    </section>
    <section>
-    <h3>Version control managed files</h3>
-    <p><span>Pros:</span>
-    <ul>
-     <li><span> Built-in consensus algorithm.</span>
-    </ul>
-    <p><span>Cons:</span>
-    <ul>
-     <li><span> Concurrent modification hurts.</span>
-    </ul>
-   </section>
-  </section>
-  <section>
-   <h2>Goals</h2>
-   <ul>
-    <li><span> Decentralized: share information from many sources without being 
-      controlled by any of them</span>
-   </ul>
-   <ul>
-    <li><span> Open: should incorporate as many sources of knowledge as possible, and 
-      individual wikis should have tons of agency.</span>
-   </ul>
-   <ul>
-    <li><span> Easy to use: it should be incredibly easy to contribute to and 
-      communicate with some sort of central wiki.</span>
-   </ul>
-   <section>
-    <h3>Information Sources</h3>
-    <p><span>In order of priority:</span>
-    <p><span>1. Wikia sites (there are tons!)</span>
-    <p><span>2. Wikipedia</span>
-    <p><span>3. wiki.c2.org</span>
-    <p><span>4. Assorted third party wikis.</span>
-    <p><span>5. [perhaps] personal wikis</span>
-    <p><span>6. etc...</span>
-    <p><span>Fusing all of the Wikia sites into a single, cohesive wiki seems 
-      incredibly useful.</span>
+    <h2>Conversation linking</h2>
+    <p><span> - make conversations first class primitive of wiki, so that concepts are 
+      linked to discussion in which they are conceived</span>
+    <p><span> - can be as simple as citations linking to specific conversations</span>
+    <p><span> - uses matrix? hard part is technical challenge of implementation</span>
    </section>
    <section>
-    <h3>Feature Ideas</h3>
-    <ul>
-     <li><span> shared &amp; enhanced pages :: fuse pages that cover similar or related 
-       topics together into one view.</span>
-    </ul>
-    <ul>
-     <li><span> consensus :: condense and share overlapping information, reducing the 
-       amount of duplication.</span>
-    </ul>
-    <ul>
-     <li><span> interoperable :: shift from one wiki to another easily.</span>
-    </ul>
+    <h2>Backlink fixing</h2>
+    <p><span> - move</span><span>rename pages and update backlinks</span>
    </section>
-  </section>
-  <section>
-   <h2>Wiki IR related decentralized wiki idea (what we were talking about in chat, 
-    but not really what is above)</h2>
-   <p><span> - uses wiki IR standard to link together many peoples personal wikis</span>
-   <p><span> - there is an engine at the center (or several?) that crawl the 
-     wikiverse and attempt to bring together pages that are similar</span>
-   <p><span> - when pages are similar (by AI?, NLP measure), suggest several types of 
-     merging</span>
-   <p><span> - suggestion ways</span>
-   <p><span> - as part of wiki IR cli tool display suggestions</span>
-   <p><span> - make tiny website dashbaord backed by small webapp that phones to 
-     recomender engine</span>
-   <p><span> - types of page merging (between peoples federated wiki)</span>
-   <p><span> - link at the bottom of page to other pages with similar content (like 
-     webring)</span>
-   <p><span> - transclude entire other page to bottom of your page (and vice versa, 
-     both pages in the link transclude eachother)</span>
-   <p><span> - suggest that pages are merged using git-esque strategy (pull request, 
-     text diff</span><i>merge tools like mergely</i><span></span>
-   <p><span> - q: where does consenus page live? on neither page? (next to ai 
-     engines) on one page? (one of the merge requesters &#39;wins&#39;, one 
-     conceceds), or both (they share :))</span>
-   <p><span> - goals of merging</span>
-   <p><span> - reduce information duplication</span>
-   <p><span> - instead of conflicts of information being resolved in backchannel of 
-     wikipedia, consensus arguments are disputed publicly through pull requests and 
-     accepted</span><i>rejected page link</i><span></span>
-   <p><span> - epic and cool</span>
-  </section>
-  <section>
-   <h2>Conversation linking</h2>
-   <p><span> - make conversations first class primitive of wiki, so that concepts are 
-     linked to discussion in which they are conceived</span>
-   <p><span> - can be as simple as citations linking to specific conversations</span>
-   <p><span> - uses matrix? hard part is technical challenge of implementation</span>
-  </section>
-  <section>
-   <h2>Backlink fixing</h2>
-   <p><span> - move</span><i>rename pages and update backlink</i><span></span>
-  </section>
-  <section>
-   <h2>Automatically backup videos/external sites</h2>
-   <p><span> - </span><a class=external href=https://github.com/bibanon/tubeup>
-     [https://github.com/bibanon/tubeup]</a><span></span>
-   <p><span> - like gwern, to prevent linkrot</span>
-  </section>
-  <section>
-   <h2>Provide tools to make good public/private separation</h2>
-   <p><span> - so that people can have shareable personal wiki concepts</span><i>
-     reference pages, while also having extremely messy private brainstorming 
-     (brainstorming=unformed,errorfull,shameless,indulgently bad, creative, risky)</i>
-    <span>exobrain wiki pages.</span>
-  </section>
-  <section>
-   <h2>Syntax that is not static/markup</h2>
-   <p><span> - I want a markup syntax like (move [otherpage]: &quot; this concept 
-     deserves to be in other page, but right now i am in [firstpage] and don&#39;t 
-     want to move all the way to otherpage in emacs so im gonna write this thought in 
-     a move block: this thought&quot;)</span>
-   <p><span> - and that will append that thought to the bottom of other page once i 
-     save or run tool or something (linter?)</span>
-  </section>
-  <section>
-   <h2>Smart todo aggregation system</h2>
-   <p><span> - dokuwiki has decent one,</span>
-   <p><span> - zimwiki also has some good features (like hiding todo until certain 
-     date)</span>
-  </section>
-  <section>
-   <h2>New types of syntax</h2>
-   <p><span> - some syntax for assigning how sure you are of an idea, or how much you 
-     like it</span>
-   <p><span> - font size???!</span>
-   <p><span> - number of exclamation points vs question marks !!!</span>
-  </section>
-  <section>
-   <h2>First class support for sorting lists</h2>
-   <p><span> - idk how this would work but interactive sorting is underrated!!!</span>
-  </section>
-  <section>
-   <h2>Visualizers </h2>
-   <p><span> - like roam</span><i>logseq</i><span>etc.</span>
-   <p><span> - but if they want to use those interactively, just use them and use 
-     wiki IR to convert wiki to them</span>
-   <p><span> - maybe support something simple like</span>
-  </section>
-  <section>
-   <h2>WIKI LSP</h2>
-   <p><span> - breadcrumbs (</span><a class=external
-    href=https://i.stack.imgur.com/wu4kP.png)>[https://i.stack.imgur.com/wu4kP.png)]</a>
-    <span></span>
-   <p><span> - definition</span><i>lookup. like you can name concepts and hover for 
-     definitions</i><span></span>
-   <p><span> - autocompletion of other page names</span>
-  </section>
+   <section>
+    <h2>Automatically backup videos/external sites</h2>
+    <p><span> - https:</span><span>github.com</span><span>bibanon</span><span>tubeup</span>
+    <p><span> - like gwern, to prevent linkrot</span>
+   </section>
+   <section>
+    <h2>Provide tools to make good public/private separation</h2>
+    <p><span> - so that people can have shareable personal wiki concepts</span><span>
+      reference pages, while also having extremely messy private brainstorming 
+      (brainstorming=unformed,errorfull,shameless,indulgently bad, creative, risky)</span>
+     <span>exobrain wiki pages.</span>
+   </section>
+   <section>
+    <h2>Syntax that is not static/markup</h2>
+    <p><span> - I want a markup syntax like (move [otherpage]: &quot; this concept 
+      deserves to be in other page, but right now i am in [firstpage] and don&#39;t 
+      want to move all the way to otherpage in emacs so im gonna write this thought in 
+      a move block: this thought&quot;)</span>
+    <p><span> - and that will append that thought to the bottom of other page once i 
+      save or run tool or something (linter?)</span>
+   </section>
+   <section>
+    <h2>Smart todo aggregation system</h2>
+    <p><span> - dokuwiki has decent one,</span>
+    <p><span> - zimwiki also has some good features (like hiding todo until certain 
+      date)</span>
+   </section>
+   <section>
+    <h2>New types of syntax</h2>
+    <p><span> - some syntax for assigning how sure you are of an idea, or how much you 
+      like it</span>
+    <p><span> - font size???!</span>
+    <p><span> - number of exclamation points vs question marks !!!</span>
+   </section>
+   <section>
+    <h2>First class support for sorting lists</h2>
+    <p><span> - idk how this would work but interactive sorting is underrated!!!</span>
+   </section>
+   <section>
+    <h2>Visualizers </h2>
+    <p><span> - like roam</span><span>logseq</span><span>etc.</span>
+    <p><span> - but if they want to use those interactively, just use them and use 
+      wiki IR to convert wiki to them</span>
+    <p><span> - maybe support something simple like</span>
+   </section>
+   <section>
+    <h2>WIKI LSP</h2>
+    <p><span> - breadcrumbs (https:</span><span>i.stack.imgur.com</span><span>
+      wu4kP.png)</span>
+    <p><span> - definition</span><span>lookup. like you can name concepts and hover 
+      for definitions?</span>
+    <p><span> - autocompletion of other page names</span>
+   </section>
+  </main>
  </body>
 </html>

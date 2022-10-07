@@ -11,25 +11,29 @@
   <script>hljs.highlightAll();</script>
  </head>
  <body>
-  <h1>random tricks for linux systems</h1>
-  <section>
-   <h2>TODO move all of these to my nixos configuration somehow</h2>
-  </section>
-  <section>
-   <h2>enable pulseaudio noise cancellation</h2>
-   <p><span>put in </span><i>etc</i><span>pulse</span><i>default.pa</i><span></span>
-   <pre><code class=language-sh>load-module module-echo-cancel use_master_format=1 aec_method=webrtc aec_args=&quot;analog_gain_control=0\ digital_gain_control=1&quot; source_name=echoCancel_source sink_name=echoCancel_sink
+  <main>
+   <div class=sidebar>
+    <a href=https://jake.isnt.online>~ </a>
+   </div>
+   <h1>random tricks for linux systems</h1>
+   <section>
+    <h2>TODO move all of these to my nixos configuration somehow</h2>
+   </section>
+   <section>
+    <h2>enable pulseaudio noise cancellation</h2>
+    <p><span>put in </span><span>etc</span><span>pulse</span><span>default.pa:</span>
+    <pre><code class=language-sh>load-module module-echo-cancel use_master_format=1 aec_method=webrtc aec_args=&quot;analog_gain_control=0\ digital_gain_control=1&quot; source_name=echoCancel_source sink_name=echoCancel_sink
 set-default-source echoCancel_source
 set-default-sink echoCancel_sink
 </code></pre>
-  </section>
-  <section>
-   <h2>Pranks</h2>
-   <p><span></span><a class=external href=https://github.com/mathiasbynens/evil.sh>
-     [https://github.com/mathiasbynens/evil.sh]</a><span></span>
-   <p><span></span><a class=external
-    href=https://github.com/zeroby0/pranks#7-change-editors>
-     [https://github.com/zeroby0/pranks#7-change-editors]</a><span></span>
-  </section>
+   </section>
+   <section>
+    <h2>Pranks</h2>
+    <p><span>https:</span><span>github.com</span><span>mathiasbynens</span><span>
+      evil.sh</span>
+    <p><span>https:</span><span>github.com</span><span>zeroby0</span><span>
+      pranks#7-change-editors</span>
+   </section>
+  </main>
  </body>
 </html>

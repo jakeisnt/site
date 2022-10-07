@@ -11,87 +11,75 @@
   <script>hljs.highlightAll();</script>
  </head>
  <body>
-  <h1>Formal Specification Langauges</h1>
-  <section>
-   <h2>From Hillel Wayne&#39;s writing</h2>
-   <p><span>A notation to describe the design of a system without implementing it.</span>
-   <p><span>Can test the </span><b>design</b><span> for bugs rather than the 
-     implementation.</span>
+  <main>
+   <div class=sidebar>
+    <a href=https://jake.isnt.online>~ </a>
+   </div>
+   <h1>Formal Specification Langauges</h1>
    <section>
-    <h3>Examples</h3>
-    <ul>
-     <li><span> </span><a class=external href=https://en.wikipedia.org/wiki/Z_notation>
-       [z]</a><span> :: The first specification language to reach widespread use. 
-       Relies on set theory to describe states and schemas to describe behavior, first 
-       catalogued as a way of managing &#39;data semantics&#39;.</span>
-    </ul>
-    <ul>
-     <li><span> </span><a class=external href=https://alloytools.org>[Alloy]</a><span> 
-       :: A response to Z&#39;s complex syntax and tooling. Alloy is an attempt to 
-       simplify both of these, specifying everything as either a type signature or 
-       relationship between signatures.</span>
-    </ul>
-    <p><span> Alloy is popular for SAT problems and models; it easily visualizes 
-      models to share properties with nontechnical people as well. This would be the 
-      tool to try!</span>
-    <ul>
-     <li><span> </span><a class=external href=https://en.wikipedia.org/wiki/TLA%2B>
-       [TLA^+]</a><span> is a formal specification langauge used to model concurrent 
-       and distributed systems; it&#39;s best respected as testable pseudocode and is 
-       similar to the drawing of blueprints for complex software systems.</span>
-    </ul>
-    <p><span> It is also designed to check liveness properties of systems.</span>
-    <p><span> </span><a class=external
-     href=https://medium.com/espark-engineering-blog/formal-methods-in-practice-8f20d72bce4f>
-      [Hillel]</a><span> has a good article on modeling a complex system in the 
-      software development world with formal methods.</span>
-    <ul>
-     <li><span> Prism :: Used to model </span><b>probabilistic</b><span> 
-       specifications, in which different things have different chances of happening 
-       and events are all dependent. Its syntax is very restrictive in order to be 
-       tractable, but the opportunity to model probabilistic systems is incredible.</span>
-    </ul>
-    <ul>
-     <li><span> Spin :: As expressive as TLA+, but written to model network protocols.</span>
-    </ul>
-    <p><span>There are a lot more, but I&#39;ll investigate them further as I learn 
-      more.</span>
+    <h2>From Hillel Wayne&#39;s writing</h2>
+    <p><span>A notation to describe the design of a system without implementing it.</span>
+    <p><span>Can test the *design* for bugs rather than the implementation.</span>
+    <section>
+     <h3>Examples</h3>
+     <ul>
+      <li><span> </span><span> :: The first specification language to reach widespread 
+        use. Relies on set theory to describe states and schemas to describe behavior, 
+        first catalogued as a way of managing &#39;data semantics&#39;.</span>
+     </ul>
+     <ul>
+      <li><span> </span><span> :: A response to Z&#39;s complex syntax and tooling. 
+        Alloy is an attempt to simplify both of these, specifying everything as either a 
+        type signature or relationship between signatures.</span>
+     </ul>
+     <p><span> Alloy is popular for SAT problems and models; it easily visualizes 
+       models to share properties with nontechnical people as well. This would be the 
+       tool to try!</span>
+     <ul>
+      <li><span> </span><span> is a formal specification langauge used to model 
+        concurrent and distributed systems; it&#39;s best respected as testable 
+        pseudocode and is similar to the drawing of blueprints for complex software 
+        systems.</span>
+     </ul>
+     <p><span> It is also designed to check liveness properties of systems.</span>
+     <p><span> </span><span> has a good article on modeling a complex system in the 
+       software development world with formal methods.</span>
+     <ul>
+      <li><span> Prism :: Used to model *probabilistic* specifications, in which 
+        different things have different chances of happening and events are all 
+        dependent. Its syntax is very restrictive in order to be tractable, but the 
+        opportunity to model probabilistic systems is incredible.</span>
+     </ul>
+     <ul>
+      <li><span> Spin :: As expressive as TLA+, but written to model network protocols.</span>
+     </ul>
+     <p><span>There are a lot more, but I&#39;ll investigate them further as I learn 
+       more.</span>
+    </section>
    </section>
-  </section>
-  <section>
-   <h2>Terms</h2>
-   <ul>
-    <li><span> Temporal logic :: Extending standard mathematical notation to allow 
-      temporal logic to change over time.</span>
-   </ul>
-   <p><span> Temporal logic of actions is a subset of this concept that scales to 
-     real world systems.</span>
-   <ul>
-    <li><span> Liveness properties :: Similar to the definition in the compiler 
-      sphere, liveness properties are properties of systems that must </span><i>
-      eventually</i><span> be true for the spec to be valid.</span>
-   </ul>
-  </section>
-  <section>
-   <h2>etc</h2>
-   <p><span></span><a class=external href=https://github.com/wimmers/munta>
-     [https://github.com/wimmers/munta]</a><span></span>
-   <p><span></span><a class=external href=https://melcer.dev/projects.html>
-     [https://melcer.dev/projects.html]</a><span></span>
-   <p><span></span><a class=external
-    href=https://mobile.twitter.com/EremondiJoey/status/1314319848592216064>[Joey 
-     Eremondi on Twitter: &amp;quot;Has anyone seen a &amp;quot;reference&amp;quot; 
-     implementation of an SMT solver? Not one that is fast like Z3 or CVC4, but one 
-     that implements the algorithm in a fairly straightforward way that&amp;#39;s 
-     slow but grokkable. I&amp;#39;m particularly interested in how it handles 
-     uninterpreted functions (UF).&amp;quot; / Twitter]</a><span></span>
-   <p><span></span><a class=external
-    href="https://www.hillelwayne.com/post/alloydocs/">[alloy: the neat formal 
-     method]</a><span></span>
-   <p><span></span><a class=external
-    href="http://www.ccs.neu.edu/home/pete/courses/Computer-Aided-Reasoning/2018-Fall/">
-     [http://www.ccs.neu.edu/home/pete/courses/Computer-Aided-Reasoning/2018-Fall/]</a>
-    <span></span>
-  </section>
+   <section>
+    <h2>Terms</h2>
+    <ul>
+     <li><span> Temporal logic :: Extending standard mathematical notation to allow 
+       temporal logic to change over time.</span>
+    </ul>
+    <p><span> Temporal logic of actions is a subset of this concept that scales to 
+      real world systems.</span>
+    <ul>
+     <li><span> Liveness properties :: Similar to the definition in the compiler 
+       sphere, liveness properties are properties of systems that must </span><span>
+       eventually</span><span> be true for the spec to be valid.</span>
+    </ul>
+   </section>
+   <section>
+    <h2>etc</h2>
+    <p><span>https:</span><span>github.com</span><span>wimmers</span><span>munta</span>
+    <p><span>https:</span><span>melcer.dev</span><span>projects.html</span>
+    <p>
+    <p>
+    <p><span>http:</span><span>www.ccs.neu.edu</span><span>home</span><span>pete</span>
+     <span>courses</span><span>Computer-Aided-Reasoning</span><span>2018-Fall</span>
+   </section>
+  </main>
  </body>
 </html>
