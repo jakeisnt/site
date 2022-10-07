@@ -1,19 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
+
 html {
-  font-size:18px;
-  font-family:"Noto Sans", sans-serif;
-  word-wrap:break-word;
-  hyphens:auto;
+  font-size: 18px;
+  font-family: "Noto Sans", sans-serif;
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 body {
-  max-width:24rem;
-  margin:0;
-  padding:1rem 2rem;
+  max-width: 24rem;
+  margin: 0;
+  padding: 1rem 4.5rem;
 }
 
 .foot {
-  padding-right:0.5rem;
+  padding-right: 0.5rem;
 }
 
 a {
@@ -28,9 +30,32 @@ a:hover {
 }
 
 a:visited {
-  color:#585858;
+  color: #585858;
 }
 
 a:active {
-  color:blue;
+  color: blue;
+}
+
+.sidebar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 1rem 0.5rem;
+  padding: 0.5rem;
+  height: 90%;
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+  border-right: 1.5px solid #484848;
+  text-align: left;
+  vertical-align: center;
+  font-family: 'IBM Plex Mono', monospace;;
+}
+
+.checkbox-menu {
+  margin-top: 1rem;
+  padding: 0.5rem 0.25rem;
+  max-width: 10rem;
+  border: 1.5px solid #484848;;
+  background-color: hsl(0, 0%, 96.5%);
 }
