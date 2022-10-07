@@ -46,8 +46,8 @@ a:active {
   margin-top: 1.875rem;
   padding: 0.5rem;
   height: 90%;
-  writing-mode: vertical-lr;
-  text-orientation: mixed;
+  writing-mode: vertical-rl;
+  text-orientation: sideways;
   text-align: left;
   vertical-align: left;
   line-height: 20px;

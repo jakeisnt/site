@@ -129,29 +129,12 @@
 (defun tokenize-macro-line-or-comment (stream)
   "Tokenize a macro line or comment"
   (let ((cmd (take-until stream #\space)))
-    (string-case
-        (cmd)
-      ("+TITLE:" (parse-title stream))
+    (string-case (cmd)
+      ("+TITLE:"    (parse-title stream))
       ("+BEGIN_SRC" (parse-code-block stream t))
       ("+begin_src" (parse-code-block stream nil))
       (t "Not sure what this macro is"))))
 
-(defun parse-link (stream)
-  "Parse a link with a possible title and mandatory URL"
-  (let* ((link-text (take-until stream "]]"))
-         (body (cl-ppcre::split "\\]\\[" link-text)))
-    (if (eq (length body) 2)
-        (defs::make-link :title (cadr body) :url (car body))
-        (defs::make-link :url (car body)))))
-
-
-;; take-until can terminate on eof before we find that last character
-;; we should explicitly be informed if this happens;
-;; currently, it'll chunk everything after some starting character until eol
-;; into the constructor of one of these things,
-;; rather than giving up and returning text.
-;; we should see if we actually found the closing char,
-;; and just return a string if we didn't
 (defun parse-char (stream make chars)
   (let ((bold-cont (take-until stream chars)))
     (funcall make bold-cont)))
@@ -171,10 +154,6 @@
 ;; i wonder if we can sense for conflicts like parser generators in this grammar!
 ;; that would be very cool;.
 
-(defun make-naive-link (txt)
-  ;; http was cut so we manually add it backlol
-  (defs::make-link :url (concatenate 'string "http" txt)))
-
 
 ;; 'chars' are the chars to be cut from the end of our recognizing buffer,
 ;; so they're the chars we match on.
@@ -190,17 +169,6 @@
                      (cons (util::without-postfix buffer ,chars) res)))
      (setq buffer (make-adjustable-string ""))))
 
-;; semantics of these inlines:
-;; if we hit a space or newline or eof before we find the closing util, we need to backtrack;
-;; we keep the character we've identified in the buffer,
-;; then continue to try to match with another pattern we're looking for.
-;; only when we exhaust all of these patterns on our text line portion do we default to plain texxt
-
-(defun parse-naive-link (stream)
-  "Parse a link with a possible title and mandatory URL"
-  (let* ((link-text (take-until-or stream #\space #\newline)))
-    (make-naive-link link-text)))
-
 ;; stream and buffer are assumed to be in scope here
 (defmacro tapp (make chars)
   `(let ((parsed (parse-char stream ,make ,chars))
@@ -210,6 +178,21 @@
      (setq res (cons parsed (cons sin-postfix res)))
      (setq buffer (make-adjustable-string ""))))
 
+
+;; --- Makers ---
+;; Assuming we've found matching parens,
+;; give their contents to these functions to make the respective construct.
+(defun make-link (link-text)
+  "Parse a link with a possible title and mandatory URL"
+  (let* ((body (cl-ppcre::split "\\]\\[" link-text)))
+    (if (eq (length body) 2)
+        (defs::make-link :title (cadr body) :url (car body))
+        (defs::make-link :url (car body)))))
+
+(defun make-naive-link (txt)
+  ;; http was cut so we manually add it backlol
+  (defs::make-link :url (concatenate 'string "http" txt)))
+
 (defun make-bold (txt)
   (defs::make-bold :text txt))
 
@@ -218,6 +201,67 @@
 
 (defun make-verb (txt)
   (defs::make-verb :text txt))
+
+;; (defun split-on-first (line)
+;;   "Split a line on the first occurence of a substring supposedly in that line"
+;;   (loop named find-substr
+;;         for idex from 0 to (- no-prefix-len 1) ; we might be over indexing
+;;         with str-end-idx = (min no-prefix-len (+ idex close-len))
+;;         do (let ((cur-substr (subseq line-no-prefix idex str-end-idx)))
+;;              (when (eq cur-substr close-str)
+;;                (return-from
+;;                 find-substr
+;;                  (cons
+;;                   (subseq line-no-prefix 0 idex)
+;;                   (subseq line-no-prefix idx)))))))
+
+(defun split-first (line look-for)
+  (split look-for line :limit 2))
+
+(defun apply-first (pair fn)
+  (cons (funcall fn (car pair)) (cdr pair)))
+
+
+(defun try-find (line open-str close-str make-obj)
+  (if (util::string-prefixesp line open-ls)
+      ;; look for closing chars
+      ;; do the thing
+      (let* ((line-no-prefix (util::without-prefix line open-ls))
+             (no-prefix-len (length line-no-prefix))
+             (close-len (length close-str))
+             (maybe-substr (split-on-closing )))
+
+        (if (consp maybe-substr) (apply-first maybe-substr make-obj) (cons nil line)))
+      (cons nil line)))
+
+(defun tokenize-line (text-line)
+  "http" (or #\newline #\space)
+  "[[" "]]"
+  "*" "*"
+  "/" "/"
+  "`" "`"
+  "$" "$"
+  )
+
+;; if we see the opening char:
+;; find the closing char
+;; if we find the closing char,
+;; split on it and return the split list;
+;; otherwise, return nil and the original
+
+;; 1. Start with the current string line.
+;; 2. Check the first characters, starting at [0],
+;;    for a match with the top pattern.
+;; 3. If a match is found, look for the closing pattern.
+;;    If we find the closing pattern,
+;;      produce the struct created with this pattern
+;;      and the rest of the string.
+;;    If we do not find the closing pattern,
+;;      produce nil and the current string. Then try the next pattern.
+
+;; If we fail to match any of these patterns,
+;;   pop the current character off of the text line.
+
 
 (defun tokenize-text-until (text-line)
   "Tokenize text and find special cool things in it"

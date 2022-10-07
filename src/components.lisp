@@ -32,6 +32,7 @@
 ;; ideally this just doubles as a source code viewer, honestly
 ;; should mousing over reveal alternative things for this path? is that right?
 
+;; can mouse over to view three options; can click '...' (or scroll?) to view more?
 (defmacro make-pathlist (ls)
   `(loop for pathpart in ls
          collect (:a :href (concatenate 'string root "/" pathpart) )
