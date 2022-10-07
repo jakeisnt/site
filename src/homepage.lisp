@@ -52,8 +52,8 @@
   (spinneret::with-html
     (:div
      :class "sidebar"
-     "~ / "
-     (:a :href "https://jake.isnt.online" "home"))))
+     (:span "~ / ")
+     (:a :class "current" :href "https://jake.isnt.online" "home"))))
 
 (defun homepage ()
   (spinneret::with-html

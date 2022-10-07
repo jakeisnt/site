@@ -55,6 +55,10 @@ a:active {
   font-size: 16px;
 }
 
+.sidebar .current {
+  font-weight: 500;
+}
+
 .checkbox-menu {
   margin-top: 1rem;
   padding: 0.5rem 0.25rem;
