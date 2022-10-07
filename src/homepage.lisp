@@ -117,8 +117,9 @@
                (:a :class "foot" :href (concatenate 'string "https://are.na/" *arena*) "[are.na]"))
 
          ;; Components: load them in the body
-         (comp::checkbox-menu)
-         (comp::sidebar))
+         ;; (comp::checkbox-menu)
+         (comp::sidebar)
+         )
 
         ;; load scripts at the end
         (:script :type "text/javascript" :src "./lib.js" "")))))
