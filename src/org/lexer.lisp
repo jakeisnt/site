@@ -177,11 +177,8 @@
   `(let ((maybe-found (try-find text-line ,open-str ,close-str ,make-obj)))
      (if (car maybe-found)
          (let ()
-           (print maybe-found)
            (let ((remaining-string (car (cdr maybe-found)))
                  (new-acc (cons (car maybe-found) acc)))
-             (print remaining-string)
-             (print new-acc)
              (tokenize-line remaining-string new-acc)))
          ,else)))
 

@@ -66,3 +66,7 @@ a:active {
   border: 1.5px solid #484848;;
   background-color: hsl(0, 0%, 96.5%);
 }
+
+h1 {
+  margin: 1rem 0;
+}

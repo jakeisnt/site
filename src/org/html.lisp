@@ -95,9 +95,7 @@
       ((parser::code-block-p node) (code-block node))
       (t nil))))
 
-(defparameter *url* "/home/jake/site/docs") ;; TODO may not be good practice
-
-(defun render-org (org pathlist)
+(defun render-org (org pathlist root)
   "Render an org file struct as an html page"
   (let ((title (parser::file-title org))
         (body (parser::file-body org)))
@@ -106,18 +104,18 @@
          :lang "en-us"
          (:head
           (:title (concatenate 'string (or title "") " | Jake Chvatal"))
-          (:link :rel "stylesheet" :href (concatenate 'string *url* "/style.css"))
+          (:link :rel "stylesheet" :href (concatenate 'string root "/style.css"))
           (:link :rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css")
           (:script :src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js")
           (:script "hljs.highlightAll();"))
          (:body
           (:main
-           (comp::sidebar pathlist)
+           (comp::sidebar pathlist root)
            (when title (:h1 title))
            (loop for node in body
                  collect (render-org-node node))))))))
 
-(defun render-org-file (fname pathlist)
-  (spinneret::with-html-string (render-org (parser::parse fname) pathlist)))
+(defun render-org-file (fname pathlist root)
+  (spinneret::with-html-string (render-org (parser::parse fname) pathlist root)))
 
 ;; (util::write-file "./test.html" (render-org-file "./README.org"))

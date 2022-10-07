@@ -29,9 +29,6 @@
      (string= smaller larger :start2 0 :end2 sm-len))))
 
 
-        ;; (print "wrong sizes!!")
-        ;; (print larger)
-        ;; (print smaller)
 (defun without-postfix (larger smaller)
   "Produce the larger string without its assumed postfix, smaller"
   (let ((sm-len (length smaller))
