@@ -11,7 +11,7 @@ html {
 body {
   max-width: 24rem;
   margin: 0;
-  padding: 1rem 4.5rem;
+  padding: 1rem 4rem;
 }
 
 .foot {
@@ -54,6 +54,7 @@ a:active {
   line-height: 20px;
   font-family: 'IBM Plex Mono', monospace;;
   font-size: 16px;
+  font-weight: 500;
 }
 
 .checkbox-menu {
