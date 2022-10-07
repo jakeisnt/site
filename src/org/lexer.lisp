@@ -47,24 +47,6 @@
       (take-until-string stream end-on)
       (take-until-char stream end-on)))
 
-;; note: this doesn't always work cos always len of the first;
-;; should be the length of whatever we end on lol...
-;; also this should be extended an arbitrary number of `end-on`s,
-;; either characters or strings,
-;; which would let us fuse all of these `take-until`s lol. with a macro!
-(defun take-until-or (stream end-on end-on2)
-  "take from a stream until a particular character is received"
-  (let ((chars (make-adjustable-string "")))
-    (loop for next-char = (safe-read-char stream)
-          until (or (eq next-char end-on)
-                    (eq next-char end-on2)
-                    (eq next-char :eof)
-                    (and (stringp end-on)
-                         (util::string-postfixesp chars end-on)
-                         (util::string-postfixesp chars end-on)))
-          do (push-char chars next-char))
-    chars))
-
 (defun take-until-string (stream end-on)
   "take from a stream until a particular character is received
    omits the string we terminate on"
@@ -239,67 +221,42 @@
        (cdr acc))
       (cons car acc)))
 
+;; Start with the current string line.
+;; Check the first characters, starting at [0],
+;;   for a match with the top pattern.
+;; If a match is found, look for the closing pattern.
+;; If we find the closing pattern,
+;;   produce the struct created with this pattern
+;;   and the rest of the string.
+;; If we do not find the closing pattern,
+;;   produce nil and the current string. Then try the next pattern.
+
+;; If we fail to match any of these patterns,
+;;   pop the current character off of the text line.
 (defun tokenize-line (text-line acc)
   (if (eq text-line "")
       (reverse acc)
       (block
-        (fd "http" (string #\newline) make-naive-link
-            (fd "http" (string #\space)   make-naive-link
-                (fd "[[" "]]" make-link
-                    (fd "*" "*" make-bold
-                        (fd "/" "/" make-ital
-                            (fd "`" "`" make-verb
-                                (fd "$" "$" make-verb
-                                    (tokenize-line
-                                     (subseq text-line 1)
-                                     (fuse-subseq acc (subseq text-line 0 1)))))))))))))
-
-;; if we see the opening char:
-;; find the closing char
-;; if we find the closing char,
-;; split on it and return the split list;
-;; otherwise, return nil and the original
-
-;; 1. Start with the current string line.
-;; 2. Check the first characters, starting at [0],
-;;    for a match with the top pattern.
-;; 3. If a match is found, look for the closing pattern.
-;;    If we find the closing pattern,
-;;      produce the struct created with this pattern
-;;      and the rest of the string.
-;;    If we do not find the closing pattern,
-;;      produce nil and the current string. Then try the next pattern.
-
-;; If we fail to match any of these patterns,
-;;   pop the current character off of the text line.
-
-
-(defun tokenize-text-until (text-line)
-  "Tokenize text and find special cool things in it"
-  (with-open-stream (stream (make-string-input-stream text-line))
-    (let ((res ())
-          (buffer (make-adjustable-string "")))
-      (loop for next-char = (safe-read-char stream)
-            until (eq next-char :eof)
-            do (let ()
-                 (push-char buffer next-char)
-                 (cond
-                   ((tfit "http") (tapp2 parse-naive-link "http")) ;we need an 'or space newline' here
-                   ((tfit "[[") (tapp2 parse-link "[["))
-                   ((tfit "*")  (tapp #'make-bold "*"))
-                   ((tfit "/")  (tapp #'make-ital "/"))
-                   ((tfit "`")  (tapp #'make-verb "`"))
-                   ((tfit "$")  (tapp #'make-verb "$")))))
-      (reverse (cons buffer res)))))
+          (fd "http" (string #\space) make-naive-link
+              (fd "http" (string #\newline) make-naive-link
+                  (fd "[[" "]]" make-link
+                      (fd "*" "*" make-bold
+                          (fd "/" "/" make-ital
+                              (fd "`" "`" make-verb
+                                  (fd "$" "$" make-verb
+                                      (tokenize-line
+                                       (subseq text-line 1)
+                                       (fuse-subseq acc (subseq text-line 0 1)))))))))))))
 
 
 (defun tokenize-text (last-char stream)
   "Tokenize a text node until EOL. Append the char if it exists."
   (let*
-    ((body (take-until stream #\newline))
-     (fixed-body (if last-char (concatenate 'string (list last-char) body) body))
-     (tokenized-body (tokenize-text-until fixed-body)))
+      ((body (take-until stream #\newline))
+       (fixed-body (if last-char (concatenate 'string (list last-char) body) body))
+       (tokenized-body (tokenize-line fixed-body)))
     (make-text-tok :body tokenized-body)))
+
 
 (defun tokenize-heading (stream)
   "tokenize an Org-mode heading"
