@@ -38,25 +38,20 @@
   "Push a character to an adjustable string."
   (vector-push-extend c str))
 
-;; current problem:
-;; -> we hit a char, and stop on it
-;; -> then we don't skip that char when we continue to parse
-
-
-
 (defun take-until (stream end-on)
   "Take until we get a specific char or string;
-if we find it, return ('found str);
-if we don't, return ('missing str)
-"
+   if we find it, return ('found str);
+   if we don't, return ('missing str)
+  "
   (if (stringp end-on)
       (take-until-string stream end-on)
       (take-until-char stream end-on)))
 
-
-
-;; note: this doesnt always work cos always len of the first;
-;; should be the length of whatever we end on
+;; note: this doesn't always work cos always len of the first;
+;; should be the length of whatever we end on lol...
+;; also this should be extended an arbitrary number of `end-on`s,
+;; either characters or strings,
+;; which would let us fuse all of these `take-until`s lol. with a macro!
 (defun take-until-or (stream end-on end-on2)
   "take from a stream until a particular character is received"
   (let ((chars (make-adjustable-string "")))
@@ -172,6 +167,9 @@ if we don't, return ('missing str)
 ;;  (("*" bold "*") make-bold)
 ;;  (("/" ital "/") make-ital)
 ;;  (("`" verb "`") make-verb))
+;; semantics: prefer first occuring match, prefer longer match
+;; i wonder if we can sense for conflicts like parser generators in this grammar!
+;; that would be very cool;.
 
 (defun make-naive-link (txt)
   ;; http was cut so we manually add it backlol
@@ -181,7 +179,9 @@ if we don't, return ('missing str)
 ;; 'chars' are the chars to be cut from the end of our recognizing buffer,
 ;; so they're the chars we match on.
 ;; the rest of them will be pulled off later
-;; there is definitely a way to handle this in a more elegant, generic way2
+;; there is definitely a way to handle this in a more elegant, generic way
+;; (see spec above)
+;; but i'm not entirely sure offhand how to encode it
 (defmacro tapp2 (parser chars)
   `(let ()
      (setq res (cons (,parser stream)
@@ -191,8 +191,10 @@ if we don't, return ('missing str)
      (setq buffer (make-adjustable-string ""))))
 
 ;; semantics of these inlines:
-;; if we hit a space or newline or eof before we find closing,
-;; we give up on the form and just return the text.
+;; if we hit a space or newline or eof before we find the closing util, we need to backtrack;
+;; we keep the character we've identified in the buffer,
+;; then continue to try to match with another pattern we're looking for.
+;; only when we exhaust all of these patterns on our text line portion do we default to plain texxt
 
 (defun parse-naive-link (stream)
   "Parse a link with a possible title and mandatory URL"
