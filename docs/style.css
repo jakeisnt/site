@@ -42,14 +42,18 @@ a:active {
   top: 0;
   left: 0;
   margin: 1rem 0.5rem;
+  margin-left: 0.25rem;
+  margin-top: 2rem;
   padding: 0.5rem;
   height: 90%;
   writing-mode: vertical-lr;
   text-orientation: mixed;
   border-right: 1.5px solid #484848;
   text-align: left;
-  vertical-align: center;
+  vertical-align: left;
+  line-height: 20px;
   font-family: 'IBM Plex Mono', monospace;;
+  font-size: 16px;
 }
 
 .checkbox-menu {
