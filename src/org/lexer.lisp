@@ -202,18 +202,6 @@
 (defun make-verb (txt)
   (defs::make-verb :text txt))
 
-;; (defun split-on-first (line)
-;;   "Split a line on the first occurence of a substring supposedly in that line"
-;;   (loop named find-substr
-;;         for idex from 0 to (- no-prefix-len 1) ; we might be over indexing
-;;         with str-end-idx = (min no-prefix-len (+ idex close-len))
-;;         do (let ((cur-substr (subseq line-no-prefix idex str-end-idx)))
-;;              (when (eq cur-substr close-str)
-;;                (return-from
-;;                 find-substr
-;;                  (cons
-;;                   (subseq line-no-prefix 0 idex)
-;;                   (subseq line-no-prefix idx)))))))
 
 (defun split-first (line look-for)
   (split look-for line :limit 2))
@@ -223,25 +211,48 @@
 
 
 (defun try-find (line open-str close-str make-obj)
-  (if (util::string-prefixesp line open-ls)
-      ;; look for closing chars
-      ;; do the thing
-      (let* ((line-no-prefix (util::without-prefix line open-ls))
-             (no-prefix-len (length line-no-prefix))
-             (close-len (length close-str))
-             (maybe-substr (split-on-closing )))
+  "Try to find a matching pair on the line,
+   converting the found split into an object if we find it
+  "
+  (if (util::string-prefixesp line open-str)
+      (let* ((without-prefix (util::without-prefix line open-str))
+             (maybe-split (split-first look-for line)))
 
-        (if (consp maybe-substr) (apply-first maybe-substr make-obj) (cons nil line)))
+        ;; if we successfully split on the char,
+        (if (eq 2 (length maybe-split))
+            ;; apply the constructor to the first arg!
+            (apply-first maybe-substr make-obj)
+            ;; otherwise, extract the string and get nothing.
+            (cons nil (car maybe-split))))
       (cons nil line)))
 
-(defun tokenize-line (text-line)
-  "http" (or #\newline #\space)
-  "[[" "]]"
-  "*" "*"
-  "/" "/"
-  "`" "`"
-  "$" "$"
-  )
+(defmacro fd (line open-str close-str make-obj else)
+  `(let ((maybe-found (try-find ,line ,open-str ,close-str ,make-obj)))
+     (if (car maybe-found)
+         (tokenize-line (cdr maybe-found) (cons maybe-found acc))
+         ,else)))
+
+(defun fuse-subseq (acc cur)
+  (if (stringp (car acc))
+      (cons
+       (concatenate 'string (car acc) cur)
+       (cdr acc))
+      (cons car acc)))
+
+(defun tokenize-line (text-line acc)
+  (if (eq text-line "")
+      (reverse acc)
+      (block
+        (fd "http" (string #\newline) make-naive-link
+            (fd "http" (string #\space)   make-naive-link
+                (fd "[[" "]]" make-link
+                    (fd "*" "*" make-bold
+                        (fd "/" "/" make-ital
+                            (fd "`" "`" make-verb
+                                (fd "$" "$" make-verb
+                                    (tokenize-line
+                                     (subseq text-line 1)
+                                     (fuse-subseq acc (subseq text-line 0 1)))))))))))))
 
 ;; if we see the opening char:
 ;; find the closing char
