@@ -21,9 +21,23 @@
            :onclick (parenscript:ps (toggle-hypothesis))
            "hypothes.is"))))
 
-(defun sidebar ()
-  (spinneret::with-html
-    (:div
-     :class "sidebar"
-     (:span "~ / ")
-     (:a :class "current" :href "https://jake.isnt.online" "home"))))
+;; ("p" "filename")
+;; ("filename")
+;; ("a" "p" "filename")
+
+(defmacro make-pathlist (ls)
+  `(loop for pathpart in ls
+         collect (:a :href (concatenate 'string root "/" pathpart) )
+         )
+  )
+
+
+(defun sidebar (pathlist)
+  (let ((root "https://jake.isnt.online"))
+    (spinneret::with-html
+        (:div
+         :class "sidebar"
+         ;; (:a :href root "~ ")
+         (make-pathlist pathlist)
+
+         ))))

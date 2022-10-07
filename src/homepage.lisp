@@ -118,7 +118,7 @@
 
          ;; Components: load them in the body
          ;; (comp::checkbox-menu)
-         (comp::sidebar)
+         (comp::sidebar '())
          )
 
         ;; load scripts at the end

@@ -2,6 +2,7 @@
 (load "./src/org/parser.lisp")
 (load "./src/org/defs.lisp")
 (load "./src/util.lisp")
+(load "./src/components.lisp")
 
 (ql:quickload :spinneret)
 (ql:quickload 'css-lite)
@@ -96,24 +97,27 @@
 
 (defparameter *url* "/home/jake/site/docs") ;; TODO may not be good practice
 
-(defun render-org (org)
+(defun render-org (org pathlist)
   "Render an org file struct as an html page"
-  (spinneret::with-html
-    (:html
-     :lang "en-us"
-     (:head
-      (:title (concatenate 'string (or (parser::file-title org) "") " | Jake Chvatal"))
-      (:link :rel "stylesheet" :href (concatenate 'string *url* "/style.css"))
-      (:link :rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css")
-      (:script :src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js")
-      (:script "hljs.highlightAll();"))
-     (:body
-      (when (parser::file-title org)
-        (:h1 (parser::file-title org)))
-      (loop for node in (parser::file-body org)
-            collect (render-org-node node))))))
+  (let ((title (parser::file-title org))
+        (body (parser::file-body org)))
+    (spinneret::with-html
+        (:html
+         :lang "en-us"
+         (:head
+          (:title (concatenate 'string (or title "") " | Jake Chvatal"))
+          (:link :rel "stylesheet" :href (concatenate 'string *url* "/style.css"))
+          (:link :rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css")
+          (:script :src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js")
+          (:script "hljs.highlightAll();"))
+         (:body
+          (:main
+           (comp::sidebar pathlist)
+           (when title (:h1 title))
+           (loop for node in body
+                 collect (render-org-node node))))))))
 
-(defun render-org-file (fname)
-  (spinneret::with-html-string (render-org (parser::parse fname))))
+(defun render-org-file (fname pathlist)
+  (spinneret::with-html-string (render-org (parser::parse fname) pathlist)))
 
 ;; (util::write-file "./test.html" (render-org-file "./README.org"))
