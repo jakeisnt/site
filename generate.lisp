@@ -28,9 +28,27 @@
 (defun generate-homepage ()
   (generate-file (concatenate 'string *wiki-location* "/index.org")))
 
+
+(defun index-page (urls)
+  (htmlgen::body
+   (loop for url in urls
+         collect (:a :href url name))))
+
+;; page looks like this:
+;;
+;; acl2 .............. html
+;; 100_rabbits ........ org
+;; name .............. type
+;;
+;; and every one of these is a clickable link to the article
+
 (defun generate-wiki ()
   (loop for file-path in (directory (concatenate 'string *wiki-location* "/pages/**/*.org"))
-        do (generate-file file-path)))
+        do (generate-file file-path))
+
+  ;; we also need to create some index here
+
+  )
 
 (defun generate ()
   (generate-homepage)

@@ -3,6 +3,7 @@
 (load "./src/org/defs.lisp")
 (load "./src/util.lisp")
 (load "./src/components.lisp")
+(load "./src/html.lisp")
 
 (ql:quickload :spinneret)
 (ql:quickload 'css-lite)
@@ -99,23 +100,11 @@
   "Render an org file struct as an html page"
   (let ((title (parser::file-title org))
         (body (parser::file-body org)))
-    (spinneret::with-html
-        (:html
-         :lang "en-us"
-         (:head
-          (:title (concatenate 'string (or title "") " | Jake Chvatal"))
-          (:link :rel "stylesheet" :href (concatenate 'string root "/style.css"))
-          (:link :rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css")
-          (:script :src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js")
-          (:script "hljs.highlightAll();"))
-         (:body
-          (:main
-           (comp::sidebar pathlist root)
-           (when title (:h1 title))
-           (loop for node in body
-                 collect (render-org-node node))))))))
+    (htmlgen::body
+     (comp::sidebar pathlist root)
+     (when title (:h1 title))
+     (loop for node in body
+           collect (render-org-node node)))))
 
 (defun render-org-file (fname pathlist root)
   (spinneret::with-html-string (render-org (parser::parse fname) pathlist root)))
-
-;; (util::write-file "./test.html" (render-org-file "./README.org"))
