@@ -8,7 +8,7 @@
 
 (in-package htmlgen)
 
-(defmacro body (contents root title)
+(defmacro body (root title contents)
   `(spinneret::with-html
      (:html
       :lang "en-us"

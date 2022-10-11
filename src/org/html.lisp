@@ -99,19 +99,15 @@
 (defun render-org (org pathlist root)
   "Render an org file struct as an html page"
   (let* ((title (parser::file-title org))
-         (body (parser::file-body org))
-         (html-body
-           (cons
-            (comp::sidebar pathlist root)
-            (cons (when title (spinneret::with-html (:h1 title)))
-                  (loop for node in body
-                        collect (render-org-node node))))))
-    ;; TODO: apparently this whole html body var is just nil
-    (print html-body)
+         (body (parser::file-body org)))
     (htmlgen::body
-     html-body
      root
-     title)))
+     title
+     (html-body
+      (comp::sidebar pathlist root)
+      (when title (spinneret::with-html (:h1 title)))
+      (loop for node in body
+            collect (render-org-node node))))))
 
 (defun render-org-file (fname pathlist root)
   (spinneret::with-html-string (render-org (parser::parse fname) pathlist root)))

@@ -31,10 +31,10 @@
 
 (defun index-page (urls)
   (htmlgen::body
+   (:root *site-location*)
+   (:title "index")
    (loop for url in urls
-         collect (:a :href url "name for url"))
-   *site-location*
-   "index"))
+         collect (:a :href url "name for url"))))
 
 ;; page looks like this:
 ;;
