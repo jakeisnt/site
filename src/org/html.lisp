@@ -96,6 +96,7 @@
       ((parser::code-block-p node) (code-block node))
       (t nil))))
 
+;; macro: https://github.com/ruricolist/spinneret
 (defun render-org (org pathlist root)
   "Render an org file struct as an html page"
   (let* ((title (parser::file-title org))
