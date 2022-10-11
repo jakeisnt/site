@@ -22,8 +22,8 @@
 (defun convert-link (txt)
   (spinneret::with-html
     (let* ((url (defs::link-url txt))
-          (title (or (defs::link-title txt) url))
-          (is-internal
+           (title (or (defs::link-title txt) url))
+           (is-internal
             (or
              (util::string-prefixesp url  "id:")
              (util::string-prefixesp url "file:"))))
@@ -98,13 +98,20 @@
 
 (defun render-org (org pathlist root)
   "Render an org file struct as an html page"
-  (let ((title (parser::file-title org))
-        (body (parser::file-body org)))
+  (let* ((title (parser::file-title org))
+         (body (parser::file-body org))
+         (html-body
+           (cons
+            (comp::sidebar pathlist root)
+            (cons (when title (spinneret::with-html (:h1 title)))
+                  (loop for node in body
+                        collect (render-org-node node))))))
+    ;; TODO: apparently this whole html body var is just nil
+    (print html-body)
     (htmlgen::body
-     (comp::sidebar pathlist root)
-     (when title (:h1 title))
-     (loop for node in body
-           collect (render-org-node node)))))
+     html-body
+     root
+     title)))
 
 (defun render-org-file (fname pathlist root)
   (spinneret::with-html-string (render-org (parser::parse fname) pathlist root)))
