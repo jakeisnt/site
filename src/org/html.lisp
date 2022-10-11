@@ -103,7 +103,7 @@
     (htmlgen::body
      root
      title
-     (html-body
+     (list
       (comp::sidebar pathlist root)
       (when title (spinneret::with-html (:h1 title)))
       (loop for node in body
