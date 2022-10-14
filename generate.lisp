@@ -31,8 +31,8 @@
 
 (defun index-page (urls)
   (htmlgen::body
-   (:root *site-location*)
-   (:title "index")
+   *site-location*
+   (concatenate 'string "page" "/index")
    (loop for url in urls
          collect (:a :href url "name for url"))))
 
@@ -48,7 +48,7 @@
   (loop for file-path in (directory (concatenate 'string *wiki-location* "/pages/**/*.org"))
         do (generate-file file-path))
 
-  ;; we also need to create some index here
+  ;; we also need to create an index page here for each
 
   )
 

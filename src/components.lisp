@@ -12,14 +12,15 @@
 (in-package :comp)
 
 (defun checkbox-menu ()
+  "An interactive menu that allows the user to optionally enable js features."
   (spinneret::with-html
-    (:div :class "checkbox-menu"
-          (:input
-           :type "checkbox"
-           :id "hypothesis-checkbox"
-           :checked "false"
-           :onclick (parenscript:ps (toggle-hypothesis))
-           "hypothes.is"))))
+      (:div :class "checkbox-menu"
+            (:input
+             :type "checkbox"
+             :id "hypothesis-checkbox"
+             :checked "false"
+             :onclick (parenscript:ps (toggle-hypothesis))
+             "hypothes.is"))))
 
 ;; () -> (:a :href jake/indexx)
 ;; ("filename") -> (:a :href jake/filename)
@@ -52,13 +53,8 @@
 ;; also: the name of the website should reflect the path. how?
 ;; it shouldn't be literal, but it should be aesthetically similar.
 
-;; TODO before I merge this PR:
-;; - finish this pathlist.
-;; - make the homepage into an org-mode file.
-;; - generate an indexx file for the /p folder.
-
 (defun collect-folder-paths (root ls)
-  "Convert a list of folder paths into a list of links"
+  "Convert a list of folder paths into a list of links."
   (cond
     ((endp ls) nil)
     ((consp ls)
@@ -81,6 +77,7 @@
         (concat-around (cdr ls) around-char)))))
 
 (defun final-path (root path)
+  "Construct a final path link for the page."
   (concatenate
    'string
    root
@@ -91,15 +88,15 @@
    "."
    (fp::filepath-type path)))
 
-;; TODO this needs to be done still!
 (defun sidebar (path root)
+  "Display a sidebar for a page, given its root path."
   (spinneret::with-html
-    (:div
-     :class "sidebar"
-     (:a :href (concatenate 'string root "/index.html") " ~ ")
-     (concatenate
-      'list
-      (collect-folder-paths root (fp::filepath-dirs path))
-      (list
-       (:span " / ")
-       (:a :href (final-path root path) (fp::filepath-name path)))))))
+      (:div
+       :class "sidebar"
+       (:a :href (concatenate 'string root "/index.html") " ~ ")
+       (concatenate
+        'list
+        (collect-folder-paths root (fp::filepath-dirs path))
+        (list
+         (:span " / ")
+         (:a :href (final-path root path) (fp::filepath-name path)))))))
