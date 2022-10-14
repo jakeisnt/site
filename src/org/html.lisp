@@ -117,7 +117,7 @@
    (concatenate 'string dirname "/index")
 
     (list
-    ;; (comp::sidebar path root)
+    (comp::sidebar path root)
     (spinneret::with-html
       (:div :style "display: flex; flex-direction: column;"
             (loop for url in paths
