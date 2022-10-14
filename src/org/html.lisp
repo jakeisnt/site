@@ -121,7 +121,7 @@
     (spinneret::with-html
       (:div :style "display: flex; flex-direction: column;"
             (loop for url in paths
-                  collect (:a :href url url)))))))
+                  collect (spinneret::with-html (:a :href url (pathname-name url)))))))))
 
 (defun render-org-file (fname path root)
   (spinneret::with-html-string (render-org (parser::parse fname) path root)))
