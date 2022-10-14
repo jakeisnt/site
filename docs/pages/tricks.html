@@ -1,0 +1,41 @@
+<div class=sidebar>
+ <a href=/home/jake/site/docs//index.html> ~ </a><span> / </span><a
+ href=/home/jake/site/docs/pages/index.html>pages</a><span> / </span><a
+ href=/home/jake/site/docs/pages/tricks.html>tricks</a>
+</div>
+<h1>random tricks for linux systems</h1>
+<section>
+ <h2>TODO move all of these to my nixos configuration somehow</h2>
+</section>
+<section>
+ <h2>enable pulseaudio noise cancellation</h2>
+ <p><span>put in </span><i>etc</i><span>pulse/default.pa:</span>
+ <pre><code class=language-sh>load-module module-echo-cancel use_master_format=1 aec_method=webrtc aec_args=&quot;analog_gain_control=0\ digital_gain_control=1&quot; source_name=echoCancel_source sink_name=echoCancel_sink
+set-default-source echoCancel_source
+set-default-sink echoCancel_sink
+</code></pre>
+</section>
+<section>
+ <h2>Pranks</h2>
+ <p><a class=external href=https://github.com/mathiasbynens/evil.sh>
+   [https://github.com/mathiasbynens/evil.sh]</a>
+ <p><a class=external href=https://github.com/zeroby0/pranks#7-change-editors>
+   [https://github.com/zeroby0/pranks#7-change-editors]</a>
+</section>
+<html lang=en>
+ <head>
+  <meta charset=UTF-8>
+  <title>random tricks for linux systems | Jake Chvatal</title>
+  <link rel=stylesheet
+        href=/home/jake/site/docs//style.css>
+  <link rel=stylesheet
+        href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
+  <script
+          src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
+  <script>hljs.highlightAll();</script>
+ </head>
+ <body>
+  <main>
+  </main>
+ </body>
+</html>

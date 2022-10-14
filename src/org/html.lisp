@@ -97,7 +97,7 @@
       (t nil))))
 
 ;; macro: https://github.com/ruricolist/spinneret
-(defun render-org (org pathlist root)
+(defun render-org (org path root)
   "Render an org file struct as an html page"
   (let* ((title (parser::file-title org))
          (body (parser::file-body org)))
@@ -105,10 +105,10 @@
      root
      title
      (list
-      (comp::sidebar pathlist root)
+      (comp::sidebar path root)
       (when title (spinneret::with-html (:h1 title)))
       (loop for node in body
             collect (render-org-node node))))))
 
-(defun render-org-file (fname pathlist root)
-  (spinneret::with-html-string (render-org (parser::parse fname) pathlist root)))
+(defun render-org-file (fname path root)
+  (spinneret::with-html-string (render-org (parser::parse fname) path root)))

@@ -1,0 +1,255 @@
+<div class=sidebar>
+ <a href=/home/jake/site/docs//index.html> ~ </a><span> / </span><a
+ href=/home/jake/site/docs/pages/index.html>pages</a><span> / </span><a
+ href=/home/jake/site/docs/pages/static-analysis.html>static-analysis</a>
+</div>
+<h1>Static Analysis</h1>
+<p><a class=external href=http://www.paulgraham.com/thist.html>
+  [http://www.paulgraham.com/thist.html]</a><span>some of these notes are prompted 
+  by this</span>
+<p><span>scope</span>
+<ul>
+ <li><span> lexical :: every inner level can access its outer levels - widely 
+   accepted to be the correct scoping de cision</span>
+</ul>
+<ul>
+ <li><span> dynamic :: functions access the latest definition of a local variable - 
+   not deducible at compile time l evel. This means that for some f wth the body x 
+   = 3, call g, g has x = 3 in scope</span>
+</ul>
+<p><span>intro functional languages: rabbit (first scheme compiler), 
+  sussman/steele lambda papers, FP languages su ch as Hope, Miranda and Scheme. 
+  franz lisp? Bliss language - c-level language from CMU?</span>
+<p><span>pdp-10 hack: remove cons cell from freelist, updated freelist, and 
+  branching if the freelist was exhauste d to the gc in a single instruction!</span>
+<p><span>premature optimization is bad, no matter what. do not take shortcuts to 
+  simplify what is an already well- designed system! One key tip-off phrase is 
+  always something of the form, &quot;We&#39;ll throw out all the old cru ft, 
+  start over fresh, and just Do Things Right.&quot;</span>
+<p><span>fixnum :: a &#39;fixed number&#39;, or native machine word building a 
+  compiler &#39;self-hosted&#39;, or incrementally -- hosting one in another. how 
+  is it done?</span>
+<p><span>maclisp on -10 has mark and sweep run on the register set - 
+  &quot;bibop&quot; scheme with all objects boxed, and se gregated by type into 
+  pages of memory stop and copy garbage collector: Cheney garbage collection 
+  algorithm - does bfs of heap to find everythin g. t used Clark algorithm: dfs 
+  traversal, uses heap to provide a search stack</span>
+<p><span>can implement mark and sweep with same costs as stop and copy! norman 
+  ramsey</span>
+<p><span>&#39;good&#39; schemes use a range of implementations for lambas. 
+  depending on what we know about them at compile time. some turn into nothing, 
+  some are control flow, some are stack frames, some cause heap allocation. must 
+  understand how compiler handles everything, and scheme is built on this lambda 
+  structure</span>
+<p><span>lexemes :: construction of lexical meaning underlying words related 
+  through inflection. the lemma is one forn of the lexeme standard procedure :: 
+  standardized code for a procedure? TODO</span>
+<p><span>compiler implementation as a tree of objects that could link back to 
+  their parents? whoah</span>
+<p><a class=external href="https://github.com/julian-zucker?tab=repositories">
+  [https://github.com/julian-zucker?tab=repositories]</a><span>cool stuff </span>
+ <a class=external href=https://github.com/julian-zucker/arbiter>
+  [https://github.com/julian-zucker/arbiter]</a><span>-- interesting?</span>
+<p><span>these things are relatively communicative but i am not sure what they 
+  mean</span>
+<p><span>DFA :: data-flow analysis - ? loop-invariant hoisting :: - ?</span>
+<p><span>global register allocation :: - ? global common subexpression elimination 
+  :: - ? find two things that are alpha-equivalent then make them a single 
+  expression</span>
+<p><span>copy propagation :: - ? induction-variable elimination :: - ?</span>
+<p><span>learn how to do more things with computer graphics! this area sounds 
+  super interesting but i do not know much about it.</span>
+<p><span>paper for orbit -- optimizing compiler for scheme </span><a
+ class=external href=https://dl.acm.org/doi/10.1145/12276.13333>
+  [https://dl.acm.org/doi/10.1145/12276.13333]</a><a class=external
+ href="http://mumble.net/~jar/tproject/">[http://mumble.net/~jar/tproject/]</a>
+ <span>-- forgot this history thing</span>
+<p><a class=external href=http://www.dourish.com/goodies/jargon.html>
+  [http://www.dourish.com/goodies/jargon.html]</a><span>-- useful compiler jargon 
+  -- TODO compose my own dictionary!</span>
+<p><span>assemblers :: norman adams. graph structure? linear text scheme? 
+  serializing graph to minimize the span f rom jmps to the things they jump to. 
+  push and pop vs push and a generational garbage collector</span>
+<p><span>assemblers :: norman adams. graph structure? linear text scheme? 
+  serializing graph to minimize the span f rom jmps to the things they jump to.</span>
+<p><span>push and pop vs push and a generational garbage collector</span>
+<p><span>beta-substitution :: - ?</span>
+<p><span>four classic analyses:</span>
+<ul>
+ <li><span> go over programs forwards and backwards</span>
+</ul>
+<ul>
+ <li><span> unions and intersections</span>
+</ul>
+<ul>
+ <li><span>- union, intersection = always, might_possibly</span>
+</ul>
+<p><span>keywords to google</span>
+<ul>
+ <li><span> available expressiosn</span>
+</ul>
+<ul>
+ <li><span>- forwards intersection</span>
+</ul>
+<ul>
+ <li><span> very busy expressions</span>
+</ul>
+<ul>
+ <li><span>- backwards intersection</span>
+</ul>
+<ul>
+ <li><span> reaching definitions</span>
+</ul>
+<ul>
+ <li><span>- forwards union</span>
+</ul>
+<ul>
+ <li><span> live variables</span>
+</ul>
+<ul>
+ <li><span>- backwards union</span>
+</ul>
+<p><span>quickcheck properties for checking haskell code!</span>
+<p><a class=external href="http://ken.friislarsen.net/blog/">
+  [http://ken.friislarsen.net/blog/]</a>
+<p><a class=external href=https://en.wikipedia.org/wiki/ALGOL>
+  [https://en.wikipedia.org/wiki/ALGOL]</a><span>-- why is algol important? do 
+  research TODO</span>
+<p><a class=external href=http://www.aosabook.org/en/llvm.html>
+  [http://www.aosabook.org/en/llvm.html]</a>
+<p><span>type inf ocaml</span>
+<p><a class=external href="http://mumble.net/~jar/">[http://mumble.net/~jar/]</a>
+ <span>-- neat</span>
+<p><a class=external href=https://en.wikipedia.org/wiki/Daniel_S._Weld>
+  [https://en.wikipedia.org/wiki/Daniel_S._Weld]</a><span>cool person</span>
+<p><a class=external href=http://www.ccs.neu.edu/home/shivers/scribblings.html>
+  [http://www.ccs.neu.edu/home/shivers/scribblings.html]</a><span>recall this</span>
+<p><a class=external href=https://en.wikipedia.org/wiki/Alan_Perlis>
+  [https://en.wikipedia.org/wiki/Alan_Perlis]</a><span>-- epigrams on programming</span>
+<p><a class=external href=http://www.aosabook.org/en/llvm.html>
+  [http://www.aosabook.org/en/llvm.html]</a>
+<p><span>specific optimizations:</span>
+<ul>
+ <li><span> dead code elimination. removes code not impacting program results. this</span>
+</ul>
+<p><span> shrinks program size and avoids irrelevant operations. this involves 
+  code</span>
+<p><span> that will never be executed and code that only effects dead variables --</span>
+<p><span> those that are nedver read from again. we can use this as opposed to 
+  optional</span>
+<p><span> code inclusion via a preprocessor that would perform the same task. much</span>
+<p><span> of the dead code this finds is created by other transformations: for</span>
+<p><span> example, strength reduction -- we must ensure that the order of analyses 
+  is</span>
+<p><span> performed in the right way. historically, this is performed using</span>
+<p><span> information derived from data-flow analysis with an algorithm based on</span>
+<p><span> single assignment form.</span>
+<p><span> </span>
+<ul>
+ <li><span> dynamic dead code elimination -- some code sections represent dead or</span>
+</ul>
+<p><span> unreachable code only under specific conditions. we can accumulate</span>
+<p><span> conditions at runtime to determine what processes or loadings to 
+  eliminate</span>
+<p><span> while we evaluate an expression.</span>
+<ul>
+ <li><span> strength reduction. most of a program&#39;s execution time is spent in 
+   a small</span>
+</ul>
+<p><span> section of code (the &#39;hot spot&#39;) and that code is inside a loop 
+  over and over.</span>
+<p><span> the compiler looks to recognize things inside the loop. this records 
+  loop</span>
+<p><span> invariants :: values that do not change within the body of the loop, and</span>
+<p><span> induction va riables :: values iterated each time through the loop.</span>
+<p><span> induction variables change by known amounts. we can replace</span>
+<p><span> multiplication with successive weaker additions often which is an</span>
+<p><span> optimization. we can hoist invariants outside of the loop, such as</span>
+<p><span> registers. these are some good examples of strength reduction that can 
+  be</span>
+<p><span> used:: </span><a class=external
+ href=https://en.wikipedia.org/wiki/Strength_reduction>
+  [https://en.wikipedia.org/wiki/Strength_reduction]</a>
+<ul>
+ <li><span> dataflow analysis :: gathering information about values calculated at 
+   points</span>
+</ul>
+<p><span> during a computer program. set up dataflow equations for each node of 
+  the</span>
+<p><span> cfg, then solve them by repeatedly calculating the output from the 
+  input,</span>
+<p><span> locally at each node until a fixpoint is reached -- kildall&#39;s 
+  method.</span>
+<p><a class=external href=https://en.wikipedia.org/wiki/Data-flow_analysis>
+  [https://en.wikipedia.org/wiki/Data-flow_analysis]</a>
+<p><a class=external
+ href=https://en.wikipedia.org/wiki/Static_single_assignment_form>
+  [https://en.wikipedia.org/wiki/Static_single_assignment_form]</a>
+<p><a class=external href=https://en.wikipedia.org/wiki/George_Hotz>
+  [https://en.wikipedia.org/wiki/George_Hotz]</a>
+<p><a class=external href=https://en.wikipedia.org/wiki/Just-in-time_compilation>
+  [https://en.wikipedia.org/wiki/Just-in-time_compilation]</a>
+<p><span>basic blocks :: - ?</span>
+<p><span>dynamic software updating :: - ?</span>
+<p><span>hot patching :: - ?</span>
+<p><span>luca cardelli</span>
+<p><span>maurice wilkes -- helped build the electronic delay storage automatic 
+  calculator</span>
+<ul>
+ <li><span>- cool guy</span>
+</ul>
+<p><span>parametric polymorphism :: allows a function or data type to be written</span>
+<p><span>generically so that it can handle values identically without depending on</span>
+<p><span>their type these are generic functions, generic datatypes respectively</span>
+<p><span>type of &#39;append&#39; is generic but is *parameratized* with types 
+  rank 1</span>
+<p><span>polymorphism :: type variables cannot be instantiated with polymorphic 
+  types</span>
+<p><span>rank k polymorphism :: rank k polymorphism enforces that the quantifier 
+  may not</span>
+<p><span>appear ot the left of k or more arrows type inference is decidable</span>
+<p><span>for rank 2, but not for rank 3 or above</span>
+<p><span>rank-n polymorphism :: polymorphism in which quantifiers can appear to 
+  the left</span>
+<p><span>of arbitrarily many arrows</span>
+<section>
+ <h2>NEXT A Mathematical Theory of Communication (1948) [pdf]</h2>
+ <p><span>SCHEDULED: &lt;2020-05-01 Fri&gt;</span>
+ <p><span>A Mathematical Theory of Communication (1948) [pdf] - </span><a
+  class=external href="https://news.ycombinator.com/item?id=23035107">
+   [https://news.ycombinator.com/item?id=23035107]</a>
+ <p><a class=external href=https://hal.inria.fr/hal-01093327>
+   [https://hal.inria.fr/hal-01093327]</a>
+ <p><a class=external href=https://hal.inria.fr/tel-01102401>
+   [https://hal.inria.fr/tel-01102401]</a>
+ <p><a class=external href="https://sed-bso.gitlabpages.inria.fr/sonarqube/">
+   [https://sed-bso.gitlabpages.inria.fr/sonarqube/]</a>
+ <p><a class=external href=https://hal.inria.fr/hal-01588422>
+   [https://hal.inria.fr/hal-01588422]</a>
+ <p><a class=external href=https://en.wikipedia.org/wiki/Loop-invariant_code_motion>
+   [https://en.wikipedia.org/wiki/Loop-invariant_code_motion]</a>
+ <p><a class=external
+  href=https://h313.info/blog/cpp/security/binary-analysis/2020/11/06/improve-software-debugging-with-binary-analysis.html>
+   [https://h313.info/blog/cpp/security/binary-analysis/2020/11/06/improve-software-debugging-with-binary-analysis.html]
+   </a><span>:: binary analysis, which is similar I suppose...</span>
+ <p><a class=external
+  href=https://gist.github.com/jakeisnt/7fa1f054770d52c8d49ccadc524e263e>[list of 
+   program analysis resources]</a>
+</section>
+<html lang=en>
+ <head>
+  <meta charset=UTF-8>
+  <title>Static Analysis | Jake Chvatal</title>
+  <link rel=stylesheet
+        href=/home/jake/site/docs//style.css>
+  <link rel=stylesheet
+        href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
+  <script
+          src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
+  <script>hljs.highlightAll();</script>
+ </head>
+ <body>
+  <main>
+  </main>
+ </body>
+</html>

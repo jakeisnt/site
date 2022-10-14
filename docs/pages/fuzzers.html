@@ -1,0 +1,151 @@
+<div class=sidebar>
+ <a href=/home/jake/site/docs//index.html> ~ </a><span> / </span><a
+ href=/home/jake/site/docs/pages/index.html>pages</a><span> / </span><a
+ href=/home/jake/site/docs/pages/fuzzers.html>fuzzers</a>
+</div>
+<h1>Fuzzers: from</h1>
+<section>
+ <h2>John Regehr talk</h2>
+ <section>
+  <h3>Fuzzer Types</h3>
+  <ul>
+   <li><span> generative fuzzers :: comes up with these things out of nowhere to try 
+     test inputs</span>
+  </ul>
+  <ul>
+   <li><span> mutation fuzzers :: tweak an existing corpus to develop new examples.</span>
+  </ul>
+  <p><span>The structure of programs is often very ill-defined and vague.</span>
+  <p><span>Fuzzing is useful because it allows you to rigorously build a justified 
+    sense of confidence that your code doesn&#39;t suck.</span>
+ </section>
+ <section>
+  <h3>Code Differences</h3>
+  <p><span>what&#39;s different about approaching the code?</span>
+  <p><span>for one compiler, the generated code could stack overflow. forces you to 
+    be super tight about catching corner cases earlier in the start rather than 
+    actually just putting up with them without the fuzzing testing. gets you to dig 
+    into these test cases more easily.</span>
+  <p><span>outgrowth of test driven development - it&#39;s about being able to 
+    define classes of test cases you care about and iterate on testing those cases</span>
+  <p><span>you want to look for anything - crashes, things going wrong, etc...</span>
+  <p><span>as you&#39;re writing the code, you embed test oracles (assertions, 
+    primarily) within the code to dynamically check this! the weaker the language 
+    the more you need.</span>
+  <p><span>property testing and fuzzing are related; property testing is thought of 
+    as fuzzing with more oracles - it allows you to describe the properties, whereas 
+    fuzzing is thought of as more &#39;black box&#39;</span>
+  <p><span>adjusting to languages with fewer guardrails, or type safety; ships the 
+    responsibility to the testing, mostly</span>
+  <p><span>this is why gradual typing are so exciting! you can shift towards a fully 
+    typed environment and ensure that you add the types later, saving you a </span>
+   <i>ton</i><span> of the trouble of testing.</span>
+  <p><span>don&#39;t invest a lot of work into generating test cases if you already 
+    have a super rich corpus of text to have your fuzzer draw from</span>
+  <p><span>c had lots of undefined behavior, so a very strong property had to be 
+    enforced on the test code by csmith to ensure that the code generated was from a 
+    defined subset of the c specification.</span>
+  <p><span>need to impose structure on the testing - valid c++ is one of the most 
+    difficult file formats.generators are so hard to write for not much benefit!</span>
+  <p><span>what should be fuzzed? what doesn&#39;t matter?</span>
+  <p><span>ideal workflow with fuzzing involved</span>
+  <ul>
+   <li><span> project started from scratch</span>
+  </ul>
+  <p><span> write genreators as you write the code. okay to throw away them if they 
+    aren&#39;t scalable, continue to iterate</span>
+  <ul>
+   <li><span> project you pick up: heavily depends on use case obviously</span>
+  </ul>
+  <p><span>don&#39;t fuzz if your code doesn&#39;t yet have the maturity to do it!</span>
+  <p><span>fuzzing is just weak verificatio: it&#39;s a weak quantifier over all 
+    possible inputs in the space of inputs. it&#39;s one of hte closest ways we can 
+    get to formal verification without the effort to do it! most things are mostly 
+    wrong and you need to fuzz them before proving them correct! only after fuzzing 
+    does verification make any sense. always fuzz with assertions, too, now have a 
+    decent specification for the system already after doing this fuzzing campaign!</span>
+  <p><span>almost everything he does is about _people_ and making things better for 
+    people! great programming language trend towards interactivity and ways to work 
+    with you the way you want to work in code!</span>
+  <p><span>Insight that makes creduce works across languages - alcohol and lisp? 
+    shared syntax of block structure language - understands all of the braces at 
+    some rudimentary level. has tokenizatio npass based on c tokenizer, but it works 
+    half decently for other things?</span>
+  <p><span>creduce:</span>
+  <ul>
+   <li><span> smtlib files? works fine . there is another smtlib reducer. creduce is 
+     pluggable and modular, plugs in a lot of reduction passes. could hack it to 
+     delete a bunch of passes from c and replace them with other ones as needed. 
+     can&#39;t work super well with other things, as it tries to label everything 
+     with ssa values - very hard coded for algol, lisp or similar.</span>
+  </ul>
+  <ul>
+   <li><span> JITs?</span>
+  </ul>
+  <ul>
+   <li><span> what keeps us from doing automated testing in industry today? why do 
+     you think people aren&#39;t using it more?</span>
+  </ul>
+  <p><span> focus fuzzing on hot paths and common paths rather than all of the 
+    paths. bad things: not prioritizing bugs, not being able to focus on things that 
+    fuzzers care about. fuzzers can be </span><i>dynamic</i><span> - people 
+    don&#39;t necessarily want static checking!</span>
+  <p><span>DSL to specify what you care about - take advantage of what you care 
+    about in testing! in general this is an incredible view on this program</span>
+  <p><span>best advice for producing qulaity software, in general: use modern 
+    languages, test rigorously, write proper fuzzer generators</span>
+ </section>
+</section>
+<section>
+ <h2>Resources</h2>
+ <p><a class=external href=https://concuerror.com/:>[https://concuerror.com/:]</a>
+  <span>stateless model checker for erlang</span>
+ <p><a class=external
+  href=https://github.com/csmith-project/creduce/blob/master/creduce/creduce.in>
+   [https://github.com/csmith-project/creduce/blob/master/creduce/creduce.in]</a>
+  <span>the creduce code</span>
+ <p><a class=external href=https://www.carolemieux.com/rlcheck_preprint.pdf>
+   [https://www.carolemieux.com/rlcheck_preprint.pdf]</a><span>reinforcemenet 
+   learning for testing inputs!</span>
+ <p><a class=external
+  href=https://gamozolabs.github.io/fuzzing/2020/12/06/fuzzos.html>
+   [https://gamozolabs.github.io/fuzzing/2020/12/06/fuzzos.html]</a><span>OS for 
+   fuzzing optimization??</span>
+ <p><a class=external href="https://embed.cs.utah.edu/csmith/">
+   [https://embed.cs.utah.edu/csmith/]</a><span>best fuzzer for C</span>
+ <p><a class=external href=https://www.fuzzingbook.org/html/Grammars.html>
+   [https://www.fuzzingbook.org/html/Grammars.html]</a><span>fuzzing with grammars</span>
+ <p><a class=external
+  href="https://blog.trailofbits.com/2018/12/31/fuzzing-like-its-1989/">
+   [https://blog.trailofbits.com/2018/12/31/fuzzing-like-its-1989/]</a><span>a 
+   decent fuzzing article</span>
+ <p><span>delta debugging was mentioned as an interesting tactic to use</span>
+ <ul>
+  <li><span> </span><a class=external href="https://embed.cs.utah.edu/creduce/">
+    [CReduce]</a><span> :: built for C, but works pretty well on lots of languages! 
+    The code can be found </span><a class=external
+   href=https://github.com/csmith-project/creduce/blob/master/creduce/creduce.in>
+    [here]</a>
+ </ul>
+ <ul>
+  <li><span> </span><a class=external href=https://ocaml.org/manual/afl-fuzz.html>
+    [AFL-Fuzz]</a><span> :: a fuzzer written in OCaml</span>
+ </ul>
+</section>
+<html lang=en>
+ <head>
+  <meta charset=UTF-8>
+  <title>Fuzzers: from | Jake Chvatal</title>
+  <link rel=stylesheet
+        href=/home/jake/site/docs//style.css>
+  <link rel=stylesheet
+        href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
+  <script
+          src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
+  <script>hljs.highlightAll();</script>
+ </head>
+ <body>
+  <main>
+  </main>
+ </body>
+</html>

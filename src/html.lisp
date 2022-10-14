@@ -13,8 +13,8 @@
      (:html
       :lang "en-us"
       (:head
-       (:title (concatenate 'string (or ,title "") " | Jake Chvatal"))
-       (:link :rel "stylesheet" :href (concatenate 'string ,root "/style.css"))
+       (:title (concatenate 'string (or title "") " | Jake Chvatal"))
+       (:link :rel "stylesheet" :href (concatenate 'string root "/style.css"))
        (:link :rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css")
        (:script :src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js")
        (:script "hljs.highlightAll();"))
