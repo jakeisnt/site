@@ -110,5 +110,18 @@
       (loop for node in body
             collect (render-org-node node))))))
 
+
+(defun index-page (dirname paths)
+  (htmlgen::body
+   *site-location*
+   (concatenate 'string dirname "/index")
+
+    (list
+    ;; (comp::sidebar path root)
+    (spinneret::with-html
+      (:div :style "display: flex; flex-direction: column;"
+            (loop for url in paths
+                  collect (:a :href url url)))))))
+
 (defun render-org-file (fname path root)
   (spinneret::with-html-string (render-org (parser::parse fname) path root)))

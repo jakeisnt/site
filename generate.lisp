@@ -28,12 +28,13 @@
   "Generate the homepage."
   (generate-file (merge-pathnames (concatenate 'string *wiki-location* "/index.org"))))
 
-(defun index-page (urls)
-  (htmlgen::body
-   *site-location*
-   (concatenate 'string "page" "/index")
-   (loop for url in urls
-         collect (:a :href url "name for url"))))
+
+(defun generate-index (dirname dir-dest paths)
+  "Generate an html file given a path to a org-mode source."
+  (let ((result-path (fp::change-file-path dir-dest *wiki-location* *site-location*)))
+    (util::write-file
+     result-path
+     (spinneret::with-html-string (index-page dirname paths)))))
 
 ;; page looks like this:
 ;;
@@ -44,12 +45,17 @@
 ;; and every one of these is a clickable link to the article
 
 ;; we also need to create an index page here for each
-(defun generate-wiki ()
-  (loop for file-path in (directory (concatenate 'string *wiki-location* "/pages/**/*.org"))
-        do (generate-file file-path)))
+(defun generate-dir (dirname)
+
+  (let* ((dir-dest (merge-pathnames (concatenate 'string *wiki-location* dirname "/index.html")))
+         (dir-files (directory (concatenate 'string *wiki-location* dirname "/*.org"))))
+    (loop for file-path in dir-files
+          do (generate-file file-path))
+
+    (generate-index dirname dir-dest dir-files)))
 
 (defun generate ()
   (generate-homepage)
-  (generate-wiki))
+  (generate-dir "pages"))
 
 ;; (generate)

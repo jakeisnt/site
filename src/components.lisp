@@ -86,7 +86,6 @@
 
 (defun final-path (root path)
   "Construct a final path link for the page."
-  (print path)
   (concatenate
    'string
    root
@@ -99,8 +98,6 @@
 ;; "Display a sidebar for a page, given its root path."
 (contract::defcontract sidebar (path root)
     (lambda (path root) (and (pathnamep path) (stringp root)))
-  (print root)
-
 
   (let ((path (fp::remove-root path root)))
     (spinneret::with-html
