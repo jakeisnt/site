@@ -22,10 +22,6 @@
              :onclick (parenscript:ps (toggle-hypothesis))
              "hypothes.is"))))
 
-;; () -> (:a :href jake/indexx)
-;; ("filename") -> (:a :href jake/filename)
-;; ("p" "filename") -> (:a :href jake/p/index) (:a :href jake/p/filename)
-;; ("a" "p" "filename")  -> (:a :href jake/a/index) (:a :href jake/a/p/index) (:a :href jake/a/p/filename)
 
 ;; i want this site to feel like the navigation of a file system;
 ;; view version control, depth, what's in current dir;
@@ -54,14 +50,22 @@
 ;; it shouldn't be literal, but it should be aesthetically similar.
 
 (defun collect-folder-paths (root ls)
-  "Convert a list of folder paths into a list of links."
+  "
+   Convert a list of folder paths into a list of links.
+
+   Examples:
+    () -> (:a :href jake/indexx)
+    (\"filename\") -> (:a :href jake/filename)
+    (\"p\" \"filename\") -> (:a :href jake/p/index) (:a :href jake/p/filename)
+    (\"a\" \"p\" \"filename\")  -> (:a :href jake/a/index) (:a :href jake/a/p/index) (:a :href jake/a/p/filename)
+  "
   (cond
     ((endp ls) nil)
     ((consp ls)
      (let* ((fst (car ls))
             (next-root (concatenate 'string root "/" fst)))
        (spinneret::with-html
-         (:span " / ")
+           (:span " / ")
          (:a :href (concatenate 'string next-root "/" "index.html") fst)
          (collect-folder-paths next-root (cdr ls)))))))
 
