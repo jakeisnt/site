@@ -100,13 +100,15 @@
 (defun sidebar (path root)
   "Display a sidebar for a page, given its root path."
   (let ((path (path::remove-root path root)))
+    (print "sidebar path without root")
+    (print path)
     (spinneret::with-html
-      (:div
-       :class "sidebar"
-       (:a :href (concatenate 'string root "/index.html") " ~ ")
-       (concatenate
-        'list
-        (collect-folder-paths root path)
-        (list
-         (:span " / ")
-         (:a :href (final-path root path) (pathname-name path))))))))
+        (:div
+         :class "sidebar"
+         (:a :href (concatenate 'string root "/index.html") " ~ ")
+         (concatenate
+          'list
+          (collect-folder-paths root path)
+          (list
+           (:span " / ")
+           (:a :href (final-path root path) (pathname-name path))))))))
