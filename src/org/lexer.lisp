@@ -1,7 +1,7 @@
 (load "~/quicklisp/setup.lisp")
 
 (load "./src/util.lisp")
-(load "./src/org/defs.lisp")
+(load "./src/org/ast.lisp")
 
 (ql:quickload :string-case)
 (ql:quickload :cl-ppcre)
@@ -127,21 +127,21 @@
   "Parse a link with a possible title and mandatory URL"
   (let* ((body (cl-ppcre::split "\\]\\[" link-text)))
     (if (eq (length body) 2)
-        (defs::make-link :title (cadr body) :url (car body))
-        (defs::make-link :url (car body)))))
+        (ast::make-link :title (cadr body) :url (car body))
+        (ast::make-link :url (car body)))))
 
 (defun make-naive-link (txt)
   ;; http was cut so we manually add it backlol
-  (defs::make-link :url (concatenate 'string "http" txt)))
+  (ast::make-link :url (concatenate 'string "http" txt)))
 
 (defun make-bold (txt)
-  (defs::make-bold :text txt))
+  (ast::make-bold :text txt))
 
 (defun make-ital (txt)
-  (defs::make-ital :text txt))
+  (ast::make-ital :text txt))
 
 (defun make-verb (txt)
-  (defs::make-verb :text txt))
+  (ast::make-verb :text txt))
 
 (defun apply-first (pair fn)
   (cons (funcall fn (car pair)) (cdr pair)))

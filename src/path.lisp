@@ -1,7 +1,9 @@
-(defpackage fp
+(defpackage path
   (:use :cl))
 
-(in-package :fp)
+(in-package :path)
+
+;; Utilities for manipulating files.
 
 (defun remove-until (ls old-root)
   "Assumes old-root and ls parts are equal"
@@ -21,6 +23,18 @@
 
 (defun pathdir (path)
   (cdr (pathname-directory (merge-pathnames path))))
+
+(defun update-struct (struct &rest bindings)
+  "Update a value of a structure immutably."
+  (loop
+    with copy = (copy-structure struct)
+    for (slot value) on bindings by #'cddr
+    do (setf (slot-value copy slot) value)
+    finally (return copy)))
+
+(defun rename (cur-path new-name)
+  "Rename a file immutably."
+  (merge-pathnames new-name cur-path))
 
 (defun change-file-path (current-path old-root new-root)
   "Change a file path to a new name. That name is html."

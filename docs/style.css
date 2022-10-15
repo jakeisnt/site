@@ -11,7 +11,13 @@ html {
 body {
   max-width: 24rem;
   margin: 0;
-  padding: 1rem 4rem;
+  padding: 0rem 4rem;
+}
+
+main {
+  /* border: 1px solid black; */
+  /* border-radius: 20px; */
+  padding: 1rem;
 }
 
 .foot {
@@ -69,4 +75,14 @@ a:active {
 
 h1 {
   margin: 1rem 0;
+}
+
+.title-top {
+  margin-top: 0.75rem;
+}
+
+.url-cage {
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
 }

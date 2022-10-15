@@ -1,50 +1,9 @@
-<div class=sidebar>
- <a href=/home/jake/site/docs//index.html> ~ </a><span> / </span><a
- href=/home/jake/site/docs/pages/index.html>pages</a><span> / </span><a
- href=/home/jake/site/docs/pages/cambria.html>cambria</a>
-</div>
-<h1>bspwm</h1>
-<p><a class=external href=https://vimeo.com/511271022>[project cambria]</a>
-<ul>
- <li><span> api request -&gt; stack of transformations -&gt; sent to application 
-   logic back and forth</span>
-</ul>
-<ul>
- <li><span> this allows older apis to transform up the stack into a modern server</span>
-</ul>
-<ul>
- <li><span> when distributing: need compatibility of multiple schemas</span>
-</ul>
-<ul>
- <li><span> what would it look like to have good tools for handling distributed 
-   systems in a systematic way? (shotgun parsing - parsing by if statements - 
-   riddling code with little tests and hoping things stick. tools like protobuf in 
-   the long term means only adding optional fields, and eventually the data schema 
-   has entirely optional types - how do you know what&#39;s still relevant at all?)</span>
-</ul>
-<ul>
- <li><span> manage schema compatibility separate from application logic!</span>
-</ul>
-<p><span> - provide data transformations; &#39;bidirectional lenses&#39; - one 
-  transformation for the whole schema, as written in a DSL.</span>
-<p><span> - graph of connected schemas and associated lenses. show how the schemas 
-  connect with those lenses</span>
-<ul>
- <li><span> cambria then:</span>
-</ul>
-<p><span> - automatically translates data at runtime</span>
-<p><span> - provides ts type definitions as well as JSON schemas for your code. 
-  json&#39;s checkable at runtime as needed!</span>
-<p><span> - integration with Automerge CRDT</span>
-<ul>
- <li><span> what is the pushpin architecture (from ink and switch?)</span>
-</ul>
 <html lang=en>
  <head>
   <meta charset=UTF-8>
-  <title>bspwm | Jake Chvatal</title>
+  <title>? | Jake Chvatal</title>
   <link rel=stylesheet
-        href=/home/jake/site/docs//style.css>
+        href=/home/jake/site/docs/style.css>
   <link rel=stylesheet
         href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
   <script
@@ -53,6 +12,46 @@
  </head>
  <body>
   <main>
+   <div class=sidebar>
+    <a href=/home/jake/site/docs//index.html> ~ </a><span> / </span><a
+    href=/home/jake/site/docs/pages/index.html>pages</a><span> / </span><a
+    href=/home/jake/site/docs/pages/cambria.html>cambria</a>
+   </div>
+   <p><a class=external href=https://vimeo.com/511271022>[project cambria]</a>
+   <ul>
+    <li><span> api request -&gt; stack of transformations -&gt; sent to application 
+      logic back and forth</span>
+   </ul>
+   <ul>
+    <li><span> this allows older apis to transform up the stack into a modern server</span>
+   </ul>
+   <ul>
+    <li><span> when distributing: need compatibility of multiple schemas</span>
+   </ul>
+   <ul>
+    <li><span> what would it look like to have good tools for handling distributed 
+      systems in a systematic way? (shotgun parsing - parsing by if statements - 
+      riddling code with little tests and hoping things stick. tools like protobuf in 
+      the long term means only adding optional fields, and eventually the data schema 
+      has entirely optional types - how do you know what&#39;s still relevant at all?)</span>
+   </ul>
+   <ul>
+    <li><span> manage schema compatibility separate from application logic!</span>
+   </ul>
+   <p><span> - provide data transformations; &#39;bidirectional lenses&#39; - one 
+     transformation for the whole schema, as written in a DSL.</span>
+   <p><span> - graph of connected schemas and associated lenses. show how the schemas 
+     connect with those lenses</span>
+   <ul>
+    <li><span> cambria then:</span>
+   </ul>
+   <p><span> - automatically translates data at runtime</span>
+   <p><span> - provides ts type definitions as well as JSON schemas for your code. 
+     json&#39;s checkable at runtime as needed!</span>
+   <p><span> - integration with Automerge CRDT</span>
+   <ul>
+    <li><span> what is the pushpin architecture (from ink and switch?)</span>
+   </ul>
   </main>
  </body>
 </html>

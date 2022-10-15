@@ -1,4 +1,5 @@
 (load "~/quicklisp/setup.lisp")
+(load "./src/org/ast.lisp")
 (load "./src/org/lexer.lisp")
 
 (ql:quickload :string-case)
@@ -8,17 +9,6 @@
   (:use :cl :string-case :cl-ppcre))
 
 (in-package parser)
-
-;; The contents of an org-mode file
-(defstruct file title metadata body)
-;; A heading with its corresponding body
-(defstruct header title body rank)
-;; a passage of plain text
-(defstruct text body)
-;; a bullet point
-(defstruct bullet body)
-;; a code block
-(defstruct code-block lang body)
 
 (defun parse (fname)
   "parse an org-mode file to an internal, struct-based representation"
@@ -42,8 +32,8 @@
 
 (defun is-below-headerp (cur-header-rank elem)
   "Does the current element rank below the current header rank?"
-  (or (not (header-p elem))
-      (> (header-rank elem) cur-header-rank)))
+  (or (not (ast::header-p elem))
+      (> (ast::header-rank elem) cur-header-rank)))
 
 (defun split-header (cur-header cur-doc)
   "Split the current document based on the current header;
@@ -54,7 +44,7 @@
       ((cur-header-title (lexer::header-tok-title cur-header))
        (cur-header-rank (lexer::header-tok-rank cur-header)))
     (cons
-     (make-header
+     (ast::make-header
       :rank cur-header-rank
       :title cur-header-title
       :body (take-while
@@ -65,26 +55,31 @@
       cur-doc))))
 
 ;; NOTE: mega hack (probably)
+;; Yeah, this produced a bug.
+;; We've fixed it, but the better solution is to create
+;; a local function that closes over a locally scoped variable.
 (defvar file-name nil)
 
 (defun parse-tokens (token-list acc)
   "Parse tokens into a recursive structure from a token list."
   (let ((cur-tok (car token-list)))
     (if (not cur-tok)
-        (make-file :title file-name :body acc)
+        (let ((res (ast::make-file :title file-name :body acc)))
+          (setq file-name nil)
+          res)
         (parse-tokens
          (cdr token-list)
          (cond
            ((lexer::header-tok-p cur-tok) (split-header cur-tok acc))
            ((lexer::text-tok-p cur-tok)
-            (cons (make-text :body (lexer::text-tok-body cur-tok)) acc))
+            (cons (ast::make-text :body (lexer::text-tok-body cur-tok)) acc))
            ((lexer::title-tok-p cur-tok)
             (setq file-name (lexer::title-tok-title cur-tok))
             acc)
            ((lexer::code-block-tok-p cur-tok)
-            (cons (make-code-block
+            (cons (ast::make-code-block
                    :lang (lexer::code-block-tok-lang cur-tok)
                    :body (lexer::code-block-tok-body cur-tok)) acc))
            ((lexer::bullet-tok-p cur-tok)
-            (cons (make-bullet :body (lexer::bullet-tok-body cur-tok)) acc))
+            (cons (ast::make-bullet :body (lexer::bullet-tok-body cur-tok)) acc))
            (t (cons cur-tok acc)))))))

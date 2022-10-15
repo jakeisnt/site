@@ -1,16 +1,15 @@
 (load "~/quicklisp/setup.lisp")
 (load "./src/util.lisp")
 (load "./src/path.lisp")
-(load "./src/contract.lisp")
 
 (ql:quickload :spinneret)
 (ql:quickload 'css-lite)
 (ql:quickload :parenscript)
 
-(defpackage comp
-  (:use :cl :contract))
+(defpackage components
+  (:use :cl))
 
-(in-package :comp)
+(in-package :components)
 
 (defun checkbox-menu ()
   "An interactive menu that allows the user to optionally enable js features."
@@ -71,7 +70,7 @@
          (collect-folder-paths-help next-root (cdr ls)))))))
 
 (defun collect-folder-paths (root path)
-  (collect-folder-paths-help (string-right-trim "/" root) (fp::pathdir path)))
+  (collect-folder-paths-help (string-right-trim "/" root) (path::pathdir path)))
 
 (defun concat-around (ls around-char)
   "Concatenate the elements of a list of strings around a character."
@@ -89,17 +88,18 @@
   (concatenate
    'string
    root
-   (concat-around (fp::pathdir path) "/")
+   (concat-around (path::pathdir path) "/")
    "/"
    (pathname-name path)
    "."
    (pathname-type path)))
 
-;; "Display a sidebar for a page, given its root path."
-(contract::defcontract sidebar (path root)
-    (lambda (path root) (and (pathnamep path) (stringp root)))
+;; the page shows future paths in some way - how?
+;; i want to be able to get to the other pages from this page.
 
-  (let ((path (fp::remove-root path root)))
+(defun sidebar (path root)
+  "Display a sidebar for a page, given its root path."
+  (let ((path (path::remove-root path root)))
     (spinneret::with-html
       (:div
        :class "sidebar"
