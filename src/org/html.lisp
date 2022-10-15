@@ -1,5 +1,4 @@
 (load "~/quicklisp/setup.lisp")
-(load "./src/org/parser.lisp")
 (load "./src/org/defs.lisp")
 (load "./src/util.lisp")
 (load "./src/components.lisp")
@@ -20,19 +19,20 @@
 ;;          this could, unfortunately, be a relative path.
 ;; `https://`: leave it alone. this link works.
 (defun convert-link (txt)
+  "Convert an org-mode link to an HTML link."
   (spinneret::with-html
-    (let* ((url (defs::link-url txt))
-           (title (or (defs::link-title txt) url))
-           (is-internal
-            (or
-             (util::string-prefixesp url  "id:")
-             (util::string-prefixesp url "file:"))))
-      (:a
-       :href url
-       :class (if is-internal "internal" "external")
-       (if is-internal
-           (concatenate 'string "{" title "}")
-           (concatenate 'string "[" title "]"))))))
+      (let* ((url (defs::link-url txt))
+             (title (or (defs::link-title txt) url))
+             (is-internal
+               (or
+                (util::string-prefixesp url  "id:")
+                (util::string-prefixesp url "file:"))))
+        (:a
+         :href url
+         :class (if is-internal "internal" "external")
+         (if is-internal
+             (concatenate 'string "{" title "}")
+             (concatenate 'string "[" title "]"))))))
 
 (defun render-text-elem (txt)
   "Render a text element."
@@ -112,16 +112,17 @@
 
 
 (defun index-page (dirname paths)
+  "Generate an index page from a list of paths at that index and a directory name."
   (htmlgen::body
    *site-location*
    (concatenate 'string dirname "/index")
 
-    (list
+   (list
     (comp::sidebar path root)
     (spinneret::with-html
-      (:div :style "display: flex; flex-direction: column;"
-            (loop for url in paths
-                  collect (spinneret::with-html (:a :href url (pathname-name url)))))))))
+        (:div :class "url-cage"
+              (loop for url in paths
+                    collect (spinneret::with-html (:a :href url (pathname-name url)))))))))
 
-(defun render-org-file (fname path root)
+(defun write-html-file (fname path root)
   (spinneret::with-html-string (render-org (parser::parse fname) path root)))
