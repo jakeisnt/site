@@ -24,14 +24,6 @@
 (defun pathdir (path)
   (cdr (pathname-directory (merge-pathnames path))))
 
-(defun update-struct (struct &rest bindings)
-  "Update a value of a structure immutably."
-  (loop
-    with copy = (copy-structure struct)
-    for (slot value) on bindings by #'cddr
-    do (setf (slot-value copy slot) value)
-    finally (return copy)))
-
 (defun rename (cur-path new-name)
   "Rename a file immutably."
   (merge-pathnames new-name cur-path))

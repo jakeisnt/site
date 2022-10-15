@@ -69,8 +69,8 @@
          (:a :href (concatenate 'string next-root "/" "index.html") fst)
          (collect-folder-paths-help next-root (cdr ls)))))))
 
-(defun collect-folder-paths (root path)
-  (collect-folder-paths-help (string-right-trim "/" root) (path::pathdir path)))
+(defun collect-folder-paths (path)
+  (collect-folder-paths-help "" (path::pathdir path)))
 
 (defun concat-around (ls around-char)
   "Concatenate the elements of a list of strings around a character."
@@ -83,11 +83,10 @@
         around-char
         (concat-around (cdr ls) around-char)))))
 
-(defun final-path (root path)
+(defun final-path (path)
   "Construct a final path link for the page."
   (concatenate
    'string
-   root
    (concat-around (path::pathdir path) "/")
    "/"
    (pathname-name path)
@@ -101,12 +100,12 @@
   "Display a sidebar for a page, given its root path."
   (let ((path (path::remove-root path root)))
     (spinneret::with-html
-      (:div
-       :class "sidebar"
-       (:a :href (concatenate 'string root "/index.html") " ~ ")
-       (concatenate
-        'list
-        (collect-folder-paths root path)
-        (list
-         (:span " / ")
-         (:a :href (final-path root path) (pathname-name path))))))))
+        (:div
+         :class "sidebar"
+         (:a :href "/index.html" " ~ ")
+         (concatenate
+          'list
+          (collect-folder-paths path)
+          (list
+           (:span " / ")
+           (:a :href (final-path path) (pathname-name path))))))))

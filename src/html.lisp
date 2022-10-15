@@ -19,7 +19,7 @@
      :lang "en-us"
      (:head
       (:title (concatenate 'string (or ,title "?") " | Jake Chvatal"))
-      (:link :rel "stylesheet" :href (concatenate 'string ,root "style.css"))
+      (:link :rel "stylesheet" :href "/style.css")
       (:link :rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css")
       (:script :src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js")
       (:script "hljs.highlightAll();"))
@@ -150,4 +150,4 @@
                     collect
                     (let ((name (pathname-name target-path)))
                       (spinneret::with-html
-                        (:a :id (concatenate 'string "indexmenu-" name) :href target-path name ))))))))))
+                        (:a :id (concatenate 'string "indexmenu-" name) :href (path::remove-root target-path root) name))))))))))

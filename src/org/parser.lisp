@@ -15,10 +15,6 @@
   (with-open-file (stream fname :direction :input :if-does-not-exist nil)
     (if stream (parse-all (lexer::tokenize stream)) 'no-stream)))
 
-(defun parse-all (tks)
-  "Parse a list of tokens"
-  (parse-tokens (reverse tks) ()))
-
 (defun take-while (pred list)
   "Keep top elements from the list that fail the predicate"
   (loop for x in list
@@ -83,3 +79,7 @@
            ((lexer::bullet-tok-p cur-tok)
             (cons (ast::make-bullet :body (lexer::bullet-tok-body cur-tok)) acc))
            (t (cons cur-tok acc)))))))
+
+(defun parse-all (tks)
+  "Parse a list of tokens"
+  (parse-tokens (reverse tks) ()))

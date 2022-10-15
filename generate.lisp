@@ -5,6 +5,7 @@
 (load "./src/org/parser.lisp")
 
 (defparameter *site-location*  "/home/jake/site/docs/")
+(defparameter *site-url* "/home/jake/site/docs/")
 (defparameter *wiki-location*  "/home/jake/wiki/")
 
 (defun generate-file (file-path)
@@ -19,6 +20,11 @@
   (generate-file (merge-pathnames (concatenate 'string *wiki-location* "/index.org"))))
 
 
+(defun get-dir-dest (dirname)
+  "Get the destination directory path and index from the directory name."
+  (merge-pathnames (concatenate 'string *wiki-location* dirname "/index.html")))
+
+
 (defun generate-index (dirname paths)
   "Generate an html file given a path to a org-mode source."
   (let* ((dir-dest (get-dir-dest dirname))
@@ -27,10 +33,6 @@
      result-path
      (htmx::index-page dirname paths *site-location*))))
 
-
-(defun get-dir-dest (dirname)
-  "Get the destination directory path and index from the directory name."
-  (merge-pathnames (concatenate 'string *wiki-location* dirname "/index.html")))
 
 
 (defun get-dir-files (dirname)
