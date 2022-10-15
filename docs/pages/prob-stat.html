@@ -1,0 +1,689 @@
+<html lang=en>
+ <head>
+  <meta charset=UTF-8>
+  <title>Prob Stat | Jake Chvatal</title>
+  <link rel=stylesheet
+        href=/home/jake/site/docs/style.css>
+  <link rel=stylesheet
+        href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
+  <script
+          src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
+  <script>hljs.highlightAll();</script>
+ </head>
+ <body>
+  <main>
+   <div class=sidebar>
+    <a href=/home/jake/site/docs//index.html> ~ </a><span> / </span><a
+    href=/home/jake/site/docs/pages/index.html>pages</a><span> / </span><a
+    href=/home/jake/site/docs/pages/prob-stat.html>prob-stat</a>
+   </div>
+   <h1 class=title-top>Prob Stat</h1>
+   <p><span>Notes for reviewing my probability and statistics course at Northeastern.</span>
+   <section>
+    <h2>Sample Spaces</h2>
+    <ul>
+     <li><span> Experiment :: Repeatable procedure with a set of possible results</span>
+    </ul>
+    <ul>
+     <li><span> Sample Outcome :: One of many possible results of an experiment</span>
+    </ul>
+    <ul>
+     <li><span> Sample Space :: </span>
+      <pre></pre>
+    </ul>
+    <ul>
+     <li><span> Event :: </span>
+      <pre></pre>
+    </ul>
+    <ul>
+     <li><span> Probability :: </span>
+      <pre></pre>
+    </ul>
+   </section>
+   <section>
+    <h2>Set Theory</h2>
+    <ul>
+     <li><span> Discrete Set :: A finite or countable set. i.e. tossing a coin until a 
+       head is received: </span>
+      <pre></pre>
+    </ul>
+    <ul>
+     <li><span> Continuous Set :: A range of values. I.e. getting a number smaller than 
+       1 from within a real number between 0 and </span>
+      <pre></pre>
+    </ul>
+    <ul>
+     <li><span> Intersection :: </span>
+      <pre></pre>
+    </ul>
+    <p><span> + Disjoint :: </span>
+     <pre></pre>
+    <ul>
+     <li><span> Union :: </span>
+      <pre></pre>
+    </ul>
+    <ul>
+     <li><span> Complement :: </span>
+      <pre></pre>
+    </ul>
+    <section>
+     <h3>DeMorgan&#39;s Law(s)</h3>
+     <p><span>1. </span>
+      <pre></pre>
+     <p><span>1. </span>
+      <pre></pre>
+    </section>
+   </section>
+   <section>
+    <h2>Probability Function</h2>
+    <p>
+     <pre></pre>
+    <ul>
+     <li><span> </span>
+      <pre></pre>
+    </ul>
+    <ul>
+     <li><span> </span>
+      <pre></pre>
+    </ul>
+    <ul>
+     <li><span> </span>
+      <pre></pre>
+    </ul>
+    <ul>
+     <li><span> </span>
+      <pre></pre>
+    </ul>
+   </section>
+   <section>
+    <h2>Conditional Probability</h2>
+    <p>
+     <pre></pre>
+    <p>
+     <pre></pre>
+    <p><span>Solving conditional probability: Make a tree! Fork at each choice, 
+      recording the probability on each &quot;leaf&quot;. Then use the leaves to 
+      assess a series of events.</span>
+   </section>
+   <section>
+    <h2>Independence</h2>
+    <p>
+     <pre></pre>
+    <p><span>For more than two sets:</span>
+    <ul>
+     <li><span> </span>
+      <pre></pre>
+    </ul>
+    <ul>
+     <li><span> </span>
+      <pre></pre>
+    </ul>
+   </section>
+   <section>
+    <h2>Series</h2>
+    <section>
+     <h3>Geometric</h3>
+     <p>
+      <pre></pre>
+     <p><span>For </span>
+      <pre></pre>
+     <p>
+      <pre></pre>
+     <ul>
+      <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span>
+       <pre></pre>
+     </ul>
+     <ul>
+      <li><span> mean :: </span>
+       <pre></pre>
+     </ul>
+    </section>
+   </section>
+   <section>
+    <h2>Probability Distributions</h2>
+    <p>
+     <pre></pre>
+    <section>
+     <h3>Binomial Distribution</h3>
+     <p><span>Given n _independent_ trials with two outcomes and a constant P(success) 
+       for each outcome, </span>
+      <pre></pre>
+     <ul>
+      <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span>
+       <pre></pre>
+     </ul>
+     <p><span> + calculate: use ~binompdf~</span>
+     <ul>
+      <li><span> </span><a class=external href=CDF>[CDF]</a><span> :: </span>
+       <pre></pre>
+     </ul>
+     <p><span> + calculate: use ~binomcdf~</span>
+     <ul>
+      <li><span> </span><a class=external href="Expected Value">[Expected Value]</a>
+       <span> :: </span>
+       <pre></pre>
+     </ul>
+    </section>
+    <section>
+     <h3>Bernoulli Distribution</h3>
+     <p><span>Essentially a </span><a class=external href="Binomial Distribution">
+       [Binomial Distribution]</a><span> where </span>
+      <pre></pre>
+     <p>
+      <pre></pre>
+    </section>
+    <section>
+     <h3>Hypergeometric Distribution</h3>
+     <p>
+      <pre></pre>
+     <ul>
+      <li><span> Random selection of </span>
+       <pre></pre>
+     </ul>
+     <ul>
+      <li><span> _Not_ guaranteed P(success) stays constant.</span>
+     </ul>
+     <ul>
+      <li><span> </span>
+       <pre></pre>
+     </ul>
+     <p><span>This can be considered a generalization of the </span><a class=external
+      href="Binomial Distribution">[Binomial Distribution]</a><span>.</span>
+    </section>
+    <section>
+     <h3>Uniform Distribution</h3>
+     <p><span>All values in a range are equally likely.</span>
+     <p><span>For some interval </span>
+      <pre></pre>
+     <ul>
+      <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span>
+       <pre></pre>
+     </ul>
+     <ul>
+      <li><span> </span><a class=external href=CDF>[CDF]</a><span> :: </span>
+       <pre></pre>
+     </ul>
+    </section>
+    <section>
+     <h3>Exponential Distribution</h3>
+     <ul>
+      <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span>
+       <pre></pre>
+     </ul>
+     <ul>
+      <li><span> </span><a class=external href=CDF>[CDF]</a><span> :: </span>
+       <pre></pre>
+     </ul>
+     <ul>
+      <li><span> mean :: </span>
+       <pre></pre>
+     </ul>
+     <ul>
+      <li><span> var :: </span>
+       <pre></pre>
+     </ul>
+    </section>
+    <section>
+     <h3>Poisson Distribution</h3>
+     <p><span>Counts the number of occurences per unit of measurement - over a specific 
+       period of time, a specific area, or volume, etc...</span>
+     <p><span>The probability of an event occuring in a unit of measurement must be the 
+       same for all similar units;</span>
+     <p><span>for example, if the unit of measurement is a month, then the probability 
+       must be the same for all months.</span>
+     <p><span>Poisson is often used to approximate the binomial distribution: given 
+       that </span>
+      <pre></pre>
+     <p><span>In other words, </span>
+      <pre></pre>
+     <p><span>Use ~poissonpdf~ and ~poissoncdf~ calculator unctions to approximate 
+       this.</span>
+     <ul>
+      <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span>
+       <pre></pre>
+     </ul>
+     <ul>
+      <li><span> mean :: </span>
+       <pre></pre>
+     </ul>
+     <ul>
+      <li><span> variance :: </span>
+       <pre></pre>
+     </ul>
+    </section>
+    <section>
+     <h3>Normal Distribution</h3>
+    </section>
+   </section>
+   <section>
+    <h2>Density Functions</h2>
+    <ul>
+     <li><span> Discrete Random Variable :: Some </span>
+      <pre></pre>
+    </ul>
+    <p><span> + </span>
+     <pre></pre>
+    <p><span> + </span>
+     <pre></pre>
+    <p><span> + Motivation: Constrain the sample space to a smaller sample space, 
+      using a single variable to represent each outcome we&#39;re investigating. If 
+      we&#39;re looking at pairs of numbers, for example, we only care that the sum of 
+      the pair is the same, so we consider (1, 2) and (2, 1) to be the same outcome.</span>
+    <ul>
+     <li><span> Continuous random variable :: Like discrete,</span>
+    </ul>
+    <p><span> but ranges over a continuous interval of </span>
+     <pre></pre>
+    <p><span> Two continuous random variables are _independent_ if some functions, </span>
+     <pre></pre>
+    <p><span> - </span>
+     <pre></pre>
+    <p><span> - </span>
+     <pre></pre>
+    <p><span> - </span>
+     <pre></pre>
+    <p><span> In other words, one should be able to multiply the results of the 
+      marginal pdfs to produce the joint pdf for the two variables, and vice versa.</span>
+    <section>
+     <h3>PDF</h3>
+     <p><span>(Probability Density Function)</span>
+     <section>
+      <h4>Discrete</h4>
+      <p><span>For every </span>
+       <pre></pre>
+      <p>
+       <pre></pre>
+      <p><span>Here, </span>
+       <pre></pre>
+     </section>
+     <section>
+      <h4>Continuous</h4>
+      <p><span>Some </span>
+       <pre></pre>
+      <p><span>1. </span>
+       <pre></pre>
+      <p><span>2. </span>
+       <pre></pre>
+      <p>
+       <pre></pre>
+     </section>
+     <section>
+      <h4>Joint PDF</h4>
+      <p>
+       <pre></pre>
+      <p><span>1. </span>
+       <pre></pre>
+      <p><span>2. </span>
+       <pre></pre>
+      <section>
+       <h5>Discrete</h5>
+       <p><span>Given the joint pdf of </span>
+        <pre></pre>
+       <ul>
+        <li><span> </span>
+         <pre></pre>
+       </ul>
+       <ul>
+        <li><span> </span>
+         <pre></pre>
+       </ul>
+      </section>
+      <section>
+       <h5>Continuous</h5>
+       <p>
+        <pre></pre>
+       <p><span>When solving - identify the bound that&#39;s dependent on the other!</span>
+       <p><span>It can really help to plot out some 2D plane, then graph the relationship 
+         between the two continuous random variables.</span>
+       <p><span>From this graph it&#39;s often fairly easy to identify, and thus 
+         estimate, the area we&#39;re investigating; this guides us to investigate what 
+         we should learn more from!</span>
+       <p><span>Absolutely worth working through some pracice problems.</span>
+      </section>
+     </section>
+    </section>
+    <section>
+     <h3>CDF</h3>
+     <p><span>Cumulative Distribution Function</span>
+     <section>
+      <h4>Discrete</h4>
+      <p>
+       <pre></pre>
+      <p><span>Generally, </span>
+       <pre></pre>
+     </section>
+     <section>
+      <h4>Continuous</h4>
+      <p>
+       <pre></pre>
+      <p>
+       <pre></pre>
+     </section>
+    </section>
+   </section>
+   <section>
+    <h2>Expected Value</h2>
+    <p><span>A generalization of the concept of &quot;average&quot;. The name&#39;s on 
+      the tin - it&#39;s a value that represents the proportionally weighted, expected 
+      result.</span>
+    <p><span>For example, if I have a 5% chance at </span>
+     <pre></pre>
+    <section>
+     <h3>Discrete</h3>
+     <p>
+      <pre></pre>
+    </section>
+    <section>
+     <h3>Continuous</h3>
+     <p>
+      <pre></pre>
+    </section>
+    <section>
+     <h3>Other Properties</h3>
+     <p>
+      <pre></pre>
+     <p><span>As such, if </span>
+      <pre></pre>
+    </section>
+    <section>
+     <h3>Sample Mean</h3>
+     <p><span>Denoted as </span>
+      <pre></pre>
+     <p>
+      <pre></pre>
+    </section>
+   </section>
+   <section>
+    <h2>Median</h2>
+    <section>
+     <h3>Discrete</h3>
+     <p><span>&quot;Middle number&quot; of the distribution, or the average of the two 
+       middle numbers if the cardinality is even; the standard definition.</span>
+    </section>
+    <section>
+     <h3>Continuous</h3>
+     <p>
+      <pre></pre>
+     <p><span>Finding the median:</span>
+     <p><span>1. Integrate and substitute.</span>
+     <p><span>2. Factor in terms of and solve for </span>
+      <pre></pre>
+    </section>
+   </section>
+   <section>
+    <h2>Variance</h2>
+    <p><span>A measure of how far the distribution spreads from its mean.</span>
+    <p>
+     <pre></pre>
+    <ul>
+     <li><span> </span>
+      <pre></pre>
+    </ul>
+    <ul>
+     <li><span> </span>
+      <pre></pre>
+    </ul>
+    <p><span>If </span>
+     <pre></pre>
+    <p>
+     <pre></pre>
+    <p><span>In general:</span>
+    <p>
+     <pre></pre>
+    <section>
+     <h3>Covariance</h3>
+     <p><span>where </span>
+      <pre></pre>
+     <p>
+      <pre></pre>
+     <p><span>As can be assumed, if </span>
+      <pre></pre>
+    </section>
+    <section>
+     <h3>Correlation</h3>
+     <p>
+      <pre></pre>
+     <p><span>A measurement of _correlation_; if positive, then the two random 
+       variables increase together;</span>
+     <p><span>if negative, one increases while the other decreasese and vice versa.</span>
+    </section>
+   </section>
+   <section>
+    <h2>Double Integrals</h2>
+    <p><span>Fubini&#39;s Theorem: </span>
+     <pre></pre>
+    <p><span>To identify the region in </span>
+     <pre></pre>
+    <p><span>Treat the unevaluated integral variable as a constant and just integrate 
+      with respect to a constant.</span>
+    <p><span>Often one variable is much easier to integrate than the other; pick the 
+      right one to use! This takes practice.</span>
+   </section>
+   <section>
+    <h2>TODO Problems to Practice</h2>
+    <section>
+     <h3>3</h3>
+     <section>
+      <h4>Graphing PDF, CDF</h4>
+     </section>
+     <section>
+      <h4>Converting between the two, esp. with continuous piecewise</h4>
+     </section>
+     <section>
+      <h4>what&#39;s with that variance theorm and E(g(X))? practice those problems.</h4>
+      <p><span>there are some good exercises for deriving expected value and variance 
+        available in the textbook - review these!</span>
+     </section>
+    </section>
+   </section>
+   <section>
+    <h2>do the exam</h2>
+    <p><span>3.7</span>
+    <p><span>3.9</span>
+    <p><span>4.x</span>
+    <p><span>5.x, especially the problem i missed on the last exam</span>
+    <p><span>exam problems and how exactly to approach them</span>
+    <p><span>the rest of the 6s and 7s, though i can probably wing those just</span>
+   </section>
+   <section>
+    <h2>Types of Problems</h2>
+    <section>
+     <h3>Exam 1</h3>
+     <section>
+      <h4>Probabilities and Sets</h4>
+      <p><span>i.e. </span>
+       <pre></pre>
+      <p><span>Draw things out as Venn diagrams to help visualize</span>
+      <p><span>Nice properties:</span>
+      <ul>
+       <li><span> </span>
+        <pre></pre>
+      </ul>
+      <ul>
+       <li><span> Bayes: </span>
+        <pre></pre>
+      </ul>
+     </section>
+     <section>
+      <h4>Simple Probabilities</h4>
+      <p><span>Generally, use some arrangement of </span>
+       <pre></pre>
+      <p><span>P(at most x) = 1 - P(at least x); vice vers</span>
+     </section>
+     <section>
+      <h4>Conditional Probabilities with Scenarios</h4>
+      <p><span>Draw a tree:</span>
+      <ul>
+       <li><span> At the root, no branch is chosen</span>
+      </ul>
+      <ul>
+       <li><span> After the root, choose what info you have more about: i.e. if 
+         you&#39;re looking for P(Defective | built at plant X), draw a tree with the 
+         first set of descendant notes representing the plant at which the thing was 
+         constructed, then from there the chances that the product was defective _given_ 
+         the plant branching off of each.</span>
+      </ul>
+      <p><span> From here, can use Bayes rule to fill out the tree, then find desiresd 
+        probability.</span>
+     </section>
+    </section>
+    <section>
+     <h3>Exam 2</h3>
+     <p><span>distributions to know: binomial,</span>
+     <section>
+      <h4>Finding Mean, stdev, sample from given problem</h4>
+      <p>
+       <pre></pre>
+      <p>
+       <pre></pre>
+      <p>
+       <pre></pre>
+      <p><span>Finding P in range: </span>
+       <pre></pre>
+     </section>
+     <section>
+      <h4>Find cdf of discrete set of scenarios</h4>
+      <p><span>1. Write out each possible scenario and associated value of random 
+        variable</span>
+      <p><span>2. Use P(scenario) * (num occurences of scenario) for each random 
+        variable value to compute some P(X=res) for each</span>
+      <p><span>3. Assemble into table; P(X=k) for values x=1, x=2, x=3 for example.</span>
+     </section>
+     <section>
+      <h4>PDF -&gt; CDF</h4>
+      <p><span>integrate</span>
+      <p><span>when converting to cdf, outside the range provided for the pdf, must 
+        state that the value of the cdf is 0 before and 1 following the range; otherwise 
+        the cdf won&#39;t function outside of it, but the range for a cdf should support 
+        anything</span>
+     </section>
+     <section>
+      <h4>CDF -&gt; PDF</h4>
+      <p><span>derivative</span>
+     </section>
+     <section>
+      <h4>Find E, Var given density function</h4>
+      <p><span>1. </span>
+       <pre></pre>
+      <p><span>2. </span>
+       <pre></pre>
+      <p><span> a. where </span>
+       <pre></pre>
+     </section>
+     <section>
+      <h4>Piecewise CDF-&gt;PDF, PDF -&gt; CDF</h4>
+      <p><span>derivative, integral respectively of each function provided over each 
+        range</span>
+     </section>
+     <section>
+      <h4>Joint PDF, CDF</h4>
+      <p><span>1. Find marginal pdfs for each; for x, integrate by dy, and for y 
+        integrate by dx</span>
+      <p><span>2. Set up integral for </span>
+       <pre></pre>
+      <p><span>3. Find the </span><a class=external href=Covariance>[Covariance]</a>
+       <span> </span>
+       <pre></pre>
+     </section>
+     <section>
+      <h4>finding c for some pdf with constant to solve for</h4>
+     </section>
+     <section>
+      <h4>TODO Combining Random Variables</h4>
+      <p><span>i.e. test 2: 13, 14</span>
+     </section>
+    </section>
+    <section>
+     <h3>Exam 3</h3>
+     <section>
+      <h4>use normal distribution with continuity correction to estimate probability in 
+       bounds</h4>
+      <p><span>1. find mean (</span>
+       <pre></pre>
+      <p><span>2. state that the normal approximation can be used if given &quot;normal 
+        approximation&quot; or </span>
+       <pre></pre>
+      <p><span> a. TODO when to use </span>
+       <pre></pre>
+      <p><span>3. continuity correction: &quot;round up or down&quot; to the nearest 0.5 
+        so that the interval encapsulates the intended population. i.e. if interval is </span>
+       <pre></pre>
+      <p><span>4. apply normalcdf: </span>
+       <pre></pre>
+     </section>
+     <section>
+      <h4>solve for interval given resultant probability</h4>
+      <p><span>1. Investigate the interval; sketch it out relative to a normal 
+        distribution. If it&#39;s two tailed, mark that</span>
+      <p><span>2. Finding the bound asked for: </span>
+       <pre></pre>
+     </section>
+     <section>
+      <h4>probabilities with poisson dist.</h4>
+      <p><span>1.</span>
+     </section>
+     <section>
+      <h4>finding confidence interval</h4>
+     </section>
+     <section>
+      <h4>maximum likelihood estimation</h4>
+      <p><span>1. Find </span>
+       <pre></pre>
+     </section>
+    </section>
+    <section>
+     <h3>Exam 4</h3>
+     <section>
+      <h4>unbiasted estimators variance</h4>
+      <p><span>Some </span>
+       <pre></pre>
+      <p><span>1. Set up variance formula: ignore constants, and take variance of the 
+        random variables used to calculate the new random variable</span>
+      <p><span>2. Substitute based on what&#39;s provided for these existing random 
+        variables; i.e. if </span>
+       <pre></pre>
+      <p><span>3. if original value is reached after evaluating, then it&#39;s an 
+        unbiased estimator!</span>
+     </section>
+     <section>
+      <h4>variance</h4>
+      <p><span>examine the calculation for the random variable, squaring the constants 
+        and taking the variance of the random variables used to calculate it</span>
+     </section>
+     <section>
+      <h4>find convidence interval</h4>
+      <section>
+       <h5>T test</h5>
+       <p><span>1. State facts: S, df, </span>
+        <pre></pre>
+       <p><span>2. calculate </span>
+        <pre></pre>
+       <p><span>3. Find interval: </span>
+        <pre></pre>
+      </section>
+      <section>
+       <h5>Z test</h5>
+      </section>
+     </section>
+     <section>
+      <h4>statistical test</h4>
+     </section>
+     <section>
+      <h4>critical values and errors</h4>
+      <p><span>1. find critical value in nonstandard form: typically </span>
+       <pre></pre>
+      <p><span>2. Find type 1 error: typically </span>
+       <pre></pre>
+      <p><span>3. find type 2 error (given that real mean, </span>
+       <pre></pre>
+      <p><span>4. Find the power of the test: </span>
+       <pre></pre>
+     </section>
+    </section>
+    <section>
+     <h3>Additional Material</h3>
+    </section>
+   </section>
+  </main>
+ </body>
+</html>

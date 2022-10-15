@@ -1,44 +1,71 @@
 (load "~/quicklisp/setup.lisp")
 (load "./src/util.lisp")
-(load "./src/homepage.lisp")
-(load "./src/org/html.lisp")
+(load "./src/html.lisp")
+(load "./src/path.lisp")
+(load "./src/org/parser.lisp")
 
-(ql:quickload :spinneret)
+(defparameter *site-location*  "/home/jake/site/docs/")
+(defparameter *wiki-location*  "/home/jake/wiki/")
 
-(defparameter *site-location*  "~/site/docs/")
-(defparameter *wiki-location*  "~/wiki/")
-(defparameter org-html::*url* "https://jake.isnt.online")
-
-(defun string-append (str1 str2)
-  (concatenate 'string str1 str2))
+(defun generate-file (file-path)
+  "Generate an html file given a path to a org-mode source."
+  (let ((result-path (path::change-file-path file-path *wiki-location* *site-location*)))
+    (util::write-file
+     result-path
+     (htmx::render-file (parser::parse file-path) result-path *site-location*))))
 
 (defun generate-homepage ()
-  (util::write-file
-   (string-append *site-location* "index.html")
-   (spinneret::with-html-string (homepage::homepage))))
+  "Generate the homepage."
+  (generate-file (merge-pathnames (concatenate 'string *wiki-location* "/index.org"))))
 
-(defun change-prefix (str old new)
-  "Change the prefix of the string from `old` to `new`"
-  (string-append new (util::without-prefix str old)))
 
-(defun change-postfix (str old new)
-  "Change the postfix of the string from `old` to `new`."
-  (string-append (util::without-postfix str old) new))
+(defun generate-index (dirname paths)
+  "Generate an html file given a path to a org-mode source."
+  (let* ((dir-dest (get-dir-dest dirname))
+         (result-path (path::change-file-path dir-dest *wiki-location* *site-location*)))
+    (util::write-file
+     result-path
+     (htmx::index-page dirname paths *site-location*))))
 
-(defun change-file-path (current-path)
-  "Change a file path to a new name."
-  (concatenate
-     'string
-     "/home/jake/site/docs/p/"
-     (pathname-name current-path)
-     ".html"))
 
-(defun generate-wiki ()
-  (loop for file-path in (directory "~/wiki/pages/**/*.org")
+(defun get-dir-dest (dirname)
+  "Get the destination directory path and index from the directory name."
+  (merge-pathnames (concatenate 'string *wiki-location* dirname "/index.html")))
+
+
+(defun get-dir-files (dirname)
+  "Get all org-mode files as an iterator from the source directory."
+  (directory (concatenate 'string *wiki-location* dirname "/*.org")))
+
+
+(defun parse-dir-files (dir-files)
+  "parse directory files into an association list with their path"
+  (loop for file-path in dir-files
+        collect (list
+                 file-path
+                 (path::change-file-path file-path *wiki-location* *site-location*)
+                 (parser::parse file-path))))
+
+
+(defun write-dir-files (dir-ls)
+  "Write the directory association list to html files"
+  (loop for (src-path target-path fdata) in dir-ls
         do (util::write-file
-            (change-file-path file-path)
-            (org-html::render-org-file file-path))))
+              target-path
+              (htmx::render-file fdata target-path *site-location*))))
+
+
+(defun generate-dir (dirname)
+  "
+   Generate a series of HTML files from a directory.
+   The `dirname` provided is relative to the homepage of the wiki.
+  "
+  (let* ((dir-files (get-dir-files dirname))
+         (parsed-files (parse-dir-files dir-files)))
+
+    (write-dir-files parsed-files)
+    (generate-index dirname parsed-files)))
 
 (defun generate ()
   (generate-homepage)
-  (generate-wiki))
+  (generate-dir "pages"))

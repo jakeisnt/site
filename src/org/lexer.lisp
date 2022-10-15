@@ -1,7 +1,7 @@
 (load "~/quicklisp/setup.lisp")
 
 (load "./src/util.lisp")
-(load "./src/org/defs.lisp")
+(load "./src/org/ast.lisp")
 
 (ql:quickload :string-case)
 (ql:quickload :cl-ppcre)
@@ -39,18 +39,23 @@
   (vector-push-extend c str))
 
 (defun take-until (stream end-on)
-  "Take until we get a specific char or string"
+  "Take until we get a specific char or string;
+   if we find it, return ('found str);
+   if we don't, return ('missing str)
+  "
   (if (stringp end-on)
       (take-until-string stream end-on)
       (take-until-char stream end-on)))
 
 (defun take-until-string (stream end-on)
-  "take from a stream until a particular character is received"
+  "take from a stream until a particular character is received
+   omits the string we terminate on"
   (let ((chars (make-adjustable-string "")))
     (loop for next-char = (safe-read-char stream)
-          do (push-char chars next-char)
           until (or (eq next-char :eof)
-                    (util::string-postfixesp chars end-on)))
+                    (util::string-postfixesp chars end-on))
+          do (when (not (eq next-char :eof))
+               (push-char chars next-char)))
     (util::without-postfix chars end-on)))
 
 (defun take-until-char (stream end-on)
@@ -103,52 +108,126 @@
      :lang lang
      :body body)))
 
+(defun split-first (line look-for)
+  "Split the line on the first occurence of the character."
+  (split look-for line :limit 2))
+
 (defun tokenize-macro-line-or-comment (stream)
   "Tokenize a macro line or comment"
   (let ((cmd (take-until stream #\space)))
-    (string-case
-        (cmd)
-      ("+TITLE:" (parse-title stream))
+    (string-case (cmd)
+      ("+TITLE:"    (parse-title stream))
       ("+BEGIN_SRC" (parse-code-block stream t))
       ("+begin_src" (parse-code-block stream nil))
       (t "Not sure what this macro is"))))
 
-(defun parse-link (stream)
+;; Assuming we've found matching parens,
+;; give their contents to these functions to make the respective construct.
+(defun make-link (link-text)
   "Parse a link with a possible title and mandatory URL"
-  (let* ((link-text (take-until stream "]]"))
-         (body (cl-ppcre::split "\\]\\[" link-text)))
+  (let* ((body (cl-ppcre::split "\\]\\[" link-text)))
     (if (eq (length body) 2)
-        (defs::make-link :title (cadr body) :url (car body))
-        (defs::make-link :url (car body)))))
+        (ast::make-link :title (cadr body) :url (car body))
+        (ast::make-link :url (car body)))))
+
+(defun make-naive-link (txt)
+  ;; http was cut so we manually add it backlol
+  (ast::make-link :url (concatenate 'string "http" txt)))
+
+(defun make-bold (txt)
+  (ast::make-bold :text txt))
+
+(defun make-ital (txt)
+  (ast::make-ital :text txt))
+
+(defun make-verb (txt)
+  (ast::make-verb :text txt))
+
+(defun apply-first (pair fn)
+  (cons (funcall fn (car pair)) (cdr pair)))
 
 
-  (defun tokenize-text-until (text-line)
-    "Tokenize text and find special cool things in it"
-    (with-open-stream (stream (make-string-input-stream text-line))
-      (let ((res ())
-            (buffer (make-adjustable-string "")))
-        (loop for next-char = (safe-read-char stream)
-              until (eq next-char :eof)
-              do (let ()
-                   (push-char buffer next-char)
-                   ;;  if we find a link,parse the rest of the string from it and reset the buffer
-                   (if (util::string-postfixesp buffer "[[")
-                       (let ()
-                        (setq res (cons (parse-link stream)
-                                        (cons
-                                         (util::without-postfix buffer "[[")
-                                         res)))
-                        (setq buffer (make-adjustable-string ""))))))
-        (reverse (cons buffer res)))))
+(defun try-find (line open-str close-str make-obj)
+  "Try to find a matching pair on the line,
+   converting the found split into an object if we find it"
+
+  ;; somewhere here, we are returning a cons, and in other cases we return a list
+  (if (util::string-prefixesp line open-str)
+      (let* ((without-prefix (util::without-prefix line open-str))
+             (without-prefix-len (length without-prefix)))
+        (if close-str
+            (let ((maybe-split (split-first without-prefix close-str)))
+              ;; if we successfully split on the char,
+              (if (eq 2 (length maybe-split))
+                  ;; apply the constructor to the first arg!
+                  (apply-first maybe-split make-obj)
+                  ;; otherwise,
+                  (let ((leftover-string (car maybe-split)))
+                    ;; if we found our thing at the last pos on the line,
+                    (if (not (eq without-prefix-len (length leftover-string)))
+                        ;; then we still make the object.
+                        (list (funcall make-obj leftover-string) "")
+                        ;; otherwise, we found nothing.
+                        (list nil leftover-string)))))
+            ;; if we don't have a postfix to look for, we take the rest of the line naively
+            (list (funcall make-obj without-prefix) "")))
+      (list nil line)))
+
+(defmacro fd (open-str close-str make-obj else)
+  `(let ((maybe-found (try-find text-line ,open-str ,close-str ,make-obj)))
+     (if (car maybe-found)
+         (let ()
+           (let ((remaining-string (car (cdr maybe-found)))
+                 (new-acc (cons (car maybe-found) acc)))
+             (tokenize-line remaining-string new-acc)))
+         ,else)))
+
+(defun fuse-subseq (acc cur)
+  (if (and (car acc) (stringp (car acc)))
+      (cons
+       (concatenate 'string (car acc) cur)
+       (cdr acc))
+      (cons cur acc)))
+
+;; Start with the current string line.
+;; Check the first characters, starting at [0],
+;;   for a match with the top pattern.
+;; If a match is found, look for the closing pattern.
+;; If we find the closing pattern,
+;;   produce the struct created with this pattern
+;;   and the rest of the string.
+;; If we do not find the closing pattern,
+;;   produce nil and the current string. Then try the next pattern.
+
+;; If we fail to match any of these patterns,
+;;   pop the current character off of the text line.
+(defun tokenize-line (text-line acc)
+  (if (or (not text-line) (eq 0 (length text-line)))
+      (reverse acc)
+      (fd "http" " " #'make-naive-link
+          (fd "http" (string #\newline) #'make-naive-link
+              ;; TODO: determining when to stop parsing a naive link is really hard.
+              ;; i should look at the org mode source code for this.
+              ;; it might be best just to parse these as plain text too.
+              (fd "http" nil #'make-naive-link
+                  (fd "[[" "]]" #'make-link
+                      (fd "\\*" "\\*" #'make-bold
+                          (fd "/" "/" #'make-ital
+                              (fd "`" "`" #'make-verb
+                                  (fd "$" "$" #'make-verb
+                                      (tokenize-line
+                                       (subseq text-line 1)
+                                       (fuse-subseq acc (subseq text-line 0 1)))))))))))))
 
 
 (defun tokenize-text (last-char stream)
   "Tokenize a text node until EOL. Append the char if it exists."
   (let*
-    ((body (take-until stream #\newline))
-     (fixed-body (if last-char (concatenate 'string (list last-char) body) body))
-     (tokenized-body (tokenize-text-until fixed-body)))
+      ((body (take-until stream #\newline))
+       (fixed-body (if last-char (concatenate 'string (list last-char) body) body))
+       (tokenized-body (tokenize-line fixed-body '())))
     (make-text-tok :body tokenized-body)))
+
 
 (defun tokenize-heading (stream)
   "tokenize an Org-mode heading"

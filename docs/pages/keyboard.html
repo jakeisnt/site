@@ -1,0 +1,707 @@
+<html lang=en>
+ <head>
+  <meta charset=UTF-8>
+  <title>Keyboard | Jake Chvatal</title>
+  <link rel=stylesheet
+        href=/home/jake/site/docs/style.css>
+  <link rel=stylesheet
+        href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
+  <script
+          src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
+  <script>hljs.highlightAll();</script>
+ </head>
+ <body>
+  <main>
+   <div class=sidebar>
+    <a href=/home/jake/site/docs//index.html> ~ </a><span> / </span><a
+    href=/home/jake/site/docs/pages/index.html>pages</a><span> / </span><a
+    href=/home/jake/site/docs/pages/keyboard.html>keyboard</a>
+   </div>
+   <h1 class=title-top>Keyboard</h1>
+   <p><span>Research on keyboards and keyboard configurations.</span>
+   <section>
+    <h2>Work</h2>
+    <p><span>QMK</span>
+    <p><a class=external href=https://github.com/pierrechevalier83/ferris>
+      [https://github.com/pierrechevalier83/ferris]</a><span>one hand kb</span>
+    <p><a class=external href=https://github.com/AlexBravo/Twiddler>
+      [https://github.com/AlexBravo/Twiddler]</a><span>one hand chording kb</span>
+    <p><a class=external href=https://github.com/ItayGarin/ktrl>
+      [https://github.com/ItayGarin/ktrl]</a><span>keyboard programming daemon</span>
+   </section>
+   <section>
+    <h2>ETC</h2>
+    <section>
+     <h3>what do I want my keyboard to do?</h3>
+     <p><span> - type, well</span>
+     <p><span> - preserve some similarity to my laptop keyboard</span>
+     <p><span> - make it easy to do the things i can do in i3 on laptop already</span>
+     <p><span> - midi layer to play notes and make music !!</span>
+     <p><span>poker : mapping to colemak </span><a class=external
+      href=http://thedarnedestthing.com/poker%202>
+       [http://thedarnedestthing.com/poker%202]</a>
+    </section>
+    <section>
+     <h3>qmk configuration tips and links</h3>
+     <p><a class=external
+      href="https://thomasbaart.nl/2018/12/20/qmk-basics-leader-key/">
+       [https://thomasbaart.nl/2018/12/20/qmk-basics-leader-key/]</a>
+     <p><span> -- defining sequences with which you can trigger keypresses and 
+       functions!</span>
+     <p><span> this uses lead -&gt; cut instead of having to hold the whole sequence 
+       all at once</span>
+    </section>
+    <section>
+     <h3>practicing</h3>
+     <p><a class=external href="https://www.keybr.com/">[keyboard practice site]</a>
+     <p><a class=external
+      href="https://www.youtube.com/watch?v=4Ej_3NKA3pk&amp;app=desktop">[on the proper 
+       planck writing style]</a>
+    </section>
+    <section>
+     <h3>keycaps</h3>
+     <p><a class=external
+      href="https://ramaworks.store/products/grid-set-a?variant=16185116000299">
+       [https://ramaworks.store/products/grid-set-a?variant=16185116000299]</a><span>-- 
+       low</span>
+     <p><span>profile with a center thing, injection molded</span>
+    </section>
+    <section>
+     <h3>etc</h3>
+     <p><a class=external href="https://www.keebwerk.com/nano-slider/">
+       [https://www.keebwerk.com/nano-slider/]</a><span>--cool mini keyboard thing that 
+       includes a</span>
+     <p><span>slider!</span>
+     <p><a class=external
+      href=https://github.com/tomsaleeba/qmk_firmware/blob/master/users/tomsaleeba/tom.c#L157>
+       [https://github.com/tomsaleeba/qmk_firmware/blob/master/users/tomsaleeba/tom.c#L157]
+       </a>
+     <ul>
+      <li><span>- cool key combination ideas... though maybe these should be done in</span>
+     </ul>
+     <p><span>software? unclear.</span>
+     <p><a class=external
+      href=https://blog.splitkb.com/how-to-work-with-small-keyboards>
+       [https://blog.splitkb.com/how-to-work-with-small-keyboards]</a><span>-- qmk 
+       layering tips!</span>
+     <p><span>make use of combos for cooler keyboard motions.</span>
+     <p><a class=external href=https://macintacos.github.io/macinplanck-configuration>
+       [https://macintacos.github.io/macinplanck-configuration]</a><span>-- 
+       someone&#39;s strict</span>
+     <p><span>planck configuration</span>
+    </section>
+    <section>
+     <h3>alternative keyboard layouts</h3>
+     <p><a class=external
+      href="https://www.reddit.com/r/olkb/comments/6feemo/creating_a_layer_for_vimhjkl_when_using_an/">
+       [https://www.reddit.com/r/olkb/comments/6feemo/creating_a_layer_for_vimhjkl_when_using_an/]
+       </a>
+     <p><a class=external href="https://colemakmods.github.io/mod-dh/">
+       [https://colemakmods.github.io/mod-dh/]</a><span>-- alternative</span>
+     <p><a class=external
+      href=https://github.com/macintacos/dotfiles/blob/master/keebs/macinplanck-ez/macinplanck-keymap.pdf>
+       [https://github.com/macintacos/dotfiles/blob/master/keebs/macinplanck-ez/macinplanck-keymap.pdf]
+       </a>
+     <ul>
+      <li><span>- someone&#39;s idea of a cool keyboard layout</span>
+     </ul>
+    </section>
+    <section>
+     <h3>rough ideas</h3>
+     <p><span>greek letters behind a hidden layer for fast math typing</span>
+     <ul>
+      <li><span> on this layer remap shift so that it opens capital greek letter</span>
+     </ul>
+     <p><span> reevaluate how i use modifier keys and where i put my thumbs for ease of 
+       access</span>
+     <p><span>what else do i type frequently?</span>
+     <p><span>what is the fastest way to lay out the numpad to enable quick access?</span>
+     <p><span>what function keys or macros would be useful to me?</span>
+     <p><span>emojis?? on my keyboard??</span>
+     <p><span> introduce leader keys and macros to spit out some keyboard shortcuts,</span>
+     <p><span>music, or important information</span>
+     <p><span>explicitly document this somewhere</span>
+     <p><span>dont be afraid to draw out specific layout!!</span>
+     <p><span> </span><a class=external
+      href=https://forum.colemak.com/topic/2206-planck>
+       [https://forum.colemak.com/topic/2206-planck]</a>
+     <p><span>this is very good thread with sdothum keyboard layou</span>
+     <p><span> </span><a class=external href=http://thedarnedestthing.com/colophon>
+       [http://thedarnedestthing.com/colophon]</a><span>-- god keyboard configuration 
+       layout and blog</span>
+     <p><span>i love the Major Mono Display font! try to make some web dev project with 
+       thi</span>
+     <p><span> </span><a class=external href="http://mkweb.bcgsc.ca/carpalx/">
+       [http://mkweb.bcgsc.ca/carpalx/]</a><span>-- unique perspective on designing and 
+       creating</span>
+     <p><span>a keyboard to prevent carpal tunnel problems from occuring with a 
+       keyboard</span>
+     <p><span>configuration and layout</span>
+     <p><span>obviously best action to take is planck or split keyboard, but the next 
+       action</span>
+     <p><span>to take is changing the keyboard layout to radically change the way the</span>
+     <p><span>fingers move as we type!</span>
+     <p><span>do not place constraint on how many keys are relocated</span>
+     <p><span>places on this site layout the q**lw* layouts for optimizing for various 
+       things,</span>
+     <p><span>one keeps zxcv in place for greater effeffectiveness. consider using one 
+       of</span>
+     <p><span>these as opposed to colemak or somethign for better effectivenes</span>
+     <p><span> in geneeral: find what isnt working and optimiz</span>
+     <p><span>potential ideas- macros for different latex expressions(it is possible 
+       that org</span>
+     <p><span>mode already offers this)it may be better to just use org mode for latex 
+       and</span>
+     <p><span>shortcut the org mode expressionsthis should be some &#39;math mode&#39; 
+       laye- midi</span>
+     <p><span>control layer- offers potential for drum kit as well as for a piano roll 
+       of some</span>
+     <p><span>sort- perhaps dual buttons for tweaking knobs up and down- mappings 
+       similar to</span>
+     <p><span>launchpad to programs such as ableton</span><a class=external
+      href=https://github.com/theniceboy/nviif>[https://github.com/theniceboy/nviif]</a>
+      <span>i use</span>
+     <p><span>colemak i will probably have to make some changes to other keybindings to</span>
+     <p><span>reflect thicurrent are proper for qwerty but these ssame binds will not 
+       make</span>
+     <p><span>sense in other placesfrom planck repos- ajp10304hold tab for shifthold 
+       enter for</span>
+     <p><span>shifthold space for some function laye</span>
+     <p><span>macros:</span>
+     <ul>
+      <li><span> backspace + control</span>
+     </ul>
+     <ul>
+      <li><span> delete with control</span>
+     </ul>
+     <ul>
+      <li><span> layer specifically for navigation and typing brackets</span>
+     </ul>
+     <ul>
+      <li><span> layer with copy, paste, duplicate, other things functionality</span>
+     </ul>
+     <p><span>58 - sdothum</span>
+     <p><span>colemak-dh</span>
+     <p><span>shift tab key overlays</span>
+     <p><span>number and symbol function key layer</span>
+     <p><span>layer with hex numbers</span>
+     <p><span>layer with navigation and keypad</span>
+     <p><span>autocompletion of key pairs</span>
+     <p><span>extensive use of tap keys for different layout</span>
+     <p><span>67 - am</span>
+     <p><span>media keys</span>
+     <p><span>both qwerty and colemak</span>
+     <p><span>number and reversed number pads for both hands</span>
+     <p><span>touchccursor layEr ?? look into this</span>
+     <p><span>mouse layer</span>
+     <p><span>74 - voodagod: bone2planck</span>
+     <p><span>ergonomic placement for coding for things on second layer (m1)</span>
+     <p><span>navigation and number blocks in convenient and intuitive place</span>
+     <p><span>function and media keys on separate layer from navigation keys 2 layers 
+       that swap funvtion and media ke ys as well as switched navigation and number 
+       blocks</span>
+     <p><span>4 mod keys, 2 on either side of the spacebar</span>
+     <p><span>80 - cbbrowne</span>
+     <p><span>keypad layer has cool macros:</span>
+     <ul>
+      <li><span> automatic type out of name with leaders</span>
+     </ul>
+     <ul>
+      <li><span> random number generator spits out number</span>
+     </ul>
+     <p><span>hold enter for shift</span>
+     <p><span>helping with tmux:</span>
+     <ul>
+      <li><span> may be helpful to add tmux layer</span>
+     </ul>
+     <ul>
+      <li><span> this would have macros specific to the navigation of tmux</span>
+     </ul>
+     <ul>
+      <li><span> kc lead to find key combos not concurrent</span>
+     </ul>
+     <p><span>jeebak keymap with good ideasL:</span>
+     <ul>
+      <li><span> number layer has numbers in several places</span>
+     </ul>
+     <ul>
+      <li><span> touchcursor allows for cursor layer on home keys</span>
+     </ul>
+     <p><span>jeremy-dev keymap also cool</span>
+     <ul>
+      <li><span> shift hands outwards, special keys in center</span>
+     </ul>
+     <ul>
+      <li><span> symbol layer has compound keys for c operators</span>
+     </ul>
+     <ul>
+      <li><span> this would have macros specific to the navigation of tmux</span>
+     </ul>
+     <ul>
+      <li><span> kc lead to find key combos not concurrent</span>
+     </ul>
+     <p><span>jeebak keymap with good ideasL:</span>
+     <ul>
+      <li><span> number layer has numbers in several places</span>
+     </ul>
+     <ul>
+      <li><span> touchcursor allows for cursor layer on home keys</span>
+     </ul>
+     <p><span>jeremy-dev keymap also cool</span>
+     <ul>
+      <li><span> shift hands outwards, special keys in center</span>
+     </ul>
+     <ul>
+      <li><span> symbol layer has compound keys for c operators96 - corvec</span>
+     </ul>
+     <p><span> redundancy for common keys so that they are easily accessible</span>
+     <p><span>this is especially true for keys that can be out of the way</span>
+     <p><span>autoshift but also defined shift keys as autoshift is slow</span>
+     <p><span>movement is hjkl or hnei depending on the keymap</span>
+     <p><span>arrows mimicked by home, pgdown, pgup, and end on the lower row</span>
+     <p><span>media keys same location as Arrow keys</span>
+     <p><span>toggle layers minimized so that keyboard state is predictable</span>
+     <p><span>shift toggle? deactivate automaticall</span>
+     <p><span> - dcompact</span>
+     <p><span>stateless typing</span>
+     <p><span>minimize mouse usage</span>
+     <p><span>has Plover integration for stenotypi</span>
+     <p><span> - sdothum</span>
+     <p><span>colemak dh with shift tabn key overlays</span>
+     <p><span>number, symbol, function key layers</span>
+     <p><span>hex keypad layer</span>
+     <p><span>navigation keypad layer</span>
+     <p><span>dynamic macro layer</span>
+     <p><span>extensive use of tap keys</span>
+     <p><span> - hvpkod</span>
+     <p><span>swedish keys on main layer using tap dance (what is tap dance</span>
+     <p><span> - impossible by UnderSampled</span>
+     <p><span>main objective:</span>
+     <ul>
+      <li><span> move most used punctuation to the thumbs</span>
+     </ul>
+     <ul>
+      <li><span> removing s middle column??</span>
+     </ul>
+     <ul>
+      <li><span> other space gains conbine keys only chorded with non symbol keys as 
+        well as function layer asnternati ves</span>
+     </ul>
+     <ul>
+      <li><span> qwerty layer seems to be entirely normal</span>
+     </ul>
+     <p><span>stenoigraphy: moves number low below the regular keys,providing 
+       comfortable placement for the thumb key s</span>
+     <p><span>switch between layouts and change other keyboard settings with adjustment 
+       lay</span>
+     <p><span> - jeremy-dev</span>
+     <p><span>programmer who avoids rsi so they want to avoid stuff</span>
+     <p><span>makes heavy use of momentary layer toggling</span>
+     <p><span>momentary toggles, hold single mods like backspace, space, etc. for 
+       better functionality</span>
+     <p><span>symbol layer keys accessible via the thum</span>
+     <p><span> - jeremy-dev</span>
+     <p><span>programmer who avoids rsi so they want to avoid stuff</span>
+     <p><span>makes heavy use of momentary layer toggling</span>
+     <p><span>momentary toggles, hold single mods like backspace, space, etc. for 
+       better functionality</span>
+     <p><span>symbol layer keys accessible via the thum</span>
+     <p><span> - laeleth</span>
+     <p><span>standard querty layout for main page</span>
+     <p><span>lower layer places all numbers on a single hand</span>
+     <p><span>raise layer prioritizes parens over all else</span>
+     <p><span>numpad layer for single hand numpad: is this a good ide</span>
+     <p><span> - matrixman</span>
+     <p><span>wanted pinkeys to have a break or something</span>
+     <p><span>index fingers and palm presses do a lot more</span>
+     <p><span>planck mobile, ergodox at home, want to minimize difficulty of switching 
+       between the t</span>
+     <p><span> - yttyx</span>
+     <p><span>base layer uses balance twelve layout??</span>
+     <p><span>plover layer uses the same home position as the base layer</span>
+     <p><span>link ref:: mathmaticalmulticore.wordpress.com/the-keyboard-layout-proje</span>
+     <p><span> - steno</span>
+     <p><span>stenography keymap for the keyboard</span>
+     <p><span>set plover to TX bolt, select com port that represents keyboa</span>
+     <p><span> - snowkuma</span>
+     <p><span>colemak planck layout</span>
+     <p><span>influenced by sdothum and blog</span>
+     <p><span>allows for minimisation of key usage to set and having hands in 
+       comfortable position</span>
+     <p><span>colemak base layer</span>
+     <p><span>symbol cursor nav layer</span>
+     <p><span>notably blocks out two middle layers for unknown reason</span>
+     <p><span>has regex layer jsut on right hand for good expressions</span>
+     <p><span>magnet shortcuts?</span>
+     <p><span>thumb shortcut layer</span>
+     <p><span>function layer with lots of keys</span>
+     <p><span>mouse layer that allows for easy navigation (what does the gui bbutton do</span>
+     <p><span> - smt</span>
+     <p><span>has mod-tap keys re: jackhumbert qmk firmware fun with modifier keys 
+       article</span>
+     <p><span>using left shift as mod tap for escape?? this seems weird man</span>
+     <p><span>tab is also the hyper key when held down</span>
+     <p><span>backtick is in the lower left corner, used as the tmux prefix key</span>
+     <p><span>group open paren and closed paren togeth</span>
+     <p><span> - smittey</span>
+     <p><span>focused on coding and utilizes home row for common symbols</span>
+     <p><span>space is also function key, and leads to arrow key navigation scre</span>
+     <p><span> - sean</span>
+     <p><span>typematrix dvorak keyboard with escape, tab, enter and backspace in the 
+       middle rather than on outside</span>
+     <p><span>middle row functions hold most of the functionality</span>
+     <p><span>the adjust layer has one shortcut copy, paste, numpad, dvorak etc layer 
+       acces</span>
+     <ul>
+      <li><span> samuel</span>
+     </ul>
+     <p><span>pretty mode organized for dvorak</span>
+     <p><span>has tap keys configured with all of the keys held above as alternate 
+       layer</span>
+     <ul>
+      <li><span> all keys shoukld have alt tap functionality to provide better access to 
+        th</span>
+     </ul>
+     <p><span> function and macro layer for one shot things</span>
+     <p><span>python layer as well??</span>
+     <p><span>good layout of code for keym</span>
+     <ul>
+      <li><span> priyadi planck layout</span>
+     </ul>
+     <p><span>emoji layer ! cursor and nav cluster available on the home row</span>
+     <p><span>number layer supports hex input somehow</span>
+     <p><span>left and right side modifier keys</span>
+     <p><span>faux clickey?? i think this means it makes sounds when the keypresses 
+       register</span>
+     <p><span>which is stup</span>
+     <ul>
+      <li><span> pascamnothing special - mostly default - but another good reference for 
+        how to</span>
+     </ul>
+     <p><span> place keys on the keyboa</span>
+     <p><span> - oeywnorwegian grid layoleader keys, tap dancing and</span>
+     <p><span> aud</span>
+     <p><span> - piemod by choromansoffers support ofr ortho, i3wm and programming 
+       symbono</span>
+     <p><span> documentation though. Sa</span>
+     <p><span> - piemod by choromanskiers support ofr ortho, i3wm and</span>
+     <p><span> programming symbolsno documentation though. Sadtakeawaymake all hold 
+       keys also</span>
+     <p><span> tap keys with a different functionalitlayers fo- navigation ( should 
+       have</span>
+     <p><span> dedicated copy, paste, etc functionality for ease of navigation and 
+       moving tex</span>
+     <p><span> t aroun- programmer buttons - common progrmmer symbols to type as well 
+       as</span>
+     <p><span> macros to help with progrma typi- typing greek lette- latex symbols ( 
+       could be</span>
+     <p><span> combined with the greek letter thing) this is largely an alternative 
+       note taki</span>
+     <p><span> ng mode to be used in math courses or something, possibly in conjunction 
+       with</span>
+     <p><span> org mode. do soem research on taking literate notes with latex and get</span>
+     <p><span> back to this. for now just do the greek letters?? lots of coo l 
+       programming</span>
+     <p><span> can be done here to enter and exit contextual programming modes inside</span>
+     <p><span> different scopes for entering and exiting them by remembering scopes as</span>
+     <p><span> well as previous keys, or typing out entire commonly used latex symbols</span>
+     <p><span> concretely through the keyboa- commonly used phrases - this 
+       shouldn&#39;t be a</span>
+     <p><span> layer so much as a series of macros defined by leader keys that can be</span>
+     <p><span> accessed via normal tyoping layer, and should include email, name etc. 
+       could</span>
+     <p><span> also create pass word buffer in the firmware to write, read copy and 
+       paste</span>
+     <p><span> to but ideally some external program should han dle th- some toggle 
+       layer</span>
+     <p><span> for a midi controller or music making mode!!! only do this wehn you get 
+       back</span>
+     <p><span> into mus ic production or find some way to do something like thend goal:</span>
+     <p><span> completely navigate computer without any usage of the keyboard using</span>
+     <p><span> conjunction of software an d hardwar</span>
+    </section>
+    <section>
+     <h3>etc</h3>
+     <p><a class=external
+      href="https://vlukash.com/2019/01/14/corne-crkbd-keyboard-build/">
+       [https://vlukash.com/2019/01/14/corne-crkbd-keyboard-build/]</a>
+     <p><span>these are good instructions for the corne keyboard</span>
+     <p><a class=external
+      href=https://gist.github.com/Monroe88/0f7aa02156af6ae2a0e728852dcbfc90>
+       [https://gist.github.com/Monroe88/0f7aa02156af6ae2a0e728852dcbfc90]</a>
+     <p><span>retroarch keyboard mapping template</span>
+     <p><a class=external
+      href="https://www.reddit.com/r/MechanicalKeyboards/comments/5ca2vh/interested_in_making_a_scientific_keyboard_but_am/">
+       [https://www.reddit.com/r/MechanicalKeyboards/comments/5ca2vh/interested_in_making_a_scientific_keyboard_but_am/]
+       </a>
+     <p><span>making a scientific keyboard</span>
+     <p><a class=external
+      href="https://www.reddit.com/r/olkb/comments/aozex6/want_to_add_a_layer_for_the_greek_alphabet_and/eg5nwzh/">
+       [https://www.reddit.com/r/olkb/comments/aozex6/want_to_add_a_layer_for_the_greek_alphabet_and/eg5nwzh/]
+       </a>
+     <p><span>greek layers as well as qmk macros</span>
+     <p><a class=external
+      href=https://blog.splitkb.com/how-to-work-with-small-keyboards>
+       [https://blog.splitkb.com/how-to-work-with-small-keyboards]</a>
+    </section>
+    <section>
+     <h3>switches</h3>
+     <p><a class=external href=https://novelkeys.xyz/products/kailh-speed-switches>
+       [next ones to try]</a>
+     <p><a class=external href=https://github.com/RustyJonez/OLED-ART-tinkering>
+       [configuring leds]</a>
+    </section>
+    <section>
+     <h3>steno</h3>
+     <p><a class=external
+      href="https://didoesdigital.com/blog/build-your-own-steno-keyboard-its-easier-than-you-think/">
+       [https://didoesdigital.com/blog/build-your-own-steno-keyboard-its-easier-than-you-think/]
+       </a>
+     <p><a class=external
+      href=https://github.com/openstenoproject/plover/wiki/Learning-Stenography>
+       [https://github.com/openstenoproject/plover/wiki/Learning-Stenography]</a>
+     <p><a class=external
+      href="https://store.steampowered.com/app/449000/Steno_Arcade/">
+       [https://store.steampowered.com/app/449000/Steno_Arcade/]</a>
+    </section>
+    <section>
+     <h3>research on layouts</h3>
+     <p><a class=external href=http://mtgap.bilfo.com/keyboard.html>
+       [http://mtgap.bilfo.com/keyboard.html]</a>
+     <p><a class=external href=https://en.m.wikipedia.org/wiki/FrogPad>
+       [https://en.m.wikipedia.org/wiki/FrogPad]</a>
+     <p><a class=external
+      href="https://www.reddit.com/r/KeyboardLayouts/comments/feikcf/seelpy_1_ergolinear/">
+       [https://www.reddit.com/r/KeyboardLayouts/comments/feikcf/seelpy_1_ergolinear/]</a>
+     <p><a class=external
+      href="https://www.keyboard-design.com/letterlayout.html?layout=essie-2.en.matrix">
+       [https://www.keyboard-design.com/letterlayout.html?layout=essie-2.en.matrix]</a>
+     <p><a class=external
+      href="https://www.keyboard-design.com/letterlayout.html?layout=seelpy-1-22.en.ergolinear">
+       [https://www.keyboard-design.com/letterlayout.html?layout=seelpy-1-22.en.ergolinear]
+       </a>
+     <p><a class=external href=https://www.keyboard-design.com/best-layouts.html>
+       [https://www.keyboard-design.com/best-layouts.html]</a>
+     <p><a class=external
+      href=https://www.keyboard-design.com/layouts/ergo/60/seelpy-1-ergolinear.html>
+       [https://www.keyboard-design.com/layouts/ergo/60/seelpy-1-ergolinear.html]</a>
+     <p><a class=external
+      href="https://www.reddit.com/r/KeyboardLayouts/comments/ffvuxh/soul_is_a_colemaklike_layout_designed_for_more/">
+       [https://www.reddit.com/r/KeyboardLayouts/comments/ffvuxh/soul_is_a_colemaklike_layout_designed_for_more/]
+       </a>
+     <p><a class=external href=https://rgoswami.me/posts/colemak-dots-refactor/:>
+       [https://rgoswami.me/posts/colemak-dots-refactor/:]</a><span>changes that are 
+       necessary to </span><a class=internal
+      href=id:62a9456a-e08a-4dc4-8e9d-310deffdb720>{Emacs}</a><span> for colemak</span>
+     <p><a class=external href="https://ieants.cc/code/keyboard/beakl/">
+       [https://ieants.cc/code/keyboard/beakl/]</a>
+     <p><a class=external href=https://deskthority.net/wiki/BEAKL>
+       [https://deskthority.net/wiki/BEAKL]</a>
+     <p><a class=external
+      href="https://mathematicalmulticore.wordpress.com/category/keyboards/">
+       [https://mathematicalmulticore.wordpress.com/category/keyboards/]</a>
+     <p><a class=external
+      href="https://www.reddit.com/r/KeyboardLayouts/comments/gx1wxa/ergo_layouts_comparison/">
+       [https://www.reddit.com/r/KeyboardLayouts/comments/gx1wxa/ergo_layouts_comparison/]
+       </a>
+     <p><a class=external
+      href="https://mathematicalmulticore.wordpress.com/category/keyboards/">
+       [https://mathematicalmulticore.wordpress.com/category/keyboards/]</a>
+     <p><a class=external
+      href="https://www.reddit.com/r/KeyboardLayouts/comments/fevb94/a_brief_summary_of_alternative_keyboard_layout/">
+       [https://www.reddit.com/r/KeyboardLayouts/comments/fevb94/a_brief_summary_of_alternative_keyboard_layout/]
+       </a>
+     <p><a class=external
+      href="https://www.reddit.com/r/ErgoDoxEZ/comments/gsvpug/layout_of_the_month_beakl_15/">
+       [https://www.reddit.com/r/ErgoDoxEZ/comments/gsvpug/layout_of_the_month_beakl_15/]
+       </a>
+     <p><a class=external href=https://colemakmods.github.io/ergonomic-mods/extend.html>
+       [https://colemakmods.github.io/ergonomic-mods/extend.html]</a>
+     <p><a class=external
+      href="https://www.reddit.com/r/olkb/comments/h00a8b/i_made_an_oled_animation_of_bongo_cat_that/">
+       [https://www.reddit.com/r/olkb/comments/h00a8b/i_made_an_oled_animation_of_bongo_cat_that/]
+       </a>
+     <p><span>hooly shit</span>
+     <p><a class=external
+      href="https://www.reddit.com/r/olkb/comments/gwy4zz/a_little_quarantine_project/">
+       [https://www.reddit.com/r/olkb/comments/gwy4zz/a_little_quarantine_project/]</a>
+      <span>--</span>
+     <p><span>top top to pdesign, very cool and modular!</span>
+     <p><a class=external
+      href=https://vlukash.com/2019/01/15/trackpad-in-keycap-corne-crkbd-keyboard/#more-544>
+       [https://vlukash.com/2019/01/15/trackpad-in-keycap-corne-crkbd-keyboard/#more-544]
+       </a>
+     <p><span>trackpad in a keycap!</span>
+     <p><span>general plan:</span>
+     <ul>
+      <li><span> use beakl layout for thumb clusters</span>
+     </ul>
+     <ul>
+      <li><span> use the modified colemak variant for the qwerty keys</span>
+     </ul>
+     <ul>
+      <li><span> think hard about how to arrange the alternate layers</span>
+     </ul>
+     <p><a class=external href=http://colemakmods.github.io/ergonomic-mods/extend.html>
+       [extend layer]</a>
+     <p><a class=external href=https://github.com/abstracthat/dactyl-manuform>
+       [https://github.com/abstracthat/dactyl-manuform]</a>
+     <p><a class=external
+      href="https://ramaworks.store/products/grid-set-b?variant=31922049318990">
+       [https://ramaworks.store/products/grid-set-b?variant=31922049318990]</a><span>
+       neat</span>
+     <p><span>keycaps</span>
+     <p><a class=external href=https://docs.splitkb.com/hc/en-us/articles/360011091759>
+       [get elite c, sockets]</a>
+     <p><a class=external href=https://keyboard-design.com/best-keyboard-layouts.html>
+       [Keyboard-Design.com - Current Best Keyboard Layouts]</a>
+     <p><a class=external
+      href=https://vlukash.com/2019/01/15/trackpad-in-keycap-corne-crkbd-keyboard/#more-544>
+       [kb trackpad]</a>
+     <p><a class=external href=https://github.com/crsnbrt/keysim>[Design and test 
+       virtual 3d keyboards.]</a>
+     <p><a class=external href=https://github.com/hsgw/plaid>[2x4 ortholinear usb 
+       keyboard made by Through Hole components ONLY.]</a>
+     <p><a class=external href=https://github.com/osls/code-layout>[osls/code-layout: 
+       `CODE` keyboard layout --- for all computer users]</a>
+     <p><a class=external
+      href="https://www.reddit.com/r/MechanicalKeyboards/comments/hgqwwu/rpi_cyberdeck_with_raspberry_pi_4/">
+       [RPI Cyberdeck with Raspberry Pi 4. - MechanicalKeyboards]</a>
+     <p><a class=external href=https://github.com/ItayGarin/ktrl>[ItayGarin/ktrl: A 
+       Supercharged Keyboard Programming Daemon ⌨️]</a>
+     <p><a class=external href=http://xahlee.info/kbd/ergonomic_keyboards_index.html>
+       [Ergonomic Keyboard Reviews]</a>
+     <p><a class=external href=http://nikolay.rocks/2016-10-22-keyboard-analytics>
+       [Nikolay.Rocks » Optimal Keyboard]</a>
+     <p><a class=external
+      href="https://forum.colemak.com/topic/2147-limiting-keyboard-use-to-only-easytoreach-keys/">
+       [Limiting keyboard use to only easy-to-reach keys - General - Colemak forum]</a>
+     <p><a class=external
+      href=http://xahlee.info/kbd/most_efficient_keyboard_layout.html>
+       [What&amp;amp;#39;s the Most Efficient Keyboard Layout?]</a>
+     <p><a class=external href="https://forum.colemak.com/topic/2206-planck/">[Planck - 
+       General - Colemak forum]</a>
+     <p><a class=external href=https://neo-layout.org/index_en.html>[Neo – Keyboard 
+       Layout]</a>
+    </section>
+    <section>
+     <h3>IDEA: configuration has two types of keymappings.</h3>
+     <p><span>one is relative to the</span>
+     <p><span>location on the keyboard, while another is relative to the letter. i like</span>
+     <p><span>mixing both of these. there should be some system for allowing me to 
+       easily</span>
+     <p><span>do the former?</span>
+     <p><a class=external
+      href=http://xahlee.info/kbd/most_efficient_keyboard_layout.html>
+       [http://xahlee.info/kbd/most_efficient_keyboard_layout.html]</a><span>the most 
+       efficient keyboard layout</span>
+     <p><a class=external href="https://forum.colemak.com/topic/2206-planck/">
+       [https://forum.colemak.com/topic/2206-planck/]</a>
+     <p><a class=external
+      href="https://forum.colemak.com/topic/2147-limiting-keyboard-use-to-only-easytoreach-keys/">
+       [https://forum.colemak.com/topic/2147-limiting-keyboard-use-to-only-easytoreach-keys/]
+       </a>
+     <p><a class=external
+      href=http://thedarnedestthing.com/rolling%20qmk%20modifiers%20revisited>[keyboard 
+       modifiers for qmk]</a>
+     <p><a class=external href=https://github.com/openstenoproject/plover>
+       [https://github.com/openstenoproject/plover]</a>
+    </section>
+   </section>
+   <section>
+    <h2>one handed keyboards</h2>
+    <p><a class=external href=https://wiki.xxiivv.com/site/juni.html>
+      [https://wiki.xxiivv.com/site/juni.html]</a>
+    <p><a class=external href=https://github.com/NatTuck/Twiddler>[NatTuck/Twiddler: 
+      Files for Twiddler one hand chording keyboard]</a>
+   </section>
+   <section>
+    <h2>colemak</h2>
+    <p><a class=external href=https://rgoswami.me/posts/colemak-dots-refactor>
+      [Refactoring Dotfiles For Colemak]</a>
+    <p><a class=external href=https://deskthority.net/wiki/BEAKL>[BEAKL - Deskthority 
+      wiki]</a>
+    <p><a class=external
+     href="https://xsznix.wordpress.com/2016/05/16/introducing-the-rsthd-layout/">
+      [Introducing the RSTHD layout – meus recogitare et excogitare]</a>
+    <p><a class=external href="http://www.minimak.org/">[Minimak - Home]</a>
+    <p><a class=external
+     href="https://www.youtube.com/watch?v=RBBiri3CD6w&amp;amp;t=114">[Coding in 
+      Stenography, Quick Demo]</a>
+    <p><a class=external href=https://github.com/abstracthat/dactyl-manuform>[dactyl 
+      manuform keyboard]</a>
+    <p><a class=external
+     href=https://incoherency.co.uk/blog/stories/3pct-keyboard.html>[James Stanley - I 
+      made a macro keypad with 3d-printed switches]</a>
+    <p><a class=external
+     href="http://www.mike-worth.com/2013/03/31/baking-a-hello-world-cake/">[Baking 
+      with the Chef programming language]</a>
+    <p><a class=external href=http://www.paulgraham.com/hundred.html>[The Hundred-Year 
+      Language]</a>
+    <p><a class=external
+     href=https://en.m.wikipedia.org/wiki/Forth_(programming_language)>[Forth 
+      (programming language) - Wikipedia]</a>
+    <p><a class=external href="https://vlang.io/">[The V Programming Language]</a>
+    <p><a class=external href="https://odin-lang.org/">[Odin Programming Language]</a>
+    <p><a class=external href="https://www.perl.org/">[The Perl Programming Language - 
+      www.perl.org]</a>
+    <p><a class=external
+     href=https://cacm.acm.org/magazines/2018/3/225475-a-programmable-programming-language/fulltext>
+      [A Programmable Programming Language | March 2018 | Communications of the AC]</a>
+    <p><a class=external href=https://github.com/glaretechnologies/winter>
+      [glaretechnologies/winter: High-performance functional programming language]</a>
+    <p><a class=external href=https://www.cs.princeton.edu/research/techreps/TR-554-97>
+      [The Zephyr Abstract Syntax Description Language | Computer Science Departme]</a>
+    <p><a class=external href="https://dhall-lang.org/">[The Dhall configuration 
+      language]</a>
+    <p><a class=external
+     href=https://docs.dhall-lang.org/howtos/How-to-integrate-Dhall.html>[How to 
+      integrate Dhall — Dhall documentation]</a>
+    <p><a class=external href="https://youtube.com/watch?v=RBBiri3CD6w&amp;amp;t=114">
+      [Coding in Stenography, Quick Demo]</a>
+    <p><a class=external href=https://ieeexplore.ieee.org/abstract/document/8816077>
+      [training passive motor skills for stenography]</a>
+    <p><a class=external href="https://journal.jackmcdade.com/">[a personal site that 
+      looks like an old BIOS!]</a>
+    <p><a class=external href=https://github.com/callum-oakley/gotta-go-fast>[train on 
+      the command line]</a>
+    <p><span> </span><a class=external
+     href="https://en.wikipedia.org/wiki/Pitman_shorthand?utm_source=hillelwayne&amp;utm_medium=email">
+      [Pitman shorthand - Wikipedia]</a>
+    <section>
+     <h3>TODO [[https://colemak.com/Multilingual#Swedish_.28Svenska.29][Multilingual - 
+      Colemak]]</h3>
+     <p><span>Captured On: [2020-10-19 Mon 10:47]</span>
+     <p><a class=external
+      href="https://stevelosh.com/blog/2012/10/a-modern-space-cadet/">
+       [https://stevelosh.com/blog/2012/10/a-modern-space-cadet/]</a>
+     <p><a class=external href="https://xsznix.wordpress.com/">
+       [https://xsznix.wordpress.com/]</a>
+     <p><a class=external href=https://drewdevault.com/editing>[videos of people 
+       editing text]</a>
+     <p><a class=external href=https://github.com/shapr/markovkeyboard>
+       [https://github.com/shapr/markovkeyboard]</a><span>keyboard that changes by 
+       markov freuqnecy</span>
+     <p><a class=external href="https://kevinlynagh.com/rust-zig/">
+       [https://kevinlynagh.com/rust-zig/]</a><span>: keyboard firmware in rust and 
+       zig! and a keyboard with it: </span><a class=external
+      href="https://www.reddit.com/r/MechanicalKeyboards/comments/eaufzh/every_pieces_are_precious/">
+       [https://www.reddit.com/r/MechanicalKeyboards/comments/eaufzh/every_pieces_are_precious/]
+       </a>
+    </section>
+   </section>
+   <section>
+    <h2>IDEA: configuration has two types of keymappings.</h2>
+    <p><span>one is relative to the</span>
+    <p><span>location on the keyboard, while another is relative to the letter. i like</span>
+    <p><span>mixing both of these. there should be some system for allowing me to 
+      easily</span>
+    <p><span>do the former?</span>
+    <p><span>TODO: break this down into more specific topics!</span>
+    <p><a class=external href=https://blog.plover.com/book/free-hop.html>
+      [https://blog.plover.com/book/free-hop.html]</a><span>why i make the book 
+      available for free</span>
+   </section>
+  </main>
+ </body>
+</html>

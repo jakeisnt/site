@@ -1,0 +1,255 @@
+<html lang=en>
+ <head>
+  <meta charset=UTF-8>
+  <title>Compilers | Jake Chvatal</title>
+  <link rel=stylesheet
+        href=/home/jake/site/docs/style.css>
+  <link rel=stylesheet
+        href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
+  <script
+          src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
+  <script>hljs.highlightAll();</script>
+ </head>
+ <body>
+  <main>
+   <div class=sidebar>
+    <a href=/home/jake/site/docs//index.html> ~ </a><span> / </span><a
+    href=/home/jake/site/docs/pages/index.html>pages</a><span> / </span><a
+    href=/home/jake/site/docs/pages/compilers.html>compilers</a>
+   </div>
+   <h1 class=title-top>Compilers</h1>
+   <p><span>Compilers translate one language to another.</span>
+   <p><span>They&#39;re most commonly used to translate higher level languages like C 
+     to lower level languages like Assembly.</span>
+   <section>
+    <h2>To Review</h2>
+    <p><a class=external href="https://www.cs.cornell.edu/courses/cs6120/2019fa/">[CS 
+      6120]</a><span> :: advanced compilers course</span>
+    <p><a class=external href="https://o1o.ch/about/">[https://o1o.ch/about/]</a>
+     <span>interesting compilers work in R</span>
+    <ul>
+     <li><span> </span><a class=external
+      href="https://news.ycombinator.com/item?id=23175280">[explore compiler ir]</a>
+    </ul>
+    <ul>
+     <li><span> </span><a class=external
+      href="https://www.reddit.com/r/Compilers/comments/bg1g2w/interesting_topics_for_study_at_university/">
+       [cool topics to study]</a>
+    </ul>
+    <p><span> - alternative ir structures</span>
+    <p><span> - gradual typing</span>
+    <p><span> - different type systems! (tapl)</span>
+    <p><a class=external
+     href=https://skillsmatter.com/skillscasts/14803-what-s-in-a-functional-compiler>
+      [https://skillsmatter.com/skillscasts/14803-what-s-in-a-functional-compiler]</a>
+     <span>what&#39;s in a functional compiler? talk</span>
+    <p><a class=external href=https://dl.acm.org/doi/abs/10.1145/512927.512941>
+      [https://dl.acm.org/doi/abs/10.1145/512927.512941]</a><span>first work on 
+      verifying and structuring compilers</span>
+    <p><a class=external href="https://hassamuddin.com/blog/reg-alloc/">
+      [https://hassamuddin.com/blog/reg-alloc/]</a><span>overview of register 
+      allocation</span>
+    <p><a class=external
+     href="https://groups.google.com/g/comp.arch/c/UXEi7G6WHuU/m/Z2z7fC7Xhr8J?pli=1">
+      [https://groups.google.com/g/comp.arch/c/UXEi7G6WHuU/m/Z2z7fC7Xhr8J?pli=1]</a>
+     <span>popcount: the NSA instruction</span>
+    <p><a class=external href="https://vaibhavsagar.com/blog/2019/09/08/popcount/">
+      [https://vaibhavsagar.com/blog/2019/09/08/popcount/]</a><span>more on popcount</span>
+    <p><a class=external
+     href="https://oswalt.dev/2020/11/anatomy-of-a-binary-executable/">
+      [https://oswalt.dev/2020/11/anatomy-of-a-binary-executable/]</a><span>cool 
+      article about whats inside a binary executable</span>
+    <p><a class=external href="https://m.youtube.com/watch?v=yP29TKmK3_o">[secure 
+      compilation from amal]</a>
+    <p><a class=external
+     href="https://chrisseaton.com/truffleruby/basic-truffle-graphs/">[truffle 
+      compiler graphs for real programming languages]</a>
+    <p><a class=external
+     href="https://www.youtube.com/watch?v=BRNxM8szTPA&amp;list=PLJq3XDLIJkib2h2fObomdFRZrQeJg4UIW">
+      [https://www.youtube.com/watch?v=BRNxM8szTPA&amp;list=PLJq3XDLIJkib2h2fObomdFRZrQeJg4UIW]
+      </a><span>some time on v8 and wasm, from compilers guy</span>
+    <p><a class=external href=https://dl.acm.org/doi/abs/10.1145/2980983.2908106>[idle 
+      time garbage collection]</a>
+    <p><a class=external
+     href=https://docs.google.com/document/d/10CbqmRs-i8Jy0IE3ToEP25_FD8gj2kEHvfd3N0icN3g/preview>
+      [in-place field representation]</a><span> motivation and examples</span>
+    <p><a class=external href=https://v8.dev/blog/react-cliff>
+      [https://v8.dev/blog/react-cliff]</a><span>vy performance cliff in react</span>
+   </section>
+   <section>
+    <h2>HOPL</h2>
+    <p><span>Great resource for learning about the history of programming languages 
+      research, by definition.</span>
+    <p><a class=external href=https://dl.acm.org/doi/10.1145/1238844.1238853>
+      [https://dl.acm.org/doi/10.1145/1238844.1238853]</a>
+    <p><a class=external href=https://tlbh.it/index.html>[https://tlbh.it/index.html]</a>
+     <span>fun podcast about compilers</span>
+   </section>
+   <section>
+    <h2>pattern matching</h2>
+    <p><a class=external
+     href="https://www.reddit.com/r/ProgrammingLanguages/comments/g1vno3/beginner_resources_for_compiling_pattern_matching/">
+      [https://www.reddit.com/r/ProgrammingLanguages/comments/g1vno3/beginner_resources_for_compiling_pattern_matching/]
+      </a>
+    <p><a class=external
+     href="https://www.reddit.com/r/ProgrammingLanguages/comments/f4gfum/pattern_matching_in_your_language/">
+      [https://www.reddit.com/r/ProgrammingLanguages/comments/f4gfum/pattern_matching_in_your_language/]
+      </a>
+    <p><a class=external href=http://cone.jondgoodwin.com/coneref/refmatch.html>
+      [http://cone.jondgoodwin.com/coneref/refmatch.html]</a>
+    <p><a class=external href=https://www.edx.org/course/compilers>
+      [https://www.edx.org/course/compilers]</a>
+    <p><a class=external
+     href=http://web.eecs.utk.edu/~azh/blog/teenytinycompiler1.html>
+      [http://web.eecs.utk.edu/~azh/blog/teenytinycompiler1.html]</a><span>cool 
+      project for a tiny compiler in python!</span>
+    <p><a class=external
+     href=https://reddit.com/r/Compilers/comments/hufog0/object_lifetimes_how_can_a_compiler_determine>
+      [Object Lifetimes - how can a compiler determine when to call the destructor of 
+      an object returned from a function?]</a>
+    <p><a class=external href="http://number-none.com/blow/">[jon blow, game dev and 
+      compiler guy]</a>
+    <p><a class=external href="http://homes.sice.indiana.edu/samth/">
+      [http://homes.sice.indiana.edu/samth/]</a><span>-- sam tobin something, student 
+      of matthias</span>
+    <p><a class=external
+     href="https://www.reddit.com/r/ProgrammingLanguages/comments/9bft4d/do_you_know_of_compilerish_job_opportunities_for/">
+      [https://www.reddit.com/r/ProgrammingLanguages/comments/9bft4d/do_you_know_of_compilerish_job_opportunities_for/]
+      </a>
+    <p><a class=external href=https://github.com/rmccullagh/letsbuildacompiler>[lets 
+      build a compiler book]</a>
+    <p><a class=external href=https://en.m.wikipedia.org/wiki/Duff%27s_device>
+      [compiler neat thing]</a>
+    <p><a class=external
+     href="https://www.youtube.com/watch?v=de8Ak0nY1hA&amp;app=desktop">[improving 
+      compiler correctness using formal methods]</a>
+    <p><a class=external href="http://bootstrappable.org/">
+      [http://bootstrappable.org/]</a><span>on trusting trust. ken thompson talk 
+      linked at the bottom is great, as are the other articles. great compilers 
+      literature</span>
+    <p><a class=external href="https://www.cs.cmu.edu/~janh/courses/411/16/">
+      [https://www.cs.cmu.edu/~janh/courses/411/16/]</a><span>compiler design course 
+      at cmu.</span>
+    <p><a class=external
+     href=https://gist.github.com/cellularmitosis/1f55f9679f064bcff02905acb44ca510#simple-compiler-codebases-to-study>
+      [https://gist.github.com/cellularmitosis/1f55f9679f064bcff02905acb44ca510#simple-compiler-codebases-to-study]
+      </a>
+    <p><a class=external href="https://zserge.com/posts/jvm/">
+      [https://zserge.com/posts/jvm/]</a><span>how to write a toy jvm -- try this and 
+      put it on github! fun small thing to mess around with. add more to it, add new 
+      things, mess aroundand have fun! supposedly good material</span>
+    <p><a class=external href=https://github.com/seanbaxter/circle>[he compiler is 
+      available for download. Get it!]</a>
+    <p><a class=external href=https://github.com/lampepfl/dotty>[research compiler 
+      that will become Scala 3]</a><span> </span><a class=external
+     href=https://github.com/aditya-grover/node2vec>
+      [https://github.com/aditya-grover/node2vec]</a>
+    <p><a class=external href=https://github.com/barak/stalin>[&quot;stalin brutally 
+      optimizing Scheme compiler, with Debianization patches&quot;]</a>
+    <p><a class=external href=https://github.com/plasma-umass/Stopify>[ JS-to-JS 
+      compiler that makes it easier to build Web IDEs and compile to JS.]</a>
+    <p><a class=external href=https://github.com/adam-mcdaniel/free>[n esoteric 
+      programming language with an unusual compiler backend]</a>
+    <p><a class=external href=https://github.com/xoreaxeaxeax/movfuscator>[he single 
+      instruction C compiler]</a>
+    <p><a class=external href=https://github.com/aalhour/awesome-compilers>
+      [&quot;:sunglasses: Curated list of awesome resources on Compilers, Interpreters 
+      and Runtimes&quot;]</a>
+    <p><a class=external
+     href="https://www.reddit.com/r/ProgrammingLanguages/comments/i1s8m0/functional_programming_and_reference_counting/">
+      [https://www.reddit.com/r/ProgrammingLanguages/comments/i1s8m0/functional_programming_and_reference_counting/]
+      </a>
+    <p><a class=external href=https://github.com/nanocaml/nanocaml>
+      [https://github.com/nanocaml/nanocaml]</a>
+    <p><a class=external href=https://github.com/doctorn/micro-mitten>
+      [https://github.com/doctorn/micro-mitten]</a>
+    <p><a class=external href="https://ucsd-cse131-f19.github.io/">[Compiler 
+      Construction – CSE 131 F19]</a>
+    <p><a class=external
+     href="https://www.reddit.com/r/ProgrammingLanguages/comments/hvs79e/tracing_jit_vs_method_jit_what_to_choose/">
+      [Tracing JIT vs Method JIT: What to choose? - ProgrammingLanguages]</a>
+    <p><a class=external href=https://technomancy.us/192>[in which a compiler takes 
+      steps towards strapping its boots - Technomancy]</a>
+    <p><a class=external href=https://www.edx.org/course/compilers>[Compilers | edX]</a>
+    <p><a class=external href="http://craftinginterpreters.com/">[Crafting 
+      Interpreters]</a>
+    <p><a class=external href=https://github.com/barak/stalin>[barak/stalin: stalin 
+      brutally optimizing Scheme compiler, with Debianizatio]</a>
+    <p><a class=external
+     href="https://www.reddit.com/r/Compilers/comments/hufog0/object_lifetimes_how_can_a_compiler_determine/">
+      [Object Lifetimes - how can a compiler determine when to call the destructor]</a>
+    <p><a class=external
+     href="https://m.youtube.com/watch?feature=emb_title&amp;amp;v=hTWmU9IJBSI">
+      [Console #9: An Intro to Compilers - YouTube]</a>
+    <p><a class=external href=https://dl.acm.org/doi/abs/10.1145/512927.512941>[Advice 
+      on structuring compilers and proving them correct | Proceedings of t]</a>
+    <p><a class=external
+     href=https://skillsmatter.com/skillscasts/14803-what-s-in-a-functional-compiler>
+      [What&amp;#039;s in a Functional Compiler? | SkillsCast | 30th July 2020]</a>
+    <p><a class=external
+     href=https://mobile.twitter.com/wilbowma/status/1314723979693682688>[William J. 
+      Bowman @wilbowma@mastodon.social on Twitter: &amp;quot;I generated language 
+      validators from my compiler course assignment specifications, turned them into 
+      contracts for my reference solution, and it&amp;#39;s just finding bug after bug 
+      after bug. Bugs in specs, bugs in tests, bugs in implementation.&amp;quot; / 
+      Twitter]</a>
+    <p><a class=external
+     href="http://blog.ezyang.com/2011/06/debugging-compilers-with-optimization-fuel/">
+      [Debugging compilers with optimization fuel : Inside 245-5D]</a>
+    <p><a class=external
+     href="https://generalproblem.net/lets_build_a_compiler/01-starting-out/">[The 
+      General Problem]</a>
+    <p><a class=external href="https://hassamuddin.com/blog/reg-alloc/">[A Quick 
+      Introduction to Register Allocation — Hassam Uddin | Developer]</a>
+    <p><a class=external
+     href="https://www.reddit.com/r/ProgrammingLanguages/comments/i1s8m0/functional_programming_and_reference_counting/">
+      [Functional Programming and Reference Counting - ProgrammingLanguages]</a>
+    <p><a class=external
+     href=https://gist.github.com/cellularmitosis/1f55f9679f064bcff02905acb44ca510#tutorials>
+      [lots of compilers resources]</a>
+    <p><a class=external href=http://worrydream.com/#!/LearnableProgramming>
+      [http://worrydream.com/#!/LearnableProgramming]</a><span>designing a programming 
+      system for understanding programs</span>
+    <p><a class=external href=https://catalog.princeton.edu/catalog/SCSB-8534958>
+      [compiling with continuations]</a><span> </span><a class=internal
+     href=id:d3e5c5d4-3899-457b-9ebe-3e7b9d984aa1>{Books}</a>
+    <p><a class=external
+     href="https://generalproblem.net/lets_build_a_compiler/01-starting-out/">
+      [let&#39;s build a compiler]</a><span> from noah zentzis, someone i talked to at 
+      intel.</span>
+    <p><a class=external
+     href="https://www.youtube.com/watch?v=WBWRkUuyuE0&amp;app=desktop">[an 
+      incremental approach to compiler construction]</a>
+    <p><a class=external
+     href="https://www.youtube.com/watch?v=I5UjfaDRFq0&amp;app=desktop">
+      [https://www.youtube.com/watch?v=I5UjfaDRFq0&amp;app=desktop]</a><span>intro to 
+      ecstacy programming language</span>
+    <p><a class=external
+     href="https://blog.trailofbits.com/2020/05/22/emerging-talent-winternship-2020-highlights/">
+      [https://blog.trailofbits.com/2020/05/22/emerging-talent-winternship-2020-highlights/]
+      </a>
+    <p><span> </span><a class=external
+     href="https://www.microsoft.com/en-us/research/publication/implementing-functional-languages-a-tutorial/">
+      [Implementing functional languages: a tutorial - Microsoft Research]</a>
+    <p><span> </span><a class=external
+     href="https://crypto.stanford.edu/~blynn/compiler/">[Compilers - Compilers for 
+      contrarians]</a>
+    <p><a class=external href=https://nicoleorchard.com/blog/compilers>
+      [https://nicoleorchard.com/blog/compilers]</a>
+    <p><a class=external
+     href=https://en.wikipedia.org/wiki/Uniform_Function_Call_Syntax>
+      [https://en.wikipedia.org/wiki/Uniform_Function_Call_Syntax]</a><span>any 
+      function can be called using method calls as well</span>
+    <p><a class=external
+     href=https://mobile.twitter.com/johnregehr/status/1290337031411777537>
+      [https://mobile.twitter.com/johnregehr/status/1290337031411777537]</a><span>fun 
+      ideas for compiler optimization</span>
+    <p><a class=external href="https://cs.au.dk/~amoeller/spa/">
+      [https://cs.au.dk/~amoeller/spa/]</a><span>static program analysis course!</span>
+    <p><a class=external
+     href="http://dmitrysoshnikov.com/courses/essentials-of-garbage-collectors/">
+      [essentials of gc]</a>
+   </section>
+  </main>
+ </body>
+</html>

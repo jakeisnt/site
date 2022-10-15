@@ -1,0 +1,98 @@
+<html lang=en>
+ <head>
+  <meta charset=UTF-8>
+  <title>Clojure | Jake Chvatal</title>
+  <link rel=stylesheet
+        href=/home/jake/site/docs/style.css>
+  <link rel=stylesheet
+        href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
+  <script
+          src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
+  <script>hljs.highlightAll();</script>
+ </head>
+ <body>
+  <main>
+   <div class=sidebar>
+    <a href=/home/jake/site/docs//index.html> ~ </a><span> / </span><a
+    href=/home/jake/site/docs/pages/index.html>pages</a><span> / </span><a
+    href=/home/jake/site/docs/pages/clojure.html>clojure</a>
+   </div>
+   <h1 class=title-top>Clojure</h1>
+   <p><span>Clojure is a fascinating Java-based lisp ecosystem. It&#39;s well 
+     supported on several platforms thanks to Clojurescript and is probably the best 
+     Lisp for production today! I&#39;ve been using it extensively - it&#39;s my 
+     favorits browser-based programming language.</span>
+   <section>
+    <h2>Libraries</h2>
+    <ul>
+     <li><span> </span><a class=external href=https://github.com/davidsantiago/hickory>
+       [hickory]</a><span> :: parse html into clojure data structures</span>
+    </ul>
+    <ul>
+     <li><span> </span><a class=external href=https://github.com/tonsky/tongue>[tongue]</a>
+      <span> :: i18n</span>
+    </ul>
+    <ul>
+     <li><span> </span><a class=external href=https://github.com/borkdude/sci>[sci]</a>
+      <span> :: builtin clojure interpreter for scripting and DSLs</span>
+    </ul>
+    <ul>
+     <li><span> </span><a class=external href=https://github.com/plumatic/dommy>[dommy]</a>
+      <span> :: clojurescript DOM manipulation library</span>
+    </ul>
+    <ul>
+     <li><span> </span><a class=external href=https://github.com/weavejester/medley>
+       [medley]</a><span> :: useful, pure functions missing from clojure.core</span>
+    </ul>
+    <ul>
+     <li><span> </span><a class=external href=https://github.com/tonsky/datascript>
+       [datascript]</a><span> :: an immutable in-memory database and datalog query 
+       engine running in the browser</span>
+    </ul>
+    <ul>
+     <li><span> </span><a class=external href=https://github.com/tonsky/rum>[rum]</a>
+      <span> :: client server library for html ui in clojurescript. works as a React 
+       wrapper</span>
+    </ul>
+    <ul>
+     <li><span> </span><a class=external href=https://github.com/dakrone/cheshire>
+       [cheshire]</a><span> :: fast JSON encoding in clojure.</span>
+    </ul>
+    <p><a class=external href=https://github.com/onetom/clj-figwheel-main-devcards>
+      [https://github.com/onetom/clj-figwheel-main-devcards]</a><span>setting up nix 
+      with clojure, figwheel and devcards ui</span>
+   </section>
+   <section>
+    <h2>Frameworks</h2>
+    <section>
+     <h3>Fulcro</h3>
+     <p><span>Passing functions between front-end and backend is cool, so is convenient 
+       integration with many of the databases - but treating the site as a monolithic 
+       interface from which data can be queried feels so different from React&#39;s 
+       mindset of avoiding global state and exposing the minimum amount of data 
+       necessary for the system to function as a whole.</span>
+     <p><span>I really like the shadow-cljs approach and think NodeJS is more fun than 
+       working with Java on the backend (despite whatever potential performance caveats 
+       may come from that) but it&#39;s unclear whether the monolithic query approach - 
+       one that partially but doesn&#39;t completely obfuscate the network connection - 
+       is net beneficial or just confusing for the end user.</span>
+    </section>
+    <section>
+     <h3>Luminus</h3>
+     <p><a class=external href=https://luminusweb.com/docs/guestbook>
+       [https://luminusweb.com/docs/guestbook]</a>
+    </section>
+    <section>
+     <h3>Reagent</h3>
+     <p><span>This is much easier to use than Rum, but has caveats: it doesn&#39;t have 
+       any mixins and uses its own implementation of atoms rather than falling back to 
+       React&#39;s lifecycle/hooks APIs or Clojurescript&#39;s. This makes it easier to 
+       use and more of a &#39;framework&#39; - all of your code happens inside of the 
+       Reagent component ecosystem, unlike Rum - but is a bit harder to get creative 
+       with and doesn&#39;t feel like it&#39;s in the spirit of Lisp&#39;s easily 
+       composable libraries.</span>
+    </section>
+   </section>
+  </main>
+ </body>
+</html>
