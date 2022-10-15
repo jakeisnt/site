@@ -150,4 +150,4 @@
                     collect
                     (let ((name (pathname-name target-path)))
                       (spinneret::with-html
-                        (:a :id (concatenate 'string "indexmenu-" name) :href target-path name ))))))))))
+                        (:a :id (concatenate 'string "indexmenu-" name) :href (path::remove-root target-path root) name))))))))))
