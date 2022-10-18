@@ -15,8 +15,12 @@
         ,(hunchentoot:create-folder-dispatcher-and-handler
           "/" "docs/")))
 
-(sb-ext:run-program
- "/usr/bin/env"
- (list "bash" "-c" "firefox http://localhost:4242/index.html")
- :input nil
- :output *standard-output*)
+(defun open-site ()
+  "Open a locally hosted dev env for my website."
+  (sb-ext:run-program
+   "/usr/bin/env"
+   (list "bash" "-c" "firefox http://localhost:4242/index.html")
+   :input nil
+   :output *standard-output*))
+
+(open-site)
