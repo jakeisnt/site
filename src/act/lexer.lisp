@@ -1,7 +1,3 @@
-(load "~/quicklisp/setup.lisp")
-(load "~/site/src/act/help.lisp")
-
-(ql:quickload :cl-ppcre)
 
 ;; An AST that represents conversations.
 (defpackage act-ast
@@ -33,6 +29,11 @@
   (:use :cl :cl-ppcre :parse-help))
 
 (in-package act-parser)
+
+(load "~/quicklisp/setup.lisp")
+(load "~/site/src/act/help.lisp")
+
+(ql:quickload :cl-ppcre)
 
 ;; Read a line.
 ;; If we see a `-`, ignore the line.
@@ -71,3 +72,6 @@
      ((can-split-on #\: line) (parse-message line))
      ((can-split-on #\= line) :ignore) ;; (parse-alias stream)
      (t :ignore))))
+
+;; (defpackage act-html
+;;   (:use ))
