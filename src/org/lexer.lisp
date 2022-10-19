@@ -1,7 +1,7 @@
 (load "~/quicklisp/setup.lisp")
 
-(load "./src/util.lisp")
-(load "./src/org/ast.lisp")
+(load "~/site/src/util.lisp")
+(load "~/site/src/org/ast.lisp")
 
 (ql:quickload :string-case)
 (ql:quickload :cl-ppcre)
@@ -114,6 +114,7 @@
   (let ((cmd (take-until stream #\space)))
     (string-case (cmd)
       ("+TITLE:"    (parse-title stream))
+      ("+title:"    (parse-title stream))
       ("+BEGIN_SRC" (parse-code-block stream t))
       ("+begin_src" (parse-code-block stream nil))
       (t "Not sure what this macro is"))))

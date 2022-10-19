@@ -1,7 +1,7 @@
 (load "~/quicklisp/setup.lisp")
-(load "./src/org/ast.lisp")
-(load "./src/util.lisp")
-(load "./src/components.lisp")
+(load "~/site/src/org/ast.lisp")
+(load "~/site/src/util.lisp")
+(load "~/site/src/components.lisp")
 
 (ql:quickload :spinneret)
 (ql:quickload 'css-lite)
@@ -146,6 +146,8 @@
         (:div :class "url-cage"
               (loop for (src-path target-path fdata) in flist
                     collect
-                    (let ((name (pathname-name target-path)))
+                    (let ((name (or
+                                 (ast::file-title fdata)
+                                 (pathname-name target-path))))
                       (spinneret::with-html
                         (:a :id (concatenate 'string "indexmenu-" name) :href (path::remove-root target-path root) name))))))))))

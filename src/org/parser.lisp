@@ -1,6 +1,6 @@
 (load "~/quicklisp/setup.lisp")
-(load "./src/org/ast.lisp")
-(load "./src/org/lexer.lisp")
+(load "~/site/src/org/ast.lisp")
+(load "~/site/src/org/lexer.lisp")
 
 (ql:quickload :string-case)
 (ql:quickload :cl-ppcre)

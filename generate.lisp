@@ -1,8 +1,8 @@
 (load "~/quicklisp/setup.lisp")
-(load "./src/util.lisp")
-(load "./src/html.lisp")
-(load "./src/path.lisp")
-(load "./src/org/parser.lisp")
+(load "~/site/src/util.lisp")
+(load "~/site/src/html.lisp")
+(load "~/site/src/path.lisp")
+(load "~/site/src/org/parser.lisp")
 
 (defparameter *site-location*  "/home/jake/site/docs/")
 (defparameter *site-url* "/home/jake/site/docs/")
