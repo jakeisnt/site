@@ -5,11 +5,6 @@
 
 (in-package act-ast)
 
-;; A name alias, for brevity
-;; NOTE: This may not be needed.
-;; It might be best to handle during parsing.
-;; (defstruct alias nick name)
-
 ;; A single message from a person
 (defstruct message author text)
 
@@ -20,6 +15,9 @@
 
 ;; An italicised section: /ital/.
 (defstruct ital text)
+
+;; An unstructured body text portion.
+(defstruct body text)
 
 ;; A name alias in the body. TODO. Some cool ideas here.
 (defstruct alias name)
@@ -47,22 +45,44 @@
   "Parse context as a line."
   (act-ast::make-context :text (subseq line 1 (- (length line) 1))))
 
+(defun parse-message-body-help (body-stream currently-ital)
+  "
+   Parse the body of a message, looking for character emphasis.
+   Assumes it finds.
+  "
+  (let* ((red-line (parse-help::take-until-char body-stream #\/))
+         (is-eof (equal (car red-line) :eof))
+         (next-node (cdr red-line)))
+    (cons (if currently-ital
+              (act-ast::make-ital :text next-node)
+              (act-ast::make-body :text next-node))
+          (if is-eof
+              nil
+              (parse-message-body-help body-stream (not currently-ital))))))
+
+(defun parse-message-body (body-text)
+  "Parse the message body."
+  (let* ((body-stream (make-string-input-stream body-text))
+        (res (parse-message-body-help body-stream nil)))
+    (print res)
+    res))
+
 (defun parse-message (line)
   "Parse a message as a line."
   (let ((line-parts (split ": " line :limit 2)))
-    (print line-parts)
-    (act-ast::make-message :author (car line-parts) :text (cadr line-parts))))
+    (act-ast::make-message
+     :author (car line-parts)
+     :text (parse-message-body (cadr line-parts)))))
 
 (defmacro match-line (recur stream cnd)
   "Abstract out the practice of matching on a line and looking for something."
   `(let ((line (parse-help::safe-read-line stream)))
      (print line)
-     (if (parse-help::is-eof line)
+     (if (eq :eof line)
          nil
          (let ((readline-res ,cnd))
-           (print readline-res)
            (if (eq readline-res :ignore)
-                (funcall ,recur ,stream)
+               (funcall ,recur ,stream)
                (cons readline-res (funcall ,recur ,stream)))))))
 
 (defun parse (stream)
@@ -91,6 +111,13 @@
 
 (ql:quickload :cl-ppcre)
 
+(defun render-message-text (txt)
+  (loop for item in txt
+        collect (spinneret::with-html
+                    (cond
+                      ((act-ast::ital-p item) (:i (act-ast::ital-text item)))
+                      ((act-ast::body-p item) (:span (act-ast::body-text item)))))))
+
 (defun render-node (node)
   (spinneret::with-html
     (cond
@@ -100,8 +127,7 @@
                 'string
                 "message "
                 (if (equal (act-ast::message-author node) "C") "a" "b"))
-        ;; (:p :class "message-author" (act-ast::message-author node))
-        (:p :class "message-text"   (act-ast::message-text node))))
+        (:p :class "message-text" (render-message-text (act-ast::message-text node)))))
       ((act-ast::context-p node)
        (:p
         :class "context"
