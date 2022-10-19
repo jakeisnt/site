@@ -19,6 +19,7 @@
      :lang "en-us"
      (:head
       (:title (concatenate 'string (or ,title "?") " | Jake Chvatal"))
+      (:meta :name "viewport" :content "width=device-width,initial-scale=1.0")
       (:link :rel "stylesheet" :href "/style.css")
       (:link :rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css")
       (:script :src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js")
