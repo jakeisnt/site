@@ -1,3 +1,9 @@
+;; This file is a compiler for an acting script
+;; text-based format (found at the specified location
+;; in the wiki below, with the hardcoded rendering logic)
+;; to a view of the script as a fake text conversation
+;; as an independent HTML page.
+
 
 ;; An AST that represents conversations.
 (defpackage act-ast
