@@ -77,14 +77,48 @@
      ((parse-help::can-split-on #\= line) :ignore) ;; (parse-alias stream)
      (t :ignore))))
 
+;; HTML serializer for the 'act' language
+
+(load "~/site/src/html.lisp")
+(load "~/site/src/util.lisp")
 
 (ql:quickload :spinneret)
 
 (defpackage act-html
   (:use :cl))
 
-(in-package act-parser)
+(in-package act-html)
 
 (ql:quickload :cl-ppcre)
 
-;; (with-open-file (stream "~/script.act" :direction :input) (act-parser::parse stream))
+(defun render-node (node)
+  (spinneret::with-html
+    (cond
+      ((act-ast::message-p node)
+       (:blockquote
+        :class (concatenate
+                'string
+                "message "
+                (if (equal (act-ast::message-author node) "C") "a" "b"))
+        ;; (:p :class "message-author" (act-ast::message-author node))
+        (:p :class "message-text"   (act-ast::message-text node))))
+      ((act-ast::context-p node)
+       (:p
+        :class "context"
+        (act-ast::context-text node))))))
+
+(defun conversation-page (astlist)
+  (htmx::body
+   "Conversation"
+   (:article
+    :class "conversation"
+    (loop for node in astlist
+          collect (render-node node)))))
+
+(defun render-script ()
+  (with-open-file (stream "~/script.act" :direction :input)
+    (util::write-file
+     "/home/jake/site/docs/script.html"
+     (conversation-page (act-parser::parse stream)))))
+
+;; (act-html::render-script)

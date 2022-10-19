@@ -112,8 +112,7 @@
 ;; macro: https://github.com/ruricolist/spinneret
 (defun render-file (fdata path root)
   "Render a file struct as an html page"
-  (let* ((title (ast::file-title fdata))
-         (f-body (ast::file-body fdata)))
+  (let* ((title (ast::file-title fdata)) (f-body (ast::file-body fdata)))
     (body
      title
      (list
