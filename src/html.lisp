@@ -12,7 +12,7 @@
 
 (in-package htmx)
 
-(defmacro body (root title contents)
+(defmacro body (title contents)
   "The body of every HTML page."
   `(spinneret::with-html-string
     (:html
@@ -112,10 +112,8 @@
 ;; macro: https://github.com/ruricolist/spinneret
 (defun render-file (fdata path root)
   "Render a file struct as an html page"
-  (let* ((title (ast::file-title fdata))
-         (f-body (ast::file-body fdata)))
+  (let* ((title (ast::file-title fdata)) (f-body (ast::file-body fdata)))
     (body
-     root
      title
      (list
       (components::sidebar path root)
@@ -140,7 +138,6 @@
         (title (concatenate 'string dirname "/index")))
 
     (body
-     root
      title
      (list
       (components::sidebar path root)

@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 html {
-  font-size: 16px;
+  font-size: 14px;
   font-family: "Noto Sans", sans-serif;
   word-wrap: break-word;
   hyphens: auto;
@@ -12,6 +12,12 @@ body {
   max-width: 26rem;
   margin: 0;
   padding: 0rem 4rem;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    max-width: 100%;
+  }
 }
 
 main {
@@ -82,4 +88,51 @@ h1 {
   padding: 1rem;
   margin-left: -1rem;
   border-radius: 5px;
+}
+
+/* For conversations. */
+
+.conversation > .message  {
+  border-radius: 16px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: 0.375rem;
+  padding-bottom: 0.5rem;
+  max-width: 18rem;
+  width: fit-content;
+}
+
+/* Message A is the one on the left. */
+.conversation > .message.a {
+  margin-left: 0;
+  color: black;
+  background-color: #E8E9EA;
+}
+
+/* Message B is the one on the right. */
+.conversation > .message.b {
+  margin-right: 0;
+  margin-left: auto;
+  background-color: #43CC47;
+  color: white;
+}
+
+.conversation > .message > .message-author {
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+  display: none;
+}
+
+.conversation > .message > .message-text {
+  padding: 0;
+  margin: 0;
+}
+
+.conversation > .context {
+  color: gray;
+  text-align: center;
+  max-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
 }
