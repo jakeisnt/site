@@ -39,10 +39,7 @@
   (vector-push-extend c str))
 
 (defun take-until (stream end-on)
-  "Take until we get a specific char or string;
-   if we find it, return ('found str);
-   if we don't, return ('missing str)
-  "
+  "Take until we get a specific char or string"
   (if (stringp end-on)
       (take-until-string stream end-on)
       (take-until-char stream end-on)))

@@ -24,14 +24,15 @@
 ;; A name alias in the body. TODO. Some cool ideas here.
 (defstruct alias name)
 
+
+(load "~/quicklisp/setup.lisp")
+(load "~/site/src/act/help.lisp")
+
 ;; A parser for `.act` files.
 (defpackage act-parser
   (:use :cl :cl-ppcre :parse-help))
 
 (in-package act-parser)
-
-(load "~/quicklisp/setup.lisp")
-(load "~/site/src/act/help.lisp")
 
 (ql:quickload :cl-ppcre)
 
@@ -44,21 +45,23 @@
 
 (defun parse-context (line)
   "Parse context as a line."
-  (make-context :text (subseq line 1 (- (length line) 1))))
+  (act-ast::make-context :text (subseq line 1 (- (length line) 1))))
 
 (defun parse-message (line)
   "Parse a message as a line."
   (let ((line-parts (split ": " line :limit 2)))
-    (make-message (car line-parts) (cadr line-parts))))
+    (act-ast::make-message (car line-parts) (cadr line-parts))))
 
 (defmacro match-line (recur stream cnd)
   "Abstract out the practice of matching on a line and looking for something."
-  `(let ((line (safe-read-line stream)))
-     (if (is-eof line)
-         ()
+  `(let ((line (parse-help::safe-read-line stream)))
+     (print line)
+     (if (parse-help::is-eof line)
+         nil
          (let ((readline-res ,cnd))
+           (print readline-res)
            (if (eq readline-res :ignore)
-               (funcall ,recur ,stream)
+                (funcall ,recur ,stream)
                (cons readline-res (funcall ,recur ,stream)))))))
 
 (defun parse (stream)
@@ -67,11 +70,10 @@
    #'parse
    stream
    (cond
-     ((starts-with  #\- line) :ignore)
-     ((starts-with  #\( line) (parse-context line))
-     ((can-split-on #\: line) (parse-message line))
-     ((can-split-on #\= line) :ignore) ;; (parse-alias stream)
-     (t :ignore))))
-
-;; (defpackage act-html
-;;   (:use ))
+     ((parse-help::starts-with  #\- line) :ignore)
+     ((parse-help::starts-with  #\( line) (parse-context line))
+     ((parse-help::can-split-on #\: line) (parse-message line))
+     ((parse-help::can-split-on #\= line) :ignore) ;; (parse-alias stream)
+     (t
+      (print "not matching any case, ignoring")
+      :ignore))))

@@ -7,6 +7,8 @@
 (defpackage parse-help
   (:use :cl :string-case :cl-ppcre))
 
+(in-package :parse-help)
+
 (defun take-until-char (stream end-on)
   "take from a stream until a particular character is received
    taken from another file"
@@ -32,16 +34,22 @@
   "Push a character to an adjustable string."
   (vector-push-extend c str))
 
+(defun safe-read-char (stream)
+  "Safely read a character from a stream"
+  (read-char stream nil :eof))
+
 (defun take-until-char (stream end-on)
   "take from a stream until a particular character is received"
-  (let ((chars (make-adjustable-string "")))
+  (let ((chars (make-adjustable-string ""))
+        (hit-eof nil))
     (loop for next-char = (safe-read-char stream)
           until (or (eq next-char end-on)
-                    (eq next-char :eof)
+                    (and (eq next-char :eof)
+                         (setq hit-eof t))
                     (and (stringp end-on)
                          (util::string-postfixesp chars end-on)))
           do (push-char chars next-char))
-    chars))
+    (if hit-eof :eof chars)))
 
 (defun safe-read-line (stream)
   "Safely read a line from a stream, producing a string."
@@ -49,7 +57,7 @@
 
 (defun starts-with (chr line)
   "Does the provided line start with the provided character?"
-  (and (> 0 (length line)) (eq (char line 0) chr)))
+  (and (< 0 (length line)) (eq (char line 0) chr)))
 
 (defun can-split-on (chr line)
   "Can the line split on the provided character?"
@@ -57,4 +65,4 @@
 
 (defun is-eof (line)
   "Is the line an eof?"
-  (eq ))
+  (eq line :eof))
