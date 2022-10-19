@@ -22,10 +22,12 @@
       (:title (concatenate 'string (when ,title ,title) (when ,title " | ") "Jake Chvatal"))
 
       (:meta :name "viewport" :content "width=device-width,initial-scale=1.0")
+      ;; The Open Graph Protocol. More info here: https://ogp.me/
       (:meta :property "og:title" :content (or ,title "Jake Chvatal"))
       (:meta :property "og:type" :content "website")
       (:meta :property "og:url" :content "https://jake.isnt.online")
       (:meta :property "og:image" :content "https://avatars0.githubusercontent.com/u/29869612?s=400&u=32e0c272cbfcc32b8e9585f74ce57d197aa14fb0&v=4")
+      (:meta :property "og:site_name" :content "Jake Chvatal")
       (:meta :name "description" :content "Hi")
       (:meta :name "keywords"
              :content (concatenate 'string
