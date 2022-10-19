@@ -42,9 +42,8 @@
       (:link :rel "icon" :type "image/png" :sizes "32x32" :href "/favicon-32x32.png")
       (:link :rel "icon" :type "image/png" :sizes "16x16" :href "/favicon-16x16.png")
       (:link :rel "manifest" :href "/site.webmanifest") ;; TODO: manifest is currently mostly a lie
-      ;;
-      (:link :rel "stylesheet" :href "/style.css")
       (:link :rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css")
+      (:link :rel "stylesheet" :href "/style.css")
       (:script :src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js")
       (:script "hljs.highlightAll();"))
      (:body

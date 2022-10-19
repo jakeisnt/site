@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  max-width: 26rem;
+  max-width: 30rem;
   margin: 0;
   padding: 0rem 4rem;
 }
@@ -89,6 +89,14 @@ a:active {
 
 h1 {
   margin: 1rem 0;
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+code {
+  display: inline-block;
 }
 
 .title-top {
