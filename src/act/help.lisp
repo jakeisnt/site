@@ -61,7 +61,7 @@
 
 (defun can-split-on (chr line)
   "Can the line split on the provided character?"
-  (> 1 (length (split (string chr) line :limit 2))))
+  (< 1 (length (split (string chr) line :limit 2))))
 
 (defun is-eof (line)
   "Is the line an eof?"

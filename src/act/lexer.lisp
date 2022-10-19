@@ -50,7 +50,8 @@
 (defun parse-message (line)
   "Parse a message as a line."
   (let ((line-parts (split ": " line :limit 2)))
-    (act-ast::make-message (car line-parts) (cadr line-parts))))
+    (print line-parts)
+    (act-ast::make-message :author (car line-parts) :text (cadr line-parts))))
 
 (defmacro match-line (recur stream cnd)
   "Abstract out the practice of matching on a line and looking for something."
@@ -74,6 +75,16 @@
      ((parse-help::starts-with  #\( line) (parse-context line))
      ((parse-help::can-split-on #\: line) (parse-message line))
      ((parse-help::can-split-on #\= line) :ignore) ;; (parse-alias stream)
-     (t
-      (print "not matching any case, ignoring")
-      :ignore))))
+     (t :ignore))))
+
+
+(ql:quickload :spinneret)
+
+(defpackage act-html
+  (:use :cl))
+
+(in-package act-parser)
+
+(ql:quickload :cl-ppcre)
+
+;; (with-open-file (stream "~/script.act" :direction :input) (act-parser::parse stream))
