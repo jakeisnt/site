@@ -142,7 +142,7 @@
           collect (render-node node)))))
 
 (defun render-script ()
-  (with-open-file (stream "~/script.act" :direction :input)
+  (with-open-file (stream "~/wiki/etc/script.act" :direction :input)
     (util::write-file
      "/home/jake/site/docs/script.html"
      (conversation-page (act-parser::parse stream)))))
