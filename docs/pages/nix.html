@@ -28,9 +28,9 @@
   <link sizes=16x16 rel=icon type=image/png
         href=/favicon-16x16.png>
   <link rel=manifest href=/site.webmanifest>
-  <link rel=stylesheet href=/style.css>
   <link rel=stylesheet
         href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
+  <link rel=stylesheet href=/style.css>
   <script
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
@@ -41,511 +41,512 @@
     <a href=/index.html> ~ </a><span> / </span><a href=/pages/index.html>pages</a>
     <span> / </span><a href=pages/nix.html>nix</a>
    </div>
-   <h1 class=title-top>Nix</h1>
-   <p><span>Nix is a functional package manager that isolates and sandboxes 
-     dependencies.</span>
-   <section>
-    <h2>Tools</h2>
-    <p><a class=external href=https://github.com/elitak/nixos-infect>[nixos-infect]</a>
-     <span>: install nixos over an existing os on digitalocean and other vps systems</span>
-    <p><a class=external href=https://github.com/numtide/devshell>[devshell]</a><span>
-      : universally compatible nix-shell</span>
-   </section>
-   <section>
-    <h2>Tutorials</h2>
-    <p><a class=external href="https://nix.dev/">[Resources for learning more about 
-      the Nix ecosystem]</a>
-    <p><a class=external href=https://nixos.org/nixos/nix-pills/pr01.html>[The 
-      de-facto introduction to NixOS]</a>
-    <p><a class=external href="https://ebzzry.io/en/nix/">[Another great introduction 
-      to the Nix ecosystem]</a><span>. This has better overviews of technology like 
-      overlays than the official documentation.</span>
-    <p><a class=external
-     href="https://www.reddit.com/r/emacs/comments/hniz19/using_nix_to_manage_emacs_packages/">
-      [Using Nix to manage Emacs packages]</a><span> (</span><a class=internal
-     href=id:62a9456a-e08a-4dc4-8e9d-310deffdb720>{Emacs}</a><span>). </span><a
-     class=external
-     href=https://gitlab.com/rycee/configurations/-/blob/master/user/emacs.nix>
-      [Rycee&#39;s configuration]</a><span> is a good start or source of inspiration 
-      for this.</span>
-    <p><a class=external
-     href=https://christine.website/blog/i-was-wrong-about-nix-2020-02-10>[Why Nix: 
-      Cachix, niv and nix-build overview]</a>
-    <p><a class=external
-     href=https://spartanengineer.com/nixos/2017/09/25/basic-git-server-with-nixos.html>
-      [Set up a basic git server with NixOS]</a>
-    <p><a class=external
-     href="https://rbf.dev/blog/2020/05/custom-nixos-build-for-raspberry-pis/">[Set up 
-      Nix with preconfigured SSH]</a>
-    <p><a class=external href=https://github.com/justinwoo/nix-shorts>[Nix shorts]</a>
-     <span>: Lots of quick and helpful Nix tips to check out.</span>
-    <ul>
-     <li><span> Building derivations at the Nix REPL</span>
-    </ul>
-    <ul>
-     <li><span> Installing packages from files and derivation expressions</span>
-    </ul>
-    <ul>
-     <li><span> Working with Nix shells</span>
-    </ul>
-    <ul>
-     <li><span> Creating derivations</span>
-    </ul>
+   <article class=wikipage>
+    <h1 class=title-top>Nix</h1>
+    <p><span>Nix is a functional package manager that isolates and sandboxes 
+      dependencies.</span>
     <section>
-     <h3>NixOps</h3>
-     <p><a class=external
-      href="https://sandervanderburg.blogspot.com/2015/03/on-nixops-disnix-service-deployment-and.html?m=1">
-       [An evaluation of and tutorial for Disnix and NixOps]</a>
-     <p><a class=external href=https://github.com/nh2/nixops-tutorial>[nixops-tutorial]</a>
-      <span>: development with NixOps</span>
-     <p><a class=external
-      href=https://hydra.nixos.org/build/115931128/download/1/manual/manual.html#idm140737322673584>
-       [Hydra (and nixops) manual]</a>
-     <p><a class=external
-      href=https://hydra.nixos.org/build/115931128/download/1/manual/manual.html#chap-introduction>
-       [nixops user guide]</a>
+     <h2>Tools</h2>
+     <p><a class=external href=https://github.com/elitak/nixos-infect>[nixos-infect]</a>
+      <span>: install nixos over an existing os on digitalocean and other vps systems</span>
+     <p><a class=external href=https://github.com/numtide/devshell>[devshell]</a><span>
+       : universally compatible nix-shell</span>
     </section>
     <section>
-     <h3>MacOS</h3>
+     <h2>Tutorials</h2>
+     <p><a class=external href="https://nix.dev/">[Resources for learning more about 
+       the Nix ecosystem]</a>
+     <p><a class=external href=https://nixos.org/nixos/nix-pills/pr01.html>[The 
+       de-facto introduction to NixOS]</a>
+     <p><a class=external href="https://ebzzry.io/en/nix/">[Another great introduction 
+       to the Nix ecosystem]</a><span>. This has better overviews of technology like 
+       overlays than the official documentation.</span>
      <p><a class=external
-      href=https://medium.com/@zw3rk/provisioning-a-nixos-server-from-macos-d36055afc4ad>
-       [Provisioning a Nix server from MacOS]</a>
-    </section>
-    <section>
-     <h3>Server</h3>
+      href="https://www.reddit.com/r/emacs/comments/hniz19/using_nix_to_manage_emacs_packages/">
+       [Using Nix to manage Emacs packages]</a><span> (</span><a class=internal
+      href=id:62a9456a-e08a-4dc4-8e9d-310deffdb720>{Emacs}</a><span>). </span><a
+      class=external
+      href=https://gitlab.com/rycee/configurations/-/blob/master/user/emacs.nix>
+       [Rycee&#39;s configuration]</a><span> is a good start or source of inspiration 
+       for this.</span>
      <p><a class=external
-      href="https://www.youtube.com/watch?v=0tsfQskVW18&amp;app=desktop">[nixos router 
-       for the homelab]</a><span> -- useful for learning to set everything up</span>
+      href=https://christine.website/blog/i-was-wrong-about-nix-2020-02-10>[Why Nix: 
+       Cachix, niv and nix-build overview]</a>
      <p><a class=external
-      href="https://www.linode.com/docs/tools-reference/custom-kernels-distros/install-nixos-on-linode/">
-       [installing and configuring nixos on linode]</a>
+      href=https://spartanengineer.com/nixos/2017/09/25/basic-git-server-with-nixos.html>
+       [Set up a basic git server with NixOS]</a>
      <p><a class=external
-      href="https://www.codedbearder.com/posts/nixos-terramaster-f2-221/">[Running 
-       NixOS on a consumer NAS]</a>
-    </section>
-   </section>
-   <section>
-    <h2>Evaluation</h2>
-    <section>
-     <h3>Why NixOS?</h3>
-     <p><a class=external
-      href=https://medium.com/@jethroksy/a-year-with-nixos-113b534f446b>[src]</a><span> </span>
-      <a class=external
-      href=https://myme.no/posts/2020-01-26-nixos-for-development.html>[src2]</a><span> </span>
-      <a class=external
-      href=https://engineering.shopify.com/blogs/engineering/what-is-nix>[what is nix?]</a>
+      href="https://rbf.dev/blog/2020/05/custom-nixos-build-for-raspberry-pis/">[Set up 
+       Nix with preconfigured SSH]</a>
+     <p><a class=external href=https://github.com/justinwoo/nix-shorts>[Nix shorts]</a>
+      <span>: Lots of quick and helpful Nix tips to check out.</span>
      <ul>
-      <li><span> It&#39;s the simplest way to quickly iterate and try new programs. From </span>
-       <pre></pre><span> to </span>
-       <pre></pre><span> to configuration options like </span>
-       <pre></pre><span>, it&#39;s incredibly easy to swap parts of your system in very 
-        few lines of code. A lot of the grunt work has been done already to ensure that 
-        common configurations are perfectly functional and reproducible out of the box.</span>
+      <li><span> Building derivations at the Nix REPL</span>
      </ul>
      <ul>
-      <li><span> It&#39;s trivial to revert the state of your system. All it takes is 
-        booting to a previous NixOS interation.</span>
+      <li><span> Installing packages from files and derivation expressions</span>
      </ul>
      <ul>
-      <li><span> Declaring SystemD services happens in one place and is incredibly 
-        simple! No more managing configuration files scattered throughout your computer 
-        - you can &#39;metaprogram&#39; them in Nix and serialize the files out to disk. 
-        This applies to lots of other types of files, too; I use templates to manage 
-        color schemes for all of my applications, for example.</span>
+      <li><span> Working with Nix shells</span>
      </ul>
      <ul>
-      <li><span> It&#39;s incredibly simple to set up reproducible build environments 
-        for writing and running code, especially in sandboxes when you don&#39;t want to 
-        confuse your globally installed programs.</span>
+      <li><span> Creating derivations</span>
      </ul>
-    </section>
-    <section>
-     <h3>Nix vs. Docker</h3>
-     <p><a class=external
-      href=https://discourse.nixos.org/t/is-there-much-difference-between-using-nix-shell-and-docker-for-local-development/807>
-       [src]</a><span> </span><a class=external
-      href=https://blog.container-solutions.com/step-towards-future-configuration-infrastructure-management-nix>
-       [src2]</a><span> </span><a class=external
-      href=https://blog.container-solutions.com/step-towards-future-configuration-infrastructure-management-nix>
-       [src3 (has good NixOps tutorial too)]</a>
-     <p><a class=external
-      href=https://discourse.nixos.org/t/is-there-much-difference-between-using-nix-shell-and-docker-for-local-development/807>
-       [Nix vs Docker for local development]</a>
-     <ul>
-      <li><span> Docker image is a snapshot of a machine that was assembled by running 
-        commands in a particular fashion</span>
-     </ul>
-     <ul>
-      <li><span> Making changes to the machine introduces nondeterminism; shell commands 
-        typically fetch information from outside sources that aren&#39;t pinned, so they 
-        change over time, and the functionality of your container will change as time 
-        progresses. Builds in Nix when properly pinned will not diverge the same way 
-        other deployment systems do.</span>
-     </ul>
-     <ul>
-      <li><span> There is no absolute guarantee that your Docker image produces the same 
-        image every rebuild</span>
-     </ul>
-     <ul>
-      <li><span> Nix runs natively, while Docker requires a Linux virtual machine</span>
-     </ul>
-     <ul>
-      <li><span> Nix can run as any user without particular privileges</span>
-     </ul>
-    </section>
-   </section>
-   <section>
-    <h2>Configs</h2>
-    <p><a class=external href=https://github.com/jakeisnt/nix-cfg>[My personal 
-      configuration]</a><span>:</span>
-    <ul>
-     <li><span> Wayland enabled</span>
-    </ul>
-    <ul>
-     <li><span> Incredibly modular with thorough abstractions (in progress...)</span>
-    </ul>
-    <ul>
-     <li><span> Robust configuration of many programs, including mail server</span>
-    </ul>
-    <p><a class=external href=https://github.com/hlissner/dotfiles>[hlissner&#39;s 
-      config]</a>
-    <ul>
-     <li><span> Heavily inspires mine - I forked his</span>
-    </ul>
-    <ul>
-     <li><span> Incredibly modular and allows for easy, opinionated program 
-       configuration</span>
-    </ul>
-    <ul>
-     <li><span> Some basic modular support and great library utilities</span>
-    </ul>
-    <ul>
-     <li><span> Consistent and comprehensive theme work</span>
-    </ul>
-    <p><a class=external href=https://github.com/grahamc/nixos-config>[Graham&#39;s 
-      NixOS config]</a><span>:</span>
-    <ul>
-     <li><span> ZFS with remote backups</span>
-    </ul>
-    <ul>
-     <li><span> Wayland dedicated</span>
-    </ul>
-    <ul>
-     <li><span> Start all programs in SystemD cgroups</span>
-    </ul>
-    <ul>
-     <li><span> Erase systems on every boot</span>
-    </ul>
-    <p><a class=external href=https://github.com/bjornfor/nixos-config>[bjornfor 
-      config]</a><span>:</span>
-    <ul>
-     <li><span> Lots of home automation utility configuration; zigbee, home audio 
-       management, etc.</span>
-    </ul>
-    <ul>
-     <li><span> Custom derivations for tons of obscure programs corresponding to the 
-       above</span>
-    </ul>
-    <ul>
-     <li><span> Backup service infrastructure across multiple devices</span>
-    </ul>
-    <ul>
-     <li><span> Wonky configuration for chromium, networking, VPNs, etc. Very thorough 
-       management of loads of different devices.</span>
-    </ul>
-    <ul>
-     <li><span> Has pirate radio and torrent setups as well if you&#39;re into that</span>
-    </ul>
-    <p><a class=external href=https://github.com/bqv/nixrc>[bqv]</a><span>:</span>
-    <ul>
-     <li><span> Makes substantial use of nix flakes, properly managing them as overlays</span>
-    </ul>
-    <ul>
-     <li><span> Way over my head... come back to this later! I haven&#39;t fully looked 
-       through this one.</span>
-    </ul>
-    <p><a class=external href="https://github.com/SoxinOS/soxin/">[Soxin]</a><span> 
-      and </span><a class=external href=https://github.com/kalbasit/soxincfg>[cfg]</a>
-     <span>:</span>
-    <ul>
-     <li><span> A modular NixOS configuration system and language</span>
-    </ul>
-    <ul>
-     <li><span> (How can I improve upon these ideas?)</span>
-    </ul>
-    <ul>
-     <li><span> I haven&#39;t fully examined this one.</span>
-    </ul>
-    <p><a class=external href=https://github.com/colemickens/nixcfg>[colemickens]</a>
-     <span>:</span>
-    <ul>
-     <li><span> I haven&#39;t fully examined this one either. Looks thorough, uses 
-       flakes and is constantly updated.</span>
-    </ul>
-    <p><a class=external href=https://git.sr.ht/~aasg/nixexprs/tree>[nixexprs]</a>
-     <span>:</span>
-    <ul>
-     <li><span> Sourcehut-based CI configuration. Tons of good networking</span>
-    </ul>
-    <p><span> to inspire, plus a decent organization system. The system has</span>
-    <p><span> IPFS, MacOS configuration, tons of default packages, and more. Could be 
-      used as a flake to install some of their packages; looks like it&#39;s 
-      compatible with NUR.</span>
-   </section>
-   <section>
-    <h2>Installation</h2>
-    <section>
-     <h3>Good practices</h3>
-     <ul>
-      <li><span> Create a separate partition for all of your nix derivations, /nix</span>
-     </ul>
-     <ul>
-      <li><span> Label all of your disks so that </span>
-       <pre></pre><span> is reproducible</span>
-     </ul>
-    </section>
-    <section>
-     <h3>initial installation</h3>
-     <p><span>worth noting that what i found the most confusing was:</span>
-     <ul>
-      <li><span> user configuration</span>
-     </ul>
-     <ul>
-      <li><span> vps specific, ensuring that i could remove the virtual disk (not delete 
-        it)</span>
-     </ul>
-     <p><span>and log in as an unprivileged user without booting to the installation 
-       disk</span>
      <section>
-      <h4>partition</h4>
-      <p><span>partition for space for nixos</span>
-      <p><span>sudo fdisk </span><i>dev</i><span>sda</span>
-      <p><span>new</span>
-      <p><span>partition</span>
-      <p><span>sector1</span>
-      <p><span>no selection for start of partition</span>
-      <p><span>no selection for last sector</span>
-      <p><span>w to write to disk</span>
-      <p><span>sudo mkfs.ext4 -j -L nixos </span><i>dev</i><span>sda1</span>
+      <h3>NixOps</h3>
+      <p><a class=external
+       href="https://sandervanderburg.blogspot.com/2015/03/on-nixops-disnix-service-deployment-and.html?m=1">
+        [An evaluation of and tutorial for Disnix and NixOps]</a>
+      <p><a class=external href=https://github.com/nh2/nixops-tutorial>[nixops-tutorial]</a>
+       <span>: development with NixOps</span>
+      <p><a class=external
+       href=https://hydra.nixos.org/build/115931128/download/1/manual/manual.html#idm140737322673584>
+        [Hydra (and nixops) manual]</a>
+      <p><a class=external
+       href=https://hydra.nixos.org/build/115931128/download/1/manual/manual.html#chap-introduction>
+        [nixops user guide]</a>
+     </section>
+     <section>
+      <h3>MacOS</h3>
+      <p><a class=external
+       href=https://medium.com/@zw3rk/provisioning-a-nixos-server-from-macos-d36055afc4ad>
+        [Provisioning a Nix server from MacOS]</a>
+     </section>
+     <section>
+      <h3>Server</h3>
+      <p><a class=external
+       href="https://www.youtube.com/watch?v=0tsfQskVW18&amp;app=desktop">[nixos router 
+        for the homelab]</a><span> -- useful for learning to set everything up</span>
+      <p><a class=external
+       href="https://www.linode.com/docs/tools-reference/custom-kernels-distros/install-nixos-on-linode/">
+        [installing and configuring nixos on linode]</a>
+      <p><a class=external
+       href="https://www.codedbearder.com/posts/nixos-terramaster-f2-221/">[Running 
+        NixOS on a consumer NAS]</a>
      </section>
     </section>
     <section>
-     <h3>Installation Outline</h3>
-     <p><span>Make sure to name your disks; some configurations use some disk names by 
-       default.</span>
-     <p><span>nixos-generate-config --root /mnt</span>
-     <p><span>Edit </span><i>mnt</i><span>etc</span><i>nixos</i><span>
-       configuration.nix.</span>
-     <p><span>Uncomment:</span>
-     <ul>
-      <li><span> localization for us</span>
-     </ul>
-     <ul>
-      <li><span> terminal font and keymap</span>
-     </ul>
-     <ul>
-      <li><span> timezone = America</span><i>NewYork, America</i><span>Los_Angeles, etc. 
-        These are defined somewhere on your system.</span>
-     </ul>
-     <p><span>UEFI systems:</span>
-     <ul>
-      <li><span> You must set the option boot.loader.systemd-boot.enable to true. 
-        nixos-generate-config should do this automatically for new configurations when 
-        booted in UEFI mode.</span>
-     </ul>
-     <ul>
-      <li><span> Look at options with boot.loader.efi and boot.loader.systemd as well.</span>
-     </ul>
-     <p><span>To dual boot, supposedly boot.loader.grub.useOSProber can be set to true 
-       to add other OS to the grub</span>
-     <p><span>menu. This failed when I tried it (I may have accidentally damaged the 
-       partition table, though) but it might work for you.</span>
-     <p><span>You may have to manually start the SSH daemon: </span>
-      <pre></pre>
-    </section>
-   </section>
-   <section>
-    <h2>Pro tips</h2>
-    <ul>
-     <li><span> If the configuration isn&#39;t running properly after successfully 
-       refreshing it,</span>
-    </ul>
-    <p><span> you can use </span>
-     <pre></pre><span> instead of </span>
-     <pre></pre><span> to use the new configuration</span>
-    <p><span> on the next boot but not enable it immediately. The </span>
-     <pre></pre><span> utilities aside from </span>
-     <pre></pre><span> all come in handy when fixing a broken configuration.</span>
-    <ul>
-     <li><span> Write your own script to wrap common Nix commands. The command-line 
-       utilities aren&#39;t great, but you can just wrap others to create your own! 
-       (Who in their right mind would provide so many different names for programs </span>
-      <pre></pre><span>, </span>
-      <pre></pre><span>, </span>
-      <pre></pre><span> -- it&#39;s difficult to know which one to even query the 
-       manpage for unless you&#39;re very familiar with Nix(OS) already.)</span>
-    </ul>
-   </section>
-   <section>
-    <h2>Future configuration ideas</h2>
-    <p><a class=external
-     href=https://askubuntu.com/questions/95716/automatically-adjust-the-volume-based-on-content>
-      [Adjust system volume based on context]</a>
-    <p><a class=external
-     href=https://github.com/grahamc/nixos-config/tree/master/packages/recognize-thunderbolt>
-      [Thunderbolt system utility; investigate if any issues arise]</a>
-    <p><a class=external
-     href=https://github.com/gvolpe/nix-config/blob/master/home/programs/browsers/install-ext.nix>
-      [cool config trick for installing chrome extensions]</a>
-    <p><a class=external
-     href=https://github.com/bjornfor/nixos-config/blob/master/cfg/software-defined-radio.nix>
-      [set up software defined radio!]</a>
-    <p><span>Run programs in systemd cgroups (check out grahamc&#39;s config)</span>
-    <p><a class=external
-     href=https://github.com/RaitoBezarius/nix-scripts/blob/master/autoinstall/justdoit.nix>
-      [this does some crazy things with subvolumes to automatically set up a btrfs 
-      system with nixos, including initial mounts]</a>
-   </section>
-   <section>
-    <h2>Nix tools</h2>
-    <p><a class=external href=https://github.com/Mic92/nix-update>[Swiss knife for 
-      updating nix packages.]</a>
-    <p><a class=external href=https://github.com/spwhitt/nix-zsh-completions>[SSH 
-      Completions for Nix]</a>
-    <p><a class=external href=https://github.com/chisui/zsh-nix-shell>[ssh plugin that 
-      lets you use zsh in nix-shell shell.]</a>
-    <p><a class=external href=https://github.com/cleverca22/not-os>[cleverca22/not-os: 
-      An operating system generator, based on NixOS, that, giv]</a>
-    <p><a class=external href=https://github.com/NixOS/nixpkgs/issues/26067>[Make a 
-      service abstraction layer · Issue #26067 · NixOS/nixpkgs]</a><span>: Abstract 
-      over systemd</span>
-    <p><a class=external href=https://github.com/dustinlacewell/dotfiles>
-      [dustinlacewell/dotfiles: Nix configuration for all my workstations and serv]</a>
-     <span> workstation ux</span>
-    <p><a class=external href=https://github.com/brainrape/nixform>[brainrape/nixform: 
-      define terraform infrastructure in nix]</a>
-    <p><a class=external href=https://github.com/brainrape/nixos-tutorial>
-      [brainrape/nixos-tutorial: one hour, hands-on]</a>
-    <p><a class=external
-     href="https://sandervanderburg.blogspot.com/2020/06/using-disnix-as-simple-and-minimalistic.html?m=1">
-      [Sander van der Burg&amp;#039;s blog: Using Disnix as a simple and minimalistic 
-      depen]</a>
-    <p><a class=external
-     href=https://blog.patchgirl.io/haskell/2020/07/13/static-haskell-binary.html>
-      [Building static Haskell binary with Nix on Linux · PatchGirl]</a>
-    <p><a class=external
-     href="https://www.reddit.com/r/haskell/comments/hzeued/neuron_06_released_futureproof_notetaking_tool/">
-      [Neuron 0.6 released: future-proof note-taking tool written in Haskell, Nix ]</a>
-    <p><a class=external
-     href="https://www.reddit.com/r/NixOS/comments/i2gaul/searching_and_installing_packages_in_nixos/">
-      [Searching and installing packages in NixOS - NixOS]</a>
-    <p><a class=external href=https://github.com/stites/haskell.nix-niv>
-      [stites/haskell.nix-niv]</a>
-    <p><a class=external href=https://nixos.wiki/wiki/NixOS_on_ZFS>[NixOS on ZFS - 
-      NixOS Wiki]</a>
-    <p><a class=external
-     href=https://elvishjerricco.github.io/2018/12/06/encrypted-boot-on-zfs-with-nixos.html>
-      [Encrypted /boot on ZFS with NixOS]</a>
-    <p><a class=external href=https://github.com/brainrape/nixform>[brainrape/nixform]</a>
-    <p><a class=external
-     href=https://sevdev.hu/posts/2017-12-26-discovering-nix-deploying-a-simple-nginx-with-nixops.html>
-      [Discovering Nix: Provisioning a static webserver with NixOps]</a>
-    <p><a class=external
-     href=https://hugoreeves.com/posts/2019/continuously-delivering-this-blog-with-nix-hugo-and-circleci>
-      [Continuously Delivering this Blog with Nix, Hugo and CircleCI]</a>
-    <p><a class=external
-     href=https://blog.container-solutions.com/step-towards-future-configuration-infrastructure-management-nix>
-      [configuring infra in nix]</a>
-    <p><a class=external
-     href=https://davedellacosta.com/posts/2019-03-29-why-nixos-is-hard-and-how-to-fix.html>
-      [https://davedellacosta.com/posts/2019-03-29-why-nixos-is-hard-and-how-to-fix.html]
-      </a>
-    <p><a class=external href=https://github.com/dustinlacewell/dotfiles>
-      [https://github.com/dustinlacewell/dotfiles]</a>
-    <p><a class=external href=https://github.com/nix-community/nixos-generators>
-      [https://github.com/nix-community/nixos-generators]</a><span>image builders for 
-      nix</span>
-    <p><a class=external href=https://github.com/nix-community/todomvc-nix:>
-      [https://github.com/nix-community/todomvc-nix:]</a><span>canonical example for 
-      nix, works with or without flakes apparently.</span>
-    <p><a class=external
-     href="https://lemire.me/blog/2020/05/22/programming-inside-a-container/">
-      [https://lemire.me/blog/2020/05/22/programming-inside-a-container/]</a><span>
-      programming inside of containers</span>
-    <p><a class=external
-     href=https://unix.stackexchange.com/questions/522822/different-methods-to-run-a-non-nixos-executable-on-nixos>
-      [https://unix.stackexchange.com/questions/522822/different-methods-to-run-a-non-nixos-executable-on-nixos]
-      </a>
-    <p><a class=external href=https://github.com/NixOS/nixpkgs/issues/26067>
-      [https://github.com/NixOS/nixpkgs/issues/26067]</a><span>making a nix service 
-      abstraction layer, abstracting over systemd to produce a more generic solution</span>
-    <p><a class=external href=https://grahamc.com/blog/erase-your-darlings>
-      [https://grahamc.com/blog/erase-your-darlings]</a>
-    <p><a class=external href=https://gitlab.com/vdemeester/home>
-      [https://gitlab.com/vdemeester/home]</a><span>this seems like a config worth 
-      looking through!</span>
-    <p><a class=external
-     href=https://www.johnbcoughlin.com/posts/nix-dynamic-linking/index.html>
-      [debugging a dynamic linking bug in a nix project]</a>
-    <p><span> </span><a class=external href=https://github.com/danielfullmer/robotnix>
-      [danielfullmer/robotnix: Build Android (AOSP) using Nix]</a><span> </span><a
-     class=internal href=id:66f8f71c-b5da-499d-84a0-765438368200>{Mobile}</a>
-    <section>
-     <h3>TODO 
-      [[https://gist.github.com/owenleonard11/18acac79e3ccee1adbfd4a38f2730885][Haskell
-       Minimax with Alpha-Beta Pruning]]</h3>
-     <p><span>Captured On: [2020-10-18 Sun 14:28]</span>
+     <h2>Evaluation</h2>
+     <section>
+      <h3>Why NixOS?</h3>
+      <p><a class=external
+       href=https://medium.com/@jethroksy/a-year-with-nixos-113b534f446b>[src]</a><span> </span>
+       <a class=external
+       href=https://myme.no/posts/2020-01-26-nixos-for-development.html>[src2]</a><span> </span>
+       <a class=external
+       href=https://engineering.shopify.com/blogs/engineering/what-is-nix>[what is nix?]</a>
+      <ul>
+       <li><span> It&#39;s the simplest way to quickly iterate and try new programs. From </span>
+        <pre></pre><span> to </span>
+        <pre></pre><span> to configuration options like </span>
+        <pre></pre><span>, it&#39;s incredibly easy to swap parts of your system in very 
+         few lines of code. A lot of the grunt work has been done already to ensure that 
+         common configurations are perfectly functional and reproducible out of the box.</span>
+      </ul>
+      <ul>
+       <li><span> It&#39;s trivial to revert the state of your system. All it takes is 
+         booting to a previous NixOS interation.</span>
+      </ul>
+      <ul>
+       <li><span> Declaring SystemD services happens in one place and is incredibly 
+         simple! No more managing configuration files scattered throughout your computer 
+         - you can &#39;metaprogram&#39; them in Nix and serialize the files out to disk. 
+         This applies to lots of other types of files, too; I use templates to manage 
+         color schemes for all of my applications, for example.</span>
+      </ul>
+      <ul>
+       <li><span> It&#39;s incredibly simple to set up reproducible build environments 
+         for writing and running code, especially in sandboxes when you don&#39;t want to 
+         confuse your globally installed programs.</span>
+      </ul>
+     </section>
+     <section>
+      <h3>Nix vs. Docker</h3>
+      <p><a class=external
+       href=https://discourse.nixos.org/t/is-there-much-difference-between-using-nix-shell-and-docker-for-local-development/807>
+        [src]</a><span> </span><a class=external
+       href=https://blog.container-solutions.com/step-towards-future-configuration-infrastructure-management-nix>
+        [src2]</a><span> </span><a class=external
+       href=https://blog.container-solutions.com/step-towards-future-configuration-infrastructure-management-nix>
+        [src3 (has good NixOps tutorial too)]</a>
+      <p><a class=external
+       href=https://discourse.nixos.org/t/is-there-much-difference-between-using-nix-shell-and-docker-for-local-development/807>
+        [Nix vs Docker for local development]</a>
+      <ul>
+       <li><span> Docker image is a snapshot of a machine that was assembled by running 
+         commands in a particular fashion</span>
+      </ul>
+      <ul>
+       <li><span> Making changes to the machine introduces nondeterminism; shell commands 
+         typically fetch information from outside sources that aren&#39;t pinned, so they 
+         change over time, and the functionality of your container will change as time 
+         progresses. Builds in Nix when properly pinned will not diverge the same way 
+         other deployment systems do.</span>
+      </ul>
+      <ul>
+       <li><span> There is no absolute guarantee that your Docker image produces the same 
+         image every rebuild</span>
+      </ul>
+      <ul>
+       <li><span> Nix runs natively, while Docker requires a Linux virtual machine</span>
+      </ul>
+      <ul>
+       <li><span> Nix can run as any user without particular privileges</span>
+      </ul>
+     </section>
     </section>
     <section>
-     <h3>TODO 
-      [[https://www.reddit.com/r/haskell/comments/1ha5dd/rss_reader_written_in_haskell_and_urweb/][RSS
-       reader written in Haskell and Ur/Web : haskell]]</h3>
-     <p><span>Captured On: [2020-10-18 Sun 15:12]</span>
+     <h2>Configs</h2>
+     <p><a class=external href=https://github.com/jakeisnt/nix-cfg>[My personal 
+       configuration]</a><span>:</span>
+     <ul>
+      <li><span> Wayland enabled</span>
+     </ul>
+     <ul>
+      <li><span> Incredibly modular with thorough abstractions (in progress...)</span>
+     </ul>
+     <ul>
+      <li><span> Robust configuration of many programs, including mail server</span>
+     </ul>
+     <p><a class=external href=https://github.com/hlissner/dotfiles>[hlissner&#39;s 
+       config]</a>
+     <ul>
+      <li><span> Heavily inspires mine - I forked his</span>
+     </ul>
+     <ul>
+      <li><span> Incredibly modular and allows for easy, opinionated program 
+        configuration</span>
+     </ul>
+     <ul>
+      <li><span> Some basic modular support and great library utilities</span>
+     </ul>
+     <ul>
+      <li><span> Consistent and comprehensive theme work</span>
+     </ul>
+     <p><a class=external href=https://github.com/grahamc/nixos-config>[Graham&#39;s 
+       NixOS config]</a><span>:</span>
+     <ul>
+      <li><span> ZFS with remote backups</span>
+     </ul>
+     <ul>
+      <li><span> Wayland dedicated</span>
+     </ul>
+     <ul>
+      <li><span> Start all programs in SystemD cgroups</span>
+     </ul>
+     <ul>
+      <li><span> Erase systems on every boot</span>
+     </ul>
+     <p><a class=external href=https://github.com/bjornfor/nixos-config>[bjornfor 
+       config]</a><span>:</span>
+     <ul>
+      <li><span> Lots of home automation utility configuration; zigbee, home audio 
+        management, etc.</span>
+     </ul>
+     <ul>
+      <li><span> Custom derivations for tons of obscure programs corresponding to the 
+        above</span>
+     </ul>
+     <ul>
+      <li><span> Backup service infrastructure across multiple devices</span>
+     </ul>
+     <ul>
+      <li><span> Wonky configuration for chromium, networking, VPNs, etc. Very thorough 
+        management of loads of different devices.</span>
+     </ul>
+     <ul>
+      <li><span> Has pirate radio and torrent setups as well if you&#39;re into that</span>
+     </ul>
+     <p><a class=external href=https://github.com/bqv/nixrc>[bqv]</a><span>:</span>
+     <ul>
+      <li><span> Makes substantial use of nix flakes, properly managing them as overlays</span>
+     </ul>
+     <ul>
+      <li><span> Way over my head... come back to this later! I haven&#39;t fully looked 
+        through this one.</span>
+     </ul>
+     <p><a class=external href="https://github.com/SoxinOS/soxin/">[Soxin]</a><span> 
+       and </span><a class=external href=https://github.com/kalbasit/soxincfg>[cfg]</a>
+      <span>:</span>
+     <ul>
+      <li><span> A modular NixOS configuration system and language</span>
+     </ul>
+     <ul>
+      <li><span> (How can I improve upon these ideas?)</span>
+     </ul>
+     <ul>
+      <li><span> I haven&#39;t fully examined this one.</span>
+     </ul>
+     <p><a class=external href=https://github.com/colemickens/nixcfg>[colemickens]</a>
+      <span>:</span>
+     <ul>
+      <li><span> I haven&#39;t fully examined this one either. Looks thorough, uses 
+        flakes and is constantly updated.</span>
+     </ul>
+     <p><a class=external href=https://git.sr.ht/~aasg/nixexprs/tree>[nixexprs]</a>
+      <span>:</span>
+     <ul>
+      <li><span> Sourcehut-based CI configuration. Tons of good networking</span>
+     </ul>
+     <p><span> to inspire, plus a decent organization system. The system has</span>
+     <p><span> IPFS, MacOS configuration, tons of default packages, and more. Could be 
+       used as a flake to install some of their packages; looks like it&#39;s 
+       compatible with NUR.</span>
     </section>
     <section>
-     <h3>TODO [[https://github.com/lehins/hip][lehins/hip: Haskell Image Processing 
-      Library]]</h3>
-     <p><span>Captured On: [2020-10-18 Sun 15:14]</span>
+     <h2>Installation</h2>
+     <section>
+      <h3>Good practices</h3>
+      <ul>
+       <li><span> Create a separate partition for all of your nix derivations, /nix</span>
+      </ul>
+      <ul>
+       <li><span> Label all of your disks so that </span>
+        <pre></pre><span> is reproducible</span>
+      </ul>
+     </section>
+     <section>
+      <h3>initial installation</h3>
+      <p><span>worth noting that what i found the most confusing was:</span>
+      <ul>
+       <li><span> user configuration</span>
+      </ul>
+      <ul>
+       <li><span> vps specific, ensuring that i could remove the virtual disk (not delete 
+         it)</span>
+      </ul>
+      <p><span>and log in as an unprivileged user without booting to the installation 
+        disk</span>
+      <section>
+       <h4>partition</h4>
+       <p><span>partition for space for nixos</span>
+       <p><span>sudo fdisk </span><i>dev</i><span>sda</span>
+       <p><span>new</span>
+       <p><span>partition</span>
+       <p><span>sector1</span>
+       <p><span>no selection for start of partition</span>
+       <p><span>no selection for last sector</span>
+       <p><span>w to write to disk</span>
+       <p><span>sudo mkfs.ext4 -j -L nixos </span><i>dev</i><span>sda1</span>
+      </section>
+     </section>
+     <section>
+      <h3>Installation Outline</h3>
+      <p><span>Make sure to name your disks; some configurations use some disk names by 
+        default.</span>
+      <p><span>nixos-generate-config --root /mnt</span>
+      <p><span>Edit </span><i>mnt</i><span>etc</span><i>nixos</i><span>
+        configuration.nix.</span>
+      <p><span>Uncomment:</span>
+      <ul>
+       <li><span> localization for us</span>
+      </ul>
+      <ul>
+       <li><span> terminal font and keymap</span>
+      </ul>
+      <ul>
+       <li><span> timezone = America</span><i>NewYork, America</i><span>Los_Angeles, etc. 
+         These are defined somewhere on your system.</span>
+      </ul>
+      <p><span>UEFI systems:</span>
+      <ul>
+       <li><span> You must set the option boot.loader.systemd-boot.enable to true. 
+         nixos-generate-config should do this automatically for new configurations when 
+         booted in UEFI mode.</span>
+      </ul>
+      <ul>
+       <li><span> Look at options with boot.loader.efi and boot.loader.systemd as well.</span>
+      </ul>
+      <p><span>To dual boot, supposedly boot.loader.grub.useOSProber can be set to true 
+        to add other OS to the grub</span>
+      <p><span>menu. This failed when I tried it (I may have accidentally damaged the 
+        partition table, though) but it might work for you.</span>
+      <p><span>You may have to manually start the SSH daemon: </span>
+       <pre></pre>
+     </section>
     </section>
     <section>
-     <h3>TODO 
-      [[https://stackoverflow.com/questions/7147799/displaying-dynamically-generated-images-in-yesod][haskell
-       - Displaying dynamically generated images in Yesod - Stack Overflow]]</h3>
-     <p><span>Captured On: [2020-10-18 Sun 15:15]</span>
+     <h2>Pro tips</h2>
+     <ul>
+      <li><span> If the configuration isn&#39;t running properly after successfully 
+        refreshing it,</span>
+     </ul>
+     <p><span> you can use </span>
+      <pre></pre><span> instead of </span>
+      <pre></pre><span> to use the new configuration</span>
+     <p><span> on the next boot but not enable it immediately. The </span>
+      <pre></pre><span> utilities aside from </span>
+      <pre></pre><span> all come in handy when fixing a broken configuration.</span>
+     <ul>
+      <li><span> Write your own script to wrap common Nix commands. The command-line 
+        utilities aren&#39;t great, but you can just wrap others to create your own! 
+        (Who in their right mind would provide so many different names for programs </span>
+       <pre></pre><span>, </span>
+       <pre></pre><span>, </span>
+       <pre></pre><span> -- it&#39;s difficult to know which one to even query the 
+        manpage for unless you&#39;re very familiar with Nix(OS) already.)</span>
+     </ul>
     </section>
     <section>
-     <h3>TODO [[https://serokell.io/blog/dimensions-haskell-singletons][Dimensions and 
-      Haskell: Singletons in Action]]</h3>
-     <p><span>Captured On: [2020-10-18 Sun 16:36]</span>
-     <p><a class=external href=https://github.com/Trundle/NixOS-WSL>
-       [https://github.com/Trundle/NixOS-WSL]</a><span>nixos on wsl</span>
-     <p><a class=external href=https://github.com/telent/nixwrt>
-       [https://github.com/telent/nixwrt]</a><span>build images for MIPS using nixpkgs</span>
-     <p><a class=external href=https://github.com/serokell/deploy-rs>
-       [https://github.com/serokell/deploy-rs]</a><span>nix flake deploy tool</span>
-     <p><a class=external href="https://bou.ke/blog/nix/">[https://bou.ke/blog/nix/]</a>
-      <span>very cool nix configuration and deployment</span>
-     <p><span>get a nix shell for your whole configuration!</span>
-     <p><span>const ua = event.request.headers.get(&#39;User-Agent&#39;);</span>
-     <p><span>if (url.pathname === &#39;</span><i>&#39; &amp;&amp; ua.match(</i><span>
-       \bNix\</span><i></i><span>) != null) {</span>
-     <p><span> return new Response(&#39;&#39;, { status: 302, headers: { location: </span>
-      <pre></pre><span> } });</span>
-     <p><span>}</span>
+     <h2>Future configuration ideas</h2>
+     <p><a class=external
+      href=https://askubuntu.com/questions/95716/automatically-adjust-the-volume-based-on-content>
+       [Adjust system volume based on context]</a>
+     <p><a class=external
+      href=https://github.com/grahamc/nixos-config/tree/master/packages/recognize-thunderbolt>
+       [Thunderbolt system utility; investigate if any issues arise]</a>
+     <p><a class=external
+      href=https://github.com/gvolpe/nix-config/blob/master/home/programs/browsers/install-ext.nix>
+       [cool config trick for installing chrome extensions]</a>
+     <p><a class=external
+      href=https://github.com/bjornfor/nixos-config/blob/master/cfg/software-defined-radio.nix>
+       [set up software defined radio!]</a>
+     <p><span>Run programs in systemd cgroups (check out grahamc&#39;s config)</span>
+     <p><a class=external
+      href=https://github.com/RaitoBezarius/nix-scripts/blob/master/autoinstall/justdoit.nix>
+       [this does some crazy things with subvolumes to automatically set up a btrfs 
+       system with nixos, including initial mounts]</a>
     </section>
-   </section>
-   <section>
-    <h2>Flake tips</h2>
-    <p><span>Do not be afraid to use the --help flag! I&#39;ve learned a lotfrom it.</span>
-    <ul>
-     <li><span> Update a specific input: </span>
-      <pre></pre>
-    </ul>
-    <p><span> do</span>
-   </section>
-   <section>
-    <h2>Go</h2>
-    <pre><code class=language-nix>{ lib, buildGoModule, fetchFromGithub }:
+    <section>
+     <h2>Nix tools</h2>
+     <p><a class=external href=https://github.com/Mic92/nix-update>[Swiss knife for 
+       updating nix packages.]</a>
+     <p><a class=external href=https://github.com/spwhitt/nix-zsh-completions>[SSH 
+       Completions for Nix]</a>
+     <p><a class=external href=https://github.com/chisui/zsh-nix-shell>[ssh plugin that 
+       lets you use zsh in nix-shell shell.]</a>
+     <p><a class=external href=https://github.com/cleverca22/not-os>[cleverca22/not-os: 
+       An operating system generator, based on NixOS, that, giv]</a>
+     <p><a class=external href=https://github.com/NixOS/nixpkgs/issues/26067>[Make a 
+       service abstraction layer · Issue #26067 · NixOS/nixpkgs]</a><span>: Abstract 
+       over systemd</span>
+     <p><a class=external href=https://github.com/dustinlacewell/dotfiles>
+       [dustinlacewell/dotfiles: Nix configuration for all my workstations and serv]</a>
+      <span> workstation ux</span>
+     <p><a class=external href=https://github.com/brainrape/nixform>[brainrape/nixform: 
+       define terraform infrastructure in nix]</a>
+     <p><a class=external href=https://github.com/brainrape/nixos-tutorial>
+       [brainrape/nixos-tutorial: one hour, hands-on]</a>
+     <p><a class=external
+      href="https://sandervanderburg.blogspot.com/2020/06/using-disnix-as-simple-and-minimalistic.html?m=1">
+       [Sander van der Burg&amp;#039;s blog: Using Disnix as a simple and minimalistic 
+       depen]</a>
+     <p><a class=external
+      href=https://blog.patchgirl.io/haskell/2020/07/13/static-haskell-binary.html>
+       [Building static Haskell binary with Nix on Linux · PatchGirl]</a>
+     <p><a class=external
+      href="https://www.reddit.com/r/haskell/comments/hzeued/neuron_06_released_futureproof_notetaking_tool/">
+       [Neuron 0.6 released: future-proof note-taking tool written in Haskell, Nix ]</a>
+     <p><a class=external
+      href="https://www.reddit.com/r/NixOS/comments/i2gaul/searching_and_installing_packages_in_nixos/">
+       [Searching and installing packages in NixOS - NixOS]</a>
+     <p><a class=external href=https://github.com/stites/haskell.nix-niv>
+       [stites/haskell.nix-niv]</a>
+     <p><a class=external href=https://nixos.wiki/wiki/NixOS_on_ZFS>[NixOS on ZFS - 
+       NixOS Wiki]</a>
+     <p><a class=external
+      href=https://elvishjerricco.github.io/2018/12/06/encrypted-boot-on-zfs-with-nixos.html>
+       [Encrypted /boot on ZFS with NixOS]</a>
+     <p><a class=external href=https://github.com/brainrape/nixform>[brainrape/nixform]</a>
+     <p><a class=external
+      href=https://sevdev.hu/posts/2017-12-26-discovering-nix-deploying-a-simple-nginx-with-nixops.html>
+       [Discovering Nix: Provisioning a static webserver with NixOps]</a>
+     <p><a class=external
+      href=https://hugoreeves.com/posts/2019/continuously-delivering-this-blog-with-nix-hugo-and-circleci>
+       [Continuously Delivering this Blog with Nix, Hugo and CircleCI]</a>
+     <p><a class=external
+      href=https://blog.container-solutions.com/step-towards-future-configuration-infrastructure-management-nix>
+       [configuring infra in nix]</a>
+     <p><a class=external
+      href=https://davedellacosta.com/posts/2019-03-29-why-nixos-is-hard-and-how-to-fix.html>
+       [https://davedellacosta.com/posts/2019-03-29-why-nixos-is-hard-and-how-to-fix.html]
+       </a>
+     <p><a class=external href=https://github.com/dustinlacewell/dotfiles>
+       [https://github.com/dustinlacewell/dotfiles]</a>
+     <p><a class=external href=https://github.com/nix-community/nixos-generators>
+       [https://github.com/nix-community/nixos-generators]</a><span>image builders for 
+       nix</span>
+     <p><a class=external href=https://github.com/nix-community/todomvc-nix:>
+       [https://github.com/nix-community/todomvc-nix:]</a><span>canonical example for 
+       nix, works with or without flakes apparently.</span>
+     <p><a class=external
+      href="https://lemire.me/blog/2020/05/22/programming-inside-a-container/">
+       [https://lemire.me/blog/2020/05/22/programming-inside-a-container/]</a><span>
+       programming inside of containers</span>
+     <p><a class=external
+      href=https://unix.stackexchange.com/questions/522822/different-methods-to-run-a-non-nixos-executable-on-nixos>
+       [https://unix.stackexchange.com/questions/522822/different-methods-to-run-a-non-nixos-executable-on-nixos]
+       </a>
+     <p><a class=external href=https://github.com/NixOS/nixpkgs/issues/26067>
+       [https://github.com/NixOS/nixpkgs/issues/26067]</a><span>making a nix service 
+       abstraction layer, abstracting over systemd to produce a more generic solution</span>
+     <p><a class=external href=https://grahamc.com/blog/erase-your-darlings>
+       [https://grahamc.com/blog/erase-your-darlings]</a>
+     <p><a class=external href=https://gitlab.com/vdemeester/home>
+       [https://gitlab.com/vdemeester/home]</a><span>this seems like a config worth 
+       looking through!</span>
+     <p><a class=external
+      href=https://www.johnbcoughlin.com/posts/nix-dynamic-linking/index.html>
+       [debugging a dynamic linking bug in a nix project]</a>
+     <p><span> </span><a class=external href=https://github.com/danielfullmer/robotnix>
+       [danielfullmer/robotnix: Build Android (AOSP) using Nix]</a><span> </span><a
+      class=internal href=id:66f8f71c-b5da-499d-84a0-765438368200>{Mobile}</a>
+     <section>
+      <h3>TODO 
+       [[https://gist.github.com/owenleonard11/18acac79e3ccee1adbfd4a38f2730885][Haskell
+        Minimax with Alpha-Beta Pruning]]</h3>
+      <p><span>Captured On: [2020-10-18 Sun 14:28]</span>
+     </section>
+     <section>
+      <h3>TODO 
+       [[https://www.reddit.com/r/haskell/comments/1ha5dd/rss_reader_written_in_haskell_and_urweb/][RSS
+        reader written in Haskell and Ur/Web : haskell]]</h3>
+      <p><span>Captured On: [2020-10-18 Sun 15:12]</span>
+     </section>
+     <section>
+      <h3>TODO [[https://github.com/lehins/hip][lehins/hip: Haskell Image Processing 
+       Library]]</h3>
+      <p><span>Captured On: [2020-10-18 Sun 15:14]</span>
+     </section>
+     <section>
+      <h3>TODO 
+       [[https://stackoverflow.com/questions/7147799/displaying-dynamically-generated-images-in-yesod][haskell
+        - Displaying dynamically generated images in Yesod - Stack Overflow]]</h3>
+      <p><span>Captured On: [2020-10-18 Sun 15:15]</span>
+     </section>
+     <section>
+      <h3>TODO [[https://serokell.io/blog/dimensions-haskell-singletons][Dimensions and 
+       Haskell: Singletons in Action]]</h3>
+      <p><span>Captured On: [2020-10-18 Sun 16:36]</span>
+      <p><a class=external href=https://github.com/Trundle/NixOS-WSL>
+        [https://github.com/Trundle/NixOS-WSL]</a><span>nixos on wsl</span>
+      <p><a class=external href=https://github.com/telent/nixwrt>
+        [https://github.com/telent/nixwrt]</a><span>build images for MIPS using nixpkgs</span>
+      <p><a class=external href=https://github.com/serokell/deploy-rs>
+        [https://github.com/serokell/deploy-rs]</a><span>nix flake deploy tool</span>
+      <p><a class=external href="https://bou.ke/blog/nix/">[https://bou.ke/blog/nix/]</a>
+       <span>very cool nix configuration and deployment</span>
+      <p><span>get a nix shell for your whole configuration!</span>
+      <p><span>const ua = event.request.headers.get(&#39;User-Agent&#39;);</span>
+      <p><span>if (url.pathname === &#39;</span><i>&#39; &amp;&amp; ua.match(</i><span>
+        \bNix\</span><i></i><span>) != null) {</span>
+      <p><span> return new Response(&#39;&#39;, { status: 302, headers: { location: </span>
+       <pre></pre><span> } });</span>
+      <p><span>}</span>
+     </section>
+    </section>
+    <section>
+     <h2>Flake tips</h2>
+     <p><span>Do not be afraid to use the --help flag! I&#39;ve learned a lotfrom it.</span>
+     <ul>
+      <li><span> Update a specific input: </span>
+       <pre></pre>
+     </ul>
+     <p><span> do</span>
+    </section>
+    <section>
+     <h2>Go</h2>
+     <pre><code class=language-nix>{ lib, buildGoModule, fetchFromGithub }:
 # buildGoModule can be pulled in from the package
 buildGoModule rec {
   pname = &quot;mangadesk&quot;;
@@ -572,7 +573,8 @@ buildGoModule rec {
   };
 }
 </code></pre>
-   </section>
+    </section>
+   </article>
   </main>
  </body>
 </html>

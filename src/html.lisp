@@ -140,9 +140,10 @@
      title
      (list
       (components::sidebar path root)
-      (when title (spinneret::with-html (:h1 :class "title-top" title)))
-      (loop for node in f-body
-            collect (render-node node))))))
+      (:article :class "wikipage"
+       (when title (spinneret::with-html (:h1 :class "title-top" title)))
+       (loop for node in f-body
+             collect (render-node node)))))))
 
 
 ;; page looks like this:
