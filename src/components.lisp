@@ -102,7 +102,8 @@
     (spinneret::with-html
         (:div
          :class "sidebar"
-         (:a :href "/index.html" " ~ ")
+         (:a :href "/index.html" " jake.")
+         (:a :href "https://isnt.online" " ~ ")
          (concatenate
           'list
           (collect-folder-paths path)
