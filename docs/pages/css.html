@@ -35,6 +35,15 @@
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
+ <script
+         src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+ <script id=MathJax-script
+         src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js>
+        MathJax.typesetPromise().then(() =&gt; {
+        // modify the DOM here
+        MathJax.typesetPromise();
+        }).catch((err) =&gt; console.log(err.message));
+       </script>
  <body>
   <main>
    <div class=sidebar>
@@ -44,217 +53,215 @@
    <article class=wikipage>
     <h1 class=title-top>CSS</h1>
     <p><span>Cool tricks with CSS.</span>
-    <section>
-     <h2>Codepens</h2>
-     <p><a class=external href=https://codepen.io/Mamboleoo/pen/MWyNZYr>
-       [https://codepen.io/Mamboleoo/pen/MWyNZYr]</a><span>rainbow hypercube</span>
-     <p><a class=external href=https://codepen.io/jh3y/pen/LYNZwGm>
-       [https://codepen.io/jh3y/pen/LYNZwGm]</a><span>impossible checkbox</span>
-     <p><a class=external href="https://webdevtrick.com/html-css-glitch-effect/">
-       [https://webdevtrick.com/html-css-glitch-effect/]</a>
-     <p><a class=external href=https://codepen.io/jh3y/pen/yLYXVJa>
-       [https://codepen.io/jh3y/pen/yLYXVJa]</a><span>-- snorlax</span>
-     <p><a class=external href=https://codepen.io/a-trost/pen/BaoZgaK>
-       [https://codepen.io/a-trost/pen/BaoZgaK]</a><span>-- neat animation!</span>
-     <p><a class=external
-      href="https://codersblock.com/blog/using-css-to-control-text-selection/">
-       [https://codersblock.com/blog/using-css-to-control-text-selection/]</a><span>-- 
-       using css to control text selection</span>
-     <p><a class=external href=https://codepen.io/lukes611/pen/dyyYXqP>
-       [https://codepen.io/lukes611/pen/dyyYXqP]</a><span>-- Tamagochi!!!</span>
-     <p><a class=external href=https://codepen.io/KilledByAPixel/pen/BaowKzv>
-       [https://codepen.io/KilledByAPixel/pen/BaowKzv]</a><span>-- synth</span>
-     <p><a class=external href=https://codepen.io/YusukeNakaya/pen/dyYzRVx>
-       [https://codepen.io/YusukeNakaya/pen/dyYzRVx]</a><span>snakes, airpods or 
-       something</span>
-     <p><a class=external href=https://codepen.io/fossheim/pen/jObGxQQ>
-       [https://codepen.io/fossheim/pen/jObGxQQ]</a><span>nintendo switch through only 
-       css</span>
-     <p><a class=external href=https://codepen.io/chrisgannon/pen/RwWVJWd>
-       [https://codepen.io/chrisgannon/pen/RwWVJWd]</a><span>this man is rolling</span>
-     <p><a class=external href=https://codepen.io/chris22smith/pen/wvKqMOR>
-       [https://codepen.io/chris22smith/pen/wvKqMOR]</a><span>-- make new fish!</span>
-     <p><a class=external href=https://codepen.io/jordirue/pen/NWGjwzz>
-       [https://codepen.io/jordirue/pen/NWGjwzz]</a>
-     <p><a class=external href=https://codepen.io/collection/njYZRV>
-       [https://codepen.io/collection/njYZRV]</a><span>image hovers!</span>
-     <p><a class=external href=https://codepen.io/RominaMartin/pen/OJVdvRm>
-       [https://codepen.io/RominaMartin/pen/OJVdvRm]</a><span>-- cool blood donation 
-       UI!</span>
-     <p><a class=external href=https://codepen.io/pavlovsk/pen/OJymPmd>
-       [https://codepen.io/pavlovsk/pen/OJymPmd]</a><span>tree generation</span>
-     <p><a class=external href=https://codepen.io/pavlovsk/pen/OJymPmd>
-       [https://codepen.io/pavlovsk/pen/OJymPmd]</a><span>-- braun radio design in css</span>
-     <p><a class=external href=https://codepen.io/KilledByAPixel/pen/abvqydY>
-       [https://codepen.io/KilledByAPixel/pen/abvqydY]</a><span>bloodflow codepen!</span>
-     <p><a class=external href=https://codepen.io/jkantner/pen/vYNRdJL>
-       [https://codepen.io/jkantner/pen/vYNRdJL]</a><span>catbread!</span>
-     <p><a class=external href=https://codepen.io/jkantner/pen/vYNRdJL>
-       [https://codepen.io/jkantner/pen/vYNRdJL]</a>
-     <p><a class=external href=https://codepen.io/hailedev/pen/OJyvvVQ>
-       [https://codepen.io/hailedev/pen/OJyvvVQ]</a><span>minecraft in css</span>
-     <p><a class=external href=https://codepen.io/cobra_winfrey/pen/LYpeKrd>
-       [https://codepen.io/cobra_winfrey/pen/LYpeKrd]</a><span>flowing letters !!</span>
-     <p><a class=external href=https://codepen.io/wendko/pen/jObajYq>
-       [https://codepen.io/wendko/pen/jObajYq]</a><span>choosing cats !</span>
-     <p><a class=external href=https://codepen.io/cybercountess/pen/gOaoWmX>
-       [https://codepen.io/cybercountess/pen/gOaoWmX]</a><span>isabelle&#39;s day off</span>
-     <p><a class=external href=https://www.virtualgoodsdealer.com/:>
-       [https://www.virtualgoodsdealer.com/:]</a><span>copy the css from this page. 
-       it&#39;s what i want to emulate the mac windows!!!!</span>
-     <p><a class=external href=https://github.com/ESWAT/john-carmack-plan-archive>[john 
-       carmack&#39;s archive]</a>
-     <p><a class=external href="https://leimao.github.io/blog/Group-Lasso/">[lasso reg]</a>
-     <p><a class=external
-      href="https://www.youtube.com/watch?v=smlQbh6jQvg&amp;app=desktop">[amenity 
-       detection]</a>
-     <p><a class=external href="https://www.thisworddoesnotexist.com/">[this word not 
-       exist]</a>
-     <p><a class=external href="http://agdr.org/blog/">[blog i like the look of]</a>
-     <p><a class=external href=http://math.ucr.edu/home/baez/twf.html>[this week&#39;s 
-       finds ! cool content!]</a>
-     <p><a class=external href="https://johncarlosbaez.wordpress.com/">[wp blog for 
-       above]</a>
-     <p><a class=external href=https://codepen.io/toshiya-marukubo/pen/oNbgPRX>
-       [https://codepen.io/toshiya-marukubo/pen/oNbgPRX]</a><span>neat orbit thing</span>
-     <p><a class=external href=https://codepen.io/oliviale/pen/BaoXOOP>
-       [https://codepen.io/oliviale/pen/BaoXOOP]</a><span>fake newspaper !</span>
-     <p><a class=external
-      href="https://thomaspark.co/2020/06/the-mad-magazine-fold-in-effect-in-css/">
-       [https://thomaspark.co/2020/06/the-mad-magazine-fold-in-effect-in-css/]</a>
-      <span>mad magazine folding simulation!</span>
-     <p><a class=external href=https://www.simplified.guide/ssh/disable-timeout>
-       [https://www.simplified.guide/ssh/disable-timeout]</a><span>ssh timeout :: good 
-       reference.</span>
-     <p><a class=external href="https://shibumi.dev/posts/">
-       [https://shibumi.dev/posts/]</a><span>good blog, some useful information and 
-       things to learn here</span>
-     <p><a class=external href="https://www.tessera.li/">[https://www.tessera.li/]</a>
-      <span>math visualizations in js</span>
-     <p><a class=external href="https://avanier.now.sh/">[https://avanier.now.sh/]</a>
-      <span>i love this website</span>
-     <p><a class=external href=https://avanier.now.sh/w/bucket.html>
-       [https://avanier.now.sh/w/bucket.html]</a><span>make a bucket list !</span>
-     <p><a class=external href=https://avanier.now.sh/w/glossary.html>
-       [https://avanier.now.sh/w/glossary.html]</a><span>words i like</span>
-     <p><a class=external href=https://avanier.now.sh/w/links.html>
-       [https://avanier.now.sh/w/links.html]</a><span>curated links and resources</span>
-     <p><a class=external href=https://avanier.now.sh/w/orion.html>
-       [https://avanier.now.sh/w/orion.html]</a><span>programming on android?</span>
-     <p><a class=external href=https://avanier.now.sh/w/navire.html>
-       [https://avanier.now.sh/w/navire.html]</a>
-     <p><span>use all of these technologies -- check them out!</span>
-     <p><a class=external href=https://avanier.now.sh/w/natalie.html>
-       [https://avanier.now.sh/w/natalie.html]</a><span>very cool; look into bringing 
-       this to</span>
-     <p><span>class instead of a laptop for taking notes!</span>
-     <p><a class=external href=https://avanier.now.sh/w/navire.html>
-       [https://avanier.now.sh/w/navire.html]</a><span>please do use this style for a 
-       website.</span>
-     <p><a class=external href="http://evenunto.net/">[http://evenunto.net/]</a><span>
-       yooo</span>
-     <p><a class=external href="https://hraew.autophagy.io/">
-       [https://hraew.autophagy.io/]</a><span>project and personal information 
-       repostiory. very cool interface</span>
-     <p><a class=external href="https://hraew.autophagy.io/antimber/">
-       [https://hraew.autophagy.io/antimber/]</a><span>very cool; a uniform switch for 
-       theming and system configuration that integrates with a set of personal 
-       preferences</span>
-     <p><a class=external href="https://kaemura.com/">[https://kaemura.com/]</a><span>
-       incredible website and experiments</span>
-     <p><a class=external href=https://avanier.now.sh/w/work.html>
-       [https://avanier.now.sh/w/work.html]</a><span>incredible interface</span>
-     <p><a class=external href=https://avanier.now.sh/w/holly.html>
-       [https://avanier.now.sh/w/holly.html]</a><span>computer console; used as a 
-       portable ocmputer at school? very cool!</span>
-     <p><a class=external href=https://avanier.now.sh/w/rabbit.html>
-       [https://avanier.now.sh/w/rabbit.html]</a><span>great idea</span>
-     <p><a class=external href=https://avanier.now.sh/w/josh.html>
-       [https://avanier.now.sh/w/josh.html]</a><span>i love this</span>
-     <p><a class=external href=https://avanier.now.sh/w/malin.html>
-       [https://avanier.now.sh/w/malin.html]</a><span>firefox theme?</span>
-     <p><a class=external href="https://anxl.faith/">[https://anxl.faith/]</a><span>nut 
-       my pants</span>
-     <p><a class=external href="https://heracl.es/">[https://heracl.es/]</a><span>cool 
-       projects found below; navigation of films, diy kit for router, etc</span>
-     <p><a class=external href="https://shards.lectronice.com/">
-       [https://shards.lectronice.com/]</a><span>this is pcool.</span>
-     <p><a class=external href="https://ellugar.co/">[https://ellugar.co/]</a><span>
-       mexican game developer!</span>
-     <p><a class=external href="https://shoelace.style/">[https://shoelace.style/]</a>
-      <span>a minimal css starter kit</span>
-     <p><a class=external href="https://latex.now.sh/">[latex in css!]</a>
-     <p><a class=external href="https://tachyons.io/">[responsive css framework]</a>
-     <p><a class=external href="https://every-layout.dev/">[relearn css layout]</a>
-     <p><a class=external href=https://github.com/mcnuttandrew/cssql>
-       [&quot;&quot;&quot;Esoteric&quot;&quot; &quot;&quot;Programming&quot;&quot; 
-       &quot;&quot;Language&quot;&quot; transpiler for converting SQL to CSS &quot;]</a>
-     <section>
-      <h3>fun css</h3>
-      <p><a class=external href=https://codepen.io/chrisgannon/pen/oNjqpLy>[slider]</a>
-      <p><a class=external href=https://codepen.io/chrisgannon/pen/oNjqpLy>[inherit!]</a>
-      <p><a class=external href=https://codepen.io/chrisgannon/pen/oNjqpLy>[wow 
-        animation!]</a>
-      <p><a class=external href=https://github.com/lionheart/pinboard.py>[pinboard]</a>
-      <p><a class=external href=https://github.com/brainrape/windows-95-ui-kit>[Windows 
-        95 UI Kit]</a><span>, and </span><a class=external
-       href=https://themesberg.com/product/ui-kit/windows-95-ui-kit>[Windows 95 UI Kit]</a>
-      <p><a class=external href=https://github.com/brainrape/win95.css>
-        [brainrape/win95.css: Responsive Bootstrap 4 windows 95/98 theme &amp;amp; 
-        landing t]</a>
-      <p><a class=external href="https://web.dev/one-line-layouts/">[Ten modern layouts 
-        in one line of CSS]</a>
-      <p><a class=external href="https://www.tailwindtoolbox.com/">[Tailwind Toolbox - 
-        Free Starter Templates and Components for Tailwind CSS]</a>
-      <p><a class=external
-       href="https://tympanus.net/codrops/2021/02/10/simple-css-line-hover-animations-for-links/">
-        [simple css line hover animations for links!]</a>
-     </section>
-    </section>
-    <section>
-     <h2>Convention</h2>
-     <section>
-      <h3>Don&#39;t use Margin</h3>
-      <p><a class=external href="https://www.amazon.com/dp/B0771V3SSP/?tag=wtpl-20">
-        [Don&#39;t use Margin]</a>
-      <p><span>Margin breaks component encapsulation because components impact 
-        everything surrounding them and external to them.</span>
-      <p><span>It also makes reusability difficult and impacts external components.</span>
-      <p><span>The stack component, similar to other spacer components,</span>
-      <p><span>is useful for adding arbitrary spaces internal to and external from 
-        different components. THese help define discrete units for space as well which 
-        can be standardized across the application.</span>
-     </section>
-    </section>
-    <section>
-     <h2>vulnerabilities</h2>
-     <p><a class=external href=https://github.com/saizai/cssfingerprint>
-       [saizai/cssfingerprint: a research project to see how well the CSS history hack 
-       can fingerprint a user]</a>
-     <p><a class=external href="https://easings.net/">[all of the different CSS easing 
-       functions]</a>
-     <p><a class=external href=https://codepen.io/MrBlank/pen/JjXxovL>
-       [https://codepen.io/MrBlank/pen/JjXxovL]</a><span>cool css animation with 
-       envelope opening</span>
-     <p><a class=external
-      href="https://tympanus.net/codrops/2020/10/05/recreating-the-100-days-of-poetry-effect-with-shader-scrolltriger-and-css-grid/">
-       [https://tympanus.net/codrops/2020/10/05/recreating-the-100-days-of-poetry-effect-with-shader-scrolltriger-and-css-grid/]
-       </a>
-     <p><a class=external href="https://polypane.app/css-3d-transform-examples/">
-       [https://polypane.app/css-3d-transform-examples/]</a>
-     <p><a class=external
-      href=https://developer.mozilla.org/en-US/docs/Web/CSS/@counter-style>[count in 
-       CSS]</a>
-     <section>
-      <h3>Security</h3>
-      <section>
-       <h4>Do not blindly copy paste</h4>
-       <p><a class=external href=https://lyngvaer.no/log/browser-to-clipboard-tainted>
-         [source]</a>
-       <p><span>In this code segment, it&#39;s trivial to hide the truth of the text 
-         that&#39;s being copied, thus resulting in a blind paste into terminal being 
-         malicious:</span>
-       <pre><code class=language-html>&lt;style&gt;
+    <h2>Codepens</h2>
+    <p><a class=external href=https://codepen.io/Mamboleoo/pen/MWyNZYr>
+      [https://codepen.io/Mamboleoo/pen/MWyNZYr]</a><span>rainbow hypercube</span>
+    <p><a class=external href=https://codepen.io/jh3y/pen/LYNZwGm>
+      [https://codepen.io/jh3y/pen/LYNZwGm]</a><span>impossible checkbox</span>
+    <p><a class=external href="https://webdevtrick.com/html-css-glitch-effect/">
+      [https://webdevtrick.com/html-css-glitch-effect/]</a>
+    <p><a class=external href=https://codepen.io/jh3y/pen/yLYXVJa>
+      [https://codepen.io/jh3y/pen/yLYXVJa]</a><span>-- snorlax</span>
+    <p><a class=external href=https://codepen.io/a-trost/pen/BaoZgaK>
+      [https://codepen.io/a-trost/pen/BaoZgaK]</a><span>-- neat animation!</span>
+    <p><a class=external
+     href="https://codersblock.com/blog/using-css-to-control-text-selection/">
+      [https://codersblock.com/blog/using-css-to-control-text-selection/]</a><span>-- 
+      using css to control text selection</span>
+    <p><a class=external href=https://codepen.io/lukes611/pen/dyyYXqP>
+      [https://codepen.io/lukes611/pen/dyyYXqP]</a><span>-- Tamagochi!!!</span>
+    <p><a class=external href=https://codepen.io/KilledByAPixel/pen/BaowKzv>
+      [https://codepen.io/KilledByAPixel/pen/BaowKzv]</a><span>-- synth</span>
+    <p><a class=external href=https://codepen.io/YusukeNakaya/pen/dyYzRVx>
+      [https://codepen.io/YusukeNakaya/pen/dyYzRVx]</a><span>snakes, airpods or 
+      something</span>
+    <p><a class=external href=https://codepen.io/fossheim/pen/jObGxQQ>
+      [https://codepen.io/fossheim/pen/jObGxQQ]</a><span>nintendo switch through only 
+      css</span>
+    <p><a class=external href=https://codepen.io/chrisgannon/pen/RwWVJWd>
+      [https://codepen.io/chrisgannon/pen/RwWVJWd]</a><span>this man is rolling</span>
+    <p><a class=external href=https://codepen.io/chris22smith/pen/wvKqMOR>
+      [https://codepen.io/chris22smith/pen/wvKqMOR]</a><span>-- make new fish!</span>
+    <p><a class=external href=https://codepen.io/jordirue/pen/NWGjwzz>
+      [https://codepen.io/jordirue/pen/NWGjwzz]</a>
+    <p><a class=external href=https://codepen.io/collection/njYZRV>
+      [https://codepen.io/collection/njYZRV]</a><span>image hovers!</span>
+    <p><a class=external href=https://codepen.io/RominaMartin/pen/OJVdvRm>
+      [https://codepen.io/RominaMartin/pen/OJVdvRm]</a><span>-- cool blood donation 
+      UI!</span>
+    <p><a class=external href=https://codepen.io/pavlovsk/pen/OJymPmd>
+      [https://codepen.io/pavlovsk/pen/OJymPmd]</a><span>tree generation</span>
+    <p><a class=external href=https://codepen.io/pavlovsk/pen/OJymPmd>
+      [https://codepen.io/pavlovsk/pen/OJymPmd]</a><span>-- braun radio design in css</span>
+    <p><a class=external href=https://codepen.io/KilledByAPixel/pen/abvqydY>
+      [https://codepen.io/KilledByAPixel/pen/abvqydY]</a><span>bloodflow codepen!</span>
+    <p><a class=external href=https://codepen.io/jkantner/pen/vYNRdJL>
+      [https://codepen.io/jkantner/pen/vYNRdJL]</a><span>catbread!</span>
+    <p><a class=external href=https://codepen.io/jkantner/pen/vYNRdJL>
+      [https://codepen.io/jkantner/pen/vYNRdJL]</a>
+    <p><a class=external href=https://codepen.io/hailedev/pen/OJyvvVQ>
+      [https://codepen.io/hailedev/pen/OJyvvVQ]</a><span>minecraft in css</span>
+    <p><a class=external href=https://codepen.io/cobra_winfrey/pen/LYpeKrd>
+      [https://codepen.io/cobra_winfrey/pen/LYpeKrd]</a><span>flowing letters !!</span>
+    <p><a class=external href=https://codepen.io/wendko/pen/jObajYq>
+      [https://codepen.io/wendko/pen/jObajYq]</a><span>choosing cats !</span>
+    <p><a class=external href=https://codepen.io/cybercountess/pen/gOaoWmX>
+      [https://codepen.io/cybercountess/pen/gOaoWmX]</a><span>isabelle&#39;s day off</span>
+    <p><a class=external href=https://www.virtualgoodsdealer.com/:>
+      [https://www.virtualgoodsdealer.com/:]</a><span>copy the css from this page. 
+      it&#39;s what i want to emulate the mac windows!!!!</span>
+    <p><a class=external href=https://github.com/ESWAT/john-carmack-plan-archive>[john 
+      carmack&#39;s archive]</a>
+    <p><a class=external href="https://leimao.github.io/blog/Group-Lasso/">[lasso reg]</a>
+    <p><a class=external
+     href="https://www.youtube.com/watch?v=smlQbh6jQvg&amp;app=desktop">[amenity 
+      detection]</a>
+    <p><a class=external href="https://www.thisworddoesnotexist.com/">[this word not 
+      exist]</a>
+    <p><a class=external href="http://agdr.org/blog/">[blog i like the look of]</a>
+    <p><a class=external href=http://math.ucr.edu/home/baez/twf.html>[this week&#39;s 
+      finds ! cool content!]</a>
+    <p><a class=external href="https://johncarlosbaez.wordpress.com/">[wp blog for 
+      above]</a>
+    <p><a class=external href=https://codepen.io/toshiya-marukubo/pen/oNbgPRX>
+      [https://codepen.io/toshiya-marukubo/pen/oNbgPRX]</a><span>neat orbit thing</span>
+    <p><a class=external href=https://codepen.io/oliviale/pen/BaoXOOP>
+      [https://codepen.io/oliviale/pen/BaoXOOP]</a><span>fake newspaper !</span>
+    <p><a class=external
+     href="https://thomaspark.co/2020/06/the-mad-magazine-fold-in-effect-in-css/">
+      [https://thomaspark.co/2020/06/the-mad-magazine-fold-in-effect-in-css/]</a>
+     <span>mad magazine folding simulation!</span>
+    <p><a class=external href=https://www.simplified.guide/ssh/disable-timeout>
+      [https://www.simplified.guide/ssh/disable-timeout]</a><span>ssh timeout :: good 
+      reference.</span>
+    <p><a class=external href="https://shibumi.dev/posts/">
+      [https://shibumi.dev/posts/]</a><span>good blog, some useful information and 
+      things to learn here</span>
+    <p><a class=external href="https://www.tessera.li/">[https://www.tessera.li/]</a>
+     <span>math visualizations in js</span>
+    <p><a class=external href="https://avanier.now.sh/">[https://avanier.now.sh/]</a>
+     <span>i love this website</span>
+    <p><a class=external href=https://avanier.now.sh/w/bucket.html>
+      [https://avanier.now.sh/w/bucket.html]</a><span>make a bucket list !</span>
+    <p><a class=external href=https://avanier.now.sh/w/glossary.html>
+      [https://avanier.now.sh/w/glossary.html]</a><span>words i like</span>
+    <p><a class=external href=https://avanier.now.sh/w/links.html>
+      [https://avanier.now.sh/w/links.html]</a><span>curated links and resources</span>
+    <p><a class=external href=https://avanier.now.sh/w/orion.html>
+      [https://avanier.now.sh/w/orion.html]</a><span>programming on android?</span>
+    <p><a class=external href=https://avanier.now.sh/w/navire.html>
+      [https://avanier.now.sh/w/navire.html]</a>
+    <p><span>use all of these technologies -- check them out!</span>
+    <p><a class=external href=https://avanier.now.sh/w/natalie.html>
+      [https://avanier.now.sh/w/natalie.html]</a><span>very cool; look into bringing 
+      this to</span>
+    <p><span>class instead of a laptop for taking notes!</span>
+    <p><a class=external href=https://avanier.now.sh/w/navire.html>
+      [https://avanier.now.sh/w/navire.html]</a><span>please do use this style for a 
+      website.</span>
+    <p><a class=external href="http://evenunto.net/">[http://evenunto.net/]</a><span>
+      yooo</span>
+    <p><a class=external href="https://hraew.autophagy.io/">
+      [https://hraew.autophagy.io/]</a><span>project and personal information 
+      repostiory. very cool interface</span>
+    <p><a class=external href="https://hraew.autophagy.io/antimber/">
+      [https://hraew.autophagy.io/antimber/]</a><span>very cool; a uniform switch for 
+      theming and system configuration that integrates with a set of personal 
+      preferences</span>
+    <p><a class=external href="https://kaemura.com/">[https://kaemura.com/]</a><span>
+      incredible website and experiments</span>
+    <p><a class=external href=https://avanier.now.sh/w/work.html>
+      [https://avanier.now.sh/w/work.html]</a><span>incredible interface</span>
+    <p><a class=external href=https://avanier.now.sh/w/holly.html>
+      [https://avanier.now.sh/w/holly.html]</a><span>computer console; used as a 
+      portable ocmputer at school? very cool!</span>
+    <p><a class=external href=https://avanier.now.sh/w/rabbit.html>
+      [https://avanier.now.sh/w/rabbit.html]</a><span>great idea</span>
+    <p><a class=external href=https://avanier.now.sh/w/josh.html>
+      [https://avanier.now.sh/w/josh.html]</a><span>i love this</span>
+    <p><a class=external href=https://avanier.now.sh/w/malin.html>
+      [https://avanier.now.sh/w/malin.html]</a><span>firefox theme?</span>
+    <p><a class=external href="https://anxl.faith/">[https://anxl.faith/]</a><span>nut 
+      my pants</span>
+    <p><a class=external href="https://heracl.es/">[https://heracl.es/]</a><span>cool 
+      projects found below; navigation of films, diy kit for router, etc</span>
+    <p><a class=external href="https://shards.lectronice.com/">
+      [https://shards.lectronice.com/]</a><span>this is pcool.</span>
+    <p><a class=external href="https://ellugar.co/">[https://ellugar.co/]</a><span>
+      mexican game developer!</span>
+    <p><a class=external href="https://shoelace.style/">[https://shoelace.style/]</a>
+     <span>a minimal css starter kit</span>
+    <p><a class=external href="https://latex.now.sh/">[latex in css!]</a>
+    <p><a class=external href="https://tachyons.io/">[responsive css framework]</a>
+    <p><a class=external href="https://every-layout.dev/">[relearn css layout]</a>
+    <p><a class=external href=https://github.com/mcnuttandrew/cssql>
+      [&quot;&quot;&quot;Esoteric&quot;&quot; &quot;&quot;Programming&quot;&quot; 
+      &quot;&quot;Language&quot;&quot; transpiler for converting SQL to CSS &quot;]</a>
+    <h3>fun css</h3>
+    <p><a class=external href=https://codepen.io/chrisgannon/pen/oNjqpLy>[slider]</a>
+    <p><a class=external href=https://codepen.io/chrisgannon/pen/oNjqpLy>[inherit!]</a>
+    <p><a class=external href=https://codepen.io/chrisgannon/pen/oNjqpLy>[wow 
+      animation!]</a>
+    <p><a class=external href=https://github.com/lionheart/pinboard.py>[pinboard]</a>
+    <p><a class=external href=https://github.com/brainrape/windows-95-ui-kit>[Windows 
+      95 UI Kit]</a><span>, and </span><a class=external
+     href=https://themesberg.com/product/ui-kit/windows-95-ui-kit>[Windows 95 UI Kit]</a>
+    <p><a class=external href=https://github.com/brainrape/win95.css>
+      [brainrape/win95.css: Responsive Bootstrap 4 windows 95/98 theme &amp;amp; 
+      landing t]</a>
+    <p><a class=external href="https://web.dev/one-line-layouts/">[Ten modern layouts 
+      in one line of CSS]</a>
+    <p><a class=external href="https://www.tailwindtoolbox.com/">[Tailwind Toolbox - 
+      Free Starter Templates and Components for Tailwind CSS]</a>
+    <p><a class=external
+     href="https://tympanus.net/codrops/2021/02/10/simple-css-line-hover-animations-for-links/">
+      [simple css line hover animations for links!]</a>
+    <section
+             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+    <section
+             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL
+ NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL
+ NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL
+ NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+    <h2>Convention</h2>
+    <h3>Don&#39;t use Margin</h3>
+    <p><a class=external href="https://www.amazon.com/dp/B0771V3SSP/?tag=wtpl-20">
+      [Don&#39;t use Margin]</a>
+    <p><span>Margin breaks component encapsulation because components impact 
+      everything surrounding them and external to them.</span>
+    <p><span>It also makes reusability difficult and impacts external components.</span>
+    <p><span>The stack component, similar to other spacer components,</span>
+    <p><span>is useful for adding arbitrary spaces internal to and external from 
+      different components. THese help define discrete units for space as well which 
+      can be standardized across the application.</span>
+    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+    <section id="(NIL NIL)"></section>
+    <h2>vulnerabilities</h2>
+    <p><a class=external href=https://github.com/saizai/cssfingerprint>
+      [saizai/cssfingerprint: a research project to see how well the CSS history hack 
+      can fingerprint a user]</a>
+    <p><a class=external href="https://easings.net/">[all of the different CSS easing 
+      functions]</a>
+    <p><a class=external href=https://codepen.io/MrBlank/pen/JjXxovL>
+      [https://codepen.io/MrBlank/pen/JjXxovL]</a><span>cool css animation with 
+      envelope opening</span>
+    <p><a class=external
+     href="https://tympanus.net/codrops/2020/10/05/recreating-the-100-days-of-poetry-effect-with-shader-scrolltriger-and-css-grid/">
+      [https://tympanus.net/codrops/2020/10/05/recreating-the-100-days-of-poetry-effect-with-shader-scrolltriger-and-css-grid/]
+      </a>
+    <p><a class=external href="https://polypane.app/css-3d-transform-examples/">
+      [https://polypane.app/css-3d-transform-examples/]</a>
+    <p><a class=external
+     href=https://developer.mozilla.org/en-US/docs/Web/CSS/@counter-style>[count in 
+      CSS]</a>
+    <h3>Security</h3>
+    <h4>Do not blindly copy paste</h4>
+    <p><a class=external href=https://lyngvaer.no/log/browser-to-clipboard-tainted>
+      [source]</a>
+    <p><span>In this code segment, it&#39;s trivial to hide the truth of the text 
+      that&#39;s being copied, thus resulting in a blind paste into terminal being 
+      malicious:</span>
+    <pre><code class=language-html>&lt;style&gt;
 span {
     font-family: monospace;
     position: absolute;
@@ -273,25 +280,25 @@ span::before {
 &lt;/style&gt;
 &lt;span&gt;silly&lt;/span&gt;
 </code></pre>
-       <p><span>One way the author recommends safe pasting is via this command:</span>
-       <pre><code class=language-zsh>alias prepaste=&#39;builtin fc -e &quot;vim -c %d -c \&quot;set paste\&quot;&quot;&#39;
+    <p><span>One way the author recommends safe pasting is via this command:</span>
+    <pre><code class=language-zsh>alias prepaste=&#39;builtin fc -e &quot;vim -c %d -c \&quot;set paste\&quot;&quot;&#39;
 </code></pre>
-       <p><span>This opens the line pasted in vim before sending it to the browser, 
-         encouraging you to preview and edit it.</span>
-       <p><span>css modules: </span><a class=external
-        href=https://github.com/css-modules/css-modules.>
-         [https://github.com/css-modules/css-modules.]</a><span>a specification and 
-         convention for how we should interface with CSS.</span>
-      </section>
-     </section>
-    </section>
-    <section>
-     <h2>alignment tricks!</h2>
-     <p><span>transform() operations occur outside of the flexbox algorithm, so things 
-       can be displayed with flexbox then instantly transformed to their proper 
-       position as desired. this also allows us to place an element entirely out of the 
-       document flow! (adding a &#39;close&#39; button, for example)</span>
-    </section>
+    <p><span>This opens the line pasted in vim before sending it to the browser, 
+      encouraging you to preview and edit it.</span>
+    <p><span>css modules: </span><a class=external
+     href=https://github.com/css-modules/css-modules.>
+      [https://github.com/css-modules/css-modules.]</a><span>a specification and 
+      convention for how we should interface with CSS.</span>
+    <section
+             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+    <section id="(NIL NIL)"></section>
+    <section id="(NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+    <h2>alignment tricks!</h2>
+    <p><span>transform() operations occur outside of the flexbox algorithm, so things 
+      can be displayed with flexbox then instantly transformed to their proper 
+      position as desired. this also allows us to place an element entirely out of the 
+      document flow! (adding a &#39;close&#39; button, for example)</span>
+    <section id="(NIL NIL)"></section>
    </article>
   </main>
  </body>

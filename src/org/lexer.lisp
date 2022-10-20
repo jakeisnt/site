@@ -121,6 +121,7 @@
 
 ;; Assuming we've found matching parens,
 ;; give their contents to these functions to make the respective construct.
+;; TODO: support in-file links and links to other local files
 (defun make-link (link-text)
   "Parse a link with a possible title and mandatory URL"
   (let* ((body (cl-ppcre::split "\\]\\[" link-text)))
@@ -140,6 +141,9 @@
 
 (defun make-verb (txt)
   (ast::make-verb :text txt))
+
+(defun make-latex (txt)
+  txt)
 
 (defun apply-first (pair fn)
   (cons (funcall fn (car pair)) (cdr pair)))
@@ -212,7 +216,8 @@
                       (fd "\\*" "\\*" #'make-bold
                           (fd "/" "/" #'make-ital
                               (fd "`" "`" #'make-verb
-                                  (fd "$" "$" #'make-verb
+                                  ;; NOTE: This is broken and not capturing my latex at all.
+                                  (fd "$" "$" #'make-latex
                                       (tokenize-line
                                        (subseq text-line 1)
                                        (fuse-subseq acc (subseq text-line 0 1)))))))))))))

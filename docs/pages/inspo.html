@@ -36,6 +36,15 @@
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
+ <script
+         src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+ <script id=MathJax-script
+         src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js>
+        MathJax.typesetPromise().then(() =&gt; {
+        // modify the DOM here
+        MathJax.typesetPromise();
+        }).catch((err) =&gt; console.log(err.message));
+       </script>
  <body>
   <main>
    <div class=sidebar>
@@ -48,162 +57,161 @@
       good mono font]</a>
     <p><a class=external href="https://cineshader.com/">[cellular noise]</a>
     <p><a class=external href="https://www.olivevideoeditor.org/">[free video edition]</a>
-    <section>
-     <h2>blogging for free</h2>
-     <p><a class=external href="https://bearblog.dev/">[bear blog]</a>
-     <p><a class=external href="https://pluma.cloud/">[pluma free blog]</a>
-     <p><a class=external href="https://write.as/">[focused writing place]</a>
-     <p><a class=external href="http://txti.es/">[convenient, fast web pages]</a>
-     <p><a class=external href=https://telegra.ph/why-am-i-here-05-29>[express yourself 
-       quickly]</a>
-     <p><a class=external href="https://txt.fyi/+/22b9f246/">[raw expression]</a>
-     <p><a class=external href="https://txt.fyi/+/6ce898cf/">[the cask ]</a>
-     <p><a class=external href=https://txt.fyi/+/57688c94>[https://txt.fyi/+/57688c94]</a>
-     <p><a class=external href="http://ix.io/">[kinda fire. more minimal and more 
-       obscure]</a>
-     <p><a class=external href="https://commentpara.de/">[anon we comments on any site]</a>
-     <p><a class=external href=https://rwtxt.com/public>[reading and text editor]</a>
-     <p><a class=external href="https://write.as/">[focused writing.]</a>
-     <p><a class=external href=https://gopher.tildeverse.org/tildeverse.org>[tilde. in 
-       gopher.]</a>
-     <p><a class=external href="https://dotdotdash.io/">[collective.]</a>
-     <p><a class=external href="https://online-go.com/">[an excellent client for 
-       playing go]</a>
-    </section>
-    <section>
-     <h2>Tools for Better Thinking</h2>
-     <p><a class=external href="https://news.ycombinator.com/item?id=23339830">[thread]</a>
-     <p><span>The most underrated problem solving tool is to type out and explain your</span>
-     <p><span>thought process.</span>
-     <p><span>Start writing down questions to ask others; as you explain what you have</span>
-     <p><span>tried, you will begin to realize that there are more things left to try 
-       --</span>
-     <p><span>some of which being potential solutions.</span>
-     <p><span>Type your question into StackOverflow to submit; you&#39;ll be fearful of 
-       asking</span>
-     <p><span>the question.</span>
-     <p><span>Rank factors; always express factors as positive attributes. After 
-       generating</span>
-     <p><span>the table, the longest continuous line of check marks for each factor</span>
-     <p><span>determines the choice (though this can be gamed...)</span>
-     <p><span>State charts: easy to reason about state changes without the explosion of</span>
-     <p><span>state machines. These are hierarchical state machines, in a sense.</span>
-     <p><span>The Inversion Methods: The solution to many hard problems can be 
-       clarified by</span>
-     <p><span>re-expressing them in inverse form.</span>
-     <p><span>Crossline: structure your thoughts as you type and make cross-references.</span>
-     <p><a class=external href="https://fs.blog/mental-models/">[mental models for 
-       making intelligent decisions]</a>
-     <p><a class=external
-      href="https://medium.com/disruptive-design/search?q=tools%20for%20systems%20thinkers">
-       [tools for systems thinkers]</a>
-     <p><a class=external href="https://news.ycombinator.com/item?id=22747409">[state 
-       machines for complex systmes]</a>
-     <p><a class=external
-      href=https://www.wiley.com/en-us/TRIZ+for+Engineers%3A+Enabling+Inventive+Problem+Solving-p-9780470741887>
-       [enabling inventive problem solving]</a>
-     <p><a class=external href=https://en.m.wikipedia.org/wiki/TRIZ>[analyzing and 
-       forecasting tool]</a>
-     <p><a class=external href="https://untools.co/">[tools for better thinking .]</a>
-    </section>
-    <section>
-     <h2>today&#39;s js</h2>
-     <p><a class=external
-      href="https://lea.verou.me/2020/05/todays-javascript-from-an-outsiders-perspective/">
-       [https://lea.verou.me/2020/05/todays-javascript-from-an-outsiders-perspective/]</a>
-     <p><span>article</span>
-     <p><span>THe modern web is painful. Interfacing with js and node results in 
-       conflitts</span>
-     <p><span>between es and js versions, node incompatibilities, differnet import 
-       syntax</span>
-     <p><span>in different circumstances, etc. it&#39;s painful. How do you import with 
-       node?</span>
-     <p><span>without node? &lt;script&gt; tag or not to script? Where did the node 
-       modules go?</span>
-     <p><span>This is a good rant of questions and things to feature on the wbesite</span>
-    </section>
-    <section>
-     <h2>record of a living being</h2>
-     <p><a class=external
-      href="https://cinemasojourns.com/2020/03/29/akira-kurosawas-record-of-a-living-being/">
-       [https://cinemasojourns.com/2020/03/29/akira-kurosawas-record-of-a-living-being/]
-       </a>
-     <p><span>source</span>
-     <p><span>watch the film :: one of the first to directly address the fear of 
-       nuclear</span>
-     <p><span>holocaust and the implications of the atom bomb. an introspective, 
-       cerebral</span>
-     <p><span>work regarding japan after the bomb and moving forward, away from 
-       fallout.</span>
-     <p><span>inspired by conversations with otuers regarding what may -- or may not be 
-       --</span>
-     <p><span>in store for us tomorrow, if tomorrow is in store at all.</span>
-    </section>
-    <section>
-     <h2>anxiety in product development</h2>
-     <p><a class=external
-      href="https://andreschweighofer.com/agile/anxiety-in-product-development/">
-       [https://andreschweighofer.com/agile/anxiety-in-product-development/]</a>
-     <p><span>anxiety can emerge easily from stress, resulting in anger, frustration 
-       and</span>
-     <p><span>other unhealthy forms of exerting such stress. this impacts other people,</span>
-     <p><span>organizations and processes as well. </span>
-     <p><span>we have fear driven development : a concrete idea encouraging us to avoid</span>
-     <p><span>certain practices depending upon the specific approach</span>
-     <p><span>play to win, don&#39;t play not to lose; developing a unique selling 
-       proposition</span>
-     <p><span>means that you are no longer fighting with others, but rather striving to</span>
-     <p><span>come out ahead</span>
-     <p><span>awareness of such anxiety is the first step to take. with this awareness</span>
-     <p><span>comes conscious decision making, and with such decisions come wiser 
-       product</span>
-     <p><span>crafting and, in the end, better, more creative work</span>
-    </section>
-    <section>
-     <h2>bootstrappable builds</h2>
-     <p><a class=external href="http://bootstrappable.org/">
-       [http://bootstrappable.org/]</a>
-     <p><a class=external href=http://bootstrappable.org/projects.html>
-       [http://bootstrappable.org/projects.html]</a><span>good projects to work on</span>
-     <p><span>this is a general build philosophy addressing the chicken and egg problem 
-       --</span>
-     <p><span>to trust platforms, we must see how each part is produced from source, 
-       but we</span>
-     <p><span>do not have access to the source of compiled code when we run it against 
-       the</span>
-     <p><span>language they are compiling!</span>
-     <p><a class=external href="http://bootstrappable.org/">
-       [http://bootstrappable.org/]</a><span>on trusting trust. ken thompson talk 
-       linked at the</span>
-     <p><span>bottom is great, as are the other articles. great compilers literature</span>
-    </section>
-    <section>
-     <h2>general ideas</h2>
-     <section>
-      <h3>50 ideas that changed my life</h3>
-      <p><a class=external
-       href=https://www.perell.com/blog/50-ideas-that-changed-my-life>
-        [https://www.perell.com/blog/50-ideas-that-changed-my-life]</a>
-      <p><span>inversion :: avoiding stupidity is easier and better than being brilliant</span>
-      <p><span>doublespeak :: saying the opposite of what one means</span>
-      <p><span>theory of constraints :: focus on the bottleneck, the weakest point of 
-        the</span>
-      <p><span>system, always.</span>
-      <p><span>preference falsification :: lying to conform to the most socially 
-        acceptable</span>
-      <p><span>opinion at the time</span>
-      <p><span>mimetic teory of desire: rather than having our own desires, we imitate 
-        the</span>
-      <p><span>desires of others and pursue their ideas</span>
-      <p><span>mimetic theory of conflict :: similar = fight</span>
-      <p><span>left off on 10!</span>
-     </section>
-    </section>
-    <section>
-     <h2>Experience Websites</h2>
-     <p><a class=external href="https://berghaintrainer.com/">
-       [https://berghaintrainer.com/]</a>
-    </section>
+    <h2>blogging for free</h2>
+    <p><a class=external href="https://bearblog.dev/">[bear blog]</a>
+    <p><a class=external href="https://pluma.cloud/">[pluma free blog]</a>
+    <p><a class=external href="https://write.as/">[focused writing place]</a>
+    <p><a class=external href="http://txti.es/">[convenient, fast web pages]</a>
+    <p><a class=external href=https://telegra.ph/why-am-i-here-05-29>[express yourself 
+      quickly]</a>
+    <p><a class=external href="https://txt.fyi/+/22b9f246/">[raw expression]</a>
+    <p><a class=external href="https://txt.fyi/+/6ce898cf/">[the cask ]</a>
+    <p><a class=external href=https://txt.fyi/+/57688c94>[https://txt.fyi/+/57688c94]</a>
+    <p><a class=external href="http://ix.io/">[kinda fire. more minimal and more 
+      obscure]</a>
+    <p><a class=external href="https://commentpara.de/">[anon we comments on any site]</a>
+    <p><a class=external href=https://rwtxt.com/public>[reading and text editor]</a>
+    <p><a class=external href="https://write.as/">[focused writing.]</a>
+    <p><a class=external href=https://gopher.tildeverse.org/tildeverse.org>[tilde. in 
+      gopher.]</a>
+    <p><a class=external href="https://dotdotdash.io/">[collective.]</a>
+    <p><a class=external href="https://online-go.com/">[an excellent client for 
+      playing go]</a>
+    <section
+             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+    <h2>Tools for Better Thinking</h2>
+    <p><a class=external href="https://news.ycombinator.com/item?id=23339830">[thread]</a>
+    <p><span>The most underrated problem solving tool is to type out and explain your</span>
+    <p><span>thought process.</span>
+    <p><span>Start writing down questions to ask others; as you explain what you have</span>
+    <p><span>tried, you will begin to realize that there are more things left to try 
+      --</span>
+    <p><span>some of which being potential solutions.</span>
+    <p><span>Type your question into StackOverflow to submit; you&#39;ll be fearful of 
+      asking</span>
+    <p><span>the question.</span>
+    <p><span>Rank factors; always express factors as positive attributes. After 
+      generating</span>
+    <p><span>the table, the longest continuous line of check marks for each factor</span>
+    <p><span>determines the choice (though this can be gamed...)</span>
+    <p><span>State charts: easy to reason about state changes without the explosion of</span>
+    <p><span>state machines. These are hierarchical state machines, in a sense.</span>
+    <p><span>The Inversion Methods: The solution to many hard problems can be 
+      clarified by</span>
+    <p><span>re-expressing them in inverse form.</span>
+    <p><span>Crossline: structure your thoughts as you type and make cross-references.</span>
+    <p><a class=external href="https://fs.blog/mental-models/">[mental models for 
+      making intelligent decisions]</a>
+    <p><a class=external
+     href="https://medium.com/disruptive-design/search?q=tools%20for%20systems%20thinkers">
+      [tools for systems thinkers]</a>
+    <p><a class=external href="https://news.ycombinator.com/item?id=22747409">[state 
+      machines for complex systmes]</a>
+    <p><a class=external
+     href=https://www.wiley.com/en-us/TRIZ+for+Engineers%3A+Enabling+Inventive+Problem+Solving-p-9780470741887>
+      [enabling inventive problem solving]</a>
+    <p><a class=external href=https://en.m.wikipedia.org/wiki/TRIZ>[analyzing and 
+      forecasting tool]</a>
+    <p><a class=external href="https://untools.co/">[tools for better thinking .]</a>
+    <section
+             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL
+ NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+    <h2>today&#39;s js</h2>
+    <p><a class=external
+     href="https://lea.verou.me/2020/05/todays-javascript-from-an-outsiders-perspective/">
+      [https://lea.verou.me/2020/05/todays-javascript-from-an-outsiders-perspective/]</a>
+    <p><span>article</span>
+    <p><span>THe modern web is painful. Interfacing with js and node results in 
+      conflitts</span>
+    <p><span>between es and js versions, node incompatibilities, differnet import 
+      syntax</span>
+    <p><span>in different circumstances, etc. it&#39;s painful. How do you import with 
+      node?</span>
+    <p><span>without node? &lt;script&gt; tag or not to script? Where did the node 
+      modules go?</span>
+    <p><span>This is a good rant of questions and things to feature on the wbesite</span>
+    <section
+             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+    <h2>record of a living being</h2>
+    <p><a class=external
+     href="https://cinemasojourns.com/2020/03/29/akira-kurosawas-record-of-a-living-being/">
+      [https://cinemasojourns.com/2020/03/29/akira-kurosawas-record-of-a-living-being/]
+      </a>
+    <p><span>source</span>
+    <p><span>watch the film :: one of the first to directly address the fear of 
+      nuclear</span>
+    <p><span>holocaust and the implications of the atom bomb. an introspective, 
+      cerebral</span>
+    <p><span>work regarding japan after the bomb and moving forward, away from 
+      fallout.</span>
+    <p><span>inspired by conversations with otuers regarding what may -- or may not be 
+      --</span>
+    <p><span>in store for us tomorrow, if tomorrow is in store at all.</span>
+    <section
+             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+    <h2>anxiety in product development</h2>
+    <p><a class=external
+     href="https://andreschweighofer.com/agile/anxiety-in-product-development/">
+      [https://andreschweighofer.com/agile/anxiety-in-product-development/]</a>
+    <p><span>anxiety can emerge easily from stress, resulting in anger, frustration 
+      and</span>
+    <p><span>other unhealthy forms of exerting such stress. this impacts other people,</span>
+    <p><span>organizations and processes as well. </span>
+    <p><span>we have fear driven development : a concrete idea encouraging us to avoid</span>
+    <p><span>certain practices depending upon the specific approach</span>
+    <p><span>play to win, don&#39;t play not to lose; developing a unique selling 
+      proposition</span>
+    <p><span>means that you are no longer fighting with others, but rather striving to</span>
+    <p><span>come out ahead</span>
+    <p><span>awareness of such anxiety is the first step to take. with this awareness</span>
+    <p><span>comes conscious decision making, and with such decisions come wiser 
+      product</span>
+    <p><span>crafting and, in the end, better, more creative work</span>
+    <section
+             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+    <h2>bootstrappable builds</h2>
+    <p><a class=external href="http://bootstrappable.org/">
+      [http://bootstrappable.org/]</a>
+    <p><a class=external href=http://bootstrappable.org/projects.html>
+      [http://bootstrappable.org/projects.html]</a><span>good projects to work on</span>
+    <p><span>this is a general build philosophy addressing the chicken and egg problem 
+      --</span>
+    <p><span>to trust platforms, we must see how each part is produced from source, 
+      but we</span>
+    <p><span>do not have access to the source of compiled code when we run it against 
+      the</span>
+    <p><span>language they are compiling!</span>
+    <p><a class=external href="http://bootstrappable.org/">
+      [http://bootstrappable.org/]</a><span>on trusting trust. ken thompson talk 
+      linked at the</span>
+    <p><span>bottom is great, as are the other articles. great compilers literature</span>
+    <section
+             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+    <h2>general ideas</h2>
+    <h3>50 ideas that changed my life</h3>
+    <p><a class=external
+     href=https://www.perell.com/blog/50-ideas-that-changed-my-life>
+      [https://www.perell.com/blog/50-ideas-that-changed-my-life]</a>
+    <p><span>inversion :: avoiding stupidity is easier and better than being brilliant</span>
+    <p><span>doublespeak :: saying the opposite of what one means</span>
+    <p><span>theory of constraints :: focus on the bottleneck, the weakest point of 
+      the</span>
+    <p><span>system, always.</span>
+    <p><span>preference falsification :: lying to conform to the most socially 
+      acceptable</span>
+    <p><span>opinion at the time</span>
+    <p><span>mimetic teory of desire: rather than having our own desires, we imitate 
+      the</span>
+    <p><span>desires of others and pursue their ideas</span>
+    <p><span>mimetic theory of conflict :: similar = fight</span>
+    <p><span>left off on 10!</span>
+    <section
+             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+    <section id="(NIL NIL)"></section>
+    <h2>Experience Websites</h2>
+    <p><a class=external href="https://berghaintrainer.com/">
+      [https://berghaintrainer.com/]</a>
+    <section id="(NIL NIL)"></section>
    </article>
   </main>
  </body>

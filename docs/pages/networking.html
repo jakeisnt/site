@@ -35,6 +35,15 @@
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
+ <script
+         src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+ <script id=MathJax-script
+         src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js>
+        MathJax.typesetPromise().then(() =&gt; {
+        // modify the DOM here
+        MathJax.typesetPromise();
+        }).catch((err) =&gt; console.log(err.message));
+       </script>
  <body>
   <main>
    <div class=sidebar>
@@ -95,11 +104,10 @@
     <p><a class=external href=https://github.com/KasperskyLab/TinyCheck>
       [https://github.com/KasperskyLab/TinyCheck]</a><span>capture network comms from 
       any device at an access point!</span>
-    <section>
-     <h2>Mobile</h2>
-     <p><a class=external href=https://github.com/free5gc/free5gc>[open source 5g 
-       network]</a>
-    </section>
+    <h2>Mobile</h2>
+    <p><a class=external href=https://github.com/free5gc/free5gc>[open source 5g 
+      network]</a>
+    <section id="(NIL NIL)"></section>
    </article>
   </main>
  </body>

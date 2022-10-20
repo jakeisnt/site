@@ -35,6 +35,15 @@
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
+ <script
+         src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+ <script id=MathJax-script
+         src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js>
+        MathJax.typesetPromise().then(() =&gt; {
+        // modify the DOM here
+        MathJax.typesetPromise();
+        }).catch((err) =&gt; console.log(err.message));
+       </script>
  <body>
   <main>
    <div class=sidebar>
@@ -44,71 +53,72 @@
    <article class=wikipage>
     <h1 class=title-top>Algorithms</h1>
     <p><span>Notes on algorithms that don&#39;t fit another particular category.</span>
-    <section>
-     <h2>To Investigate</h2>
-     <ul>
-      <li><span> </span><a class=external href=https://shachaf.net/w/b-trees>[B-Trees]</a>
-     </ul>
-     <ul>
-      <li><span> </span><a class=external
-       href=https://en.m.wikipedia.org/wiki/Assignment_problem>[Assignment Problem]</a>
-     </ul>
-     <ul>
-      <li><span> </span><a class=external
-       href=https://github.com/benchaplin/hungarian-algorithm>[Hungarian Algorithm]</a>
-     </ul>
-     <ul>
-      <li><span> </span><a class=external
-       href="https://news.ycombinator.com/item?id=21577659">
-        [https://news.ycombinator.com/item?id=21577659]</a><span>-- space invaders 
-        genetic gorithm</span>
-     </ul>
-     <ul>
-      <li><span> </span><a class=external
-       href=https://dynamic-programming.debkbanerji.com/select-problem>
-        [https://dynamic-programming.debkbanerji.com/select-problem]</a><span>
-        visualization of dp problems</span>
-     </ul>
-     <ul>
-      <li><span> </span><a class=external
-       href="https://www.youtube.com/watch?v=xP5-iIeKXE8&amp;utm_source=Hackaday.com&amp;utm_campaign=ec4864ced1-EMAIL_CAMPAIG">
-        [https://www.youtube.com/watch?v=xP5-iIeKXE8&amp;utm_source=Hackaday.com&amp;utm_campaign=ec4864ced1-EMAIL_CAMPAIG]
-        </a><span>-- figure out how this works!</span>
-     </ul>
-     <ul>
-      <li><span> </span><a class=external
-       href=https://dynamic-programming.debkbanerji.com/select-problem>
-        [https://dynamic-programming.debkbanerji.com/select-problem]</a><span>-- dp 
-        visualization</span>
-     </ul>
-     <p><a class=external href=https://github.com/scandum/wolfsort>[stable hybrid radix 
-       merge sort]</a>
-     <p><a class=external href=https://alexschroeder.ch/wiki/Diary>
-       [https://alexschroeder.ch/wiki/Diary]</a><span>- i&#39;m not sure what this 
-       means but it&#39;s probably cool</span>
-     <p><a class=external
-      href="https://marc.info/?l=openbsd-tech&amp;m=158965652915344&amp;w=2">
-       [https://marc.info/?l=openbsd-tech&amp;m=158965652915344&amp;w=2]</a>
-     <p><a class=external
-      href="https://www.youtube.com/watch?app=desktop&amp;v=DpXy041BIlA&amp;feature=youtu.be">
-       [30 weird chess algorithms]</a>
-     <p><a class=external
-      href="https://www.geeksforgeeks.org/persistent-segment-tree-set-1-introduction/">
-       [persistent segment tree]</a>
-     <p><a class=external href="https://www.metalevel.at/sgp/">
-       [https://www.metalevel.at/sgp/]</a>
-     <p><a class=external href=https://github.com/The-Tree/LangtonsAnt>
-       [https://github.com/The-Tree/LangtonsAnt]</a><span>langston&#39;s ant?</span>
-     <p><a class=external href=http://read.seas.harvard.edu/~kohler/notes/llrb.html>
-       [left leaning red black trees considered harmful]</a>
-     <p><a class=external href=https://library.oapen.org/handle/20.500.12657/39371>[ 
-       algorithmic techniques for information retrieval]</a>
-     <p><a class=external
-      href="https://www.geeksforgeeks.org/persistent-segment-tree-set-1-introduction/">
-       [persistent segment tree]</a>
-     <p><a class=external href=https://github.com/ept/crdt-website>
-       [https://github.com/ept/crdt-website]</a>
-    </section>
+    <h2>To Investigate</h2>
+    <ul>
+     <li><span> </span><a class=external href=https://shachaf.net/w/b-trees>[B-Trees]</a>
+    </ul>
+    <ul>
+     <li><span> </span><a class=external
+      href=https://en.m.wikipedia.org/wiki/Assignment_problem>[Assignment Problem]</a>
+    </ul>
+    <ul>
+     <li><span> </span><a class=external
+      href=https://github.com/benchaplin/hungarian-algorithm>[Hungarian Algorithm]</a>
+    </ul>
+    <ul>
+     <li><span> </span><a class=external
+      href="https://news.ycombinator.com/item?id=21577659">
+       [https://news.ycombinator.com/item?id=21577659]</a><span>-- space invaders 
+       genetic gorithm</span>
+    </ul>
+    <ul>
+     <li><span> </span><a class=external
+      href=https://dynamic-programming.debkbanerji.com/select-problem>
+       [https://dynamic-programming.debkbanerji.com/select-problem]</a><span>
+       visualization of dp problems</span>
+    </ul>
+    <ul>
+     <li><span> </span><a class=external
+      href="https://www.youtube.com/watch?v=xP5-iIeKXE8&amp;utm_source=Hackaday.com&amp;utm_campaign=ec4864ced1-EMAIL_CAMPAIG">
+       [https://www.youtube.com/watch?v=xP5-iIeKXE8&amp;utm_source=Hackaday.com&amp;utm_campaign=ec4864ced1-EMAIL_CAMPAIG]
+       </a><span>-- figure out how this works!</span>
+    </ul>
+    <ul>
+     <li><span> </span><a class=external
+      href=https://dynamic-programming.debkbanerji.com/select-problem>
+       [https://dynamic-programming.debkbanerji.com/select-problem]</a><span>-- dp 
+       visualization</span>
+    </ul>
+    <p><a class=external href=https://github.com/scandum/wolfsort>[stable hybrid radix 
+      merge sort]</a>
+    <p><a class=external href=https://alexschroeder.ch/wiki/Diary>
+      [https://alexschroeder.ch/wiki/Diary]</a><span>- i&#39;m not sure what this 
+      means but it&#39;s probably cool</span>
+    <p><a class=external
+     href="https://marc.info/?l=openbsd-tech&amp;m=158965652915344&amp;w=2">
+      [https://marc.info/?l=openbsd-tech&amp;m=158965652915344&amp;w=2]</a>
+    <p><a class=external
+     href="https://www.youtube.com/watch?app=desktop&amp;v=DpXy041BIlA&amp;feature=youtu.be">
+      [30 weird chess algorithms]</a>
+    <p><a class=external
+     href="https://www.geeksforgeeks.org/persistent-segment-tree-set-1-introduction/">
+      [persistent segment tree]</a>
+    <p><a class=external href="https://www.metalevel.at/sgp/">
+      [https://www.metalevel.at/sgp/]</a>
+    <p><a class=external href=https://github.com/The-Tree/LangtonsAnt>
+      [https://github.com/The-Tree/LangtonsAnt]</a><span>langston&#39;s ant?</span>
+    <p><a class=external href=http://read.seas.harvard.edu/~kohler/notes/llrb.html>
+      [left leaning red black trees considered harmful]</a>
+    <p><a class=external href=https://library.oapen.org/handle/20.500.12657/39371>[ 
+      algorithmic techniques for information retrieval]</a>
+    <p><a class=external
+     href="https://www.geeksforgeeks.org/persistent-segment-tree-set-1-introduction/">
+      [persistent segment tree]</a>
+    <p><a class=external href=https://github.com/ept/crdt-website>
+      [https://github.com/ept/crdt-website]</a>
+    <section
+             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL
+ NIL)"></section>
    </article>
   </main>
  </body>

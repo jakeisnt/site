@@ -35,6 +35,15 @@
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
+ <script
+         src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+ <script id=MathJax-script
+         src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js>
+        MathJax.typesetPromise().then(() =&gt; {
+        // modify the DOM here
+        MathJax.typesetPromise();
+        }).catch((err) =&gt; console.log(err.message));
+       </script>
  <body>
   <main>
    <div class=sidebar>
@@ -45,22 +54,21 @@
     <h1 class=title-top>Idris</h1>
     <p><span>Idris is a fully-featured programming language inspired by Haskell that 
       has full support for dependent types.</span>
-    <section>
-     <h2>Resources</h2>
-     <p><a class=external href=https://github.com/jdublu10/pacman>
-       [https://github.com/jdublu10/pacman]</a><span>a proof that idris is pacman 
-       complete, the most important part of a programming language</span>
-     <p><a class=external href=https://github.com/joaomilho/awesome-idris>
-       [https://github.com/joaomilho/awesome-idris]</a><span>:: Idris resources</span>
-     <p><a class=external
-      href=https://idris.readthedocs.io/en/latest/tutorial/starting.html>
-       [https://idris.readthedocs.io/en/latest/tutorial/starting.html]</a><span>:: 
-       Starting Idris</span>
-     <p><a class=external href=https://github.com/idris-hackers/idris-koans>[Koans]</a>
-      <span>: small tidbits of Idris</span>
-     <p><a class=external href=https://github.com/idris-lang/Idris2>[idris 2... you 
-       know what that means]</a>
-    </section>
+    <h2>Resources</h2>
+    <p><a class=external href=https://github.com/jdublu10/pacman>
+      [https://github.com/jdublu10/pacman]</a><span>a proof that idris is pacman 
+      complete, the most important part of a programming language</span>
+    <p><a class=external href=https://github.com/joaomilho/awesome-idris>
+      [https://github.com/joaomilho/awesome-idris]</a><span>:: Idris resources</span>
+    <p><a class=external
+     href=https://idris.readthedocs.io/en/latest/tutorial/starting.html>
+      [https://idris.readthedocs.io/en/latest/tutorial/starting.html]</a><span>:: 
+      Starting Idris</span>
+    <p><a class=external href=https://github.com/idris-hackers/idris-koans>[Koans]</a>
+     <span>: small tidbits of Idris</span>
+    <p><a class=external href=https://github.com/idris-lang/Idris2>[idris 2... you 
+      know what that means]</a>
+    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
    </article>
   </main>
  </body>

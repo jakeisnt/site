@@ -35,6 +35,15 @@
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
+ <script
+         src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+ <script id=MathJax-script
+         src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js>
+        MathJax.typesetPromise().then(() =&gt; {
+        // modify the DOM here
+        MathJax.typesetPromise();
+        }).catch((err) =&gt; console.log(err.message));
+       </script>
  <body>
   <main>
    <div class=sidebar>
@@ -44,216 +53,205 @@
    <article class=wikipage>
     <h1 class=title-top>Git</h1>
     <p><span>Git is a popular version control system.</span>
-    <section>
-     <h2>Tricks</h2>
-    </section>
-    <section>
-     <h2>Writing a Git Commit Message</h2>
-     <p><a class=external href="https://chris.beams.io/posts/git-commit/">[Article 
-       Reference]</a>
-     <ul>
-      <li><span> Concise and consistent length and form</span>
-     </ul>
-     <ul>
-      <li><span> Communicate clear context about a change to fellow developers.</span>
-     </ul>
-     <p><span> Ensure that other developers understand *why* a change was made.</span>
-     <section>
-      <h3>Rules</h3>
-      <ul>
-       <li><span> Separate subject from body with a blank line</span>
-      </ul>
-      <p><span> if the body is to be used.</span>
-      <ul>
-       <li><span> Limit subject line to 50 characters</span>
-      </ul>
-      <ul>
-       <li><span> Capitalize subject line</span>
-      </ul>
-      <ul>
-       <li><span> Do not end with period</span>
-      </ul>
-      <ul>
-       <li><span> Use imperative mood; I &#39;do&#39; this.</span>
-      </ul>
-      <p><span> Rationale: If applied, the commit will change these aspects of the code.</span>
-      <p><span> Git&#39;s own built-in conventions use this form.</span>
-      <ul>
-       <li><span> Wrap at 72 characters</span>
-      </ul>
-      <ul>
-       <li><span> Use the body to explain &#39;what&#39; and &#39;why&#39; as necessary</span>
-      </ul>
-     </section>
-    </section>
-    <section>
-     <h2>Repositories</h2>
-     <ul>
-      <li><span> GitHub :: I use this; Microsoft is bad but the community is good</span>
-     </ul>
-     <ul>
-      <li><span> Sourcehut :: Minimal free software repository. I would use this if the 
-        developer weren&#39;t an egotistical BDFL.</span>
-     </ul>
-     <ul>
-      <li><span> Gitea :: Open source git repository; self host it</span>
-     </ul>
-    </section>
-    <section>
-     <h2>Organization Thoughts</h2>
-     <p><span>github organization:</span>
-     <ul>
-      <li><span> one repo per course - as most courses require partner work</span>
-     </ul>
-     <p><span>= repo for coding challenge practice problems</span>
-     <ul>
-      <li><span> managing research notes: ??? i am thinking a single org file for all of 
-        this</span>
-     </ul>
-     <ul>
-      <li><span> - that is, an org file in each project for the research notes 
-        pertaining to that project,</span>
-     </ul>
-     <ul>
-      <li><span> - and anotherorg file for misc. research ?? i will have to see how my 
-        research is used</span>
-     </ul>
-     <p><a class=external
-      href="https://danieltakeshi.github.io/2017/07/15/how-i-organize-my-github-repositories/">
-       [https://danieltakeshi.github.io/2017/07/15/how-i-organize-my-github-repositories/]
-       </a>
-    </section>
-    <section>
-     <h2>Rewriting</h2>
-     <p><span>It&#39;s a good idea to reformat commits to make them more readable.</span>
-     <pre><code class=language-sh>git reset HEAD~${number of commits to go back}
+    <h2>Tricks</h2>
+    <section id="(NIL NIL)"></section>
+    <h2>Writing a Git Commit Message</h2>
+    <p><a class=external href="https://chris.beams.io/posts/git-commit/">[Article 
+      Reference]</a>
+    <ul>
+     <li><span> Concise and consistent length and form</span>
+    </ul>
+    <ul>
+     <li><span> Communicate clear context about a change to fellow developers.</span>
+    </ul>
+    <p><span> Ensure that other developers understand *why* a change was made.</span>
+    <h3>Rules</h3>
+    <ul>
+     <li><span> Separate subject from body with a blank line</span>
+    </ul>
+    <p><span> if the body is to be used.</span>
+    <ul>
+     <li><span> Limit subject line to 50 characters</span>
+    </ul>
+    <ul>
+     <li><span> Capitalize subject line</span>
+    </ul>
+    <ul>
+     <li><span> Do not end with period</span>
+    </ul>
+    <ul>
+     <li><span> Use imperative mood; I &#39;do&#39; this.</span>
+    </ul>
+    <p><span> Rationale: If applied, the commit will change these aspects of the code.</span>
+    <p><span> Git&#39;s own built-in conventions use this form.</span>
+    <ul>
+     <li><span> Wrap at 72 characters</span>
+    </ul>
+    <ul>
+     <li><span> Use the body to explain &#39;what&#39; and &#39;why&#39; as necessary</span>
+    </ul>
+    <section
+             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+    <section id="(NIL NIL NIL NIL NIL NIL NIL)"></section>
+    <h2>Repositories</h2>
+    <ul>
+     <li><span> GitHub :: I use this; Microsoft is bad but the community is good</span>
+    </ul>
+    <ul>
+     <li><span> Sourcehut :: Minimal free software repository. I would use this if the 
+       developer weren&#39;t an egotistical BDFL.</span>
+    </ul>
+    <ul>
+     <li><span> Gitea :: Open source git repository; self host it</span>
+    </ul>
+    <section id="(NIL NIL NIL NIL NIL)"></section>
+    <h2>Organization Thoughts</h2>
+    <p><span>github organization:</span>
+    <ul>
+     <li><span> one repo per course - as most courses require partner work</span>
+    </ul>
+    <p><span>= repo for coding challenge practice problems</span>
+    <ul>
+     <li><span> managing research notes: ??? i am thinking a single org file for all of 
+       this</span>
+    </ul>
+    <ul>
+     <li><span> - that is, an org file in each project for the research notes 
+       pertaining to that project,</span>
+    </ul>
+    <ul>
+     <li><span> - and anotherorg file for misc. research ?? i will have to see how my 
+       research is used</span>
+    </ul>
+    <p><a class=external
+     href="https://danieltakeshi.github.io/2017/07/15/how-i-organize-my-github-repositories/">
+      [https://danieltakeshi.github.io/2017/07/15/how-i-organize-my-github-repositories/]
+      </a>
+    <section
+             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+    <h2>Rewriting</h2>
+    <p><span>It&#39;s a good idea to reformat commits to make them more readable.</span>
+    <pre><code class=language-sh>git reset HEAD~${number of commits to go back}
 </code></pre>
-    </section>
-    <section>
-     <h2>Tricks</h2>
-     <p><a class=external
-      href="http://joeyh.name/blog/entry/how_to_publish_git_repos_that_cannot_be_republished_to_github/">
-       [http://joeyh.name/blog/entry/how_to_publish_git_repos_that_cannot_be_republished_to_github/]
-       </a><span>:: cheeky way to abuse DMCA to avoid GitHub using your Git repos</span>
-     <p><a class=external
-      href="https://sourcehut.org/blog/2020-10-29-how-mailing-lists-prevent-censorship/">
-       [https://sourcehut.org/blog/2020-10-29-how-mailing-lists-prevent-censorship/]</a>
-      <span>using the mailing list model over the built-in issue model, and how this 
-       naturally federated and local first procedure is superior to github&#39;s 
-       standard issue approach</span>
-     <p><a class=external href=https://sagegerard.com/git-debugging.html:>
-       [https://sagegerard.com/git-debugging.html:]</a><span>use git bisect while 
-       referencing maintainers of specific parts of code to narrow down to the code you 
-       should care about, then ask the maintainers about it - while putting in a 
-       minimum of effort.</span>
-     <p><a class=external
-      href=https://labs.consol.de/development/git/2017/02/22/gitignore.html>
-       [https://labs.consol.de/development/git/2017/02/22/gitignore.html]</a><span>
-       using .gitignore the right way</span>
-     <section>
-      <h3>Patch previous commits with rebases</h3>
-      <p><a class=external
-       href=https://stackoverflow.com/questions/9103396/how-do-i-edit-a-previous-git-commit>
-        [https://stackoverflow.com/questions/9103396/how-do-i-edit-a-previous-git-commit]
-        </a>
-      <p><span>If you need to change commit history:</span>
-      <ul>
-       <li><span> Make another commit to make the change</span>
-      </ul>
-      <ul>
-       <li><span> Rebase starting at the commit you want to change</span>
-      </ul>
-      <ul>
-       <li><span> Squash the new commit with the old one in the history</span>
-      </ul>
-      <ul>
-       <li><span> Remove the second commit message (or merge it...)</span>
-      </ul>
-      <p><span>This did change the commit time for my latest commit, which is something 
-        to watch out for.</span>
-     </section>
-    </section>
-    <section>
-     <h2>How Git Works</h2>
-     <p><a class=external
-      href="https://blog.jcoglan.com/2017/09/19/the-patience-diff-algorithm/">[Neat 
-       writeup on the Git patience diff algorithm]</a>
-     <p><a class=external href=https://github.com/MichaelMure/git-bug>
-       [&quot;Distributed, offline-first bug tracker embedded in git, with 
-       bridges&quot;]</a>
-     <p><a class=external href=https://github.com/jskjott/git-for-filmmakers>[Prototype 
-       Git GUI for Filmmaking]</a>
-     <p><a class=external href=https://github.com/ralphbean/bugwarrior>[&quot;Pull 
-       github, bitbucket, and trac issues into taskwarrior&quot;]</a>
-     <p><a class=external href=https://github.com/jonas/tig>[Text-mode interface for 
-       git]</a>
-     <p><a class=external href=https://github.com/bcongdon/git-trophy>
-       [bcongdon/git-trophy: ? Create a 3D Printed Model of Your Github Contributio]</a>
-    </section>
-    <section>
-     <h2>Worktrees</h2>
-     <ul>
-      <li><span> A git repository can have multiple working trees - allowing you to 
-        check out more than one workspace at a time!</span>
-     </ul>
-     <p><span> + Among other things, this allows you to work on multiple branches at 
-       once without having multiple copies of the file, and maps git branches or tags 
-       to other directories on your system. Use it to check on different efforts on 
-       projects without messing up your current editing environment - to look at code 
-       from other branches locally and simultaneously, for example!</span>
-     <ul>
-      <li><span> </span>
-       <pre></pre><span> :: Adds a new branch with a name associated with the final 
-        component of </span>
-       <pre></pre>
-     </ul>
-     <ul>
-      <li><span> Flow example: latest develop, latest branch of work, and a third for 
-        reviewing pull requests and/or the work from other developers.</span>
-     </ul>
-    </section>
-    <section>
-     <h2>Github</h2>
-     <p><a class=external href=https://github.com/git-series/git-series>[track changes 
-       to a patch over time]</a>
-     <p><a class=external href=https://github.com/nvie/gitflow>[git flow]</a><span>: 
-       git extensions for high level repository operations</span>
-     <p><a class=external href=https://github.com/itsrainingmani/gitexplore>[explore 
-       git cli with natural language search]</a>
-     <p><a class=external href=https://yarmo.eu/post/github-sinking>[github is sinking]</a>
-     <section>
-      <h3>READMEs</h3>
-      <p><a class=external
-       href=https://github.com/abhisheknaiidu/awesome-github-profile-readme>[ A curated 
-        list of awesome Github Profile READMEs 📝]</a>
-      <p><a class=external href=https://github.com/pifafu/pifafu/blob/main/readME.md>
-        [https://github.com/pifafu/pifafu/blob/main/readME.md]</a><span>i love the font 
-        choice and the gif here!</span>
-     </section>
-    </section>
-    <section>
-     <h2>Alternatives</h2>
-     <ul>
-      <li><span> fossil :: git with additional features such as task management. it 
-        seems like a superset of git&#39;s system. </span><a class=external
-       href=https://www.fossil-scm.org/home/doc/trunk/www/fossil-v-git.wiki>[Fossil vs. 
-        Git]</a><span> </span><a class=external href=https://blog.nil.im/?78>
-        [Incrementally converting from git to fossil while working on the git repo]</a>
-     </ul>
-     <ul>
-      <li><span> </span><a class=external
-       href=https://gerrit.googlesource.com/git-repo/+/refs/heads/master/README.md>
-        [repo]</a><span> :: Google&#39;s tool for managing monorepos.</span>
-     </ul>
-     <ul>
-      <li><span> </span><a class=external href="https://pijul.org/">[Pijul]</a><span> :: 
-        A distributed version control system</span>
-     </ul>
-     <ul>
-      <li><span> </span><a class=external href="http://bazaar.canonical.com/en/">
-        [Bazaar]</a><span> :: Canonical&#39;s version control system</span>
-     </ul>
-    </section>
+    <section id="(NIL NIL NIL)"></section>
+    <h2>Tricks</h2>
+    <p><a class=external
+     href="http://joeyh.name/blog/entry/how_to_publish_git_repos_that_cannot_be_republished_to_github/">
+      [http://joeyh.name/blog/entry/how_to_publish_git_repos_that_cannot_be_republished_to_github/]
+      </a><span>:: cheeky way to abuse DMCA to avoid GitHub using your Git repos</span>
+    <p><a class=external
+     href="https://sourcehut.org/blog/2020-10-29-how-mailing-lists-prevent-censorship/">
+      [https://sourcehut.org/blog/2020-10-29-how-mailing-lists-prevent-censorship/]</a>
+     <span>using the mailing list model over the built-in issue model, and how this 
+      naturally federated and local first procedure is superior to github&#39;s 
+      standard issue approach</span>
+    <p><a class=external href=https://sagegerard.com/git-debugging.html:>
+      [https://sagegerard.com/git-debugging.html:]</a><span>use git bisect while 
+      referencing maintainers of specific parts of code to narrow down to the code you 
+      should care about, then ask the maintainers about it - while putting in a 
+      minimum of effort.</span>
+    <p><a class=external
+     href=https://labs.consol.de/development/git/2017/02/22/gitignore.html>
+      [https://labs.consol.de/development/git/2017/02/22/gitignore.html]</a><span>
+      using .gitignore the right way</span>
+    <h3>Patch previous commits with rebases</h3>
+    <p><a class=external
+     href=https://stackoverflow.com/questions/9103396/how-do-i-edit-a-previous-git-commit>
+      [https://stackoverflow.com/questions/9103396/how-do-i-edit-a-previous-git-commit]
+      </a>
+    <p><span>If you need to change commit history:</span>
+    <ul>
+     <li><span> Make another commit to make the change</span>
+    </ul>
+    <ul>
+     <li><span> Rebase starting at the commit you want to change</span>
+    </ul>
+    <ul>
+     <li><span> Squash the new commit with the old one in the history</span>
+    </ul>
+    <ul>
+     <li><span> Remove the second commit message (or merge it...)</span>
+    </ul>
+    <p><span>This did change the commit time for my latest commit, which is something 
+      to watch out for.</span>
+    <section id="(NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+    <h2>How Git Works</h2>
+    <p><a class=external
+     href="https://blog.jcoglan.com/2017/09/19/the-patience-diff-algorithm/">[Neat 
+      writeup on the Git patience diff algorithm]</a>
+    <p><a class=external href=https://github.com/MichaelMure/git-bug>
+      [&quot;Distributed, offline-first bug tracker embedded in git, with 
+      bridges&quot;]</a>
+    <p><a class=external href=https://github.com/jskjott/git-for-filmmakers>[Prototype 
+      Git GUI for Filmmaking]</a>
+    <p><a class=external href=https://github.com/ralphbean/bugwarrior>[&quot;Pull 
+      github, bitbucket, and trac issues into taskwarrior&quot;]</a>
+    <p><a class=external href=https://github.com/jonas/tig>[Text-mode interface for 
+      git]</a>
+    <p><a class=external href=https://github.com/bcongdon/git-trophy>
+      [bcongdon/git-trophy: ? Create a 3D Printed Model of Your Github Contributio]</a>
+    <section id="(NIL NIL NIL NIL NIL NIL NIL)"></section>
+    <h2>Worktrees</h2>
+    <ul>
+     <li><span> A git repository can have multiple working trees - allowing you to 
+       check out more than one workspace at a time!</span>
+    </ul>
+    <p><span> + Among other things, this allows you to work on multiple branches at 
+      once without having multiple copies of the file, and maps git branches or tags 
+      to other directories on your system. Use it to check on different efforts on 
+      projects without messing up your current editing environment - to look at code 
+      from other branches locally and simultaneously, for example!</span>
+    <ul>
+     <li><span> </span>
+      <pre></pre><span> :: Adds a new branch with a name associated with the final 
+       component of </span><span>PATH. `git worktree remove` and `git worktree prune` 
+       both allow you to cut off external worktrees.</span>
+    </ul>
+    <ul>
+     <li><span> Flow example: latest develop, latest branch of work, and a third for 
+       reviewing pull requests and/or the work from other developers.</span>
+    </ul>
+    <section id="(NIL NIL NIL NIL NIL)"></section>
+    <h2>Github</h2>
+    <p><a class=external href=https://github.com/git-series/git-series>[track changes 
+      to a patch over time]</a>
+    <p><a class=external href=https://github.com/nvie/gitflow>[git flow]</a><span>: 
+      git extensions for high level repository operations</span>
+    <p><a class=external href=https://github.com/itsrainingmani/gitexplore>[explore 
+      git cli with natural language search]</a>
+    <p><a class=external href=https://yarmo.eu/post/github-sinking>[github is sinking]</a>
+    <h3>READMEs</h3>
+    <p><a class=external
+     href=https://github.com/abhisheknaiidu/awesome-github-profile-readme>[ A curated 
+      list of awesome Github Profile READMEs 📝]</a>
+    <p><a class=external href=https://github.com/pifafu/pifafu/blob/main/readME.md>
+      [https://github.com/pifafu/pifafu/blob/main/readME.md]</a><span>i love the font 
+      choice and the gif here!</span>
+    <section id="(NIL NIL NIL)"></section>
+    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+    <h2>Alternatives</h2>
+    <ul>
+     <li><span> fossil :: git with additional features such as task management. it 
+       seems like a superset of git&#39;s system. </span><a class=external
+      href=https://www.fossil-scm.org/home/doc/trunk/www/fossil-v-git.wiki>[Fossil vs. 
+       Git]</a><span> </span><a class=external href=https://blog.nil.im/?78>
+       [Incrementally converting from git to fossil while working on the git repo]</a>
+    </ul>
+    <ul>
+     <li><span> </span><a class=external
+      href=https://gerrit.googlesource.com/git-repo/+/refs/heads/master/README.md>
+       [repo]</a><span> :: Google&#39;s tool for managing monorepos.</span>
+    </ul>
+    <ul>
+     <li><span> </span><a class=external href="https://pijul.org/">[Pijul]</a><span> :: 
+       A distributed version control system</span>
+    </ul>
+    <ul>
+     <li><span> </span><a class=external href="http://bazaar.canonical.com/en/">
+       [Bazaar]</a><span> :: Canonical&#39;s version control system</span>
+    </ul>
+    <section id="(NIL NIL NIL NIL NIL)"></section>
    </article>
   </main>
  </body>

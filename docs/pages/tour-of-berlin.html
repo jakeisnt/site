@@ -36,6 +36,15 @@
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
+ <script
+         src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+ <script id=MathJax-script
+         src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js>
+        MathJax.typesetPromise().then(() =&gt; {
+        // modify the DOM here
+        MathJax.typesetPromise();
+        }).catch((err) =&gt; console.log(err.message));
+       </script>
  <body>
   <main>
    <div class=sidebar>
@@ -46,28 +55,25 @@
     <h1 class=title-top>Tour Of Berlin in 24h</h1>
     <p><span>I think that this should be a new kind of domain-specific static file. 
       When revisiting this document, revisit this idea.</span>
-    <section>
-     <h2>Motivation</h2>
-    </section>
-    <section>
-     <h2>Specification</h2>
-     <p><span>A </span>
-      <pre></pre><span> file contains a list of locations or paths. It can suggest 
-       times, days or seasons during which a location should be visited or a path 
-       should be traveled. Standard coordinates are used to denote or represent these 
-       paths; the information stored should be sufficient to reproduce the map with 
-       Google Maps or OSM.</span>
-    </section>
-    <section>
-     <h2>Previous Contents</h2>
-     <p><span>holzmarkt, kater blau: 11pm b</span>
-     <p><span>liquidrom 1pm!</span>
-     <p><span>flak tower sunset 9pm</span>
-     <p><span>sisyphos berlin 1am saturday morni g</span>
-     <p><span>neukolln bar hop</span>
-     <p><span>klunkerkranich</span>
-     <p><span>walk by gallery to friedrichstain</span>
-    </section>
+    <h2>Motivation</h2>
+    <section id="(NIL NIL)"></section>
+    <h2>Specification</h2>
+    <p><span>A </span>
+     <pre></pre><span> file contains a list of locations or paths. It can suggest 
+      times, days or seasons during which a location should be visited or a path 
+      should be traveled. Standard coordinates are used to denote or represent these 
+      paths; the information stored should be sufficient to reproduce the map with 
+      Google Maps or OSM.</span>
+    <section id="(NIL NIL NIL)"></section>
+    <h2>Previous Contents</h2>
+    <p><span>holzmarkt, kater blau: 11pm b</span>
+    <p><span>liquidrom 1pm!</span>
+    <p><span>flak tower sunset 9pm</span>
+    <p><span>sisyphos berlin 1am saturday morni g</span>
+    <p><span>neukolln bar hop</span>
+    <p><span>klunkerkranich</span>
+    <p><span>walk by gallery to friedrichstain</span>
+    <section id="(NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
    </article>
   </main>
  </body>

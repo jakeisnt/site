@@ -35,6 +35,15 @@
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
+ <script
+         src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+ <script id=MathJax-script
+         src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js>
+        MathJax.typesetPromise().then(() =&gt; {
+        // modify the DOM here
+        MathJax.typesetPromise();
+        }).catch((err) =&gt; console.log(err.message));
+       </script>
  <body>
   <main>
    <div class=sidebar>
@@ -62,8 +71,7 @@
     <p><span>&quot;Sorry, but you have five copies of </span><i>Ponyta</i><span> in 
       your deck.</span>
     <p><span>You&#39;ll have to remove one to play.&quot;</span>
-    <p><span>Yesterday I sold my collection of Pokemon cards for </span>
-     <pre></pre>
+    <p><span>Yesterday I sold my collection of Pokemon cards for </span><span>50.</span>
     <p><span>As she left, the woman mentioned she knew some people who might be</span>
     <p><span>interested in some of the old cards -- that she&#39;d have an easy time</span>
     <p><span>flipping them to make a lot of money.</span>

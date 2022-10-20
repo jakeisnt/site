@@ -35,6 +35,15 @@
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
+ <script
+         src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+ <script id=MathJax-script
+         src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js>
+        MathJax.typesetPromise().then(() =&gt; {
+        // modify the DOM here
+        MathJax.typesetPromise();
+        }).catch((err) =&gt; console.log(err.message));
+       </script>
  <body>
   <main>
    <div class=sidebar>
@@ -96,65 +105,61 @@
       [https://news.ycombinator.com/item?id=24256883]</a><span>portable executables!</span>
     <p><a class=external href="https://kkovacs.eu/cool-but-obscure-unix-tools/">
       [terminal utils to look at]</a>
-    <section>
-     <h2>unix shell programming: the next 50 years</h2>
-     <p><a class=external
-      href=https://sigops.org/s/conferences/hotos/2021/papers/hotos21-s06-greenberg.pdf>
-       [src]</a><span> and </span><a class=external
-      href="https://www.reddit.com/r/ProgrammingLanguages/comments/nfcij6/unix_shell_programming_the_next_50_years_hotos/">
-       [discussion]</a>
-     <section>
-      <h3>The good</h3>
-      <ul>
-       <li><span> Universal language for interoperability</span>
-      </ul>
-      <ul>
-       <li><span> Works with anything and is a medium between anything</span>
-      </ul>
-      <ul>
-       <li><span> Incredibly expressive (and often efficient) EDSL for stream processing</span>
-      </ul>
-      <ul>
-       <li><span> Interactive environment for interacting with the computer</span>
-      </ul>
-     </section>
-     <section>
-      <h3> bad</h3>
-      <ul>
-       <li><span> insane specification that isn&#39;t implemented correctly in *any* 
-         shell, not even worth diving into</span>
-      </ul>
-      <ul>
-       <li><span> too arbitrary - it has infinite flexibility and that prevents it from 
-         doing anything</span>
-      </ul>
-      <ul>
-       <li><span> too dynamic - everything in a shell script is dependent on global 
-         state, which prevents any form of optimization or program change</span>
-      </ul>
-      <ul>
-       <li><span> performance cannot scale because it cannot be optimized</span>
-      </ul>
-     </section>
-     <section>
-      <h3>Future</h3>
-      <ul>
-       <li><span> Smoosh :: fully formalize and implement the posix shell, showing 
-         differences between specifications across semantics</span>
-      </ul>
-      <ul>
-       <li><span> PaSH/POSH :: annotation languages as a high level specification 
-         interface for interactive programs, can be used as abstract models for command 
-         behaviors! This allows for better system specification that can actually be 
-         enforced (thinking of tools like Alloy here!)</span>
-      </ul>
-      <ul>
-       <li><span> static reasoning :: previous bullets name annotation languages that 
-         give us information about the shell - why not dynamically rewrite and inspect 
-         every shell command?</span>
-      </ul>
-     </section>
-    </section>
+    <h2>unix shell programming: the next 50 years</h2>
+    <p><a class=external
+     href=https://sigops.org/s/conferences/hotos/2021/papers/hotos21-s06-greenberg.pdf>
+      [src]</a><span> and </span><a class=external
+     href="https://www.reddit.com/r/ProgrammingLanguages/comments/nfcij6/unix_shell_programming_the_next_50_years_hotos/">
+      [discussion]</a>
+    <h3>The good</h3>
+    <ul>
+     <li><span> Universal language for interoperability</span>
+    </ul>
+    <ul>
+     <li><span> Works with anything and is a medium between anything</span>
+    </ul>
+    <ul>
+     <li><span> Incredibly expressive (and often efficient) EDSL for stream processing</span>
+    </ul>
+    <ul>
+     <li><span> Interactive environment for interacting with the computer</span>
+    </ul>
+    <section id="(NIL NIL NIL NIL NIL)"></section>
+    <h3> bad</h3>
+    <ul>
+     <li><span> insane specification that isn&#39;t implemented correctly in *any* 
+       shell, not even worth diving into</span>
+    </ul>
+    <ul>
+     <li><span> too arbitrary - it has infinite flexibility and that prevents it from 
+       doing anything</span>
+    </ul>
+    <ul>
+     <li><span> too dynamic - everything in a shell script is dependent on global 
+       state, which prevents any form of optimization or program change</span>
+    </ul>
+    <ul>
+     <li><span> performance cannot scale because it cannot be optimized</span>
+    </ul>
+    <section id="(NIL NIL NIL NIL NIL)"></section>
+    <h3>Future</h3>
+    <ul>
+     <li><span> Smoosh :: fully formalize and implement the posix shell, showing 
+       differences between specifications across semantics</span>
+    </ul>
+    <ul>
+     <li><span> PaSH/POSH :: annotation languages as a high level specification 
+       interface for interactive programs, can be used as abstract models for command 
+       behaviors! This allows for better system specification that can actually be 
+       enforced (thinking of tools like Alloy here!)</span>
+    </ul>
+    <ul>
+     <li><span> static reasoning :: previous bullets name annotation languages that 
+       give us information about the shell - why not dynamically rewrite and inspect 
+       every shell command?</span>
+    </ul>
+    <section id="(NIL NIL NIL NIL)"></section>
+    <section id="(NIL NIL NIL NIL NIL)"></section>
    </article>
   </main>
  </body>

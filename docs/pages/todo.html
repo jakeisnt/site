@@ -35,6 +35,15 @@
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
+ <script
+         src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+ <script id=MathJax-script
+         src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js>
+        MathJax.typesetPromise().then(() =&gt; {
+        // modify the DOM here
+        MathJax.typesetPromise();
+        }).catch((err) =&gt; console.log(err.message));
+       </script>
  <body>
   <main>
    <div class=sidebar>
@@ -55,33 +64,31 @@
      <li><span> can schedule this like the pipeline of a compiler? feels like some sort 
        of continuous delivery of content</span>
     </ul>
-    <section>
-     <h2>what do i want from an editor?</h2>
-     <ul>
-      <li><span> lightning fast</span>
-     </ul>
-     <ul>
-      <li><span> builtin lsp (that i can turn off)</span>
-     </ul>
-    </section>
-    <section>
-     <h2>tool that shows the ui every single git diff to look back at app iterations 
-      as it changes</h2>
-     <p><a class=external
-      href="https://subconscious.substack.com/p/block-reference-mechanisms?utm_source=url">
-       [https://subconscious.substack.com/p/block-reference-mechanisms?utm_source=url]</a>
-     <p><span>scrolling up in terminal with the mouse is inconsistent; when usign the 
-       arrow keys, you continue to see the buffer, but when scrolling up with the mouse 
-       you eventualyl hit a point at which we pass the scroll buffer and hit the prev 
-       part of the terminal. this shouldn&#39;t be possible! i shoulds be able to 
-       scroll up and do that too.</span>
-     <p><span>this actually makes my job *simpler*; we can convert the keyboard scroll 
-       handler to a text input (probably? how does this work with tui programs?) and 
-       work thoruhg our stuff that wya.</span>
-     <p><span>recreate the experience of someone browsing the internet, following 
-       references, with maps, with icons, with drawings. make them exp3erience the 
-       feeling of inspiration.</span>
-    </section>
+    <h2>what do i want from an editor?</h2>
+    <ul>
+     <li><span> lightning fast</span>
+    </ul>
+    <ul>
+     <li><span> builtin lsp (that i can turn off)</span>
+    </ul>
+    <section id="(NIL NIL NIL NIL)"></section>
+    <h2>tool that shows the ui every single git diff to look back at app iterations 
+     as it changes</h2>
+    <p><a class=external
+     href="https://subconscious.substack.com/p/block-reference-mechanisms?utm_source=url">
+      [https://subconscious.substack.com/p/block-reference-mechanisms?utm_source=url]</a>
+    <p><span>scrolling up in terminal with the mouse is inconsistent; when usign the 
+      arrow keys, you continue to see the buffer, but when scrolling up with the mouse 
+      you eventualyl hit a point at which we pass the scroll buffer and hit the prev 
+      part of the terminal. this shouldn&#39;t be possible! i shoulds be able to 
+      scroll up and do that too.</span>
+    <p><span>this actually makes my job *simpler*; we can convert the keyboard scroll 
+      handler to a text input (probably? how does this work with tui programs?) and 
+      work thoruhg our stuff that wya.</span>
+    <p><span>recreate the experience of someone browsing the internet, following 
+      references, with maps, with icons, with drawings. make them exp3erience the 
+      feeling of inspiration.</span>
+    <section id="(NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
    </article>
   </main>
  </body>

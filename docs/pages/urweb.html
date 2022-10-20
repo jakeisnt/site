@@ -35,6 +35,15 @@
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
+ <script
+         src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+ <script id=MathJax-script
+         src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js>
+        MathJax.typesetPromise().then(() =&gt; {
+        // modify the DOM here
+        MathJax.typesetPromise();
+        }).catch((err) =&gt; console.log(err.message));
+       </script>
  <body>
   <main>
    <div class=sidebar>
@@ -63,34 +72,33 @@
       in it for the long haul.</span>
     <p><span>Ur/web *does* seem to have decent Emacs support, though I had some 
       initial trouble getting urweb-mode to run in Emacs out of the box.</span>
-    <section>
-     <h2>Starting Out</h2>
-     <p><span>If you&#39;re starting and you&#39;re a beginner, don&#39;t bother with 
-       the manual at first. Install the </span>
-      <pre></pre><span> package with Nix (use a nix-shell!) and jump straight to the 
-       examples. I found that without the proper context the manual and reference 
-       weren&#39;t super useful; they focus on the programming language itself rather 
-       than the ecosystem surrounding web development, which is likely why you&#39;re 
-       using the framework.</span>
-     <p><span>Of course, once you&#39;re familiar with using the ecosystem, go back to 
-       the reference to learn more about the language!</span>
-    </section>
-    <section>
-     <h2>Links</h2>
-     <p><a class=external href=https://github.com/urweb/urweb>[the Urweb repository]</a>
-     <p><a class=external href="http://www.impredicative.com/ur/demo/">[the main demo 
-       as provided in the repo]</a>
-     <p><a class=external href=http://frigoeu.github.io/urweb1.html>[a great writeup on 
-       why urweb is worth trying]</a>
-     <p><a class=external href="http://expdev.net/urtutorial/">
-       [http://expdev.net/urtutorial/]</a><span>decent tutorial</span>
-     <p><a class=external href=https://github.com/bazqux/bazqux-urweb>[ur/Web part of 
-       BazQux Reader sources]</a>
-     <p><a class=external href=https://github.com/vizziv/UrLib>[Useful Ur/Web 
-       functions.]</a>
-     <p><a class=external href="http://www.impredicative.com/ur/">[ur programming 
-       languages - web dev w this!]</a>
-    </section>
+    <h2>Starting Out</h2>
+    <p><span>If you&#39;re starting and you&#39;re a beginner, don&#39;t bother with 
+      the manual at first. Install the </span>
+     <pre></pre><span> package with Nix (use a nix-shell!) and jump straight to the 
+      examples. I found that without the proper context the manual and reference 
+      weren&#39;t super useful; they focus on the programming language itself rather 
+      than the ecosystem surrounding web development, which is likely why you&#39;re 
+      using the framework.</span>
+    <p><span>Of course, once you&#39;re familiar with using the ecosystem, go back to 
+      the reference to learn more about the language!</span>
+    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+    <h2>Links</h2>
+    <p><a class=external href=https://github.com/urweb/urweb>[the Urweb repository]</a>
+    <p><a class=external href="http://www.impredicative.com/ur/demo/">[the main demo 
+      as provided in the repo]</a>
+    <p><a class=external href=http://frigoeu.github.io/urweb1.html>[a great writeup on 
+      why urweb is worth trying]</a>
+    <p><a class=external href="http://expdev.net/urtutorial/">
+      [http://expdev.net/urtutorial/]</a><span>decent tutorial</span>
+    <p><a class=external href=https://github.com/bazqux/bazqux-urweb>[ur/Web part of 
+      BazQux Reader sources]</a>
+    <p><a class=external href=https://github.com/vizziv/UrLib>[Useful Ur/Web 
+      functions.]</a>
+    <p><a class=external href="http://www.impredicative.com/ur/">[ur programming 
+      languages - web dev w this!]</a>
+    <section
+             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
    </article>
   </main>
  </body>

@@ -35,6 +35,15 @@
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
+ <script
+         src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+ <script id=MathJax-script
+         src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js>
+        MathJax.typesetPromise().then(() =&gt; {
+        // modify the DOM here
+        MathJax.typesetPromise();
+        }).catch((err) =&gt; console.log(err.message));
+       </script>
  <body>
   <main>
    <div class=sidebar>
@@ -276,15 +285,14 @@
      <span>open source pharma</span>
     <p><a class=external href="https://news.ycombinator.com/item?id=23487121">[theory 
       of everything]</a>
-    <section>
-     <h2>TODO back up birthdays from people on facebook</h2>
-     <p><span>this is the only way i will truly be able to delete my facebook account</span>
-     <p><span>logging birthdays and information about people externally to any social 
-       media platform that is predatory seems very useful</span>
-     <p><a class=external href=https://github.com/maehr/awesome-digital-history>
-       [https://github.com/maehr/awesome-digital-history]</a><span>resources for 
-       digiral history</span>
-    </section>
+    <h2>TODO back up birthdays from people on facebook</h2>
+    <p><span>this is the only way i will truly be able to delete my facebook account</span>
+    <p><span>logging birthdays and information about people externally to any social 
+      media platform that is predatory seems very useful</span>
+    <p><a class=external href=https://github.com/maehr/awesome-digital-history>
+      [https://github.com/maehr/awesome-digital-history]</a><span>resources for 
+      digiral history</span>
+    <section id="(NIL NIL NIL NIL)"></section>
    </article>
   </main>
  </body>

@@ -35,6 +35,15 @@
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
+ <script
+         src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+ <script id=MathJax-script
+         src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js>
+        MathJax.typesetPromise().then(() =&gt; {
+        // modify the DOM here
+        MathJax.typesetPromise();
+        }).catch((err) =&gt; console.log(err.message));
+       </script>
  <body>
   <main>
    <div class=sidebar>
@@ -72,12 +81,11 @@
     <p><span>Really, Emacs (and EXWM) are partial solutions to a more systemic issue 
       -- the way in which the Unix philosophy has lost its way on the modern Linux 
       system.</span>
-    <section>
-     <h2>Fixing issues</h2>
-     <p><a class=external
-      href="https://tech.toryanderson.com/2020/10/19/emacs-in-emacs-a-triumph-for-exwm/">
-       [run emacs in emacs for better exwm performance]</a>
-    </section>
+    <h2>Fixing issues</h2>
+    <p><a class=external
+     href="https://tech.toryanderson.com/2020/10/19/emacs-in-emacs-a-triumph-for-exwm/">
+      [run emacs in emacs for better exwm performance]</a>
+    <section id="(NIL NIL)"></section>
    </article>
   </main>
  </body>

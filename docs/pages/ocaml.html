@@ -35,6 +35,15 @@
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
+ <script
+         src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+ <script id=MathJax-script
+         src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js>
+        MathJax.typesetPromise().then(() =&gt; {
+        // modify the DOM here
+        MathJax.typesetPromise();
+        }).catch((err) =&gt; console.log(err.message));
+       </script>
  <body>
   <main>
    <div class=sidebar>
@@ -67,22 +76,21 @@
       [http://rgrinberg.com/posts/deriving-slowly/]</a>
     <p><a class=external href=https://github.com/rossberg/1ml>
       [https://github.com/rossberg/1ml]</a>
-    <section>
-     <h2>Reason</h2>
-     <p><span>An alternative syntax for OCaml that works in the browser.</span>
-     <p><span>The messaging here is very confusing - bucklescript? ReasonReact? Which 
-       is it?</span>
-     <p><span>Some good example projects:</span>
-     <ul>
-      <li><span> </span><a class=external
-       href=https://github.com/paulshen/nook-exchange-old>
-        [https://github.com/paulshen/nook-exchange-old]</a>
-     </ul>
-     <ul>
-      <li><span> </span><a class=external href=https://github.com/paulshen/listening-bar>
-        [https://github.com/paulshen/listening-bar]</a>
-     </ul>
-    </section>
+    <h2>Reason</h2>
+    <p><span>An alternative syntax for OCaml that works in the browser.</span>
+    <p><span>The messaging here is very confusing - bucklescript? ReasonReact? Which 
+      is it?</span>
+    <p><span>Some good example projects:</span>
+    <ul>
+     <li><span> </span><a class=external
+      href=https://github.com/paulshen/nook-exchange-old>
+       [https://github.com/paulshen/nook-exchange-old]</a>
+    </ul>
+    <ul>
+     <li><span> </span><a class=external href=https://github.com/paulshen/listening-bar>
+       [https://github.com/paulshen/listening-bar]</a>
+    </ul>
+    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
    </article>
   </main>
  </body>

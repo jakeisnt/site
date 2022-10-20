@@ -35,6 +35,15 @@
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
+ <script
+         src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+ <script id=MathJax-script
+         src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js>
+        MathJax.typesetPromise().then(() =&gt; {
+        // modify the DOM here
+        MathJax.typesetPromise();
+        }).catch((err) =&gt; console.log(err.message));
+       </script>
  <body>
   <main>
    <div class=sidebar>
@@ -79,37 +88,35 @@
       interactive direct manipulation tools in racket</span>
     <p><a class=external href=https://docs.racket-lang.org/eopl/index.html>[subset of 
       racket programming languages that align with the Scheme 5 Specification]</a>
-    <section>
-     <h2>potentially cool textbooks making use of racket</h2>
-     <p><a class=external href=https://docs.racket-lang.org/plai/index.html>
-       [https://docs.racket-lang.org/plai/index.html]</a>
-     <p><a class=external href=https://docs.racket-lang.org/redex/index.html>[Redex 
-       Semantics Engineering]</a>
-     <p><a class=external href=https://docs.racket-lang.org/pie/index.html:>
-       [https://docs.racket-lang.org/pie/index.html:]</a><span>the programming language 
-       used for </span><a class=external href=http://thelittletyper.com/.>
-       [http://thelittletyper.com/.]</a>
-     <p><span>The language has a </span><a class=external
-      href=https://docs.racket-lang.org/pie-a-let-mode/index.html>[cool fork]</a><span>
-       !</span>
-    </section>
-    <section>
-     <h2>some cool libraries in racket</h2>
-     <p><a class=external href=https://docs.racket-lang.org/csexp/index.html>
-       [https://docs.racket-lang.org/csexp/index.html]</a>
-     <p><a class=external href=https://docs.racket-lang.org/mode-lambda/index.html>
-       [https://docs.racket-lang.org/mode-lambda/index.html]</a>
-     <p><a class=external href=https://docs.racket-lang.org/datalog/index.html>
-       [https://docs.racket-lang.org/datalog/index.html]</a>
-     <p><a class=external href=https://docs.racket-lang.org/Elle/index.html>
-       [https://docs.racket-lang.org/Elle/index.html]</a>
-     <p><a class=external href=https://docs.racket-lang.org/heresy/index.html>
-       [https://docs.racket-lang.org/heresy/index.html]</a>
-     <p><a class=external href=https://docs.racket-lang.org/plai-typed/index.html:>
-       [https://docs.racket-lang.org/plai-typed/index.html:]</a><span>scheme lang with 
-       ml type system</span>
-     <p><span>the one for memoization is cool! just claled &quot;memoize&quot;</span>
-    </section>
+    <h2>potentially cool textbooks making use of racket</h2>
+    <p><a class=external href=https://docs.racket-lang.org/plai/index.html>
+      [https://docs.racket-lang.org/plai/index.html]</a>
+    <p><a class=external href=https://docs.racket-lang.org/redex/index.html>[Redex 
+      Semantics Engineering]</a>
+    <p><a class=external href=https://docs.racket-lang.org/pie/index.html:>
+      [https://docs.racket-lang.org/pie/index.html:]</a><span>the programming language 
+      used for </span><a class=external href=http://thelittletyper.com/.>
+      [http://thelittletyper.com/.]</a>
+    <p><span>The language has a </span><a class=external
+     href=https://docs.racket-lang.org/pie-a-let-mode/index.html>[cool fork]</a><span>
+      !</span>
+    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+    <h2>some cool libraries in racket</h2>
+    <p><a class=external href=https://docs.racket-lang.org/csexp/index.html>
+      [https://docs.racket-lang.org/csexp/index.html]</a>
+    <p><a class=external href=https://docs.racket-lang.org/mode-lambda/index.html>
+      [https://docs.racket-lang.org/mode-lambda/index.html]</a>
+    <p><a class=external href=https://docs.racket-lang.org/datalog/index.html>
+      [https://docs.racket-lang.org/datalog/index.html]</a>
+    <p><a class=external href=https://docs.racket-lang.org/Elle/index.html>
+      [https://docs.racket-lang.org/Elle/index.html]</a>
+    <p><a class=external href=https://docs.racket-lang.org/heresy/index.html>
+      [https://docs.racket-lang.org/heresy/index.html]</a>
+    <p><a class=external href=https://docs.racket-lang.org/plai-typed/index.html:>
+      [https://docs.racket-lang.org/plai-typed/index.html:]</a><span>scheme lang with 
+      ml type system</span>
+    <p><span>the one for memoization is cool! just claled &quot;memoize&quot;</span>
+    <section id="(NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
    </article>
   </main>
  </body>

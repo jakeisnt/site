@@ -35,6 +35,15 @@
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
+ <script
+         src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+ <script id=MathJax-script
+         src=https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js>
+        MathJax.typesetPromise().then(() =&gt; {
+        // modify the DOM here
+        MathJax.typesetPromise();
+        }).catch((err) =&gt; console.log(err.message));
+       </script>
  <body>
   <main>
    <div class=sidebar>
@@ -73,22 +82,19 @@
     <p><a class=external href=https://ambrevar.xyz/homogeneous/index.html>
       [https://ambrevar.xyz/homogeneous/index.html]</a><a class=internal
      href=id:ea48654b-309e-4b25-b322-c0957adfc218>{Math}</a>
-    <section>
-     <h2>Raytracing in one weekend</h2>
-     <section>
-      <h3>Implementations</h3>
-      <p><a class=external href=https://github.com/browserdotsys/vecchio>
-        [https://github.com/browserdotsys/vecchio]</a><span>ray tracing in one weekend 
-        :: looks fun to do </span><a class=internal
-       href=id:cae43ca9-ddd4-42da-877a-6aeeb2264ae7>{Rust}</a>
-      <p><a class=external href="https://nelari.us/post/raytracer_with_rust_and_zig/">
-        [Writing a small ray tracer in Rust and Zig // My thought repository]</a><span> </span>
-       <a class=internal href=id:cae43ca9-ddd4-42da-877a-6aeeb2264ae7>{Rust}</a>
-     </section>
-     <section>
-      <h3>personal notes</h3>
-     </section>
-    </section>
+    <h2>Raytracing in one weekend</h2>
+    <h3>Implementations</h3>
+    <p><a class=external href=https://github.com/browserdotsys/vecchio>
+      [https://github.com/browserdotsys/vecchio]</a><span>ray tracing in one weekend 
+      :: looks fun to do </span><a class=internal
+     href=id:cae43ca9-ddd4-42da-877a-6aeeb2264ae7>{Rust}</a>
+    <p><a class=external href="https://nelari.us/post/raytracer_with_rust_and_zig/">
+      [Writing a small ray tracer in Rust and Zig // My thought repository]</a><span> </span>
+     <a class=internal href=id:cae43ca9-ddd4-42da-877a-6aeeb2264ae7>{Rust}</a>
+    <section id="(NIL NIL NIL)"></section>
+    <h3>personal notes</h3>
+    <section id=(NIL)></section>
+    <section id="(NIL NIL NIL)"></section>
    </article>
   </main>
  </body>
