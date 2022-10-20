@@ -1,6 +1,7 @@
-#+TITLE: jake.chvatal.com
+#+TITLE: jake.isnt.online
 
-This is the index of my personal website found [[https://jake.chvatal.com][here]].
+This is the index of my personal website found [[https://jake.isnt.online][here]].
+It can be thought of as a projection of my wiki and github repos!
 100% score on the [[https://www.foo.software/lighthouse][Lighthouse audit]].
 
 * Goals
