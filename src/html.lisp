@@ -49,14 +49,15 @@
        (:script :src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js")
        (:script "hljs.highlightAll();"))
       ;; mathjax
-      (:script :src "https://polyfill.io/v3/polyfill.min.js?features=es6")
-      (:script :id "MathJax-script" :src "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-       "
-        MathJax.typesetPromise().then(() => {
-        // modify the DOM here
-        MathJax.typesetPromise();
-        }).catch((err) => console.log(err.message));
-       ")
+      ;; TODO: Not working
+      ;; (:script :src "https://polyfill.io/v3/polyfill.min.js?features=es6")
+      ;; (:script :id "MathJax-script" :src "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+      ;;  "
+      ;;   MathJax.typesetPromise().then(() => {
+      ;;   // modify the DOM here
+      ;;   MathJax.typesetPromise();
+      ;;   }).catch((err) => console.log(err.message));
+      ;;  ")
       (:body
        (:main ,contents)))))
 
