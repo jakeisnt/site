@@ -9,15 +9,14 @@ html {
 }
 
 body {
-  max-width: 30rem;
   margin: 0;
-  padding: 0rem 3rem;
+  padding: 1.5rem 4rem;
   background: conic-gradient(from 90deg at 1px 1px, #fff 90deg, #eee8d5 0deg);
   background-size: 40px 40px;
 }
 
 main {
-  padding: 1.5rem 1rem;
+  max-width: 30rem;
 }
 
 article {
@@ -28,6 +27,11 @@ article {
 
 @media only screen and (max-width: 500px) {
     body {
+      max-width: 100%;
+      padding: 0;
+    }
+
+    main {
       max-width: 100%;
       padding: 0;
     }
@@ -94,11 +98,11 @@ a:active {
 }
 
 .checkbox-menu {
-  margin-top: 1rem;
+  margin: 1rem 0;
   padding: 0.5rem 0.25rem;
-  max-width: 10rem;
-  border: 1.5px solid #484848;;
-  background-color: hsl(0, 0%, 96.5%);
+  max-width: 8rem;
+  border: 2px solid #eee8d5;
+  background-color: #fff;
 }
 
 h1 {
@@ -117,13 +121,20 @@ code {
   margin-top: 0.75rem;
 }
 
+.site-body {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
 .url-cage {
-  padding-top: 1rem;
   display: flex;
   flex-direction: column;
   border: 2px solid #eee8d5;
   padding: 1rem;
-  background-color: #fff
+  background-color: #fff;
+  font-size: 14px;
 }
 
 @media only screen and (max-width: 500px) {

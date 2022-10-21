@@ -31,29 +31,38 @@
   <link rel=stylesheet
         href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
   <link rel=stylesheet href=/style.css>
+  <script src=/lib.js></script>
   <script
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
  <body>
-  <div class=sidebar>
-   <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
-   <a href=/pages/index.html>pages</a><span> / </span><b>Storage</b>
+  <div class=site-body>
+   <div class=sidebar>
+    <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
+    <a href=/pages/index.html>pages</a><span> / </span><b>Storage</b>
+   </div>
+   <main>
+    <article class=wikipage>
+     <h1 class=title-top>Storage</h1>
+     <p><span>backup storage stuff</span>
+     <p><span>I currently use backblaze b2 via duplicati</span>
+     <p><a class=external href=https://github.com/schollz/croc>
+       [https://github.com/schollz/croc]</a><span>securely and easily share files 
+       between computers</span>
+     <p><a class=external href=https://rclone.org/drive/#making-your-own-client-id>
+       [rclone or smth]</a>
+     <p><a class=external href=https://github.com/gilbertchen/duplicacy>
+       [https://github.com/gilbertchen/duplicacy]</a><span>lock free duplication backup 
+       tool</span>
+    </article>
+   </main>
+   <div class=checkbox-menu>
+    <input type=checkbox id=hypothesis-checkbox
+           checked onclick=toggleHypothesis();>
+     hypothes.is
+    
+   </div>
   </div>
-  <main>
-   <article class=wikipage>
-    <h1 class=title-top>Storage</h1>
-    <p><span>backup storage stuff</span>
-    <p><span>I currently use backblaze b2 via duplicati</span>
-    <p><a class=external href=https://github.com/schollz/croc>
-      [https://github.com/schollz/croc]</a><span>securely and easily share files 
-      between computers</span>
-    <p><a class=external href=https://rclone.org/drive/#making-your-own-client-id>
-      [rclone or smth]</a>
-    <p><a class=external href=https://github.com/gilbertchen/duplicacy>
-      [https://github.com/gilbertchen/duplicacy]</a><span>lock free duplication backup 
-      tool</span>
-   </article>
-  </main>
  </body>
 </html>

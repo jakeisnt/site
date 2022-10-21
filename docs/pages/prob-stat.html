@@ -31,560 +31,569 @@
   <link rel=stylesheet
         href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
   <link rel=stylesheet href=/style.css>
+  <script src=/lib.js></script>
   <script
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
  <body>
-  <div class=sidebar>
-   <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
-   <a href=/pages/index.html>pages</a><span> / </span><b>Prob Stat</b>
+  <div class=site-body>
+   <div class=sidebar>
+    <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
+    <a href=/pages/index.html>pages</a><span> / </span><b>Prob Stat</b>
+   </div>
+   <main>
+    <article class=wikipage>
+     <h1 class=title-top>Prob Stat</h1>
+     <p><span>Notes for reviewing my probability and statistics course at Northeastern.</span>
+     <h2>Sample Spaces</h2>
+     <ul>
+      <li><span> Experiment :: Repeatable procedure with a set of possible results</span>
+     </ul>
+     <ul>
+      <li><span> Sample Outcome :: One of many possible results of an experiment</span>
+     </ul>
+     <ul>
+      <li><span> Sample Space :: </span><span>S$: The set of all possible outcomes of an 
+        experiment</span>
+     </ul>
+     <ul>
+      <li><span> Event :: </span><span>A \subset S$ : 0 or more outcomes of an 
+        experiment</span>
+     </ul>
+     <ul>
+      <li><span> Probability :: </span><span>P(A) = \frac{n(A)}{n(S)}$</span>
+     </ul>
+     <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+     <h2>Set Theory</h2>
+     <ul>
+      <li><span> Discrete Set :: A finite or countable set. i.e. tossing a coin until a 
+        head is received: </span><span>S = \{ H, TH, TTH, \dots \}$</span>
+     </ul>
+     <ul>
+      <li><span> Continuous Set :: A range of values. I.e. getting a number smaller than 
+        1 from within a real number between 0 and </span><span>\sqrt{2}$: $S = [0, 
+        \sqrt{2}]$, $A = [0, 1)$</span>
+     </ul>
+     <ul>
+      <li><span> Intersection :: </span><span>A \cap B = \{x | x \in A\ and\ x \in B\}$ 
+        for some events A, B</span>
+     </ul>
+     <p><span> + Disjoint :: </span><span>A \cap B = \emptyset$. Also known as 
+       &quot;mutually exclusive&quot;</span>
+     <ul>
+      <li><span> Union :: </span><span>A \cup B = \{x | x \in A\ or\ x \in B\}$</span>
+     </ul>
+     <ul>
+      <li><span> Complement :: </span><span>A^{c} = \{x \in S | x \not{\in} A\}$</span>
+     </ul>
+     <h3>DeMorgan&#39;s Law(s)</h3>
+     <p><span>1. </span><span>(A \cup B)^{c} = A^{c} \cap B^{c}$</span>
+     <p><span>1. </span><span>(A \cap B)^{c} = A^{c} \cup B^{c}$</span>
+     <section id="(NIL NIL NIL)"></section>
+     <section id="(NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <h2>Probability Function</h2>
+     <p><span>P$ assigns a real number to any event of a sample space, and follows the 
+       following axioms for a sample space that&#39;s finite:</span>
+     <ul>
+      <li><span> </span><span>P(A) \geq 0$ for all $A$</span>
+     </ul>
+     <ul>
+      <li><span> </span><span>P(S) = 1$</span>
+     </ul>
+     <ul>
+      <li><span> </span><span>A \cap B = \emptyset \implies P(A \cup B) = P(A) + P(B)$, 
+        or $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ otherwise</span>
+     </ul>
+     <ul>
+      <li><span> </span><span>P(\cup_{i=1}^{\infty} A_{i}) = \sum_{i=1}^{\infty} 
+        P(A_{i})$ if any $A_1, A_2, A_3 \dots$ are mutually exclusive in $S$</span>
+     </ul>
+     <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+     <h2>Conditional Probability</h2>
+     <p><span>P(A|B) = \frac{P(A \cup B)}{P(B)}$</span>
+     <p><span>P(A \cap B) = P(B|A)P(A) = P(A|B)P(B)$</span>
+     <p><span>Solving conditional probability: Make a tree! Fork at each choice, 
+       recording the probability on each &quot;leaf&quot;. Then use the leaves to 
+       assess a series of events.</span>
+     <section id="(NIL NIL NIL NIL)"></section>
+     <h2>Independence</h2>
+     <p><span>A$ and $B$ are _independent_ if $P(A \cap B) = P(A)P(B)$; put another 
+       way, $P(A|B) = P(A) \iff P(B|A) = P(B)$</span>
+     <p><span>For more than two sets:</span>
+     <ul>
+      <li><span> </span><span>P(A \cap B \cap C) = P(A)P(B)P(C)$</span>
+     </ul>
+     <ul>
+      <li><span> </span><span>P(A \cap B) = P(A)P(B)$, $P(A \cap C) = P(A)P(C)$, $P(B 
+        \cap C) = P(B)P(C)$ and so on...</span>
+     </ul>
+     <section id="(NIL NIL NIL NIL NIL)"></section>
+     <h2>Series</h2>
+     <h3>Geometric</h3>
+     <p><span>S_{n} = \sum_{k=0}^{n}r^{k} = 1 + r + r^{2} + \dots + r^{n}$</span>
+     <p><span>For </span><span>-1 &lt; r &lt; 1$, the sum converges:</span>
+     <p><span>S \equiv S_{\infty} = \sum_{k=0}^{\infty}r^{k} = \frac{1}{1 - r}$, for 
+       $|r| &lt; 1$</span>
+     <ul>
+      <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span><span>
+        p_{Y}(k) = (1 - p)^{k - 1}p$</span>
+     </ul>
+     <ul>
+      <li><span> mean :: </span><span>\frac{1}{p}$</span>
+     </ul>
+     <section id="(NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <section id="(NIL NIL)"></section>
+     <h2>Probability Distributions</h2>
+     <p><span>(^{n}_{r}) = _{n}C_{r} = \frac{n!}{(n - r)! r!}$</span>
+     <h3>Binomial Distribution</h3>
+     <p><span>Given n _independent_ trials with two outcomes and a constant P(success) 
+       for each outcome, </span><span>P(k) = (^{n}_{k}) * p^{k}(1 - p)^{n - k}$ for $k 
+       = 0, 1, 2, \dots, n$.</span>
+     <ul>
+      <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span><span>P(X = 
+        k) = (^{n}_{k}) * p^{k}(1 - p)^{n - k}$</span>
+     </ul>
+     <p><span> + calculate: use ~binompdf~</span>
+     <ul>
+      <li><span> </span><a class=external href=CDF>[CDF]</a><span> :: </span><span>P(X 
+        \leq t) = \sum_{k=0}^{t}(^{n}_{k}) * p^{k}(1 - p)^{n - k}$</span>
+     </ul>
+     <p><span> + calculate: use ~binomcdf~</span>
+     <ul>
+      <li><span> </span><a class=external href="Expected Value">[Expected Value]</a>
+       <span> :: </span><span>E(X) = np$</span>
+     </ul>
+     <section id="(NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <h3>Bernoulli Distribution</h3>
+     <p><span>Essentially a </span><a class=external href="Binomial Distribution">
+       [Binomial Distribution]</a><span> where </span><span>n = 1$.</span>
+     <p><span>P(k) = (^{1}_{k}) * p^{k}(1 - p)^{1 - k}$</span>
+     <section id="(NIL NIL NIL NIL)"></section>
+     <h3>Hypergeometric Distribution</h3>
+     <p><span>P(x) = \frac{(^{k}_{x})(^{N-k}_{n-x})}{(^{N}_{n})}$</span>
+     <ul>
+      <li><span> Random selection of </span><span>n$ items without replacement from a 
+        set of $N$ items</span>
+     </ul>
+     <ul>
+      <li><span> _Not_ guaranteed P(success) stays constant.</span>
+     </ul>
+     <ul>
+      <li><span> </span><span>k$ items are success; $N - k$ items are failures.</span>
+     </ul>
+     <p><span>This can be considered a generalization of the </span><a class=external
+      href="Binomial Distribution">[Binomial Distribution]</a><span>.</span>
+     <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+     <h3>Uniform Distribution</h3>
+     <p><span>All values in a range are equally likely.</span>
+     <p><span>For some interval </span><span>[a, b]$:</span>
+     <ul>
+      <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span><span>
+        \frac{1}{b - a}$</span>
+     </ul>
+     <ul>
+      <li><span> </span><a class=external href=CDF>[CDF]</a><span> :: </span><span>
+        \frac{x - a}{b - a}$</span>
+     </ul>
+     <section id="(NIL NIL NIL NIL NIL)"></section>
+     <h3>Exponential Distribution</h3>
+     <ul>
+      <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span><span>
+        f_{X}(x) = \lambda e^{-\lambda x}$ for $x \geq 0$</span>
+     </ul>
+     <ul>
+      <li><span> </span><a class=external href=CDF>[CDF]</a><span> :: </span><span>
+        F_{X}(x) = 1 - e^{-\lambda x}$</span>
+     </ul>
+     <ul>
+      <li><span> mean :: </span><span>E(X) = \frac{1}{\lambda}$</span>
+     </ul>
+     <ul>
+      <li><span> var :: </span><span>Var(X) = \frac{1}{\lambda^{2}}$</span>
+     </ul>
+     <section id="(NIL NIL NIL NIL NIL)"></section>
+     <h3>Poisson Distribution</h3>
+     <p><span>Counts the number of occurences per unit of measurement - over a specific 
+       period of time, a specific area, or volume, etc...</span>
+     <p><span>The probability of an event occuring in a unit of measurement must be the 
+       same for all similar units;</span>
+     <p><span>for example, if the unit of measurement is a month, then the probability 
+       must be the same for all months.</span>
+     <p><span>Poisson is often used to approximate the binomial distribution: given 
+       that </span><span>n$ is large ($n \geq 100$) and $p$ is small, we can let 
+       $\lambda = np$!</span>
+     <p><span>In other words, </span><span>\lambda := np$ -&gt; (average number of 
+       occurences per unit) * (length of observation period)</span>
+     <p><span>Use ~poissonpdf~ and ~poissoncdf~ calculator unctions to approximate 
+       this.</span>
+     <ul>
+      <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span><span>
+        p_{X}(k) = P(X = k) := \frac{\lambda^{k}e^{-\lambda}}{k!}$</span>
+     </ul>
+     <ul>
+      <li><span> mean :: </span><span>E(X) = \lambda$</span>
+     </ul>
+     <ul>
+      <li><span> variance :: </span><span>Var(X) = \lambda$</span>
+     </ul>
+     <section
+              id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <h3>Normal Distribution</h3>
+     <section id="(NIL NIL)"></section>
+     <section
+              id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <h2>Density Functions</h2>
+     <ul>
+      <li><span> Discrete Random Variable :: Some </span><span>X$ such that:</span>
+     </ul>
+     <p><span> + </span><span>X: S \rightarrow \mathbb{R}$</span>
+     <p><span> + </span><span>X$ is a countable subset of $\mathbb{R}$</span>
+     <p><span> + Motivation: Constrain the sample space to a smaller sample space, 
+       using a single variable to represent each outcome we&#39;re investigating. If 
+       we&#39;re looking at pairs of numbers, for example, we only care that the sum of 
+       the pair is the same, so we consider (1, 2) and (2, 1) to be the same outcome.</span>
+     <ul>
+      <li><span> Continuous random variable :: Like discrete,</span>
+     </ul>
+     <p><span> but ranges over a continuous interval of </span><span>\mathbb{R}$ 
+       instead.</span>
+     <p><span> Two continuous random variables are _independent_ if some functions, </span>
+      <span>g(x)$ and $h(x)$, exist such that:</span>
+     <p><span> - </span><span>f_{X,Y}(x,y) = g(x)h(y)$</span>
+     <p><span> - </span><span>f_{X}(x) = g(x)$</span>
+     <p><span> - </span><span>f_{Y}(y) = h(y)$</span>
+     <p><span> In other words, one should be able to multiply the results of the 
+       marginal pdfs to produce the joint pdf for the two variables, and vice versa.</span>
+     <h3>PDF</h3>
+     <p><span>(Probability Density Function)</span>
+     <h4>Discrete</h4>
+     <p><span>For every </span><span>X$, a probability density function (pdf) looks 
+       like:</span>
+     <p><span>p_{x}(k) = P(X = k) := P(\{s \in S | X(s) = k\})$, where $p_{x}(k): 
+       \mathbb{R} \rightarrow \mathbb{R}$.</span>
+     <p><span>Here, </span><span>s$ and $S$ are from the original sample space 
+       we&#39;re sampling from.</span>
+     <section id="(NIL NIL NIL NIL)"></section>
+     <h4>Continuous</h4>
+     <p><span>Some </span><span>f_{x}(x)$ satisfying:</span>
+     <p><span>1. </span><span>f_{x}(x) \geq 0$</span>
+     <p><span>2. </span><span>\int_{-\infty}^{\infty}f_{x}(x) = 1$</span>
+     <p><span>P(a \leq X \leq b) = \int_{b}^{a}f_{x}(x)dx$</span>
+     <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+     <h4>Joint PDF</h4>
+     <p><span>p_{X,Y}(x,y) := P(X = x, Y = y)$, satisfying:</span>
+     <p><span>1. </span><span>p_{X,Y}(x,y) \geq 0$</span>
+     <p><span>2. </span><span>\sum_{all y} \sum_{all y} p_{X,Y}(x,y) = 1$</span>
+     <h5>Discrete</h5>
+     <p><span>Given the joint pdf of </span><span>X$ and $Y$, the _marginal_ pdfs of 
+       $X$ and $Y$ are:</span>
+     <ul>
+      <li><span> </span><span>p_{X}(x) = \sum_{all y}p_{X,Y}(x,y)$</span>
+     </ul>
+     <ul>
+      <li><span> </span><span>p_{Y}(y) = \sum_{all x}p_{X,Y}(x,y)$</span>
+     </ul>
+     <section id="(NIL NIL NIL NIL)"></section>
+     <h5>Continuous</h5>
+     <p><span>P((X,Y) \in R) = \int \int_{R}f_{X,Y}(x,y) dx dy$</span>
+     <p><span>When solving - identify the bound that&#39;s dependent on the other!</span>
+     <p><span>It can really help to plot out some 2D plane, then graph the relationship 
+       between the two continuous random variables.</span>
+     <p><span>From this graph it&#39;s often fairly easy to identify, and thus 
+       estimate, the area we&#39;re investigating; this guides us to investigate what 
+       we should learn more from!</span>
+     <p><span>Absolutely worth working through some pracice problems.</span>
+     <section id="(NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+     <section id="(NIL NIL NIL NIL NIL)"></section>
+     <h3>CDF</h3>
+     <p><span>Cumulative Distribution Function</span>
+     <h4>Discrete</h4>
+     <p><span>F_{x}(t) = P(X \leq t) := P(\{s \in S | X(s) \leq t\})$, where $F_{x}(t): 
+       \mathbb{R} \rightarrow \mathbb{R}$.</span>
+     <p><span>Generally, </span><span>F_{x}(t) = \int_{-\infty}^{t}p_{x}(t)$; the pdf 
+       represents the probability of the discrete random variable being a specific 
+       value, while the cdf represents the probability of all outcomes occuring less 
+       than some outcome upper bound $t$.</span>
+     <section id="(NIL NIL NIL)"></section>
+     <h4>Continuous</h4>
+     <p><span>F_{x}(x) = P(X \leq x) = \int_{-\infty}^{x}p_{x}(x)dx$</span>
+     <p><span>P(a \leq X \leq b) = F_{X}(b) - F_{X}(a)$</span>
+     <section id="(NIL NIL NIL)"></section>
+     <section id="(NIL NIL NIL NIL)"></section>
+     <section
+              id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <h2>Expected Value</h2>
+     <p><span>A generalization of the concept of &quot;average&quot;. The name&#39;s on 
+       the tin - it&#39;s a value that represents the proportionally weighted, expected 
+       result.</span>
+     <p><span>For example, if I have a 5% chance at </span><span>100 and a 95% chance 
+       at $20, the expected value would be $100 * 0.05 + 0.95 * 20$, so $24.</span>
+     <h3>Discrete</h3>
+     <p><span>E(X) = \sum_{all \ k} k * p_{X}(k)$</span>
+     <section id="(NIL NIL)"></section>
+     <h3>Continuous</h3>
+     <p><span>E(X) = \int_{-\infty}^{\infty} x * p_{X}(x) dx$</span>
+     <section id="(NIL NIL)"></section>
+     <h3>Other Properties</h3>
+     <p><span>E(aX + bY) = aE(X) + bE(Y)$ for any random varaibles $X, Y$ and numbers 
+       $a$ and $b$.</span>
+     <p><span>As such, if </span><span>X$ and $Y$ are _independent_, then $E(XY) = 
+       E(X)E(Y)$.</span>
+     <section id="(NIL NIL NIL)"></section>
+     <h3>Sample Mean</h3>
+     <p><span>Denoted as </span><span>\bar{X}$</span>
+     <p><span>\bar{X} = \frac{1}{n}(X_{1} + X_{2} + \dots + X_{n})$</span>
+     <section id="(NIL NIL NIL)"></section>
+     <section
+              id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <h2>Median</h2>
+     <h3>Discrete</h3>
+     <p><span>&quot;Middle number&quot; of the distribution, or the average of the two 
+       middle numbers if the cardinality is even; the standard definition.</span>
+     <section id="(NIL NIL)"></section>
+     <h3>Continuous</h3>
+     <p><span>m$ such that $\int_{-\infty}^{m}f_{Y}(y) dy = 0.5$.</span>
+     <p><span>Finding the median:</span>
+     <p><span>1. Integrate and substitute.</span>
+     <p><span>2. Factor in terms of and solve for </span><span>m$.</span>
+     <section id="(NIL NIL NIL NIL NIL)"></section>
+     <section id="(NIL NIL NIL)"></section>
+     <h2>Variance</h2>
+     <p><span>A measure of how far the distribution spreads from its mean.</span>
+     <p><span>Var(X) := E((X - \mu)^{2})$, where:</span>
+     <ul>
+      <li><span> </span><span>\mu = E(X)$ is the mean of $X$</span>
+     </ul>
+     <ul>
+      <li><span> </span><span>\sigma := \sqrt{Var(X)}$ is the standard deviation of $X$</span>
+     </ul>
+     <p><span>If </span><span>X$ and $Y$ are independent, then:</span>
+     <p><span>Var(aX + bY) = a^{2}Var(X) + b^{2}Var(Y)$</span>
+     <p><span>In general:</span>
+     <p><span>Var(aX + bY) = a^{2}Var(X) + b^{2}Var(Y) - 2abCov(X,Y)$</span>
+     <h3>Covariance</h3>
+     <p><span>where </span><span>Cov(X, Y)$, the _covariance_ of X and Y, is:</span>
+     <p><span>Cov(X,Y) := E(XY) - E(X)E(Y)$</span>
+     <p><span>As can be assumed, if </span><span>X$ and $Y$ are independent, then 
+       $Cov(X,Y) = 0$.</span>
+     <section id="(NIL NIL NIL NIL NIL)"></section>
+     <h3>Correlation</h3>
+     <p><span>Corr(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}$</span>
+     <p><span>A measurement of _correlation_; if positive, then the two random 
+       variables increase together;</span>
+     <p><span>if negative, one increases while the other decreasese and vice versa.</span>
+     <section id="(NIL NIL NIL NIL NIL)"></section>
+     <section
+              id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <h2>Double Integrals</h2>
+     <p><span>Fubini&#39;s Theorem: </span><span>\int_{a}^{b} \int_{c}^{d} f(x,y) dy dx 
+       = \int_{c}^{d} \int_{a}^{b} f(x,y) dx dy$, given $a \leq x \leq b$ and $c \leq y 
+       \leq d$</span>
+     <p><span>To identify the region in </span><span>\mathbb{R}^{2}$ to integrate over, 
+       use the inside first.</span>
+     <p><span>Treat the unevaluated integral variable as a constant and just integrate 
+       with respect to a constant.</span>
+     <p><span>Often one variable is much easier to integrate than the other; pick the 
+       right one to use! This takes practice.</span>
+     <section id="(NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <h2>TODO Problems to Practice</h2>
+     <h3>3</h3>
+     <h4>Graphing PDF, CDF</h4>
+     <section id=(NIL)></section>
+     <h4>Converting between the two, esp. with continuous piecewise</h4>
+     <section id=(NIL)></section>
+     <h4>what&#39;s with that variance theorm and E(g(X))? practice those problems.</h4>
+     <p><span>there are some good exercises for deriving expected value and variance 
+       available in the textbook - review these!</span>
+     <section id="(NIL NIL NIL NIL)"></section>
+     <section id="(NIL NIL NIL NIL)"></section>
+     <section id="(NIL NIL)"></section>
+     <h2>do the exam</h2>
+     <p><span>3.7</span>
+     <p><span>3.9</span>
+     <p><span>4.x</span>
+     <p><span>5.x, especially the problem i missed on the last exam</span>
+     <p><span>exam problems and how exactly to approach them</span>
+     <p><span>the rest of the 6s and 7s, though i can probably wing those just</span>
+     <section
+              id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <h2>Types of Problems</h2>
+     <h3>Exam 1</h3>
+     <h4>Probabilities and Sets</h4>
+     <p><span>i.e. </span><span>P(A), P(A \cup B), P(A \cap B^{c})$ -&gt; find 
+       something</span>
+     <p><span>Draw things out as Venn diagrams to help visualize</span>
+     <p><span>Nice properties:</span>
+     <ul>
+      <li><span> </span><span>P(A \cup B) = P(A \cap B^{c}) + P(A \cap B) + P(A^{c} \cap 
+        B)$</span>
+     </ul>
+     <ul>
+      <li><span> Bayes: </span><span>P(A|B) = \frac{P(A \cap B)}{P(B)}$</span>
+     </ul>
+     <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+     <h4>Simple Probabilities</h4>
+     <p><span>Generally, use some arrangement of </span><span>nCr$ ;</span>
+     <p><span>P(at most x) = 1 - P(at least x); vice vers</span>
+     <section id="(NIL NIL NIL)"></section>
+     <h4>Conditional Probabilities with Scenarios</h4>
+     <p><span>Draw a tree:</span>
+     <ul>
+      <li><span> At the root, no branch is chosen</span>
+     </ul>
+     <ul>
+      <li><span> After the root, choose what info you have more about: i.e. if 
+        you&#39;re looking for P(Defective | built at plant X), draw a tree with the 
+        first set of descendant notes representing the plant at which the thing was 
+        constructed, then from there the chances that the product was defective _given_ 
+        the plant branching off of each.</span>
+     </ul>
+     <p><span> From here, can use Bayes rule to fill out the tree, then find desiresd 
+       probability.</span>
+     <section id="(NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <section id="(NIL NIL NIL NIL)"></section>
+     <h3>Exam 2</h3>
+     <p><span>distributions to know: binomial,</span>
+     <h4>Finding Mean, stdev, sample from given problem</h4>
+     <p><span>u = np$</span>
+     <p><span>\sigma = \sqrt{np(1-p)}$</span>
+     <p><span>P(X=a) = nCa * P(a)^{a}(1-P(a))^{n-a}$ ~ ~binompdf~ w/ n, P(a), a</span>
+     <p><span>Finding P in range: </span><span>P(a &lt; X \leq b) = cdf(500, b, P(x)) - 
+       cdf(500, a, P(x))$ gives CDF for that range!</span>
+     <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+     <h4>Find cdf of discrete set of scenarios</h4>
+     <p><span>1. Write out each possible scenario and associated value of random 
+       variable</span>
+     <p><span>2. Use P(scenario) * (num occurences of scenario) for each random 
+       variable value to compute some P(X=res) for each</span>
+     <p><span>3. Assemble into table; P(X=k) for values x=1, x=2, x=3 for example.</span>
+     <section id="(NIL NIL NIL NIL)"></section>
+     <h4>PDF -&gt; CDF</h4>
+     <p><span>integrate</span>
+     <p><span>when converting to cdf, outside the range provided for the pdf, must 
+       state that the value of the cdf is 0 before and 1 following the range; otherwise 
+       the cdf won&#39;t function outside of it, but the range for a cdf should support 
+       anything</span>
+     <section id="(NIL NIL NIL)"></section>
+     <h4>CDF -&gt; PDF</h4>
+     <p><span>derivative</span>
+     <section id="(NIL NIL)"></section>
+     <h4>Find E, Var given density function</h4>
+     <p><span>1. </span><span>E(X) = \int_{a}^{b} x f_{X}(x) dx$ over provided range $a 
+       \leq f_{X}(X) \leq b$</span>
+     <p><span>2. </span><span>Var(X) = E(X^{2}) - (E(X))^{2}$</span>
+     <p><span> a. where </span><span>E(X^{2}) = \int_{a}^{b} x^{2} f_{X}(x) dx$</span>
+     <section id="(NIL NIL NIL NIL)"></section>
+     <h4>Piecewise CDF-&gt;PDF, PDF -&gt; CDF</h4>
+     <p><span>derivative, integral respectively of each function provided over each 
+       range</span>
+     <section id="(NIL NIL)"></section>
+     <h4>Joint PDF, CDF</h4>
+     <p><span>1. Find marginal pdfs for each; for x, integrate by dy, and for y 
+       integrate by dx</span>
+     <p><span>2. Set up integral for </span><span>E(XY)$; this should be some 
+       $\int_{c}^{d} \int_{a}^{b} x*y*f_{XY}(x,y) dx dy$ for bounds $a \leq x \leq b$ 
+       and $c \leq y \leq d$ . If bounds overlap, reference the relationship between 
+       them (i.e. $0 &lt; y &lt; x &lt; 1 \implies a=y, b=1, c=0, d=1$), as the bounds 
+       of one are dependent on the bounds for the other.</span>
+     <p><span>3. Find the </span><a class=external href=Covariance>[Covariance]</a>
+      <span> </span><span>Cov(X,Y) := E(XY) - E(X)E(Y)$. Use the marginal PDFs and 
+       integrate to find corresponding $E$, then follow the formula</span>
+     <section id="(NIL NIL NIL NIL)"></section>
+     <h4>finding c for some pdf with constant to solve for</h4>
+     <section id="(NIL NIL)"></section>
+     <h4>TODO Combining Random Variables</h4>
+     <p><span>i.e. test 2: 13, 14</span>
+     <section id="(NIL NIL)"></section>
+     <section
+              id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <h3>Exam 3</h3>
+     <h4>use normal distribution with continuity correction to estimate probability in 
+      bounds</h4>
+     <p><span>1. find mean (</span><span>\mu$) and standard deviation ($\sigma$) of the 
+       provided scenario for the sample mean; note that $\sigma(\bar{x}) = 
+       \frac{\sigma}{\sqrt{n}}$</span>
+     <p><span>2. state that the normal approximation can be used if given &quot;normal 
+       approximation&quot; or </span><span>n \geq 30$; &quot;using Central Limit 
+       Theorem&quot; if using this approximation, where $\bar{X} \tilde{=} N(\mu, 
+       \frac{\sigma}{\sqrt{n}})$</span>
+     <p><span> a. TODO when to use </span><span>\frac{\sigma^{2}}{n}$?</span>
+     <p><span>3. continuity correction: &quot;round up or down&quot; to the nearest 0.5 
+       so that the interval encapsulates the intended population. i.e. if interval is </span>
+      <span>\leq$, it&#39;s necessary to ensure interval will encapsulate upper and 
+       lower bound</span>
+     <p><span>4. apply normalcdf: </span><span>normalcdf(lower, upper, \mu, \sigma)$; 
+       where with sample mean, use $\sigma(\bar{x}) = \frac{\sigma}{\sqrt{n}}$ instead. 
+       Use $10^{99}$ to replace upper and lower bounds (negative for low) as needed to 
+       fill in provided open P(..) intervals.</span>
+     <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+     <h4>solve for interval given resultant probability</h4>
+     <p><span>1. Investigate the interval; sketch it out relative to a normal 
+       distribution. If it&#39;s two tailed, mark that</span>
+     <p><span>2. Finding the bound asked for: </span><span>invNorm(area before 
+       interval, \bar{x}, \sigma(\bar{x}))$ provides such a bound.</span>
+     <section id="(NIL NIL NIL)"></section>
+     <h4>probabilities with poisson dist.</h4>
+     <p><span>1.</span>
+     <section id="(NIL NIL)"></section>
+     <h4>finding confidence interval</h4>
+     <section id=(NIL)></section>
+     <h4>maximum likelihood estimation</h4>
+     <p><span>1. Find </span><span>L(\theta) = \prod_{i=1}^{n}\f_{X}(x)$</span>
+     <section id="(NIL NIL)"></section>
+     <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+     <h3>Exam 4</h3>
+     <h4>unbiasted estimators variance</h4>
+     <p><span>Some </span><span>\hat{\theta}$ is an unbiased estimator for $\theta$ if 
+       $E(\hat{\theta}) = \theta$, so:</span>
+     <p><span>1. Set up variance formula: ignore constants, and take variance of the 
+       random variables used to calculate the new random variable</span>
+     <p><span>2. Substitute based on what&#39;s provided for these existing random 
+       variables; i.e. if </span><span>E(X) = E(Y) = \theta$, can substitute the 
+       expected value of each there for theta when calculating</span>
+     <p><span>3. if original value is reached after evaluating, then it&#39;s an 
+       unbiased estimator!</span>
+     <section id="(NIL NIL NIL NIL NIL)"></section>
+     <h4>variance</h4>
+     <p><span>examine the calculation for the random variable, squaring the constants 
+       and taking the variance of the random variables used to calculate it</span>
+     <section id="(NIL NIL)"></section>
+     <h4>find convidence interval</h4>
+     <h5>T test</h5>
+     <p><span>1. State facts: S, df, </span><span>\alpha$</span>
+     <p><span>2. calculate </span><span>t_{\frac{\alpha}{2}, df}$ with $invT(1 - 
+       \alpha, df)$.</span>
+     <p><span>3. Find interval: </span><span>\bar{X} = t_{\frac{\alpha}{2}, df} \pm 
+       \frac{s}{\sqrt{n}}$; can use TInterval</span>
+     <section id="(NIL NIL NIL NIL)"></section>
+     <h5>Z test</h5>
+     <section id="(NIL NIL)"></section>
+     <section id="(NIL NIL NIL)"></section>
+     <h4>statistical test</h4>
+     <section id=(NIL)></section>
+     <h4>critical values and errors</h4>
+     <p><span>1. find critical value in nonstandard form: typically </span><span>
+       invNorm(accept-area, average, \frac{\sigma}{\sqrt{n}})$</span>
+     <p><span>2. Find type 1 error: typically </span><span>\alpha$</span>
+     <p><span>3. find type 2 error (given that real mean, </span><span>\mu(H_{a})$): 
+       $\beta = P(TypeII) = P(accept H_{0} | \mu = H_{a})$ -&gt; $normalcdf(b1, b2, 
+       \mu(H_{a}), \sigma(\bar{x}))$</span>
+     <p><span>4. Find the power of the test: </span><span>Power = 1 - \beta$</span>
+     <section id="(NIL NIL NIL NIL NIL)"></section>
+     <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+     <h3>Additional Material</h3>
+     <section id=(NIL)></section>
+     <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+    </article>
+   </main>
+   <div class=checkbox-menu>
+    <input type=checkbox id=hypothesis-checkbox
+           checked onclick=toggleHypothesis();>
+     hypothes.is
+    
+   </div>
   </div>
-  <main>
-   <article class=wikipage>
-    <h1 class=title-top>Prob Stat</h1>
-    <p><span>Notes for reviewing my probability and statistics course at Northeastern.</span>
-    <h2>Sample Spaces</h2>
-    <ul>
-     <li><span> Experiment :: Repeatable procedure with a set of possible results</span>
-    </ul>
-    <ul>
-     <li><span> Sample Outcome :: One of many possible results of an experiment</span>
-    </ul>
-    <ul>
-     <li><span> Sample Space :: </span><span>S$: The set of all possible outcomes of an 
-       experiment</span>
-    </ul>
-    <ul>
-     <li><span> Event :: </span><span>A \subset S$ : 0 or more outcomes of an 
-       experiment</span>
-    </ul>
-    <ul>
-     <li><span> Probability :: </span><span>P(A) = \frac{n(A)}{n(S)}$</span>
-    </ul>
-    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
-    <h2>Set Theory</h2>
-    <ul>
-     <li><span> Discrete Set :: A finite or countable set. i.e. tossing a coin until a 
-       head is received: </span><span>S = \{ H, TH, TTH, \dots \}$</span>
-    </ul>
-    <ul>
-     <li><span> Continuous Set :: A range of values. I.e. getting a number smaller than 
-       1 from within a real number between 0 and </span><span>\sqrt{2}$: $S = [0, 
-       \sqrt{2}]$, $A = [0, 1)$</span>
-    </ul>
-    <ul>
-     <li><span> Intersection :: </span><span>A \cap B = \{x | x \in A\ and\ x \in B\}$ 
-       for some events A, B</span>
-    </ul>
-    <p><span> + Disjoint :: </span><span>A \cap B = \emptyset$. Also known as 
-      &quot;mutually exclusive&quot;</span>
-    <ul>
-     <li><span> Union :: </span><span>A \cup B = \{x | x \in A\ or\ x \in B\}$</span>
-    </ul>
-    <ul>
-     <li><span> Complement :: </span><span>A^{c} = \{x \in S | x \not{\in} A\}$</span>
-    </ul>
-    <h3>DeMorgan&#39;s Law(s)</h3>
-    <p><span>1. </span><span>(A \cup B)^{c} = A^{c} \cap B^{c}$</span>
-    <p><span>1. </span><span>(A \cap B)^{c} = A^{c} \cup B^{c}$</span>
-    <section id="(NIL NIL NIL)"></section>
-    <section id="(NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <h2>Probability Function</h2>
-    <p><span>P$ assigns a real number to any event of a sample space, and follows the 
-      following axioms for a sample space that&#39;s finite:</span>
-    <ul>
-     <li><span> </span><span>P(A) \geq 0$ for all $A$</span>
-    </ul>
-    <ul>
-     <li><span> </span><span>P(S) = 1$</span>
-    </ul>
-    <ul>
-     <li><span> </span><span>A \cap B = \emptyset \implies P(A \cup B) = P(A) + P(B)$, 
-       or $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ otherwise</span>
-    </ul>
-    <ul>
-     <li><span> </span><span>P(\cup_{i=1}^{\infty} A_{i}) = \sum_{i=1}^{\infty} 
-       P(A_{i})$ if any $A_1, A_2, A_3 \dots$ are mutually exclusive in $S$</span>
-    </ul>
-    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
-    <h2>Conditional Probability</h2>
-    <p><span>P(A|B) = \frac{P(A \cup B)}{P(B)}$</span>
-    <p><span>P(A \cap B) = P(B|A)P(A) = P(A|B)P(B)$</span>
-    <p><span>Solving conditional probability: Make a tree! Fork at each choice, 
-      recording the probability on each &quot;leaf&quot;. Then use the leaves to 
-      assess a series of events.</span>
-    <section id="(NIL NIL NIL NIL)"></section>
-    <h2>Independence</h2>
-    <p><span>A$ and $B$ are _independent_ if $P(A \cap B) = P(A)P(B)$; put another 
-      way, $P(A|B) = P(A) \iff P(B|A) = P(B)$</span>
-    <p><span>For more than two sets:</span>
-    <ul>
-     <li><span> </span><span>P(A \cap B \cap C) = P(A)P(B)P(C)$</span>
-    </ul>
-    <ul>
-     <li><span> </span><span>P(A \cap B) = P(A)P(B)$, $P(A \cap C) = P(A)P(C)$, $P(B 
-       \cap C) = P(B)P(C)$ and so on...</span>
-    </ul>
-    <section id="(NIL NIL NIL NIL NIL)"></section>
-    <h2>Series</h2>
-    <h3>Geometric</h3>
-    <p><span>S_{n} = \sum_{k=0}^{n}r^{k} = 1 + r + r^{2} + \dots + r^{n}$</span>
-    <p><span>For </span><span>-1 &lt; r &lt; 1$, the sum converges:</span>
-    <p><span>S \equiv S_{\infty} = \sum_{k=0}^{\infty}r^{k} = \frac{1}{1 - r}$, for 
-      $|r| &lt; 1$</span>
-    <ul>
-     <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span><span>
-       p_{Y}(k) = (1 - p)^{k - 1}p$</span>
-    </ul>
-    <ul>
-     <li><span> mean :: </span><span>\frac{1}{p}$</span>
-    </ul>
-    <section id="(NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <section id="(NIL NIL)"></section>
-    <h2>Probability Distributions</h2>
-    <p><span>(^{n}_{r}) = _{n}C_{r} = \frac{n!}{(n - r)! r!}$</span>
-    <h3>Binomial Distribution</h3>
-    <p><span>Given n _independent_ trials with two outcomes and a constant P(success) 
-      for each outcome, </span><span>P(k) = (^{n}_{k}) * p^{k}(1 - p)^{n - k}$ for $k 
-      = 0, 1, 2, \dots, n$.</span>
-    <ul>
-     <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span><span>P(X = 
-       k) = (^{n}_{k}) * p^{k}(1 - p)^{n - k}$</span>
-    </ul>
-    <p><span> + calculate: use ~binompdf~</span>
-    <ul>
-     <li><span> </span><a class=external href=CDF>[CDF]</a><span> :: </span><span>P(X 
-       \leq t) = \sum_{k=0}^{t}(^{n}_{k}) * p^{k}(1 - p)^{n - k}$</span>
-    </ul>
-    <p><span> + calculate: use ~binomcdf~</span>
-    <ul>
-     <li><span> </span><a class=external href="Expected Value">[Expected Value]</a>
-      <span> :: </span><span>E(X) = np$</span>
-    </ul>
-    <section id="(NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <h3>Bernoulli Distribution</h3>
-    <p><span>Essentially a </span><a class=external href="Binomial Distribution">
-      [Binomial Distribution]</a><span> where </span><span>n = 1$.</span>
-    <p><span>P(k) = (^{1}_{k}) * p^{k}(1 - p)^{1 - k}$</span>
-    <section id="(NIL NIL NIL NIL)"></section>
-    <h3>Hypergeometric Distribution</h3>
-    <p><span>P(x) = \frac{(^{k}_{x})(^{N-k}_{n-x})}{(^{N}_{n})}$</span>
-    <ul>
-     <li><span> Random selection of </span><span>n$ items without replacement from a 
-       set of $N$ items</span>
-    </ul>
-    <ul>
-     <li><span> _Not_ guaranteed P(success) stays constant.</span>
-    </ul>
-    <ul>
-     <li><span> </span><span>k$ items are success; $N - k$ items are failures.</span>
-    </ul>
-    <p><span>This can be considered a generalization of the </span><a class=external
-     href="Binomial Distribution">[Binomial Distribution]</a><span>.</span>
-    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
-    <h3>Uniform Distribution</h3>
-    <p><span>All values in a range are equally likely.</span>
-    <p><span>For some interval </span><span>[a, b]$:</span>
-    <ul>
-     <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span><span>
-       \frac{1}{b - a}$</span>
-    </ul>
-    <ul>
-     <li><span> </span><a class=external href=CDF>[CDF]</a><span> :: </span><span>
-       \frac{x - a}{b - a}$</span>
-    </ul>
-    <section id="(NIL NIL NIL NIL NIL)"></section>
-    <h3>Exponential Distribution</h3>
-    <ul>
-     <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span><span>
-       f_{X}(x) = \lambda e^{-\lambda x}$ for $x \geq 0$</span>
-    </ul>
-    <ul>
-     <li><span> </span><a class=external href=CDF>[CDF]</a><span> :: </span><span>
-       F_{X}(x) = 1 - e^{-\lambda x}$</span>
-    </ul>
-    <ul>
-     <li><span> mean :: </span><span>E(X) = \frac{1}{\lambda}$</span>
-    </ul>
-    <ul>
-     <li><span> var :: </span><span>Var(X) = \frac{1}{\lambda^{2}}$</span>
-    </ul>
-    <section id="(NIL NIL NIL NIL NIL)"></section>
-    <h3>Poisson Distribution</h3>
-    <p><span>Counts the number of occurences per unit of measurement - over a specific 
-      period of time, a specific area, or volume, etc...</span>
-    <p><span>The probability of an event occuring in a unit of measurement must be the 
-      same for all similar units;</span>
-    <p><span>for example, if the unit of measurement is a month, then the probability 
-      must be the same for all months.</span>
-    <p><span>Poisson is often used to approximate the binomial distribution: given 
-      that </span><span>n$ is large ($n \geq 100$) and $p$ is small, we can let 
-      $\lambda = np$!</span>
-    <p><span>In other words, </span><span>\lambda := np$ -&gt; (average number of 
-      occurences per unit) * (length of observation period)</span>
-    <p><span>Use ~poissonpdf~ and ~poissoncdf~ calculator unctions to approximate 
-      this.</span>
-    <ul>
-     <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span><span>
-       p_{X}(k) = P(X = k) := \frac{\lambda^{k}e^{-\lambda}}{k!}$</span>
-    </ul>
-    <ul>
-     <li><span> mean :: </span><span>E(X) = \lambda$</span>
-    </ul>
-    <ul>
-     <li><span> variance :: </span><span>Var(X) = \lambda$</span>
-    </ul>
-    <section
-             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <h3>Normal Distribution</h3>
-    <section id="(NIL NIL)"></section>
-    <section
-             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <h2>Density Functions</h2>
-    <ul>
-     <li><span> Discrete Random Variable :: Some </span><span>X$ such that:</span>
-    </ul>
-    <p><span> + </span><span>X: S \rightarrow \mathbb{R}$</span>
-    <p><span> + </span><span>X$ is a countable subset of $\mathbb{R}$</span>
-    <p><span> + Motivation: Constrain the sample space to a smaller sample space, 
-      using a single variable to represent each outcome we&#39;re investigating. If 
-      we&#39;re looking at pairs of numbers, for example, we only care that the sum of 
-      the pair is the same, so we consider (1, 2) and (2, 1) to be the same outcome.</span>
-    <ul>
-     <li><span> Continuous random variable :: Like discrete,</span>
-    </ul>
-    <p><span> but ranges over a continuous interval of </span><span>\mathbb{R}$ 
-      instead.</span>
-    <p><span> Two continuous random variables are _independent_ if some functions, </span>
-     <span>g(x)$ and $h(x)$, exist such that:</span>
-    <p><span> - </span><span>f_{X,Y}(x,y) = g(x)h(y)$</span>
-    <p><span> - </span><span>f_{X}(x) = g(x)$</span>
-    <p><span> - </span><span>f_{Y}(y) = h(y)$</span>
-    <p><span> In other words, one should be able to multiply the results of the 
-      marginal pdfs to produce the joint pdf for the two variables, and vice versa.</span>
-    <h3>PDF</h3>
-    <p><span>(Probability Density Function)</span>
-    <h4>Discrete</h4>
-    <p><span>For every </span><span>X$, a probability density function (pdf) looks 
-      like:</span>
-    <p><span>p_{x}(k) = P(X = k) := P(\{s \in S | X(s) = k\})$, where $p_{x}(k): 
-      \mathbb{R} \rightarrow \mathbb{R}$.</span>
-    <p><span>Here, </span><span>s$ and $S$ are from the original sample space 
-      we&#39;re sampling from.</span>
-    <section id="(NIL NIL NIL NIL)"></section>
-    <h4>Continuous</h4>
-    <p><span>Some </span><span>f_{x}(x)$ satisfying:</span>
-    <p><span>1. </span><span>f_{x}(x) \geq 0$</span>
-    <p><span>2. </span><span>\int_{-\infty}^{\infty}f_{x}(x) = 1$</span>
-    <p><span>P(a \leq X \leq b) = \int_{b}^{a}f_{x}(x)dx$</span>
-    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
-    <h4>Joint PDF</h4>
-    <p><span>p_{X,Y}(x,y) := P(X = x, Y = y)$, satisfying:</span>
-    <p><span>1. </span><span>p_{X,Y}(x,y) \geq 0$</span>
-    <p><span>2. </span><span>\sum_{all y} \sum_{all y} p_{X,Y}(x,y) = 1$</span>
-    <h5>Discrete</h5>
-    <p><span>Given the joint pdf of </span><span>X$ and $Y$, the _marginal_ pdfs of 
-      $X$ and $Y$ are:</span>
-    <ul>
-     <li><span> </span><span>p_{X}(x) = \sum_{all y}p_{X,Y}(x,y)$</span>
-    </ul>
-    <ul>
-     <li><span> </span><span>p_{Y}(y) = \sum_{all x}p_{X,Y}(x,y)$</span>
-    </ul>
-    <section id="(NIL NIL NIL NIL)"></section>
-    <h5>Continuous</h5>
-    <p><span>P((X,Y) \in R) = \int \int_{R}f_{X,Y}(x,y) dx dy$</span>
-    <p><span>When solving - identify the bound that&#39;s dependent on the other!</span>
-    <p><span>It can really help to plot out some 2D plane, then graph the relationship 
-      between the two continuous random variables.</span>
-    <p><span>From this graph it&#39;s often fairly easy to identify, and thus 
-      estimate, the area we&#39;re investigating; this guides us to investigate what 
-      we should learn more from!</span>
-    <p><span>Absolutely worth working through some pracice problems.</span>
-    <section id="(NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
-    <section id="(NIL NIL NIL NIL NIL)"></section>
-    <h3>CDF</h3>
-    <p><span>Cumulative Distribution Function</span>
-    <h4>Discrete</h4>
-    <p><span>F_{x}(t) = P(X \leq t) := P(\{s \in S | X(s) \leq t\})$, where $F_{x}(t): 
-      \mathbb{R} \rightarrow \mathbb{R}$.</span>
-    <p><span>Generally, </span><span>F_{x}(t) = \int_{-\infty}^{t}p_{x}(t)$; the pdf 
-      represents the probability of the discrete random variable being a specific 
-      value, while the cdf represents the probability of all outcomes occuring less 
-      than some outcome upper bound $t$.</span>
-    <section id="(NIL NIL NIL)"></section>
-    <h4>Continuous</h4>
-    <p><span>F_{x}(x) = P(X \leq x) = \int_{-\infty}^{x}p_{x}(x)dx$</span>
-    <p><span>P(a \leq X \leq b) = F_{X}(b) - F_{X}(a)$</span>
-    <section id="(NIL NIL NIL)"></section>
-    <section id="(NIL NIL NIL NIL)"></section>
-    <section
-             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <h2>Expected Value</h2>
-    <p><span>A generalization of the concept of &quot;average&quot;. The name&#39;s on 
-      the tin - it&#39;s a value that represents the proportionally weighted, expected 
-      result.</span>
-    <p><span>For example, if I have a 5% chance at </span><span>100 and a 95% chance 
-      at $20, the expected value would be $100 * 0.05 + 0.95 * 20$, so $24.</span>
-    <h3>Discrete</h3>
-    <p><span>E(X) = \sum_{all \ k} k * p_{X}(k)$</span>
-    <section id="(NIL NIL)"></section>
-    <h3>Continuous</h3>
-    <p><span>E(X) = \int_{-\infty}^{\infty} x * p_{X}(x) dx$</span>
-    <section id="(NIL NIL)"></section>
-    <h3>Other Properties</h3>
-    <p><span>E(aX + bY) = aE(X) + bE(Y)$ for any random varaibles $X, Y$ and numbers 
-      $a$ and $b$.</span>
-    <p><span>As such, if </span><span>X$ and $Y$ are _independent_, then $E(XY) = 
-      E(X)E(Y)$.</span>
-    <section id="(NIL NIL NIL)"></section>
-    <h3>Sample Mean</h3>
-    <p><span>Denoted as </span><span>\bar{X}$</span>
-    <p><span>\bar{X} = \frac{1}{n}(X_{1} + X_{2} + \dots + X_{n})$</span>
-    <section id="(NIL NIL NIL)"></section>
-    <section
-             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <h2>Median</h2>
-    <h3>Discrete</h3>
-    <p><span>&quot;Middle number&quot; of the distribution, or the average of the two 
-      middle numbers if the cardinality is even; the standard definition.</span>
-    <section id="(NIL NIL)"></section>
-    <h3>Continuous</h3>
-    <p><span>m$ such that $\int_{-\infty}^{m}f_{Y}(y) dy = 0.5$.</span>
-    <p><span>Finding the median:</span>
-    <p><span>1. Integrate and substitute.</span>
-    <p><span>2. Factor in terms of and solve for </span><span>m$.</span>
-    <section id="(NIL NIL NIL NIL NIL)"></section>
-    <section id="(NIL NIL NIL)"></section>
-    <h2>Variance</h2>
-    <p><span>A measure of how far the distribution spreads from its mean.</span>
-    <p><span>Var(X) := E((X - \mu)^{2})$, where:</span>
-    <ul>
-     <li><span> </span><span>\mu = E(X)$ is the mean of $X$</span>
-    </ul>
-    <ul>
-     <li><span> </span><span>\sigma := \sqrt{Var(X)}$ is the standard deviation of $X$</span>
-    </ul>
-    <p><span>If </span><span>X$ and $Y$ are independent, then:</span>
-    <p><span>Var(aX + bY) = a^{2}Var(X) + b^{2}Var(Y)$</span>
-    <p><span>In general:</span>
-    <p><span>Var(aX + bY) = a^{2}Var(X) + b^{2}Var(Y) - 2abCov(X,Y)$</span>
-    <h3>Covariance</h3>
-    <p><span>where </span><span>Cov(X, Y)$, the _covariance_ of X and Y, is:</span>
-    <p><span>Cov(X,Y) := E(XY) - E(X)E(Y)$</span>
-    <p><span>As can be assumed, if </span><span>X$ and $Y$ are independent, then 
-      $Cov(X,Y) = 0$.</span>
-    <section id="(NIL NIL NIL NIL NIL)"></section>
-    <h3>Correlation</h3>
-    <p><span>Corr(X,Y) = \frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}$</span>
-    <p><span>A measurement of _correlation_; if positive, then the two random 
-      variables increase together;</span>
-    <p><span>if negative, one increases while the other decreasese and vice versa.</span>
-    <section id="(NIL NIL NIL NIL NIL)"></section>
-    <section
-             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <h2>Double Integrals</h2>
-    <p><span>Fubini&#39;s Theorem: </span><span>\int_{a}^{b} \int_{c}^{d} f(x,y) dy dx 
-      = \int_{c}^{d} \int_{a}^{b} f(x,y) dx dy$, given $a \leq x \leq b$ and $c \leq y 
-      \leq d$</span>
-    <p><span>To identify the region in </span><span>\mathbb{R}^{2}$ to integrate over, 
-      use the inside first.</span>
-    <p><span>Treat the unevaluated integral variable as a constant and just integrate 
-      with respect to a constant.</span>
-    <p><span>Often one variable is much easier to integrate than the other; pick the 
-      right one to use! This takes practice.</span>
-    <section id="(NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <h2>TODO Problems to Practice</h2>
-    <h3>3</h3>
-    <h4>Graphing PDF, CDF</h4>
-    <section id=(NIL)></section>
-    <h4>Converting between the two, esp. with continuous piecewise</h4>
-    <section id=(NIL)></section>
-    <h4>what&#39;s with that variance theorm and E(g(X))? practice those problems.</h4>
-    <p><span>there are some good exercises for deriving expected value and variance 
-      available in the textbook - review these!</span>
-    <section id="(NIL NIL NIL NIL)"></section>
-    <section id="(NIL NIL NIL NIL)"></section>
-    <section id="(NIL NIL)"></section>
-    <h2>do the exam</h2>
-    <p><span>3.7</span>
-    <p><span>3.9</span>
-    <p><span>4.x</span>
-    <p><span>5.x, especially the problem i missed on the last exam</span>
-    <p><span>exam problems and how exactly to approach them</span>
-    <p><span>the rest of the 6s and 7s, though i can probably wing those just</span>
-    <section
-             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <h2>Types of Problems</h2>
-    <h3>Exam 1</h3>
-    <h4>Probabilities and Sets</h4>
-    <p><span>i.e. </span><span>P(A), P(A \cup B), P(A \cap B^{c})$ -&gt; find 
-      something</span>
-    <p><span>Draw things out as Venn diagrams to help visualize</span>
-    <p><span>Nice properties:</span>
-    <ul>
-     <li><span> </span><span>P(A \cup B) = P(A \cap B^{c}) + P(A \cap B) + P(A^{c} \cap 
-       B)$</span>
-    </ul>
-    <ul>
-     <li><span> Bayes: </span><span>P(A|B) = \frac{P(A \cap B)}{P(B)}$</span>
-    </ul>
-    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
-    <h4>Simple Probabilities</h4>
-    <p><span>Generally, use some arrangement of </span><span>nCr$ ;</span>
-    <p><span>P(at most x) = 1 - P(at least x); vice vers</span>
-    <section id="(NIL NIL NIL)"></section>
-    <h4>Conditional Probabilities with Scenarios</h4>
-    <p><span>Draw a tree:</span>
-    <ul>
-     <li><span> At the root, no branch is chosen</span>
-    </ul>
-    <ul>
-     <li><span> After the root, choose what info you have more about: i.e. if 
-       you&#39;re looking for P(Defective | built at plant X), draw a tree with the 
-       first set of descendant notes representing the plant at which the thing was 
-       constructed, then from there the chances that the product was defective _given_ 
-       the plant branching off of each.</span>
-    </ul>
-    <p><span> From here, can use Bayes rule to fill out the tree, then find desiresd 
-      probability.</span>
-    <section id="(NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <section id="(NIL NIL NIL NIL)"></section>
-    <h3>Exam 2</h3>
-    <p><span>distributions to know: binomial,</span>
-    <h4>Finding Mean, stdev, sample from given problem</h4>
-    <p><span>u = np$</span>
-    <p><span>\sigma = \sqrt{np(1-p)}$</span>
-    <p><span>P(X=a) = nCa * P(a)^{a}(1-P(a))^{n-a}$ ~ ~binompdf~ w/ n, P(a), a</span>
-    <p><span>Finding P in range: </span><span>P(a &lt; X \leq b) = cdf(500, b, P(x)) - 
-      cdf(500, a, P(x))$ gives CDF for that range!</span>
-    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
-    <h4>Find cdf of discrete set of scenarios</h4>
-    <p><span>1. Write out each possible scenario and associated value of random 
-      variable</span>
-    <p><span>2. Use P(scenario) * (num occurences of scenario) for each random 
-      variable value to compute some P(X=res) for each</span>
-    <p><span>3. Assemble into table; P(X=k) for values x=1, x=2, x=3 for example.</span>
-    <section id="(NIL NIL NIL NIL)"></section>
-    <h4>PDF -&gt; CDF</h4>
-    <p><span>integrate</span>
-    <p><span>when converting to cdf, outside the range provided for the pdf, must 
-      state that the value of the cdf is 0 before and 1 following the range; otherwise 
-      the cdf won&#39;t function outside of it, but the range for a cdf should support 
-      anything</span>
-    <section id="(NIL NIL NIL)"></section>
-    <h4>CDF -&gt; PDF</h4>
-    <p><span>derivative</span>
-    <section id="(NIL NIL)"></section>
-    <h4>Find E, Var given density function</h4>
-    <p><span>1. </span><span>E(X) = \int_{a}^{b} x f_{X}(x) dx$ over provided range $a 
-      \leq f_{X}(X) \leq b$</span>
-    <p><span>2. </span><span>Var(X) = E(X^{2}) - (E(X))^{2}$</span>
-    <p><span> a. where </span><span>E(X^{2}) = \int_{a}^{b} x^{2} f_{X}(x) dx$</span>
-    <section id="(NIL NIL NIL NIL)"></section>
-    <h4>Piecewise CDF-&gt;PDF, PDF -&gt; CDF</h4>
-    <p><span>derivative, integral respectively of each function provided over each 
-      range</span>
-    <section id="(NIL NIL)"></section>
-    <h4>Joint PDF, CDF</h4>
-    <p><span>1. Find marginal pdfs for each; for x, integrate by dy, and for y 
-      integrate by dx</span>
-    <p><span>2. Set up integral for </span><span>E(XY)$; this should be some 
-      $\int_{c}^{d} \int_{a}^{b} x*y*f_{XY}(x,y) dx dy$ for bounds $a \leq x \leq b$ 
-      and $c \leq y \leq d$ . If bounds overlap, reference the relationship between 
-      them (i.e. $0 &lt; y &lt; x &lt; 1 \implies a=y, b=1, c=0, d=1$), as the bounds 
-      of one are dependent on the bounds for the other.</span>
-    <p><span>3. Find the </span><a class=external href=Covariance>[Covariance]</a>
-     <span> </span><span>Cov(X,Y) := E(XY) - E(X)E(Y)$. Use the marginal PDFs and 
-      integrate to find corresponding $E$, then follow the formula</span>
-    <section id="(NIL NIL NIL NIL)"></section>
-    <h4>finding c for some pdf with constant to solve for</h4>
-    <section id="(NIL NIL)"></section>
-    <h4>TODO Combining Random Variables</h4>
-    <p><span>i.e. test 2: 13, 14</span>
-    <section id="(NIL NIL)"></section>
-    <section
-             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <h3>Exam 3</h3>
-    <h4>use normal distribution with continuity correction to estimate probability in 
-     bounds</h4>
-    <p><span>1. find mean (</span><span>\mu$) and standard deviation ($\sigma$) of the 
-      provided scenario for the sample mean; note that $\sigma(\bar{x}) = 
-      \frac{\sigma}{\sqrt{n}}$</span>
-    <p><span>2. state that the normal approximation can be used if given &quot;normal 
-      approximation&quot; or </span><span>n \geq 30$; &quot;using Central Limit 
-      Theorem&quot; if using this approximation, where $\bar{X} \tilde{=} N(\mu, 
-      \frac{\sigma}{\sqrt{n}})$</span>
-    <p><span> a. TODO when to use </span><span>\frac{\sigma^{2}}{n}$?</span>
-    <p><span>3. continuity correction: &quot;round up or down&quot; to the nearest 0.5 
-      so that the interval encapsulates the intended population. i.e. if interval is </span>
-     <span>\leq$, it&#39;s necessary to ensure interval will encapsulate upper and 
-      lower bound</span>
-    <p><span>4. apply normalcdf: </span><span>normalcdf(lower, upper, \mu, \sigma)$; 
-      where with sample mean, use $\sigma(\bar{x}) = \frac{\sigma}{\sqrt{n}}$ instead. 
-      Use $10^{99}$ to replace upper and lower bounds (negative for low) as needed to 
-      fill in provided open P(..) intervals.</span>
-    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
-    <h4>solve for interval given resultant probability</h4>
-    <p><span>1. Investigate the interval; sketch it out relative to a normal 
-      distribution. If it&#39;s two tailed, mark that</span>
-    <p><span>2. Finding the bound asked for: </span><span>invNorm(area before 
-      interval, \bar{x}, \sigma(\bar{x}))$ provides such a bound.</span>
-    <section id="(NIL NIL NIL)"></section>
-    <h4>probabilities with poisson dist.</h4>
-    <p><span>1.</span>
-    <section id="(NIL NIL)"></section>
-    <h4>finding confidence interval</h4>
-    <section id=(NIL)></section>
-    <h4>maximum likelihood estimation</h4>
-    <p><span>1. Find </span><span>L(\theta) = \prod_{i=1}^{n}\f_{X}(x)$</span>
-    <section id="(NIL NIL)"></section>
-    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
-    <h3>Exam 4</h3>
-    <h4>unbiasted estimators variance</h4>
-    <p><span>Some </span><span>\hat{\theta}$ is an unbiased estimator for $\theta$ if 
-      $E(\hat{\theta}) = \theta$, so:</span>
-    <p><span>1. Set up variance formula: ignore constants, and take variance of the 
-      random variables used to calculate the new random variable</span>
-    <p><span>2. Substitute based on what&#39;s provided for these existing random 
-      variables; i.e. if </span><span>E(X) = E(Y) = \theta$, can substitute the 
-      expected value of each there for theta when calculating</span>
-    <p><span>3. if original value is reached after evaluating, then it&#39;s an 
-      unbiased estimator!</span>
-    <section id="(NIL NIL NIL NIL NIL)"></section>
-    <h4>variance</h4>
-    <p><span>examine the calculation for the random variable, squaring the constants 
-      and taking the variance of the random variables used to calculate it</span>
-    <section id="(NIL NIL)"></section>
-    <h4>find convidence interval</h4>
-    <h5>T test</h5>
-    <p><span>1. State facts: S, df, </span><span>\alpha$</span>
-    <p><span>2. calculate </span><span>t_{\frac{\alpha}{2}, df}$ with $invT(1 - 
-      \alpha, df)$.</span>
-    <p><span>3. Find interval: </span><span>\bar{X} = t_{\frac{\alpha}{2}, df} \pm 
-      \frac{s}{\sqrt{n}}$; can use TInterval</span>
-    <section id="(NIL NIL NIL NIL)"></section>
-    <h5>Z test</h5>
-    <section id="(NIL NIL)"></section>
-    <section id="(NIL NIL NIL)"></section>
-    <h4>statistical test</h4>
-    <section id=(NIL)></section>
-    <h4>critical values and errors</h4>
-    <p><span>1. find critical value in nonstandard form: typically </span><span>
-      invNorm(accept-area, average, \frac{\sigma}{\sqrt{n}})$</span>
-    <p><span>2. Find type 1 error: typically </span><span>\alpha$</span>
-    <p><span>3. find type 2 error (given that real mean, </span><span>\mu(H_{a})$): 
-      $\beta = P(TypeII) = P(accept H_{0} | \mu = H_{a})$ -&gt; $normalcdf(b1, b2, 
-      \mu(H_{a}), \sigma(\bar{x}))$</span>
-    <p><span>4. Find the power of the test: </span><span>Power = 1 - \beta$</span>
-    <section id="(NIL NIL NIL NIL NIL)"></section>
-    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
-    <h3>Additional Material</h3>
-    <section id=(NIL)></section>
-    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
-   </article>
-  </main>
  </body>
 </html>

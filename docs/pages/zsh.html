@@ -31,50 +31,59 @@
   <link rel=stylesheet
         href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
   <link rel=stylesheet href=/style.css>
+  <script src=/lib.js></script>
   <script
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
  <body>
-  <div class=sidebar>
-   <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
-   <a href=/pages/index.html>pages</a><span> / </span><b>Zsh</b>
+  <div class=site-body>
+   <div class=sidebar>
+    <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
+    <a href=/pages/index.html>pages</a><span> / </span><b>Zsh</b>
+   </div>
+   <main>
+    <article class=wikipage>
+     <h1 class=title-top>Zsh</h1>
+     <p><span>Zsh, z-shell is a more flexible and configurable shell.</span>
+     <p><span>It offers an enhanced scripting language as well as greater 
+       configurability and pluggability over the standard shell while still 
+       implementing both the POSIX standard and conventions. Used with bash, dash and 
+       sh (as the POSIX standard is unfortunately far from complete).</span>
+     <p><span>Ultimately I don&#39;t think ZSH is good as it&#39;s this sort of hacked 
+       on super-bash; it doesn&#39;t *really* forward the goals of a system</span>
+     <h2>Themes</h2>
+     <p><a class=external href=https://github.com/geometry-zsh/geometry>[Geometry is a 
+       minimal and customizable zsh prompt theme]</a>
+     <section id="(NIL NIL)"></section>
+     <h2>Utilities</h2>
+     <p><a class=external href=https://github.com/clvv/fasd>[fasd is an all-in-one 
+       shell productivity booster]</a>
+     <p><a class=external href=https://github.com/nvbn/thefuck>[fuck]</a><span> 
+       corrects your last console command.</span>
+     <section id="(NIL NIL NIL)"></section>
+     <h2>Alternatives</h2>
+     <p><a class=external href=https://github.com/oilshell/oil>[Oil shell]</a><span> is 
+       a new Unix shell alternative that can be compiled and deployed as a native 
+       executable.</span>
+     <p><a class=external href=https://github.com/nushell/nushell>
+       [https://github.com/nushell/nushell]</a>
+     <section id="(NIL NIL NIL)"></section>
+     <h2>Configs</h2>
+     <p><a class=external href=https://github.com/jeremyf/dotzshrc>
+       [https://github.com/jeremyf/dotzshrc]</a>
+     <p><a class=external
+      href=https://thomask.sdf.org/blog/2019/11/09/take-care-editing-bash-scripts.html>
+       [Be careful editing bash scripts]</a>
+     <section id="(NIL NIL NIL)"></section>
+    </article>
+   </main>
+   <div class=checkbox-menu>
+    <input type=checkbox id=hypothesis-checkbox
+           checked onclick=toggleHypothesis();>
+     hypothes.is
+    
+   </div>
   </div>
-  <main>
-   <article class=wikipage>
-    <h1 class=title-top>Zsh</h1>
-    <p><span>Zsh, z-shell is a more flexible and configurable shell.</span>
-    <p><span>It offers an enhanced scripting language as well as greater 
-      configurability and pluggability over the standard shell while still 
-      implementing both the POSIX standard and conventions. Used with bash, dash and 
-      sh (as the POSIX standard is unfortunately far from complete).</span>
-    <p><span>Ultimately I don&#39;t think ZSH is good as it&#39;s this sort of hacked 
-      on super-bash; it doesn&#39;t *really* forward the goals of a system</span>
-    <h2>Themes</h2>
-    <p><a class=external href=https://github.com/geometry-zsh/geometry>[Geometry is a 
-      minimal and customizable zsh prompt theme]</a>
-    <section id="(NIL NIL)"></section>
-    <h2>Utilities</h2>
-    <p><a class=external href=https://github.com/clvv/fasd>[fasd is an all-in-one 
-      shell productivity booster]</a>
-    <p><a class=external href=https://github.com/nvbn/thefuck>[fuck]</a><span> 
-      corrects your last console command.</span>
-    <section id="(NIL NIL NIL)"></section>
-    <h2>Alternatives</h2>
-    <p><a class=external href=https://github.com/oilshell/oil>[Oil shell]</a><span> is 
-      a new Unix shell alternative that can be compiled and deployed as a native 
-      executable.</span>
-    <p><a class=external href=https://github.com/nushell/nushell>
-      [https://github.com/nushell/nushell]</a>
-    <section id="(NIL NIL NIL)"></section>
-    <h2>Configs</h2>
-    <p><a class=external href=https://github.com/jeremyf/dotzshrc>
-      [https://github.com/jeremyf/dotzshrc]</a>
-    <p><a class=external
-     href=https://thomask.sdf.org/blog/2019/11/09/take-care-editing-bash-scripts.html>
-      [Be careful editing bash scripts]</a>
-    <section id="(NIL NIL NIL)"></section>
-   </article>
-  </main>
  </body>
 </html>

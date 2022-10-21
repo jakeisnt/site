@@ -31,50 +31,59 @@
   <link rel=stylesheet
         href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
   <link rel=stylesheet href=/style.css>
+  <script src=/lib.js></script>
   <script
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
  <body>
-  <div class=sidebar>
-   <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
-   <a href=/pages/index.html>pages</a><span> / </span><b>Remarkable</b>
+  <div class=site-body>
+   <div class=sidebar>
+    <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
+    <a href=/pages/index.html>pages</a><span> / </span><b>Remarkable</b>
+   </div>
+   <main>
+    <article class=wikipage>
+     <h1 class=title-top>Remarkable</h1>
+     <p><span>An E-Reader for note taking.</span>
+     <p><span>You can just SSH into the thing.</span>
+     <h2>Mods</h2>
+     <p><a class=external href=https://github.com/Evidlo/remarkable_entware>[entware 
+       remarkable]</a>
+     <p><a class=external href=https://github.com/Evidlo/remarkable_syncthing>
+       [Syncthing for Remarkable]</a><span> - this does not work, as remarkable uses a 
+       (remarkably, haha) unconventional format for tracking items and changes in order 
+       to cache some information. i need to write my own tool to convert between a sane 
+       format and the remarkable&#39;s proprietary one (perhaps i can store some info 
+       in pdf metadata for caching and access it on the remarkable side?).</span>
+     <p><a class=external href=https://github.com/michaelmior/zotero-remarkable>[zotero 
+       remarkable sync]</a><span> - wish this didn&#39;t delete from zotero and had a 
+       two way sync, bringing the PDFs back in. that would be incredibly powerful.</span>
+     <p><a class=external href=https://github.com/reHackable/awesome-reMarkable>
+       [awesome remarkable]</a>
+     <p><a class=external href=https://github.com/ddvk/remarkable-hacks>
+       [https://github.com/ddvk/remarkable-hacks]</a>
+     <section id="(NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <h2>Utilities</h2>
+     <ul>
+      <li><span> rmfuse: fuse filesystem for viewing the remarkable cloud</span>
+     </ul>
+     <ul>
+      <li><span> rmapi: shell for interacting with the remarkable cloud</span>
+     </ul>
+     <p><span> - </span><a class=external
+      href=https://duckpond.ch/nix/bash/2020/01/08/reMarkable.html:>
+       [https://duckpond.ch/nix/bash/2020/01/08/reMarkable.html:]</a><span>good blog 
+       post for hacking the remarkable utilities to better interact with the device;</span>
+     <section id="(NIL NIL NIL NIL NIL)"></section>
+    </article>
+   </main>
+   <div class=checkbox-menu>
+    <input type=checkbox id=hypothesis-checkbox
+           checked onclick=toggleHypothesis();>
+     hypothes.is
+    
+   </div>
   </div>
-  <main>
-   <article class=wikipage>
-    <h1 class=title-top>Remarkable</h1>
-    <p><span>An E-Reader for note taking.</span>
-    <p><span>You can just SSH into the thing.</span>
-    <h2>Mods</h2>
-    <p><a class=external href=https://github.com/Evidlo/remarkable_entware>[entware 
-      remarkable]</a>
-    <p><a class=external href=https://github.com/Evidlo/remarkable_syncthing>
-      [Syncthing for Remarkable]</a><span> - this does not work, as remarkable uses a 
-      (remarkably, haha) unconventional format for tracking items and changes in order 
-      to cache some information. i need to write my own tool to convert between a sane 
-      format and the remarkable&#39;s proprietary one (perhaps i can store some info 
-      in pdf metadata for caching and access it on the remarkable side?).</span>
-    <p><a class=external href=https://github.com/michaelmior/zotero-remarkable>[zotero 
-      remarkable sync]</a><span> - wish this didn&#39;t delete from zotero and had a 
-      two way sync, bringing the PDFs back in. that would be incredibly powerful.</span>
-    <p><a class=external href=https://github.com/reHackable/awesome-reMarkable>
-      [awesome remarkable]</a>
-    <p><a class=external href=https://github.com/ddvk/remarkable-hacks>
-      [https://github.com/ddvk/remarkable-hacks]</a>
-    <section id="(NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <h2>Utilities</h2>
-    <ul>
-     <li><span> rmfuse: fuse filesystem for viewing the remarkable cloud</span>
-    </ul>
-    <ul>
-     <li><span> rmapi: shell for interacting with the remarkable cloud</span>
-    </ul>
-    <p><span> - </span><a class=external
-     href=https://duckpond.ch/nix/bash/2020/01/08/reMarkable.html:>
-      [https://duckpond.ch/nix/bash/2020/01/08/reMarkable.html:]</a><span>good blog 
-      post for hacking the remarkable utilities to better interact with the device;</span>
-    <section id="(NIL NIL NIL NIL NIL)"></section>
-   </article>
-  </main>
  </body>
 </html>

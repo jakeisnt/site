@@ -32,235 +32,244 @@
   <link rel=stylesheet
         href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
   <link rel=stylesheet href=/style.css>
+  <script src=/lib.js></script>
   <script
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
  <body>
-  <div class=sidebar>
-   <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
-   <a href=/pages/index.html>pages</a><span> / </span><b>Setting Up NixOS: Dell XPS 
-    9370 4K and EXWM</b>
-  </div>
-  <main>
-   <article class=wikipage>
-    <h1 class=title-top>Setting Up NixOS: Dell XPS 9370 4K and EXWM</h1>
-    <p><span>I&#39;ve long been tired of the dependency management of Linux and</span>
-    <p><span>wanted to try a new system: </span><a class=external
-     href=https://nixos.org>[NixOS]</a><span>. It&#39;s an operating system</span>
-    <p><span>centered around system configuration -- a DevOps tool and</span>
-    <p><span>a way to manage configuration files as well as a proper</span>
-    <p><span>Linux-based operating system.</span>
-    <p><span>I did have a bit of trouble installing it so I wanted to</span>
-    <p><span>catalogue the process here.</span>
-    <p><span>To help with the installation, I referenced </span><a class=external
-     href=https://gist.github.com/domenkozar/b3c945035af53fa816e0ac460f1df853>[Domen 
-      Kozar&#39;s instructions]</a><span>,</span>
-    <p><a class=external href=https://github.com/jethrokuan/nix-config>[Jethro&#39;s 
-      configuration]</a><span> and </span><a class=external
-     href="https://github.com/kylesferrazza/nix/">[Kyle&#39;s configuration]</a><span>
-      . I also made substantial</span>
-    <p><span>use of the </span><a class=external href=https://nixos.org/nixos/manual>
-      [NixOS manual]</a><span> and its instructions. I&#39;ll be summarizing steps</span>
-    <p><span>taken by each of these articles; refer to the NixOS manual or the 
-      instructions</span>
-    <p><span>if you&#39;d like more information about the abbreviated steps.</span>
-    <p><span>As the title says, I installed ~NixOS 20.03~ on the Dell XPS 9370 i7 UHD.</span>
-    <p><span>I can&#39;t guarantee that these instructions will work for your system.</span>
-    <p><span>My current configuration, including some of the code mentioned</span>
-    <p><span>in this article, can be found </span><a class=external
-     href=https://github.com/jakechv/nix-cfg>[here]</a><span>.</span>
-    <p><span>Make sure that you have a flash drive handy with a capacity greater than 
-      2 gigabytes.</span>
-    <p><span>My first go used installation media that didn&#39;t have the entire ISO 
-      written to it</span>
-    <p><span>and I had issues booting.</span>
-    <h2>Setup</h2>
-    <h3>Recovery Disk</h3>
-    <p><span>First remember to create a recovery disk for Windows.</span>
-    <p><span>I didn&#39;t do this, but it&#39;s probably a good idea!</span>
-    <p><span>(I&#39;m still looking for my Windows partition...)</span>
-    <section id="(NIL NIL NIL NIL NIL)"></section>
-    <h3>Reboot to the BIOS</h3>
-    <p><span>Press F2 repeatedly when the Dell logo appears on boot</span>
-    <p><span>(don&#39;t hold it, as this may be interpreted as a stuck key)</span>
-    <p><span>and reboot into the BIOS settings.</span>
-    <section id="(NIL NIL NIL NIL NIL)"></section>
-    <h3>BIOS Settings</h3>
-    <p><span>Disable secure boot and RAID mode. It&#39;s unclear why RAID mode</span>
-    <p><span>is on by default, but this isn&#39;t somethign that should be used by the 
-      XPS.</span>
-    <section id="(NIL NIL NIL NIL)"></section>
-    <h3>Make an Installation Disk</h3>
-    <p><span>Download an ISO from </span><a class=external
-     href=https://nixos.org/download.html>[the website]</a><span>. I wouldn&#39;t 
-      recommend the graphical installation</span>
-    <p><span>CD, as it&#39;ll take substantially longer to boot and at the time of 
-      this writing</span>
-    <p><span>offers no real advantage over the minimal installation disk. You&#39;ll 
-      be using</span>
-    <p><span>tools with command-line interfaces anyways.</span>
-    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
-    <h3>Install ISO</h3>
-    <p><span>For Linux, I recommend using ~dd~ to write the media to your USB.</span>
-    <p><span>For Windows 10, I&#39;d recommend using </span><a class=external
-     href=https://rufus.ie>[Rufus]</a><span>.</span>
-    <p><span>I used Rufus and had trouble with the installation media when writing the 
-      ISO,</span>
-    <p><span>but using DD mode worked well. I&#39;d recommend using that to start.</span>
-    <section id="(NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
-    <h2>Provisioning the Installation</h2>
-    <h3>Booting the Installation Media</h3>
-    <p><span>Plug the flash drive into any port on your laptop and reboot.</span>
-    <p><span>On boot, press F10 repeatedly to enter the boot selection mode.</span>
-    <p><span>Use the up and down arrow keys to navigate to the name of your flash</span>
-    <p><span>drive loaded with the installation media. Press enter when the proper</span>
-    <p><span>media is highlighted.</span>
-    <section id="(NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <h3>Initial System Configuration</h3>
-    <p><span>The computer should now be booted to the NixOS installer.</span>
-    <p><span>It&#39;ll show you several images to chose from.</span>
-    <p><span>Select ~NixOS Live CD~ if you&#39;re ready to install. The other options</span>
-    <p><span>provided may be used if you&#39;d like to try out the operating system</span>
-    <p><span>without a full installation.</span>
-    <h4>Troubleshooting</h4>
-    <p><span>If the media didn&#39;t boot properly and you do not now see a terminal</span>
-    <p><span>showing that you&#39;ve booted into NixOS, make sure that you&#39;ve 
-      chosen</span>
-    <p><span>the correct installation image for your system. If you provisioned</span>
-    <p><span>your installation media as an ISO, try using DD mode.</span>
-    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
-    <section
-             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <h3>Connecting to The Internet</h3>
-    <p><span>Now that you&#39;ve successfully booted the system, it&#39;s time to 
-      connect</span>
-    <p><span>to the internet. Ethernet would be easy but we still have some networking</span>
-    <p><span>tools.</span>
-    <p><span>We&#39;ll want to do everything as root for the installation, so:</span>
-    <pre><code class=language-sh>sudo -i
+  <div class=site-body>
+   <div class=sidebar>
+    <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
+    <a href=/pages/index.html>pages</a><span> / </span><b>Setting Up NixOS: Dell XPS 
+     9370 4K and EXWM</b>
+   </div>
+   <main>
+    <article class=wikipage>
+     <h1 class=title-top>Setting Up NixOS: Dell XPS 9370 4K and EXWM</h1>
+     <p><span>I&#39;ve long been tired of the dependency management of Linux and</span>
+     <p><span>wanted to try a new system: </span><a class=external
+      href=https://nixos.org>[NixOS]</a><span>. It&#39;s an operating system</span>
+     <p><span>centered around system configuration -- a DevOps tool and</span>
+     <p><span>a way to manage configuration files as well as a proper</span>
+     <p><span>Linux-based operating system.</span>
+     <p><span>I did have a bit of trouble installing it so I wanted to</span>
+     <p><span>catalogue the process here.</span>
+     <p><span>To help with the installation, I referenced </span><a class=external
+      href=https://gist.github.com/domenkozar/b3c945035af53fa816e0ac460f1df853>[Domen 
+       Kozar&#39;s instructions]</a><span>,</span>
+     <p><a class=external href=https://github.com/jethrokuan/nix-config>[Jethro&#39;s 
+       configuration]</a><span> and </span><a class=external
+      href="https://github.com/kylesferrazza/nix/">[Kyle&#39;s configuration]</a><span>
+       . I also made substantial</span>
+     <p><span>use of the </span><a class=external href=https://nixos.org/nixos/manual>
+       [NixOS manual]</a><span> and its instructions. I&#39;ll be summarizing steps</span>
+     <p><span>taken by each of these articles; refer to the NixOS manual or the 
+       instructions</span>
+     <p><span>if you&#39;d like more information about the abbreviated steps.</span>
+     <p><span>As the title says, I installed ~NixOS 20.03~ on the Dell XPS 9370 i7 UHD.</span>
+     <p><span>I can&#39;t guarantee that these instructions will work for your system.</span>
+     <p><span>My current configuration, including some of the code mentioned</span>
+     <p><span>in this article, can be found </span><a class=external
+      href=https://github.com/jakechv/nix-cfg>[here]</a><span>.</span>
+     <p><span>Make sure that you have a flash drive handy with a capacity greater than 
+       2 gigabytes.</span>
+     <p><span>My first go used installation media that didn&#39;t have the entire ISO 
+       written to it</span>
+     <p><span>and I had issues booting.</span>
+     <h2>Setup</h2>
+     <h3>Recovery Disk</h3>
+     <p><span>First remember to create a recovery disk for Windows.</span>
+     <p><span>I didn&#39;t do this, but it&#39;s probably a good idea!</span>
+     <p><span>(I&#39;m still looking for my Windows partition...)</span>
+     <section id="(NIL NIL NIL NIL NIL)"></section>
+     <h3>Reboot to the BIOS</h3>
+     <p><span>Press F2 repeatedly when the Dell logo appears on boot</span>
+     <p><span>(don&#39;t hold it, as this may be interpreted as a stuck key)</span>
+     <p><span>and reboot into the BIOS settings.</span>
+     <section id="(NIL NIL NIL NIL NIL)"></section>
+     <h3>BIOS Settings</h3>
+     <p><span>Disable secure boot and RAID mode. It&#39;s unclear why RAID mode</span>
+     <p><span>is on by default, but this isn&#39;t somethign that should be used by the 
+       XPS.</span>
+     <section id="(NIL NIL NIL NIL)"></section>
+     <h3>Make an Installation Disk</h3>
+     <p><span>Download an ISO from </span><a class=external
+      href=https://nixos.org/download.html>[the website]</a><span>. I wouldn&#39;t 
+       recommend the graphical installation</span>
+     <p><span>CD, as it&#39;ll take substantially longer to boot and at the time of 
+       this writing</span>
+     <p><span>offers no real advantage over the minimal installation disk. You&#39;ll 
+       be using</span>
+     <p><span>tools with command-line interfaces anyways.</span>
+     <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+     <h3>Install ISO</h3>
+     <p><span>For Linux, I recommend using ~dd~ to write the media to your USB.</span>
+     <p><span>For Windows 10, I&#39;d recommend using </span><a class=external
+      href=https://rufus.ie>[Rufus]</a><span>.</span>
+     <p><span>I used Rufus and had trouble with the installation media when writing the 
+       ISO,</span>
+     <p><span>but using DD mode worked well. I&#39;d recommend using that to start.</span>
+     <section id="(NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+     <h2>Provisioning the Installation</h2>
+     <h3>Booting the Installation Media</h3>
+     <p><span>Plug the flash drive into any port on your laptop and reboot.</span>
+     <p><span>On boot, press F10 repeatedly to enter the boot selection mode.</span>
+     <p><span>Use the up and down arrow keys to navigate to the name of your flash</span>
+     <p><span>drive loaded with the installation media. Press enter when the proper</span>
+     <p><span>media is highlighted.</span>
+     <section id="(NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <h3>Initial System Configuration</h3>
+     <p><span>The computer should now be booted to the NixOS installer.</span>
+     <p><span>It&#39;ll show you several images to chose from.</span>
+     <p><span>Select ~NixOS Live CD~ if you&#39;re ready to install. The other options</span>
+     <p><span>provided may be used if you&#39;d like to try out the operating system</span>
+     <p><span>without a full installation.</span>
+     <h4>Troubleshooting</h4>
+     <p><span>If the media didn&#39;t boot properly and you do not now see a terminal</span>
+     <p><span>showing that you&#39;ve booted into NixOS, make sure that you&#39;ve 
+       chosen</span>
+     <p><span>the correct installation image for your system. If you provisioned</span>
+     <p><span>your installation media as an ISO, try using DD mode.</span>
+     <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+     <section
+              id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <h3>Connecting to The Internet</h3>
+     <p><span>Now that you&#39;ve successfully booted the system, it&#39;s time to 
+       connect</span>
+     <p><span>to the internet. Ethernet would be easy but we still have some networking</span>
+     <p><span>tools.</span>
+     <p><span>We&#39;ll want to do everything as root for the installation, so:</span>
+     <pre><code class=language-sh>sudo -i
 </code></pre>
-    <p><span>To connect to the internet, run</span>
-    <pre><code class=language-sh>wpa_supplicant -i {WiFi card} &lt;(wpa_passphrase &quot;{SSID}&quot; &quot;{password}&quot;)
+     <p><span>To connect to the internet, run</span>
+     <pre><code class=language-sh>wpa_supplicant -i {WiFi card} &lt;(wpa_passphrase &quot;{SSID}&quot; &quot;{password}&quot;)
 </code></pre>
-    <p><span>where {WiFi card} is the name found with ~ifconfig~ beginning with</span>
-    <p><span>~wlp~ or ~wlan~ (typically ~wlan0~ or ~wlp2s0~),</span>
-    <p><span>{SSID} is the name of your WiFi network and {password} is the password</span>
-    <p><span>for the network. Make sure that the latter two are both strings.</span>
-    <p><span>To confirm your connection, use ~ping google.com~ or ~ping {stable site 
-      of choice}~.</span>
-    <p><span>If you receive frequent responses at the terminal, you have a connection.</span>
-    <section
-             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <h3>Partitioning the Drive</h3>
-    <p><span>I&#39;ll yield to the Arch Wiki here; they&#39;ll maintain documentation 
-      more accurate</span>
-    <p><span>and thorough than what I can cover here. Here&#39;s the gist of it:</span>
-    <ul>
-     <li><span> Create three partitions:</span>
-    </ul>
-    <p><span> - a boot partition {~100 mb},</span>
-    <p><span> - a main partition {rest of disk, -1/2 ram size},</span>
-    <p><span> - and a swap partition {1/2 ram capacity}.</span>
-    <ul>
-     <li><span> Format each with the file system of your choice.</span>
-    </ul>
-    <p><span> - The boot partition should be FAT.</span>
-    <p><span> - The main partition should be a file system of your choice.</span>
-    <p><span> Use ext4 if you want something simple and reliable;</span>
-    <p><span> use btrfs or zfs if you want something advanced.</span>
-    <p><span> - The swap partition should be formatted as a swap partition.</span>
-    <section
-             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <h3>Mounting and Installing</h3>
-    <p><span>This system&#39;s a UEFI system, so we&#39;ll have to mount two 
-      partitions.</span>
-    <p><span>Mount your main partition to ~/mnt~:</span>
-    <p><span>sh</span>
-    <p><span>mount nixos /mnt</span>
-    <p><span>your boot partition to ~</span><i>mnt</i><span>boot~:</span>
-    <p><span>sh</span>
-    <p><span>mkdir -p </span><i>mnt</i><span>boot</span>
-    <p><span>mount boot </span><i>mnt</i><span>boot</span>
-    <p><span>assumes that you&#39;ve named your main and boot partitions 
-      &#39;nixos&#39; and &#39;boot&#39; respectively.</span>
-    <section
-             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
-    <h2>Initial Configuration</h2>
-    <p><span>Now that everything is mounted, you&#39;ll want to generate an initial 
-      configuration</span>
-    <p><span>for your system.</span>
-    <p><span>This can be accomplished with</span>
-    <pre><code class=language-sh>nixos-generate-config -d
+     <p><span>where {WiFi card} is the name found with ~ifconfig~ beginning with</span>
+     <p><span>~wlp~ or ~wlan~ (typically ~wlan0~ or ~wlp2s0~),</span>
+     <p><span>{SSID} is the name of your WiFi network and {password} is the password</span>
+     <p><span>for the network. Make sure that the latter two are both strings.</span>
+     <p><span>To confirm your connection, use ~ping google.com~ or ~ping {stable site 
+       of choice}~.</span>
+     <p><span>If you receive frequent responses at the terminal, you have a connection.</span>
+     <section
+              id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <h3>Partitioning the Drive</h3>
+     <p><span>I&#39;ll yield to the Arch Wiki here; they&#39;ll maintain documentation 
+       more accurate</span>
+     <p><span>and thorough than what I can cover here. Here&#39;s the gist of it:</span>
+     <ul>
+      <li><span> Create three partitions:</span>
+     </ul>
+     <p><span> - a boot partition {~100 mb},</span>
+     <p><span> - a main partition {rest of disk, -1/2 ram size},</span>
+     <p><span> - and a swap partition {1/2 ram capacity}.</span>
+     <ul>
+      <li><span> Format each with the file system of your choice.</span>
+     </ul>
+     <p><span> - The boot partition should be FAT.</span>
+     <p><span> - The main partition should be a file system of your choice.</span>
+     <p><span> Use ext4 if you want something simple and reliable;</span>
+     <p><span> use btrfs or zfs if you want something advanced.</span>
+     <p><span> - The swap partition should be formatted as a swap partition.</span>
+     <section
+              id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <h3>Mounting and Installing</h3>
+     <p><span>This system&#39;s a UEFI system, so we&#39;ll have to mount two 
+       partitions.</span>
+     <p><span>Mount your main partition to ~/mnt~:</span>
+     <p><span>sh</span>
+     <p><span>mount nixos /mnt</span>
+     <p><span>your boot partition to ~</span><i>mnt</i><span>boot~:</span>
+     <p><span>sh</span>
+     <p><span>mkdir -p </span><i>mnt</i><span>boot</span>
+     <p><span>mount boot </span><i>mnt</i><span>boot</span>
+     <p><span>assumes that you&#39;ve named your main and boot partitions 
+       &#39;nixos&#39; and &#39;boot&#39; respectively.</span>
+     <section
+              id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+     <h2>Initial Configuration</h2>
+     <p><span>Now that everything is mounted, you&#39;ll want to generate an initial 
+       configuration</span>
+     <p><span>for your system.</span>
+     <p><span>This can be accomplished with</span>
+     <pre><code class=language-sh>nixos-generate-config -d
 </code></pre>
-    <h3>Editing the Configuration</h3>
-    <p><span>You should now have two files visible in the ~</span><i>etc</i><span>
-      nixos~ directory:</span>
-    <ul>
-     <li><span> configuration.nix</span>
-    </ul>
-    <ul>
-     <li><span> hardware-configuration.nix</span>
-    </ul>
-    <p><span>Make sure that hardware-configuration.nix contains three partitions --</span>
-    <p><span>one for each partition you created earlier -- with the same file systems</span>
-    <p><span>and configurations. If not, update the files with the correct values.</span>
-    <section
-             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <h3>Initial Configuration</h3>
-    <p><span>You&#39;ll now need to edit properly configure ~configuration.nix~.</span>
-    <p><span>Most of the defaults are fine, but you&#39;ll want to install a sane 
-      editor</span>
-    <p><span>to make it immediately usable. I&#39;d suggest ~vim~ or ~nvim~.</span>
-    <p><span>You&#39;ll probably also want ~git~ and ~wget~ for saving your 
-      configuration or</span>
-    <p><span>cloning that of another. Add these to ~environment.systemPackages~:</span>
-    <pre><code class=language-nix>environment.systemPackages = [
+     <h3>Editing the Configuration</h3>
+     <p><span>You should now have two files visible in the ~</span><i>etc</i><span>
+       nixos~ directory:</span>
+     <ul>
+      <li><span> configuration.nix</span>
+     </ul>
+     <ul>
+      <li><span> hardware-configuration.nix</span>
+     </ul>
+     <p><span>Make sure that hardware-configuration.nix contains three partitions --</span>
+     <p><span>one for each partition you created earlier -- with the same file systems</span>
+     <p><span>and configurations. If not, update the files with the correct values.</span>
+     <section
+              id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <h3>Initial Configuration</h3>
+     <p><span>You&#39;ll now need to edit properly configure ~configuration.nix~.</span>
+     <p><span>Most of the defaults are fine, but you&#39;ll want to install a sane 
+       editor</span>
+     <p><span>to make it immediately usable. I&#39;d suggest ~vim~ or ~nvim~.</span>
+     <p><span>You&#39;ll probably also want ~git~ and ~wget~ for saving your 
+       configuration or</span>
+     <p><span>cloning that of another. Add these to ~environment.systemPackages~:</span>
+     <pre><code class=language-nix>environment.systemPackages = [
   nvim wget git
 ];
 </code></pre>
-    <p><span>You might also want a better program for configuring networking.</span>
-    <p><span>If you&#39;re accustomed to Network Manager, add</span>
-    <pre><code class=language-nix>~services.networkmanager.enable = true;
+     <p><span>You might also want a better program for configuring networking.</span>
+     <p><span>If you&#39;re accustomed to Network Manager, add</span>
+     <pre><code class=language-nix>~services.networkmanager.enable = true;
 </code></pre>
-    <p><span>to the configuration.</span>
-    <p><span>You should probably add a user as well.</span>
-    <p><span>There&#39;s a template for user configuration in the file, but try 
-      amending it:</span>
-    <pre><code class=language-nix>users.users.{username} = {
+     <p><span>to the configuration.</span>
+     <p><span>You should probably add a user as well.</span>
+     <p><span>There&#39;s a template for user configuration in the file, but try 
+       amending it:</span>
+     <pre><code class=language-nix>users.users.{username} = {
   isNormalUser = true;
   home = &quot;/home/{username}&quot;;
   extraGroups = [ &quot;wheel&quot; &quot;networkmanager&quot; ];
 };
 </code></pre>
-    <p><span>You&#39;ll want to add yourself to the ~&quot;networkmanager&quot;~ group</span>
-    <p><span>if you&#39;re using Network Manager in lieu of wpa_supplicant.</span>
-    <p><span>&#39;Wheel&#39; will allow this user to use ~sudo~.</span>
-    <section
-             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL
+     <p><span>You&#39;ll want to add yourself to the ~&quot;networkmanager&quot;~ group</span>
+     <p><span>if you&#39;re using Network Manager in lieu of wpa_supplicant.</span>
+     <p><span>&#39;Wheel&#39; will allow this user to use ~sudo~.</span>
+     <section
+              id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL
  NIL)"></section>
-    <section
-             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <h2>First Boot</h2>
-    <p><span>You&#39;re ready to install and boot the system! Run:</span>
-    <pre><code class=language-sh>nixos-install
+     <section
+              id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <h2>First Boot</h2>
+     <p><span>You&#39;re ready to install and boot the system! Run:</span>
+     <pre><code class=language-sh>nixos-install
 </code></pre>
-    <p><span>Make sure to set the password for the root user to something you remember 
-      when prompted.</span>
-    <h3>Final Touches</h3>
-    <p><span>Reboot first: ~reboot~.</span>
-    <p><span>Now, log in as the root user when prompted for login and password.</span>
-    <p><span>Set an initial password for the user you created:</span>
-    <pre><code class=language-sh>passwd {username}
+     <p><span>Make sure to set the password for the root user to something you remember 
+       when prompted.</span>
+     <h3>Final Touches</h3>
+     <p><span>Reboot first: ~reboot~.</span>
+     <p><span>Now, log in as the root user when prompted for login and password.</span>
+     <p><span>Set an initial password for the user you created:</span>
+     <pre><code class=language-sh>passwd {username}
 </code></pre>
-    <p><span>and provide the password when prompted.</span>
-    <p><span>You&#39;re now ready to go!</span>
-    <section
-             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
-    <section id="(NIL NIL NIL NIL NIL NIL)"></section>
-   </article>
-  </main>
+     <p><span>and provide the password when prompted.</span>
+     <p><span>You&#39;re now ready to go!</span>
+     <section
+              id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+     <section id="(NIL NIL NIL NIL NIL NIL)"></section>
+    </article>
+   </main>
+   <div class=checkbox-menu>
+    <input type=checkbox id=hypothesis-checkbox
+           checked onclick=toggleHypothesis();>
+     hypothes.is
+    
+   </div>
+  </div>
  </body>
 </html>

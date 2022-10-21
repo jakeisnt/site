@@ -22,6 +22,16 @@
              :onclick (parenscript:ps (toggle-hypothesis))
              "hypothes.is"))))
 
+;; TODO
+;; (defun links ()
+;;   "A table of links about me."
+;;   (:table
+;;    (:thead
+;;     :tr)
+;;    )
+
+;;   )
+
 
 ;; i want this site to feel like the navigation of a file system;
 ;; view version control, depth, what's in current dir;

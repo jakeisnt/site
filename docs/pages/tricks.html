@@ -32,35 +32,44 @@
   <link rel=stylesheet
         href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
   <link rel=stylesheet href=/style.css>
+  <script src=/lib.js></script>
   <script
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
  <body>
-  <div class=sidebar>
-   <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
-   <a href=/pages/index.html>pages</a><span> / </span><b>random tricks for linux 
-    systems</b>
-  </div>
-  <main>
-   <article class=wikipage>
-    <h1 class=title-top>random tricks for linux systems</h1>
-    <h2>TODO move all of these to my nixos configuration somehow</h2>
-    <section id="(NIL NIL)"></section>
-    <h2>enable pulseaudio noise cancellation</h2>
-    <p><span>put in </span><i>etc</i><span>pulse/default.pa:</span>
-    <pre><code class=language-sh>load-module module-echo-cancel use_master_format=1 aec_method=webrtc aec_args=&quot;analog_gain_control=0\ digital_gain_control=1&quot; source_name=echoCancel_source sink_name=echoCancel_sink
+  <div class=site-body>
+   <div class=sidebar>
+    <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
+    <a href=/pages/index.html>pages</a><span> / </span><b>random tricks for linux 
+     systems</b>
+   </div>
+   <main>
+    <article class=wikipage>
+     <h1 class=title-top>random tricks for linux systems</h1>
+     <h2>TODO move all of these to my nixos configuration somehow</h2>
+     <section id="(NIL NIL)"></section>
+     <h2>enable pulseaudio noise cancellation</h2>
+     <p><span>put in </span><i>etc</i><span>pulse/default.pa:</span>
+     <pre><code class=language-sh>load-module module-echo-cancel use_master_format=1 aec_method=webrtc aec_args=&quot;analog_gain_control=0\ digital_gain_control=1&quot; source_name=echoCancel_source sink_name=echoCancel_sink
 set-default-source echoCancel_source
 set-default-sink echoCancel_sink
 </code></pre>
-    <section id="(NIL NIL NIL NIL)"></section>
-    <h2>Pranks</h2>
-    <p><a class=external href=https://github.com/mathiasbynens/evil.sh>
-      [https://github.com/mathiasbynens/evil.sh]</a>
-    <p><a class=external href=https://github.com/zeroby0/pranks#7-change-editors>
-      [https://github.com/zeroby0/pranks#7-change-editors]</a>
-    <section id="(NIL NIL NIL)"></section>
-   </article>
-  </main>
+     <section id="(NIL NIL NIL NIL)"></section>
+     <h2>Pranks</h2>
+     <p><a class=external href=https://github.com/mathiasbynens/evil.sh>
+       [https://github.com/mathiasbynens/evil.sh]</a>
+     <p><a class=external href=https://github.com/zeroby0/pranks#7-change-editors>
+       [https://github.com/zeroby0/pranks#7-change-editors]</a>
+     <section id="(NIL NIL NIL)"></section>
+    </article>
+   </main>
+   <div class=checkbox-menu>
+    <input type=checkbox id=hypothesis-checkbox
+           checked onclick=toggleHypothesis();>
+     hypothes.is
+    
+   </div>
+  </div>
  </body>
 </html>

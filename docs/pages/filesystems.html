@@ -31,54 +31,63 @@
   <link rel=stylesheet
         href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
   <link rel=stylesheet href=/style.css>
+  <script src=/lib.js></script>
   <script
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
  <body>
-  <div class=sidebar>
-   <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
-   <a href=/pages/index.html>pages</a><span> / </span><b>File Systems</b>
+  <div class=site-body>
+   <div class=sidebar>
+    <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
+    <a href=/pages/index.html>pages</a><span> / </span><b>File Systems</b>
+   </div>
+   <main>
+    <article class=wikipage>
+     <h1 class=title-top>File Systems</h1>
+     <p><span>File systems are pretty cool, they manage how you interact with your 
+       files.</span>
+     <p><span>You can interface with new file systems without modifying your kernel by 
+       using FUSE.</span>
+     <p><span>I use ext4 at the moment, but a future install of my operating system 
+       will make use of BtrFS or ZFS to provide automatic backups and rollbacks, 
+       potentially using RAID to preserve information across zpools.</span>
+     <h2>Projects</h2>
+     <ul>
+      <li><span> </span><a class=external href=https://github.com/ipfs/awesome-ipfs>
+        [https://github.com/ipfs/awesome-ipfs]</a><span>interplanetary file system 
+        configuration</span>
+     </ul>
+     <ul>
+      <li><span> </span><a class=external href=https://github.com/edolstra/dwarffs>
+        [https://github.com/edolstra/dwarffs]</a><span>allows debug tools to 
+        automatically look up debug information over the internet</span>
+     </ul>
+     <ul>
+      <li><span> ZFS: Killer</span>
+     </ul>
+     <p><a class=external href=https://github.com/littlefs-project/littlefs>
+       [https://github.com/littlefs-project/littlefs]</a>
+     <p><a class=external href="https://news.ycombinator.com/item?id=23180572">[p2p 
+       filesystem]</a>
+     <p><a class=external href="https://news.ycombinator.com/item?id=23515997">[I built 
+       an IPFS crawler with libp2p | Hacker News]</a>
+     <p><a class=external href="https://users.cs.northwestern.edu/~jesse/">
+       [https://users.cs.northwestern.edu/~jesse/]</a>
+     <p><a class=external
+      href=https://software.intel.com/content/www/us/en/develop/articles/pin-a-dynamic-binary-instrumentation-tool.html>
+       [https://software.intel.com/content/www/us/en/develop/articles/pin-a-dynamic-binary-instrumentation-tool.html]
+       </a>
+     <section
+              id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
+    </article>
+   </main>
+   <div class=checkbox-menu>
+    <input type=checkbox id=hypothesis-checkbox
+           checked onclick=toggleHypothesis();>
+     hypothes.is
+    
+   </div>
   </div>
-  <main>
-   <article class=wikipage>
-    <h1 class=title-top>File Systems</h1>
-    <p><span>File systems are pretty cool, they manage how you interact with your 
-      files.</span>
-    <p><span>You can interface with new file systems without modifying your kernel by 
-      using FUSE.</span>
-    <p><span>I use ext4 at the moment, but a future install of my operating system 
-      will make use of BtrFS or ZFS to provide automatic backups and rollbacks, 
-      potentially using RAID to preserve information across zpools.</span>
-    <h2>Projects</h2>
-    <ul>
-     <li><span> </span><a class=external href=https://github.com/ipfs/awesome-ipfs>
-       [https://github.com/ipfs/awesome-ipfs]</a><span>interplanetary file system 
-       configuration</span>
-    </ul>
-    <ul>
-     <li><span> </span><a class=external href=https://github.com/edolstra/dwarffs>
-       [https://github.com/edolstra/dwarffs]</a><span>allows debug tools to 
-       automatically look up debug information over the internet</span>
-    </ul>
-    <ul>
-     <li><span> ZFS: Killer</span>
-    </ul>
-    <p><a class=external href=https://github.com/littlefs-project/littlefs>
-      [https://github.com/littlefs-project/littlefs]</a>
-    <p><a class=external href="https://news.ycombinator.com/item?id=23180572">[p2p 
-      filesystem]</a>
-    <p><a class=external href="https://news.ycombinator.com/item?id=23515997">[I built 
-      an IPFS crawler with libp2p | Hacker News]</a>
-    <p><a class=external href="https://users.cs.northwestern.edu/~jesse/">
-      [https://users.cs.northwestern.edu/~jesse/]</a>
-    <p><a class=external
-     href=https://software.intel.com/content/www/us/en/develop/articles/pin-a-dynamic-binary-instrumentation-tool.html>
-      [https://software.intel.com/content/www/us/en/develop/articles/pin-a-dynamic-binary-instrumentation-tool.html]
-      </a>
-    <section
-             id="(NIL NIL NIL NIL NIL NIL NIL NIL NIL NIL)"></section>
-   </article>
-  </main>
  </body>
 </html>

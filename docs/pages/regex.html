@@ -31,30 +31,39 @@
   <link rel=stylesheet
         href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
   <link rel=stylesheet href=/style.css>
+  <script src=/lib.js></script>
   <script
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
  <body>
-  <div class=sidebar>
-   <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
-   <a href=/pages/index.html>pages</a><span> / </span><b>Regex</b>
+  <div class=site-body>
+   <div class=sidebar>
+    <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
+    <a href=/pages/index.html>pages</a><span> / </span><b>Regex</b>
+   </div>
+   <main>
+    <article class=wikipage>
+     <h1 class=title-top>Regex</h1>
+     <p><a class=external href=https://github.com/katef/libfsm>[katef/libfsm: DFA 
+       regular expression library &amp;amp; friends]</a>
+     <p><a class=external href="https://swtch.com/~rsc/regexp/">[Implementing Regular 
+       Expressions]</a>
+     <p><a class=external href=https://github.com/aepsilon/turing-machine-viz>
+       [https://github.com/aepsilon/turing-machine-viz]</a><span>visualize turing 
+       machines and dfas</span>
+     <p><a class=external href="http://phylactery.org/antimirov/">
+       [http://phylactery.org/antimirov/]</a>
+     <p><a class=external href=https://github.com/552-19sp/Mencius>
+       [https://github.com/552-19sp/Mencius]</a>
+    </article>
+   </main>
+   <div class=checkbox-menu>
+    <input type=checkbox id=hypothesis-checkbox
+           checked onclick=toggleHypothesis();>
+     hypothes.is
+    
+   </div>
   </div>
-  <main>
-   <article class=wikipage>
-    <h1 class=title-top>Regex</h1>
-    <p><a class=external href=https://github.com/katef/libfsm>[katef/libfsm: DFA 
-      regular expression library &amp;amp; friends]</a>
-    <p><a class=external href="https://swtch.com/~rsc/regexp/">[Implementing Regular 
-      Expressions]</a>
-    <p><a class=external href=https://github.com/aepsilon/turing-machine-viz>
-      [https://github.com/aepsilon/turing-machine-viz]</a><span>visualize turing 
-      machines and dfas</span>
-    <p><a class=external href="http://phylactery.org/antimirov/">
-      [http://phylactery.org/antimirov/]</a>
-    <p><a class=external href=https://github.com/552-19sp/Mencius>
-      [https://github.com/552-19sp/Mencius]</a>
-   </article>
-  </main>
  </body>
 </html>

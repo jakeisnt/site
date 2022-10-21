@@ -31,22 +31,30 @@
   <link rel=stylesheet
         href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
   <link rel=stylesheet href=/style.css>
+  <script src=/lib.js></script>
   <script
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
  <body>
-  <div class=sidebar>
-   <b>jake.</b><a href=https://isnt.online> ~ </a><span> / </span>
+  <div class=site-body>
+   <div class=sidebar>
+    <b>jake.</b><a href=https://isnt.online> ~ </a><span> / </span>
+   </div>
+   <main>
+    <article class=wikipage>
+     <p><span>Hey, I&#39;m Jake.</span>
+     <p><span>I leverage old tools and simple ideas to build things to last forever.</span>
+     <p><span>Check out my </span><a class=external href=/pages/index.html>[notes]</a>
+      <span> for more.</span>
+    </article>
+   </main>
+   <div class=checkbox-menu>
+    <input type=checkbox id=hypothesis-checkbox
+           checked onclick=toggleHypothesis();>
+     hypothes.is
+    
+   </div>
   </div>
-  <main>
-   <article class=wikipage>
-    <p><span>Hey, I&#39;m Jake.</span>
-    <p><span>I leverage old tools and simple ideas to create work that will last 
-      forever.</span>
-    <p><span>Check out my </span><a class=external href=/pages/index.html>[notes]</a>
-     <span> for more.</span>
-   </article>
-  </main>
  </body>
 </html>

@@ -31,27 +31,36 @@
   <link rel=stylesheet
         href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
   <link rel=stylesheet href=/style.css>
+  <script src=/lib.js></script>
   <script
           src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
   <script>hljs.highlightAll();</script>
  </head>
  <body>
-  <div class=sidebar>
-   <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
-   <a href=/pages/index.html>pages</a><span> / </span><b>kanren</b>
+  <div class=site-body>
+   <div class=sidebar>
+    <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
+    <a href=/pages/index.html>pages</a><span> / </span><b>kanren</b>
+   </div>
+   <main>
+    <article class=wikipage>
+     <h1 class=title-top>kanren</h1>
+     <p><span>(mini|micro) kanren is an embeddable logic programming language and 
+       theorem prover that can be written in your favorite programming language in very 
+       few lines of code!</span>
+     <p><a class=external href="https://www.youtube.com/watch?v=5vtC7WEN76w">[a great 
+       talk from byrd and friedman regarding kanren]</a>
+     <p><a class=external
+      href="https://www.philipzucker.com/yet-another-microkanren-in-julia/">[kanren 
+       implementation in julia]</a>
+    </article>
+   </main>
+   <div class=checkbox-menu>
+    <input type=checkbox id=hypothesis-checkbox
+           checked onclick=toggleHypothesis();>
+     hypothes.is
+    
+   </div>
   </div>
-  <main>
-   <article class=wikipage>
-    <h1 class=title-top>kanren</h1>
-    <p><span>(mini|micro) kanren is an embeddable logic programming language and 
-      theorem prover that can be written in your favorite programming language in very 
-      few lines of code!</span>
-    <p><a class=external href="https://www.youtube.com/watch?v=5vtC7WEN76w">[a great 
-      talk from byrd and friedman regarding kanren]</a>
-    <p><a class=external
-     href="https://www.philipzucker.com/yet-another-microkanren-in-julia/">[kanren 
-      implementation in julia]</a>
-   </article>
-  </main>
  </body>
 </html>
