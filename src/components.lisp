@@ -110,11 +110,15 @@
     (spinneret::with-html
       (:div
        :class "sidebar"
-       (:a :href "/index.html" " jake.")
+       ;; Bold site title instead of making it a clickable link if at root (no path).
+       (if (endp (path::pathdir path))
+           (:b "jake.")
+           (:a :href "/index.html" " jake."))
        (:a :href "https://isnt.online" " ~ ")
        (concatenate
         'list
         (collect-folder-paths path title)
         (list
          (:span " / ")
+         ;; If we have a file title, add and bold it
          (when title (:b title))))))))
