@@ -154,6 +154,9 @@
       (t nil))))
 
 ;; macro: https://github.com/ruricolist/spinneret
+;; TODO: add edit icon.  this can just take to github page,
+;; or open up buffer and take to github on save,
+;; or something else - maybe my own endpoint? just has to be able to give user ability to contribute.
 (defun render-file (fdata path root)
   "Render a file struct as an html page"
   (let* ((title (ast::file-title fdata)) (f-body (ast::file-body fdata)))
