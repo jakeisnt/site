@@ -12,7 +12,7 @@
 
 (in-package htmx)
 
-(defmacro body (title contents)
+(defmacro body (title out-of-main contents)
   "The body of every HTML page."
   `(spinneret::with-html-string
      (:html
@@ -59,6 +59,7 @@
       ;;   }).catch((err) => console.log(err.message));
       ;;  ")
       (:body
+       ,out-of-main
        (:main ,contents)))))
 
 ;; three cases:
@@ -158,12 +159,12 @@
   (let* ((title (ast::file-title fdata)) (f-body (ast::file-body fdata)))
     (body
      title
+     (components::sidebar path root title)
      (list
-      (components::sidebar path root title)
       (:article :class "wikipage"
-       (when title (spinneret::with-html (:h1 :class "title-top" title)))
-       (loop for node in f-body
-             collect (render-node node)))))))
+                (when title (spinneret::with-html (:h1 :class "title-top" title)))
+                (loop for node in f-body
+                      collect (render-node node)))))))
 
 
 ;; page looks like this:
@@ -183,8 +184,8 @@
 
     (body
      title
+     (components::sidebar path root nil)
      (list
-      (components::sidebar path root nil)
       (spinneret::with-html
         (:div :class "url-cage"
               (loop for (src-path target-path fdata) in flist
