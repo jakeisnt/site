@@ -71,3 +71,5 @@
 (defun generate ()
   (generate-homepage)
   (generate-dir "pages"))
+
+;; (generate)

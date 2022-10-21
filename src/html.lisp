@@ -159,7 +159,7 @@
     (body
      title
      (list
-      (components::sidebar path root)
+      (components::sidebar path root title)
       (:article :class "wikipage"
        (when title (spinneret::with-html (:h1 :class "title-top" title)))
        (loop for node in f-body
@@ -184,7 +184,7 @@
     (body
      title
      (list
-      (components::sidebar path root)
+      (components::sidebar path root nil)
       (spinneret::with-html
         (:div :class "url-cage"
               (loop for (src-path target-path fdata) in flist

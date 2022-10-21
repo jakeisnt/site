@@ -49,7 +49,7 @@
 ;; also: the name of the website should reflect the path. how?
 ;; it shouldn't be literal, but it should be aesthetically similar.
 
-(defun collect-folder-paths-help (root ls)
+(defun collect-folder-paths-help (root ls title)
   "
    Convert a list of folder paths into a list of links.
 
@@ -61,16 +61,24 @@
   "
   (cond
     ((endp ls) nil)
+
+    ;; if we know we're in a folder (we have no file title),
+    ;; we return the last one as a :b
+    ((and (endp (cdr ls)) (not title))
+     (spinneret::with-html
+       (:span " / ")
+       (:b (car ls))))
+
     ((consp ls)
      (let* ((fst (car ls))
             (next-root (concatenate 'string root "/" fst)))
        (spinneret::with-html
-           (:span " / ")
+         (:span " / ")
          (:a :href (concatenate 'string next-root "/" "index.html") fst)
-         (collect-folder-paths-help next-root (cdr ls)))))))
+         (collect-folder-paths-help next-root (cdr ls) title))))))
 
-(defun collect-folder-paths (path)
-  (collect-folder-paths-help "" (path::pathdir path)))
+(defun collect-folder-paths (path title)
+  (collect-folder-paths-help "" (path::pathdir path) title))
 
 (defun concat-around (ls around-char)
   "Concatenate the elements of a list of strings around a character."
@@ -96,17 +104,17 @@
 ;; the page shows future paths in some way - how?
 ;; i want to be able to get to the other pages from this page.
 
-(defun sidebar (path root)
+(defun sidebar (path root title)
   "Display a sidebar for a page, given its root path."
   (let ((path (path::remove-root path root)))
     (spinneret::with-html
-        (:div
-         :class "sidebar"
-         (:a :href "/index.html" " jake.")
-         (:a :href "https://isnt.online" " ~ ")
-         (concatenate
-          'list
-          (collect-folder-paths path)
-          (list
-           (:span " / ")
-           (:a :href (final-path path) (pathname-name path))))))))
+      (:div
+       :class "sidebar"
+       (:a :href "/index.html" " jake.")
+       (:a :href "https://isnt.online" " ~ ")
+       (concatenate
+        'list
+        (collect-folder-paths path title)
+        (list
+         (:span " / ")
+         (when title (:b title))))))))
