@@ -46,6 +46,7 @@
        (:link :rel "stylesheet" :href "/style.css")
 
        (:script :src "/lib.js")
+       (:script :src "/lfmNowPlaying.js")
 
        ;; highlight js
        (:script :src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js")
@@ -64,7 +65,8 @@
        (:div :class "site-body"
              ,out-of-main
              (:main ,contents)
-             (components::checkbox-menu))))))
+             (components::checkbox-menu))
+       (:script "getNowPlaying()")))))
 
 ;; three cases:
 ;; `id:`: this should find the file with the given id and link to it.
@@ -189,17 +191,6 @@
    (ast::file-title fdata)
    (pathname-name target-path)))
 
-(defun get-created-dt (src-path)
-  (with-output-to-string (*dt-stream*)
-    (sb-ext:run-program
-     "/usr/bin/env"
-     (list "bash" "-c"
-           (concatenate
-            'string
-            "cd /home/jake/wiki && git log --follow --format=%ad --date default --date=format:'%Y-%m-%d' " (namestring src-path) " | tail -1"))
-     :input nil
-     :output *dt-stream*)))
-
 ;; we also need to create an index page here for each
 (defun index-page (dirname flist root)
   "Generate an index page from a list of paths at that index and a directory name."
@@ -212,16 +203,18 @@
      (components::sidebar path root nil)
      (list
       (spinneret::with-html
-        (:table :class "url-cage"
-                (loop for (src-path target-path fdata) in flist
-                      collect
-                      (let ((name (get-filename fdata target-path))
-                            (created-on (get-created-dt src-path))
-                            )
-                        (spinneret::with-html
-                          (:tr
-                           (:td created-on)
-                           (:td (:a
-                                 :id (concatenate 'string "indexmenu-" name)
-                                 :href (path::remove-root target-path root)
-                                 name))))))))))))
+        (:main
+         (:table :class "url-cage"
+                 (loop for (src-path target-path fdata git-hist) in flist
+                       collect
+                       (let ((name (get-filename fdata target-path))
+                             (last-updated (car git-hist)))
+                         (print git-hist)
+                         (spinneret::with-html
+                           (:tr
+                            (:td (caddr last-updated))
+                            (:td (:a
+                                  :id (concatenate 'string "indexmenu-" name)
+                                  :href (path::remove-root target-path root)
+                                  name))
+                            (:td (car last-updated)))))))))))))

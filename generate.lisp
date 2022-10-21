@@ -2,6 +2,7 @@
 (load "~/site/src/util.lisp")
 (load "~/site/src/html.lisp")
 (load "~/site/src/path.lisp")
+(load "~/site/src/git.lisp")
 (load "~/site/src/org/parser.lisp")
 
 (defparameter *site-location*  "/home/jake/site/docs/")
@@ -46,7 +47,8 @@
         collect (list
                  file-path
                  (path::change-file-path file-path *wiki-location* *site-location*)
-                 (parser::parse file-path))))
+                 (parser::parse file-path)
+                 (git::log-of-file file-path))))
 
 
 (defun write-dir-files (dir-ls)
