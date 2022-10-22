@@ -134,16 +134,39 @@
          (when title (:b title))))))))
 
 
-;; my info
+;; TODO: Should I make one of these for employment as well?
+;; TODO: Should I generate this from a file instead?
+;; -> I think yes; then I can also render it in other ways. Single source of truth.
 (defun link-info ()
+  "A pane to display personal links."
   (spinneret::with-html
-    (:table :class "info-table"
-            (:tr
-             (:td "Twitter")
-             (:td (:a :href "https://twitter.com/jakeissnt" "jakeissnt")))
-            (:tr
-             (:td "GitHub")
-             (:td (:a :href "https://github.com/jakeisnt") "jakeisnt"))
-            (:tr
-             (:td "Email")
-             (:td (:a :href "mailto://jake+website@isnt.online") "[j] at isnt dot online")))))
+      (:table :class "info-table"
+              (:tr
+               (:td "Twitter")
+               (:td (:a :href "https://twitter.com/jakeissnt" "jakeissnt")))
+              (:tr
+               (:td "GitHub")
+               (:td (:a :href "https://github.com/jakeisnt") "jakeisnt"))
+              (:tr
+               (:td "Email")
+               (:td (:a :href "mailto://jake+website@isnt.online") "[j] at isnt dot online")))))
+
+(defun employment-info ()
+  "A panel displaying my employment history."
+
+  )
+
+
+(defun make-history-link (file-path long-hash)
+  "Get a github permalink to a page in the wiki at a particular path and hash"
+  (concatenate 'string "https://github.com/jakeisnt/wiki/blob/" long-hash "/" file-path))
+
+(defun git-history (hist file-path)
+  "A pane that renders the given git history of a given file, with github links to history"
+  (spinneret::with-html
+      (:table :class "git-hist-table"
+              (loop for (short-hash long-hash date) in hist
+                    collect
+                    (:tr
+                     (:td date)
+                     (:td (:a :href long-hash short-hash)))))))
