@@ -209,7 +209,6 @@
                        collect
                        (let ((name (get-filename fdata target-path))
                              (last-updated (car git-hist)))
-                         (print git-hist)
                          (spinneret::with-html
                            (:tr
                             (:td (caddr last-updated))

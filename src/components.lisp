@@ -132,3 +132,18 @@
          (:span " / ")
          ;; If we have a file title, add and bold it
          (when title (:b title))))))))
+
+
+;; my info
+(defun link-info ()
+  (spinneret::with-html
+    (:table :class "info-table"
+            (:tr
+             (:td "Twitter")
+             (:td (:a :href "https://twitter.com/jakeissnt" "jakeissnt")))
+            (:tr
+             (:td "GitHub")
+             (:td (:a :href "https://github.com/jakeisnt") "jakeisnt"))
+            (:tr
+             (:td "Email")
+             (:td (:a :href "mailto://jake+website@isnt.online") "[j] at isnt dot online")))))
