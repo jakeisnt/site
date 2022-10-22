@@ -253,3 +253,13 @@ a.now-playing:hover, a.now-playing:focus {
   margin-right: 8px;
   display: inline-block;
 }
+
+.err-page {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid #eee8d5;
+  background-color: #fff;
+  padding: 0 1rem;
+}
