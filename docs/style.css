@@ -23,6 +23,9 @@ article {
   background: #fff;
   border: 2px solid #eee8d5;
   padding: 0 1rem;
+}
+
+.wikipage {
   margin: 1rem;
 }
 
@@ -61,7 +64,7 @@ a:active {
 
 .sidebar {
   align-self: start; /* do not flex grow */
-  margin: 1rem 0;
+  margin: 1rem 0.5rem;
   padding: 0.5rem;
   padding-top: 1rem;
   writing-mode: vertical-rl;
@@ -141,7 +144,7 @@ th {
 .git-hist-table, .link-info-table, .folder-index-page-table {
   border: 2px solid #eee8d5;
   padding: 0.5rem 1rem;
-  margin: 1rem 0;
+  margin: 1rem;
   width: auto;
   background-color: #fff;
   align-self: start;
