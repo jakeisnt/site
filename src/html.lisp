@@ -207,7 +207,8 @@
                          (spinneret::with-html
                            (:tr
                             (:td (caddr last-updated))
-                            (:td (:a
+                            (:td :class "file-name-tr"
+                                (:a
                                   :id (concatenate 'string "indexmenu-" name)
                                   :href (path::remove-root target-path root)
                                   name))

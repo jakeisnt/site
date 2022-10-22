@@ -114,6 +114,12 @@ code {
   margin-top: 0.75rem;
 }
 
+.file-name-tr {
+  white-space: nowrap;
+  max-width: 180px;
+  overflow: hidden;
+}
+
 .site-body {
   display: flex;
   flex-direction: row;
