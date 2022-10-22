@@ -10,7 +10,7 @@ html {
 
 body {
   margin: 0;
-  padding: 1.5rem 4rem;
+  padding: 1rem;
   background: conic-gradient(from 90deg at 1px 1px, #fff 90deg, #eee8d5 0deg);
   background-size: 40px 40px;
   background-position: bottom 10px right 15px;
@@ -30,12 +30,10 @@ article {
 @media only screen and (max-width: 500px) {
     body {
       max-width: 100%;
-      padding: 0;
     }
 
     main {
       max-width: 100%;
-      padding: 0;
     }
 }
 
@@ -81,14 +79,10 @@ a:active {
 
 @media only screen and (max-width: 500px) {
   .sidebar {
-    position: relative;
     writing-mode: horizontal-tb;
-    height: 2rem;
     margin: 0;
-    padding: 0;
-    padding-left: 1.25rem;
-    padding-top: 0.5rem;
-    margin-bottom: -1.5rem;
+    padding: 0.5rem;
+  /*   margin-bottom: -1.5rem; */
   }
 }
 
