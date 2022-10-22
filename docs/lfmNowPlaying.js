@@ -67,7 +67,7 @@ function renderNowPlaying(track) {
     "<br>" +
     "<marquee>" +
     "<span class=\"np-artist\">"+track.artist["#text"]+"</span>" +
-    "<span> : </span>" +
+    "<span> :: </span>" +
     "<span class=\"np-title\"><strong>" +
     track.name +
     "</strong></span></marquee>";

@@ -195,7 +195,6 @@ code {
 /* LastFM live music */
 
  a.now-playing {
-  opacity: 1;
   padding: 1rem;
   border: 2px solid #eee8d5;
   background: #fff;
@@ -225,7 +224,6 @@ a.now-playing:hover, a.now-playing:focus {
 }
 
 .now-playing .np-metadata .np-heading {
-  opacity: 0.5;
   letter-spacing: 0.11em;
 }
 
