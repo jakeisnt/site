@@ -13,6 +13,7 @@ body {
   padding: 1.5rem 4rem;
   background: conic-gradient(from 90deg at 1px 1px, #fff 90deg, #eee8d5 0deg);
   background-size: 40px 40px;
+  background-position: bottom 10px right 15px;
 }
 
 main {
@@ -22,8 +23,8 @@ main {
 
 article {
   background: #fff;
-  padding: 0 1rem;
   border: 2px solid #eee8d5;
+  padding: 0 1rem;
 }
 
 @media only screen and (max-width: 500px) {
@@ -62,6 +63,7 @@ a:active {
 }
 
 .sidebar {
+  align-self: start; /* do not flex grow */
   margin: 1rem;
   margin-left: 0;
   padding: 0.5rem;
@@ -134,6 +136,7 @@ code {
   padding: 1rem;
   background-color: #fff;
   font-size: 14px;
+  margin: 0;
 }
 
 @media only screen and (max-width: 500px) {
@@ -204,6 +207,7 @@ code {
   background: #fff;
   margin: 1rem;
   max-width: 25rem;
+  align-self: start; /* do not flex grow */
 }
 
 a.now-playing:hover, a.now-playing:focus {

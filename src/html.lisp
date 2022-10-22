@@ -204,8 +204,7 @@
      (components::sidebar path root nil)
      (list
       (spinneret::with-html
-        (:main
-         (:table :class "url-cage"
+            (:table :class "url-cage"
                  (loop for (src-path target-path fdata git-hist) in flist
                        collect
                        (let ((name (get-filename fdata target-path))
@@ -218,4 +217,4 @@
                                   :id (concatenate 'string "indexmenu-" name)
                                   :href (path::remove-root target-path root)
                                   name))
-                            (:td (car last-updated)))))))))))))
+                            (:td (car last-updated))))))))))))
