@@ -61,8 +61,7 @@ a:active {
 
 .sidebar {
   align-self: start; /* do not flex grow */
-  margin: 1rem;
-  margin-left: 0;
+  margin: 1rem 0;
   padding: 0.5rem;
   padding-top: 1rem;
   writing-mode: vertical-rl;

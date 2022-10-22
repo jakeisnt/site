@@ -151,6 +151,16 @@
                   (:td "Email")
                   (:td (:a :href "mailto://jake+website@isnt.online" "isnt dot online")))))))
 
+(defun lastfm-now-playing ()
+  "
+   Displays the track currently playing, or the track that last played, through lastfm.
+   NOTE: Currently this is just a hack that strings together some JS files.
+         We should make this a proper component and develop an abstraction for interactive components.
+  "
+  (spinneret::with-html
+    (:script :src "/lfmNowPlaying.js")
+    (:script "getNowPlaying()")))
+
 (defun employment-info ()
   "A panel displaying my employment history.")
 

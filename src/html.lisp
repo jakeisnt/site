@@ -47,8 +47,6 @@
          (:link :rel "stylesheet" :href "/style.css")
 
          (:script :src "/lib.js")
-         (:script :src "/lfmNowPlaying.js")
-
          ;; highlight js
          (:script :src "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js")
          (:script "hljs.highlightAll();"))
@@ -67,8 +65,8 @@
                ,out-of-main
                (:main ,contents)
                ,extra
-               (components::checkbox-menu))
-         (:script "getNowPlaying()")))))
+               ;; (components::checkbox-menu)
+               )))))
 
 ;; TODO: three cases:
 ;; `id:`: this should find the file with the given id and link to it.

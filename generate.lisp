@@ -24,6 +24,7 @@
   (generate-file
    (merge-pathnames *homepage-path*)
    (list
+    #'components::lastfm-now-playing
     #'components::link-info)))
 
 
@@ -67,9 +68,10 @@
                target-path
                *site-location*
                (list
-                (lambda () (components::git-history
-                            git-info
-                            (namestring (path::remove-root src-path *wiki-location*)))))))))
+                (lambda ()
+                  (components::git-history
+                   git-info
+                   (namestring (path::remove-root src-path *wiki-location*)))))))))
 
 
 (defun generate-dir (dirname)
