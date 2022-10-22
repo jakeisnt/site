@@ -56,24 +56,27 @@ function renderNowPlaying(track) {
   nowPlayingImage.setAttribute("src", imageurl);
   nowPlayingNode.appendChild(nowPlayingImage);
 
-  // Add more stuff to the display
-
   var currently = track["@attr"] && track["@attr"].nowplaying == "true";
 
   var metadata = document.createElement("div");
   metadata.setAttribute("class", "np-metadata");
   metadata.innerHTML =
-    "<span class=\"np-heading\">" + (currently ? "Now Playing" : "Latest Track") + "</span>" +
-    "<span class=\"np-title\"><strong>"+track.name+"</strong></span>" +
-    "<span class=\"np-artist\">"+track.artist["#text"]+"</span>" +
     (currently ?
-      "<span class=\"np-date\"><span class=\"breather\">◉</span>  Currently Playing</span>" :
-      "<span class=\"np-date\">"+track.date["#text"]+"</span>");
+      "<span class=\"np-date\">Currently Playing</span>" :
+      "<span class=\"np-date\">"+track.date["#text"]+"</span>") +
+    "<br>" +
+    "<marquee>" +
+    "<span class=\"np-artist\">"+track.artist["#text"]+"</span>" +
+    "<span> : </span>" +
+    "<span class=\"np-title\"><strong>" +
+    track.name +
+    "</strong></span></marquee>";
+
   nowPlayingNode.appendChild(metadata);
 
   nowPlayingNode.setAttribute("href", track.url);
 
-  document.body.appendChild(nowPlayingNode);
+  document.getElementById("site-body").appendChild(nowPlayingNode);
 
   setTimeout(function() {
     nowPlayingNode.setAttribute("class", "now-playing loaded");

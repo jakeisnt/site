@@ -63,6 +63,7 @@
       ;;  ")
       (:body
        (:div :class "site-body"
+             :id "site-body"
              ,out-of-main
              (:main ,contents)
              (components::checkbox-menu))

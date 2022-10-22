@@ -17,6 +17,7 @@ body {
 
 main {
   max-width: 30rem;
+  padding: 1rem;
 }
 
 article {
@@ -61,12 +62,8 @@ a:active {
 }
 
 .sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  margin: 1rem 0.5rem;
-  margin-left: 0.75rem;
-  margin-top: 1.5rem;
+  margin: 1rem;
+  margin-left: 0;
   padding: 0.5rem;
   padding-top: 1rem;
   writing-mode: vertical-rl;
@@ -103,6 +100,7 @@ a:active {
   max-width: 8rem;
   border: 2px solid #eee8d5;
   background-color: #fff;
+  display: none;
 }
 
 h1 {
@@ -125,7 +123,8 @@ code {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-content: flex-start;
 }
 
 .url-cage {
@@ -197,41 +196,38 @@ code {
 }
 
 /* LastFM live music */
-.now-playing {
-  position: absolute;
-  right: 20px;
-  top: calc(50vh - (min(20vw, calc(100vh - 30px)) / 2, 400px));
-  z-index: 1001;
-}
 
-a.now-playing {
+ a.now-playing {
   opacity: 1;
-  border: 0;
+  padding: 1rem;
+  border: 2px solid #eee8d5;
+  background: #fff;
+  margin: 1rem;
+  max-width: 25rem;
 }
 
-a.now-playing:hover img {
-  transform: scale (1.02) translateX (-0.2vw) perspective (500px) rotate32 (0, -1, 0.01, 6deg);
+a.now-playing:hover, a.now-playing:focus {
+  background: #eee8d5;
+  color: #000;
 }
+
 .now-playing img {
   opacity: 0;
-  transform: scale(0.97) translateX(10px) perspective(500px);
-  border-radius: 2px;
-  width: min(20vw, calc(100vh - 30px), 400px);
-  box-shadow: 0 0 25px rgba(0,0,0,0.2);
-
-  transition: all 1s cubic-bezier(0.13, 0.95, 0, 1), transform 2s cubic-bezier(0.13, 0.95, 0, 1);
+  max-width: 20rem;
 }
 
 .now-playing.loaded img {
   opacity: 1;
-  transform: perspective(500px) rotate3d(0, -1, 0, 4deg);
+}
+
+.np-metadata {
+  max-width: 20rem;
+  text-align: center;
+  padding-top: 0.5rem;
 }
 
 .now-playing .np-metadata .np-heading {
-  font-size: 11px;
-  font-weight: 900;
   opacity: 0.5;
-  text-transform: uppercase;
   letter-spacing: 0.11em;
 }
 
@@ -243,12 +239,4 @@ a.now-playing:hover img {
 .now-playing .np-metadata .breather {
   margin-right: 8px;
   display: inline-block;
-  animation: pulsate 5s linear 0s infinite;
-}
-
-@keyframes pulsate {
-  0% { transform: scale(0.2, 0.2) rotate(0deg); opacity: 0.0; }
-  50% { transform: scale(1, 1) rotate(50deg); opacity: 1; }
-  80% { transform: scale(1.8, 1.8) rotate(80deg); opacity: 0.2; }
-  100% { transform: scale(4, 4) rotate(100deg); opacity: 0; }
 }
