@@ -140,33 +140,33 @@
 (defun link-info ()
   "A pane to display personal links."
   (spinneret::with-html
-      (:table :class "info-table"
-              (:tr
-               (:td "Twitter")
-               (:td (:a :href "https://twitter.com/jakeissnt" "jakeissnt")))
-              (:tr
-               (:td "GitHub")
-               (:td (:a :href "https://github.com/jakeisnt") "jakeisnt"))
-              (:tr
-               (:td "Email")
-               (:td (:a :href "mailto://jake+website@isnt.online") "[j] at isnt dot online")))))
+    (:div :class "link-info-table"
+         (:table (:tr
+                  (:td "Twitter")
+                  (:td (:a :href "https://twitter.com/jakeissnt" "jakeissnt")))
+                 (:tr
+                  (:td "GitHub")
+                  (:td (:a :href "https://github.com/jakeisnt" "jakeisnt")))
+                 (:tr
+                  (:td "Email")
+                  (:td (:a :href "mailto://jake+website@isnt.online" "isnt dot online")))))))
 
 (defun employment-info ()
-  "A panel displaying my employment history."
-
-  )
+  "A panel displaying my employment history.")
 
 
-(defun make-history-link (file-path long-hash)
+(defun make-history-link (long-hash file-path)
   "Get a github permalink to a page in the wiki at a particular path and hash"
   (concatenate 'string "https://github.com/jakeisnt/wiki/blob/" long-hash "/" file-path))
 
 (defun git-history (hist file-path)
   "A pane that renders the given git history of a given file, with github links to history"
   (spinneret::with-html
-      (:table :class "git-hist-table"
-              (loop for (short-hash long-hash date) in hist
-                    collect
-                    (:tr
-                     (:td date)
-                     (:td (:a :href long-hash short-hash)))))))
+    (:div :class "git-hist-table"
+          (:table
+           (:tr (:th "History"))
+           (loop for (short-hash long-hash date) in hist
+                 collect
+                 (:tr
+                  (:td date)
+                  (:td (:a :href (make-history-link long-hash file-path) short-hash))))))))

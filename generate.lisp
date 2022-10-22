@@ -3,22 +3,28 @@
 (load "~/site/src/html.lisp")
 (load "~/site/src/path.lisp")
 (load "~/site/src/git.lisp")
+(load "~/site/src/components.lisp")
 (load "~/site/src/org/parser.lisp")
 
 (defparameter *site-location*  "/home/jake/site/docs/")
 (defparameter *site-url* "/home/jake/site/docs/")
 (defparameter *wiki-location*  "/home/jake/wiki/")
 
-(defun generate-file (file-path)
+(defparameter *homepage-path* (concatenate 'string *wiki-location* "/index.org"))
+
+(defun generate-file (file-path extras)
   "Generate an html file given a path to a org-mode source."
   (let ((result-path (path::change-file-path file-path *wiki-location* *site-location*)))
     (util::write-file
      result-path
-     (htmx::render-file (parser::parse file-path) result-path *site-location*))))
+     (htmx::render-file (parser::parse file-path) result-path *site-location* extras))))
 
 (defun generate-homepage ()
   "Generate the homepage."
-  (generate-file (merge-pathnames (concatenate 'string *wiki-location* "/index.org"))))
+  (generate-file
+   (merge-pathnames *homepage-path*)
+   (list
+    #'components::link-info)))
 
 
 (defun get-dir-dest (dirname)
@@ -53,10 +59,17 @@
 
 (defun write-dir-files (dir-ls)
   "Write the directory association list to html files"
-  (loop for (src-path target-path fdata) in dir-ls
+  (loop for (src-path target-path fdata git-info) in dir-ls
         do (util::write-file
               target-path
-              (htmx::render-file fdata target-path *site-location*))))
+              (htmx::render-file
+               fdata
+               target-path
+               *site-location*
+               (list
+                (lambda () (components::git-history
+                            git-info
+                            (namestring (path::remove-root src-path *wiki-location*)))))))))
 
 
 (defun generate-dir (dirname)

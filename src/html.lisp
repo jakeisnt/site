@@ -13,7 +13,7 @@
 (in-package htmx)
 
 
-(defmacro body (title out-of-main contents)
+(defmacro body (title out-of-main contents extra)
   "The body of every HTML page."
   `(spinneret::with-html-string
        (:html
@@ -66,6 +66,7 @@
                :id "site-body"
                ,out-of-main
                (:main ,contents)
+               ,extra
                (components::checkbox-menu))
          (:script "getNowPlaying()")))))
 
@@ -168,17 +169,18 @@
 ;; TODO: add edit icon.  this can just take to github page,
 ;; or open up buffer and take to github on save,
 ;; or something else - maybe my own endpoint? just has to be able to give user ability to contribute.
-(defun render-file (fdata path root)
+(defun render-file (fdata path root extras)
   "Render a file struct as an html page"
   (let* ((title (ast::file-title fdata)) (f-body (ast::file-body fdata)))
     (body
      title
      (components::sidebar path root title)
-     (list
-      (:article :class "wikipage"
+     (:article :class "wikipage"
                 (when title (spinneret::with-html (:h1 :class "title-top" title)))
                 (loop for node in f-body
-                      collect (render-node node)))))))
+                      collect (render-node node)))
+     ;; we have to delay evaluation of the template here, apparently?
+     (mapcar (lambda (a) (and a (funcall a))) extras))))
 
 
 (defun get-filename (fdata target-path)
@@ -193,23 +195,22 @@
 
   (let ((path (path::rename (cadr (car flist)) "index"))
         (title (concatenate 'string dirname "/index")))
-
     (body
      title
      (components::sidebar path root nil)
-     (list
-      (spinneret::with-html
-            (:table :class "url-cage"
-                 (loop for (src-path target-path fdata git-hist) in flist
-                       collect
-                       (let ((name (get-filename fdata target-path))
-                             (last-updated (car git-hist)))
-                         (spinneret::with-html
-                           (:tr
-                            (:td (caddr last-updated))
-                            (:td :class "file-name-tr"
-                                (:a
-                                  :id (concatenate 'string "indexmenu-" name)
-                                  :href (path::remove-root target-path root)
-                                  name))
-                            (:td (car last-updated))))))))))))
+     (spinneret::with-html
+       (:div :class "folder-index-page-table"
+             (:table (loop for (src-path target-path fdata git-hist) in flist
+                           collect
+                           (let ((name (get-filename fdata target-path))
+                                 (last-updated (car git-hist)))
+                             (spinneret::with-html
+                               (:tr
+                                (:td (caddr last-updated))
+                                (:td :class "file-name-tr"
+                                     (:a
+                                      :id (concatenate 'string "indexmenu-" name)
+                                      :href (path::remove-root target-path root)
+                                      name))
+                                (:td (car last-updated)))))))))
+     (list))))
