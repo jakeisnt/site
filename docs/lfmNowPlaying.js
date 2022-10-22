@@ -2,7 +2,7 @@
 /* source: https://gist.github.com/trisweb/2c0c94273f653c81f34dbe8e85ad30e7 via https://www.trisweb.com/ */
 /*
 /other cool idea: changing color and contrast of tbe website background when pressing a key, tapping or clicking
- */
+*/
 
 var LFM_API = "https://ws.audioscrobbler.com/2.0/";
 var LFM_KEY = "14eb0c0c914456103f2c584d930a44ba"; // Get one at https://secure.last.fm/login?next=/api/account/create
@@ -63,7 +63,7 @@ function renderNowPlaying(track) {
   metadata.innerHTML =
     (currently ?
       "<span class=\"np-date\">Currently Playing</span>" :
-      "<span class=\"np-date\">"+track.date["#text"]+"</span>") +
+      "<span class=\"np-date\">Last listened: "+track.date["#text"]+"</span>") +
     "<br>" +
     "<marquee>" +
     "<span class=\"np-artist\">"+track.artist["#text"]+"</span>" +
