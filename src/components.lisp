@@ -149,7 +149,7 @@
                   (:td (:a :href "https://github.com/jakeisnt" "jakeisnt")))
                  (:tr
                   (:td "Email")
-                  (:td (:a :href "mailto://jake+website@isnt.online" "isnt dot online")))))))
+                  (:td (:a :href "mailto://jake+website@isnt.online" "jake @")))))))
 
 (defun lastfm-now-playing ()
   "
