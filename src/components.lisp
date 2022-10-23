@@ -180,3 +180,13 @@
                  (:tr
                   (:td date)
                   (:td (:a :href (make-history-link long-hash file-path) short-hash))))))))
+
+
+;; TODO: Display some tree of file history with ascii.
+;; Show where we are, what's above us, and where we could go, with some context.
+;; Use ascii similar to `tree`; should feel like ascii art in a window.
+;;
+;; IDEA:  Common lisp DSL for describing the folder structure of our repo.
+;; This must be a subset of the structure of `wiki`.
+;; Files it targets are compiled to their configured locations,
+;; but it's easy to understand the sitemap if configured in one place.
