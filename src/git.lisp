@@ -24,7 +24,7 @@
    Given a source path of a file in /home/jake/wiki,
    produces a list of `((commit-hash modification-time) ...),
    with the most recent modification time first.
-   Format string: `(short-hash long-hash date)
+   Format string: `(short-hash long-hash date), producing list of these for every file.
    NOTE: %s is commit message, but i don't want to worry about parsing it rn.
   "
   (let ((res

@@ -73,6 +73,13 @@
                    git-info
                    (namestring (path::remove-root src-path *wiki-location*)))))))))
 
+(defun compare-file-dates (a b)
+  "Compare two file objects by date."
+  (labels ((last-commit-date (c) (caddr (car (cadddr c)))))
+    (let ((a-last-time (last-commit-date a))
+          (b-last-time (last-commit-date b)))
+
+      (string< b-last-time a-last-time))))
 
 (defun generate-dir (dirname)
   "
@@ -80,10 +87,11 @@
    The `dirname` provided is relative to the homepage of the wiki.
   "
   (let* ((dir-files (get-dir-files dirname))
-         (parsed-files (parse-dir-files dir-files)))
+         (parsed-files (parse-dir-files dir-files))
+         (sorted-files (sort (copy-seq parsed-files) #'compare-file-dates)))
 
-    (write-dir-files parsed-files)
-    (generate-index dirname parsed-files)))
+    (write-dir-files sorted-files)
+    (generate-index dirname sorted-files)))
 
 (defun generate ()
   (generate-homepage)

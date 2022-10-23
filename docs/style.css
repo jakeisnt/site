@@ -138,7 +138,7 @@ th {
   padding: 0;
   font-weight: 300;
   color: #282828;
-  border-bottom: 1px solid #eee8d5;
+  border-bottom: 2px solid #eee8d5;
 }
 
 .git-hist-table, .link-info-table, .folder-index-page-table {
