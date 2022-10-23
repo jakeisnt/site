@@ -93,8 +93,22 @@
     (write-dir-files sorted-files)
     (generate-index dirname sorted-files)))
 
+
+(defun generate-from-spec (folder)
+  (loop for form in folder
+        do (cond
+             ((stringp form) (generate-file)))))
+                                        ; it's a name; generate the
+
 (defun generate ()
-  (generate-homepage)
-  (generate-dir "pages"))
+
+  ;; A specification for the folder system.
+  (let ((spec
+          `(("pages")                   ; render all files in `pages` folder
+            "index.org"                 ; render this specific file
+            ("etc" "script.act"))))     ; render this file in this dir
+
+    (generate-homepage)
+    (generate-dir "pages")))
 
 ;; (generate)
