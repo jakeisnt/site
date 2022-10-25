@@ -178,10 +178,9 @@
 (defmacro fd (open-str close-str make-obj else)
   `(let ((maybe-found (try-find text-line ,open-str ,close-str ,make-obj)))
      (if (car maybe-found)
-         (let ()
-           (let ((remaining-string (car (cdr maybe-found)))
-                 (new-acc (cons (car maybe-found) acc)))
-             (tokenize-line remaining-string new-acc)))
+         (let ((remaining-string (car (cdr maybe-found)))
+               (new-acc (cons (car maybe-found) acc)))
+           (tokenize-line remaining-string new-acc))
          ,else)))
 
 (defun fuse-subseq (acc cur)
