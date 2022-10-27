@@ -133,7 +133,6 @@
 (defun header (node)
   (spinneret::with-html
     (:section
-     :id
      (cons
       (header-head node)
       (header-body node)))))

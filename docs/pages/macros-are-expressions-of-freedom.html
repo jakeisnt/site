@@ -53,64 +53,69 @@
        your hands. Everything else follows, and all of the rules are develoepd around 
        this beautiful, simple principle. The structured game falls out from this very 
        simple idea.</span>
-     <h2>Lisp</h2>
-     <p><span>Everything is a list. Actually it turns out that even common lisp 
-       doesn&#39;t have proper homoionicity lol, but if your program has a list and you 
-       have this wild &#39;eval&#39; function that can evaluate a list, turns out you 
-       can consdtruct the world. CPS is less important and actually distracting. CPS 
-       feels like a rule that builds complexity rather than freedom; tools like call/cc 
-       introduce another system of evaluation that is quite difficult to handle in 
-       addition to the traditional one, and programmers wan the value in their head; 
-       they don&#39;t want to have to think about all the continuations we have in the 
-       current context, they just want to think about what i can get from what I have 
-       right now and where it goes and to forget about the rest. &quot;CPS is for old 
-       people&quot;. - Matthias Felleisen</span>
-     <p><span>The biggest thing I don&#39;t like about lisp is that it obscures details 
-       about the underlying system; it assumes some model of infinite memory.</span>
-     <section id="(NIL NIL NIL NIL NIL)"></section>
-     <h2>Forth</h2>
-     <p><span> Eveyrthing is a stack adn we have this simple stack machine that can do 
-       anything. Insanely efficient, and unlike even lisp we don&#39;t need multuple 
-       evaluation levels to properly metaprogram. We can just move functions around on 
-       the stack! This is not dissimilar to tactics, in that tactics keep in mind some 
-       order of application of a list of expressions and allow you to rearrange how 
-       they&#39;re applied in a metaprogram when proving theorems. Is a metaprogram the 
-       right word? I&#39;m not sure.</span>
-     <p><span> I also like that stack langauges like forth, through their semantics, 
-       implicitly develop a memory model of the underlying system.</span>
-     <section id="(NIL NIL NIL NIL NIL)"></section>
-     <h2>DJing</h2>
-     <p><span>DJing is just a macro system for music. You have these completed tracks 
-       made by these beautiful artists, and you can approach whole-track modification 
-       after these products can be completed, ev en adding in new songs and ideas on 
-       top of them. You have this ver ysimple set of rules - you have control ovewr the 
-       position of the track and the volume of the waveform at particular points. and 
-       so much beauty falls out from that and from the music of others. djing is really 
-       a social event, a conversation with those around you. provide them the energy to 
-       hang out!</span>
-     <p><span>You can get &quot;into the guts&quot; of DJing as much as you want, and 
-       the same rules apply to every track! but it&#39;s this investigative, 
-       descriptive process of breaking down the waveforms of a completed song and 
-       extracting imperfect information from them. you&#39;re taking complete products 
-       and dissecting them to form new thing</span>
-     <section id="(NIL NIL NIL NIL NIL)"></section>
-     <h2>Prose</h2>
-     <p><span>Writing is inherently unstructured and we can ascribe any structure we 
-       want to it, which is beautiful. prose is unstructured conversation, and it&#39;s 
-       important for everything to be a conversation</span>
-     <section id="(NIL NIL NIL)"></section>
-     <h2>Photography</h2>
-     <p><span>reminds me of DJing; your role is only to highlight a particular 
-       perspective. you can control the &quot;macro&quot; elements but not the micro 
-       (photoshop can be avoided with better work and better practices!) and i love the 
-       practice of using lightroom &quot;macros&quot; to adjust the environment 
-       globally, and having some level of local change, but not being able to directly 
-       modify everything locally. ie if i&#39;m taking a photo of a building i have no 
-       ability to modify the building, i must just observe it and try to frame it in 
-       the best way possible. this reminds me of worshipping, and maybe djing is 
-       worshipping tracks, but it is also having a conversation with the space 
-       you&#39;re inhabiting and with the creators, like programming</span>
-     <section id="(NIL NIL)"></section>
+     <section>
+      <h2>Lisp</h2>
+      <p><span>Everything is a list. Actually it turns out that even common lisp 
+        doesn&#39;t have proper homoionicity lol, but if your program has a list and you 
+        have this wild &#39;eval&#39; function that can evaluate a list, turns out you 
+        can consdtruct the world. CPS is less important and actually distracting. CPS 
+        feels like a rule that builds complexity rather than freedom; tools like call/cc 
+        introduce another system of evaluation that is quite difficult to handle in 
+        addition to the traditional one, and programmers wan the value in their head; 
+        they don&#39;t want to have to think about all the continuations we have in the 
+        current context, they just want to think about what i can get from what I have 
+        right now and where it goes and to forget about the rest. &quot;CPS is for old 
+        people&quot;. - Matthias Felleisen</span>
+      <p><span>The biggest thing I don&#39;t like about lisp is that it obscures details 
+        about the underlying system; it assumes some model of infinite memory.</span>
+     </section>
+     <section>
+      <h2>Forth</h2>
+      <p><span> Eveyrthing is a stack adn we have this simple stack machine that can do 
+        anything. Insanely efficient, and unlike even lisp we don&#39;t need multuple 
+        evaluation levels to properly metaprogram. We can just move functions around on 
+        the stack! This is not dissimilar to tactics, in that tactics keep in mind some 
+        order of application of a list of expressions and allow you to rearrange how 
+        they&#39;re applied in a metaprogram when proving theorems. Is a metaprogram the 
+        right word? I&#39;m not sure.</span>
+      <p><span> I also like that stack langauges like forth, through their semantics, 
+        implicitly develop a memory model of the underlying system.</span>
+     </section>
+     <section>
+      <h2>DJing</h2>
+      <p><span>DJing is just a macro system for music. You have these completed tracks 
+        made by these beautiful artists, and you can approach whole-track modification 
+        after these products can be completed, ev en adding in new songs and ideas on 
+        top of them. You have this ver ysimple set of rules - you have control ovewr the 
+        position of the track and the volume of the waveform at particular points. and 
+        so much beauty falls out from that and from the music of others. djing is really 
+        a social event, a conversation with those around you. provide them the energy to 
+        hang out!</span>
+      <p><span>You can get &quot;into the guts&quot; of DJing as much as you want, and 
+        the same rules apply to every track! but it&#39;s this investigative, 
+        descriptive process of breaking down the waveforms of a completed song and 
+        extracting imperfect information from them. you&#39;re taking complete products 
+        and dissecting them to form new thing</span>
+     </section>
+     <section>
+      <h2>Prose</h2>
+      <p><span>Writing is inherently unstructured and we can ascribe any structure we 
+        want to it, which is beautiful. prose is unstructured conversation, and it&#39;s 
+        important for everything to be a conversation</span>
+     </section>
+     <section>
+      <h2>Photography</h2>
+      <p><span>reminds me of DJing; your role is only to highlight a particular 
+        perspective. you can control the &quot;macro&quot; elements but not the micro 
+        (photoshop can be avoided with better work and better practices!) and i love the 
+        practice of using lightroom &quot;macros&quot; to adjust the environment 
+        globally, and having some level of local change, but not being able to directly 
+        modify everything locally. ie if i&#39;m taking a photo of a building i have no 
+        ability to modify the building, i must just observe it and try to frame it in 
+        the best way possible. this reminds me of worshipping, and maybe djing is 
+        worshipping tracks, but it is also having a conversation with the space 
+        you&#39;re inhabiting and with the creators, like programming</span>
+     </section>
     </article>
    </main>
    <div class=git-hist-table>
