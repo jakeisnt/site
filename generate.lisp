@@ -25,6 +25,7 @@
    (merge-pathnames *homepage-path*)
    (list
     #'components::lastfm-now-playing
+    #'components::last-arena-blocks
     #'components::link-info)))
 
 

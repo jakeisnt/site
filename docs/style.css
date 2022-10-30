@@ -229,7 +229,6 @@ a.now-playing:hover, a.now-playing:focus {
   opacity: 0;
   width: 100%;
   height: auto;
-  vertical-align: bottom;
 }
 
 .now-playing.loaded img {
@@ -249,11 +248,6 @@ a.now-playing:hover, a.now-playing:focus {
 .now-playing .np-metadata .np-roon {
   width: 10px;
   opacity: 0.5;
-}
-
-.now-playing .np-metadata .breather {
-  margin-right: 8px;
-  display: inline-block;
 }
 
 .err-page {

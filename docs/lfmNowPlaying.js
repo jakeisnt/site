@@ -65,12 +65,14 @@ function renderNowPlaying(track) {
       "<span class=\"np-date\">Currently Playing</span>" :
       "<span class=\"np-date\">Last listened: "+track.date["#text"]+"</span>") +
     "<br>" +
-    "<marquee>" +
+    // "<marquee>" +
     "<span class=\"np-artist\">"+track.artist["#text"]+"</span>" +
     "<span> :: </span>" +
     "<span class=\"np-title\"><strong>" +
     track.name +
-    "</strong></span></marquee>";
+    "</strong></span>"
+    // + "</marquee>"
+  ;
 
   nowPlayingNode.appendChild(metadata);
 

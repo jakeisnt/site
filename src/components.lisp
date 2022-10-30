@@ -161,9 +161,14 @@
     (:script :src "/lfmNowPlaying.js")
     (:script "getNowPlaying()")))
 
+(defun last-arena-blocks ()
+  "Displays the last three are.na blocks that I've added."
+  (spinneret::with-html
+    (:script :src "/arenaBlocks.js")
+    (:script "addArenaImages()")))
+
 (defun employment-info ()
   "A panel displaying my employment history.")
-
 
 (defun make-history-link (long-hash file-path)
   "Get a github permalink to a page in the wiki at a particular path and hash"
