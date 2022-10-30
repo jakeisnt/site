@@ -227,7 +227,7 @@ a.now-playing:hover, a.now-playing:focus {
 
 .now-playing img {
   opacity: 0;
-  width: 100%;
+  width: 20rem;
   height: auto;
 }
 

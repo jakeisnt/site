@@ -28,7 +28,7 @@ function createImageTag(block) {
   linkTag.target = "blank";
 
   img.setAttribute("src", block.image.original.url);
-  img.style.width = "14rem";
+  // img.style.width = "14rem";
   linkTag.appendChild(img);
 
   setTimeout(function() {

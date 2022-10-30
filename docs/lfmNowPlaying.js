@@ -49,11 +49,11 @@ function renderNowPlaying(track) {
     nowPlayingNode.remove();
   }
   nowPlayingNode = document.createElement("a");
-  nowPlayingNode.setAttribute("class", "now-playing");
+  nowPlayingNode.className = "now-playing";
 
   var imageurl = track.image.slice(-1)[0]["#text"];
   var nowPlayingImage = document.createElement("img");
-  nowPlayingImage.setAttribute("src", imageurl);
+  nowPlayingImage.src = imageurl;
   nowPlayingNode.appendChild(nowPlayingImage);
 
   var currently = track["@attr"] && track["@attr"].nowplaying == "true";
@@ -65,18 +65,15 @@ function renderNowPlaying(track) {
       "<span class=\"np-date\">Currently Playing</span>" :
       "<span class=\"np-date\">Last listened: "+track.date["#text"]+"</span>") +
     "<br>" +
-    // "<marquee>" +
     "<span class=\"np-artist\">"+track.artist["#text"]+"</span>" +
     "<span> :: </span>" +
     "<span class=\"np-title\"><strong>" +
     track.name +
-    "</strong></span>"
-    // + "</marquee>"
-  ;
+    "</strong></span>";
 
   nowPlayingNode.appendChild(metadata);
-
-  nowPlayingNode.setAttribute("href", track.url);
+  nowPlayingNode.href = track.url;
+  nowPlayingNode.target = "blank";
 
   document.getElementById("site-body").appendChild(nowPlayingNode);
 
