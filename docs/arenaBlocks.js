@@ -1,20 +1,20 @@
 // Script to display the last few are.na blocks a user has seen
 
 // deferred script
-const per_page = 10;
-const jakeisntArenaId = 210234;
 
-//   `https:api.are.na/v2/channels/${jakeisntArenaId}/contents?page=${current_page}&perPage=${per_page}&direction=desc&sort=position`
-// "scientific-progress-first-and-forever"
+const currentPage = 0;
+const perPage = 3;
+const jakeisntArenaId = 210234;
+const channelName = "scientific-progress-first-and-forever";
 
 // Get the last three blocks I've posted on are.na
 async function getUserBlocks() {
   // `https://api.are.na/v2/channels/${jakeisntArenaId}/contents?page=${current_page}&perPage=${per_page}&direction=desc&sort=position`
   let response = await fetch(
-    `https://api.are.na/v2/users/${jakeisntArenaId}/channel?page=0&perPage=${per_page}`
+    `https:api.are.na/v2/channels/${channelName}/contents?page=${currentPage}&perPage=${perPage}&direction=desc&sort=position`
   );
   let data = await response.json();
-  return data.blocks;
+  return data.contents;
 }
 
 // create a tag from an are.na block
@@ -27,6 +27,7 @@ function createImageTag(block) {
   linkTag.target = "blank";
 
   img.setAttribute("src", block.image.original.url);
+  img.style.width = "15rem";
   linkTag.appendChild(img);
 
   return linkTag;
@@ -35,12 +36,9 @@ function createImageTag(block) {
 // Add an image to the document
 async function addArenaImages() {
   let blocks = await getUserBlocks();
-  for (let i = 0; i < blocks.length; i++) {
-    if (blocks[i].image) {
-      let divTag = createImageTag(blocks[i]);
-      parentRow = document.getElementById("site-body");
-      // parentRow = (i % 2 === 0 ? document.getElementById('row') : document.getElementById('row1'));
-      parentRow.appendChild(divTag);
-    }
-  }
+  const parentRow = document.getElementById("site-body");
+
+  blocks.forEach((block) => {
+    if (block.image) parentRow.appendChild(createImageTag(block));
+  });
 }
