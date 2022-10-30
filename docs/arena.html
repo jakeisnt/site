@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WALTER WHITE'S QUICKREEL</title>
+    <meta
+      name="description"
+      content="A simple customizable showreel running on Are.na."
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body onload="add_img()">
+    <script defer>
+      let dynamic_id = 1;
+      let current_page = 1;
+      per_page = 10;
+      let current_count = 0;
+      window.addEventListener('scroll', () => {
+        const { scrollTop, clientHeight, scrollHeight } =
+          document.documentElement;
+        if (scrollTop + clientHeight >= scrollHeight) {
+          add_img();
+        } else if (current_count >= 19) {
+          add_img();
+          current_count = 0;
+        }
+
+        console.log('scrollTop', scrollTop);
+        console.log('clientHeight', clientHeight);
+        console.log('scrollHeight', scrollHeight);
+        if (this.oldScroll > this.scrollY) {
+          let element = document.getElementById('arrow-id');
+          element.classList.remove('content-2');
+          let element1 = document.getElementById('profile-content-id');
+          element1.classList.remove('content-2');
+
+          element.classList.add('content-1');
+          element1.classList.add('content-1');
+
+          console.log('Scroll up');
+        } else if (scrollTop > 0) {
+          let element = document.getElementById('arrow-id');
+          let element1 = document.getElementById('profile-content-id');
+          element.classList.remove('content-1');
+          element1.classList.remove('content-1');
+          element.classList.add('content-2');
+          element1.classList.add('content-2');
+          console.log('Scroll down');
+        }
+        this.oldScroll = this.scrollY;
+      });
+      async function getData() {
+
+      const jakeisntArenaId = 210234;
+
+          // `https://api.are.na/v2/channels/${jakeisntArenaId}/contents?page=${current_page}&perPage=${per_page}&direction=desc&sort=position`
+        let response = await fetch(
+          `https://api.are.na/v2/users/${jakeisntArenaId}/channel?page=${current_page}&perPage=${per_page}&direction=asc&sort=position`
+        );
+        let data = await response.json();
+        // console.log(data);
+        current_page++;
+        return { contents: data.blocks };
+      }
+      async function add_img() {
+        let data = await getData();
+        for (let i = 0; i < data.contents.length; i++) {
+        if (data.contents[i].image) {
+          var img = document.createElement('img');
+          var pTag = document.createElement('p');
+          var text = document.createTextNode(data.contents[i].title);
+          pTag.appendChild(text);
+
+          var divTag = document.createElement('a');
+          divTag.href = `https://www.are.na/block/${data.contents[i].id}`;
+          divTag.target = "blank";
+          divTag.id = 'column' + dynamic_id;
+          divTag.className = 'column';
+
+          img.src = data.contents[i].image.original.url;
+          img.style.width = '100%';
+          img.style.height = 'auto';
+
+          if (i % 2 === 0) {
+            document.getElementById('row').appendChild(divTag);
+            document.getElementById('column' + dynamic_id).appendChild(pTag);
+            document.getElementById('column' + dynamic_id).appendChild(img);
+          } else {
+            document.getElementById('row1').appendChild(divTag);
+            document.getElementById('column' + dynamic_id).appendChild(pTag);
+            document.getElementById('column' + dynamic_id).appendChild(img);
+          }
+        }
+
+          dynamic_id++;
+          current_count++;
+        }
+
+      }
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      $.fn.moveIt = function () {
+        var $window = $(window);
+        var instances = [];
+
+        $(this).each(function () {
+          instances.push(new moveItItem($(this)));
+        });
+
+        window.onscroll = function () {
+          var scrollTop = $window.scrollTop();
+          instances.forEach(function (inst) {
+            inst.update(scrollTop);
+          });
+        };
+      };
+
+      var moveItItem = function (el) {
+        this.el = $(el);
+        this.speed = parseInt(this.el.attr('data-scroll-speed'));
+      };
+
+      moveItItem.prototype.update = function (scrollTop) {
+        var pos = scrollTop / this.speed;
+        this.el.css('transform', 'translateY(' + -pos + 'px)');
+      };
+
+      $(function () {
+        $('[data-scroll-speed]').moveIt();
+      });
+    </script>
+    <style>
+  .wrapper {
+      display: flex;
+      flex-direction: row;
+      width: 80%;
+      flex-wrap: wrap;
+      margin-left: 11%;
+      margin-right: 10%;
+  }
+
+  .wrapper>div{
+      width: 45%;
+      padding: 10px;
+  }
+  img {
+      height: 10%;
+      width: 10%;
+  }
+  .content-2{
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 1s, opacity 1s linear;
+  }
+  .content-1{
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 1s linear;
+  }
+
+  /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 660px) {
+      .wrapper>div{
+          width: 100%;
+          margin-left: 2%;
+          margin-right: 10%;
+      }
+  }
+
+  @media screen and (max-width: 1000px) and (min-width:661px){
+    .wrapper>div{
+        width: 35%;
+        margin-left: 2%;
+        margin-right: 10%;
+    }
+}
+  </style>
+    <div class="content">
+      <div class="wrapper">
+        <div class="box" data-scroll-speed="3" id="row"></div>
+        <div class="box" data-scroll-speed="1" id="row1"></div>
+      </div>
+    </div>
+  </body>
+</html>

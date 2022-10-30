@@ -30,13 +30,13 @@ article {
 }
 
 @media only screen and (max-width: 500px) {
-    body {
-      max-width: 100%;
-    }
+  body {
+    max-width: 100%;
+  }
 
-    main {
-      max-width: 100%;
-    }
+  main {
+    max-width: 100%;
+  }
 }
 
 .foot {
@@ -204,14 +204,15 @@ th {
   margin-right: auto;
 }
 
- ul {
+ul {
   padding-left: 1rem;
   list-style-type: "➜ ";
 }
 
 /* LastFM live music */
 
- a.now-playing {
+
+a.now-playing {
   padding: 1rem;
   border: 2px solid #eee8d5;
   background: #fff;
@@ -262,4 +263,14 @@ a.now-playing:hover, a.now-playing:focus {
   border: 2px solid #eee8d5;
   background-color: #fff;
   padding: 0 1rem;
+}
+
+/**  arena */
+a.column {
+  padding: 1rem;
+  border: 2px solid #eee8d5;
+  background: #fff;
+  margin: 1rem;
+  max-width: 25rem;
+  align-self: start; /* do not flex grow */
 }
