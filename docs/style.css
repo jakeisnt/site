@@ -4,6 +4,9 @@
 html {
   font-size: 14px;
   font-family: "Noto Sans", sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   word-wrap: break-word;
   hyphens: auto;
 }
