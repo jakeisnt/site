@@ -210,9 +210,8 @@ ul {
 }
 
 /* LastFM live music */
-
-
 a.now-playing {
+  display: inline-block;
   padding: 1rem;
   border: 2px solid #eee8d5;
   background: #fff;
@@ -228,7 +227,9 @@ a.now-playing:hover, a.now-playing:focus {
 
 .now-playing img {
   opacity: 0;
-  max-width: 20rem;
+  width: 100%;
+  height: auto;
+  vertical-align: bottom;
 }
 
 .now-playing.loaded img {
@@ -263,14 +264,4 @@ a.now-playing:hover, a.now-playing:focus {
   border: 2px solid #eee8d5;
   background-color: #fff;
   padding: 0 1rem;
-}
-
-/**  arena */
-a.column {
-  padding: 1rem;
-  border: 2px solid #eee8d5;
-  background: #fff;
-  margin: 1rem;
-  max-width: 25rem;
-  align-self: start; /* do not flex grow */
 }

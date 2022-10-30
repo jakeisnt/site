@@ -45,26 +45,29 @@
 
      function createImageTag(block) {
        var img = document.createElement('img');
-       var divTag = document.createElement('a');
+       var linkTag = document.createElement('a');
+       // var divTag = document.createElement("div");
 
        // adds image title. not used.
        // var pTag = document.createElement('p');
        // var text = document.createTextNode(data.contents[i].title);
        // pTag.appendChild(text);
 
-       divTag.href = `https://www.are.na/block/${block.id}`;
-       divTag.target = "blank";
-       divTag.id = 'column' + dynamic_id;
-       divTag.className = 'column';
+       linkTag.id = 'column' + dynamic_id;
+       linkTag.className = 'now-playing loaded';
 
-       img.src = block.image.original.url;
-       img.style.width = '100%';
-       img.style.height = 'auto';
+       linkTag.href = `https://www.are.na/block/${block.id}`;
+       linkTag.target = "blank";
+
+       img.setAttribute("src", block.image.original.url);
+       // img.style.width = '100%';
+       // img.style.height = 'auto';
 
        // divTag,appendChild(pTag);
-       divTag.appendChild(img);
+       linkTag.appendChild(img);
+       // divTag.appendChild(linkTag);
 
-       return divTag;
+       return linkTag;
      }
 
      async function add_img() {
