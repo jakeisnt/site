@@ -2,9 +2,9 @@
 
 // deferred script
 
-const currentPage = 0;
+const currentPage = 1;
 const perPage = 3;
-const jakeisntArenaId = 210234;
+const myArenaId = 210234;
 const channelName = "scientific-progress-first-and-forever";
 
 // Get the last three blocks I've posted on are.na
@@ -22,21 +22,26 @@ function createImageTag(block) {
   var img = document.createElement('img');
   var linkTag = document.createElement('a');
 
-  linkTag.className = 'now-playing loaded';
+  linkTag.className = 'now-playing';
+
   linkTag.href = `https://www.are.na/block/${block.id}`;
   linkTag.target = "blank";
 
   img.setAttribute("src", block.image.original.url);
-  img.style.width = "15rem";
+  img.style.width = "14rem";
   linkTag.appendChild(img);
+
+  setTimeout(function() {
+    linkTag.setAttribute("class", "now-playing loaded");
+  }, 100);
 
   return linkTag;
 }
 
 // Add an image to the document
 async function addArenaImages() {
-  let blocks = await getUserBlocks();
   const parentRow = document.getElementById("site-body");
+  let blocks = await getUserBlocks();
 
   blocks.forEach((block) => {
     if (block.image) parentRow.appendChild(createImageTag(block));
