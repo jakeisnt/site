@@ -48,11 +48,15 @@
      <h1 class=title-top>Window Management</h1>
      <p><span>Window managers are programs that allow a user to interface with their 
        computer.</span>
-     <p><span>I currently use the </span><a class=internal href=file:../tools/exwm.org>
-       {EXWM}</a><span> window manager, but I&#39;ve used </span><a class=internal
-      href=file:../tools/bspwm.org>{Bspwm}</a><span>, i3 and herbstluftwm in the past.</span>
-     <p><span>On MacOS and Windows, this is your standard user interface, just as it is 
-       with Gnome or another desktop management service in Linux.</span>
+     <p><span>I currently use the Sway window manager for the benefits that Wayland 
+       provides, but I&#39;ve used EXWM, </span><a class=internal
+      href=file:../tools/bspwm.org>{Bspwm}</a><span>, i3 and herbstluftwm in the past - 
+       as well as whatever GNOME system that Ubuntu had installed on 18.</span>
+     <p><a class=external href=https://www.are.na/block/18752836>[Sahand Nayebaziz on 
+       Twitter — Are.na]</a><span>: Very cool keyboard-only manipulation of a design 
+       tool. The whole operating system should offer this level of easy, 
+       customizability and control over the work. I&#39;m not a huge fan of the overuse 
+       of the command palette though...</span>
      <section>
       <h2>Utilities</h2>
       <ul>
@@ -75,14 +79,14 @@
          appropriate X window setup.</span>
       </ul>
       <ul>
-       <li><span> </span><a class=external href=https://github.com/baskerville/xtitle>
-         [https://github.com/baskerville/xtitle]</a><span>gets x window titles</span>
-      </ul>
-      <ul>
        <li><span> </span><a class=external href=https://github.com/salman-abedin/devour>
-         [https://github.com/salman-abedin/devour]</a><span>script to open a tool created 
-         by a terminal on top of the terminal rather than allowing the terminal to waste 
-         space</span>
+         [https://github.com/salman-abedin/devour]</a><span>is a script to open a tool 
+         created by a terminal on top of the terminal rather than allowing the terminal 
+         to waste space. This is a cool idea and makes the system feel smoother - but it 
+         might be more interesting to see the output in some way while viewing the result 
+         of the command in an ergonomic, notebook-like way! Some terminals with web 
+         rendering capabilities are working on these visualizations, but they&#39;ve been 
+         done since smalltalk, really.</span>
       </ul>
      </section>
      <section>
@@ -111,16 +115,14 @@
        <li><span> </span><a class=external href=https://github.com/conformal/spectrwm>
          [https://github.com/conformal/spectrwm]</a><span>fun tiling wm</span>
       </ul>
-     </section>
-     <section>
-      <h2>experiments</h2>
-      <p><a class=external
-       href=https://www.notion.so/Expanding-UI-OS-e58f65ad81d94fb187cc18275b22f68c>[an 
-        OS for autonomy]</a>
-      <p><a class=external
-       href=https://www.notion.so/Dango-b46c07f3dc224f968c768885abe70e70>[single 
-        flexible digital document instead of all apps]</a>
-      <p><a class=external href=https://stumpwm.github.io>[stumpwm]</a>
+      <ul>
+       <li><span> </span><a class=external href="https://stumpwm.github.io/">[StumpWM]</a>
+        <span> is interesting insofar as its behavior is runtime modifiable using Common 
+         Lisp. I&#39;m not sure how far this goes or to what degree people want to be 
+         able to modify their window manager - it&#39;s not something that strikes me as 
+         particularly flexible, but it might be nice to have such a system to work with 
+         during development of a WM.</span>
+      </ul>
      </section>
     </article>
    </main>
@@ -128,6 +130,16 @@
     <table>
      <tr>
       <th>History
+     <tr>
+      <td>2022-10-31
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/2577ddb373a1e878bb339fabc44861c3951cacc3//pages/wm.org>
+        2577ddb</a>
+     <tr>
+      <td>2022-10-30
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/281447e3db3d1850a850e080a09d0a88df728d20//pages/wm.org>
+        281447e</a>
      <tr>
       <td>2021-09-22
       <td><a

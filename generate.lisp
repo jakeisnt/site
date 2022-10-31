@@ -95,11 +95,13 @@
     (generate-index dirname sorted-files)))
 
 
+;; TODO: generate RSS feed from website
+;; how to add feed discovery: https://www.petefreitag.com/item/384.cfm
+
 (defun generate-from-spec (folder)
   (loop for form in folder
         do (cond
              ((stringp form) (generate-file)))))
-                                        ; it's a name; generate the
 
 (defun generate ()
 

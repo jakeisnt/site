@@ -47,31 +47,42 @@
      <h1 class=title-top>Arch Linux</h1>
      <p><span>Arch Linux is a popular, flexible Linux distribution. </span><a
       class=internal href=id:f1a963ac-291b-421f-8cf9-93d41292dda5>{Operating Systems}</a>
-     <p><span>It&#39;s a </span><i>rolling release</i><span> distribution. This means 
-       that it always has the newest versions of packages and the linux kernel.</span>
+     <p><span>It&#39;s a </span><i>rolling release</i><span> distribution; it always 
+       tries to use the newest available version of packages and linux kernel, but does 
+       not provide an easy way to revert to previous versions of software.</span>
      <p><span>The AUR, or Arch User Repositories, provide probably the widest selection 
-       of packages available from any Linux distribution, as it&#39;s incredibly easy 
-       for end users of Arch to create, publish and maintain them relative to other 
-       distributions.</span>
-     <p><span>I no longer use the system because I&#39;ve become frustrated with 
-       Linux&#39;s approach to configuration and package management. As such, I&#39;m 
-       now using NixOS.</span>
+       of packages available from any Linux distribution. Being able to</span>
+     <p><span>Arch is a great learning tool - it&#39;ll show you how to poke around a 
+       Linux system to change whatever you&#39;d like, and it&#39;ll let you shoot 
+       yourself in the foot as much as you want. This is incredibly frustrating, but 
+       fixing the litany of problems that arise from configuration mishaps, broken 
+       packages, and backwards-incompatible updates will teach you so much about 
+       navigating a Linux system (or - at least - show you how to help debug system 
+       issues).</span>
+     <p><span>I use NixOS now, which provides a declarative programming language for 
+       configuring Linux systems rather than maintaining a scattered state of 
+       configuration across the system (as most Linux distributions do). But I 
+       don&#39;t at all regret dropping a Windows partition and forcing myself to use 
+       Arch for day-to-day work.</span>
      <section>
       <h2>Derivatives</h2>
       <p><a class=external href=https://github.com/archcraft-os/archcraft>[Archcraft]</a>
-      <p><a class=external href=https://github.com/BlackArch/blackarch>[BlackArch: Arch 
-        for pentesters]</a><span> </span>
+       <span> looks like a decent way to start. Reminds me of </span><a class=external
+       href="`https://manjaro.org/">[Manjaro]</a><span> - it&#39;s less painless to burn 
+        the ISO than Arch itself but still gets you the AUR and absolute trust in the 
+        user that Arch is known for.</span>
      </section>
      <section>
       <h2>Tools</h2>
       <ul>
        <li><span> </span><a class=external href=https://github.com/fosskers/aura>[Aura]</a>
-        <span> is a package manager for Arch and the AUR</span>
+        <span> is a package manager for Arch and the AUR; I used this to more easily 
+         install AUR packages with a single utility.</span>
       </ul>
       <ul>
        <li><span> </span><a class=external
-        href=https://github.com/ibrahimbutt/direwolf-arch-rice>[Direwolf&#39;s Arch Rice]</a>
-        <span> :: scripts for ricing arch</span>
+        href=https://www.brendangregg.com/linuxperf.html>[Linux Performance]</a><span> 
+         tools that seem incredibly useful.</span>
       </ul>
      </section>
     </article>
@@ -80,6 +91,16 @@
     <table>
      <tr>
       <th>History
+     <tr>
+      <td>2022-10-31
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/77c257eaafc2a00961ea42122e9896d91da2b408//pages/arch-linux.org>
+        77c257e</a>
+     <tr>
+      <td>2022-10-30
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/8e798d1131c7442a1cd3c317b56fc855ff7aecce//pages/arch-linux.org>
+        8e798d1</a>
      <tr>
       <td>2021-09-22
       <td><a

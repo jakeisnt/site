@@ -47,12 +47,17 @@
      <h1 class=title-top>Wayland</h1>
      <p><span>Resources for Wayland </span><a class=internal
       href=id:15f7cf6e-6e91-4c11-9233-45465e2c338c>{Window Management}</a><span>.</span>
+     <p><span>I&#39;m currently using Wayland as my window manager of choice but am 
+       wondering whether it&#39;s worthwhile - I can&#39;t track information about what 
+       programs I&#39;m using at what time, what keystrokes I&#39;m using, etc - 
+       information I&#39;d like to have about my computer usage (but that causes 
+       obvious security problems for userland programs)!</span>
      <section>
       <h2>How to make sure an application is not XWayland</h2>
-      <p><span>Install Xeyes, one of the X11 demo apps</span>
-      <p><span>if the eyes are moving when you mouse over the app, it&#39;s X and 
-        running on XWayland, as X is giving it access to all of your information. 
-        Otherwise, you know it&#39;s just wayland.</span>
+      <p><span>Install Xeyes, one of the X11 demo apps. If the eyes are moving when you 
+        mouse over the app, it&#39;s X and running on XWayland, as X is giving it access 
+        to all of your desktop information. If they aren&#39;t, the app&#39;s running in 
+        Wayland - the eyes don&#39;t have access.</span>
      </section>
      <section>
       <h2>Resources</h2>
@@ -68,11 +73,32 @@
       <p><a class=external
        href="https://www.reddit.com/r/swaywm/comments/ev3ty6/does_anyone_know_a_workaround_to_share_screen_in/">
         [loopback device for screen sharing]</a>
-      <p><a class=external href=https://github.com/Smithay/smithay>[smithay]</a><span>: 
-        a tool for </span><a class=internal href=id:cae43ca9-ddd4-42da-877a-6aeeb2264ae7>
-        {Rust}</a><span> wayland compositor development</span>
       <p><a class=external href="https://rmsol.de/2020/04/25/v4l2/">[control video 
         devices like a webcam]</a>
+     </section>
+     <section>
+      <h2>Implementation Libraries</h2>
+      <ul>
+       <li><span> </span><a class=external href=https://github.com/swaywm/wlroots>[GitHub 
+         - swaywm/wlroots: A modular Wayland compositor library]</a><span> :: A C 
+         bootstrapping toolkit for building Wayland compositors. Is this useful? I&#39;ll 
+         investigate further.</span>
+      </ul>
+      <ul>
+       <li><span> </span><a class=external href=https://github.com/Smithay/smithay>
+         [smithay]</a><span> :: a tool for </span><a class=internal
+        href=id:cae43ca9-ddd4-42da-877a-6aeeb2264ae7>{Rust}</a><span> wayland compositor 
+         development</span>
+      </ul>
+      <ul>
+       <li><span> </span><a class=external
+        href=https://github.com/malcolmstill/cl-wayland>[GitHub - 
+         malcolmstill/cl-wayland: Common Lisp bindings for libwayland]</a>
+      </ul>
+      <ul>
+       <li><span> </span><a class=external href=https://github.com/swaywm/zig-wlroots>
+         [GitHub - swaywm/zig-wlroots: Zig bindings for wlroots]</a>
+      </ul>
      </section>
     </article>
    </main>
@@ -80,6 +106,11 @@
     <table>
      <tr>
       <th>History
+     <tr>
+      <td>2022-10-31
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/2577ddb373a1e878bb339fabc44861c3951cacc3//pages/wayland.org>
+        2577ddb</a>
      <tr>
       <td>2021-09-22
       <td><a

@@ -1,0 +1,114 @@
+<html lang=en>
+ <head>
+  <meta charset=UTF-8>
+  <meta charset=utf-8>
+  <title>Latency Matters | Jake Chvatal</title>
+  <meta name=viewport
+        content="width=device-width,initial-scale=1.0">
+  <meta property=og:title
+        content="Latency Matters">
+  <meta property=og:type content=website>
+  <meta property=og:url
+        content=https://jake.isnt.online>
+  <meta property=og:image
+        content="https://avatars0.githubusercontent.com/u/29869612?s=400&amp;u=32e0c272cbfcc32b8e9585f74ce57d197aa14fb0&amp;v=4">
+  <meta property=og:site_name
+        content="Jake Chvatal">
+  <meta name=description content=Hi>
+  <meta name=keywords
+        content="Latency Matters, webring, programming, languages">
+  <meta name=author content="Jake Chvatal">
+  <meta name=robots content=follow>
+  <meta name=theme-color content=#fff>
+  <link rel=icon type=image/x-icon
+        href=/favicon.ico>
+  <link sizes=180x180 rel=apple-touch-icon
+        type=image/png href=/apple-touch-icon.png>
+  <link sizes=32x32 rel=icon type=image/png
+        href=/favicon-32x32.png>
+  <link sizes=16x16 rel=icon type=image/png
+        href=/favicon-16x16.png>
+  <link rel=manifest href=/site.webmanifest>
+  <link rel=stylesheet
+        href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
+  <link rel=stylesheet href=/style.css>
+  <script src=/lib.js></script>
+  <script
+          src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
+  <script>hljs.highlightAll();</script>
+ </head>
+ <body>
+  <div class=site-body id=site-body>
+   <div class=sidebar>
+    <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
+    <a href=/pages/index.html>pages</a><span> / </span><b>Latency Matters</b>
+   </div>
+   <main>
+    <article class=wikipage>
+     <h1 class=title-top>Latency Matters</h1>
+     <p><span>I&#39;m sick of software feeling slow, and waiting for all of these web 
+       animations, and all of this.</span>
+     <p><a class=external href="https://pavelfatin.com/typing-with-pleasure/">[Pavel 
+       Fatin » Blog Archive » Typing with pleasure - Blog about human and tech...]</a>
+      <span> is an elaborate discussion of why, exactly, latency matters for modern 
+       systems, and why we might be losing it. </span><a class=external
+      href="https://pavelfatin.com/scrolling-with-pleasure/">[Pavel Fatin » Blog 
+       Archive » Scrolling with pleasure - Blog about human and t...]</a><span> has the 
+       same outlook but tackles scrolling.</span>
+     <p><a class=external
+      href=https://raphlinus.github.io/ui/graphics/2020/09/13/compositor-is-evil.html>
+       [The compositor is evil | Raph Levien’s blog]</a><span>: a take on compositing, 
+       or how guaranteeing a full render - among other things - leads to demonstrably 
+       slower user interaction overall when X can often get you window management 
+       abstraction for free. It&#39;s an overview of lots of compositors and their 
+       interactions with the screen.</span>
+     <p><span>All of Raph&#39;s articles are incredibly detailed and informative, but </span>
+      <a class=external
+      href=https://raphlinus.github.io/rust/gui/2022/07/15/next-dozen-guis.html>[Advice 
+       for the next dozen Rust GUIs | Raph Levien’s blog]</a><span> in particular lays 
+       plain all of the issues with developing a GUI framework today. </span><a
+      class=external
+      href=https://raphlinus.github.io/rust/graphics/gpu/2020/06/13/fast-2d-rendering.html>
+       [Fast 2D rendering on GPU | Raph Levien’s blog]</a><span> also might be 
+       useful... I will need to figure out how to do this to write the manager.</span>
+     <p><span>As noted in that article: it looks like there is some room to 
+       &quot;strongarm&quot; the ecosystem, insist that a particular compositor 
+       architecture is the way to go, and develop applications fit exclusively to and 
+       for this architecture. The window manager boundary feels like a critical point 
+       at which Linux infrastructure can evolve - so it might be best to build a window 
+       manager, damn other abstractions, and fit solutions to this specific WM.</span>
+     <p><span>We can&#39;t really get rid of Linux - but we can provide a cohesive, 
+       high level computing environment around it - and to do this we rewrite the WM.</span>
+     <p><a class=external href="https://danluu.com/input-lag/">[Computer latency: 
+       1977-2017]</a><span> from Dan Luu is a measurement of input lag over the years.</span>
+     <p><a class=external
+      href=https://twitter.com/ID_AA_Carmack/status/193480622533120001>
+       [https://twitter.com/ID_AA_Carmack/status/193480622533120001]</a><span>: I can 
+       send an IP packet to Europe faster than I can send a pixel to the screen.</span>
+    </article>
+   </main>
+   <div class=git-hist-table>
+    <table>
+     <tr>
+      <th>History
+     <tr>
+      <td>2022-10-31
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/eed1984b950f3e282618ec34f4fdfd19eb4809ec//pages/latency_matters.org>
+        eed1984</a>
+     <tr>
+      <td>2022-10-31
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/2577ddb373a1e878bb339fabc44861c3951cacc3//pages/latency_matters.org>
+        2577ddb</a>
+     <tr>
+      <td>2022-10-30
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/281447e3db3d1850a850e080a09d0a88df728d20//pages/latency_matters.org>
+        281447e</a>
+     
+    </table>
+   </div>
+  </div>
+ </body>
+</html>

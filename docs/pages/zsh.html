@@ -53,14 +53,7 @@
      <p><span>Ultimately I don&#39;t think ZSH is good as it&#39;s this sort of hacked 
        on super-bash; it doesn&#39;t *really* forward the goals of a system</span>
      <section>
-      <h2>Themes</h2>
-      <p><a class=external href=https://github.com/geometry-zsh/geometry>[Geometry is a 
-        minimal and customizable zsh prompt theme]</a>
-     </section>
-     <section>
       <h2>Utilities</h2>
-      <p><a class=external href=https://github.com/clvv/fasd>[fasd is an all-in-one 
-        shell productivity booster]</a>
       <p><a class=external href=https://github.com/nvbn/thefuck>[fuck]</a><span> 
         corrects your last console command.</span>
      </section>
@@ -69,16 +62,20 @@
       <p><a class=external href=https://github.com/oilshell/oil>[Oil shell]</a><span> is 
         a new Unix shell alternative that can be compiled and deployed as a native 
         executable.</span>
-      <p><a class=external href=https://github.com/nushell/nushell>
-        [https://github.com/nushell/nushell]</a>
+      <p><a class=external href=https://github.com/nushell/nushell>[Nushell]</a><span> 
+        approaches the shell environment with structured data.</span>
      </section>
      <section>
       <h2>Configs</h2>
-      <p><a class=external href=https://github.com/jeremyf/dotzshrc>
-        [https://github.com/jeremyf/dotzshrc]</a>
       <p><a class=external
        href=https://thomask.sdf.org/blog/2019/11/09/take-care-editing-bash-scripts.html>
-        [Be careful editing bash scripts]</a>
+        [Be careful editing bash scripts]</a><span>: </span>
+       <pre></pre><span> tracks the byte position in the file during execution and scans 
+        lines accordingly. This example shows a user editing a line that has dangerous 
+        consequences in the file - and even though some dangerous line is still 
+        commented out, the byte offset of everything in the file changes, so the 
+        dangerous piece of code is executed. Insane. It&#39;s okay to load your program 
+        into memory before running it - really.</span>
      </section>
     </article>
    </main>
@@ -86,6 +83,11 @@
     <table>
      <tr>
       <th>History
+     <tr>
+      <td>2022-10-30
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/281447e3db3d1850a850e080a09d0a88df728d20//pages/zsh.org>
+        281447e</a>
      <tr>
       <td>2022-10-07
       <td><a
