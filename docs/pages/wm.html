@@ -124,12 +124,163 @@
          during development of a WM.</span>
       </ul>
      </section>
+     <section>
+      <h2>WM Reviews</h2>
+      <section>
+       <h3>BSPWM</h3>
+       <ul>
+        <li><span> ideas : changing the classname by identification in the bspwm tree!</span>
+       </ul>
+       <ul>
+        <li><span> &#39; sticky&#39; scratchpad : will switch monitors only if the desktop 
+          is swapped with the other monitor. personal policy - &#39;scratchbad when opened 
+          occupies the biggest window&#39;</span>
+       </ul>
+       <ul>
+        <li><span> sticky normal terminal window (with tmux, via byobu) to the scratchpad 
+          is much more useful and allows for a single terminal window to be kept open 
+          rather than having to use many</span>
+       </ul>
+       <p><a class=external
+        href="https://www.reddit.com/r/unixporn/comments/1jubyi/arch_bspwm_never_going_back_to_xmonad/">
+         [https://www.reddit.com/r/unixporn/comments/1jubyi/arch_bspwm_never_going_back_to_xmonad/]
+         </a><span>read on this!</span>
+       <ul>
+        <li><span> </span><a class=external href=http://thedarnedestthing.com/bspwm>
+          [http://thedarnedestthing.com/bspwm]</a><span>idea : have window actions focus 
+          and place the window on the main window of the target desktop.</span>
+       </ul>
+       <p><span>a swap monitor action is very cool; may want to either retain or swap 
+         monitor focus independent of this! depending on the direction of the hotkey 
+         relative to the monitor which has focus.if key action points to opposite 
+         monitor, swap the desktop moving the focus with the desktop; else, retain focus 
+         on the current monitor while cycling the desktop</span>
+       <p><span>toggling the dock! this is much more distraction free (through conky) as 
+         opposed to a continuously updating status line at the top or bottom of the 
+         screen. conky is super beautiful and configuring it would besuper useful. run 
+         conky above the desktop windows via xdotool as per sdothum&#39;s articles</span>
+       <p><span>this seems like the most useful and powerful way to go in terms of a 
+         system configuration. make sure to use this one in the future.</span>
+      </section>
+      <section>
+       <h3>herbstluftwm</h3>
+       <p><a class=external href=http://thedarnedestthing.com/herbstluftwm>
+         [http://thedarnedestthing.com/herbstluftwm]</a>
+       <p><span>things it can do: (see sdothum here: </span><a class=external
+        href=http://thedarnedestthing.com/herbstluftwm%20workflow)>
+         [http://thedarnedestthing.com/herbstluftwm%20workflow)]</a>
+       <ul>
+        <li><span> dynamic window placement to balance frames</span>
+       </ul>
+       <ul>
+        <li><span> dynamic window focus to avoid empty frame focus on application close</span>
+       </ul>
+       <ul>
+        <li><span> distraction free monocle layout proportions (versus fullscreen mode)</span>
+       </ul>
+       <ul>
+        <li><span> automatic desktop layout restore on focus and monitor swap*</span>
+       </ul>
+       <ul>
+        <li><span> quick monitor and frame swapping with focus directions</span>
+       </ul>
+       <ul>
+        <li><span> hide/unhide windows per desktop</span>
+       </ul>
+       <ul>
+        <li><span> pulsating borders to indicate overlapped windows</span>
+       </ul>
+       <ul>
+        <li><span> virtual monitors to show/hide the conky system information panel</span>
+       </ul>
+       <ul>
+        <li><span> single status bar to follow monitor focus and hint monitor geometry 
+          width</span>
+       </ul>
+       <ul>
+        <li><span> blur background if a window is present on the desktop</span>
+       </ul>
+       <p><span>note that monitor geometries are global when set.</span>
+       <p><span>honestly his explanation is pretty complicated: there are a lot of things 
+         that can be done without this complex configuration</span>
+       <p><span>can have a status bar that follows the monitor focus! killing the status 
+         bar isn&#39;t super effective, but using xdotool to manage the visibility of the 
+         panels seems muh more palatable</span>
+       <p><span>check out his dotfiles for more information on this: </span><a
+        class=external href=http://thedarnedestthing.com/herbstluftwm%20juggling>
+         [http://thedarnedestthing.com/herbstluftwm%20juggling]</a>
+      </section>
+      <section>
+       <h3>XMonad</h3>
+       <p><span>cool because it is written in and configured with haskell</span>
+       <p><span>from my rough understanding, this is another manual tiling window manager 
+         (not automatic like bspwm)</span>
+       <p><span>idea : rather than manually moving the window in between panels, shifting 
+         all of the workspaces &#39;one to the right&#39; or &#39;one to the left&#39; to 
+         refocus the panel u want at the center seems super valuable! this means that u 
+         dont have to reconfigure all of the stuff displayed at any given time)</span>
+       <p><span>not sure if this is worthwhile as opposed to other things : bspwm 
+         doesn&#39;t do</span>
+       <p><span>anythign other than window management, unlike other programs that may not</span>
+       <p><span>integrate very well into the existing shell.</span>
+       <p><span>benefits:</span>
+       <ul>
+        <li><span> extensive multimonitor support</span>
+       </ul>
+       <ul>
+        <li><span> stable and feature rich</span>
+       </ul>
+       <ul>
+        <li><span> easy to configure and extend</span>
+       </ul>
+       <p><span>drawbacks:</span>
+       <ul>
+        <li><span> huge</span>
+       </ul>
+       <ul>
+        <li><span> fractured into many different libraries</span>
+       </ul>
+       <ul>
+        <li><span> terrible floating layer that cannot always be avoided</span>
+       </ul>
+       <ul>
+        <li><span> using haskell (though this is also a pro!!)</span>
+       </ul>
+       <p><span>I tried rEFInd boot menu and it&#39;s super slow cos it has to load in 
+         all of the images! Not a good experience.</span>
+      </section>
+      <section>
+       <h3>things to integrate</h3>
+       <ul>
+        <li><span> whatever side manager that sdothum uses in lieu of the header interface</span>
+       </ul>
+       <ul>
+        <li><span> a terminal email client</span>
+       </ul>
+       <ul>
+        <li><span> better notification daemon</span>
+       </ul>
+       <ul>
+        <li><span> unifying chat app ? (slack</span><i>signal</i><span>discord/irc(????) 
+          frontend somehow)</span>
+       </ul>
+       <ul>
+        <li><span> twitter ? (may not want to browse twitter at all ...)</span>
+       </ul>
+       <p><span>stream video over terminal or smth</span>
+      </section>
+     </section>
     </article>
    </main>
    <div class=git-hist-table>
     <table>
      <tr>
       <th>History
+     <tr>
+      <td>2022-11-01
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/b0115e4446dffa45e3135781ca57a3f8bd42fa4c//pages/wm.org>
+        b0115e4</a>
      <tr>
       <td>2022-10-31
       <td><a
