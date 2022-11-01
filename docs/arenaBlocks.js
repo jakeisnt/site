@@ -1,7 +1,5 @@
 // Script to display the last few are.na blocks a user has seen
 
-// deferred script
-
 const currentPage = 1;
 const perPage = 3;
 const myArenaId = 210234;
@@ -10,11 +8,9 @@ const channelName = "scientific-progress-first-and-forever";
 // Get the last three blocks I've posted on are.na
 async function getUserBlocks() {
   // `https://api.are.na/v2/channels/${jakeisntArenaId}/contents?page=${current_page}&perPage=${per_page}&direction=desc&sort=position`
-  let response = await fetch(
+  return fetch(
     `https:api.are.na/v2/channels/${channelName}/contents?page=${currentPage}&perPage=${perPage}&direction=desc&sort=position`
-  );
-  let data = await response.json();
-  return data.contents;
+  ).then((response) => response.json()).then((js) => js.contents);
 }
 
 // create a tag from an are.na block
@@ -28,7 +24,6 @@ function createImageTag(block) {
   linkTag.target = "blank";
 
   img.setAttribute("src", block.image.original.url);
-  // img.style.width = "14rem";
   linkTag.appendChild(img);
 
   setTimeout(function() {
@@ -38,12 +33,12 @@ function createImageTag(block) {
   return linkTag;
 }
 
-// Add an image to the document
+// Add arena images to the document
 async function addArenaImages() {
   const parentRow = document.getElementById("site-body");
-  let blocks = await getUserBlocks();
+  const blocks = await getUserBlocks();
 
   blocks.forEach((block) => {
-    if (block.image) parentRow.appendChild(createImageTag(block));
+    if (block.image) { parentRow.appendChild(createImageTag(block)); }
   });
 }
