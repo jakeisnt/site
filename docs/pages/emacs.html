@@ -45,164 +45,31 @@
    <main>
     <article class=wikipage>
      <h1 class=title-top>Emacs</h1>
-     <p><span>Emacs is a fully-featured programming environment.</span>
-     <p><span>It&#39;s often (or most commonly) referred to as a text editor, but this 
-       isn&#39;t the case. Other editors are designed to offer first-class interfaces 
-       for configuring keyboard shortcuts, text configurations, etc.</span>
-     <p><span>However, emacslisp is structured not to be used as an editor 
-       configuration with some additional logic capabilities, but rather as a 
-       fully-featured programming language with proper language facilities.</span>
-     <p><span>Emacs is my desktop environment. </span><a class=internal
-      href=id:126109c8-e5da-4acf-8045-8fd16ff9b94c>{EXWM}</a><span> was my window 
-       manaager, elfeed is my RSS reader, mu4e is my email client and so forth. The one 
-       program that does not have a proper Emacs interface is the web browser, so I use 
-       Firefox (and web apps) for most other tools.</span>
-     <p><span>This isn&#39;t to cause myself undue pain. It reduces context switching 
-       between the keyboard shortcuts of many programs and their keybindings, and 
-       allows time tracking, task tracking and information management (all fractured, 
-       often difficult concepts) to be managed by </span><a class=internal
-      href=id:18b350db-1be2-4aa4-8b28-06a09a43cef2>{Org Mode}</a><span> entirely within 
-       Emacs. This tight integration allows me to take notes and track time without 
-       having to switch contexts to other programs with other user interfaces.</span>
-     <p><span>^ I don&#39;t really stick to this anymore, because emacs is honestly not 
-       slow and performant. It&#39;s much better to treat Emacs as a text editor and 
-       have other purpose built programs. Though there is a future where all text 
-       editing configuration is orthogonal to programs and handled independently, it is 
-       far from here yet.</span>
+     <p><span>I&#39;ve used emacs as a text editor, note-taking device, email system, 
+       and window manager. Its legacy and flexibility are powerful ideas - and the 
+       community&#39;s ingeniuty is stellar - but using Emacs as an interface operating 
+       system isn&#39;t the solution, as it&#39;s stuck fourty years in the past.</span>
+     <p><span>EXWM is a good idea - but the solution should be to implement a better 
+       window manager, not to try to reimplement your whole world inside of the legacy 
+       GUI toolkit that Emacs provides. It&#39;s okay not to do most things in Emacs - 
+       the system may have been intended as a lisp machine, but today it&#39;s only 
+       practical as a text editor for functional programming projects.</span>
+     <p><span>It&#39;s worth studying and learning from when building a new user 
+       interfaces - the Emacs environment has innovated in many ways, particularly with 
+       respect to the harmony it creates between system tooling inside the emacs 
+       ecosystem - but it&#39;s not a complete desktop solution because it doesn&#39;t 
+       have the robust rendering facilities that the browser and modern GUI frameworks 
+       do. I do like the look of the Emacs button rendering system, etc., but when you 
+       use EXWM and really try to use emacs for everything, you start to see all of the 
+       cracks and hacks in the system used to graft programs to the Emacs text-buffer 
+       driven UI.</span>
      <section>
       <h2>Tools</h2>
       <ul>
        <li><span> </span><a class=external href=https://github.com/karlicoss/cloudmacs>
-         [cloudmacs]</a><span> :: allows you to self-host your emacs configuration and 
-         access it in the browser. :O</span>
+         [cloudmacs]</a><span> :: Allows you to self-host your emacs configuration and 
+         access it in the browser. Cool!</span>
       </ul>
-     </section>
-     <section>
-      <h2>Frameworks</h2>
-      <ul>
-       <li><span> Doom Emacs :: The framework I use; focuses on optimization and concise 
-         configuration</span>
-      </ul>
-      <ul>
-       <li><span> Spacemacs :: I used to use this. It&#39;s too bloated for my tastes.</span>
-      </ul>
-      <ul>
-       <li><span> </span><a class=external href=https://github.com/jkitchin/scimax>
-         [Scimax]</a><span> :: Scientific Emacs framework. Set up to serve as a good 
-         introduction!</span>
-      </ul>
-     </section>
-     <section>
-      <h2>Configurations</h2>
-      <p><a class=external
-       href=https://github.com/sulami/dotfiles/blob/master/emacs/.emacs/README.org:>
-        [https://github.com/sulami/dotfiles/blob/master/emacs/.emacs/README.org:]</a>
-       <span>good example of a literate emacs configuration</span>
-      <p><a class=external href=http://aaronbedra.com/emacs.d/:>
-        [http://aaronbedra.com/emacs.d/:]</a><span>great example of a configuration 
-        rendered as a webpage with org mode!</span>
-      <p><a class=external
-       href="https://www.reddit.com/r/emacs/comments/4srze9/watching_youtube_inside_emacs_25/">
-        [https://www.reddit.com/r/emacs/comments/4srze9/watching_youtube_inside_emacs_25/]
-        </a><span>watching youtube in emacs</span>
-      <p><a class=external href=https://www.emacswiki.org/emacs/ExampleConfigurations>
-        [https://www.emacswiki.org/emacs/ExampleConfigurations]</a>
-      <p><a class=external href=https://github.com/munen/emacs.d>
-        [https://github.com/munen/emacs.d]</a>
-      <p><a class=external href=https://github.com/jhamrick/emacs>
-        [https://github.com/jhamrick/emacs]</a>
-      <p><a class=external href=https://github.com/howardabrams/dot-files>
-        [https://github.com/howardabrams/dot-files]</a>
-      <p><a class=external href=https://github.com/jethrokuan/dots>
-        [https://github.com/jethrokuan/dots]</a>
-      <p><a class=external href=https://github.com/codygman/hci>
-        [https://github.com/codygman/hci]</a>
-      <p><a class=external href=https://github.com/zaeph/.emacs.d>
-        [https://github.com/zaeph/.emacs.d]</a>
-      <p><a class=external href=https://github.com/Ambrevar/dotfiles>
-        [https://github.com/Ambrevar/dotfiles]</a>
-      <p><a class=external
-       href="https://www.youtube.com/watch?app=desktop&amp;v=PKaJoqQQoIA">
-        [https://www.youtube.com/watch?app=desktop&amp;v=PKaJoqQQoIA]</a><span>
-        configuring emacs configuration</span>
-      <p><a class=external href=https://github.com/shrysr/.emacs.d>
-        [https://github.com/shrysr/.emacs.d]</a>
-      <p><a class=external href=https://github.com/purcell/emacs.d>
-        [https://github.com/purcell/emacs.d]</a>
-      <p><a class=external href=https://github.com/zaeph/.emacs.d>
-        [https://github.com/zaeph/.emacs.d]</a>
-      <p><a class=external href=https://github.com/munen/emacs.d>
-        [https://github.com/munen/emacs.d]</a>
-      <section>
-       <h3>Nix and Emacs configurations</h3>
-       <p><a class=external href=https://github.com/kinnala/nixemacs>
-         [https://github.com/kinnala/nixemacs]</a>
-       <p><a class=external
-        href=https://github.com/benley/dotfiles/blob/master/overlays/emacs.nix>
-         [https://github.com/benley/dotfiles/blob/master/overlays/emacs.nix]</a>
-       <p><a class=external href="https://blog.jethro.dev/posts/nix_buffer_emacs/">
-         [https://blog.jethro.dev/posts/nix_buffer_emacs/]</a>
-       <p><a class=external href=https://github.com/purcell/nix-emacs-ci:>
-         [https://github.com/purcell/nix-emacs-ci:]</a><span>test your emacs code against 
-         a wide variety of upstream configurations</span>
-       <p><a class=external
-        href="https://www.reddit.com/r/emacs/comments/ekr5ek/experimenting%5Fwith%5Fremembrance%5Fagents/">
-         [https://www.reddit.com/r/emacs/comments/ekr5ek/experimenting%5Fwith%5Fremembrance%5Fagents/]
-         </a>
-       <p><a class=external href=https://github.com/zachcurry/emacs-anywhere>
-         [https://github.com/zachcurry/emacs-anywhere]</a><span>use emacs anywhere</span>
-       <p><a class=external href="https://blog.akinori.org/">[m g vs goto line in emacs]</a>
-       <p><a class=external
-        href="https://www.reddit.com/r/emacs/comments/hywxef/visually_differentiate_between_links_to_files_and/">
-         [https://www.reddit.com/r/emacs/comments/hywxef/visually_differentiate_between_links_to_files_and/]
-         </a><span>differentiate between links to files and links to websites in org</span>
-      </section>
-      <section>
-       <h3>Doom configuration</h3>
-       <p><a class=external href=https://github.com/forrestchang/.doom.d>
-         [https://github.com/forrestchang/.doom.d]</a>
-       <p><a class=external
-        href=https://github.com/sunnyhasija/Academic-Doom-Emacs-Config>
-         [sunnyhasija/Academic-Doom-Emacs-Config: My doom emacs configuration files]</a>
-       <p><a class=external
-        href=https://github.com/NatTuck/doom-config/blob/master/config.el#L12>
-         [https://github.com/NatTuck/doom-config/blob/master/config.el#L12]</a><span>-- 
-         nat tuck&#39;s</span>
-       <p><span>configuration</span>
-       <p><a class=external href=https://github.com/christabella/doom-emacs-config>
-         [https://github.com/christabella/doom-emacs-config]</a>
-       <p><a class=external href=https://tecosaur.github.io/emacs-config/config.html>
-         [https://tecosaur.github.io/emacs-config/config.html]</a>
-       <p><a class=external href=https://dotdoom.rgoswami.me/config.html>
-         [https://dotdoom.rgoswami.me/config.html]</a>
-       <p><a class=external href=https://github.com/christabella/doom-emacs-config>
-         [https://github.com/christabella/doom-emacs-config]</a>
-       <p><a class=external
-        href=https://www.ethanaa.com/blog/switching-to-doom-emacs/#doom-emacs>
-         [comprehensive instrs]</a>
-      </section>
-      <section>
-       <h3>Optimisations</h3>
-       <ul>
-        <li><span> </span><a class=external
-         href="http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/">
-          [don&#39;t change gc-cons-threshold]</a><span> :: fix constant garbage 
-          collection by setting it very high when something happens, and changing 
-          afterwards to prevent constant garbage collection and freezing when the heap 
-          gets too big</span>
-       </ul>
-       <ul>
-        <li><span> </span><a class=external
-         href=https://anuragpeshne.github.io/essays/emacsSpeed.html>
-          [https://anuragpeshne.github.io/essays/emacsSpeed.html]</a><span>:: other emacs 
-          pro tips</span>
-       </ul>
-      </section>
-     </section>
-     <section>
-      <h2>Community</h2>
-      <p><a class=external href=https://github.com/howardabrams/pdx-emacs-hackers>
-        [Portland Emacs Hackers]</a>
      </section>
      <section>
       <h2>Package Suggestions</h2>
@@ -212,27 +79,17 @@
          org mode files with dotfiles external to them</span>
       </ul>
       <ul>
-       <li><span> </span><a class=external
-        href=https://github.com/alphapapa/matrix-client.el>[emacs matrix client]</a>
-        <span> emacs matrix client</span>
-      </ul>
-      <ul>
-       <li><span> </span><a class=external href=https://github.com/casouri/OrgMark>[mark]</a>
-        <span> :: add drawings to org mode from your ipad, and </span><a class=external
-        href=https://github.com/yati-sagade/orch>[orch]</a><span>, an alternative for 
-         Android</span>
+       <li><span> </span><a class=external href=https://github.com/yati-sagade/orch>
+         [GitHub - yati-sagade/orch: Send scribbles from an Android phone to Emacs Org 
+         ...]</a><span> :: Renders sketches from your Android phone to org-mode. Useful 
+         when taking notes when having to draw something inline! It looks like the 
+         associated Android app for this is dead, but it&#39;s a cool idea. The ability 
+         to &quot;summon&quot; a touchscreen (the phone in your pocket) to help you think 
+         is interesting and valuable.</span>
       </ul>
       <ul>
        <li><span> </span><a class=external href=https://github.com/alraban/org-recoll>
          [recoll]</a><span> :: emacs binding for recoll text search engine</span>
-      </ul>
-      <ul>
-       <li><span> </span><a class=external href=https://github.com/cpitclaudel/quick-peek>
-         [quick-peek]</a><span> :: peek at a window inline!</span>
-      </ul>
-      <ul>
-       <li><span> </span><a class=external href=https://github.com/legalnonsense/elgantt>
-         [elegantt]</a><span> :: gantt chart (??) in org.</span>
       </ul>
       <ul>
        <li><span> </span><a class=external href=https://github.com/progfolio/doct>[doct]</a>
@@ -241,102 +98,36 @@
       </ul>
       <ul>
        <li><span> </span><a class=external href=https://www.emacswiki.org/emacs/KeyChord>
-         [KeyChord]</a><span> :: binding commands to combinations of keystrokes</span>
-      </ul>
-      <ul>
-       <li><span> </span><a class=external href=https://github.com/purcell/windswap>
-         [https://github.com/purcell/windswap]</a>
-      </ul>
-      <ul>
-       <li><span> </span><a class=external
-        href="https://www.reddit.com/r/emacs/comments/74hetz/emacs_everywhere/">[emacs 
-         everywhere]</a>
-      </ul>
-      <ul>
-       <li><span> </span><a class=external
-        href=https://github.com/ibizaman/emacs-conflict>
-         [https://github.com/ibizaman/emacs-conflict]</a><span>emacs conflict</span>
-      </ul>
-      <ul>
-       <li><span> </span><a class=external href=https://git.carcosa.net/jmcbray/gemini.el>
-         [https://git.carcosa.net/jmcbray/gemini.el]</a><span>gemini server for emacs</span>
-      </ul>
-      <ul>
-       <li><span> </span><a class=external
-        href=https://www.emacswiki.org/emacs/TrampMode#toc1>
-         [https://www.emacswiki.org/emacs/TrampMode#toc1]</a><span>tramp-mode for editing 
-         files on servers</span>
-      </ul>
-      <ul>
-       <li><span> </span><a class=external href=https://github.com/purcell/windswap>[swap 
-         emacs windows]</a>
-      </ul>
-      <ul>
-       <li><span> </span><a class=external href=https://github.com/Bad-ptr/persp-mode.el>
-         [https://github.com/Bad-ptr/persp-mode.el]</a>
-      </ul>
-      <ul>
-       <li><span> </span><a class=external href=https://github.com/davazp/graphql-mode>
-         [https://github.com/davazp/graphql-mode]</a><span>gql mode for emacs</span>
-      </ul>
-      <ul>
-       <li><span> </span><a class=external
-        href=https://github.com/lassik/emacs-format-all-the-code>
-         [https://github.com/lassik/emacs-format-all-the-code]</a><span>autoformat source 
-         code for many languages</span>
+         [KeyChord]</a><span> :: Bind commands to combinations of keystrokes.</span>
       </ul>
      </section>
      <section>
-      <h2>Links</h2>
+      <h2>Thinkpieces</h2>
+      <ul>
+       <li><span> </span><a class=external
+        href="https://www.reddit.com/r/emacs/comments/74hetz/emacs_everywhere/">[Emacs 
+         Everywhere : emacs]</a><span> :: Where is Emacs actually useful? What do users 
+         actually want from the programming environment? What don&#39;t people use Emacs 
+         for? This is a huge thread from an Emacs maximalist on the benefits of Emacs 
+         everything, EXWM, etc... Learn from this when implementing this window 
+         management system.</span>
+      </ul>
+     </section>
+     <section>
+      <h2>Documentation</h2>
+      <p><a class=external href=https://www.emacswiki.org/emacs/DirectoryVariables>
+        [EmacsWiki: Directory Variables]</a><span>. If everyone using your project is 
+        using Emacs, this is a useful facility for ensuring a reproducible, local editor 
+        environment.</span>
       <p><a class=external
        href="https://www.reddit.com/r/emacs/comments/hxu9dx/withemacs_what_you_need_to_know_about_hooks/">
         [Brief guide to Emacs hooks]</a>
       <p><a class=external
-       href="https://www.reddit.com/r/emacs/comments/74hetz/emacs_everywhere/">[emacs 
-        everywhere]</a>
-      <p><a class=external href="https://m.youtube.com/watch?v=dljNabciEGg">[literate 
-        devops with emacs]</a>
-     </section>
-     <section>
-      <h2>Magit</h2>
-      <p><a class=external
-       href=https://magit.vc/manual/forge/Token-Creation.html#Token-Creation>
-        [https://magit.vc/manual/forge/Token-Creation.html#Token-Creation]</a><span>
-        magit has a cool interface for making pull requests, but the documentation does 
-        not make clear how fully featured it is...</span>
-     </section>
-     <section>
-      <h2>emacs</h2>
-      <p><a class=external
-       href="https://karthinks.com/software/batteries-included-with-emacs/">
-        [https://karthinks.com/software/batteries-included-with-emacs/]</a><span>fun 
-        things that come with emacs!</span>
-     </section>
-     <section>
-      <h2>Plugins</h2>
-      <p><a class=external href=https://github.com/abo-abo/avy>
-        [https://github.com/abo-abo/avy]</a><span>jump to visible text with a character 
-        based decision tree</span>
-      <p><a class=external
-       href=http://www.howardism.org/Technical/Emacs/templates-tutorial.html>
-        [http://www.howardism.org/Technical/Emacs/templates-tutorial.html]</a><span>
-        configure snippets in emacs</span>
-      <p><a class=external
        href="https://www.youtube.com/watch?app=desktop&amp;v=gfZDwYeBlO4&amp;amp%3Bt=2785s">
-        [https://www.youtube.com/watch?app=desktop&amp;v=gfZDwYeBlO4&amp;amp%3Bt=2785s]</a>
-       <span>&#39;play emacs like an instrument&#39;</span>
+        [Play Emacs like an instrument - YouTube]</a>
       <p><a class=external
-       href="https://www.youtube.com/watch?app=desktop&amp;v=4-ubCJF9htw">
-        [https://www.youtube.com/watch?app=desktop&amp;v=4-ubCJF9htw]</a><span>emacs 
-        macros and hacks</span>
-     </section>
-     <section>
-      <h2>etc</h2>
-      <p><a class=external
-       href="https://www.youtube.com/watch?app=desktop&amp;v=dljNabciEGg">[literate 
-        devops with emacs]</a>
-      <p><a class=external href=https://www.emacswiki.org/emacs/DirectoryVariables>
-        [using dir-locals]</a>
+       href="https://www.youtube.com/watch?app=desktop&amp;v=4-ubCJF9htw">[Emacs micro 
+        motions and hacks - YouTube]</a>
      </section>
     </article>
    </main>
@@ -344,6 +135,11 @@
     <table>
      <tr>
       <th>History
+     <tr>
+      <td>2022-11-01
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/706ab97424081ebf9d787d962ee264545753f9c2//pages/emacs.org>
+        706ab97</a>
      <tr>
       <td>2022-10-30
       <td><a
