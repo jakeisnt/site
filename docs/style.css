@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 html {
-  font-size: 14px;
+  font-size: 12px;
   font-family: "Noto Sans", sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -23,7 +23,8 @@ body {
 /* background-size: calc(40 * .5px) calc(40 * .5px); */
 
 main {
-  max-width: 30rem;
+  max-width: 435;
+  /* max-width: 30rem; */
 }
 
 article {
@@ -80,7 +81,7 @@ a:active {
   vertical-align: left;
   line-height: 20px;
   font-family: 'IBM Plex Mono', monospace;
-  font-size: 14px;
+  font-size: 12px;
   background: #fff;
   border: 2px solid #eee8d5;
 }
