@@ -63,19 +63,15 @@
      <section>
       <h2>TODO programming tax</h2>
       <p><span>higher level languages are built to help the programmer focus on higher 
-        level ideas,</span>
-      <p><span>protecting them from thinking about memory permissions, etc. this is the 
-        case most of the time</span>
-      <p><span>but all abstractions are at some point leaky given our finite access to 
-        memory and compute.</span>
+        level ideas, protecting them from thinking about memory permissions, etc. this 
+        is the case most of the time but all abstractions are at some point leaky given 
+        our finite access to memory and compute.</span>
       <p><span>javascript does not accomplish this; it merely shifts the 
-        responsibilities of the programmer</span>
-      <p><span>operating at lower levels of abstraction from thinking about pointers, 
-        memory mapping, etc.</span>
-      <p><span>to thinking about undefined, NaN and object comparisons instead .</span>
+        responsibilities of the programmer operating at lower levels of abstraction from 
+        thinking about pointers, memory mapping, etc. to thinking about undefined, NaN 
+        and object comparisons instead .</span>
       <p><span>proper abstraction enables the programmer to think at a higher level; 
-        javascript comes close</span>
-      <p><span>before dragging the developer down with it</span>
+        javascript comes close before dragging the developer down with it</span>
       <p><a class=external href="http://www.catb.org/~esr/writings/cathedral-bazaar/">
         [http://www.catb.org/~esr/writings/cathedral-bazaar/]</a><a class=internal
        href=id:d3e5c5d4-3899-457b-9ebe-3e7b9d984aa1>{Books}</a>
@@ -83,12 +79,35 @@
         [https://news.ycombinator.com/item?id=24095428]</a><span>the human factor of 
         programming</span>
      </section>
+     <section>
+      <h2>macro notes</h2>
+      <p><span>haskell doesnt work</span>
+      <p><span>macros involve evaluation: running program at compile time</span>
+      <p><span>requires running language inside compiler</span>
+      <p><span>places burden inside of language implementation to make life tricky</span>
+      <p><span>erlang vm has always supported continuously evaluating new code, unlike 
+        haskell, which has to have a very strange embedded interpreter to work properly! 
+        ghc templates might work better with better multi stage compilation?</span>
+      <p><span>macros in ruby are interesting: </span><a class=external
+       href=https://www.toptal.com/ruby/ruby-metaprogramming-cooler-than-it-sounds>
+        [https://www.toptal.com/ruby/ruby-metaprogramming-cooler-than-it-sounds]</a>
+     </section>
     </article>
    </main>
    <div class=git-hist-table>
     <table>
      <tr>
       <th>History
+     <tr>
+      <td>2022-11-01
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/c6a3cd92aa1e28b0e6f04e0b378fc7607a85cf00//pages/metaprogramming.org>
+        c6a3cd9</a>
+     <tr>
+      <td>2022-11-01
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/c9b459ddd42a08831fbb940dd610b019b69ecb9e//pages/metaprogramming.org>
+        c9b459d</a>
      <tr>
       <td>2021-09-22
       <td><a

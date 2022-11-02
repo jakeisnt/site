@@ -77,7 +77,7 @@
          as fuzzing with more oracles - it allows you to describe the properties, whereas 
          fuzzing is thought of as more &#39;black box&#39;</span>
        <p><span>adjusting to languages with fewer guardrails, or type safety; ships the 
-         responsibility to the testing, mostly</span>
+         responsibility to the testing, mostly.</span>
        <p><span>this is why gradual typing are so exciting! you can shift towards a fully 
          typed environment and ensure that you add the types later, saving you a </span>
         <i>ton</i><span> of the trouble of testing.</span>
@@ -139,39 +139,23 @@
      </section>
      <section>
       <h2>Resources</h2>
-      <p><a class=external href=https://concuerror.com/:>[https://concuerror.com/:]</a>
-       <span>stateless model checker for erlang</span>
+      <p><span>delta debugging was mentioned as an interesting tactic to use. what is 
+        it?</span>
+      <p><a class=external href=https://ocaml.org/manual/afl-fuzz.html>[AFL-Fuzz]</a>
+       <span> :: a fuzzer written in OCaml</span>
+      <p><a class=external href=https://github.com/minimaxir/big-list-of-naughty-strings>
+        [Big list of naughty strings]</a><span>: Useful utilities for fuzzing.</span>
+      <p><a class=external href=https://www.fuzzingbook.org/html/Grammars.html>[Fuzzing 
+        with Grammars - The Fuzzing Book]</a>
+      <p><a class=external href="https://embed.cs.utah.edu/csmith/">[Csmith]</a><span>: 
+        Generate random C programs that satisfy the C99 standard.</span>
+      <p><a class=external href=https://github.com/csmith-project/creduce>[GitHub - 
+        csmith-project/creduce: C-Reduce, a C program reducer]</a><span>: Take a large 
+        program with an interesting property and reproduce a minimal test case for it.</span>
       <p><a class=external
-       href=https://github.com/csmith-project/creduce/blob/master/creduce/creduce.in>
-        [https://github.com/csmith-project/creduce/blob/master/creduce/creduce.in]</a>
-       <span>the creduce code</span>
-      <p><a class=external href=https://www.carolemieux.com/rlcheck_preprint.pdf>
-        [https://www.carolemieux.com/rlcheck_preprint.pdf]</a><span>reinforcemenet 
-        learning for testing inputs!</span>
-      <p><a class=external
-       href=https://gamozolabs.github.io/fuzzing/2020/12/06/fuzzos.html>
-        [https://gamozolabs.github.io/fuzzing/2020/12/06/fuzzos.html]</a><span>OS for 
-        fuzzing optimization??</span>
-      <p><a class=external href="https://embed.cs.utah.edu/csmith/">
-        [https://embed.cs.utah.edu/csmith/]</a><span>best fuzzer for C</span>
-      <p><a class=external href=https://www.fuzzingbook.org/html/Grammars.html>
-        [https://www.fuzzingbook.org/html/Grammars.html]</a><span>fuzzing with grammars</span>
-      <p><a class=external
-       href="https://blog.trailofbits.com/2018/12/31/fuzzing-like-its-1989/">
-        [https://blog.trailofbits.com/2018/12/31/fuzzing-like-its-1989/]</a><span>a 
-        decent fuzzing article</span>
-      <p><span>delta debugging was mentioned as an interesting tactic to use</span>
-      <ul>
-       <li><span> </span><a class=external href="https://embed.cs.utah.edu/creduce/">
-         [CReduce]</a><span> :: built for C, but works pretty well on lots of languages! 
-         The code can be found </span><a class=external
-        href=https://github.com/csmith-project/creduce/blob/master/creduce/creduce.in>
-         [here]</a>
-      </ul>
-      <ul>
-       <li><span> </span><a class=external href=https://ocaml.org/manual/afl-fuzz.html>
-         [AFL-Fuzz]</a><span> :: a fuzzer written in OCaml</span>
-      </ul>
+       href=https://gamozolabs.github.io/fuzzing/2020/12/06/fuzzos.html>[FuzzOS | Gamozo 
+        Labs Blog]</a><span>: An operating system designed and optimised specifically 
+        for fuzzing - so virtual memory management are incredibly fast.</span>
      </section>
     </article>
    </main>
@@ -179,6 +163,16 @@
     <table>
      <tr>
       <th>History
+     <tr>
+      <td>2022-11-02
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/999648a83cbabbc9db46d7105a0fdeccfdb93b71//pages/fuzzers.org>
+        999648a</a>
+     <tr>
+      <td>2022-11-01
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/d18a175b7a4566931c3d1efe7bd012f3541bf905//pages/fuzzers.org>
+        d18a175</a>
      <tr>
       <td>2021-09-22
       <td><a
