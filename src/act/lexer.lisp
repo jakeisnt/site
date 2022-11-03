@@ -174,21 +174,52 @@
         (act-ast::context-text node)))
       (t nil))))
 
+
+(defun script-characters (characters)
+  "A pane to display script characters."
+  (spinneret::with-html
+    (:div :class "link-info-table"
+         (:table
+          (loop for character in characters
+                collect (:tr (:td (act-ast::alias-name character))))))))
+
+(defun switch-script-button ()
+  (spinneret::with-html
+    (:button :onclick "
+function changeClassName(old, new) {
+  Array.from(document.getElementsByClassName(old)).forEach((elem) => { elem.className = new; });
+}
+function switchGreentext() {
+  changeClassName(\"a\", \"temp\");
+  changeClassName(\"b\", \"a\");
+  changeClassName(\"temp\", \"b\");
+}
+console.log(\"switching scripts\");
+switchGreenText();
+" "click me")))
+
 (defun conversation-page (script)
   (htmx::body
    "Conversation"
    nil
-   (:article
-    :class "conversation"
-    (loop for node in (act-ast::script-body script)
-          collect (render-node node script)))
-   nil))
+   (:div
+    (:article
+     :class "conversation"
+     (loop for node in (act-ast::script-body script)
+           collect (render-node node script)))
+    (switch-script-button))
+   (list #'(lambda () (script-characters (act-ast::script-characters script))))))
 
 (defun render-script (path)
   (with-open-file (stream path :direction :input)
     (util::write-file
      "/home/jake/site/docs/fool-for-love.html"
      (conversation-page (act-parser::parse-script stream)))))
+
+;; to support:
+;; - menu of scripts (like ios chat menu?)
+;; - switch who is the character on lhs
+;; - support more than two characters
 
 
 
