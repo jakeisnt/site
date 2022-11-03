@@ -151,6 +151,14 @@
                   (:td "Email")
                   (:td (:a :href "mailto://jake+website@isnt.online" "jake @")))))))
 
+(defun js-disabled ()
+  (spinneret::with-html
+    (:noscript
+     (:div
+      :class "git-hist-table"
+      (:h2 "Thank you for disabling javascript.")
+      (:p "The modern web shouldn't need it.")))))
+
 (defun lastfm-now-playing ()
   "
    Displays the track currently playing, or the track that last played, through lastfm.

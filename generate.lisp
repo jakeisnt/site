@@ -24,6 +24,7 @@
   (generate-file
    (merge-pathnames *homepage-path*)
    (list
+    #'components::js-disabled
     #'components::lastfm-now-playing
     #'components::last-arena-blocks
     #'components::link-info)))

@@ -18,6 +18,11 @@ body {
   background-size: 40px 40px;
 }
 
+/* Try these for background: */
+/* background-image: radial-gradient(#797979 .5px, transparent .5px); */
+/* background-size: calc(40 * .5px) calc(40 * .5px); */
+
+
 blockquote.article-quote {
     margin: 0;
 }
@@ -35,10 +40,6 @@ blockquote.article-quote p::before {
 blockquote.article-quote p::after {
     content: '\201D';
 }
-
-/* Try these for background: */
-/* background-image: radial-gradient(#797979 .5px, transparent .5px); */
-/* background-size: calc(40 * .5px) calc(40 * .5px); */
 
 main {
   max-width: 40rem;
