@@ -166,7 +166,9 @@
         :class (concatenate
                 'string
                 "message "
-                (if (equal (act-ast::message-author node) (first-character-alias script)) "a" "b"))
+
+                ;; whoever's line occurs first should be "b" by default.
+                (if (equal (act-ast::message-author node) (first-character-alias script)) "b" "a"))
         (:p :class "message-text" (render-message-text (act-ast::message-text node)))))
       ((act-ast::context-p node)
        (:p
