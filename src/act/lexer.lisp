@@ -174,31 +174,39 @@
         (act-ast::context-text node)))
       (t nil))))
 
-
-(defun script-characters (characters)
-  "A pane to display script characters."
-  (spinneret::with-html
-    (:div :class "link-info-table"
-         (:table
-          (loop for character in characters
-                collect (:tr (:td (act-ast::alias-name character))))))))
-
 (defun switch-script-button ()
   (spinneret::with-html
-    (:script :src "/script.js")
-    (:button :onclick "switchGreentext()" "click me")))
+    (:div
+     (:script :src "/script.js")
+     (:button :onclick "switchGreentext()" "Switch characters"))))
+
+(defun script-control-menu (characters)
+  "A pane to display script characters."
+  (let ((seen-first nil))
+    (spinneret::with-html
+      (:div :class "link-info-table"
+            (switch-script-button)
+            (:table
+             (loop for character in characters
+                   collect (:tr
+                            (:td :class
+                                 (if (eq nil seen-first) ;; TODO make this macro
+                                     (progn
+                                       (setq seen-first t)
+                                       "character current")
+                                     "character other")
+                                 (act-ast::alias-name character)))))))))
 
 (defun conversation-page (script)
   (htmx::body
    "Conversation"
-   nil
+   (script-control-menu (act-ast::script-characters script))
    (:div
     (:article
      :class "conversation"
      (loop for node in (act-ast::script-body script)
-           collect (render-node node script)))
-    (switch-script-button))
-   (list #'(lambda () (script-characters (act-ast::script-characters script))))))
+           collect (render-node node script))))
+   nil))
 
 (defun render-script (path)
   (with-open-file (stream path :direction :input)
@@ -208,9 +216,7 @@
 
 ;; to support:
 ;; - menu of scripts (like ios chat menu?)
-;; - switch who is the character on lhs
 ;; - support more than two characters
-
 
 
 ;; (act-html::render-script "/home/jake/wiki/etc/fool-for-love.act")

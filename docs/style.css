@@ -234,6 +234,24 @@ ul {
   list-style-type: "➜ ";
 }
 
+td.character {
+  border-radius: 16px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: fit-content;
+}
+
+td.other {
+  color: black;
+  background-color: #E8E9EA;
+}
+
+td.current {
+  background-color: #43CC47;
+  color: white;
+}
+
+
 /* LastFM live music */
 a.now-playing {
   display: inline-block;
