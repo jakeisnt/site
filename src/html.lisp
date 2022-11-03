@@ -178,6 +178,7 @@
 (defun quote-block (node)
   (spinneret::with-html
     (:blockquote
+     :class "article-quote"
      (:p (ast::quote-block-body node))
      (:cite (render-nodelist (ast::quote-block-author node))))))
 

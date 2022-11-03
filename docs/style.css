@@ -18,23 +18,23 @@ body {
   background-size: 40px 40px;
 }
 
-/* blockquote { */
-/*     margin: 0; */
-/* } */
+blockquote.article-quote {
+    margin: 0;
+}
 
-/* blockquote p { */
-/*     padding: 15px; */
-/*     background: #eee; */
-/*     border-radius: 5px; */
-/* } */
+blockquote.article-quote p {
+    padding: 15px;
+    background: #eee;
+    border-radius: 5px;
+}
 
-/* blockquote p::before { */
-/*     content: '\201C'; */
-/* } */
+blockquote.article-quote p::before {
+    content: '\201C';
+}
 
-/* blockquote p::after { */
-/*     content: '\201D'; */
-/* } */
+blockquote.article-quote p::after {
+    content: '\201D';
+}
 
 /* Try these for background: */
 /* background-image: radial-gradient(#797979 .5px, transparent .5px); */
