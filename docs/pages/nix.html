@@ -84,14 +84,8 @@
        <span>: Lots of quick and helpful Nix tips to check out.</span>
       <ul>
        <li><span> Building derivations at the Nix REPL</span>
-      </ul>
-      <ul>
        <li><span> Installing packages from files and derivation expressions</span>
-      </ul>
-      <ul>
        <li><span> Working with Nix shells</span>
-      </ul>
-      <ul>
        <li><span> Creating derivations</span>
       </ul>
       <section>
@@ -144,19 +138,13 @@
          <pre></pre><span>, it&#39;s incredibly easy to swap parts of your system in very 
           few lines of code. A lot of the grunt work has been done already to ensure that 
           common configurations are perfectly functional and reproducible out of the box.</span>
-       </ul>
-       <ul>
         <li><span> It&#39;s trivial to revert the state of your system. All it takes is 
           booting to a previous NixOS interation.</span>
-       </ul>
-       <ul>
         <li><span> Declaring SystemD services happens in one place and is incredibly 
           simple! No more managing configuration files scattered throughout your computer 
           - you can &#39;metaprogram&#39; them in Nix and serialize the files out to disk. 
           This applies to lots of other types of files, too; I use templates to manage 
           color schemes for all of my applications, for example.</span>
-       </ul>
-       <ul>
         <li><span> It&#39;s incredibly simple to set up reproducible build environments 
           for writing and running code, especially in sandboxes when you don&#39;t want to 
           confuse your globally installed programs.</span>
@@ -177,22 +165,14 @@
        <ul>
         <li><span> Docker image is a snapshot of a machine that was assembled by running 
           commands in a particular fashion</span>
-       </ul>
-       <ul>
         <li><span> Making changes to the machine introduces nondeterminism; shell commands 
           typically fetch information from outside sources that aren&#39;t pinned, so they 
           change over time, and the functionality of your container will change as time 
           progresses. Builds in Nix when properly pinned will not diverge the same way 
           other deployment systems do.</span>
-       </ul>
-       <ul>
         <li><span> There is no absolute guarantee that your Docker image produces the same 
           image every rebuild</span>
-       </ul>
-       <ul>
         <li><span> Nix runs natively, while Docker requires a Linux virtual machine</span>
-       </ul>
-       <ul>
         <li><span> Nix can run as any user without particular privileges</span>
        </ul>
       </section>
@@ -203,40 +183,24 @@
         configuration]</a><span>:</span>
       <ul>
        <li><span> Wayland enabled</span>
-      </ul>
-      <ul>
        <li><span> Incredibly modular with thorough abstractions (in progress...)</span>
-      </ul>
-      <ul>
        <li><span> Robust configuration of many programs, including mail server</span>
       </ul>
       <p><a class=external href=https://github.com/hlissner/dotfiles>[hlissner&#39;s 
         config]</a>
       <ul>
        <li><span> Heavily inspires mine - I forked his</span>
-      </ul>
-      <ul>
        <li><span> Incredibly modular and allows for easy, opinionated program 
          configuration</span>
-      </ul>
-      <ul>
        <li><span> Some basic modular support and great library utilities</span>
-      </ul>
-      <ul>
        <li><span> Consistent and comprehensive theme work</span>
       </ul>
       <p><a class=external href=https://github.com/grahamc/nixos-config>[Graham&#39;s 
         NixOS config]</a><span>:</span>
       <ul>
        <li><span> ZFS with remote backups</span>
-      </ul>
-      <ul>
        <li><span> Wayland dedicated</span>
-      </ul>
-      <ul>
        <li><span> Start all programs in SystemD cgroups</span>
-      </ul>
-      <ul>
        <li><span> Erase systems on every boot</span>
       </ul>
       <p><a class=external href=https://github.com/bjornfor/nixos-config>[bjornfor 
@@ -244,26 +208,16 @@
       <ul>
        <li><span> Lots of home automation utility configuration; zigbee, home audio 
          management, etc.</span>
-      </ul>
-      <ul>
        <li><span> Custom derivations for tons of obscure programs corresponding to the 
          above</span>
-      </ul>
-      <ul>
        <li><span> Backup service infrastructure across multiple devices</span>
-      </ul>
-      <ul>
        <li><span> Wonky configuration for chromium, networking, VPNs, etc. Very thorough 
          management of loads of different devices.</span>
-      </ul>
-      <ul>
        <li><span> Has pirate radio and torrent setups as well if you&#39;re into that</span>
       </ul>
       <p><a class=external href=https://github.com/bqv/nixrc>[bqv]</a><span>:</span>
       <ul>
        <li><span> Makes substantial use of nix flakes, properly managing them as overlays</span>
-      </ul>
-      <ul>
        <li><span> Way over my head... come back to this later! I haven&#39;t fully looked 
          through this one.</span>
       </ul>
@@ -272,11 +226,7 @@
        <span>:</span>
       <ul>
        <li><span> A modular NixOS configuration system and language</span>
-      </ul>
-      <ul>
        <li><span> (How can I improve upon these ideas?)</span>
-      </ul>
-      <ul>
        <li><span> I haven&#39;t fully examined this one.</span>
       </ul>
       <p><a class=external href=https://github.com/colemickens/nixcfg>[colemickens]</a>
@@ -301,8 +251,6 @@
        <h3>Good practices</h3>
        <ul>
         <li><span> Create a separate partition for all of your nix derivations, /nix</span>
-       </ul>
-       <ul>
         <li><span> Label all of your disks so that </span>
          <pre></pre><span> is reproducible</span>
        </ul>
@@ -312,8 +260,6 @@
        <p><span>worth noting that what i found the most confusing was:</span>
        <ul>
         <li><span> user configuration</span>
-       </ul>
-       <ul>
         <li><span> vps specific, ensuring that i could remove the virtual disk (not delete 
           it)</span>
        </ul>
@@ -342,11 +288,7 @@
        <p><span>Uncomment:</span>
        <ul>
         <li><span> localization for us</span>
-       </ul>
-       <ul>
         <li><span> terminal font and keymap</span>
-       </ul>
-       <ul>
         <li><span> timezone = America</span><i>NewYork, America</i><span>Los_Angeles, etc. 
           These are defined somewhere on your system.</span>
        </ul>
@@ -355,8 +297,6 @@
         <li><span> You must set the option boot.loader.systemd-boot.enable to true. 
           nixos-generate-config should do this automatically for new configurations when 
           booted in UEFI mode.</span>
-       </ul>
-       <ul>
         <li><span> Look at options with boot.loader.efi and boot.loader.systemd as well.</span>
        </ul>
        <p><span>To dual boot, supposedly boot.loader.grub.useOSProber can be set to true 

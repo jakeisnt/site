@@ -141,9 +141,15 @@
   (spinneret::with-html
     (:p (render-text-body (ast::text-body node)))))
 
+
 (defun bullet (node)
   (spinneret::with-html
-    (:ul (:li (render-text-body (ast::bullet-body node))))))
+    (:li (render-text-body (ast::bullet-body node)))))
+
+(defun bullet-group (node)
+  (spinneret::with-html
+    (:ul (loop for bullet in (ast::bullet-group-body node)
+               collect (bullet bullet)))))
 
 (defun code-block (node)
   (spinneret::with-html
@@ -158,7 +164,7 @@
     (cond
       ((ast::header-p node) (header node))
       ((ast::text-p node) (text node))
-      ((ast::bullet-p node) (bullet node))
+      ((ast::bullet-group-p node) (bullet-group node))
       ((ast::code-block-p node) (code-block node))
       (t nil))))
 

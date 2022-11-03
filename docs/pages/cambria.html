@@ -50,21 +50,13 @@
      <ul>
       <li><span> api request -&gt; stack of transformations -&gt; sent to application 
         logic back and forth</span>
-     </ul>
-     <ul>
       <li><span> this allows older apis to transform up the stack into a modern server</span>
-     </ul>
-     <ul>
       <li><span> when distributing: need compatibility of multiple schemas</span>
-     </ul>
-     <ul>
       <li><span> what would it look like to have good tools for handling distributed 
         systems in a systematic way? (shotgun parsing - parsing by if statements - 
         riddling code with little tests and hoping things stick. tools like protobuf in 
         the long term means only adding optional fields, and eventually the data schema 
         has entirely optional types - how do you know what&#39;s still relevant at all?)</span>
-     </ul>
-     <ul>
       <li><span> manage schema compatibility separate from application logic!</span>
      </ul>
      <p><span> - provide data transformations; &#39;bidirectional lenses&#39; - one 

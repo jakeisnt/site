@@ -50,19 +50,11 @@
       <h2>Sample Spaces</h2>
       <ul>
        <li><span> Experiment :: Repeatable procedure with a set of possible results</span>
-      </ul>
-      <ul>
        <li><span> Sample Outcome :: One of many possible results of an experiment</span>
-      </ul>
-      <ul>
        <li><span> Sample Space :: </span><span>S$: The set of all possible outcomes of an 
          experiment</span>
-      </ul>
-      <ul>
        <li><span> Event :: </span><span>A \subset S$ : 0 or more outcomes of an 
          experiment</span>
-      </ul>
-      <ul>
        <li><span> Probability :: </span><span>P(A) = \frac{n(A)}{n(S)}$</span>
       </ul>
      </section>
@@ -71,13 +63,9 @@
       <ul>
        <li><span> Discrete Set :: A finite or countable set. i.e. tossing a coin until a 
          head is received: </span><span>S = \{ H, TH, TTH, \dots \}$</span>
-      </ul>
-      <ul>
        <li><span> Continuous Set :: A range of values. I.e. getting a number smaller than 
          1 from within a real number between 0 and </span><span>\sqrt{2}$: $S = [0, 
          \sqrt{2}]$, $A = [0, 1)$</span>
-      </ul>
-      <ul>
        <li><span> Intersection :: </span><span>A \cap B = \{x | x \in A\ and\ x \in B\}$ 
          for some events A, B</span>
       </ul>
@@ -85,8 +73,6 @@
         &quot;mutually exclusive&quot;</span>
       <ul>
        <li><span> Union :: </span><span>A \cup B = \{x | x \in A\ or\ x \in B\}$</span>
-      </ul>
-      <ul>
        <li><span> Complement :: </span><span>A^{c} = \{x \in S | x \not{\in} A\}$</span>
       </ul>
       <section>
@@ -101,15 +87,9 @@
         following axioms for a sample space that&#39;s finite:</span>
       <ul>
        <li><span> </span><span>P(A) \geq 0$ for all $A$</span>
-      </ul>
-      <ul>
        <li><span> </span><span>P(S) = 1$</span>
-      </ul>
-      <ul>
        <li><span> </span><span>A \cap B = \emptyset \implies P(A \cup B) = P(A) + P(B)$, 
          or $P(A \cup B) = P(A) + P(B) - P(A \cap B)$ otherwise</span>
-      </ul>
-      <ul>
        <li><span> </span><span>P(\cup_{i=1}^{\infty} A_{i}) = \sum_{i=1}^{\infty} 
          P(A_{i})$ if any $A_1, A_2, A_3 \dots$ are mutually exclusive in $S$</span>
       </ul>
@@ -129,8 +109,6 @@
       <p><span>For more than two sets:</span>
       <ul>
        <li><span> </span><span>P(A \cap B \cap C) = P(A)P(B)P(C)$</span>
-      </ul>
-      <ul>
        <li><span> </span><span>P(A \cap B) = P(A)P(B)$, $P(A \cap C) = P(A)P(C)$, $P(B 
          \cap C) = P(B)P(C)$ and so on...</span>
       </ul>
@@ -146,8 +124,6 @@
        <ul>
         <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span><span>
           p_{Y}(k) = (1 - p)^{k - 1}p$</span>
-       </ul>
-       <ul>
         <li><span> mean :: </span><span>\frac{1}{p}$</span>
        </ul>
       </section>
@@ -187,11 +163,7 @@
        <ul>
         <li><span> Random selection of </span><span>n$ items without replacement from a 
           set of $N$ items</span>
-       </ul>
-       <ul>
         <li><span> _Not_ guaranteed P(success) stays constant.</span>
-       </ul>
-       <ul>
         <li><span> </span><span>k$ items are success; $N - k$ items are failures.</span>
        </ul>
        <p><span>This can be considered a generalization of the </span><a class=external
@@ -204,8 +176,6 @@
        <ul>
         <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span><span>
           \frac{1}{b - a}$</span>
-       </ul>
-       <ul>
         <li><span> </span><a class=external href=CDF>[CDF]</a><span> :: </span><span>
           \frac{x - a}{b - a}$</span>
        </ul>
@@ -215,15 +185,9 @@
        <ul>
         <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span><span>
           f_{X}(x) = \lambda e^{-\lambda x}$ for $x \geq 0$</span>
-       </ul>
-       <ul>
         <li><span> </span><a class=external href=CDF>[CDF]</a><span> :: </span><span>
           F_{X}(x) = 1 - e^{-\lambda x}$</span>
-       </ul>
-       <ul>
         <li><span> mean :: </span><span>E(X) = \frac{1}{\lambda}$</span>
-       </ul>
-       <ul>
         <li><span> var :: </span><span>Var(X) = \frac{1}{\lambda^{2}}$</span>
        </ul>
       </section>
@@ -245,11 +209,7 @@
        <ul>
         <li><span> </span><a class=external href=PDF>[PDF]</a><span> :: </span><span>
           p_{X}(k) = P(X = k) := \frac{\lambda^{k}e^{-\lambda}}{k!}$</span>
-       </ul>
-       <ul>
         <li><span> mean :: </span><span>E(X) = \lambda$</span>
-       </ul>
-       <ul>
         <li><span> variance :: </span><span>Var(X) = \lambda$</span>
        </ul>
       </section>
@@ -310,8 +270,6 @@
            $X$ and $Y$ are:</span>
          <ul>
           <li><span> </span><span>p_{X}(x) = \sum_{all y}p_{X,Y}(x,y)$</span>
-         </ul>
-         <ul>
           <li><span> </span><span>p_{Y}(y) = \sum_{all x}p_{X,Y}(x,y)$</span>
          </ul>
         </section>
@@ -396,8 +354,6 @@
       <p><span>Var(X) := E((X - \mu)^{2})$, where:</span>
       <ul>
        <li><span> </span><span>\mu = E(X)$ is the mean of $X$</span>
-      </ul>
-      <ul>
        <li><span> </span><span>\sigma := \sqrt{Var(X)}$ is the standard deviation of $X$</span>
       </ul>
       <p><span>If </span><span>X$ and $Y$ are independent, then:</span>
@@ -470,8 +426,6 @@
         <ul>
          <li><span> </span><span>P(A \cup B) = P(A \cap B^{c}) + P(A \cap B) + P(A^{c} \cap 
            B)$</span>
-        </ul>
-        <ul>
          <li><span> Bayes: </span><span>P(A|B) = \frac{P(A \cap B)}{P(B)}$</span>
         </ul>
        </section>
@@ -485,8 +439,6 @@
         <p><span>Draw a tree:</span>
         <ul>
          <li><span> At the root, no branch is chosen</span>
-        </ul>
-        <ul>
          <li><span> After the root, choose what info you have more about: i.e. if 
            you&#39;re looking for P(Defective | built at plant X), draw a tree with the 
            first set of descendant notes representing the plant at which the thing was 

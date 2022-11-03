@@ -29,5 +29,8 @@
 ;; a bullet point
 (defstruct bullet body)
 
+;; a group of bullet points
+(defstruct bullet-group body)
+
 ;; a code block
 (defstruct code-block lang body)

@@ -51,8 +51,6 @@
       <ul>
        <li><span> lexical :: every inner level can access its outer levels - widely 
          accepted to be the correct scoping decision.</span>
-      </ul>
-      <ul>
        <li><span> dynamic :: functions access the latest definition of a local variable - 
          not deducible at compile time level. This means that for some f wth the body x = 
          3, call g, g has x = 3 in scope.</span>
@@ -114,36 +112,18 @@
       <p><span>four classic analyses:</span>
       <ul>
        <li><span> go over programs forwards and backwards</span>
-      </ul>
-      <ul>
        <li><span> unions and intersections</span>
-      </ul>
-      <ul>
        <li><span>- union, intersection = always, might_possibly</span>
       </ul>
       <p><span>keywords to google</span>
       <ul>
        <li><span> available expressiosn</span>
-      </ul>
-      <ul>
        <li><span>- forwards intersection</span>
-      </ul>
-      <ul>
        <li><span> very busy expressions</span>
-      </ul>
-      <ul>
        <li><span>- backwards intersection</span>
-      </ul>
-      <ul>
        <li><span> reaching definitions</span>
-      </ul>
-      <ul>
        <li><span>- forwards union</span>
-      </ul>
-      <ul>
        <li><span> live variables</span>
-      </ul>
-      <ul>
        <li><span>- backwards union</span>
       </ul>
      </section>
@@ -159,14 +139,10 @@
          reduction -- we must ensure that the order of analyses is performed in the right 
          way. historically, this is performed using information derived from data-flow 
          analysis with an algorithm based on single assignment form.</span>
-      </ul>
-      <ul>
        <li><span> dynamic dead code elimination :: some code sections represent dead or 
          unreachable code only under specific conditions. we can accumulate conditions at 
          runtime to determine what processes or loadings to eliminate while we evaluate 
          an expression.</span>
-      </ul>
-      <ul>
        <li><span> strength reduction :: most of a program&#39;s execution time is spent 
          in a small section of code (the &#39;hot spot&#39;) and that code is inside a 
          loop over and over. the compiler looks to recognize things inside the loop. this 
@@ -178,8 +154,6 @@
          reduction that can be used: </span><a class=external
         href=https://en.wikipedia.org/wiki/Strength_reduction>
          [https://en.wikipedia.org/wiki/Strength_reduction]</a>
-      </ul>
-      <ul>
        <li><span> dataflow analysis :: gathering information about values calculated at 
          points during a computer program. set up dataflow equations for each node of the 
          cfg, then solve them by repeatedly calculating the output from the input, 
@@ -208,17 +182,11 @@
          generically so that it can handle values identically without depending on their 
          type these are generic functions, generic datatypes respectively. type of 
          &#39;append&#39; is generic but is *parameratized* with types rank 1.</span>
-      </ul>
-      <ul>
        <li><span> polymorphism :: type variables cannot be instantiated with polymorphic 
          types.</span>
-      </ul>
-      <ul>
        <li><span> rank k polymorphism :: rank k polymorphism enforces that the quantifier 
          may not appear ot the left of k or more arrows type inference is decidable for 
          rank 2, but not for rank 3 or above</span>
-      </ul>
-      <ul>
        <li><span> rank-n polymorphism :: polymorphism in which quantifiers can appear to 
          the left of arbitrarily many arrows</span>
       </ul>
