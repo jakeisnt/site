@@ -26,7 +26,10 @@
 (defstruct body text)
 
 ;; A name alias in the body. TODO. Some cool ideas here.
-(defstruct alias name)
+(defstruct alias shorthand name)
+
+;; an entire script
+(defstruct script characters body)
 
 
 (load "~/quicklisp/setup.lisp")
@@ -69,8 +72,7 @@
 (defun parse-message-body (body-text)
   "Parse the message body."
   (let* ((body-stream (make-string-input-stream body-text))
-        (res (parse-message-body-help body-stream nil)))
-    (print res)
+         (res (parse-message-body-help body-stream nil)))
     res))
 
 (defun parse-message (line)
@@ -80,10 +82,16 @@
      :author (car line-parts)
      :text (parse-message-body (cadr line-parts)))))
 
+(defun parse-alias (line)
+  "Parse a message as a line."
+  (let ((line-parts (split "=" line :limit 2)))
+    (act-ast::make-alias
+     :shorthand (car line-parts)
+     :name (cadr line-parts))))
+
 (defmacro match-line (recur stream cnd)
   "Abstract out the practice of matching on a line and looking for something."
   `(let ((line (parse-help::safe-read-line stream)))
-     (print line)
      (if (eq :eof line)
          nil
          (let ((readline-res ,cnd))
@@ -100,8 +108,30 @@
      ((parse-help::starts-with  #\- line) :ignore)
      ((parse-help::starts-with  #\( line) (parse-context line))
      ((parse-help::can-split-on #\: line) (parse-message line))
+     ((parse-help::can-split-on #\= line) (parse-alias line))
      ((parse-help::can-split-on #\= line) :ignore) ;; (parse-alias stream)
      (t :ignore))))
+
+(defun extract-list-elements (ls pred)
+  "Remove elements from the list that satisfy a predicate."
+  (let ((characters ())
+        (rest-of-script ()))
+    (loop for elem in (reverse ls)
+          do (if (funcall pred elem)
+                 (setq characters (cons elem characters))
+                 (setq rest-of-script (cons elem rest-of-script))))
+    (values characters rest-of-script)))
+
+(defun extract-characters (script-list)
+  "Split a list on the characters of the script."
+  (extract-list-elements script-list #'act-ast::alias-p))
+
+(defun parse-script (stream)
+  (multiple-value-bind
+        (characters rest-of-script) (extract-characters (parse stream))
+    (act-ast::make-script
+     :characters characters
+     :body rest-of-script)))
 
 ;; HTML serializer for the 'act' language
 
@@ -119,12 +149,16 @@
 
 (defun render-message-text (txt)
   (loop for item in txt
-        collect (spinneret::with-html
-                    (cond
-                      ((act-ast::ital-p item) (:i (act-ast::ital-text item)))
-                      ((act-ast::body-p item) (:span (act-ast::body-text item)))))))
+        collect
+        (spinneret::with-html
+          (cond
+            ((act-ast::ital-p item) (:i (act-ast::ital-text item)))
+            ((act-ast::body-p item) (:span (act-ast::body-text item)))))))
 
-(defun render-node (node)
+(defun first-character-alias (script)
+  (act-ast::alias-shorthand (car (act-ast::script-characters script))))
+
+(defun render-node (node script)
   (spinneret::with-html
     (cond
       ((act-ast::message-p node)
@@ -132,25 +166,30 @@
         :class (concatenate
                 'string
                 "message "
-                (if (equal (act-ast::message-author node) "C") "a" "b"))
+                (if (equal (act-ast::message-author node) (first-character-alias script)) "a" "b"))
         (:p :class "message-text" (render-message-text (act-ast::message-text node)))))
       ((act-ast::context-p node)
        (:p
         :class "context"
-        (act-ast::context-text node))))))
+        (act-ast::context-text node)))
+      (t nil))))
 
-(defun conversation-page (astlist)
+(defun conversation-page (script)
   (htmx::body
    "Conversation"
+   nil
    (:article
     :class "conversation"
-    (loop for node in astlist
-          collect (render-node node)))))
+    (loop for node in (act-ast::script-body script)
+          collect (render-node node script)))
+   nil))
 
-(defun render-script ()
-  (with-open-file (stream "~/wiki/etc/script.act" :direction :input)
+(defun render-script (path)
+  (with-open-file (stream path :direction :input)
     (util::write-file
-     "/home/jake/site/docs/script.html"
-     (conversation-page (act-parser::parse stream)))))
+     "/home/jake/site/docs/fool-for-love.html"
+     (conversation-page (act-parser::parse-script stream)))))
 
-;; (act-html::render-script)
+
+
+;; (act-html::render-script "/home/jake/wiki/etc/fool-for-love.act")
