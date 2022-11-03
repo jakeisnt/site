@@ -34,3 +34,6 @@
 
 ;; a code block
 (defstruct code-block lang body)
+
+;; A quote block
+(defstruct quote-block body author)

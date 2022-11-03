@@ -17,8 +17,6 @@
 (defstruct text-tok body)
 ;; a document title
 (defstruct title-tok title)
-;; a code block
-(defstruct code-block-tok lang body)
 ;; a bullet point
 (defstruct bullet-tok body)
 
@@ -66,6 +64,19 @@
           do (push-char chars next-char))
     chars))
 
+(defun in (elem lst)
+  "is the element in the list?"
+  (member elem lst :test #'equal))
+
+(defun take-until-chars (stream could-end-on)
+  "take from a stream until any of the characters are received"
+  (let ((chars (make-adjustable-string "")))
+    (loop for next-char = (safe-read-char stream)
+          until (or (in next-char could-end-on)
+                    (eq next-char :eof))
+          do (push-char chars next-char))
+    chars))
+
 (defun tokenize-properties (stream)
   "Tokenize a property drawer."
   (take-until stream ":END:")
@@ -96,27 +107,34 @@
   (let ((title-text (take-until stream #\newline)))
     (make-title-tok :title title-text)))
 
-
 (defun parse-code-block (stream cap)
   "Parse a code block from a stream."
   (let ((lang (take-until stream #\newline))
         (body (take-until stream (if cap  "#+END_SRC" "#+end_src"))))
-    (make-code-block-tok
-     :lang lang
-     :body body)))
+    (ast::make-code-block :lang lang :body body)))
+
+;; NOTE: this is very broken and makes some bad assumptions about org files.
+(defun parse-quote-block (stream cap)
+  "Parse a quote block from a stream."
+  (let* ((body (take-until stream #\—)) ; this is bad. can't use em dash in quotes.
+         (author (take-until stream #\newline)) ; this can be a link or a quote?
+         (rst (take-until stream (if cap "#+END_QUOTE" "#+end_quote"))))
+    (ast::make-quote-block :body body :author (tokenize-line author '()))))
 
 (defun split-first (line look-for)
   "Split the line on the first occurence of the character."
   (split look-for line :limit 2))
 
 (defun tokenize-macro-line-or-comment (stream)
-  "Tokenize a macro line or comment"
-  (let ((cmd (take-until stream #\space)))
+  "Tokenize a macro line or comment. We've already seen a '#' at the start of the line."
+  (let ((cmd (take-until-chars stream (list #\space #\newline))))
     (string-case (cmd)
       ("+TITLE:"    (parse-title stream))
       ("+title:"    (parse-title stream))
       ("+BEGIN_SRC" (parse-code-block stream t))
       ("+begin_src" (parse-code-block stream nil))
+      ("+BEGIN_QUOTE" (parse-quote-block stream t))
+      ("+begin_quote" (parse-quote-block stream nil))
       (t "Not sure what this macro is"))))
 
 ;; Assuming we've found matching parens,

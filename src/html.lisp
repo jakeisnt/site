@@ -151,13 +151,6 @@
     (:ul (loop for bullet in (ast::bullet-group-body node)
                collect (bullet bullet)))))
 
-(defun code-block (node)
-  (spinneret::with-html
-    (:pre
-     (:code
-      :class (concatenate 'string "language-" (ast::code-block-lang node))
-      (ast::code-block-body node)))))
-
 (defun render-node (node)
   "Render a node as HTML."
   (spinneret::with-html
@@ -166,7 +159,27 @@
       ((ast::text-p node) (text node))
       ((ast::bullet-group-p node) (bullet-group node))
       ((ast::code-block-p node) (code-block node))
-      (t nil))))
+      ((ast::quote-block-p node) (quote-block node))
+      (t node))))
+
+(defun render-nodelist (nodes)
+  "Render a list of nodes as html"
+  (spinneret::with-html
+    (loop for node in nodes
+          collect (render-node node))))
+
+(defun code-block (node)
+  (spinneret::with-html
+    (:pre
+     (:code
+      :class (concatenate 'string "language-" (ast::code-block-lang node))
+      (ast::code-block-body node)))))
+
+(defun quote-block (node)
+  (spinneret::with-html
+    (:blockquote
+     (:p (ast::quote-block-body node))
+     (:cite (render-nodelist (ast::quote-block-author node))))))
 
 ;; macro: https://github.com/ruricolist/spinneret
 ;; TODO: add edit icon.  this can just take to github page,
@@ -178,10 +191,10 @@
     (body
      title
      (components::sidebar path root title)
-     (:article :class "wikipage"
-                (when title (spinneret::with-html (:h1 :class "title-top" title)))
-                (loop for node in f-body
-                      collect (render-node node)))
+     (:article
+      :class "wikipage"
+      (when title (spinneret::with-html (:h1 :class "title-top" title)))
+      (render-nodelist f-body))
      ;; we have to delay evaluation of the template here, apparently?
      (mapcar (lambda (a) (and a (funcall a))) extras))))
 

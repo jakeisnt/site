@@ -66,11 +66,6 @@
 (defun bullet-tok->bullet (cur-tok)
   (ast::make-bullet :body (lexer::bullet-tok-body cur-tok)))
 
-(defun code-block-tok->code-block (cur-tok)
-  (ast::make-code-block
-    :lang (lexer::code-block-tok-lang cur-tok)
-    :body (lexer::code-block-tok-body cur-tok)))
-
 (defun text-tok->text (cur-tok)
   (ast::make-text :body (lexer::text-tok-body cur-tok)))
 
@@ -80,6 +75,12 @@
     (if (ast::bullet-group-p last-tok)
         (cons (add-bullet bullet last-tok) (cdr acc))
         (cons (start-bullet-group bullet) acc))))
+
+;; (defun parse-quote-block (cur-tok acc)
+;;   (cons
+;;    (ast::make-quote-block
+;;     :body (parse-tokens (ast::quote-block-body cur-tok) nil))
+;;    acc))
 
 (defun parse-tokens (token-list acc)
   "Parse tokens into a recursive structure from a token list."
@@ -96,8 +97,8 @@
            ((lexer::title-tok-p cur-tok)
             (setq file-name (lexer::title-tok-title cur-tok))
             acc)
-           ((lexer::code-block-tok-p cur-tok) (cons (code-block-tok->code-block cur-tok) acc))
            ((lexer::bullet-tok-p cur-tok) (fuse-bullet cur-tok acc))
+           ;; ((ast::quote-block-p cur-tok) (parse-quote-block cur-tok acc))
            (t (cons cur-tok acc)))))))
 
 (defun parse-all (tks)
