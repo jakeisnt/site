@@ -45,51 +45,13 @@
    <main>
     <article class=wikipage>
      <h1 class=title-top>Posix</h1>
-     <p><a class=external
-      href=https://ideatrash.net/2013/03/scripts-and-utilities-to-make.html>[tui 
-       everything]</a>
-     <p><a class=external href=https://github.com/Genivia/ugrep>[interactive grep with 
-       query ui and fuzzy search]</a>
-     <p><a class=external href=https://github.com/tomnomnom/gron>[make JSON greppable]</a>
-     <p><a class=external href=https://github.com/sharkdp/hexyl>[command line hex 
-       viewer]</a>
-     <p><a class=external href=https://github.com/sharkdp/hyperfine>[command line 
-       benchmarking tool]</a>
-     <p><a class=external href=https://github.com/imager-io/imager>[automated image 
-       compression for distributing images]</a>
-     <p><a class=external href=https://github.com/KorySchneider/wikit>[wikipedia 
-       summaries from the command line]</a>
-     <p><a class=external
-      href=https://github.com/learnbyexample/Command-line-text-processing>[automate 
-       command line text processing]</a>
-     <p><a class=external href=https://github.com/casey/just>[just: simple command 
-       runner]</a>
-     <p><a class=external href=https://github.com/gokcehan/lf>[terminal file manager]</a>
-     <p><a class=external href=https://mikestone.me/watching-in-linux>[watch cmd in 
-       linux]</a>
-     <p><a class=external href="https://ban.ai/multics/">[https://ban.ai/multics/]</a>
-     <p><a class=external href=http://shell.cs.pomona.edu/shtepper>
-       [http://shell.cs.pomona.edu/shtepper]</a>
-     <p><a class=external
-      href=https://christine.website/blog/why-i-use-suckless-tools-2020-06-05>
-       [https://christine.website/blog/why-i-use-suckless-tools-2020-06-05]</a>
-     <p><a class=external href="http://werc.cat-v.org/">[posix &#39;anti-web&#39; 
-       framework]</a>
-     <p><a class=external href="https://mkaz.blog/code/unix-is-my-ide/">[Unix is my 
-       IDE]</a>
-     <p><a class=external href=https://github.com/acmesh-official/acme.sh>[a full ACME 
-       protocol implemented in shell]</a><span> </span><a class=internal
-      href=id:c44cb88d-e082-429c-8045-6a4ad57d95d4>{Web}</a>
-     <p><a class=external
-      href=https://gist.github.com/katef/59450aa622315bd35fc27bd383c2dbe6#file-life-utf8-c>
-       [https://gist.github.com/katef/59450aa622315bd35fc27bd383c2dbe6#file-life-utf8-c]
-       </a><a class=internal href=id:fd6e9df5-eeeb-49be-a05c-13fa04d9d184>{C and C++}</a>
-     <p><a class=external href="https://news.ycombinator.com/item?id=24256883">
-       [https://news.ycombinator.com/item?id=24256883]</a><span>portable executables!</span>
-     <p><a class=external href="https://kkovacs.eu/cool-but-obscure-unix-tools/">
-       [terminal utils to look at]</a>
      <section>
-      <h2>unix shell programming: the next 50 years</h2>
+      <h2>Philosophy</h2>
+      <p><a class=external href="https://mkaz.blog/code/unix-is-my-ide/">[Unix is my IDE 
+        – mkaz.blog]</a>
+     </section>
+     <section>
+      <h2>Unix shell programming: the next 50 years</h2>
       <p><a class=external
        href=https://sigops.org/s/conferences/hotos/2021/papers/hotos21-s06-greenberg.pdf>
         [src]</a><span> and </span><a class=external
@@ -147,12 +109,59 @@
        </ul>
       </section>
      </section>
+     <section>
+      <h2>Utilities</h2>
+      <p><a class=external href=https://github.com/nvbn/thefuck>[fuck]</a><span> 
+        corrects your last console command.</span>
+      <p><a class=external href="https://kkovacs.eu/cool-but-obscure-unix-tools/">[Cool, 
+        but obscure unix tools · Kristof Kovacs ✈️]</a><span>aas a whole list of them. 
+        Worth poking around to see what might be useful - in the future!</span>
+      <p><a class=external href="http://werc.cat-v.org/">[werc - A sane web 
+        anti-framework]</a>
+      <p><a class=external
+       href=https://xeiaso.net/blog/why-i-use-suckless-tools-2020-06-05>[Why I Use 
+        Suckless Tools - Xe]</a>
+      <p><a class=external href=https://github.com/casey/just>[GitHub - casey/just: 🤖 
+        Just a command runner]</a>
+      <p><a class=external href=https://github.com/sharkdp/hexyl>[GitHub - 
+        sharkdp/hexyl: A command-line hex viewer]</a>
+     </section>
+     <section>
+      <h2>Alternatives</h2>
+      <p><a class=external href=https://github.com/oilshell/oil>[Oil shell]</a><span> is 
+        a new Unix shell alternative that can be compiled and deployed as a native 
+        executable.</span>
+      <p><a class=external href=https://github.com/nushell/nushell>[Nushell]</a><span> 
+        approaches the shell environment with structured data.</span>
+     </section>
+     <section>
+      <h2>Configs</h2>
+      <p><a class=external
+       href=https://thomask.sdf.org/blog/2019/11/09/take-care-editing-bash-scripts.html>
+        [Be careful editing bash scripts]</a><span>: </span>
+       <pre></pre><span> tracks the byte position in the file during execution and scans 
+        lines accordingly. This example shows a user editing a line that has dangerous 
+        consequences in the file - and even though some dangerous line is still 
+        commented out, the byte offset of everything in the file changes, so the 
+        dangerous piece of code is executed. Insane. It&#39;s okay to load your program 
+        into memory before running it - really.</span>
+     </section>
     </article>
    </main>
    <div class=git-hist-table>
     <table>
      <tr>
       <th>History
+     <tr>
+      <td>2022-11-02
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/6c4b6caad8b60a35e0ab2141b0bf9750335053be//pages/posix.org>
+        6c4b6ca</a>
+     <tr>
+      <td>2022-11-02
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/8292a442228c9ac21db7b436380511450cd67253//pages/posix.org>
+        8292a44</a>
      <tr>
       <td>2022-10-27
       <td><a
