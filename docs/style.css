@@ -41,8 +41,7 @@ blockquote.article-quote p::after {
 /* background-size: calc(40 * .5px) calc(40 * .5px); */
 
 main {
-  max-width: 435;
-  /* max-width: 30rem; */
+  max-width: 40rem;
 }
 
 article {

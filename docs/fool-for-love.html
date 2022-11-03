@@ -125,19 +125,8 @@
       <p class=context>They stare at each other. May suddenly stands, goes to bedpost, 
        grabs her purse, slings it on her shoulder and heads for stage left door.
      </article>
-     <button
-             onclick="
-function changeClassName(old, new) {
-  Array.from(document.getElementsByClassName(old)).forEach((elem) => { elem.className = new; });
-}
-function switchGreentext() {
-  changeClassName(&quot;a&quot;, &quot;temp&quot;);
-  changeClassName(&quot;b&quot;, &quot;a&quot;);
-  changeClassName(&quot;temp&quot;, &quot;b&quot;);
-}
-console.log(&quot;switching scripts&quot;);
-switchGreenText();
-">click me</button>
+     <script src=/script.js></script>
+     <button onclick=switchGreentext()>click me</button>
     </div>
    </main>
   </div>

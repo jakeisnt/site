@@ -185,18 +185,8 @@
 
 (defun switch-script-button ()
   (spinneret::with-html
-    (:button :onclick "
-function changeClassName(old, new) {
-  Array.from(document.getElementsByClassName(old)).forEach((elem) => { elem.className = new; });
-}
-function switchGreentext() {
-  changeClassName(\"a\", \"temp\");
-  changeClassName(\"b\", \"a\");
-  changeClassName(\"temp\", \"b\");
-}
-console.log(\"switching scripts\");
-switchGreenText();
-" "click me")))
+    (:script :src "/script.js")
+    (:button :onclick "switchGreentext()" "click me")))
 
 (defun conversation-page (script)
   (htmx::body
