@@ -64,16 +64,17 @@
   "Write the directory association list to html files"
   (loop for (src-path target-path fdata git-info) in dir-ls
         do (util::write-file
-              target-path
-              (htmx::render-file
-               fdata
-               target-path
-               *site-location*
-               (list
-                (lambda ()
-                  (components::git-history
-                   git-info
-                   (namestring (path::remove-root src-path *wiki-location*)))))))))
+            target-path
+            (htmx::render-file
+             fdata
+             target-path
+             *site-location*
+             (list
+              (lambda ()
+                (components::git-history
+                 git-info
+                 (namestring (path::remove-root src-path *wiki-location*)))))))))
+
 
 (defun compare-file-dates (a b)
   "Compare two file objects by date."
