@@ -80,7 +80,6 @@
   (labels ((last-commit-date (c) (caddr (car (cadddr c)))))
     (let ((a-last-time (last-commit-date a))
           (b-last-time (last-commit-date b)))
-
       (string< b-last-time a-last-time))))
 
 (defun generate-dir (dirname)
@@ -105,7 +104,6 @@
              ((stringp form) (generate-file)))))
 
 (defun generate ()
-
   ;; A specification for the folder system.
   (let ((spec
           `(("pages")                   ; render all files in `pages` folder
