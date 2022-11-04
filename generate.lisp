@@ -14,7 +14,7 @@
 
 (defun generate-file (file-path extras)
   "Generate an html file given a path to a org-mode source."
-  (let ((result-path (path::change-file-path file-path *wiki-location* *site-location*)))
+  (let ((result-path (fpath::change-file-path file-path *wiki-location* *site-location*)))
     (util::write-file
      result-path
      (htmx::render-file (parser::parse file-path) result-path *site-location* extras))))
@@ -38,7 +38,7 @@
 (defun generate-index (dirname paths)
   "Generate an html file given a path to a org-mode source."
   (let* ((dir-dest (get-dir-dest dirname))
-         (result-path (path::change-file-path dir-dest *wiki-location* *site-location*)))
+         (result-path (fpath::change-file-path dir-dest *wiki-location* *site-location*)))
     (util::write-file
      result-path
      (htmx::index-page dirname paths *site-location*))))
@@ -55,7 +55,7 @@
   (loop for file-path in dir-files
         collect (list
                  file-path
-                 (path::change-file-path file-path *wiki-location* *site-location*)
+                 (fpath::change-file-path file-path *wiki-location* *site-location*)
                  (parser::parse file-path)
                  (git::log-of-file file-path))))
 
@@ -73,7 +73,7 @@
               (lambda ()
                 (components::git-history
                  git-info
-                 (namestring (path::remove-root src-path *wiki-location*)))))))))
+                 (namestring (fpath::remove-root src-path *wiki-location*)))))))))
 
 
 (defun compare-file-dates (a b)

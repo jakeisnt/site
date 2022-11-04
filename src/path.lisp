@@ -1,7 +1,7 @@
-(defpackage path
+(defpackage fpath
   (:use :cl))
 
-(in-package :path)
+(in-package :fpath)
 
 ;; Utilities for manipulating files.
 

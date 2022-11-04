@@ -88,7 +88,7 @@
          (collect-folder-paths-help next-root (cdr ls) title))))))
 
 (defun collect-folder-paths (path title)
-  (collect-folder-paths-help "" (path::pathdir path) title))
+  (collect-folder-paths-help "" (fpath::pathdir path) title))
 
 (defun concat-around (ls around-char)
   "Concatenate the elements of a list of strings around a character."
@@ -105,7 +105,7 @@
   "Construct a final path link for the page."
   (concatenate
    'string
-   (concat-around (path::pathdir path) "/")
+   (concat-around (fpath::pathdir path) "/")
    "/"
    (pathname-name path)
    "."
@@ -116,12 +116,12 @@
 
 (defun sidebar (path root title)
   "Display a sidebar for a page, given its root path."
-  (let ((path (path::remove-root path root)))
+  (let ((path (fpath::remove-root path root)))
     (spinneret::with-html
       (:div
        :class "sidebar"
        ;; Bold site title instead of making it a clickable link if at root (no path).
-       (if (endp (path::pathdir path))
+       (if (endp (fpath::pathdir path))
            (:b "jake.")
            (:a :href "/index.html" " jake."))
        (:a :href "https://isnt.online" " ~ ")

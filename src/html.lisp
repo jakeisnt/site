@@ -224,7 +224,7 @@
        (:td :class "file-name-tr"
             (:a
              :id (concatenate 'string "indexmenu-" name)
-             :href (path::remove-root target-path root)
+             :href (fpath::remove-root target-path root)
              name))
        (:td (commit-date created))
        (:td "➜")
@@ -233,7 +233,7 @@
 ;; we also need to create an index page here for each
 (defun index-page (dirname flist root)
   "Generate an index page from a list of paths at that index and a directory name."
-  (let ((path (path::rename (cadr (car flist)) "index"))
+  (let ((path (fpath::rename (cadr (car flist)) "index"))
         (title (concatenate 'string dirname "/index")))
     (body
      title
