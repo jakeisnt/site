@@ -46,31 +46,41 @@
     <article class=wikipage>
      <h1 class=title-top>Joss</h1>
      <p><span>Name is TBD; Joss for now.</span>
-     <p><a class=external
-      href=https://gist.github.com/jakeisnt/d06220e4dcfa66b217272331701e1089>
-       [Programming as Theory Building]</a><span>: We should architect a programming 
-       system that respects such a model. Programming reflects the act of building up a 
-       programmer&#39;s knowledge, and programs contain both the ideas behind some 
-       software development practice and the results of the practice - that is, they 
-       produce both functions that encode models of the world and runnable code that 
-       can abstract over such models. I think there is space for a pedagogical 
-       cirriculum based on developing functional programs: we accumulate functions in 
-       some function store, and continue to iterate on them - or develop new functions 
-       - to accumulate knowledge, because the best way to learn something is to do it 
-       and to demonstrate that it works.</span>
-     <p><span>Goals:</span>
-     <ul>
-      <li><span> Strong and secure type system. Static types are excellent and help 
-        programmers, but they should stay out of the way as much as possible.</span>
-      <li><span> Practical to program in. Programmers shouldn&#39;t have to dig into 
-        types, macros or system guts to grok things.</span>
-      <li><span> Offload as much codebase management, tech debt, refactoring work to the 
-        system as you can.</span>
-      <li><span> No default concrete syntax - the language can use whatever syntax 
-        you&#39;d prefer.</span>
-     </ul>
-     <p><span> The concrete syntax used in this document is going to be the 
-       s-expression based syntax provided with the language</span>
+     <section>
+      <h2>Inspiration</h2>
+      <p><a class=external href=https://www.dreamsongs.com/WIB.html>[Worse Is Better]</a>
+       <span>: A long essay on Lisp, programming languages, and what we can do to make 
+        lisp better today. Not much of this has been realized.</span>
+      <p><a class=external
+       href=https://gist.github.com/jakeisnt/d06220e4dcfa66b217272331701e1089>
+        [Programming as Theory Building]</a><span>: We should architect a programming 
+        system that respects such a model. Programming reflects the act of building up a 
+        programmer&#39;s knowledge, and programs contain both the ideas behind some 
+        software development practice and the results of the practice - that is, they 
+        produce both functions that encode models of the world and runnable code that 
+        can abstract over such models. I think there is space for a pedagogical 
+        cirriculum based on developing functional programs: we accumulate functions in 
+        some function store, and continue to iterate on them - or develop new functions 
+        - to accumulate knowledge, because the best way to learn something is to do it 
+        and to demonstrate that it works.</span>
+      <p><span>Mindstorms. Logo. Hungarian method. Let the user both build from first 
+        principles and dissect the interfaces they&#39;ve been given.</span>
+     </section>
+     <section>
+      <h2>Goals</h2>
+      <ul>
+       <li><span> Strong and secure type system. Static types are excellent and help 
+         programmers, but they should stay out of the way as much as possible.</span>
+       <li><span> Practical to program in. Programmers shouldn&#39;t have to dig into 
+         types, macros or system guts to grok things.</span>
+       <li><span> Offload as much codebase management, tech debt, refactoring work to the 
+         system as you can.</span>
+       <li><span> No default concrete syntax - the language can use whatever syntax 
+         you&#39;d prefer.</span>
+      </ul>
+      <p><span> The concrete syntax used in this document is going to be the 
+        s-expression based syntax provided with the language</span>
+     </section>
      <section>
       <h2>Codebase Management</h2>
       <p><span>Forget about files, modules, all of that garbage.</span>
@@ -237,6 +247,11 @@
     <table>
      <tr>
       <th>History
+     <tr>
+      <td>2022-11-03
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/1aa101d0f542761bee579c8a6190463fea890665//pages/joss.org>
+        1aa101d</a>
      <tr>
       <td>2022-11-01
       <td><a
