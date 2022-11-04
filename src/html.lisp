@@ -83,18 +83,18 @@
 (defun convert-link (txt)
   "Convert a link to an HTML link."
   (spinneret::with-html
-      (let* ((url (ast::link-url txt))
-             (title (or (ast::link-title txt) url))
-             (is-internal
-               (or
-                (util::string-prefixesp url  "id:")
-                (util::string-prefixesp url "file:"))))
-        (:a
-         :href url
-         :class (if is-internal "internal" "external")
-         (if is-internal
-             (concatenate 'string "{" title "}")
-             (concatenate 'string "[" title "]"))))))
+    (let* ((url (ast::link-url txt))
+           (title (or (ast::link-title txt) url))
+           (is-internal
+             (or
+              (util::string-prefixesp url  "id:")
+              (util::string-prefixesp url "file:"))))
+      (:a
+       :href url
+       :class (if is-internal "internal" "external")
+       (if is-internal
+           (concatenate 'string "{" title "}")
+           (concatenate 'string "[" title "]"))))))
 
 (defun render-text-elem (txt)
   "Render a text element."
@@ -209,10 +209,30 @@
    (ast::file-title fdata)
    (pathname-name target-path)))
 
+(defun commit-date (commit-struct)
+  "Get commit date from commit tuple"
+  (caddr commit-struct))
+
+(defun index-page-entry (root src-path target-path fdata git-hist)
+  "Generate an index page entry for a particular file."
+  (let ((name (get-filename fdata target-path))
+        (last-updated (car git-hist))
+        (created (car (last git-hist))))
+    (spinneret::with-html
+      (:tr
+       (:td (car last-updated))
+       (:td :class "file-name-tr"
+            (:a
+             :id (concatenate 'string "indexmenu-" name)
+             :href (path::remove-root target-path root)
+             name))
+       (:td (commit-date created))
+       (:td "➜")
+       (:td (commit-date last-updated))))))
+
 ;; we also need to create an index page here for each
 (defun index-page (dirname flist root)
   "Generate an index page from a list of paths at that index and a directory name."
-
   (let ((path (path::rename (cadr (car flist)) "index"))
         (title (concatenate 'string dirname "/index")))
     (body
@@ -220,17 +240,6 @@
      (components::sidebar path root nil)
      (spinneret::with-html
        (:div :class "folder-index-page-table"
-             (:table (loop for (src-path target-path fdata git-hist) in flist
-                           collect
-                           (let ((name (get-filename fdata target-path))
-                                 (last-updated (car git-hist)))
-                             (spinneret::with-html
-                               (:tr
-                                (:td (caddr last-updated))
-                                (:td :class "file-name-tr"
-                                     (:a
-                                      :id (concatenate 'string "indexmenu-" name)
-                                      :href (path::remove-root target-path root)
-                                      name))
-                                (:td (car last-updated)))))))))
-     (list))))
+             (:table (loop for file-data in flist
+                           collect (apply #'index-page-entry (cons root file-data))))))
+     nil)))
