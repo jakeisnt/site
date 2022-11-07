@@ -29,7 +29,10 @@
 (defstruct alias shorthand name)
 
 ;; an entire script
-(defstruct script characters body)
+(defstruct script title characters body)
+
+;; the title of a script
+(defstruct title name)
 
 
 (load "~/quicklisp/setup.lisp")
@@ -83,11 +86,15 @@
      :text (parse-message-body (cadr line-parts)))))
 
 (defun parse-alias (line)
-  "Parse a message as a line."
+  "Parse a title from a line."
   (let ((line-parts (split "=" line :limit 2)))
     (act-ast::make-alias
      :shorthand (car line-parts)
      :name (cadr line-parts))))
+
+(defun parse-title (line)
+  "Parse a title from a line"
+  (act-ast::make-title :name (subseq line 1)))
 
 (defmacro match-line (recur stream cnd)
   "Abstract out the practice of matching on a line and looking for something."
@@ -106,30 +113,34 @@
    stream
    (cond
      ((parse-help::starts-with  #\- line) :ignore)
+     ((parse-help::starts-with #\# line)  (parse-title line))
      ((parse-help::starts-with  #\( line) (parse-context line))
      ((parse-help::can-split-on #\: line) (parse-message line))
      ((parse-help::can-split-on #\= line) (parse-alias line))
      ((parse-help::can-split-on #\= line) :ignore) ;; (parse-alias stream)
      (t :ignore))))
 
-(defun extract-list-elements (ls pred)
+(defun extract-list-elements (ls pred pred2)
   "Remove elements from the list that satisfy a predicate."
   (let ((characters ())
+        (title nil)
         (rest-of-script ()))
     (loop for elem in (reverse ls)
-          do (if (funcall pred elem)
-                 (setq characters (cons elem characters))
-                 (setq rest-of-script (cons elem rest-of-script))))
-    (values characters rest-of-script)))
+          do (cond
+               ((funcall pred elem)  (setq characters (cons elem characters)))
+               ((funcall pred2 elem) (setq title (act-ast::title-name elem)))
+               (t (setq rest-of-script (cons elem rest-of-script)))))
+    (values characters title rest-of-script)))
 
 (defun extract-characters (script-list)
   "Split a list on the characters of the script."
-  (extract-list-elements script-list #'act-ast::alias-p))
+  (extract-list-elements script-list #'act-ast::alias-p #'act-ast::title-p))
 
 (defun parse-script (stream)
   (multiple-value-bind
-        (characters rest-of-script) (extract-characters (parse stream))
+        (characters title rest-of-script) (extract-characters (parse stream))
     (act-ast::make-script
+     :title title
      :characters characters
      :body rest-of-script)))
 
@@ -166,7 +177,6 @@
         :class (concatenate
                 'string
                 "message "
-
                 ;; whoever's line occurs first should be "b" by default.
                 (if (equal (act-ast::message-author node) (first-character-alias script)) "b" "a"))
         (:p :class "message-text" (render-message-text (act-ast::message-text node)))))
@@ -201,7 +211,7 @@
 
 (defun conversation-page (script)
   (htmx::body
-   "Conversation"
+   (act-ast::script-title script)
    (script-control-menu (act-ast::script-characters script))
    (:div
     (:article
