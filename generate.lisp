@@ -106,12 +106,14 @@
 
 (defun generate ()
   ;; A specification for the folder system.
-  (let ((spec
-          `(("pages")                   ; render all files in `pages` folder
-            "index.org"                 ; render this specific file
-            ("etc" "script.act"))))     ; render this file in this dir
+  ;; (let ((spec
+  ;;         `(("pages")                   ; render all files in `pages` folder
+  ;;           "index.org"                 ; render this specific file
+  ;;           ("etc" "script.act"))))     ; render this file in this dir
 
-    (generate-homepage)
-    (generate-dir "pages")))
+  (generate-homepage)
+  (generate-dir "pages")
+  ;; TODO: generalize `generate-dir` (generate-dir "scripts")
+  )
 
 ;; (generate)

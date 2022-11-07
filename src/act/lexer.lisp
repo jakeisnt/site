@@ -226,6 +226,10 @@
      "/home/jake/site/docs/fool-for-love.html"
      (conversation-page (act-parser::parse-script stream)))))
 
+
+
+
+
 ;; to support:
 ;; - menu of scripts (like ios chat menu?)
 ;; - support more than two characters
