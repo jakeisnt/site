@@ -46,8 +46,8 @@
 
 
 (defun get-dir-files (dirname)
-  "Get all org-mode files as an iterator from the source directory."
-  (directory (concatenate 'string *wiki-location* dirname "/*.org")))
+  "Get all files as an iterator from the source directory."
+  (directory (concatenate 'string *wiki-location* dirname "/*.*")))
 
 
 (defun parse-dir-files (dir-files)
