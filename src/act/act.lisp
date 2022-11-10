@@ -209,16 +209,16 @@
                                      "character other")
                                  (act-ast::alias-name character)))))))))
 
-(defun conversation-page (script)
+(defun conversation-page (script path root extras)
   (htmx::body
    (act-ast::script-title script)
-   (script-control-menu (act-ast::script-characters script))
+   (components::sidebar path root (act-ast::script-title script))
    (:div
     (:article
      :class "conversation"
      (loop for node in (act-ast::script-body script)
            collect (render-node node script))))
-   nil))
+   (script-control-menu (act-ast::script-characters script))))
 
 ;; (defun render-script (path)
 ;;   (with-open-file (stream path :direction :input)
@@ -243,7 +243,7 @@
   (act-parser::parse-script stream))
 
 (defun html (fdata path root extras)
-  (act-html::conversation-page fdata))
+  (act-html::conversation-page fdata path root extras))
 
 (defun p (data)
   "Is the file an act ast?"
