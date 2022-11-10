@@ -226,12 +226,21 @@
      "/home/jake/site/docs/fool-for-love.html"
      (conversation-page (act-parser::parse-script stream)))))
 
-
-
-
-
 ;; to support:
 ;; - menu of scripts (like ios chat menu?)
 ;; - support more than two characters
 
 ;; (act-html::render-script "/home/jake/wiki/etc/fool-for-love.act")
+
+
+;; Exported thing
+(defpackage act
+  (:use :cl))
+
+(in-package act)
+
+(defun parse (fstream)
+  (act-parser::parse-script stream))
+
+(defun html (fdata path root extras)
+  (act-html::conversation-page fdata))

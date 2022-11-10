@@ -4,7 +4,6 @@
 (load "~/site/src/path.lisp")
 (load "~/site/src/git.lisp")
 (load "~/site/src/components.lisp")
-(load "~/site/src/org/parser.lisp")
 
 (defparameter *site-location*  "/home/jake/site/docs/")
 (defparameter *site-url* "/home/jake/site/docs/")
@@ -17,7 +16,7 @@
   (let ((result-path (fpath::change-file-path file-path *wiki-location* *site-location*)))
     (util::write-file
      result-path
-     (htmx::render-file (parser::parse file-path) result-path *site-location* extras))))
+     (htmx::render-file (org::parse file-path) result-path *site-location* extras))))
 
 (defun generate-homepage ()
   "Generate the homepage."
@@ -28,7 +27,6 @@
     #'components::lastfm-now-playing
     #'components::last-arena-blocks
     #'components::link-info)))
-
 
 (defun get-dir-dest (dirname)
   "Get the destination directory path and index from the directory name."
@@ -43,11 +41,21 @@
      result-path
      (htmx::index-page dirname paths *site-location*))))
 
-
-
 (defun get-dir-files (dirname)
   "Get all files as an iterator from the source directory."
   (directory (concatenate 'string *wiki-location* dirname "/*.*")))
+
+(defun parse-file (fpath)
+  "Parse a file to its ast representation."
+  (with-open-file (stream path :direction :input)
+    (match (pathname-type fpath)
+      ("org" (org::parse stream))
+      ("act" (act::parse stream))
+      (t (error "Tried to parse a file type we don't support.")))))
+
+
+(defun render-html (fdata target-path site-location extras)
+  )
 
 
 (defun parse-dir-files (dir-files)
@@ -56,16 +64,15 @@
         collect (list
                  file-path
                  (fpath::change-file-path file-path *wiki-location* *site-location*)
-                 (parser::parse file-path)
+                 (parse-file file-path)
                  (git::log-of-file file-path))))
-
 
 (defun write-dir-files (dir-ls)
   "Write the directory association list to html files"
   (loop for (src-path target-path fdata git-info) in dir-ls
         do (util::write-file
             target-path
-            (htmx::render-file
+            (render-html
              fdata
              target-path
              *site-location*
@@ -99,13 +106,8 @@
 ;; TODO: generate RSS feed from website
 ;; how to add feed discovery: https://www.petefreitag.com/item/384.cfm
 
-(defun generate-from-spec (folder)
-  (loop for form in folder
-        do (cond
-             ((stringp form) (generate-file)))))
-
 (defun generate ()
-  ;; A specification for the folder system.
+  ;; TODO: A general specification for the folder system.
   ;; (let ((spec
   ;;         `(("pages")                   ; render all files in `pages` folder
   ;;           "index.org"                 ; render this specific file
@@ -113,7 +115,6 @@
 
   (generate-homepage)
   (generate-dir "pages")
-  ;; TODO: generalize `generate-dir` (generate-dir "scripts")
-  )
+  (generate-dir "scripts"))
 
 ;; (generate)

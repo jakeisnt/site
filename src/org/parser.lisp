@@ -12,8 +12,7 @@
 
 (defun parse (fname)
   "parse an org-mode file to an internal, struct-based representation"
-  (with-open-file (stream fname :direction :input :if-does-not-exist nil)
-    (if stream (parse-all (lexer::tokenize stream)) 'no-stream)))
+  (parse-all (lexer::tokenize stream)))
 
 (defun take-while (pred list)
   "Keep top elements from the list that fail the predicate"
