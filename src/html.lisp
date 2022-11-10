@@ -1,5 +1,4 @@
 (load "~/quicklisp/setup.lisp")
-(load "~/site/src/org/ast.lisp")
 (load "~/site/src/util.lisp")
 (load "~/site/src/components.lisp")
 
@@ -9,6 +8,8 @@
 
 (defpackage htmx
   (:use :cl))
+
+;; Generally useful utilities for constructing pages.
 
 (in-package htmx)
 
@@ -71,41 +72,3 @@
               ))))))
 
 
-(defun get-filename (fdata target-path)
-  "Get the file name from file data."
-  (or
-   (ast::file-title fdata)
-   (pathname-name target-path)))
-
-(defun commit-date (commit-struct)
-  "Get commit date from commit tuple"
-  (caddr commit-struct))
-
-(defun index-page-entry (root src-path target-path fdata git-hist)
-  "Generate an index page entry for a particular file."
-  (let ((name (get-filename fdata target-path))
-        (last-updated (car git-hist))
-        (created (car (last git-hist))))
-    (spinneret::with-html
-      (:tr
-       (:td (car last-updated))
-       (:td :class "file-name-tr"
-            (:a
-             :id (concatenate 'string "indexmenu-" name)
-             :href (fpath::remove-root target-path root)
-             name))
-       (:td (commit-date last-updated))))))
-
-;; we also need to create an index page here for each
-(defun index-page (dirname flist root)
-  "Generate an index page from a list of paths at that index and a directory name."
-  (let ((path (fpath::rename (cadr (car flist)) "index"))
-        (title (concatenate 'string dirname "/index")))
-    (body
-     title
-     (components::sidebar path root nil)
-     (spinneret::with-html
-       (:div :class "folder-index-page-table"
-             (:table (loop for file-data in flist
-                           collect (apply #'index-page-entry (cons root file-data))))))
-     nil)))

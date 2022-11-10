@@ -10,7 +10,7 @@
 
 (in-package parser)
 
-(defun parse (fname)
+(defun parse (stream)
   "parse an org-mode file to an internal, struct-based representation"
   (parse-all (lexer::tokenize stream)))
 

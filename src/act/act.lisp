@@ -220,11 +220,11 @@
            collect (render-node node script))))
    nil))
 
-(defun render-script (path)
-  (with-open-file (stream path :direction :input)
-    (util::write-file
-     "/home/jake/site/docs/fool-for-love.html"
-     (conversation-page (act-parser::parse-script stream)))))
+;; (defun render-script (path)
+;;   (with-open-file (stream path :direction :input)
+;;     (util::write-file
+;;      "/home/jake/site/docs/fool-for-love.html"
+;;      (conversation-page (act-parser::parse-script stream)))))
 
 ;; to support:
 ;; - menu of scripts (like ios chat menu?)
@@ -239,8 +239,16 @@
 
 (in-package act)
 
-(defun parse (fstream)
+(defun parse (stream)
   (act-parser::parse-script stream))
 
 (defun html (fdata path root extras)
   (act-html::conversation-page fdata))
+
+(defun p (data)
+  "Is the file an act ast?"
+  (act-ast::script-p data))
+
+(defun filename (data)
+  "What's the name of this file?"
+  (act-ast::script-title data))

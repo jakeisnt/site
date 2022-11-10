@@ -15,3 +15,11 @@
 
 (defun html (fdata path root extras)
   (org-html::render-file fdata path root extras))
+
+(defun p (data)
+  "Is the file an org-ast?"
+  (ast::file-p data))
+
+(defun filename (data)
+  "What's the name of this file?"
+  (ast::file-title data))
