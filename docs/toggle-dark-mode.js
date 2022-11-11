@@ -1,6 +1,6 @@
 /* A script to toggle dark mode with a button,
  * storing the current state in browser local storage.
- * The button hasn't yet been added.
+ * The button hasn't yet been added...
  */
 const btn = document.querySelector(".btn-toggle");
 const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
