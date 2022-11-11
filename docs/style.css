@@ -1,6 +1,43 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
 
+:root {
+  --white: #fff;
+  --highlight: #eee8d5;
+  --grey: #eee;
+  --link: #484848;
+  --grey2: #282828;
+
+  --text-color: black;
+  --page-background: white;
+  --window-background: white;
+
+  --text-me: #43CC47;
+  --text-me-back: white;
+  --text-other: #E8E9EA;
+  --text-other-back: black;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --white: #fff;
+    --highlight: #D5DBEE;
+    --grey: #eee;
+    --link: #484848;
+    --grey2: #282828;
+
+    --text-color: white;
+
+    --page-background: black;
+    --window-background: black;
+
+    --text-me: #1889FF;
+    --text-me-back: white;
+    --text-other: #333137;
+    --text-other-back: white;
+  }
+}
+
 html {
   font-size: 12px;
   font-family: "Noto Sans", sans-serif;
@@ -9,12 +46,13 @@ html {
   -moz-osx-font-smoothing: grayscale;
   word-wrap: break-word;
   hyphens: auto;
+  color: var(--text-color);
 }
 
 body {
   margin: 0;
   padding: 1rem;
-  background: conic-gradient(from 90deg at 1px 1px, #fff 90deg, #eee8d5 0deg);
+  background: conic-gradient(from 90deg at 1px 1px, var(--page-background) 90deg, var(--highlight) 0deg);
   background-size: 40px 40px;
 }
 
@@ -24,7 +62,7 @@ blockquote.article-quote {
 
 blockquote.article-quote p {
     padding: 15px;
-    background: #eee;
+    background: var(--grey);
     border-radius: 5px;
 }
 
@@ -41,8 +79,8 @@ main {
 }
 
 article {
-  background: #fff;
-  border: 2px solid #eee8d5;
+  background: var(--window-background);
+  border: 2px solid var(--highlight);
   padding: 0 1rem;
 }
 
@@ -66,19 +104,19 @@ article {
 
 a {
   text-decoration: none;
-  color: #484848;
+  color: var(--link);
 }
 
 a:hover, a:focus {
-  background-color: #eee8d5;
+  background-color: var(--highlight);
 }
 
 a:active {
-  color: #fff;
+  color: var(--white);
 }
 
 ::selection {
-  background-color: #eee8d5;
+  background-color: var(--highlight);
 }
 
 .sidebar {
@@ -93,8 +131,8 @@ a:active {
   line-height: 20px;
   font-family: 'IBM Plex Mono', monospace;
   font-size: 12px;
-  background: #fff;
-  border: 2px solid #eee8d5;
+  background: var(--window-background);
+  border: 2px solid var(--highlight);
 }
 
 @media only screen and (max-width: 500px) {
@@ -113,8 +151,8 @@ a:active {
   margin: 1rem 0;
   padding: 0.5rem 0.25rem;
   max-width: 8rem;
-  border: 2px solid #eee8d5;
-  background-color: #fff;
+  border: 2px solid var(--highlight);
+  background-color: var(--white);
   display: none;
 }
 
@@ -156,16 +194,16 @@ th {
   text-align: left;
   padding: 0;
   font-weight: 300;
-  color: #282828;
-  border-bottom: 2px solid #eee8d5;
+  color: var(--grey2);
+  border-bottom: 2px solid var(--highlight);
 }
 
 .git-hist-table, .link-info-table, .folder-index-page-table {
-  border: 2px solid #eee8d5;
+  border: 2px solid var(--highlight);
   padding: 0.5rem 1rem;
   margin: 1rem;
   width: auto;
-  background-color: #fff;
+  background-color: var(--window-background);
   align-self: start;
 }
 
@@ -191,16 +229,16 @@ th {
 /* Message A is the one on the left. */
 .conversation > .message.a {
   margin-left: 0;
-  color: black;
-  background-color: #E8E9EA;
+  color: var(--text-other-back);
+  background-color: var(--text-other);
 }
 
 /* Message B is the one on the right. */
 .conversation > .message.b {
   margin-right: 0;
   margin-left: auto;
-  background-color: #43CC47;
-  color: white;
+  background-color: var(--text-me);
+  color: var(--text-me-back);
 }
 
 .conversation > .message > .message-author {
@@ -236,13 +274,13 @@ td.character {
 }
 
 td.other {
-  color: black;
-  background-color: #E8E9EA;
+  color: var(--text-other-back);
+  background-color: var(--text-other);
 }
 
 td.current {
-  background-color: #43CC47;
-  color: white;
+  background-color: var(--text-me);
+  color: var(--text-me-back);
 }
 
 
@@ -250,15 +288,15 @@ td.current {
 a.now-playing {
   display: inline-block;
   padding: 1rem;
-  border: 2px solid #eee8d5;
-  background: #fff;
+  border: 2px solid var(--highlight);
+  background: var(--window-background);
   margin: 1rem;
   max-width: 25rem;
   align-self: start; /* do not flex grow */
 }
 
 a.now-playing:hover, a.now-playing:focus {
-  background: #eee8d5;
+  background: var(--highlight);
   color: #000;
 }
 
@@ -292,7 +330,7 @@ a.now-playing:hover, a.now-playing:focus {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  border: 2px solid #eee8d5;
-  background-color: #fff;
+  border: 2px solid var(--highlight);
+  background-color: var(--white);
   padding: 0 1rem;
 }
