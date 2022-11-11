@@ -3,11 +3,10 @@
 
 :root {
   --highlight: #eee8d5;
-
   --quote-background: grey;
 
   --link: #484848;
-  --link-hl-text: #fff;
+  --highlight-text: #fff;
 
   --text-color: black;
   --page-background: white;
@@ -23,15 +22,16 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --highlight: #4C5669;
+    --quote-background: grey;
 
     --link: #ccc;
-    --link-hl-text: #fff;
+    --highlight-text: #fff;
 
     --text-color: white;
-
     --page-background: black;
     --window-background: black;
 
+    ---script-context: darkgray;
     --text-me: #1889FF;
     --text-me-back: white;
     --text-other: #333137;
@@ -113,12 +113,12 @@ a:hover, a:focus {
 }
 
 a:active {
-  color: var(--link-hl-text);
+  color: var(--highlight-text);
 }
 
 ::selection {
   background-color: var(--highlight);
-  color: var(--link-hl-text);
+  color: var(--highlight-text);
 }
 
 .sidebar {
@@ -298,7 +298,7 @@ a.now-playing {
 
 a.now-playing:hover, a.now-playing:focus {
   background: var(--highlight);
-  color: #000;
+  color: var(--highlight-text);
 }
 
 .now-playing img {
