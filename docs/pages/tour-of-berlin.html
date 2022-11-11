@@ -56,6 +56,34 @@
         should be traveled. Standard coordinates are used to denote or represent these 
         paths; the information stored should be sufficient to reproduce the map with 
         Google Maps or OSM.</span>
+      <p><span>Cool, why static files?</span>
+      <ul>
+       <li><span> Have them forever</span>
+       <li><span> Don&#39;t have to figure out how to extract your structured data from 
+         services; your file *is* the source of truth for the structured data</span>
+       <li><span> Text files are super easy to manage, send and receive</span>
+       <li><span> Text files can create &quot;pure&quot; website experiences, where a 
+         website is some pure function with some type Specification =&gt; View, without 
+         having to handle any signins or other weird glue in between. It&#39;s simple!</span>
+       <li><span> The file (ideally) is human-readable without using any external tool; I 
+         should be able to open the file in a standard text editor and consume all of the 
+         content. Any augmented view of the file is a bonus.</span>
+      </ul>
+      <p><span>Cons:</span>
+      <ul>
+       <li><span> Slow: have to parse the static file to display it. Other alternatives, 
+         like API authentication, might also be slower.</span>
+       <li><span> Multiple sources of truth: there is no way to guarantee that the data 
+         that some static file contains is updated. The file has to be submitted to a 
+         tool for any sort of &quot;automatic&quot; update of the file.</span>
+       <li><span> More work: Have to design some plaintext file format and write a parser 
+         for this file format.</span>
+       <li><span> Hard to handle some forms of unstructured data such as images. There is 
+         no good answer to this; the images have to be stored external to the file or the 
+         file format can use some fake </span>
+        <pre></pre><span> specification that bundles the images. Are there other ways to 
+         handle this effectively?</span>
+      </ul>
      </section>
      <section>
       <h2>Previous Contents</h2>
@@ -73,6 +101,11 @@
     <table>
      <tr>
       <th>History
+     <tr>
+      <td>2022-11-11
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/497853c41ea37fd39948b175884b59f0e102f4d9//pages/tour-of-berlin.org>
+        497853c</a>
      <tr>
       <td>2022-10-31
       <td><a
