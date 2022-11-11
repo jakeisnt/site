@@ -2,6 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
 
 :root {
+  /* Inform the browser that color schemes are available. */
+  color-scheme: light dark;
+
   --highlight: #eee8d5;
   --quote-background: grey;
 
