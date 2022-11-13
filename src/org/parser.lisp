@@ -8,6 +8,10 @@
 (defpackage parser
   (:use :cl :string-case :cl-ppcre))
 
+;; TODO: Consider Pratt parsing: https://www.reddit.com/r/ProgrammingLanguages/comments/g0j1um/simple_but_powerful_pratt_parsing/.
+;; Can find the Rust code here: https://matklad.github.io/2020/04/13/simple-but-powerful-pratt-parsing.html
+;; An overview of pratt resources: http://www.oilshell.org/blog/2017/03/31.html#2020
+
 (in-package parser)
 
 (defun parse (stream)
