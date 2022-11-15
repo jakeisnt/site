@@ -5,7 +5,6 @@
 
 (ql:quickload :spinneret)
 (ql:quickload 'css-lite)
-(ql:quickload :parenscript)
 
 (defpackage org-html
   (:use :cl))

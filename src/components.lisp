@@ -4,7 +4,6 @@
 
 (ql:quickload :spinneret)
 (ql:quickload 'css-lite)
-(ql:quickload :parenscript)
 
 (defpackage components
   (:use :cl))
@@ -15,22 +14,13 @@
   "An interactive menu that allows the user to optionally enable js features."
   (spinneret::with-html
       (:div :class "checkbox-menu"
+            (:script :src "/lib.js")
             (:input
              :type "checkbox"
              :id "hypothesis-checkbox"
              :checked "false"
-             :onclick (parenscript:ps (toggle-hypothesis))
+             :onclick "toggleHypothesis()"
              "hypothes.is"))))
-
-;; TODO
-;; (defun links ()
-;;   "A table of links about me."
-;;   (:table
-;;    (:thead
-;;     :tr)
-;;    )
-
-;;   )
 
 
 ;; i want this site to feel like the navigation of a file system;

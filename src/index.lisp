@@ -8,7 +8,6 @@
 
 (ql:quickload :spinneret)
 (ql:quickload 'css-lite)
-(ql:quickload :parenscript)
 
 (defpackage html-index
   (:use :cl))

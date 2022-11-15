@@ -4,7 +4,6 @@
 
 (ql:quickload :spinneret)
 (ql:quickload 'css-lite)
-(ql:quickload :parenscript)
 
 (defpackage htmx
   (:use :cl))
