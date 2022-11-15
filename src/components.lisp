@@ -146,8 +146,8 @@
     (:noscript
      (:div
       :class "git-hist-table"
-      (:h2 "Thank you for disabling javascript.")
-      (:p "The modern web shouldn't need it.")))))
+      (:h3 "Thank you for disabling javascript.")
+      (:p "This website is augmented with JS, but is perfectly functional without it. The web should be usable with static files alone.")))))
 
 (defun lastfm-now-playing ()
   "

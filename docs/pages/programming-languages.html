@@ -70,6 +70,9 @@
          [https://github.com/pitr/jj:]</a><span>J implementations in </span><a
         class=internal href=id:fd6e9df5-eeeb-49be-a05c-13fa04d9d184>{C and C++}</a><span>
          , </span><a class=internal href=id:cae43ca9-ddd4-42da-877a-6aeeb2264ae7>{Rust}</a>
+       <li><span> Fractran :: </span><a class=external
+        href=https://wiki.xxiivv.com/site/fractran.html>[XXIIVV — fractran]</a><span> . 
+         Cool?</span>
        <li><span> </span><a class=external href=https://github.com/zetzit/zz>[Z]</a>
         <span> :: A dialect for C that&#39;s immutable by default, resolves undefined 
          behavior and uses an SMT solver to guarantee reference stability </span>
@@ -94,8 +97,6 @@
         href=https://github.com/MosheWagner/PyChefInterpreter>[Chef]</a><span> :: An 
          esoteric programming language designed to simultaneously represent recipes and 
          programs.</span>
-       <li><span> </span><a class=external href=https://github.com/bakpakin/Fennel>
-         [Fennel]</a><span> :: Lisp for Lua.</span>
        <li><span> Whitespace :: A programming language designed with only whitespace 
          characters, ignoring all others. Any program that disregards whitespace can 
          express a whitespace program within it. Fun to represent in laugnages that 
@@ -120,6 +121,20 @@
          programming language for the web that finally handles full stack in all of the 
          right waysLove the syntax!!! Great lessons from someone who knows how to teach 
          as well - very easy to understand and get started with the language!</span>
+       <li><span> Smalltalk :: Innovative &quot;talk to objects&quot; approach! </span>
+        <a class=external href=https://en.wikipedia.org/wiki/Self_(programming_language)>
+         [Self (programming language) - Wikipedia]</a><span> is an evolution of this. Why 
+         is self interesting independent of smalltalk? Not sure?</span>
+       <li><span> Faust :: Programming language for signal processing! Super fast super 
+         super fast. I wonder if any of these ideas and principles can be implemented in 
+         some DSL used in Rust, Hasnekk, Zig, etc...</span>
+       <li><span> Piet :: </span><a class=external
+        href=https://www.dangermouse.net/esoteric/piet.html>[DM&#39;s Esoteric 
+         Programming Languages - Piet]</a><span>: A cool programming language in 2D 
+         leveraging solid colors and art cycles!</span>
+       <li><span> </span><a class=external
+        href="https://flix.dev/#/blog/naming-functional-and-destructive-operations/">
+         [Flix | The Flix Programming Language]</a><span> :: Cooooooool</span>
       </ul>
       <section>
        <h3>DSLs</h3>
@@ -137,7 +152,12 @@
         <li><span> </span><a class=external href="http://frinklang.org/">[Frink]</a><span> 
           :: </span><a class=external
          href="https://hillelwayne.com/post/frink?utm_source=hillelwayne&amp;amp;utm_medium=email">
-          [The Frink is Good, the Unit is Evil]</a>
+          [The Frink is Good, the Unit is Evil]</a><span>. Language that&#39;s optimized 
+          for unit conversions and usability; if I have to do a lot of unit manipulation 
+          and I&#39;m worried about forgetting anything, I can offset the burden to Frink 
+          and mostly use it like a super elegant calculator. No problem. The local optimum 
+          of embedding such a system in a language with ADTs seems better though, 
+          honestly...</span>
         <li><span> </span><a class=external href="https://alda.io/tutorial/">[Alda]</a>
          <span> :: Make music!</span>
         <li><span> </span><a class=external href="https://www.unisonweb.org/">[Unison]</a>
@@ -146,6 +166,17 @@
        </ul>
        <p><span> A major inspiration for the projectional </span><a class=internal
         href=id:0807fbc1-ad1b-4371-91db-6a4f184a600a>{Text Editors}</a><span> project.</span>
+       <ul>
+        <li><span> </span><a class=external
+         href="https://ganelson.github.io/inform-website/">[Inform 7]</a><span> :: A 
+          programming language for expressing interactive fiction. The source code is 
+          published as an expressive literate program that&#39;s navigable through the 
+          website - it&#39;s super interesting! This is downstream from some choose your 
+          own adventure system but seems far more expressive... there seems to be a 
+          community that gathers monthly at MIT to discuss these things: </span><a
+         class=external href="http://pr-if.org/play/">[The People&#39;s Republic of 
+          Interactive Fiction - Play]</a><span>. Might be worth visiting in January : )</span>
+       </ul>
       </section>
      </section>
      <section>
@@ -197,25 +228,51 @@
      </section>
      <section>
       <h2>Lua</h2>
-      <p><span>Really interesting, compact language with lots of</span>
+      <p><span>Really interesting, compact language with lots of work developing 
+        sub-languages.</span>
+      <ul>
+       <li><span> </span><a class=external href=https://github.com/bakpakin/Fennel>
+         [Fennel]</a><span> :: Lisp for Lua.</span>
+       <li><span> </span><a class=external href="https://terralang.org/">[Terra]</a>
+        <span> :: A metaprogramming language that lets you metaprogram with and in the 
+         language! Looks like </span><a class=external href="http://ebblang.org/">[Ebb]</a>
+        <span> is a language embedded in Terra for easily using physical simulations, 
+         embedding meshes and such. Not sure when I&#39;ll ever use this, but it&#39;s a 
+         testament to the power of this Terra system...</span>
+      </ul>
+     </section>
+     <section>
+      <h2>Experimental langauges...</h2>
+      <p><a class=external href="https://effekt-lang.org/">[Effekt Language: Home]</a>
+       <span>: Has effect polymorphism and handlers. Effect safety.</span>
+      <p><a class=external href="https://extemporelang.github.io/docs/">[Extempore 
+        documentation]</a><span>: Why do I have this saved? Might be interesting..</span>
+      <p><a class=external href="http://www.is.ocha.ac.jp/~asai/Black/">[The reflective 
+        language Black]</a><span>: A Scheme extended with the function </span>
+       <pre></pre><span>, a function that allows arbitrary access and modification to 
+        the metalevel interpreter, modifying the semantics of the language from within 
+        the language itself.</span>
+      <p><a class=external
+       href="https://www.hillelwayne.com/post/influential-dead-languages/">[10 Most(ly 
+        dead) Influential Programming Languages • Hillel Wayne]</a><span>: An overview 
+        of influential programming languages and their details.</span>
+      <p><a class=external href="https://chrisdone.com/posts/z/">[Z]</a><span>: This is 
+        really cool... most of the innovation is in the concrete syntax, sure, but the 
+        fact that the new indentation and super simple function application without 
+        parens works means that macros are far more powerful. Concrete syntax makes 
+        things more readable, and doing things like defining a comment with a macro 
+        advances text! It&#39;s a cool idea. You&#39;ll probably end up tripping up 
+        fairly fast though... definitely a bit of a toy. Also notable that it&#39;s kind 
+        of just lisp without parens and some cute re-parsing trick / re-eval at macro 
+        time that allows for some more elegant concrete syntax.</span>
      </section>
      <section>
       <h2>future reading</h2>
-      <section>
-       <h3>toy lang</h3>
-       <p><a class=external href="https://h.christine.website/">[powerful programming 
-         language]</a>
-       <p><a class=external href="http://willcrichton.net/notes/">[type level 
-         programming]</a>
-       <p><a class=external href=https://2020.ecoop.org/home/iwaco-2020>[aliasing and 
-         ownership]</a>
-       <p><a class=external
-        href="https://www.youtube.com/watch?v=6avJHaC3C2U&amp;app=desktop">[the art of 
-         code]</a>
-       <p><a class=external
-        href=https://pldi20.sigplan.org/details/pldi-2020-papers/65/Question-Selection-for-Interactive-Program-Synthesis>
-         [prog synth at pldi]</a>
-      </section>
+      <p><a class=external
+       href=https://www.cis.upenn.edu/~bcpierce/courses/670Fall04/GreatWorksInPL.shtml>
+        [Great Works in Programming Languages]</a><span>: An overview from Benjamin 
+        Pierce of great programming language works throughout history - direction for 
+        what&#39;s worth reading and worth knowing.</span>
      </section>
      <section>
       <h2>term rewriting</h2>
@@ -265,6 +322,28 @@
       <p><a class=external
        href="https://www.youtube.com/watch?v=GQi-6-d5ooQ&amp;app=desktop">[Jean Yang on 
         An Axiomatic Basis for Computer Programming - YouTube]</a>
+      <p><a class=external
+       href="https://www.reddit.com/r/ProgrammingLanguages/comments/8vcrzb/what_are_some_interesting_language_features_that/">
+        [What are some interesting language features that may not be well known? : 
+        Pro...]</a><span>: Cool language features?</span>
+      <p><a class=external
+       href=https://golem.ph.utexas.edu/category/2020/05/in_further_praise_of_dependent.html>
+        [In Further Praise of Dependent Types | The n-Category Caf&amp;#xE9;]</a><span>: 
+        Lol someone likes dependent types...</span><a class=external
+       href=https://golem.ph.utexas.edu/category/2020/05/in_further_praise_of_dependent.html>
+        [https://golem.ph.utexas.edu/category/2020/05/in_further_praise_of_dependent.html]
+        </a>
+      <p><a class=external
+       href="https://www.reddit.com/r/ProgrammingLanguages/comments/dwt8xu/what_is_your_favourite_academic_paper_on/">
+        [What is your favourite academic paper on programming languages? : 
+        Programming...]</a><span>: Cool papers to read!</span>
+     </section>
+     <section>
+      <h2>Parsing</h2>
+      <p><a class=external href="https://news.ycombinator.com/item?id=24480504">[Which 
+        Parsing Approach? | Hacker News]</a><span>: An &quot;LL&quot; recursive-descent 
+        parser (recursive descent can handle an LL grammar) is the best way to go 
+        because it provides the best error messages.</span>
      </section>
     </article>
    </main>
@@ -272,6 +351,31 @@
     <table>
      <tr>
       <th>History
+     <tr>
+      <td>2022-11-15
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/b99e7e7572467ab0f4d7656ef3628c628e78eb7c//pages/programming-languages.org>
+        b99e7e7</a>
+     <tr>
+      <td>2022-11-15
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/8db670e6c4c15f907b1979598206cbb99d5e45d5//pages/programming-languages.org>
+        8db670e</a>
+     <tr>
+      <td>2022-11-14
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/16da6fc7b0a785c463fa6ca2ae93a460270960bb//pages/programming-languages.org>
+        16da6fc</a>
+     <tr>
+      <td>2022-11-14
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/cd752c425343c724155c6bad774be0b88b20e558//pages/programming-languages.org>
+        cd752c4</a>
+     <tr>
+      <td>2022-11-12
+      <td><a
+       href=https://github.com/jakeisnt/wiki/blob/783744d24e6b6ed34b0598adb6a26860a99b8f9a//pages/programming-languages.org>
+        783744d</a>
      <tr>
       <td>2022-11-11
       <td><a
