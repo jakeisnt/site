@@ -106,7 +106,7 @@
    (list
     #'components::js-disabled
     #'components::lastfm-now-playing
-    #'components::last-arena-blocks
+    ;; #'components::last-arena-blocks TODO: Not formatting on the front page as I'd like.
     #'components::link-info)))
 
 ;; TODO: generate RSS feed from website

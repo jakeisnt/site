@@ -22,7 +22,6 @@
              :onclick "toggleHypothesis()"
              "hypothes.is"))))
 
-
 ;; i want this site to feel like the navigation of a file system;
 ;; view version control, depth, what's in current dir;
 ;; support files of all types;

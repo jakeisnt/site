@@ -62,14 +62,12 @@ function renderNowPlaying(track) {
   metadata.setAttribute("class", "np-metadata");
   metadata.innerHTML =
     (currently ?
-      "<span class=\"np-date\">Currently Playing</span>" :
+      "<span class=\"np-date\">Listening to</span>" :
       "<span class=\"np-date\">Last listened: "+track.date["#text"]+"</span>") +
     "<br>" +
-    "<span class=\"np-artist\">"+track.artist["#text"]+"</span>" +
-    "<span> :: </span>" +
-    "<span class=\"np-title\"><strong>" +
-    track.name +
-    "</strong></span>";
+    "<span class=\"np-title\"><strong>" + track.name + "</strong></span>" +
+    "<span> by </span>" +
+    "<span class=\"np-artist\">"+track.artist["#text"]+"</span>";
 
   nowPlayingNode.appendChild(metadata);
   nowPlayingNode.href = track.url;
