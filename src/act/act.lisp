@@ -214,6 +214,7 @@
    (act-ast::script-title script)
    (components::sidebar path root (act-ast::script-title script))
    (:div
+    (:link :rel "stylesheet" :href "/conversation.css")
     (:article
      :class "conversation"
      (loop for node in (act-ast::script-body script)

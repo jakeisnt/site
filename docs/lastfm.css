@@ -1,0 +1,30 @@
+/* -- LastFM live music -- */
+a.now-playing:hover, a.now-playing:focus {
+  background: var(--highlight);
+  color: var(--highlight-text);
+}
+
+.now-playing img {
+  opacity: 0;
+  width: 20rem;
+  height: auto;
+}
+
+.now-playing.loaded img {
+  opacity: 1;
+}
+
+.np-metadata {
+  max-width: 20rem;
+  text-align: center;
+  padding-top: 0.5rem;
+}
+
+.now-playing .np-metadata .np-heading {
+  letter-spacing: 0.11em;
+}
+
+.now-playing .np-metadata .np-roon {
+  width: 10px;
+  opacity: 0.5;
+}

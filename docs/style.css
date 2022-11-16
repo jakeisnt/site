@@ -56,40 +56,11 @@ html {
 body {
   margin: 0;
   padding: 1rem;
-  background: conic-gradient(from 90deg at 1px 1px, var(--page-background) 90deg, var(--highlight) 0deg);
-  background-size: 40px 40px;
-}
-
-blockquote.article-quote {
-    margin: 0;
-}
-
-blockquote.article-quote p {
-    padding: 15px;
-    background: var(--quote-background);
-    border-radius: 5px;
-}
-
-blockquote.article-quote p::before {
-    content: '\201C';
-}
-
-blockquote.article-quote p::after {
-    content: '\201D';
+  background: var(--page-background);
 }
 
 main {
   max-width: 40rem;
-}
-
-article {
-  background: var(--window-background);
-  border: 2px solid var(--highlight);
-  padding: 0 1rem;
-}
-
-.wikipage {
-  margin: 1rem;
 }
 
 @media only screen and (max-width: 500px) {
@@ -102,8 +73,40 @@ article {
   }
 }
 
-.foot {
-  padding-right: 0.5rem;
+article {
+  background: var(--window-background);
+  padding: 0.5rem 1rem;
+}
+
+/* -- Table -- */
+table {
+  font-size: 14px;
+}
+
+th {
+  text-align: left;
+  padding: 0;
+  font-weight: 300;
+  color: var(--text-color);
+  border-bottom: 2px solid var(--highlight);
+}
+
+/* -- Text -- */
+h1 {
+  margin: 1rem 0;
+}
+
+ul {
+  padding-left: 1rem;
+  list-style-type: "➜ ";
+}
+
+pre {
+  white-space: pre-wrap;
+}
+
+code {
+  display: inline-block;
 }
 
 a {
@@ -124,6 +127,33 @@ a:active {
   color: var(--highlight-text);
 }
 
+blockquote.article-quote {
+    margin: 0;
+}
+
+blockquote.article-quote p {
+    padding: 15px;
+    background: var(--quote-background);
+    border-radius: 5px;
+}
+
+blockquote.article-quote p::before {
+    content: '\201C';
+}
+
+blockquote.article-quote p::after {
+    content: '\201D';
+}
+
+/* -- Class selectors -- */
+.wikipage {
+  margin: 1rem;
+}
+
+.foot {
+  padding-right: 0.5rem;
+}
+
 .sidebar {
   align-self: start; /* do not flex grow */
   margin: 1rem 0.5rem;
@@ -137,7 +167,10 @@ a:active {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 12px;
   background: var(--window-background);
-  border: 2px solid var(--highlight);
+}
+
+.sidebar .current {
+  font-weight: 500;
 }
 
 @media only screen and (max-width: 500px) {
@@ -146,31 +179,6 @@ a:active {
     margin: 0;
     padding: 0.5rem;
   }
-}
-
-.sidebar .current {
-  font-weight: 500;
-}
-
-.checkbox-menu {
-  margin: 1rem 0;
-  padding: 0.5rem 0.25rem;
-  max-width: 8rem;
-  border: 2px solid var(--highlight);
-  background-color: var(--window-background);
-  display: none;
-}
-
-h1 {
-  margin: 1rem 0;
-}
-
-pre {
-  white-space: pre-wrap;
-}
-
-code {
-  display: inline-block;
 }
 
 .title-top {
@@ -191,20 +199,8 @@ code {
   align-content: flex-start;
 }
 
-table {
-  font-size: 14px;
-}
 
-th {
-  text-align: left;
-  padding: 0;
-  font-weight: 300;
-  color: var(--text-color);
-  border-bottom: 2px solid var(--highlight);
-}
-
-.git-hist-table, .link-info-table, .folder-index-page-table {
-  border: 2px solid var(--highlight);
+.git-hist-table, .link-info-table, .folder-index-page-table, a.now-playing, .checkbox-menu {
   padding: 0.5rem 1rem;
   margin: 1rem;
   width: auto;
@@ -219,116 +215,7 @@ th {
   }
 }
 
-/* For conversations. */
-.conversation > .message  {
-  border-radius: 16px;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-top: 0.375rem;
-  padding-bottom: 0.5rem;
-  max-width: 18rem;
-  width: fit-content;
-}
-
-/* Message A is the one on the left. */
-.conversation > .message.a {
-  margin-left: 0;
-  color: var(--text-other-back);
-  background-color: var(--text-other);
-}
-
-/* Message B is the one on the right. */
-.conversation > .message.b {
-  margin-right: 0;
-  margin-left: auto;
-  background-color: var(--text-me);
-  color: var(--text-me-back);
-}
-
-.conversation > .message > .message-author {
-  font-weight: 500;
-  margin: 0;
-  padding: 0;
-  display: none;
-}
-
-.conversation > .message > .message-text {
-  padding: 0;
-  margin: 0;
-}
-
-.conversation > .context {
-  color: var(--script-context);
-  text-align: center;
-  max-width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-ul {
-  padding-left: 1rem;
-  list-style-type: "➜ ";
-}
-
-td.character {
-  border-radius: 16px;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  width: fit-content;
-}
-
-td.other {
-  color: var(--text-other-back);
-  background-color: var(--text-other);
-}
-
-td.current {
-  background-color: var(--text-me);
-  color: var(--text-me-back);
-}
-
-
-/* LastFM live music */
-a.now-playing {
-  display: inline-block;
-  padding: 1rem;
-  border: 2px solid var(--highlight);
-  background: var(--window-background);
-  margin: 1rem;
-  max-width: 25rem;
-  align-self: start; /* do not flex grow */
-}
-
-a.now-playing:hover, a.now-playing:focus {
-  background: var(--highlight);
-  color: var(--highlight-text);
-}
-
-.now-playing img {
-  opacity: 0;
-  width: 20rem;
-  height: auto;
-}
-
-.now-playing.loaded img {
-  opacity: 1;
-}
-
-.np-metadata {
-  max-width: 20rem;
-  text-align: center;
-  padding-top: 0.5rem;
-}
-
-.now-playing .np-metadata .np-heading {
-  letter-spacing: 0.11em;
-}
-
-.now-playing .np-metadata .np-roon {
-  width: 10px;
-  opacity: 0.5;
-}
-
+/* -- Error Page -- */
 .err-page {
   position: absolute;
   left: 50%;

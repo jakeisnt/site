@@ -159,6 +159,7 @@
          We should make this a proper component and develop an abstraction for interactive components.
   "
   (spinneret::with-html
+    (:link :rel "stylesheet" :href "/lastfm.css")
     (:script :src "/lfmNowPlaying.js")
     (:script "getNowPlaying()")))
 
