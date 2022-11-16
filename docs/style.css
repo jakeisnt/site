@@ -31,8 +31,8 @@
     --highlight-text: #fff;
 
     --text-color: white;
-    --page-background: black;
-    --window-background: black;
+    --page-background: #111;
+    --window-background: #111;
 
     ---script-context: darkgray;
     --text-me: #1889FF;
