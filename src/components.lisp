@@ -131,10 +131,10 @@
   (spinneret::with-html
     (:div :class "link-info-table"
          (:table (:tr
-                  (:td "Social")
+                  (:td "Mastodon")
                   (:td (:a :href "https://merveilles.town/@jakeisnt" "jakeisnt")))
                  (:tr
-                  (:td "Twitter [old]")
+                  (:td "Twitter")
                   (:td (:a :href "https://twitter.com/jakeissnt" "jakeissnt")))
                  (:tr
                   (:td "GitHub")
