@@ -195,3 +195,6 @@
 ;; This must be a subset of the structure of `wiki`.
 ;; Files it targets are compiled to their configured locations,
 ;; but it's easy to understand the sitemap if configured in one place.
+;;
+;; We should also reuse this framework for headings!
+;; A map should be displayed as a tree for every file corresponding to the headings that the file has.
