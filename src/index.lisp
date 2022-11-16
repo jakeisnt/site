@@ -41,7 +41,10 @@
              :href (fpath::remove-root target-path root)
              name))
        (:td :class "file-type-row" (pathname-type src-path))
-       (:td (commit-date last-updated))))))
+       ;; NOTE: this cuts the year from the commit date.
+       ;; Really, the commit date should be parsed as structured data
+       ;; and we should access just the year and the month here.
+       (:td (subseq (commit-date last-updated) 5))))))
 
 ;; we also need to create an index page here for each
 (defun index-page (dirname flist root)
