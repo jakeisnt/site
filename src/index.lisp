@@ -40,6 +40,7 @@
              :id (concatenate 'string "indexmenu-" name)
              :href (fpath::remove-root target-path root)
              name))
+       (:td :class "file-type-row" (pathname-type src-path))
        (:td (commit-date last-updated))))))
 
 ;; we also need to create an index page here for each

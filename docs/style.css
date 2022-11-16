@@ -10,6 +10,7 @@
 
   --link: #484848;
   --highlight-text: #fff;
+    --subtle-text: darkgrey;
 
   --text-color: black;
   --page-background: white;
@@ -19,10 +20,11 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --highlight: #4C5669;
-    --quote-background: grey;
+    --quote-background: darkgrey;
 
     --link: #ccc;
     --highlight-text: #fff;
+    --subtle-text: grey;
 
     --text-color: white;
     --page-background: #111;
@@ -174,6 +176,11 @@ blockquote.article-quote p::after {
   white-space: nowrap;
   max-width: 180px;
   overflow: hidden;
+}
+
+.file-type-row {
+  font-family: monospace;
+  color: var(--subtle-text);
 }
 
 .site-body {
