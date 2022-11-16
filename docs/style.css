@@ -179,7 +179,6 @@ blockquote.article-quote p::after {
 }
 
 .file-type-row {
-  font-family: monospace;
   color: var(--subtle-text);
 }
 
