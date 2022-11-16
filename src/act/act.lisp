@@ -145,7 +145,6 @@
      :body rest-of-script)))
 
 ;; HTML serializer for the 'act' language
-
 (load "~/site/src/html.lisp")
 (load "~/site/src/util.lisp")
 

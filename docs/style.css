@@ -14,12 +14,6 @@
   --text-color: black;
   --page-background: white;
   --window-background: white;
-
-  ---script-context: gray;
-  --text-me: #43CC47;
-  --text-me-back: white;
-  --text-other: #E8E9EA;
-  --text-other-back: black;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -33,12 +27,6 @@
     --text-color: white;
     --page-background: #111;
     --window-background: #111;
-
-    ---script-context: darkgray;
-    --text-me: #1889FF;
-    --text-me-back: white;
-    --text-other: #333137;
-    --text-other-back: white;
   }
 }
 

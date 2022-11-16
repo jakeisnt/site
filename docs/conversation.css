@@ -1,4 +1,22 @@
 /* --- For conversations. --- */
+:root {
+  --script-context: gray;
+  --text-me: #43CC47;
+  --text-me-back: white;
+  --text-other: #E8E9EA;
+  --text-other-back: black;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --script-context: darkgray;
+    --text-me: #1889FF;
+    --text-me-back: white;
+    --text-other: #333137;
+    --text-other-back: white;
+  }
+}
+
 .conversation > .message  {
   border-radius: 16px;
   padding-left: 1rem;
@@ -42,6 +60,7 @@
   max-width: 80%;
   margin-left: auto;
   margin-right: auto;
+  font-style: italic;
 }
 
 td.character {
