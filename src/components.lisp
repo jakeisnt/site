@@ -181,7 +181,6 @@
   (spinneret::with-html
     (:div :class "git-hist-table"
           (:table
-           (:tr (:th "History"))
            (loop for (short-hash long-hash date) in hist
                  collect
                  (:tr
