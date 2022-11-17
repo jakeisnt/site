@@ -37,15 +37,15 @@
   width: fit-content;
 }
 
-/* Message A is the one on the left. */
-.conversation > .message.a {
+/* A message shown to the left. */
+.conversation > .message.left {
   margin-left: 0;
   color: var(--text-other-back);
   background-color: var(--text-other);
 }
 
-/* Message B is the one on the right. */
-.conversation > .message.b {
+/* A message shown to the right. */
+.conversation > .message.right {
   margin-right: 0;
   margin-left: auto;
   background-color: var(--text-me);

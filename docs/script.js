@@ -1,7 +1,11 @@
 function changeClassName(old, neew) {
   // note: this replacement assumes that the replaced classname is not hte first classname to be modified
   Array.from(document.getElementsByClassName(old)).forEach(
-    (elem) => { console.log(elem.className); elem.className = elem.className.replace(` ${old}`, ` ${neew}`); });
+    (elem) => {
+      console.log(elem.className);
+      elem.className = elem.className.replace(` ${old}`, ` ${neew}`);
+      console.log(elem.className);
+    });
 }
 
 function swapClassNames(a, b) {
@@ -10,40 +14,36 @@ function swapClassNames(a, b) {
   changeClassName("temp", b);
 }
 
-function switchGreentext() {
-  swapClassNames("a", "b");
-  swapClassNames("current", "other");
-}
-
+var characters = undefined;
+var currentCharacter = undefined;
+var characterSelector = document.getElementById("characterSelector");
 
 /* Get the character names from the character selector. */
 function getCharacterNames() {
   return Array.from(characterSelector.childNodes).map((option) => option.value);
 }
 
-// NOTE:
-// Later, instead of swapping a->b,
-// we want all scripts to have >2 characters
-// and change all that are not the selected character to be "b".
+/* Fetch info about the current characters from the `<select> element.` */
+function cacheCharacters() {
+  characters = getCharacterNames();
+  currentCharacter = characters[0];
+}
 
-function selectCharacter(e) {
-  var selectedCharacter = event.target.value;
-  console.log("selecting character" + selectedCharacter);
-
-  if (!textValues) {
-    textValues = getCharacterNames();
-    currentCharacter = textValues[0];
-  }
-
-  if (selectedCharacter != currentCharacter) {
-    switchGreentext();
-    currentCharacter = selectedCharacter;
+/* Make the chosen character the current character. */
+function makeCharacterCurrent(characterName) {
+  if (characterName != currentCharacter) {
+    console.log(`switching to character ${characterName}`)
+    changeClassName("right", "left"); // move all to the left
+    changeClassName(`${characterName} left`, `${characterName} right`); // make current character the current 'a'
+    currentCharacter = characterName;
   }
 }
 
-var textValues = undefined;
-var currentCharacter = undefined;
-var characterSelector = document.getElementById("characterSelector");
+function selectCharacter(e) {
+  var selectedCharacter = event.target.value;
+  if (!characters) { cacheCharacters(); }
+  makeCharacterCurrent(selectedCharacter);
+}
 
 console.log(characterSelector);
 characterSelector.addEventListener('change', selectCharacter);

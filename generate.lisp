@@ -119,6 +119,7 @@
   ;;           "index.org"                 ; render this specific file
   ;;           ("etc" "script.act"))))     ; render this file in this dir
 
+  ;; BUG: The file must be committed to git to generate a page (atm). Throws weird error otherwise.
   (generate-homepage)
   (generate-dir "pages")
   (generate-dir "scripts"))

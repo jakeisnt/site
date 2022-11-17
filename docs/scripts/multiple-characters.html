@@ -2,10 +2,11 @@
  <head>
   <meta charset=UTF-8>
   <meta charset=utf-8>
-  <title>scripts/index | Jake Chvatal</title>
+  <title>Multi-Character Test | Jake Chvatal</title>
   <meta name=viewport
         content="width=device-width,initial-scale=1.0">
-  <meta property=og:title content=scripts/index>
+  <meta property=og:title
+        content="Multi-Character Test">
   <meta property=og:type content=website>
   <meta property=og:url
         content=https://jake.isnt.online>
@@ -15,7 +16,7 @@
         content="Jake Chvatal">
   <meta name=description content=Hi>
   <meta name=keywords
-        content="scripts/index, webring, programming, languages">
+        content="Multi-Character Test, webring, programming, languages">
   <meta name=author content="Jake Chvatal">
   <meta name=robots content=follow>
   <meta name=theme-color content=#fff>
@@ -40,37 +41,36 @@
   <div class=site-body id=site-body>
    <div class=sidebar>
     <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
-    <b>scripts</b><span> / </span>
+    <a href=/scripts/index.html>scripts</a><span> / </span><b>Multi-Character Test</b>
    </div>
    <main>
-    <div class=folder-index-page-table>
-     <table>
-      <tr>
-       <td>130eab6
-       <td class=file-name-tr><a id="indexmenu-Fool for Love: Final Scene"
-        href=/scripts/fool-for-love-final.html>Fool for Love: Final Scene</a>
-       <td class=file-type-row>act
-       <td>11-16
-      <tr>
-       <td>2f8cf20
-       <td class=file-name-tr><a id="indexmenu-Multi-Character Test"
-        href=/scripts/multiple-characters.html>Multi-Character Test</a>
-       <td class=file-type-row>act
-       <td>11-16
-      <tr>
-       <td>b4c6bad
-       <td class=file-name-tr><a id="indexmenu- Initial Script" href=/scripts/script.html> 
-         Initial Script</a>
-       <td class=file-type-row>act
-       <td>11-10
-      <tr>
-       <td>40b105d
-       <td class=file-name-tr><a id="indexmenu-Fool for Love: Short Scene"
-        href=/scripts/fool-for-love.html>Fool for Love: Short Scene</a>
-       <td class=file-type-row>act
-       <td>11-07
-      
-     </table>
+    <div>
+     <link rel=stylesheet href=/conversation.css>
+     <div class=script-control-menu>
+      <p>You&#39;re acting as
+       <select name=characters id=characterSelector>
+        <option class=character value=Aake>Aake
+        <option class=character value=Bake>Bake
+        <option class=character value=Cake>Cake
+       </select> .
+      <script src=/script.js></script>
+     </div>
+     <article class=conversation>
+      <p class=context>This is a test script to evaluate multiple characters)
+      <blockquote class="message Aake right">
+       <p class=message-text><span>Did you hear the one about the bar?</span>
+      </blockquote>
+      <blockquote class="message Bake left">
+       <p class=message-text><span>He walked right into it!</span>
+      </blockquote>
+      <blockquote class="message Cake left">
+       <p class=message-text><span>Nice try.</span>
+      </blockquote>
+      <p class=context>A blushes.
+      <blockquote class="message Bake left">
+       <p class=message-text><span>You wish you&#39;d come up with that one.</span>
+      </blockquote>
+     </article>
     </div>
    </main>
   </div>

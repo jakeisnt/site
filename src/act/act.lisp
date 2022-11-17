@@ -168,6 +168,23 @@
 (defun first-character-alias (script)
   (act-ast::alias-shorthand (car (act-ast::script-characters script))))
 
+
+
+(defun character-alias (characters alias)
+  "Retrieves the character name of the given alias in the script."
+  (if (endp characters)
+      nil
+      (if (equalp (act-ast::alias-shorthand (car characters)) alias)
+          (act-ast::alias-name (car characters))
+          (character-alias (cdr characters) alias))))
+
+(defun is-first-character (script node)
+  (equal (act-ast::message-author node) (first-character-alias script)))
+
+(defun script-alias (script node)
+  "Retrieves the character name of the given alias in the script."
+  (character-alias (act-ast::script-characters script) (act-ast::message-author node)))
+
 (defun render-node (node script)
   (spinneret::with-html
     (cond
@@ -176,20 +193,16 @@
         :class (concatenate
                 'string
                 "message "
+                ;; TODO: This lookup might be better fit for parsing section?
+                (script-alias script node) " "
                 ;; whoever's line occurs first should be "b" by default.
-                (if (equal (act-ast::message-author node) (first-character-alias script)) "b" "a"))
+                (if (is-first-character script node) "right" "left"))
         (:p :class "message-text" (render-message-text (act-ast::message-text node)))))
       ((act-ast::context-p node)
        (:p
         :class "context"
         (act-ast::context-text node)))
       (t nil))))
-
-(defun switch-script-button ()
-  (spinneret::with-html
-    (:div
-     (:script :src "/script.js")
-     (:button :onclick "switchGreentext()" "Switch characters"))))
 
 (defun script-control-menu (characters)
   "A pane to display script characters."
