@@ -212,7 +212,6 @@
   "A pane to display script characters."
   (spinneret::with-html
     (:div :class "link-info-table"
-          (:script :src "/script.js")
           (:p "You're acting as"
               (:select :name "characters"
                 :id "characterSelector"
@@ -221,19 +220,24 @@
                       collect (:option
                                :value (act-ast::alias-name character)
                                :class "character"
-                               (act-ast::alias-name character))))))))
+                               (act-ast::alias-name character))))
+              ".")
+          ;; Have to load script after, or character selector won't be loaded
+          (:script :src "/script.js"))))
 
 (defun conversation-page (script path root extras)
   (htmx::body
    (act-ast::script-title script)
-   (components::sidebar path root (act-ast::script-title script))
+   (:div
+    (components::sidebar path root (act-ast::script-title script))
+    (script-control-menu-2 (act-ast::script-characters script)))
    (:div
     (:link :rel "stylesheet" :href "/conversation.css")
     (:article
      :class "conversation"
      (loop for node in (act-ast::script-body script)
            collect (render-node node script))))
-   (script-control-menu-2 (act-ast::script-characters script))))
+   nil))
 
 ;; (defun render-script (path)
 ;;   (with-open-file (stream path :direction :input)

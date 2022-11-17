@@ -15,9 +15,6 @@ function switchGreentext() {
   swapClassNames("current", "other");
 }
 
-var textValues = undefined;
-var currentCharacter = undefined;
-var characterSelector = document.getElementById("characterSelector");
 
 /* Get the character names from the character selector. */
 function getCharacterNames() {
@@ -44,5 +41,9 @@ function selectCharacter(e) {
   }
 }
 
+var textValues = undefined;
+var currentCharacter = undefined;
+var characterSelector = document.getElementById("characterSelector");
+
+console.log(characterSelector);
 characterSelector.addEventListener('change', selectCharacter);
-console.log("selected character");
