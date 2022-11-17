@@ -27,7 +27,7 @@
   color: var(--text-me-back);
 }
 
-.conversation > .message  {
+.message  {
   border-radius: 16px;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -38,33 +38,33 @@
 }
 
 /* A message shown to the left. */
-.conversation > .message.left {
+.message.left {
   margin-left: 0;
   color: var(--text-other-back);
   background-color: var(--text-other);
 }
 
 /* A message shown to the right. */
-.conversation > .message.right {
+.message.right {
   margin-right: 0;
   margin-left: auto;
   background-color: var(--text-me);
   color: var(--text-me-back);
 }
 
-.conversation > .message > .message-author {
+.message > .message-author {
   font-weight: 500;
   margin: 0;
   padding: 0;
   display: none;
 }
 
-.conversation > .message > .message-text {
+.message > .message-text {
   padding: 0;
   margin: 0;
 }
 
-.conversation > .context {
+.context {
   color: var(--script-context);
   text-align: center;
   max-width: 80%;

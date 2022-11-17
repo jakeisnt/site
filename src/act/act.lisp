@@ -189,15 +189,18 @@
   (spinneret::with-html
     (cond
       ((act-ast::message-p node)
-       (:blockquote
-        :class (concatenate
-                'string
-                "message "
-                ;; TODO: This lookup might be better fit for parsing section?
-                (script-alias script node) " "
-                ;; whoever's line occurs first should be "b" by default.
-                (if (is-first-character script node) "right" "left"))
-        (:p :class "message-text" (render-message-text (act-ast::message-text node)))))
+        (:blockquote
+         :class (concatenate
+                 'string
+                 "message "
+                 ;; TODO: This lookup might be better fit for parsing section?
+                 (script-alias script node) " "
+                 ;; whoever's line occurs first should be "b" by default.
+                 (if (is-first-character script node) "right" "left"))
+
+         (:p :class "message-sender" (script-alias script node))
+        (:div :class "message")
+         (:p :class "message-text" (render-message-text (act-ast::message-text node)))))
       ((act-ast::context-p node)
        (:p
         :class "context"
