@@ -17,6 +17,11 @@
   }
 }
 
+.script-control-menu {
+  text-align: center;
+  padding: auto;
+}
+
 .conversation > .message  {
   border-radius: 16px;
   padding-left: 1rem;

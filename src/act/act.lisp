@@ -193,25 +193,8 @@
 
 (defun script-control-menu (characters)
   "A pane to display script characters."
-  (let ((seen-first nil))
-    (spinneret::with-html
-      (:div :class "link-info-table"
-            (switch-script-button)
-            (:table
-             (loop for character in characters
-                   collect (:tr
-                            (:td :class
-                                 (if (eq nil seen-first) ;; TODO make this macro
-                                     (progn
-                                       (setq seen-first t)
-                                       "character current")
-                                     "character other")
-                                 (act-ast::alias-name character)))))))))
-
-(defun script-control-menu-2 (characters)
-  "A pane to display script characters."
   (spinneret::with-html
-    (:div :class "link-info-table"
+    (:div :class "script-control-menu"
           (:p "You're acting as"
               (:select :name "characters"
                 :id "characterSelector"
@@ -228,11 +211,10 @@
 (defun conversation-page (script path root extras)
   (htmx::body
    (act-ast::script-title script)
-   (:div
     (components::sidebar path root (act-ast::script-title script))
-    (script-control-menu-2 (act-ast::script-characters script)))
    (:div
     (:link :rel "stylesheet" :href "/conversation.css")
+    (script-control-menu (act-ast::script-characters script))
     (:article
      :class "conversation"
      (loop for node in (act-ast::script-body script)
