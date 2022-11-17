@@ -19,7 +19,12 @@
 
 .script-control-menu {
   text-align: center;
-  padding: auto;
+}
+
+.script-control-menu #characterSelector {
+  border-radius: 9px;
+  background-color: var(--text-me);
+  color: var(--text-me-back);
 }
 
 .conversation > .message  {
@@ -68,19 +73,3 @@
   font-style: italic;
 }
 
-td.character {
-  border-radius: 16px;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  width: fit-content;
-}
-
-td.other {
-  color: var(--text-other-back);
-  background-color: var(--text-other);
-}
-
-td.current {
-  background-color: var(--text-me);
-  color: var(--text-me-back);
-}
