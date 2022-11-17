@@ -216,14 +216,12 @@
                                :value (act-ast::alias-name character)
                                :class "character"
                                (act-ast::alias-name character))))
-              ".")
-          ;; Have to load script after, or character selector won't be loaded
-          (:script :src "/script.js"))))
+              "."))))
 
 (defun conversation-page (script path root extras)
   (htmx::body
    (act-ast::script-title script)
-    (components::sidebar path root (act-ast::script-title script))
+   (components::sidebar path root (act-ast::script-title script))
    (:div
     (:link :rel "stylesheet" :href "/conversation.css")
     (script-control-menu (act-ast::script-characters script))
@@ -231,7 +229,9 @@
      :class "conversation"
      (loop for node in (act-ast::script-body script)
            collect (render-node node script))))
-   nil))
+   (list
+    ;; Have to load script after, or character selector won't be loaded
+    (:script :src "/script.js"))))
 
 ;; (defun render-script (path)
 ;;   (with-open-file (stream path :direction :input)

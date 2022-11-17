@@ -66,7 +66,8 @@
   color: var(--script-context);
   padding: 0;
   margin: 0.25rem;
-  font-size: 13px;
+  font-size: 12px;
+  margin-left: 0.625rem;
 }
 
 .message.left > .message-sender {
@@ -74,13 +75,6 @@
 }
 
 .message.right > .message-sender {
-  display: none;
-}
-
-.message-body > .message-author {
-  font-weight: 500;
-  margin: 0;
-  padding: 0;
   display: none;
 }
 
