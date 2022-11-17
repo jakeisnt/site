@@ -8,12 +8,6 @@ function changeClassName(old, neew) {
     });
 }
 
-function swapClassNames(a, b) {
-  changeClassName(a, "temp");
-  changeClassName(b, a);
-  changeClassName("temp", b);
-}
-
 var characters = undefined;
 var currentCharacter = undefined;
 var characterSelector = document.getElementById("characterSelector");
