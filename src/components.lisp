@@ -194,6 +194,12 @@
             (:span :class "calendar-title" "Ver. " (calendar::month-calendar-title now))
             (calendar::month-html now)))))
 
+(defun scroll-up-button ()
+  (:button
+   :class "scroll-up-button"
+   :onclick "document.body.scrollTop = document.documentElement.scrollTop = 0;"
+   "^"))
+
 
 ;; TODO: Display some tree of file history with ascii.
 ;; Show where we are, what's above us, and where we could go, with some context.

@@ -238,3 +238,8 @@ blockquote.article-quote p::after {
   border-left: 2px solid var(--highlight);
   border-right: 2px solid var(--highlight);
 }
+
+.scroll-up-button {
+  padding: 0.5rem;
+  border: 1px solid white;
+}
