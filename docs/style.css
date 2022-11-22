@@ -206,6 +206,10 @@ blockquote.article-quote p::after {
   }
 }
 
+.calendar-title {
+  color: var(--subtle-text);
+}
+
 .month-calendar {
   font-family: 'Noto Sans Mono', monospace;
   margin-top: 0;
@@ -218,6 +222,7 @@ blockquote.article-quote p::after {
 
 .calendar-day {
   text-align: right;
+  color: var(--link);
 }
 
 .calendar-day:hover {

@@ -191,7 +191,7 @@
   (let ((now (calendar::now)))
     (spinneret::with-html
       (:div :class "link-info-table"
-            "Ver. " (calendar::month-calendar-title now)
+            (:span :class "calendar-title" "Ver. " (calendar::month-calendar-title now))
             (calendar::month-html now)))))
 
 
