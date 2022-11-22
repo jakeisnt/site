@@ -115,10 +115,11 @@
 
 (defun generate ()
   ;; TODO: A general specification for the folder system.
-  ;; (let ((spec
-  ;;         `(("pages")                   ; render all files in `pages` folder
-  ;;           "index.org"                 ; render this specific file
-  ;;           ("etc" "script.act"))))     ; render this file in this dir
+  (let ((spec
+          `("pages"                     ; render all files in `pages` folder
+            "scripts"
+            "index.org"                 ; render this specific file
+            ("etc" "script.act"))))     ; render this file in this dir
 
   ;; BUG: The file must be committed to git to generate a page (atm). Throws weird error otherwise.
   (generate-homepage)

@@ -200,6 +200,13 @@
    :onclick "document.body.scrollTop = document.documentElement.scrollTop = 0;"
    "^"))
 
+(defun file-path-tree (path-parent currently path-children)
+  "current directory"
+  ;; "."
+  ;; "├── "
+  ;; "└── "
+  )
+
 
 ;; TODO: Display some tree of file history with ascii.
 ;; Show where we are, what's above us, and where we could go, with some context.
