@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@400;500;600&display=swap');
 
 :root {
   /* Inform the browser that color schemes are available. */
@@ -75,6 +75,7 @@ table {
 
 th {
   text-align: left;
+  font-weight: normal;
   padding: 0;
 }
 
@@ -151,7 +152,7 @@ blockquote.article-quote p::after {
   text-align: left;
   vertical-align: left;
   line-height: 20px;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Noto Sans Mono', monospace;
   font-size: 12px;
   background: var(--window-background);
 }
@@ -190,7 +191,6 @@ blockquote.article-quote p::after {
   align-content: flex-start;
 }
 
-
 .git-hist-table, .link-info-table, .folder-index-page-table, a.now-playing, .checkbox-menu {
   padding: 0.5rem 1rem;
   margin: 1rem;
@@ -204,4 +204,28 @@ blockquote.article-quote p::after {
     margin-top: 1rem;
     padding: 0.75rem;
   }
+}
+
+.month-calendar {
+  font-family: 'Noto Sans Mono', monospace;
+  margin-top: 0;
+}
+
+
+/* .month-calendar > tr > th { */
+/*   font-weight: normal; */
+/* } */
+
+.calendar-day {
+  text-align: right;
+}
+
+.calendar-day:hover {
+  background-color: var(--highlight);
+}
+
+.current-day {
+  background-color: var(--highlight);
+  border-left: 2px solid var(--highlight);
+  border-right: 2px solid var(--highlight);
 }

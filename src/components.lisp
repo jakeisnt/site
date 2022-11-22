@@ -1,6 +1,7 @@
 (load "~/quicklisp/setup.lisp")
 (load "~/site/src/util.lisp")
 (load "~/site/src/path.lisp")
+(load "~/site/src/calendar.lisp")
 
 (ql:quickload :spinneret)
 (ql:quickload 'css-lite)
@@ -185,6 +186,13 @@
                  (:tr
                   (:td date)
                   (:td (:a :href (make-history-link long-hash file-path) short-hash))))))))
+
+(defun lastmod-calendar ()
+  (let ((now (calendar::now)))
+    (spinneret::with-html
+      (:div :class "link-info-table"
+            "Ver. " (calendar::month-calendar-title now)
+            (calendar::month-html now)))))
 
 
 ;; TODO: Display some tree of file history with ascii.

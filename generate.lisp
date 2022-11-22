@@ -107,7 +107,8 @@
     #'components::js-disabled
     #'components::lastfm-now-playing
     ;; #'components::last-arena-blocks TODO: Not formatting on the front page as I'd like to
-    #'components::link-info)))
+    #'components::link-info
+    #'components::lastmod-calendar)))
 
 ;; TODO: generate RSS feed from website
 ;; how to add feed discovery: https://www.petefreitag.com/item/384.cfm

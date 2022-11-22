@@ -40,3 +40,4 @@
 (defun without-prefix (larger smaller)
   "Produce the larger string without its assumed prefix, smaller"
   (subseq larger (length smaller) (length larger)))
+
