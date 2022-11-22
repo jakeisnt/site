@@ -10,9 +10,6 @@ It can be thought of as a projection of my wiki and github repos!
 - SEO Optimized
 - Ten packets (to load instantly)
 
-** Subheader of Goals
-fake body
-
 * Running
 To render the website, use `sbcl` or something:
 #+BEGIN_SRC sh
