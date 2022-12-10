@@ -2,6 +2,7 @@
 (load "~/site/src/org/ast.lisp")
 (load "~/site/src/util.lisp")
 (load "~/site/src/components.lisp")
+(load "~/site/src/path.lisp")
 
 (ql:quickload :spinneret)
 (ql:quickload 'css-lite)
@@ -20,21 +21,45 @@
 ;; I also might want to allow for opening internal links
 ;;   as separate panes on the same page rather than as new pages,
 ;;   but only on the desktop. How do I do this?
+
+;; NOTE: we may have to do more work here.
+
+(defun internal-urlp (url)
+  "Is the URL internal (the file can be found local to the wiki)?"
+  (or
+   (util::string-prefixesp url  "id:")
+   (util::string-prefixesp url "file:")))
+
+(defun path->url (path)
+  "Change a file path to its final html location."
+  (fpath::change-file-path path common-lisp-user::*wiki-location* common-lisp-user::*site-location*))
+
+(defun convert-url (url)
+  "Convert a local file link to its corresponding wiki path."
+  (cond
+    ;; It's a link to the web already
+    ((util::string-prefixesp url "http") url)
+    ;; It's a link to the final site (risky, but necessary?)
+    ((util::string-prefixesp url "/") url)
+    ;; its external in the first place; return og url
+    ((util::string-prefixesp url "file:")
+     (path->url
+      (util::without-prefix url "file:")))
+    (t (error
+        (concatenate 'string "We don't support '" url "' kinds of local links! Remove them, silly.")))))
+
 (defun convert-link (txt)
   "Convert a link to an HTML link."
   (spinneret::with-html
-    (let* ((url (ast::link-url txt))
-           (title (or (ast::link-title txt) url))
-           (is-internal
-             (or
-              (util::string-prefixesp url  "id:")
-              (util::string-prefixesp url "file:"))))
-      (:a
-       :href url
-       :class (if is-internal "internal" "external")
-       (if is-internal
-           (concatenate 'string "{" title "}")
-           (concatenate 'string "[" title "]"))))))
+      (let* ((url (convert-url (ast::link-url txt)))
+             (title (or (ast::link-title txt) url))
+             (is-internal (internal-urlp url)))
+        (:a
+         :href url
+         :class (if is-internal "internal" "external")
+         (if is-internal
+             (concatenate 'string "{" title "}")
+             (concatenate 'string "[" title "]"))))))
 
 (defun render-text-elem (txt)
   "Render a text element."
@@ -45,7 +70,9 @@
       ((ast::bold-p txt) (:b (ast::bold-text txt)))
       ((ast::ital-p txt) (:i (ast::ital-text txt)))
       ((ast::verb-p txt) (:pre txt))
-      (t "fell through the cracks"))))
+      (t (progn
+           (print txt)
+           (error "We don't support this type of text element yet : ("))))))
 
 (defmacro render-text-body (body-list)
   "Render the body of a text element."

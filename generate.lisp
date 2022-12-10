@@ -124,6 +124,6 @@
   ;; BUG: The file must be committed to git to generate a page (atm). Throws weird error otherwise.
   (generate-homepage)
   (generate-dir "pages")
-  (generate-dir "scripts"))
+  (generate-dir "scripts")))
 
 ;; (generate)
