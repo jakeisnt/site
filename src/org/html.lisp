@@ -79,15 +79,19 @@
   `(loop for txt in ,body-list
          collect (render-text-elem txt)))
 
+(defun remove-spaces (txt)
+    "Remove spaces from a string."
+    (substitute #\space #\newline txt))
+
 (defmacro header-head (header)
   "Render the header of a text element."
   `(let ((title (ast::header-title ,header)))
      (spinneret::with-html
-       (case (ast::header-rank ,header)
-         (0 (:h2 title))
-         (1 (:h3 title))
-         (2 (:h4 title))
-         (otherwise (:h5 title))))))
+         (case (ast::header-rank ,header)
+           (0 (:h2 :href title title))
+           (1 (:h3 :href title title))
+           (2 (:h4 :href title title))
+           (otherwise (:h5 title))))))
 
 (defmacro header-body (header)
   `(loop for node in (ast::header-body ,header)

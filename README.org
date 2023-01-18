@@ -23,3 +23,5 @@ For github pages rendering reasons, the folder that deploys the site must be nam
 - Fix spacing on newlines; double newline ++ should insert a break, but single newline should not distance them. not sure how to represent this. make it look like org mode itself!
 - fix id links and file links. i care a lot more about file links than i do about id links, but they should both work.
 - figure out some way to show what subdirs we have on the website's home pag
+
+Improve dev ux? https://git.sr.ht/~jasom/nix-lisp-dev

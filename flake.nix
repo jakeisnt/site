@@ -20,7 +20,6 @@
         lib = pkgs.lib;
 
       in rec {
-
         devShell = with pkgs; mkShell {
           name = "site";
           buildInputs = [
@@ -29,9 +28,8 @@
             openssl
             sqlite
           ];
-          shellHook = ''
-            export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath([pkgs.openssl])}:${pkgs.lib.makeLibraryPath([pkgs.sqlite])}
-          '';
+
+          LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath(with pkgs; [openssl sqlite])}:LD_LIBRARY_PATH";
         };
       });
 }

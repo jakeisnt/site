@@ -28,10 +28,10 @@
 ;; A name alias in the body. TODO. Some cool ideas here.
 (defstruct alias shorthand name)
 
-;; an entire script
 (defstruct script title characters body)
-
 ;; the title of a script
+
+;; an entire script
 (defstruct title name)
 
 
