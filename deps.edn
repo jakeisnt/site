@@ -1,0 +1,2 @@
+{:deps
+ {org-parser/org-parser {:mvn/version "0.1.4"}}}

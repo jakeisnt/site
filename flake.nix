@@ -27,6 +27,11 @@
             inotify-tools
             openssl
             sqlite
+
+            clojure
+            leiningen
+            clj-kondo
+            clojure-lsp
           ];
 
           LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath(with pkgs; [openssl sqlite])}:LD_LIBRARY_PATH";
