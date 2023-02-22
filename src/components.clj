@@ -48,6 +48,24 @@
    [:script :src "/lfmNowPlaying.js"]
    [:script "getNowPlaying()"]))
 
+;; (defun file-path-tree (path-parent currently path-children)
+;;   "current directory"
+;;   ;; "."
+;;   ;; "├── "
+;;   ;; "└── "
+
+;; TODO: Display some tree of file history with ascii.
+;; Show where we are, what's above us, and where we could go, with some context.
+;; Use ascii similar to `tree`; should feel like ascii art in a window.
+;;
+;; IDEA: DSL for describing the folder structure of our repo.
+;; This must be a subset of the structure of `wiki`.
+;; Files it targets are compiled to their configured locations,
+;; but it's easy to understand the sitemap if configured in one place.
+;;
+;; We should also reuse this framework for headings!
+;; A map should be displayed as a tree for every file corresponding to the headings that the file has.
+
 ;; TODO
 ;; (defn lastmod-calendar []
 ;;   (let ((now (calendar/now)))
