@@ -20,6 +20,9 @@
 ;; a bullet point
 (defstruct bullet-tok body)
 
+;; an ID with a string
+(defstruct id-tok id)
+
 (defun safe-read-char (stream)
   "Safely read a character from a stream"
   (read-char stream nil :eof))
@@ -77,10 +80,26 @@
           do (push-char chars next-char))
     chars))
 
+(defun remove-spaces (str)
+   (do* ((stringstream (make-string-input-stream str))
+         (result nil (cons next result))
+         (next (read stringstream nil 'eos)
+               (read stringstream nil 'eos)))
+        ((equal next 'eos) (reverse result))))
+
+(remove-spaces "as df")
+
 (defun tokenize-properties (stream)
   "Tokenize a property drawer."
-  (take-until stream ":END:")
-  :ignore)
+
+  (let ((pre (take-until stream "ID:"))
+        (id (remove-spaces (take-until-char stream #\newline)))
+        (post (take-until stream ":END:")))
+
+    (print pre)
+    (print id)
+    (print post)
+    (make-id-tok :id id)))
 
 (defun tokenize (stream)
   "parse a line from a stream, assuming we're at the start of a line, then continue"

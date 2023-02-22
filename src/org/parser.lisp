@@ -58,6 +58,7 @@
 ;; We've fixed it, but the better solution is to create
 ;; a local function that closes over a locally scoped variable.
 (defvar file-name nil)
+(defvar file-id nil)
 
 ;; Add a bullet to a bullet group
 (defun add-bullet (bullet bullet-group)
@@ -89,8 +90,9 @@
   "Parse tokens into a recursive structure from a token list."
   (let ((cur-tok (car token-list)))
     (if (not cur-tok)
-        (let ((res (ast::make-file :title file-name :body acc)))
+        (let ((res (ast::make-file :title file-name :body acc :id file-id)))
           (setq file-name nil)
+          (setq file-id nil)
           res)
         (parse-tokens
          (cdr token-list)
@@ -100,6 +102,12 @@
            ((lexer::title-tok-p cur-tok)
             (setq file-name (lexer::title-tok-title cur-tok))
             acc)
+           ((lexer::id-tok-p cur-tok)
+            ;; (print "found title with file id")
+            (setq file-id (lexer::id-tok-id cur-tok))
+            ;; (print file-id)
+            acc)
+           ((lexer::bullet-tok-p cur-tok) (fuse-bullet cur-tok acc))
            ((lexer::bullet-tok-p cur-tok) (fuse-bullet cur-tok acc))
            ;; ((ast::quote-block-p cur-tok) (parse-quote-block cur-tok acc))
            (t (cons cur-tok acc)))))))

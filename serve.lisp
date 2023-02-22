@@ -12,8 +12,7 @@
 
 (setf hunchentoot:*dispatch-table*
       `(hunchentoot:dispatch-easy-handlers
-        ,(hunchentoot:create-folder-dispatcher-and-handler
-          "/" "~/site/docs/")))
+        ,(hunchentoot:create-folder-dispatcher-and-handler "/" "~/site/docs/")))
 
 (defun open-site ()
   "Open a locally hosted dev env for my website."

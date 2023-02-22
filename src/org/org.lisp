@@ -13,8 +13,8 @@
 (defun parse (fstream)
   (parser::parse fstream))
 
-(defun html (fdata path root extras)
-  (org-html::render-file fdata path root extras))
+(defun html (fdata path root extras dir-ls)
+  (org-html::render-file fdata path root extras dir-ls))
 
 (defun p (data)
   "Is the file an org-ast?"

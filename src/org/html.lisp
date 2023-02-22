@@ -12,6 +12,8 @@
 
 (in-package org-html)
 
+(defparameter *directory-listing* nil)
+
 ;; TODO: three cases:
 ;; `id:`: this should find the file with the given id and link to it.
 ;; `file:`: this should get the file at the path and link to it.
@@ -34,6 +36,18 @@
   "Change a file path to its final html location."
   (fpath::change-file-path path common-lisp-user::*wiki-location* common-lisp-user::*site-location*))
 
+(defun id->path (id)
+  "Get the path to the file with the given id."
+  (let ((res (find-if (lambda (v) (equal id (ast::file-id (caddr v)))) *directory-listing*)))
+    (if res
+        (cadr res)
+        (error "No file with id ~a" id))))
+
+;; Assume a global variable with the id and path
+(defun id->url (id)
+  "Look up an ID, mapping it to its final html location."
+  (path->url (id->path id)))
+
 (defun convert-url (url)
   "Convert a local file link to its corresponding wiki path."
   (cond
@@ -45,21 +59,26 @@
     ((util::string-prefixesp url "file:")
      (path->url
       (util::without-prefix url "file:")))
-    (t (error
-        (concatenate 'string "We don't support '" url "' kinds of local links! Remove them, silly.")))))
+    (t
+     ;; TODO:
+     (id->url
+      (util::without-prefix url "id:")))))
+
+;; (error
+;;  (concatenate 'string "We don't support '" url "' kinds of local links! Remove them, silly.")))))
 
 (defun convert-link (txt)
   "Convert a link to an HTML link."
   (spinneret::with-html
-      (let* ((url (convert-url (ast::link-url txt)))
-             (title (or (ast::link-title txt) url))
-             (is-internal (internal-urlp url)))
-        (:a
-         :href url
-         :class (if is-internal "internal" "external")
-         (if is-internal
-             (concatenate 'string "{" title "}")
-             (concatenate 'string "[" title "]"))))))
+    (let* ((url (convert-url (ast::link-url txt)))
+           (title (or (ast::link-title txt) url))
+           (is-internal (internal-urlp url)))
+      (:a
+       :href url
+       :class (if is-internal "internal" "external")
+       (if is-internal
+           (concatenate 'string "{" title "}")
+           (concatenate 'string "[" title "]"))))))
 
 (defun render-text-elem (txt)
   "Render a text element."
@@ -80,18 +99,18 @@
          collect (render-text-elem txt)))
 
 (defun remove-spaces (txt)
-    "Remove spaces from a string."
-    (substitute #\space #\newline txt))
+  "Remove spaces from a string."
+  (substitute #\space #\newline txt))
 
 (defmacro header-head (header)
   "Render the header of a text element."
   `(let ((title (ast::header-title ,header)))
      (spinneret::with-html
-         (case (ast::header-rank ,header)
-           (0 (:h2 :href title title))
-           (1 (:h3 :href title title))
-           (2 (:h4 :href title title))
-           (otherwise (:h5 title))))))
+       (case (ast::header-rank ,header)
+         (0 (:h2 :href title title))
+         (1 (:h3 :href title title))
+         (2 (:h4 :href title title))
+         (otherwise (:h5 title))))))
 
 (defmacro header-body (header)
   `(loop for node in (ast::header-body ,header)
@@ -150,11 +169,12 @@
      (:cite (render-nodelist (ast::quote-block-author node))))))
 
 ;; macro: https://github.com/ruricolist/spinneret
-;; TODO: add edit icon.  this can just take to github page,
+;; TODO: add edit icon. this can just take to github page,
 ;; or open up buffer and take to github on save,
 ;; or something else - maybe my own endpoint? just has to be able to give user ability to contribute.
-(defun render-file (fdata path root extras)
+(defun render-file (fdata path root extras dir-ls)
   "Render a file struct as an html page"
+  (setq *directory-listing* dir-ls)
   (let* ((title (ast::file-title fdata)) (f-body (ast::file-body fdata)))
     (htmx::body
      title

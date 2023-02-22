@@ -18,7 +18,7 @@
 (defstruct verb text)
 
 ;; The contents of an org-mode file
-(defstruct file title metadata body)
+(defstruct file title id metadata body)
 
 ;; A heading with its corresponding body
 (defstruct header title body rank)

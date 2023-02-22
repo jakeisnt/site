@@ -30,10 +30,10 @@
        ((string= "act" pathtype) (act::parse stream))
        (t (error "Tried to parse a file type we don't support."))))))
 
-(defun render-html (fdata target-path site-location extras)
+(defun render-html (fdata target-path site-location extras dir-ls)
   "Render an AST to an HTML representation"
   (cond
-    ((org::p fdata) (org::html fdata target-path site-location extras))
+    ((org::p fdata) (org::html fdata target-path site-location extras dir-ls))
     ((act::p fdata) (act::html fdata target-path site-location extras))
     (t (error "The file type provided doesn't yet have rendering support."))))
 
@@ -42,16 +42,18 @@
   (let ((result-path (fpath::change-file-path file-path *wiki-location* *site-location*)))
     (util::write-file
      result-path
-     (render-html (parse-file file-path) result-path *site-location* extras))))
+     (render-html (parse-file file-path) result-path *site-location* extras '()))))
 
 (defun parse-dir-files (dir-files)
   "parse directory files into an association list with their path"
   (loop for file-path in dir-files
-        collect (list
-                 file-path
-                 (fpath::change-file-path file-path *wiki-location* *site-location*)
-                 (parse-file file-path)
-                 (git::log-of-file file-path))))
+        collect
+        (let ((parsed-file (parse-file file-path)))
+          (list
+           file-path
+           (fpath::change-file-path file-path *wiki-location* *site-location*)
+           parsed-file
+           (git::log-of-file file-path)))))
 
 (defun write-dir-files (dir-ls)
   "Write the directory association list to html files"
@@ -66,7 +68,8 @@
               (lambda ()
                 (components::git-history
                  git-info
-                 (namestring (fpath::remove-root src-path *wiki-location*)))))))))
+                 (namestring (fpath::remove-root src-path *wiki-location*)))))
+             dir-ls))))
 
 (defun compare-file-dates (a b)
   "Compare two file objects by date."
