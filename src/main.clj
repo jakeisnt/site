@@ -12,6 +12,11 @@
   (prn (read-str "* Headline"))
   (println (write-str (read-str "* Headline"))))
 
+;; 1. Get all files in a directory of the repo
+;; 2. Parse each file
+;; 3. Re-path each file, get git status and metadata information, etc.
+;; 3. Render each file to html
+
 (defn main2 [opts]
   (prn "hello world"))
 
