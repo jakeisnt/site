@@ -1,3 +1,4 @@
 {:deps
  {org-parser/org-parser {:mvn/version "0.1.4"}
-  hiccup/hiccup {:mvn/version "1.0.5"}}}
+  hiccup/hiccup {:mvn/version "1.0.5"}
+  clj-jgit/clj-jgit {:mvn/version "1.0.2"}}}
