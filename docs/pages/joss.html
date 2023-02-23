@@ -1,183 +1,14 @@
-<!DOCTYPE html><html lang=en>
- <head>
-  <meta charset=UTF-8>
-  <meta charset=utf-8>
-  <title>Joss | Jake Chvatal</title>
-  <meta name=viewport
-        content="width=device-width,initial-scale=1.0">
-  <meta property=og:title content=Joss>
-  <meta property=og:type content=website>
-  <meta property=og:url
-        content=https://jake.isnt.online>
-  <meta property=og:image
-        content="https://avatars0.githubusercontent.com/u/29869612?s=400&amp;u=32e0c272cbfcc32b8e9585f74ce57d197aa14fb0&amp;v=4">
-  <meta property=og:site_name
-        content="Jake Chvatal">
-  <meta name=description content=Hi>
-  <meta name=keywords
-        content="Joss, webring, programming, languages">
-  <meta name=author content="Jake Chvatal">
-  <meta name=robots content=follow>
-  <meta name=theme-color content=#fff>
-  <link rel=icon type=image/x-icon
-        href=/favicon.ico>
-  <link sizes=180x180 rel=apple-touch-icon
-        type=image/png href=/apple-touch-icon.png>
-  <link sizes=32x32 rel=icon type=image/png
-        href=/favicon-32x32.png>
-  <link sizes=16x16 rel=icon type=image/png
-        href=/favicon-16x16.png>
-  <link rel=manifest href=/site.webmanifest>
-  <link rel=stylesheet href=/style.css>
-  <script src=/lib.js></script>
-  <link rel=stylesheet
-        href=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/default.min.css>
-  <script
-          src=https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js></script>
-  <script>hljs.highlightAll();</script>
- </head>
- <body>
-  <div class=site-body id=site-body>
-   <div class=sidebar>
-    <a href=/index.html> jake.</a><a href=https://isnt.online> ~ </a><span> / </span>
-    <a href=/pages/index.html>pages</a><span> / </span><b>Joss</b>
-   </div>
-   <main>
-    <article class=wikipage>
-     <h1 class=title-top>Joss</h1>
-     <p><span>Name is TBD; Joss for now.</span>
-     <section>
-      <h2>Inspiration</h2>
-      <p><a class=external href=https://www.dreamsongs.com/WIB.html>[Worse Is Better]</a>
-       <span>: A long essay on Lisp, programming languages, and what we can do to make 
-        lisp better today. Not much of this has been realized.</span>
-      <p><a class=external href=http://worrydream.com/#!/LearnableProgramming>[Learnable 
-        programming: Designing a programming system for understanding programs]</a>
-       <span>.</span>
-      <p><a class=external
-       href=https://gist.github.com/jakeisnt/d06220e4dcfa66b217272331701e1089>
-        [Programming as Theory Building]</a><span>: We should architect a programming 
-        system that respects such a model. Programming reflects the act of building up a 
-        programmer&#39;s knowledge, and programs contain both the ideas behind some 
-        software development practice and the results of the practice - that is, they 
-        produce both functions that encode models of the world and runnable code that 
-        can abstract over such models. I think there is space for a pedagogical 
-        cirriculum based on developing functional programs: we accumulate functions in 
-        some function store, and continue to iterate on them - or develop new functions 
-        - to accumulate knowledge, because the best way to learn something is to do it 
-        and to demonstrate that it works.</span>
-      <p><a class=external href=https://www.mollymielke.com/cc>[Computers and Creativity 
-        · Molly Mielke]</a><span>: What do people want to use their tools for to express 
-        themselves?</span>
-      <p><span>Mindstorms. Logo. Hungarian method. Let the user both build from first 
-        principles and dissect the interfaces they&#39;ve been given.</span>
-      <p><span>Today&#39;s journal has some useful thoughts here.</span>
-      <p><span>Build on top of NixOS: existing command line programs can be dispatched 
-        to, but those without a &quot;JOSS&quot; interface don&#39;t &#39;feel good&#39; 
-        to use; might be able to leverage &#39;nushell&#39; information to get some of 
-        this automatically as JOSS. Building on Linux is super important for scale, 
-        though.</span>
-      <p><a class=external href="https://tracery.io/">[Tracery]</a><span>: Graphics 
-        language for students.</span>
-     </section>
-     <section>
-      <h2>Goals</h2>
-      <ul>
-       <li><span> Strong and secure type system. Static types are excellent and help 
-         programmers, but they should stay out of the way as much as possible.</span>
-       <li><span> Practical to program in. Programmers shouldn&#39;t have to dig into 
-         types, macros or system guts to grok things.</span>
-       <li><span> Offload as much codebase management, tech debt, refactoring work to the 
-         system as you can.</span>
-       <li><span> No default concrete syntax - the language can use whatever syntax 
-         you&#39;d prefer.</span>
-      </ul>
-      <p><span> The concrete syntax used in this document is going to be the 
-        s-expression based syntax provided with the language</span>
-     </section>
-     <section>
-      <h2>Codebase Management</h2>
-      <p><span>Forget about files, modules, all of that garbage.</span>
-      <p><span>A Joss system is a bag of functions.</span>
-      <p><span>The end user pulls types and tools out of that bag to use in their 
-        programs.</span>
-      <p><span>The system should recommend these tools to the end user as frequently as 
-        possible.</span>
-      <section>
-       <h3>Program Exportation</h3>
-       <p><span>To export a program from Joss is to provide a single Joss function to 
-         export.</span>
-       <p><span>This creates a program tree and exports a database that contains 
-         everything in the program tree.</span>
-       <p><span>Any functions that aren&#39;t used just don&#39;t show up in the tree, so 
-         there is no notion of codebase bloat.</span>
-      </section>
-      <section>
-       <h3>TODO Version Control</h3>
-       <p><span>This is a big problem</span>
-      </section>
-     </section>
-     <section>
-      <h2>Projections</h2>
-      <p><span>Projections are mappings from the Joss AST to concrete syntax.</span>
-      <p><span>A default s-expression based projection is provided.</span>
-      <p><span>Another name could be </span>
-       <pre></pre><span>, but </span>
-       <pre></pre><span> sounds much cooler.</span>
-      <p><span>Once a projection is defined, error messages should print with respect to 
-        that projection as well.</span>
-     </section>
-     <section>
-      <h2>TODO Exceptions</h2>
-     </section>
-     <section>
-      <h2>Types</h2>
-      <p><span>Statically typed; makes heavy use of row polymorphism.</span>
-      <p><span>Supports type inference of course. Users should not have to write types 
-        for most things.</span>
-      <p><span>This gives programmers incredible flexibility while preserving a strong 
-        type system.</span>
-      <section>
-       <h3>Primitives</h3>
-       <section>
-        <h4>Numbers</h4>
-        <p><span>Support arbitrary precision arithmetic. End-user programmers should not 
-          have to worry about numbers at all.</span>
-        <p><span>Make the number type as flexible as possible.</span>
-       </section>
-       <section>
-        <h4>TODO Strings</h4>
-        <p><span>I would like to discourage language users from using strings whenever 
-          possible; how can this be done while still retaining practicality?</span>
-        <p><span>Maybe abstracting this idea of custom deserializers to make types look 
-          nice can also be leveraged in this way?</span>
-        <p><span>Or *guaranteeing* that strings can not be used inline?</span>
-       </section>
-      </section>
-      <section>
-       <h3>TODO Enumerations</h3>
-       <pre><code class=language-joss></code></pre>
-      </section>
-      <section>
-       <h3>Pair</h3>
-      </section>
-      <section>
-       <h3>Number</h3>
-      </section>
-      <section>
-       <h3>Function Types</h3>
-       <p><span>Syntax is inspired by Racket&#39;s contract system</span>
-       <pre><code class=language-joss>(-&gt; number bool)
-(-&gt; (mapping number string) number)
+<html><head><meta charset="UTF-8" /><title>joss | Jake Chvatal</title><meta content="width=device-width,initial-scale=1.0" name="viewport" /><meta content="joss" property="og:title" /><meta content="website" property="og:type" /><meta content="https://jake.isnt.online" property="og:url" /><meta content="Jake Chvatal" property="og:site_name" /><meta content="hi" name="description" /><meta content="Operating Systems, webring, programming, languages" name="keywords" /><meta content="Jake Chvatal" name="author" /><meta content="index,follow" name="robots" /><meta content="#fff" name="theme-color" /><link href="/style.css" rel="stylesheet" /><script src="/lib.js"></script></head><body><div class="site-body"><div class="sidebar"><a href="/">jake.</a><a href="https://isnt.online"> ~ </a><span> / </span><a href="./index.html">pages</a><span> / </span><b>joss</b></div><main><article class="wikipage"><h1 class="title-top">joss</h1><div><p>Name is TBD; Joss for now.</p><h1 id="inspiration">Inspiration</h1><p><a href="https://www.dreamsongs.com/WIB.html">Worse Is Better</a>: A long essay onLisp, programming languages, and what we can do to make lisp bettertoday. Not much of this has been realized.</p><p><a href="http://worrydream.com/#!/LearnableProgramming">Learnable programming: Designing a programming system for understandingprograms</a>.</p><p><a href="https://gist.github.com/jakeisnt/d06220e4dcfa66b217272331701e1089">Programming as TheoryBuilding</a>:We should architect a programming system that respects such a model.Programming reflects the act of building up a programmer's knowledge,and programs contain both the ideas behind some software developmentpractice and the results of the practice - that is, they produce bothfunctions that encode models of the world and runnable code that canabstract over such models. I think there is space for a pedagogicalcirriculum based on developing functional programs: we accumulatefunctions in some function store, and continue to iterate on them - ordevelop new functions - to accumulate knowledge, because the best way tolearn something is to do it and to demonstrate that it works.</p><p><a href="https://www.mollymielke.com/cc">Computers and Creativity · MollyMielke</a>: What do people want to usetheir tools for to express themselves?</p><p>Mindstorms. Logo. Hungarian method. Let the user both build from firstprinciples and dissect the interfaces they've been given.</p><p>Today's journal has some useful thoughts here.</p><p>Build on top of NixOS: existing command line programs can be dispatchedto, but those without a "JOSS" interface don't 'feel good' to use; mightbe able to leverage 'nushell' information to get some of thisautomatically as JOSS. Building on Linux is super important for scale,though.</p><p><a href="https://tracery.io/">Tracery</a>: Graphics language for students.</p><h1 id="goals">Goals</h1><ul><li>Strong and secure type system. Static types are excellent and helpprogrammers, but they should stay out of the way as much as possible.</li><li>Practical to program in. Programmers shouldn't have to dig into types,macros or system guts to grok things.</li><li>Offload as much codebase management, tech debt, refactoring work tothe system as you can.</li><li>No default concrete syntax - the language can use whatever syntaxyou'd prefer. The concrete syntax used in this document is going to bethe s-expression based syntax provided with the language</li></ul><h1 id="codebase-management">Codebase Management</h1><p>Forget about files, modules, all of that garbage. A Joss system is a bagof functions. The end user pulls types and tools out of that bag to usein their programs. The system should recommend these tools to the enduser as frequently as possible.</p><h2 id="program-exportation">Program Exportation</h2><p>To export a program from Joss is to provide a single Joss function toexport. This creates a program tree and exports a database that containseverything in the program tree. Any functions that aren't used justdon't show up in the tree, so there is no notion of codebase bloat.</p><h2 id="todo-version-control"><span class="todo TODO">TODO</span> Version Control</h2><p>This is a big problem</p><h1 id="projections">Projections</h1><p>Projections are mappings from the Joss AST to concrete syntax. A defaults-expression based projection is provided. Another name could be\`syntax\`, but \`projection\` sounds much cooler.</p><p>Once a projection is defined, error messages should print with respectto that projection as well.</p><h1 id="todo-exceptions"><span class="todo TODO">TODO</span> Exceptions</h1><h1 id="types">Types</h1><p>Statically typed; makes heavy use of row polymorphism. Supports typeinference of course. Users should not have to write types for mostthings. This gives programmers incredible flexibility while preserving astrong type system.</p><h2 id="primitives">Primitives</h2><h3 id="numbers">Numbers</h3><p>Support arbitrary precision arithmetic. End-user programmers should nothave to worry about numbers at all. Make the number type as flexible aspossible.</p><h3 id="todo-strings"><span class="todo TODO">TODO</span> Strings</h3><p>I would like to discourage language users from using strings wheneverpossible; how can this be done while still retaining practicality? Maybeabstracting this idea of custom deserializers to make types look nicecan also be leveraged in this way? Or <strong>guaranteeing</strong> that strings cannot be used inline?</p><h2 id="todo-enumerations"><span class="todo TODO">TODO</span> Enumerations</h2><pre><code class="language-joss"></code></pre><h2 id="pair">Pair</h2><h2 id="number">Number</h2><h2 id="function-types">Function Types</h2><p>Syntax is inspired by Racket's contract system</p><pre><code class="language-joss">(-> number bool)
+(-> (mapping number string) number)
 
 ;; named function
 (function add-nums (a1     a2) ;; name, arg1, arg2
-          (-&gt;      number  number number) ;; optional contract
-          &quot;Add two numbers together.&quot; ;; optional docstring
+          (->      number  number number) ;; optional contract
+          "Add two numbers together." ;; optional docstring
           (+ a1 a2)) ;; function body
 
 ;; having the docstring in the function body gives us lots of information:
-;; - we&#39;re guaranteed that it&#39;s affiliated with the function
+;; - we're guaranteed that it's affiliated with the function
 ;; - can compute edit distance from other purpose statements to identify similar functions
 
 ;; alternative for signature
@@ -189,149 +20,22 @@
           (+ a1 a2))
 
 (function get-keys (mp)
-          (-&gt;      )
+          (->      )
 )
 
-;; can add types to functions after the fact in different contexts to &#39;concretize&#39; them
-(: add-nums (-&gt; number number number))
-
-</code></pre>
-      </section>
-      <section>
-       <h3>Expressiveness Requirements</h3>
-       <section>
-        <h4>Algebraic Data Types</h4>
-        <p><span>This is syntactic sugar for adding a tag to a union type!</span>
-        <pre><code class=language-joss>(type Name (name &#39;a &#39;b &#39;c &#39;d)
-  (map &#39;a &#39;b
-       &#39;c &#39;d))
-</code></pre>
-        <p><span>Desugared, this looks like</span>
-        <pre><code class=language-joss>(type (name &#39;a &#39;b &#39;c &#39;d)
-  (map &#39;a &#39;b
-       &#39;c &#39;d
-       &quot;__type&quot;: &quot;Name&quot;))
-</code></pre>
-       </section>
-       <section>
-        <h4>TODO Flexible Map</h4>
-        <pre><code class=language-joss>(type (map &#39;a &#39;b &#39;c &#39;d ..)
+;; can add types to functions after the fact in different contexts to 'concretize' them
+(: add-nums (-> number number number))</code></pre><h2 id="expressiveness-requirements">Expressiveness Requirements</h2><h3 id="algebraic-data-types">Algebraic Data Types</h3><p>This is syntactic sugar for adding a tag to a union type!</p><pre><code class="language-joss">(type Name (name 'a 'b 'c 'd)
+  (map 'a 'b
+       'c 'd))</code></pre><p>Desugared, this looks like</p><pre><code class="language-joss">(type (name 'a 'b 'c 'd)
+  (map 'a 'b
+       'c 'd
+       "__type": "Name"))</code></pre><h3 id="todo-flexible-map"><span class="todo TODO">TODO</span> Flexible Map</h3><pre><code class="language-joss">(type (map 'a 'b 'c 'd ..)
   (pair
-   (pair &#39;a &#39;b)
-   (pair &#39;c &#39;d)))
-</code></pre>
-       </section>
-       <section>
-        <h4>TODO Mapping</h4>
-        <p><span>All keys are of the same type; so are all values.</span>
-        <pre><code class=language-joss>(type (mapping &#39;a &#39;b)
-  )
-</code></pre>
-       </section>
-       <section>
-        <h4>List</h4>
-        <pre><code class=language-joss>(type (list &#39;a)
-   (OR (pair &#39;a (list &#39;a))
-       #empty))
-</code></pre>
-       </section>
-       <section>
-        <h4>Array</h4>
-        <pre><code class=language-joss>(type (array &#39;a)
-  (mapping &#39;number &#39;a))
-</code></pre>
-       </section>
-       <section>
-        <h4>Boolean</h4>
-        <pre><code class=language-joss>(type bool
-  (or #true #false))
-</code></pre>
-       </section>
-       <section>
-        <h4>TODO Tuple</h4>
-        <pre><code class=language-joss>(type (tuple &#39;a &#39;b  &#39;c ...)
-  (pair &#39;a (pair &#39;b) ...)
-</code></pre>
-       </section>
-      </section>
-     </section>
-    </article>
-   </main>
-   <div class=git-hist-table>
-    <table>
-     <tr>
-      <td>2022-11-14
-      <td><a
-       href=https://github.com/jakeisnt/wiki/blob/16da6fc7b0a785c463fa6ca2ae93a460270960bb//pages/joss.org>
-        16da6fc</a>
-     <tr>
-      <td>2022-11-08
-      <td><a
-       href=https://github.com/jakeisnt/wiki/blob/55f6cef7118a31e4a8e9030b4eb17b3282ebc5f3//pages/joss.org>
-        55f6cef</a>
-     <tr>
-      <td>2022-11-08
-      <td><a
-       href=https://github.com/jakeisnt/wiki/blob/b9c9339d5454992719866b81594252ef0a98d40d//pages/joss.org>
-        b9c9339</a>
-     <tr>
-      <td>2022-11-03
-      <td><a
-       href=https://github.com/jakeisnt/wiki/blob/b52a5dda1cf49c30c91207a0e8a4e9b19c73bc88//pages/joss.org>
-        b52a5dd</a>
-     <tr>
-      <td>2022-11-03
-      <td><a
-       href=https://github.com/jakeisnt/wiki/blob/1aa101d0f542761bee579c8a6190463fea890665//pages/joss.org>
-        1aa101d</a>
-     <tr>
-      <td>2022-11-01
-      <td><a
-       href=https://github.com/jakeisnt/wiki/blob/58a9b56fbfdaae2eee5c07233f96c05fbb50add7//pages/joss.org>
-        58a9b56</a>
-     <tr>
-      <td>2021-11-21
-      <td><a
-       href=https://github.com/jakeisnt/wiki/blob/0b3d0ce4aa06383480141a8c188e6111c5c185d1//pages/joss.org>
-        0b3d0ce</a>
-     <tr>
-      <td>2021-11-21
-      <td><a
-       href=https://github.com/jakeisnt/wiki/blob/ff33e1886e001ac7975e527fd7877806e45d6359//pages/joss.org>
-        ff33e18</a>
-     <tr>
-      <td>2021-11-19
-      <td><a
-       href=https://github.com/jakeisnt/wiki/blob/a5be03688478f50f2776209ee81ed307317f0470//pages/joss.org>
-        a5be036</a>
-     <tr>
-      <td>2021-11-19
-      <td><a
-       href=https://github.com/jakeisnt/wiki/blob/517403f844fbfc45d9d9eda6ac586789fbf7df9f//pages/joss.org>
-        517403f</a>
-     <tr>
-      <td>2021-11-19
-      <td><a
-       href=https://github.com/jakeisnt/wiki/blob/4fc9d866eae5a3e8aea1485c87679f20b67ec670//pages/joss.org>
-        4fc9d86</a>
-     <tr>
-      <td>2021-11-19
-      <td><a
-       href=https://github.com/jakeisnt/wiki/blob/d0847b1ef1dac6979ae9b68588ea1e6b19f083b1//pages/joss.org>
-        d0847b1</a>
-     <tr>
-      <td>2021-11-19
-      <td><a
-       href=https://github.com/jakeisnt/wiki/blob/3c3f6b01cef26953c68de594f78ed97944ddc44e//pages/joss.org>
-        3c3f6b0</a>
-     <tr>
-      <td>2021-11-19
-      <td><a
-       href=https://github.com/jakeisnt/wiki/blob/b6fecab8b5224bacf5c7104bb9f8da4d678e7f6d//pages/joss.org>
-        b6fecab</a>
-     
-    </table>
-   </div>
-  </div>
- </body>
-</html>
+   (pair 'a 'b)
+   (pair 'c 'd)))</code></pre><h3 id="todo-mapping"><span class="todo TODO">TODO</span> Mapping</h3><p>All keys are of the same type; so are all values.</p><pre><code class="language-joss">(type (mapping 'a 'b)
+  )</code></pre><h3 id="list">List</h3><pre><code class="language-joss">(type (list 'a)
+   (OR (pair 'a (list 'a))
+       #empty))</code></pre><h3 id="array">Array</h3><pre><code class="language-joss">(type (array 'a)
+  (mapping 'number 'a))</code></pre><h3 id="boolean">Boolean</h3><pre><code class="language-joss">(type bool
+  (or #true #false))</code></pre><h3 id="todo-tuple"><span class="todo TODO">TODO</span> Tuple</h3><pre><code class="language-joss">(type (tuple 'a 'b  'c ...)
+  (pair 'a (pair 'b) ...)</code></pre></div></article></main><div class="git-history-table"></div></div></body></html>

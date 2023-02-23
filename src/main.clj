@@ -64,14 +64,19 @@
      [:a {:href "https://isnt.online"} " ~ "]
      (collect-folder-paths path-list title)]))
 
-(defn filename [path]
+(defn filename
+  "Get the file name, without the extension, from a path"
+  [path]
   (nth (reverse (str/split path #"/|[.]")) 1))
 
-(defn get-page-name [md-article target-path]
+(defn get-page-name
+  "Get the name of the article's page.
+  Assume it's the first h1 in the file.
+  If unavailable, use the filename."
+  [md-article target-path]
   (let [backup (filename target-path)]
     (if (> (count md-article) 2)
       (let [maybe-title (nth md-article 2)]
-        (println maybe-title)
         (if (= (first maybe-title) :h1)
           (nth maybe-title 2)
           backup))
@@ -121,21 +126,20 @@
 (defn change-path [path]
   ;; TODO: Remove hard-coded paths.
   (-> path
-      (str/replace ,,, #"/home/jake/wiki/pages" "/home/jake/site/docs/pages")
-      (str/replace ,,, #".md" ".html")))
+      (str/replace #"/home/jake/wiki/pages" "/home/jake/site/docs/pages")
+      (str/replace #".md" ".html")))
 
 (defn transform-file [path]
   (let [target-path (change-path path)]
+    (println (str "Transforming " path))
     (->
      path
      read-file
      parse-md
      (render-article target-path)
-     (write-file (change-path path)))))
+     (write-file target-path))))
 
-(comment (transform-file "/home/jake/wiki/pages/os.md"))
-
-(defn main [a]
-  (let [files  (get-files source-dir)]
+(defn -main [_]
+  (let [files (get-files source-dir)]
     (doseq [file files]
       (transform-file file))))
