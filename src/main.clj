@@ -6,6 +6,16 @@
    [clojure.java.io :as io]
    [clojure.java.shell :as sh]))
 
+(def site-name "Jake Chvatal")
+
+(def source-url "https://github.com/jakeisnt/wiki")
+(def source-dir "/home/jake/wiki")
+(def pages-source-dir (str source-dir "/pages"))
+
+(def target-url "https://jake.isnt.online")
+(def target-dir "/home/jake/site/docs")
+(def pages-target-dir (str target-dir "/pages"))
+
 ;; clojure git configuration
 ;; https://gist.github.com/rnesytov/b944bf9f681b0c42519cd0b6ab8f44e5
 (defn run-command [command & {:keys [directory] :or {directory (System/getProperty "user.dir")}}]
@@ -28,7 +38,7 @@
 ;; TODO: Get git history of org-mode files as well.
 (defn last-modified [file]
   (str/split
-   (wrapper (str "git log --follow --format=%ad --date default --date=format:'%Y-%m-%d' ./" file) "/home/jake/wiki")
+   (wrapper (str "git log --follow --format=%ad --date default --date=format:'%Y-%m-%d' ./" file) source-dir)
    #"\R"))
 
 (defn swap-extension [file]
@@ -36,7 +46,7 @@
 
 ;; ASSUMES file is in relative path to wiki repo
 (defn git-log [file]
-  (let [res (wrapper (str "git log --all --full-history --pretty=\"format:%h %H %ad\" --date default --date=format:'%Y-%m-%d' " "/home/jake/wiki/" file) "/home/jake/wiki")]
+  (let [res (wrapper (str "git log --all --full-history --pretty=\"format:%h %H %ad\" --date default --date=format:'%Y-%m-%d' " source-dir "/" file) source-dir)]
     (if res
       (for [line (str/split res #"\R")]
         (let [[short-hash long-hash commit-date] (str/split line #" ")]
@@ -45,10 +55,6 @@
            :commit-date commit-date
            :file-path file}))
       (throw (Throwable. (str "git log command failed on path " file))))))
-
-(def site-name "Jake Chvatal")
-(def source-dir "/home/jake/wiki/pages")
-(def target-dir "/home/jake/site/docs/pages")
 
 (defn get-files
   "Get all the files in a directory"
@@ -61,7 +67,7 @@
   (slurp path))
 
 (comment
-  (read-file (second (get-files source-dir))))
+  (read-file (second (get-files pages-source-dir))))
 
 (defn write-file [content path]
   (spit path content :append false))
@@ -76,10 +82,11 @@
   [:meta {:property k :content v}])
 
 (defn split-path [path]
-  (str/split path #"/"))
+  ;; splitting on the first "/" gives us a front empty string that we drop
+  (rest (str/split path #"/")))
 
 (defn remove-path-prefix [path]
-  (str/replace path #"^/home/jake/site/docs/" ""))
+  (str/replace path (re-pattern (str "^" target-dir)) ""))
 
 (defn collect-folder-paths
   "Collect all the paths to folders in a directory as html."
@@ -106,7 +113,7 @@
      (collect-folder-paths path-list title)]))
 
 (defn history-link [long-hash file-path]
-  (str "https://github.com/jakeisnt/wiki/blob/" long-hash "/" file-path))
+  (str source-url "/blob/" long-hash "/" file-path))
 
 (defn git-history-table [file-path]
   (let [file-path (swap-extension (remove-path-prefix file-path))
@@ -150,11 +157,11 @@
      [:html
       [:head
        [:meta {:charset "UTF-8"}]
-       [:title (str page-name " | " site-name)] ;; TODO
+       [:title (str page-name " | " site-name)]
        (metm "viewport" "width=device-width,initial-scale=1.0")
        (prop "og:title" page-name)
        (prop "og:type" "website")
-       (prop "og:url" "https://jake.isnt.online")
+       (prop "og:url" target-url)
        (prop "og:site_name" site-name)
        (metm "description" "hi") ;; TODO
        (metm "keywords" "Operating Systems, webring, programming, languages")
@@ -178,9 +185,8 @@
         (git-history-table target-path)]]])))
 
 (defn change-path [path]
-  ;; TODO: Remove hard-coded paths.
   (-> path
-      (str/replace #"/home/jake/wiki/pages" "/home/jake/site/docs/pages")
+      (str/replace (re-pattern pages-source-dir) pages-target-dir)
       (str/replace #".md" ".html")))
 
 (defn transform-file [path]
@@ -193,6 +199,6 @@
      (write-file target-path))))
 
 (defn -main [_]
-  (let [files (get-files source-dir)]
+  (let [files (get-files pages-source-dir)]
     (doseq [file files]
       (transform-file file))))
