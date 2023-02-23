@@ -16,6 +16,12 @@
 (def target-dir "/home/jake/site/docs")
 (def pages-target-dir (str target-dir "/pages"))
 
+;; TODO
+;; - Redo home page
+;; - Redo parser for scripts/
+;; - Redo index page for folders
+;; - Journals page
+
 ;; clojure git configuration
 ;; https://gist.github.com/rnesytov/b944bf9f681b0c42519cd0b6ab8f44e5
 (defn run-command [command & {:keys [directory] :or {directory (System/getProperty "user.dir")}}]
@@ -35,7 +41,7 @@
       (:out result)
       false)))
 
-;; TODO: Get git history of org-mode files as well.
+;; TODO: Figure out how to get git history of org-mode files as well. I don't want to lose it!
 (defn last-modified [file]
   (str/split
    (wrapper (str "git log --follow --format=%ad --date default --date=format:'%Y-%m-%d' ./" file) source-dir)
