@@ -23,19 +23,15 @@
       false)))
 
 ;; TODO: Figure out how to get git history of org-mode files as well. I don't want to lose it!
-(defn lastmod [file source-dir]
-  (str/split
-   (wrapper (str "git log --follow --format=%ad --date default --date=format:'%Y-%m-%d' ./" file) source-dir)
-   #"\R"))
-
 ;; ASSUMES file is in relative path to wiki repo
 (defn log [file source-dir]
-  (let [res (wrapper (str "git log --all --full-history --pretty=\"format:%h %H %ad\" --date default --date=format:'%Y-%m-%d' " source-dir "/" file) source-dir)]
-    (if res
-      (for [line (str/split res #"\R")]
-        (let [[short-hash long-hash commit-date] (str/split line #" ")]
-          {:short-hash short-hash
-           :long-hash long-hash
-           :commit-date commit-date
-           :file-path file}))
-      (throw (Throwable. (str "git log command failed on path " file))))))
+  (let [file (str file)]
+    (let [res (wrapper (str "git log --all --full-history --pretty=\"format:%h %H %ad\" --date default --date=format:'%Y-%m-%d' " (str file)) source-dir)]
+      (if res
+        (for [line (str/split res #"\R")]
+          (let [[short-hash long-hash commit-date] (str/split line #" ")]
+            {:short-hash short-hash
+             :long-hash long-hash
+             :commit-date commit-date
+             :file-path file}))
+        (throw (Throwable. (str "git log command failed on path " file)))))))
