@@ -85,17 +85,12 @@
           [:td (:commit-date commit)]
           [:td [:a {:href (history-link (:long-hash commit) (:file-path commit))} (:short-hash commit)]]])]]]))
 
-(defn filename
-  "Get the file name, without the extension, from a path"
-  [path]
-  (nth (reverse (str/split path #"/|[.]")) 1))
-
 (defn get-page-name
   "Get the name of the article's page.
   Assume it's the first h1 in the file.
   If unavailable, use the filename."
   [md-article target-path]
-  (let [backup (filename target-path)]
+  (let [backup (file/name target-path)]
     (if (> (count md-article) 2)
       (let [maybe-title (nth md-article 2)]
         (if (= (first maybe-title) :h1)
