@@ -17,9 +17,12 @@
 (def pages-target-dir (str target-dir "/pages"))
 
 ;; TODO
-;; - Redo home page
-;; - Redo parser for scripts/
-;; - Redo index page for folders
+;; to get up to par with the common lisp build:
+;; - home page reimplementation
+;; - parser for scripts/
+;; - index page for folders
+
+;; To improve:
 ;; - Journals page
 
 ;; clojure git configuration
