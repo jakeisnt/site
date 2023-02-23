@@ -42,10 +42,10 @@
 
 (defn collect-folder-paths
   "Collect all the paths to folders in a directory as html."
-  ([path-list] (collect-folder-paths path-list nil))
-  ([path-list cur-path]
+  ([path-list title] (collect-folder-paths path-list title nil))
+  ([path-list title cur-path]
    (if (empty? (rest path-list))
-     (list [:span " / "] [:b (first path-list)])
+     (list [:span " / "] [:b title])
      (let [fst (first path-list)
            rst (rest path-list)
            cur-path (str (when cur-path cur-path) "/" fst)]
@@ -53,19 +53,39 @@
         [:span " / "]
         (cons
          [:a {:href "./index.html"} fst]
-         (collect-folder-paths rst cur-path)))))))
+         (collect-folder-paths rst title cur-path)))))))
 
-(defn sidebar [path]
+(defn sidebar [path title]
   (let [path-list (split-path (remove-path-prefix path))]
     [:div.sidebar
      (if (empty? path-list)
        [:b "jake."]
        [:a {:href "/"} "jake."])
      [:a {:href "https://isnt.online"} " ~ "]
-     (collect-folder-paths path-list)]))
+     (collect-folder-paths path-list title)]))
+
+(defn filename [path]
+  (nth (reverse (str/split path #"/|[.]")) 1))
+
+(defn get-page-name [md-article target-path]
+  (let [backup (filename target-path)]
+    (if (> (count md-article) 2)
+      (let [maybe-title (nth md-article 2)]
+        (println maybe-title)
+        (if (= (first maybe-title) :h1)
+          (nth maybe-title 2)
+          backup))
+      backup)))
+
+(defn has-title [md-article]
+  (and
+   (> (count md-article) 2)
+   (> (count (nth md-article 2)) 2)
+   (= (first (nth md-article 2)) :h1)))
 
 (defn render-article [md-article target-path]
-  (let [page-name "md-article-name"]
+  (let [page-name (get-page-name md-article target-path)
+        has-title (has-title md-article)]
     (h/html
      [:html
       [:head
@@ -90,13 +110,13 @@
        ]
       [:body
        [:div.site-body
-        (sidebar target-path) ;; TODO
+        (sidebar target-path page-name)
         [:main
          [:article.wikipage
-          [:h1.title-top page-name]
+          (when (not has-title) [:h1.title-top page-name])
           md-article]]
-        [:div.git-history-table]        ;; TODO
-        ]]])))
+        ;; TODO git history table
+        [:div.git-history-table]]]])))
 
 (defn change-path [path]
   ;; TODO: Remove hard-coded paths.
@@ -117,6 +137,5 @@
 
 (defn main [a]
   (let [files  (get-files source-dir)]
-    (println (second files))
     (doseq [file files]
       (transform-file file))))
