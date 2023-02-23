@@ -20,7 +20,6 @@
 ;; to get up to par with the common lisp build:
 ;; - home page reimplementation
 ;; - parser for scripts/
-;; - index page for folders
 
 ;; To improve:
 ;; - Journals page
