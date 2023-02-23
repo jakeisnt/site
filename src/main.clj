@@ -42,17 +42,18 @@
 
 (defn collect-folder-paths
   "Collect all the paths to folders in a directory as html."
-  ([path-list] (collect-folder-paths path-list "/"))
+  ([path-list] (collect-folder-paths path-list nil))
   ([path-list cur-path]
    (if (empty? (rest path-list))
      (list [:span " / "] [:b (first path-list)])
      (let [fst (first path-list)
-           rst (rest path-list)]
+           rst (rest path-list)
+           cur-path (str (when cur-path cur-path) "/" fst)]
        (cons
         [:span " / "]
         (cons
-         [:a {:href (str fst "/index.html")} fst]
-         (collect-folder-paths rst (str cur-path "/" fst))))))))
+         [:a {:href "./index.html"} fst]
+         (collect-folder-paths rst cur-path)))))))
 
 (defn sidebar [path]
   (let [path-list (split-path (remove-path-prefix path))]
