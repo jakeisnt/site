@@ -34,16 +34,36 @@
 (defn prop [k v]
   [:meta {:property k :content v}])
 
-(defn sidebar []
-  [:div.sidebar
-   [:h1 "Jake Chvatal"]
-   [:ul
-    [:li [:a {:href "/"} "Home"]]
-    [:li [:a {:href "/about"} "About"]]
-    [:li [:a {:href "/projects"} "Projects"]]
-    [:li [:a {:href "/blog"} "Blog"]]]])
+(defn split-path [path]
+  (str/split path #"/"))
 
-(defn render-article [md-article]
+(defn remove-path-prefix [path]
+  (str/replace path #"^/home/jake/site/docs/" ""))
+
+(defn collect-folder-paths
+  "Collect all the paths to folders in a directory as html."
+  ([path-list] (collect-folder-paths path-list "/"))
+  ([path-list cur-path]
+   (if (empty? (rest path-list))
+     (list [:span " / "] [:b (first path-list)])
+     (let [fst (first path-list)
+           rst (rest path-list)]
+       (cons
+        [:span " / "]
+        (cons
+         [:a {:href (str fst "/index.html")} fst]
+         (collect-folder-paths rst (str cur-path "/" fst))))))))
+
+(defn sidebar [path]
+  (let [path-list (split-path (remove-path-prefix path))]
+    [:div.sidebar
+     (if (empty? path-list)
+       [:b "jake."]
+       [:a {:href "/"} "jake."])
+     [:a {:href "https://isnt.online"} " ~ "]
+     (collect-folder-paths path-list)]))
+
+(defn render-article [md-article target-path]
   (let [page-name "md-article-name"]
     (h/html
      [:html
@@ -69,7 +89,7 @@
        ]
       [:body
        [:div.site-body
-        (sidebar) ;; TODO
+        (sidebar target-path) ;; TODO
         [:main
          [:article.wikipage
           [:h1.title-top page-name]
@@ -84,12 +104,13 @@
       (str/replace ,,, #".md" ".html")))
 
 (defn transform-file [path]
-  (->
-   path
-   read-file
-   parse-md
-   render-article
-   (write-file (change-path path))))
+  (let [target-path (change-path path)]
+    (->
+     path
+     read-file
+     parse-md
+     (render-article target-path)
+     (write-file (change-path path)))))
 
 (comment (transform-file "/home/jake/wiki/pages/os.md"))
 
