@@ -18,7 +18,7 @@
 
 ;; TODO
 ;; to get up to par with the common lisp build:
-;; - home page reimplementation
+;; - implement calendar on home page
 ;; - parser for scripts/
 ;; - rewrite file server in clojure
 
