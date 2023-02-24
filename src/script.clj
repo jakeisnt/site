@@ -2,7 +2,10 @@
   (:require
    [file :as file]
    [instaparse.core :as insta]
-   [clojure.core.match :refer [match]]))
+   [clojure.core.match :refer [match]]
+   [html :as html]
+   [path :as path]
+   [const :as const]))
 
 (def parse
   (insta/parser "
@@ -64,9 +67,9 @@ STRING=#'[^()\n]+'
        [:OPEN_PAREN "("]
        [:STRING content]
        [:CLOSE_PAREN ")"]
-       [:NEWLINE "\n"]] [:subtext content])))
+       [:NEWLINE "\n"]] [:context content])))
 
-(defn to-ast [parsed]
+(defn ->ast [parsed]
   (let [script (filter include-in-script? parsed)
         [title script] (script-title script)
         [aliases script] (script-aliases script)
@@ -78,16 +81,61 @@ STRING=#'[^()\n]+'
     ;; - line: add linline as a line.
     {:title title :aliases aliases :body body}))
 
-(defn to-html
-  "Convert the script to an HTML document."
-  [ast]
-  ast)
+(defn character-selector [script]
+  [:div.script-control-menu
+   [:p "You're acting as"]
+   [:select {:name "characters" :id "characterSelector"}
+    (for [alias (:aliases script)]
+      [:option.character {:value (:name alias)} (:name alias)])]
+   " ."])
 
-(->
- (file/read "/home/jake/wiki/scripts/multiple-characters.act")
- parse-script
- to-ast
- to-html)
+(defn first-author?
+  "Is the author provided the first author of the script?"
+  [script author]
+  (= author (first (:name  (:aliases script)))))
+
+(defn message-direction [script author]
+  (if (first-author? script author)
+    "right"
+    "left"))
+
+(defn line->html [line script]
+  (match line
+    [:line author message]
+    [:blockquote {:class (str "message " author " " (message-direction script author))}
+     [:div {class (str "message-body " author " " (message-direction script author))}
+      [:p.message-text [:span message]]]]
+
+    [:context content]
+    [:p.context content]))
+
+(defn ->html
+  "Convert the script to an HTML document."
+  [script path]
+  [:html
+   (html/head (:title script))
+   [:body
+    [:div.site-body#site-body
+     (html/sidebar path (:title script))
+     [:main
+      [:div
+       [:link {:rel "stylesheet" :href "/conversation.css"}]
+       (character-selector script)
+       [:article.conversation
+        (for [line (:body script)]
+          (line->html line script))]]]
+     [:script {:src "/script.js"}]]]])
+
+(defn ->file [source-path]
+  (let [target-path (path/path-source->target source-path)]
+    (->
+     path
+     file/read
+     parse-script
+     ->ast
+     (->html path)
+     html/->string
+     (file/write target-path))))
 
 ;; NOTE:
 ;; The regexes are not perfect
