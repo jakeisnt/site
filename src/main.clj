@@ -20,6 +20,7 @@
 ;; to get up to par with the common lisp build:
 ;; - home page reimplementation
 ;; - parser for scripts/
+;; - rewrite file server in clojure
 
 ;; To improve:
 ;; - Journals page
