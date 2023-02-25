@@ -41,7 +41,7 @@
         (html/sidebar target-path page-name)
         [:main
          [:article.wikipage
-          (when (not has-title) [:h1.title-top page-name])
+          (if (not has-title) [:h1.title-top page-name] nil)
           md-article]]
         (git/history-table source-path)]]])))
 

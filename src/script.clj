@@ -54,17 +54,17 @@ STRING=#'[^()\n]+'
         aliases (map script-alias aliases)]
     [aliases rst]))
 
-(defn lookup-author [alias script]
-  (:name (first (filter #(= (:as %) alias) (:aliases script)))))
+(defn lookup-author [alias aliases]
+  (:name (first (filter #(= (:as %) alias) aliases))))
 
-(defn script-body [script]
+(defn script-body [script aliases]
   (for [line script]
     (match line
       [:LINE
        [:ALIAS_NAME author]
        [:COLON ": "]
        [:STRING message]
-       [:NEWLINE "\n"]] [:line (lookup-author author script) message]
+       [:NEWLINE "\n"]] [:line (lookup-author author aliases) message]
       [:SUBTEXT
        [:OPEN_PAREN "("]
        [:STRING content]
@@ -75,7 +75,7 @@ STRING=#'[^()\n]+'
   (let [script (filter include-in-script? parsed)
         [title script] (script-title script)
         [aliases script] (script-aliases script)
-        body (script-body script)]
+        body (script-body script aliases)]
     {:title title :aliases aliases :body body}))
 
 (defn character-selector [script]
@@ -101,7 +101,7 @@ STRING=#'[^()\n]+'
 
 (defn render-line [author message script]
   [:blockquote {:class (str "message " author " " (message-direction script author))}
-   (when (>2-authors? script) [:p.message-sender author])
+   (if (>2-authors? script) [:p.message-sender author] nil)
    [:div {:class (str "message-body " author " " (message-direction script author))}
     [:p.message-text [:span message]]]])
 

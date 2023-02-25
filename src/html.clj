@@ -59,7 +59,7 @@
      (list [:span " / "] [:b title])
      (let [fst (first path-list)
            rst (rest path-list)
-           cur-path (str (when cur-path cur-path) "/" fst)]
+           cur-path (str (if cur-path cur-path nil) "/" fst)]
        (cons
         [:span " / "]
         (cons
