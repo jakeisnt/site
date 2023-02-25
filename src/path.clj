@@ -15,7 +15,7 @@
 (defn ->url [source-path]
   (->html (str/replace source-path (re-pattern const/source-dir) "")))
 
-(defn path-source->target [path]
+(defn source->target [path source-dir target-dir]
   (-> path
-      (str/replace (re-pattern const/pages-source-dir) const/pages-target-dir)
+      (str/replace (re-pattern source-dir) target-dir)
       ->html))

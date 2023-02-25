@@ -1,0 +1,26 @@
+(ns index
+  (:require file html const git))
+
+(defn html [source-path target-path]
+  (let [title "index"
+        files (file/list source-path)]
+    (html/->string
+     [:html
+      (html/head title)
+      [:body
+       [:div.site-body
+        (html/sidebar target-path title)
+        [:main
+         [:div.folder-index-page-table
+          [:table
+           (for [file files]
+             (let [log (git/log (file/path file) const/source-dir)]
+               [:tr
+                [:td (:short-hash (first log))]
+                [:td.file-name-tr [:a {:href (path/->url (file/path file))} (file/name file)]]
+                [:td.file-type-row (file/extension file)]
+                [:td (:commit-date (first log))]]))]]]]]])))
+
+(defn ->file [source-path target-path]
+  (-> (html source-path target-path)
+      (file/write target-path)))

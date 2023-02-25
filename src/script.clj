@@ -4,8 +4,7 @@
    [instaparse.core :as insta]
    [clojure.core.match :refer [match]]
    [html :as html]
-   [path :as path]
-   [const :as const]))
+   [path :as path]))
 
 (def parse
   (insta/parser "
@@ -51,9 +50,12 @@ STRING=#'[^()\n]+'
     {:name name :as as}))
 
 (defn script-aliases [script]
-  (let [[aliases rst] (split-with #(= :ALIAS (first %)) (rest script))
+  (let [[aliases rst] (split-with #(= :ALIAS (first %)) script)
         aliases (map script-alias aliases)]
     [aliases rst]))
+
+(defn lookup-author [alias script]
+  (:name (first (filter #(= (:as %) alias) (:aliases script)))))
 
 (defn script-body [script]
   (for [line script]
@@ -62,7 +64,7 @@ STRING=#'[^()\n]+'
        [:ALIAS_NAME author]
        [:COLON ": "]
        [:STRING message]
-       [:NEWLINE "\n"]] [:line author message]
+       [:NEWLINE "\n"]] [:line (lookup-author author script) message]
       [:SUBTEXT
        [:OPEN_PAREN "("]
        [:STRING content]
@@ -74,40 +76,39 @@ STRING=#'[^()\n]+'
         [title script] (script-title script)
         [aliases script] (script-aliases script)
         body (script-body script)]
-    ;; switch(node):
-    ;; - title -> add to title of doc
-    ;; - alias -> add to alias map
-    ;; - subtext -> add inline to document as subtext
-    ;; - line: add linline as a line.
     {:title title :aliases aliases :body body}))
 
 (defn character-selector [script]
   [:div.script-control-menu
-   [:p "You're acting as"]
-   [:select {:name "characters" :id "characterSelector"}
-    (for [alias (:aliases script)]
-      [:option.character {:value (:name alias)} (:name alias)])]
-   " ."])
+   [:p "You're acting as "
+    [:select {:name "characters" :id "characterSelector"}
+     (for [alias (:aliases script)]
+       [:option.character {:value (:name alias)} (:name alias)])]
+    " ."]])
 
 (defn first-author?
   "Is the author provided the first author of the script?"
   [script author]
-  (= author (first (:name  (:aliases script)))))
+  (= author (:name (first (:aliases script)))))
 
 (defn message-direction [script author]
   (if (first-author? script author)
     "right"
     "left"))
 
+(defn >2-authors? [script]
+  (> (count (:aliases script)) 2))
+
+(defn render-line [author message script]
+  [:blockquote {:class (str "message " author " " (message-direction script author))}
+   (when (>2-authors? script) [:p.message-sender author])
+   [:div {:class (str "message-body " author " " (message-direction script author))}
+    [:p.message-text [:span message]]]])
+
 (defn line->html [line script]
   (match line
-    [:line author message]
-    [:blockquote {:class (str "message " author " " (message-direction script author))}
-     [:div {class (str "message-body " author " " (message-direction script author))}
-      [:p.message-text [:span message]]]]
-
-    [:context content]
-    [:p.context content]))
+    [:line author message] (render-line author message script)
+    [:context content] [:p.context content]))
 
 (defn ->html
   "Convert the script to an HTML document."
@@ -115,7 +116,7 @@ STRING=#'[^()\n]+'
   [:html
    (html/head (:title script))
    [:body
-    [:div.site-body#site-body
+    [:div.site-body
      (html/sidebar path (:title script))
      [:main
       [:div
@@ -123,20 +124,16 @@ STRING=#'[^()\n]+'
        (character-selector script)
        [:article.conversation
         (for [line (:body script)]
-          (line->html line script))]]]
-     [:script {:src "/script.js"}]]]])
+          (line->html line script))]
+       [:script {:src "/script.js"}]]]]]])
 
-(defn ->file [source-path]
-  (let [target-path (path/path-source->target source-path)]
+(defn ->file [source-path source-dir target-dir]
+  (let [target-path (path/source->target source-path source-dir target-dir)]
     (->
-     path
+     source-path
      file/read
      parse-script
      ->ast
-     (->html path)
+     (->html target-path)
      html/->string
      (file/write target-path))))
-
-;; NOTE:
-;; The regexes are not perfect
-;; Disallow `:`, `=`, `(`, `)` in str and alias names to avoid ambiguity.

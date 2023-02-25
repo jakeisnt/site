@@ -1,6 +1,8 @@
 (ns git
   (:require
    [clojure.string :as str]
+   [const :as const]
+   [file :as file]
    [clojure.java.shell :as sh]))
 
 ;; clojure git configuration
@@ -35,3 +37,20 @@
              :commit-date commit-date
              :file-path file}))
         (throw (Throwable. (str "git log command failed on path " file)))))))
+
+(defn history-link
+  "Generate a link to git history"
+  [long-hash file-path]
+  (str const/source-url "/blob/" long-hash "/" file-path))
+
+(defn history-table
+  "Renders the git history for a file given its path."
+  [source-path]
+  (let [git-log (git/log (file/path source-path) const/source-dir)]
+    [:div.git-hist-table
+     [:table
+      [:tbody
+       (for [commit git-log]
+         [:tr
+          [:td (:commit-date commit)]
+          [:td [:a {:href (history-link (:long-hash commit) (:file-path commit))} (:short-hash commit)]]])]]]))

@@ -40,12 +40,12 @@
 (defn ->string
   "Serialize Hiccup-compatible data to a string"
   [hiccup-struct]
-  (h/html hiccup-struct))
+  (str "<!DOCTYPE html>" (h/html hiccup-struct)))
 
 ;; --- sidebar
 
 (defn split-path [path]
-  ;; splitting on the first "/" gives us a front empty string that we drop
+  ;; splitting on the first /" gives us a front empty string that we drop
   (rest (str/split path #"/")))
 
 (defn remove-path-prefix [path]
