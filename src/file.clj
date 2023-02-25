@@ -24,15 +24,30 @@
     file
     (str (.getPath file))))
 
+(defn title
+  "Retrieve the file name, with extension included, from a path"
+  [p]
+  (-> p
+      path
+      (str/split #"/")
+      reverse
+      first))
+
 (defn name
   "Get the file name, without the extension, from a path"
   [p]
-  (nth (reverse (str/split (path p) #"/|[.]")) 1))
+  (-> p
+      title
+      (str/split #"[.]")
+      first))
 
 (defn extension
   "Get the file extension from a path"
   [p]
-  (nth (reverse (str/split (path p) #"/|[.]")) 0))
+  (-> p
+      title
+      (str/split #"[.]")
+      second))
 
 (defn dir?
   "Is this path a directory?"

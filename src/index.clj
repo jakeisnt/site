@@ -2,7 +2,7 @@
   (:require file html const git path))
 
 (defn html [source-path target-path]
-  (let [title "index"
+  (let [title (file/name source-path)
         files (file/list source-path)]
     (html/->string
      [:html
@@ -23,4 +23,4 @@
 
 (defn ->file [source-path target-path]
   (-> (html source-path target-path)
-      (file/write target-path)))
+      (file/write (str target-path "/index.html"))))

@@ -12,9 +12,8 @@
 (defn make-dir
   "Make a directory listing page"
   [source-dir target-dir]
-  (let [target-path (str (path/source->target source-dir source-dir target-dir) "/index.html")]
-    (make-dir-files source-dir target-dir)
-    (index/->file source-dir target-path)))
+  (make-dir-files source-dir target-dir)
+  (index/->file source-dir target-dir))
 
 (defn -main [_]
   (file/write (home/html) (str const/target-dir "/index.html"))
