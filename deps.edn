@@ -1,0 +1,9 @@
+{:deps
+ {org-parser/org-parser {:mvn/version "0.1.4"}
+  hiccup/hiccup {:mvn/version "1.0.5"}
+  clj-org/clj-org {:mvn/version "0.0.3"}
+  org.clojure/core.match {:mvn/version "1.0.1"}
+  com.orgzly/org-java {:mvn/version "1.2.2"}
+  clj-jgit/clj-jgit {:mvn/version "1.0.2"}
+  instaparse/instaparse {:mvn/version "1.4.12"}
+  com.kiranshila/cybermonday {:mvn/version "0.5.204"}}}

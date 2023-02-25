@@ -22,4 +22,4 @@
    :input nil
    :output *standard-output*))
 
-;; (open-site)
+(open-site)
