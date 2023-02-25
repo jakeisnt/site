@@ -9,3 +9,5 @@
 (def target-dir "/home/jake/site/docs")
 
 (def wiki-paths ["pages" "scripts"])
+
+(def local-port 4242)

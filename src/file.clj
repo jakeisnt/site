@@ -52,4 +52,4 @@
 (defn dir?
   "Is this path a directory?"
   [path]
-  (.isDirectory path))
+  (.isDirectory (java.io.File. path)))

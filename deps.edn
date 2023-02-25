@@ -6,4 +6,5 @@
   com.orgzly/org-java {:mvn/version "1.2.2"}
   clj-jgit/clj-jgit {:mvn/version "1.0.2"}
   instaparse/instaparse {:mvn/version "1.4.12"}
-  com.kiranshila/cybermonday {:mvn/version "0.5.204"}}}
+  com.kiranshila/cybermonday {:mvn/version "0.5.204"}
+  ring/ring {:mvn/version "1.9.6"}}}
