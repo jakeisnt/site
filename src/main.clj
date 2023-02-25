@@ -22,4 +22,5 @@
   (for [path const/wiki-paths]
     (make-dir (str const/source-dir "/" path) (str const/target-dir "/" path))))
 
-(-main nil)
+(comment (make-dir (str const/source-dir "/" "scripts") (str const/target-dir "/" "scripts")))
+(comment (-main nil))

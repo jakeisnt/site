@@ -11,8 +11,8 @@
 <S> = TITLE,ALIAS*,(SUBTEXT | LINE | COMMENT | NEWLINE)+
 TITLE = HASH,STRING,NEWLINE
 ALIAS = ALIAS_NAME,EQUAL,ALIAS_NAME,NEWLINE
-SUBTEXT = OPEN_PAREN,STRING,CLOSE_PAREN,NEWLINE
-LINE = ALIAS_NAME,COLON,STRING,NEWLINE
+SUBTEXT = OPEN_PAREN,MESSAGE,CLOSE_PAREN,NEWLINE
+LINE = ALIAS_NAME,COLON,MESSAGE,NEWLINE
 COMMENT = DASH,STRING,NEWLINE
 
 DASH = '-'
@@ -23,6 +23,8 @@ EQUAL = '='
 COLON=': '
 ALIAS_NAME=#'[a-zA-Z0-9]+'
 NEWLINE='\n'
+MESSAGE = (STRING|ITALIC)+
+ITALIC='/'STRING'/'
 STRING=#'[^()\n]+'
 "))
 
@@ -57,19 +59,29 @@ STRING=#'[^()\n]+'
 (defn lookup-author [alias aliases]
   (:name (first (filter #(= (:as %) alias) aliases))))
 
+(defn just-one-message-string [msg]
+  (= (type (first msg)) clojure.lang.Keyword))
+
+(defn script-message [msg]
+  (let [msg (if (just-one-message-string msg) [msg] msg)]
+    (for [line msg]
+      (match line
+        [:STRING s] [:normal s]
+        [:ITALIC [:STRING s]] [:italic s]))))
+
 (defn script-body [script aliases]
   (for [line script]
     (match line
       [:LINE
        [:ALIAS_NAME author]
        [:COLON ": "]
-       [:STRING message]
-       [:NEWLINE "\n"]] [:line (lookup-author author aliases) message]
+       [:MESSAGE message]
+       [:NEWLINE "\n"]] [:line (lookup-author author aliases) (script-message message)]
       [:SUBTEXT
        [:OPEN_PAREN "("]
-       [:STRING content]
+       [:MESSAGE content]
        [:CLOSE_PAREN ")"]
-       [:NEWLINE "\n"]] [:context content])))
+       [:NEWLINE "\n"]] [:context (script-message content)])))
 
 (defn ->ast [parsed]
   (let [script (filter include-in-script? parsed)
@@ -99,16 +111,24 @@ STRING=#'[^()\n]+'
 (defn >2-authors? [script]
   (> (count (:aliases script)) 2))
 
+(defn render-message [msg]
+  (println "rendering message " msg)
+  [:span
+   (for [line msg]
+     (match line
+       [:normal s] [:span s]
+       [:italic s] [:i s]))])
+
 (defn render-line [author message script]
   [:blockquote {:class (str "message " author " " (message-direction script author))}
    (if (>2-authors? script) [:p.message-sender author] nil)
    [:div {:class (str "message-body " author " " (message-direction script author))}
-    [:p.message-text [:span message]]]])
+    [:p.message-text (render-message message)]]])
 
 (defn line->html [line script]
   (match line
     [:line author message] (render-line author message script)
-    [:context content] [:p.context content]))
+    [:context content] [:p.context (render-message content)]))
 
 (defn ->html
   "Convert the script to an HTML document."
