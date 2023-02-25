@@ -1,5 +1,5 @@
 (ns index
-  (:require file html const git))
+  (:require file html const git path))
 
 (defn html [source-path target-path]
   (let [title "index"
