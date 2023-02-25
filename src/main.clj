@@ -2,13 +2,6 @@
   (:require file markdown const path script home index
             [clojure.core.match :refer [match]]))
 
-;; TODO
-;; to get up to par with the common lisp build:
-;; - implement calendar on home page
-
-;; To improve:
-;; - Journals page
-
 (defn make-dir-files [source-dir target-dir]
   (let [files (file/list source-dir)]
     (doseq [file files]
@@ -25,7 +18,8 @@
 
 (defn -main [_]
   (file/write (home/html) (str const/target-dir "/index.html"))
-  (make-dir const/pages-source-dir const/pages-target-dir)
-  (make-dir const/script-source-dir const/script-target-dir))
+
+  (for [path const/wiki-paths]
+    (make-dir (str const/source-dir "/" path) (str const/target-dir "/" path))))
 
 (-main nil)
