@@ -1,5 +1,5 @@
 (ns main
-  (:require file markdown const path script home index
+  (:require file markdown const path act home index
             [clojure.core.match :refer [match]]))
 
 (defn make-dir-files [source-dir target-dir]
@@ -7,7 +7,7 @@
     (doseq [file files]
       (match (file/extension file)
         "md"  (markdown/->file file source-dir target-dir)
-        "act" (script/->file file source-dir target-dir)))))
+        "act" (act/->file file source-dir target-dir)))))
 
 (defn make-dir
   "Make a directory listing page"

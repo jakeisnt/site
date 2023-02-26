@@ -1,4 +1,4 @@
-(ns script
+(ns act
   (:require
    [file :as file]
    [instaparse.core :as insta]

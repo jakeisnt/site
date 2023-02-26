@@ -6,7 +6,6 @@
    [ring.util.mime-type :as mime]))
 
 ;; Serve the statically generated files!
-
 (defn get-path [uri]
   (let [path (str const/target-dir uri)]
     (if (file/dir? path)
