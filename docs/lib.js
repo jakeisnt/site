@@ -30,8 +30,9 @@ function toggleHypothesis() {
     __PS_MV_REG = [];
     return annotatorLink ? unloadHypothesis(annotatorLink) : loadHypothesis();
 };
-(function () {
-    var hypothesisDoc = document.getElementById('hypothesis-checkbox');
-    __PS_MV_REG = [];
-    return hypothesisDoc.checked ? loadHypothesis() : null;
-})();
+
+// (function () {
+//     var hypothesisDoc = document.getElementById('hypothesis-checkbox');
+//     __PS_MV_REG = [];
+//     return hypothesisDoc.checked ? loadHypothesis() : null;
+// })();

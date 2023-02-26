@@ -3,9 +3,7 @@
    const
    file
    [ring.adapter.jetty :as jetty]
-   [file :as file]
-   [const :as const]
-   [clojure.core.match :refer [match]]))
+   [ring.util.mime-type :as mime]))
 
 ;; Serve the statically generated files!
 
@@ -16,13 +14,10 @@
       path)))
 
 (defn content-type [file-path]
-  (match (file/extension file-path)
-    nil "text/plain"
-    "html" "text/html"
-    "css" "text/css"
-    "js" "text/javascript"))
+  (mime/ext-mime-type file-path))
 
 (defn handler [request]
+  (println "Requesting path: " (:uri request))
   (let [file-path (get-path (:uri request))]
     {:status 200
      :headers {"Content-Type" (content-type file-path)}

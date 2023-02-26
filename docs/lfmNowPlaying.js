@@ -73,7 +73,7 @@ function renderNowPlaying(track) {
   nowPlayingNode.href = track.url;
   nowPlayingNode.target = "blank";
 
-  document.getElementById("site-body").appendChild(nowPlayingNode);
+  document.getElementsByClassName("site-body")[0].appendChild(nowPlayingNode);
 
   setTimeout(function() {
     nowPlayingNode.setAttribute("class", "now-playing loaded");
