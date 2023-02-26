@@ -22,4 +22,5 @@
    {:name "Maps" :url "https://www.google.com/maps/contrib/109731430420919295575/" :user "Jake Chvatal"}
    {:name "Email" :url "mailto://jake+website@isnt.online" :user "jake @ ~"}
    {:name "OSM" :url "https://www.openstreetmap.org/user/jakeisnt" :user "jakeisnt"}
-   {:name "Instagram" :url "https://instagram.com/jakeisnt" :user "jakeisnt"}])
+   {:name "Instagram" :url "https://instagram.com/jakeisnt" :user "jakeisnt"}
+   {:name "LinkedIn" :url "https://www.linkedin.com/in/jacob-chvatal" :user "jacob-chvatal"}])
