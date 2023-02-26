@@ -1,6 +1,5 @@
 (ns home
-  (:require
-   [html :as html]))
+  (:require const html))
 
 ;; website home page
 
@@ -17,11 +16,10 @@
    [:script "getNowPlaying();"]])
 
 (defn link-info-table []
-  [:table
-   [:tr [:td "Mastodon"] [:td [:a {:href "https://merveilles.town/@jakeisnt"} "jakeisnt"]]]
-   [:tr [:td "Twitter"] [:td [:a {:href "https://twitter.com/jakeissnt"} "jakeissnt"]]]
-   [:tr [:td "GitHub"] [:td [:a {:href "https://github.com/jakeisnt"} "jakeisnt"]]]
-   [:tr [:td "Email"] [:td [:a {:href "mailto://jake+website@isnt.online"} "jake @ ~"]]]])
+  [:div.git-hist-table
+   [:table
+    (for [{n :name u :url a :user} const/profiles]
+      [:tr [:td n] [:td [:a {:href u} a]]])]])
 
 (defn html []
   (html/->string

@@ -155,6 +155,7 @@ blockquote.article-quote p::after {
   font-family: 'Noto Sans Mono', monospace;
   font-size: 12px;
   background: var(--window-background);
+  height: 100%;
 }
 
 .sidebar .current {
