@@ -16,4 +16,9 @@
   [{:name "Mastodon" :url "https://merveilles.town/@jakeisnt" :user "jakeisnt"}
    {:name "Twitter" :url "https://twitter.com/jakeissnt" :user "jakeissnt"}
    {:name "GitHub" :url "https://github.com/jakeisnt" :user "jakeisnt"}
-   {:name "Email" :url "mailto://jake+website@isnt.online" :user "jake @ ~"}])
+   {:name "Gitlab" :url "https://gitlab.com/jakeisnt" :user "jakeisnt"}
+   {:name "sourcehut" :url "https://sr.ht/~jakeisnt/" :user "jakeisnt"}
+   {:name "YouTube" :url "https://www.youtube.com/@jakeisnt" :user "jakeisnt"}
+   {:name "Email" :url "mailto://jake+website@isnt.online" :user "jake @ ~"}
+   {:name "OSM" :url "https://www.openstreetmap.org/user/jakeisnt" :user "jakeisnt"}
+   {:name "Instagram" :url "https://instagram.com/jakeisnt" :user "jakeisnt"}])
