@@ -11,17 +11,14 @@ It can be thought of as a projection of my wiki and github repos!
 - Ten packets (to load instantly)
 
 * Running
-To render the website, use `sbcl` or something:
+To render the website, use `clojure`:
 #+BEGIN_SRC sh
-sbcl
+clj -X main/-main
 #+END_SRC
 
-This website is written in common lisp because common lisp is a good programming language.
-* Deployment
-For github pages rendering reasons, the folder that deploys the site must be named `/docs`.
-* TODO
-- Fix spacing on newlines; double newline ++ should insert a break, but single newline should not distance them. not sure how to represent this. make it look like org mode itself!
-- fix id links and file links. i care a lot more about file links than i do about id links, but they should both work.
-- figure out some way to show what subdirs we have on the website's home pag
+Why clojure? It's a modern, dynamically typed language that can gradually be hardened with robust types and tests. The language is smaller, more self-consistent, and more predictable syntactically than languages like Ruby or JavaScript, and allows the user to easily make their own APIs.
 
-Improve dev ux? https://git.sr.ht/~jasom/nix-lisp-dev
+Clojure isn't perfect; the eventual objective is to make the best language for me. For now, though, it's a well-tested, flexible starting point.
+
+* Deployment
+For github pages rendering reasons, the folder that deploys the site must be named `/docs`. Land the static files you'd like to bundle at appropriate paths on that folder.
