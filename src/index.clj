@@ -17,7 +17,7 @@
              (let [log (git/log (file/path file) const/source-dir)]
                [:tr
                 [:td (:short-hash (first log))]
-                [:td.file-name-tr [:a {:href (path/->url (file/path file))} (file/name file)]]
+                [:td.file-name-tr [:a {:href (path/->html (path/->url (file/path file)))} (file/name file)]]
                 [:td.file-type-row (file/extension file)]
                 [:td (:commit-date (first log))]]))]]]]]])))
 

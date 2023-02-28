@@ -15,11 +15,17 @@
   (make-dir-files source-dir target-dir)
   (index/->file source-dir target-dir))
 
+(defn write-home []
+  (file/write (home/html) (str const/target-dir "/index.html")))
+
+(defn write-path [path]
+  (make-dir (str const/source-dir "/" path) (str const/target-dir "/" path)))
+
 (defn -main [_]
-  (file/write (home/html) (str const/target-dir "/index.html"))
-
+  (write-home)
   (for [path const/wiki-paths]
-    (make-dir (str const/source-dir "/" path) (str const/target-dir "/" path))))
+    (write-path path)))
 
+(comment (write-home))
 (comment (make-dir (str const/source-dir "/" "scripts") (str const/target-dir "/" "scripts")))
 (comment (-main nil))

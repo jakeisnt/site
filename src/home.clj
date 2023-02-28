@@ -13,7 +13,7 @@
   [:span
    [:link {:rel "stylesheet" :href "/lastfm.css"}]
    [:script {:src "/lfmNowPlaying.js"}]
-   [:script "getNowPlaying();"]])
+   [:script "runOnDesktop(getNowPlaying);"]])
 
 (defn link-info-table []
   [:div.git-hist-table

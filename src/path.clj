@@ -13,7 +13,9 @@
   (replace-extension file ".html"))
 
 (defn ->url [source-path]
-  (->html (str/replace source-path (re-pattern const/source-dir) "")))
+  (-> source-path
+      (str/replace (re-pattern const/source-dir) "")
+      (str/replace (re-pattern const/target-dir) "")))
 
 (defn source->target [path source-dir target-dir]
   (-> path

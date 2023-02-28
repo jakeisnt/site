@@ -12,6 +12,14 @@
 (defn prop [k v]
   [:meta {:property k :content v}])
 
+(defn script
+  ([src] [:script {:src src :id src}])
+  ([src body] [:script {:src src :id src} body]))
+
+(defn css
+  ([href] [:link {:rel "stylesheet" :type "text/css" :href href :id href}])
+  ([href body] [:link {:rel "stylesheet" :type "text/css" :href href :id href} body]))
+
 (defn head
   "A page header that works for all pages"
   [title]
@@ -32,8 +40,12 @@
 
    ;; TODO favicon
    ;; TODO webmanifest
-   [:link {:rel "stylesheet" :href "/style.css"}]
-   [:script {:src "/lib.js"}]
+   (css "/style.css")
+   (script "/lib.js")
+   (script "/dev-server.js")
+
+   ;; TODO: only in development, not production
+
    ;; TODO: highlight.js
    ])
 
