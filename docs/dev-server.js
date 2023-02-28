@@ -17,7 +17,7 @@ function reload_js(path) {
   id(path).src = `${path}?${Date.now()}`;
 }
 
-function add_css(path) {
+function add_css(path, onload) {
   const elem = document.createElement('link', onload);
   elem.rel = "stylesheet";
   elem.type = "text/css";
