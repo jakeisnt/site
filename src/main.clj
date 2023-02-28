@@ -16,14 +16,16 @@
   (index/->file source-dir target-dir))
 
 (defn write-home []
+  (println "Writing home page")
   (file/write (home/html) (str const/target-dir "/index.html")))
 
 (defn write-path [path]
+  (println "Writing path: " path)
   (make-dir (str const/source-dir "/" path) (str const/target-dir "/" path)))
 
 (defn -main [_]
   (write-home)
-  (for [path const/wiki-paths]
+  (doseq [path const/wiki-paths]
     (write-path path)))
 
 (comment (write-home))

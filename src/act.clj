@@ -112,7 +112,6 @@ STRING=#'[^()\n]+'
   (> (count (:aliases script)) 2))
 
 (defn render-message [msg]
-  (println "rendering message " msg)
   [:span
    (for [line msg]
      (match line
