@@ -42,7 +42,6 @@
    ;; TODO webmanifest
    (css "/style.css")
    (script "/lib.js")
-   (script "/dev-server.js")
 
    ;; TODO: only in development, not production
 

@@ -6,9 +6,9 @@
    clojure.java.io
    [org.httpkit.server :as http]
    [clojure.java.browse :refer [browse-url]]
-   ;; [ring.adapter.jetty :as jetty]
    [ring.util.mime-type :as mime]
-   [juxt.dirwatch :refer [watch-dir]]))
+   [juxt.dirwatch :refer [watch-dir]]
+   [clojure.string :as str]))
 
 ;; Serve the statically generated files!
 (defn get-path [uri]
@@ -20,12 +20,22 @@
 (defn content-type [file-path]
   (mime/ext-mime-type file-path))
 
+(def html-end-tag "</html>")
+(def dev-script "<script type=\"text/javascript\" src=\"/dev-server.js\" id=\"/dev-server.js\"></script>")
+
+(defn inject-hot-reload [site]
+  (str/replace-first site html-end-tag (str dev-script html-end-tag)))
+
 (defn handle-file [request]
   (let [file-path (get-path (:uri request))]
     (println "Serving file: " file-path)
-    {:status 200
-     :headers {"Content-Type" (content-type file-path)}
-     :body (file/read file-path)}))
+    (let [contents (file/read file-path)
+          type (content-type file-path)]
+      {:status 200
+       :headers {"Content-Type" type}
+       :body (if (= type "text/html")
+               (inject-hot-reload contents)
+               contents)})))
 
 (defn handle-socket [request]
   (http/with-channel request channel
