@@ -22,6 +22,7 @@
    {:name "OSM" :url "https://www.openstreetmap.org/user/jakeisnt" :user "jakeisnt"}
    {:name "Hacker News" :url "https://news.ycombinator.com/user?id=jakeisnt" :user "jakeisnt"}
    {:name "Instagram" :url "https://instagram.com/jakeisnt" :user "jakeisnt"}
+   {:name "read.cv" :url "https://read.cv/jakeisnt" :user "jakeisnt"}
    {:name "LinkedIn" :url "https://www.linkedin.com/in/jacob-chvatal" :user "jacob-chvatal"}])
 
 (def personal

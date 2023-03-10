@@ -23,14 +23,10 @@
         devShell = with pkgs; mkShell {
           name = "site";
           buildInputs = [
-            sbcl
             inotify-tools
-            openssl
-            sqlite
 
             clojure
             leiningen
-            clj-kondo
             clojure-lsp
           ];
 
