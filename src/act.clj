@@ -146,13 +146,12 @@ STRING=#'[^()\n]+'
           (line->html line script))]
        [:script {:src "/script.js"}]]]]]])
 
-(defn ->file [source-path source-dir target-dir]
-  (let [target-path (path/source->target source-path source-dir target-dir)]
-    (->
-     source-path
-     file/read
-     parse-script
-     ->ast
-     (->html target-path)
-     html/->string
-     (file/write target-path))))
+(defn ->file [source-path target-path]
+  (->
+   source-path
+   file/read
+   parse-script
+   ->ast
+   (->html target-path)
+   html/->string
+   (file/write target-path)))

@@ -47,11 +47,10 @@
 
 (defn ->file
   "Transform a file from source to target."
-  [source-path source-dir target-dir]
-  (let [target-path (path/source->target source-path source-dir target-dir)]
-    (->
-     source-path
-     file/read
-     parse
-     (render-article source-path target-path)
-     (file/write target-path))))
+  [source-path target-path]
+  (->
+   source-path
+   file/read
+   parse
+   (render-article source-path target-path)
+   (file/write target-path)))

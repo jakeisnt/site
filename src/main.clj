@@ -4,10 +4,11 @@
 
 (defn make-dir-files [source-dir target-dir]
   (let [files (file/list source-dir)]
-    (doseq [file files]
-      (match (file/extension file)
-        "md"  (markdown/->file file source-dir target-dir)
-        "act" (act/->file file source-dir target-dir)))))
+    (doseq [source-path files]
+      (let [target-path (path/source->target source-path source-dir target-dir)]
+        (match (file/extension source-path)
+          "md"  (markdown/->file source-path target-path)
+          "act" (act/->file source-path target-path))))))
 
 (defn make-dir
   "Make a directory listing page"
@@ -20,7 +21,7 @@
   (file/write (home/html) (str const/target-dir "/index.html")))
 
 (defn write-path [path]
-  (println "Writing path: " path)
+  (println "Writing path:" path)
   (make-dir (str const/source-dir "/" path) (str const/target-dir "/" path)))
 
 (defn -main [_]
