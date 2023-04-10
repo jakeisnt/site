@@ -30,7 +30,7 @@
       (html/sidebar "/" "index")
       [:main
        [:article.wikipage.aboutMe
-        [:p "Hey, I'm Jake."]
+        [:p "Hey, I'm Jake Chvatal."]
         [:p  "I'm a software engineer based in Stockholm, Sweden."]
         [:p "During the day, I work at " [:a.external {:href "https://improvin.com"} "Improvin'"]
          ", building tools to help food companies reduce their environmental impact."]

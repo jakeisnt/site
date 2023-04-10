@@ -11,7 +11,8 @@
 (def local-port 4242)
 
 (def profiles
-  [{:name "Mastodon" :url "https://merveilles.town/@jakeisnt" :user "jakeisnt"}
+  [{:name "Are.na" :url "https://are.na/jake-isnt" :user "jake-isnt"}
+   {:name "Mastodon" :url "https://merveilles.town/@jakeisnt" :user "jakeisnt"}
    {:name "Twitter" :url "https://twitter.com/jakeissnt" :user "jakeissnt"}
    {:name "GitHub" :url "https://github.com/jakeisnt" :user "jakeisnt"}
    {:name "Gitlab" :url "https://gitlab.com/jakeisnt" :user "jakeisnt"}
