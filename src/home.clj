@@ -32,7 +32,7 @@
        [:article.wikipage.aboutMe
         [:p "Hey, I'm Jake."]
         [:p  "I'm a Stockholm-based software engineer."]
-        [:p "During the day, I work at " [:a.external {:href "https://improvin.com"} "Improvin"]
+        [:p "During the day, I work at " [:a.external {:href "https://improvin.com"} "Improvin'"]
          ", building tools to help food companies reduce their environmental impact."]
 
         [:p "On nights and weekends, I " [:a.internal {:href "/pages/index.html"} "write"]
