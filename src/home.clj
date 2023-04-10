@@ -31,16 +31,13 @@
       [:main
        [:article.wikipage.aboutMe
         [:p "Hey, I'm Jake."]
-        [:p  "I'm a Stockholm-based software engineer."]
+        [:p  "I'm a software engineer based in Stockholm, Sweden."]
         [:p "During the day, I work at " [:a.external {:href "https://improvin.com"} "Improvin'"]
          ", building tools to help food companies reduce their environmental impact."]
 
         [:p "On nights and weekends, I " [:a.internal {:href "/pages/index.html"} "write"]
          ", take " [:a.external {:href "https://instagram.com/jakeisnt"} "photos"]
-         ", and design small software tools."]
-
-        ;; [:p "I value ideas that are simple, quick, and robust. Tools - the things people own and the programs they use - should allow their users to express themselves, and should be made to be passed on to your friend or child."]
-        ]
+         ", and design simple hardware and software tools."]]
 
        (no-js)
        (lastfm-now-playing)
