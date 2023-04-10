@@ -138,6 +138,10 @@ blockquote.article-quote p::after {
   margin: 1rem;
 }
 
+.aboutMe {
+  max-width: 20rem;
+}
+
 .foot {
   padding-right: 0.5rem;
 }
