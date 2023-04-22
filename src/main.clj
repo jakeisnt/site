@@ -7,7 +7,10 @@
 (def respect-timestamp true)
 ;; the commit on which the file was last built
 (def last-commit-timestamp
-  (Integer/parseInt (trim-newline (file/read const/last-modified-file))))
+  (if (file/exists? const/last-modified-file)
+    (Integer/parseInt (trim-newline (file/read const/last-modified-file)))
+    ;; if file doesn't exist, we assume it's 0 and recompile
+    0))
 
 (println "Last build was at timestamp: " last-commit-timestamp)
 

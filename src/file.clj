@@ -69,3 +69,6 @@
 
 (defn remove-dir [path in-dir]
   (cmd/exec (str "rm -r " path) in-dir))
+
+(defn exists? [fp]
+  (.exists (io/file fp)))
