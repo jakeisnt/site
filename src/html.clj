@@ -52,9 +52,6 @@
    (css "/elements.css")
    (css "/global.css")
    (script "/lib.js")
-
-   ;; TODO: only in development, not production
-
    ;; TODO: highlight.js
    ])
 
