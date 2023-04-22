@@ -24,7 +24,7 @@
 (defn html []
   (html/->string
    [:html
-    (html/head "Jake Chvatal")
+    (html/head  "/" "Jake Chvatal")
     [:body
      [:div.site-body
       (html/sidebar "/" "index")

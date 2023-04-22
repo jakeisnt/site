@@ -6,6 +6,9 @@
 
 ;; --- general ---
 
+;; delimits paths in title and in body
+(def ^:const path-delimiter " / ")
+
 (defn metm [k v]
   [:meta {:name k :content v}])
 
@@ -24,12 +27,27 @@
   [:link {:rel "icon" :type "image/x-icon" :href "/favicon.ico"}]
   [:link {:rel "apple-touch-icon" :href "/apple-touch-icon.png"}])
 
+(defn split-path [path]
+  ;; splitting on the first /" gives us a front empty string that we drop
+  (rest (str/split path #"/")))
+
+(defn remove-path-prefix [path]
+  (str/replace path (re-pattern (str "^" const/target-dir)) ""))
+
+(defn make-path-list [path]
+  (split-path (remove-path-prefix path)))
+
+(defn collect-folder-paths-string [path-list title]
+  (if (empty? (rest path-list))
+    title
+    (str (collect-folder-paths-string (rest path-list) title) path-delimiter (first path-list))))
+
 (defn head
   "A page header that works for all pages"
-  [title]
+  [path title]
   [:head
    [:meta {:charset "UTF-8"}]
-   [:title (str title " | " const/site-name)]
+   [:title (str (collect-folder-paths-string (make-path-list path) title) path-delimiter const/site-name)]
    (metm "viewport" "width=device-width,initial-scale=1.0")
    (prop "og:title" title)
    (prop "og:type" "website")
@@ -62,30 +80,23 @@
 
 ;; --- sidebar
 
-(defn split-path [path]
-  ;; splitting on the first /" gives us a front empty string that we drop
-  (rest (str/split path #"/")))
-
-(defn remove-path-prefix [path]
-  (str/replace path (re-pattern (str "^" const/target-dir)) ""))
-
 (defn collect-folder-paths
   "Collect all the paths to folders in a directory as html."
   ([path-list title] (collect-folder-paths path-list title nil))
   ([path-list title cur-path]
    (if (empty? (rest path-list))
-     (list [:span " / "] [:b title])
+     (list [:span path-delimiter] [:b title])
      (let [fst (first path-list)
            rst (rest path-list)
            cur-path (str (if cur-path cur-path nil) "/" fst)]
        (cons
-        [:span " / "]
+        [:span path-delimiter]
         (cons
          [:a {:href "./index.html"} fst]
          (collect-folder-paths rst title cur-path)))))))
 
 (defn sidebar [path title]
-  (let [path-list (split-path (remove-path-prefix path))]
+  (let [path-list (make-path-list path)]
     [:div.sidebar
      (if (empty? path-list)
        [:b "jake."]

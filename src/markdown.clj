@@ -35,7 +35,7 @@
         has-title (has-title? md-article)]
     (html/->string
      [:html
-      (html/head page-name)
+      (html/head target-path page-name)
       [:body
        [:div.site-body
         (html/sidebar target-path page-name)

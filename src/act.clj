@@ -133,7 +133,7 @@ STRING=#'[^()\n]+'
   "Convert the script to an HTML document."
   [script path]
   [:html
-   (html/head (:title script))
+   (html/head path (:title script))
    [:body
     [:div.site-body
      (html/sidebar path (:title script))

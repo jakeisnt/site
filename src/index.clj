@@ -6,7 +6,7 @@
         files (file/list source-path)]
     (html/->string
      [:html
-      (html/head title)
+      (html/head target-path title)
       [:body
        [:div.site-body
         (html/sidebar target-path title)
