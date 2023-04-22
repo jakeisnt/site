@@ -75,7 +75,7 @@
     (git/checkout repo current-branch)
     (println "we are on branch " (git/current-branch repo))
     (git/remove-untracked repo)
-    (file/move (str tmp-dir "/*") deployment-dir repo)))
+    (file/move (str tmp-dir "/*") deployment-dir repo))
 
 (defn -deploy [_]
   ;; (-main nil)
