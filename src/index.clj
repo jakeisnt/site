@@ -5,6 +5,8 @@
   (let [log (git/log (file/path file) const/source-dir)]
     {:file file :log log :newest-log (first log) :name (file/name file)}))
 
+;; TODO: goes the wrong way
+;; TODO: customize behavior by folder
 (defn sort-files [files]
   (let [file-list (for [file files] (get-file-info file))]
     (sort-by :name file-list)))
