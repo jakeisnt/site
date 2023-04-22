@@ -66,3 +66,6 @@
 
 (defn copy-force [from to dir]
   (cmd/exec (str "cp -rf " from " " to) dir))
+
+(defn remove-dir [path in-dir]
+  (cmd/exec (str "rm -r " path) in-dir))

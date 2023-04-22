@@ -61,8 +61,8 @@
     (git/remove-untracked repo)
 
     (println "moving tmp dir contents to root")
-    (file/move tmp-dir deployment-dir repo)
-    (file/copy-dir (str deployment-dir "/*") "." repo)
+    (file/copy-dir tmp-dir deployment-dir repo)
+    (file/move (str deployment-dir "/*") "." repo)
 
     (println "pushing build")
     (println "we are on branch " (git/current-branch repo))
@@ -74,8 +74,8 @@
     (git/checkout repo current-branch)
     (println "we are on branch " (git/current-branch repo))
     (git/remove-untracked repo)
-    ;; (file/move (str tmp-dir "/*") deployment-dir repo)
-    ))
+    (file/remove-dir deployment-dir repo)
+    (file/move tmp-dir deployment-dir repo)))
 
 (defn -deploy [_]
   ;; (-main nil)
