@@ -1,0 +1,9 @@
+{:deps
+ {hiccup/hiccup {:mvn/version "1.0.5"}
+  org.clojure/core.match {:mvn/version "1.0.1"}
+  clj-jgit/clj-jgit {:mvn/version "1.0.2"}
+  instaparse/instaparse {:mvn/version "1.4.12"}
+  com.kiranshila/cybermonday {:mvn/version "0.5.204"}
+  ring/ring {:mvn/version "1.9.6"}
+  http-kit/http-kit {:mvn/version "2.7.0-alpha1"}
+  juxt/dirwatch {:mvn/version "0.2.5"}}}
