@@ -66,14 +66,14 @@ function renderNowPlaying(track) {
       "<span class=\"np-date\">Last listened: "+track.date["#text"]+"</span>") +
     "<br>" +
     "<span class=\"np-title\"><strong>" + track.name + "</strong></span>" +
-    "<span> by </span>" +
+    "<br/>" +
     "<span class=\"np-artist\">"+track.artist["#text"]+"</span>";
 
   nowPlayingNode.appendChild(metadata);
   nowPlayingNode.href = track.url;
   nowPlayingNode.target = "blank";
 
-  document.getElementsByClassName("site-body")[0].appendChild(nowPlayingNode);
+  document.getElementsByClassName("lastfm-now-playing-box")[0].appendChild(nowPlayingNode);
 
   setTimeout(function() {
     nowPlayingNode.setAttribute("class", "now-playing loaded");

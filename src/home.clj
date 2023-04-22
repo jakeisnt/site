@@ -10,7 +10,7 @@
     [:p "This website is augmented with JS, but is perfectly functional without it. The web should be usable with static files alone."]]])
 
 (defn lastfm-now-playing []
-  [:span
+  [:div.lastfm-now-playing-box
    [:link {:rel "stylesheet" :href "/lastfm.css"}]
    [:script {:src "/lfmNowPlaying.js"}]
    [:script "runOnDesktop(getNowPlaying);"]])
@@ -40,5 +40,5 @@
          ", and design simple hardware and software tools."]]
 
        (no-js)
-       (lastfm-now-playing)
-       (link-info-table)]]]]))
+       (link-info-table)
+       (lastfm-now-playing)]]]]))
