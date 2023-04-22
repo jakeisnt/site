@@ -44,13 +44,38 @@
     (write-path path))
   (record-last-timestamp const/source-dir))
 
+(defn commit-folder-to [v]
+  (let [repo (:repo v)
+        deployment-dir (:deployment-dir v)
+        branch (:branch v)
+        current-branch (git/current-branch repo)
+        tmp-dir "/tmp/jake-site-deploy"]
+
+    (println "copying deployment to tmp dir")
+    (git/checkout repo branch)
+    (file/move deployment-dir tmp-dir repo)
+
+    (println "removing all untracked files")
+    (git/remove-untracked repo)
+
+    (println "moving tmp dir contents to root")
+    (file/move tmp-dir deployment-dir repo)
+    (file/move (str deployment-dir "/*") repo repo)
+
+    (println "pushing build")
+    (git/add-all repo)
+    (git/commit repo)
+    (git/push repo)
+
+    (println "restoring working branch")
+    (file/move (str repo "/*") (str deployment-dir "/") repo)
+    (git/checkout current-branch repo)))
+
 (defn -deploy [_]
-  (-main nil)
-  (git/checkout const/current-repo const/deployment-branch)
-  (file/move (str const/target-dir "/*") const/current-repo)
-  (git/add-all const/current-repo)
-  (git/commit const/current-repo)
-  (git/push const/current-repo))
+  ;; (-main nil)
+  (commit-folder-to {:repo const/current-repo
+                     :branch const/deployment-branch
+                     :deployment-dir const/target-dir}))
 
 (comment (write-home))
 (comment (make-dir (str const/source-dir "/" "scripts") (str const/target-dir "/" "scripts")))

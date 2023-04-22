@@ -58,5 +58,5 @@
   [path]
   (.isDirectory (java.io.File. path)))
 
-(defn move [from to]
-  (cmd/exec "mv" from to))
+(defn move [from to dir]
+  (cmd/exec (str "mv " from " " to) dir))

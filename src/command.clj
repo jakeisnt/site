@@ -1,8 +1,6 @@
 (ns command
   (:require
    [clojure.string :as str]
-   [const :as const]
-   [file :as file]
    [clojure.java.shell :as sh]))
 
 ;; clojure git configuration

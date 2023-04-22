@@ -6,7 +6,7 @@
 (def target-url "https://jake.isnt.online")
 
 (def current-repo "/home/jake/site")
-(def target-dir (str current-repo (str current-repo "/docs")))
+(def target-dir (str current-repo "/docs"))
 
 (def deployment-branch "production")
 
