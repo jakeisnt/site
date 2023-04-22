@@ -210,9 +210,6 @@ blockquote.article-quote p::after {
     margin-top: 1rem;
     padding: 0.75rem;
   }
-  .git-hist-table, .link-info-table, .folder-index-page-table, a.now-playing, .checkbox-menu {
-    margin: 0;
-  }
 }
 
 .calendar-title {
