@@ -70,7 +70,7 @@
     (git/push repo)
 
     (println "restoring working branch")
-    (git/checkout current-branch repo)
+    (git/checkout repo current-branch)
     (git/remove-untracked repo)
     (file/move tmp-dir deployment-dir repo)))
 
