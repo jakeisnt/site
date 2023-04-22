@@ -81,7 +81,12 @@ th {
 
 /* -- Text -- */
 h1 {
-  margin: 1rem 0;
+  margin-top: 0.125em;
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-top: 0.25em;
 }
 
 ul {
@@ -172,10 +177,6 @@ blockquote.article-quote p::after {
     margin: 0;
     padding: 0.5rem;
   }
-}
-
-.title-top {
-  margin-top: 0.75rem;
 }
 
 .file-name-tr {
