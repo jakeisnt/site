@@ -62,8 +62,8 @@ function renderNowPlaying(track) {
   metadata.setAttribute("class", "np-metadata");
   metadata.innerHTML =
     (currently ?
-      "<span class=\"np-date\">Listening to</span>" :
-      "<span class=\"np-date\">Last listened: "+track.date["#text"]+"</span>") +
+      "<span class=\"np-date\">Playing</span>" :
+     "<span class=\"np-date\">Played on "+track.date["#text"]+"</span>") +
     "<br>" +
     "<span class=\"np-title\"><strong>" + track.name + "</strong></span>" +
     "<br/>" +
