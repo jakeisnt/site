@@ -75,3 +75,6 @@
 
 (defn current-branch [dir]
   (cmd/exec "git branch --show-current" dir))
+
+(defn status [dir]
+  (cmd/exec "git status" dir))
