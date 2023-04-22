@@ -69,7 +69,7 @@
 
     (println "moving tmp dir contents to root")
     (file/copy-dir tmp-dir deployment-dir repo)
-    (file/move (str deployment-dir "/*") "." repo)
+    (file/copy-dir (str deployment-dir "/*") "." repo)
     (git/status repo)
 
     (println "pushing build")
