@@ -27,8 +27,9 @@
   "Make a directory listing page"
   [source-dir target-dir]
   (file/make-directory target-dir)
-  (make-dir-files source-dir target-dir)
-  (index/->file source-dir target-dir))
+  (when (> (git/last-timestamp source-dir source-dir) last-commit-timestamp)
+    (make-dir-files source-dir target-dir)
+    (index/->file source-dir target-dir)))
 
 (defn write-home []
   (println "Writing home page")
