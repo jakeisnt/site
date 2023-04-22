@@ -55,24 +55,23 @@
     (git/checkout repo branch)
     (println "we are on branch " (git/current-branch repo))
 
-    ;; (file/move deployment-dir tmp-dir repo)
+    (file/move deployment-dir tmp-dir repo)
 
-    ;; (println "removing all untracked files")
-    ;; (git/remove-untracked repo)
+    (println "removing all untracked files")
+    (git/remove-untracked repo)
 
-    ;; (println "moving tmp dir contents to root")
-    ;; (file/move tmp-dir deployment-dir repo)
-    ;; (file/move (str deployment-dir "/*") repo repo)
+    (println "moving tmp dir contents to root")
+    (file/move tmp-dir deployment-dir repo)
+    (file/move (str deployment-dir "/*") repo repo)
 
-    ;; (println "pushing build")
-    ;; (git/add-all repo)
-    ;; (git/commit repo)
-    ;; (git/push repo)
+    (println "pushing build")
+    (git/add-all repo)
+    (git/commit repo)
+    (git/push repo)
 
-    ;; (println "restoring working branch")
-    ;; (file/move (str repo "/*") (str deployment-dir "/") repo)
-    ;; (git/checkout current-branch repo))
-    ))
+    (println "restoring working branch")
+    (file/move (str repo "/*") (str deployment-dir "/") repo)
+    (git/checkout current-branch repo)))
 
 (defn -deploy [_]
   ;; (-main nil)
