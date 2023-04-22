@@ -2,7 +2,8 @@
   (:refer-clojure :exclude [list read name])
   (:require
    [clojure.string :as str]
-   [clojure.java.io :as io]))
+   [clojure.java.io :as io]
+   [command :as cmd]))
 
 (defn list
   "Get all the files in a directory"
@@ -56,3 +57,6 @@
   "Is this path a directory?"
   [path]
   (.isDirectory (java.io.File. path)))
+
+(defn move [from to]
+  (cmd/exec "mv" from to))

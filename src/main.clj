@@ -7,7 +7,7 @@
 (def last-commit-timestamp
   (Integer/parseInt (trim-newline (file/read const/last-modified-file))))
 
-(println "last commit timestamp was: " last-commit-timestamp)
+(println "Last build was at timestamp: " last-commit-timestamp)
 
 (defn record-last-timestamp [source-dir]
   (file/write (git/last-timestamp source-dir) const/last-modified-file))
@@ -45,8 +45,12 @@
   (record-last-timestamp const/source-dir))
 
 (defn -deploy [_]
-  (-main false)
-  (git/checkout const/deployment-branch const/current-repo))
+  (-main nil)
+  (git/checkout const/current-repo const/deployment-branch)
+  (file/move (str const/target-dir "/*") const/current-repo)
+  (git/add-all const/current-repo)
+  (git/commit const/current-repo)
+  (git/push const/current-repo))
 
 (comment (write-home))
 (comment (make-dir (str const/source-dir "/" "scripts") (str const/target-dir "/" "scripts")))
