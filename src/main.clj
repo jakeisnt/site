@@ -54,9 +54,8 @@
 
     (println "copying deployment to tmp dir")
     (git/checkout repo branch)
-    (println "we are on branch " (git/current-branch repo))
-
     (file/move deployment-dir tmp-dir repo)
+    (println "we are on branch " (git/current-branch repo))
 
     (println "removing all untracked files")
     (git/remove-untracked repo)
