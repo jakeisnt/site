@@ -72,7 +72,7 @@
     ;; (println "restoring working branch")
     ;; (file/move (str repo "/*") (str deployment-dir "/") repo)
     ;; (git/checkout current-branch repo))
-  )
+    ))
 
 (defn -deploy [_]
   ;; (-main nil)
