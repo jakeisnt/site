@@ -65,3 +65,6 @@
                :url "https://www.khoury.northeastern.edu/"}})
 
 (def site-name (:name personal))
+
+;; records when the build was last updated
+(def last-modified-file "docs/last-modified.txt")

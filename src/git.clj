@@ -38,6 +38,15 @@
              :file-path file}))
         (throw (Throwable. (str "git log command failed on path " file)))))))
 
+;; get the commit during which a file (or repo, if no file provided) was last modified
+(defn last-commit-hash
+  ([source-dir] (wrapper (str  "git log -1  --pretty=format:%H") source-dir))
+  ([source-dir path] (wrapper (str  "git log -1  --pretty=format:%H --follow -- " (str path)) source-dir)))
+
+(defn last-timestamp
+  ([source-dir] (Integer/parseInt (wrapper (str  "git log -1  --pretty=format:%ct") source-dir)))
+  ([source-dir path] (Integer/parseInt (wrapper (str  "git log -1  --pretty=format:%ct --follow -- " (str path)) source-dir))))
+
 (defn history-link
   "Generate a link to git history"
   [long-hash file-path]
