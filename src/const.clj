@@ -4,7 +4,11 @@
 (def source-dir "/home/jake/wiki")
 
 (def target-url "https://jake.isnt.online")
-(def target-dir "/home/jake/site/docs")
+
+(def current-repo "/home/jake/site")
+(def target-dir (str current-repo (str current-repo "/docs")))
+
+(def deployment-branch "production")
 
 (def wiki-paths ["pages" "scripts" "journals"])
 

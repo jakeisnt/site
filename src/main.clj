@@ -44,6 +44,10 @@
     (write-path path))
   (record-last-timestamp const/source-dir))
 
+(defn -deploy [_]
+  (-main false)
+  (git/checkout const/deployment-branch const/current-repo))
+
 (comment (write-home))
 (comment (make-dir (str const/source-dir "/" "scripts") (str const/target-dir "/" "scripts")))
 (comment (-main nil))

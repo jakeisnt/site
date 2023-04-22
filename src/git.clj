@@ -76,3 +76,6 @@
          [:tr
           [:td (:commit-date commit)]
           [:td [:a {:href (history-link (:long-hash commit) (:file-path commit))} (:short-hash commit)]]])]]]))
+
+(defn checkout [source-dir hash]
+  (wrapper (str "git checkout " hash) source-dir))
