@@ -2,8 +2,8 @@
   (:require file html const git path))
 
 (defn get-file-info [file]
-  (let [log (git/log (file/path file) const/source-dir)]
-    {:file file :log log :newest-log (first log) :name (file/name file)}))
+  (let [last-log (git/last-log (file/path file) const/source-dir)]
+    {:file file :last-log last-log :name (file/name file)}))
 
 ;; TODO: goes the wrong way
 ;; TODO: customize behavior by folder
@@ -25,10 +25,10 @@
           [:table
            (for [file (sort-files files)]
              [:tr
-              [:td (:short-hash (:newest-log file))]
+              [:td (:short-hash (:last-log file))]
               [:td.file-name-tr [:a {:href (path/->html (path/->url (file/path (:file file))))} (:name file)]]
               [:td.file-type-row (file/extension (:file file))]
-              [:td (:commit-date (:newest-log file))]])]]]]]])))
+              [:td (:commit-date (:last-log file))]])]]]]]])))
 
 (defn ->file [source-path target-path]
   (-> (html source-path target-path)
