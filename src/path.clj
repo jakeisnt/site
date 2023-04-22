@@ -6,9 +6,6 @@
 (defn replace-extension [path extension]
   (str/replace path #"\.\S+$" extension))
 
-(defn ->md [file]
-  (replace-extension file ".md"))
-
 (defn ->html [file]
   (replace-extension file ".html"))
 

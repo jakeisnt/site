@@ -3,8 +3,7 @@
    [file :as file]
    [instaparse.core :as insta]
    [clojure.core.match :refer [match]]
-   [html :as html]
-   [path :as path]))
+   [html :as html]))
 
 (def parse
   (insta/parser "

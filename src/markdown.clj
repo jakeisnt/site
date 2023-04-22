@@ -1,6 +1,5 @@
 (ns markdown
   (:require
-   [path :as path]
    [file :as file]
    [html :as html]
    [cybermonday.core :as cm]

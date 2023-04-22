@@ -8,29 +8,29 @@
 ;; TODO: Figure out how to get git history of org-mode files as well. I don't want to lose it!
 ;; ASSUMES file is in relative path to wiki repo
 (defn log [file source-dir]
-  (let [file (str file)]
-    (let [res (cmd/exec (str "git log --all --full-history --pretty=\"format:%h %H %ad\" --date default --date=format:'%Y-%m-%d' " (str file)) source-dir)]
-      (if res
-        (for [line (str/split res #"\R")]
-          (let [[short-hash long-hash commit-date] (str/split line #" ")]
-            {:short-hash short-hash
-             :long-hash long-hash
-             :commit-date commit-date
-             :file-path file}))
-        (throw (Throwable. (str "git log command failed on path " file)))))))
-
-;; ASSUMES file is in relative path to wiki repo
-(defn last-log [file source-dir]
-  (let [file (str file)]
-    (let [res (cmd/exec (str "git log -1 --full-history --pretty=\"format:%h %H %ad\" --date default --date=format:'%Y-%m-%d' " (str file)) source-dir)]
-      (if res
-        (let [line (first (str/split res #"\R"))
-              [short-hash long-hash commit-date] (str/split line #" ")]
+  (let [file (str file)
+        res (cmd/exec (str "git log --all --full-history --pretty=\"format:%h %H %ad\" --date default --date=format:'%Y-%m-%d' " (str file)) source-dir)]
+    (if res
+      (for [line (str/split res #"\R")]
+        (let [[short-hash long-hash commit-date] (str/split line #" ")]
           {:short-hash short-hash
            :long-hash long-hash
            :commit-date commit-date
-           :file-path file})
-        (throw (Throwable. (str "git log command failed on path " file)))))))
+           :file-path file}))
+      (throw (Throwable. (str "git log command failed on path " file))))))
+
+;; ASSUMES file is in relative path to wiki repo
+(defn last-log [file source-dir]
+  (let [file (str file)
+        res (cmd/exec (str "git log -1 --full-history --pretty=\"format:%h %H %ad\" --date default --date=format:'%Y-%m-%d' " (str file)) source-dir)]
+    (if res
+      (let [line (first (str/split res #"\R"))
+            [short-hash long-hash commit-date] (str/split line #" ")]
+        {:short-hash short-hash
+         :long-hash long-hash
+         :commit-date commit-date
+         :file-path file})
+      (throw (Throwable. (str "git log command failed on path " file))))))
 
 ;; get the commit during which a file (or repo, if no file provided) was last modified
 (defn last-commit-hash
