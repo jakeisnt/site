@@ -78,3 +78,9 @@
 
 (defn status [dir]
   (println (cmd/exec "git status" dir)))
+
+(defn stash [dir]
+  (cmd/exec "git stash" dir))
+
+(defn stash-pop [dir]
+  (cmd/exec "git stash pop" dir))

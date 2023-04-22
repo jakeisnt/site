@@ -9,6 +9,10 @@
         current-branch (git/current-branch repo)
         tmp-dir "/tmp/jake-site-deploy"]
 
+    (println "saving current changes")
+    (git/add-all repo)
+    (git/stash repo)
+
     (println "copying deployment to tmp dir")
     (git/checkout repo branch)
     (file/move deployment-dir tmp-dir repo)
@@ -41,7 +45,9 @@
     (print "removing deployment dir")
     (file/remove-dir deployment-dir repo)
     (print "moving tmp dir to deployment dir")
-    (file/move tmp-dir deployment-dir repo)))
+    (file/move tmp-dir deployment-dir repo)
+
+    (git/stash-pop repo)))
 
 (defn -main [_]
   (main/-main nil)
