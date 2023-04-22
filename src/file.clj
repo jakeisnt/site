@@ -14,6 +14,9 @@
 (defn read [path]
   (slurp path))
 
+(defn make-directory [dir]
+  (.mkdir (clojure.java.io/file dir)))
+
 (defn write [content path]
   (spit path content :append false))
 

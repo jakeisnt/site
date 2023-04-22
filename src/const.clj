@@ -6,7 +6,7 @@
 (def target-url "https://jake.isnt.online")
 (def target-dir "/home/jake/site/docs")
 
-(def wiki-paths ["pages" "scripts"])
+(def wiki-paths ["pages" "scripts" "journals"])
 
 (def local-port 4242)
 

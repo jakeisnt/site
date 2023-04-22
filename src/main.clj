@@ -13,6 +13,7 @@
 (defn make-dir
   "Make a directory listing page"
   [source-dir target-dir]
+  (file/make-directory target-dir)
   (make-dir-files source-dir target-dir)
   (index/->file source-dir target-dir))
 
