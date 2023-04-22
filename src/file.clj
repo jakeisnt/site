@@ -60,3 +60,6 @@
 
 (defn move [from to dir]
   (cmd/exec (str "mv " from " " to) dir))
+
+(defn copy-dir [from to dir]
+  (cmd/exec (str "cp -r " from " " to) dir))

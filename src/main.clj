@@ -61,7 +61,7 @@
     (git/remove-untracked repo)
 
     (println "moving tmp dir contents to root")
-    (file/move tmp-dir deployment-dir repo)
+    (file/copy-dir tmp-dir deployment-dir repo)
     (file/move (str deployment-dir "/*") repo repo)
 
     (println "pushing build")
@@ -70,13 +70,12 @@
     (git/push repo)
 
     (println "restoring working branch")
-    (file/move (str repo "/*") (str deployment-dir "/") repo)
     (git/checkout current-branch repo)
-    (git/remove-untracked repo)))
+    (git/remove-untracked repo)
+    (file/move tmp-dir deployment-dir repo)))
 
 (defn -deploy [_]
   ;; (-main nil)
-
   (commit-folder-to {:repo const/current-repo
                      :branch const/deployment-branch
                      :deployment-dir const/target-dir}))
