@@ -28,6 +28,7 @@
             clojure
             leiningen
             clojure-lsp
+            sass
           ];
 
           LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath(with pkgs; [openssl sqlite])}:LD_LIBRARY_PATH";

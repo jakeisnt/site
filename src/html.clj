@@ -20,6 +20,10 @@
   ([href] [:link {:rel "stylesheet" :type "text/css" :href href :id href}])
   ([href body] [:link {:rel "stylesheet" :type "text/css" :href href :id href} body]))
 
+(defmacro favicon []
+  [:link {:rel "icon" :type "image/x-icon" :href "/favicon.ico"}]
+  [:link {:rel "apple-touch-icon" :href "/apple-touch-icon.png"}])
+
 (defn head
   "A page header that works for all pages"
   [title]
@@ -32,15 +36,21 @@
    (prop "og:url" const/target-url)
    (prop "og:site_name" const/site-name)
    (metm "description" "hi") ;; TODO
-   ;; TODO pull some of these from the articles
+   ;; TODO pull this information from the articles
    (metm "keywords" "Operating Systems, webring, programming, languages")
    (metm "author" "Jake Chvatal")
    (metm "robots" "index,follow")
-   (metm "theme-color" "#fff") ;; TODO: light mode and dark mode?
 
-   ;; TODO favicon
-   ;; TODO webmanifest
+   ;; TODO: keep this synced with global theme somehow?
+   [:meta  {:name "theme-color" :media "(prefers-color-scheme: light)" :content "white"}]
+   [:meta {:name "theme-color" :media "(prefers-color-scheme: dark)" :content "#111"}]
+   (favicon)
+
+   [:link {:rel "manifest" :href "/manifest.json"}]
+
    (css "/style.css")
+   (css "/elements.css")
+   (css "/global.css")
    (script "/lib.js")
 
    ;; TODO: only in development, not production
