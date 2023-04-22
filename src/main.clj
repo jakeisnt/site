@@ -3,11 +3,16 @@
             [clojure.core.match :refer [match]]
             [clojure.string :refer [trim-newline]]))
 
+;; manually override timestamp cache if set to false
+(def respect-timestamp true)
 ;; the commit on which the file was last built
 (def last-commit-timestamp
   (Integer/parseInt (trim-newline (file/read const/last-modified-file))))
 
 (println "Last build was at timestamp: " last-commit-timestamp)
+
+(defn file-is-new [source-dir source-path]
+  (and respect-timestamp (> (git/last-timestamp source-dir source-path) last-commit-timestamp)))
 
 (defn record-last-timestamp [source-dir]
   (file/write (git/last-timestamp source-dir) const/last-modified-file))
@@ -15,7 +20,7 @@
 (defn make-dir-files [source-dir target-dir]
   (let [files (file/list source-dir)]
     (doseq [source-path files]
-      (when (> (git/last-timestamp source-dir source-path) last-commit-timestamp)
+      (when (file-is-new source-dir source-path)
         (println "file was updated. rebuilding" (str source-path))
         (let [target-path (path/source->target source-path source-dir target-dir)]
           (match (file/extension source-path)
@@ -27,7 +32,7 @@
   "Make a directory listing page"
   [source-dir target-dir]
   (file/make-directory target-dir)
-  (when (> (git/last-timestamp source-dir source-dir) last-commit-timestamp)
+  (when (file-is-new source-dir source-dir)
     (make-dir-files source-dir target-dir)
     (index/->file source-dir target-dir)))
 
