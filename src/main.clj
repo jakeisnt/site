@@ -72,7 +72,7 @@
     (println "restoring working branch")
     (git/checkout repo current-branch)
     (git/remove-untracked repo)
-    (file/move tmp-dir deployment-dir repo)))
+    (file/move (str tmp-dir "/*") deployment-dir repo)))
 
 (defn -deploy [_]
   ;; (-main nil)
