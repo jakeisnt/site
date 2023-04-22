@@ -45,6 +45,7 @@
     (write-path path))
   (record-last-timestamp const/source-dir))
 
+;; TODO: some bug makes us push to main when we run `main` function in the same time
 (defn commit-folder-to [v]
   (let [repo (:repo v)
         deployment-dir (:deployment-dir v)
@@ -78,7 +79,7 @@
     (file/move tmp-dir deployment-dir repo)))
 
 (defn -deploy [_]
-  ;; (-main nil)
+  ; (-main nil)
 
   (file/copy-force (str const/current-repo "/resources/*") const/target-dir const/current-repo)
   (commit-folder-to {:repo const/current-repo
