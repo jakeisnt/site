@@ -39,6 +39,7 @@
   (make-dir (str const/source-dir "/" path) (str const/target-dir "/" path)))
 
 (defn -main [_]
+  (file/copy-force (str const/repo "/resources/*") const/target-dir const/current-repo)
   (write-home)
   (doseq [path const/wiki-paths]
     (write-path path))

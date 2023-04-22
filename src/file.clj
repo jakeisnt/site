@@ -63,3 +63,6 @@
 
 (defn copy-dir [from to dir]
   (cmd/exec (str "cp -r " from " " to) dir))
+
+(defn copy-force [from to dir]
+  (cmd/exec (str "cp -rf " from " " to) dir))
