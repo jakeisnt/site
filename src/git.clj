@@ -71,7 +71,7 @@
   (cmd/exec  "git push" source-dir))
 
 (defn remove-untracked [dir]
-  (cmd/exec "git" dir "clean" "-fxd"))
+  (cmd/exec "git clean -fxd" dir))
 
 (defn current-branch [dir]
   (cmd/exec "git branch --show-current" dir))

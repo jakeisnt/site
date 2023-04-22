@@ -53,33 +53,33 @@
 
     (println "copying deployment to tmp dir")
     (git/checkout repo branch)
-    (file/move deployment-dir tmp-dir repo)
+    (println "we are on branch " (git/current-branch repo))
 
-    (println "removing all untracked files")
-    (git/remove-untracked repo)
+    ;; (file/move deployment-dir tmp-dir repo)
 
-    (println "moving tmp dir contents to root")
-    (file/move tmp-dir deployment-dir repo)
-    (file/move (str deployment-dir "/*") repo repo)
+    ;; (println "removing all untracked files")
+    ;; (git/remove-untracked repo)
 
-    (println "pushing build")
-    (git/add-all repo)
-    (git/commit repo)
-    (git/push repo)
+    ;; (println "moving tmp dir contents to root")
+    ;; (file/move tmp-dir deployment-dir repo)
+    ;; (file/move (str deployment-dir "/*") repo repo)
 
-    (println "restoring working branch")
-    (file/move (str repo "/*") (str deployment-dir "/") repo)
-    (git/checkout current-branch repo)))
+    ;; (println "pushing build")
+    ;; (git/add-all repo)
+    ;; (git/commit repo)
+    ;; (git/push repo)
+
+    ;; (println "restoring working branch")
+    ;; (file/move (str repo "/*") (str deployment-dir "/") repo)
+    ;; (git/checkout current-branch repo))
+  )
 
 (defn -deploy [_]
   ;; (-main nil)
-  (git/checkout const/current-repo "production")
-  (println (str "we're on " (git/current-branch const/current-repo)))
 
-  ;; (commit-folder-to {:repo const/current-repo
-  ;;                    :branch const/deployment-branch
-  ;;                    :deployment-dir const/target-dir})
-  )
+  (commit-folder-to {:repo const/current-repo
+                     :branch const/deployment-branch
+                     :deployment-dir const/target-dir}))
 
 (comment (write-home))
 (comment (make-dir (str const/source-dir "/" "scripts") (str const/target-dir "/" "scripts")))
