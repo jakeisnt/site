@@ -39,7 +39,7 @@
   (make-dir (str const/source-dir "/" path) (str const/target-dir "/" path)))
 
 (defn -main [_]
-  (file/copy-force (str const/repo "/resources/*") const/target-dir const/current-repo)
+  (file/copy-force (str const/current-repo "/resources/*") const/target-dir const/current-repo)
   (write-home)
   (doseq [path const/wiki-paths]
     (write-path path))
@@ -66,17 +66,21 @@
     (file/move (str deployment-dir "/*") repo repo)
 
     (println "pushing build")
+    (println "we are on branch " (git/current-branch repo))
     (git/add-all repo)
     (git/commit repo)
     (git/push repo)
 
     (println "restoring working branch")
     (git/checkout repo current-branch)
+    (println "we are on branch " (git/current-branch repo))
     (git/remove-untracked repo)
     (file/move (str tmp-dir "/*") deployment-dir repo)))
 
 (defn -deploy [_]
   ;; (-main nil)
+
+  (file/copy-force (str const/current-repo "/resources/*") const/target-dir const/current-repo)
   (commit-folder-to {:repo const/current-repo
                      :branch const/deployment-branch
                      :deployment-dir const/target-dir}))
