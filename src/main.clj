@@ -73,9 +73,13 @@
 
 (defn -deploy [_]
   ;; (-main nil)
-  (commit-folder-to {:repo const/current-repo
-                     :branch const/deployment-branch
-                     :deployment-dir const/target-dir}))
+  (git/checkout const/current-repo "production")
+  (println (str "we're on " (git/current-branch const/current-repo)))
+
+  ;; (commit-folder-to {:repo const/current-repo
+  ;;                    :branch const/deployment-branch
+  ;;                    :deployment-dir const/target-dir})
+  )
 
 (comment (write-home))
 (comment (make-dir (str const/source-dir "/" "scripts") (str const/target-dir "/" "scripts")))
