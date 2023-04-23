@@ -3,31 +3,62 @@
 // 3. animate image
 
 const neko = document.querySelector('.neko');
-const nekoComponents = "/components/neko/assets/";
+const nekoUrl = "/components/neko/assets/";
 
-const speed = 0.1;
+const Neko = {
+  awake: nekoUrl + "/awake.png",
+}
 
-let currentX = 0;
-let currentY = 0;
+const speed = 2;
+
+const rect = neko.getBoundingClientRect();
+
+let currentX = document.body.clientWidth - 50;
+let currentY = document.body.clientHeight - 50;
+
+const distanceFromCursorX = -10;
+const distanceFromCursorY = 10;
 
 function createNekoImage() {
     var img = document.createElement('img');
 
-    img.setAttribute("src", nekoComponents + "awake.png");
-    img.setAttribute("width", "32px");
-    img.setAttribute("height", "32px");
-    img.setAttribute("alt", "🐱");
+  img.setAttribute("src", Neko.awake);
+  img.setAttribute("width", "32px");
+  img.setAttribute("height", "32px");
+  img.setAttribute("alt", "🐱");
 
-    return img;
+  return img;
 }
 
+
 const nekoImage = createNekoImage();
+
+function isPositive(n) {
+  return n > 0;
+}
+
+function moveInX(e) {
+  if (isPositive(e.clientX - currentX - distanceFromCursorX)) {
+    return speed;
+  } else {
+    return -speed;
+  }
+}
+
+function moveInY(e) {
+  if (isPositive(e.clientY - currentY - distanceFromCursorY)) {
+    return speed;
+  } else {
+    return -speed;
+  }
+}
 
 document.addEventListener('mousemove', function(e) {
   let body = document.querySelector('body');
 
-  currentX += (e.clientX - currentX) * speed;
-  currentY += (e.clientY - currentY) * speed;
+  currentX += moveInX(e);
+  currentY += moveInY(e);
+
   neko.style.left = currentX + 'px';
   neko.style.top = currentY + 'px';
 });

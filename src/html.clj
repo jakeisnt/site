@@ -24,8 +24,8 @@
   ([href body] [:link {:rel "stylesheet" :type "text/css" :href href :id href} body]))
 
 (defmacro favicon []
-  [:link {:rel "icon" :type "image/x-icon" :href "/favicon.ico"}]
-  [:link {:rel "apple-touch-icon" :href "/apple-touch-icon.png"}])
+  [:link {:rel "icon" :type "image/x-icon" :href "/favicon/favicon.ico"}]
+  [:link {:rel "apple-touch-icon" :href "/favicon/apple-touch-icon.png"}])
 
 (defn split-path [path]
   ;; splitting on the first /" gives us a front empty string that we drop

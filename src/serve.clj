@@ -27,20 +27,22 @@
   (str/replace-first site html-end-tag (str dev-script html-end-tag)))
 
 (defn handle-file [request]
-  (let [file-path (get-path (:uri request))]
-    (println "Serving file: " file-path)
-    (let [contents (file/read file-path)
-          type (content-type file-path)]
-      {:status 200
-       :headers {"Content-Type" type}
-       :body (if (= type "text/html")
-               (inject-hot-reload contents)
-               contents)})))
+  (let [file-path (get-path (:uri request))
+        type (content-type file-path)
+        contents (if (= type "image/png")
+                   (file/read-image file-path)
+                   (file/read file-path))]
+    (println "SERVING [" type "]:" (path/remove-prefix file-path const/target-dir))
+    {:status 200
+     :headers {"Content-Type" type}
+     :body (if (= type "text/html")
+             (inject-hot-reload contents)
+             contents)}))
 
 (defn handle-socket [request]
   (http/with-channel request channel
-    (http/on-receive channel (println "\nSocket opened!"))
-    (http/on-close channel (fn [status] (println "Socket closed! " status)))
+    (http/on-receive channel (println "\n--- SOCKET CONNECTED ---"))
+    (http/on-close channel (fn [status] (println "--- SOCKET DISCONNECTED --- " status)))
 
     ;; if we update a file in /resources,
     ;; we copy it to the target dir so it triggers the build and updates
@@ -54,7 +56,7 @@
      (fn [event]
        (let [file (path/->url (:file event))]
          ;; event is: {:file name :count file-count :action :create|:modify|:delete}
-         (println "File changed: " file)
+         (println "CHANGED: " file)
          (http/send! channel file)))
 
      (clojure.java.io/file const/target-dir))))
@@ -65,8 +67,9 @@
     (handle-file request)))
 
 (defn -main [& _]
-  (println "Started server")
+  (println "SERVE")
   (http/run-server handler {:port const/local-port})
+  (println "SOCKET STARTED")
   (browse-url (str "http://localhost:" const/local-port)))
 
 (comment (-main nil))

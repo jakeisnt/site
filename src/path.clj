@@ -17,3 +17,7 @@
 (defn source->target [path source-dir target-dir]
   (-> path
       (str/replace (re-pattern source-dir) target-dir)))
+
+(defn remove-prefix [path prefix]
+  (-> path
+      (str/replace (re-pattern prefix) "")))

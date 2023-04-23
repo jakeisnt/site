@@ -16,6 +16,9 @@
 (defn read [path]
   (slurp path))
 
+(defn read-image [path]
+  (io/input-stream path))
+
 (defn make-directory [dir]
   (.mkdir (clojure.java.io/file dir)))
 
