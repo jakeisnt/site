@@ -41,6 +41,9 @@ a {
 
 a:hover, a:focus {
   background-color: var(--highlight);
+  opacity: 0.8;
+  padding: 0 3px;
+  margin: 0 -3px;
 }
 
 a:active {
