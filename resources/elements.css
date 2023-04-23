@@ -44,6 +44,7 @@ a:hover, a:focus {
   opacity: 0.8;
   padding: 0 3px;
   margin: 0 -3px;
+  transition: opacity 0.075s ease-out;
 }
 
 a:active {
