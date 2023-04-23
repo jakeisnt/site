@@ -21,6 +21,11 @@
     (for [{n :name u :url a :user} const/profiles]
       [:tr [:td n] [:td [:a {:href u} a]]])]])
 
+(defn dark-mode []
+  [:div.git-hist-table
+   [:button.toggle-dark-mode "Change color scheme"]
+   [:script {:src "/toggle-dark-mode.js"}]])
+
 (defn html []
   (html/->string
    [:html
@@ -41,4 +46,5 @@
 
        (no-js)
        (link-info-table)
-       (lastfm-now-playing)]]]]))
+       (lastfm-now-playing)
+       (dark-mode)]]]]))
