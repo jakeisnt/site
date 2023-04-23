@@ -49,7 +49,7 @@ const distanceFromCursorX = -30;
 const distanceFromCursorY = 10;
 
 function createNekoImage() {
-    var img = document.createElement('img');
+  var img = document.createElement('img');
 
   img.setAttribute("src", Neko.awake[0]);
   img.setAttribute("width", "32px");
