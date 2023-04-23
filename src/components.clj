@@ -27,3 +27,8 @@
   [:div.git-hist-table
    [:button.scroll-up-button "Scroll up"]
    (html/script "/components/scroll-up/scroll-up.js")])
+
+(defn neko []
+  [:div.neko
+   (html/script "/components/neko/neko.js")
+   (html/css "/components/neko/neko.css")])

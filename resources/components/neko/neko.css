@@ -1,0 +1,9 @@
+.neko {
+  position:absolute;
+  transform:translate(-50%,-50%);
+  height:35px;
+  width:35px;
+  border-radius:50%;
+  color: red;
+  border:2px solid red;
+}
