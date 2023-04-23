@@ -3,6 +3,7 @@
   (:require
    [clojure.string :as str]
    [clojure.java.io :as io]
+   [const :as const]
    [command :as cmd]))
 
 (defn list
@@ -58,17 +59,23 @@
   [path]
   (.isDirectory (java.io.File. path)))
 
-(defn move [from to dir]
-  (cmd/exec (str "mv " from " " to) dir))
+(defn move
+  ([from to] (move from to const/current-repo))
+  ([from to dir] (cmd/exec (str "mv " from " " to) dir)))
 
 (defn copy-dir [from to dir]
   (cmd/exec (str "cp -r " from " " to) dir))
 
-(defn copy-force [from to dir]
-  (cmd/exec (str "cp -rf " from " " to) dir))
+(defn copy [from to]
+  (copy-dir from to const/current-repo))
 
-(defn remove-dir [path in-dir]
-  (cmd/exec (str "rm -r " path) in-dir))
+(defn copy-force
+  ([from to] (copy-force from to const/current-repo))
+  ([from to dir] (cmd/exec (str "cp -rf " from " " to) dir)))
+
+(defn remove-dir
+  ([path] (remove-dir path const/current-repo))
+  ([path in-dir] (cmd/exec (str "rm -r " path) in-dir)))
 
 (defn exists? [fp]
   (.exists (io/file fp)))

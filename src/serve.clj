@@ -41,6 +41,14 @@
   (http/with-channel request channel
     (http/on-receive channel (println "\nSocket opened!"))
     (http/on-close channel (fn [status] (println "Socket closed! " status)))
+
+    ;; if we update a file in /resources,
+    ;; we copy it to the target dir so it triggers the build and updates
+    (watch-dir
+     (fn [event]
+       (file/copy (:file event) const/target-dir))
+     (clojure.java.io/file const/resources-dir))
+
     (watch-dir
      (fn [event]
        (let [file (path/->url (:file event))]

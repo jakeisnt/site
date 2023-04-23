@@ -51,7 +51,7 @@
 
 (defn -main [_]
   (main/-main nil)
-  (file/copy-force (str const/current-repo "/resources/*") const/target-dir const/current-repo)
+  (file/copy-force (str const/resources-dir "/*") const/target-dir)
   (commit-folder-to {:repo const/current-repo
                      :branch const/deployment-branch
                      :deployment-dir const/target-dir}))
