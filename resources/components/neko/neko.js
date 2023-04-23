@@ -1,8 +1,8 @@
 // TODO:
-// Introduce walking animations
-// Animate waking up with yawn?
-// Go to a specific place to sleep?
+// Fix walking animations
+// Go to a specific place to sleep
 // Sit next to the left or right of the cursor, whichever is closer
+// Sit next to/on/around links if they are hovered
 
 const neko = document.querySelector('.neko');
 const nekoUrl = "/components/neko/assets/";
