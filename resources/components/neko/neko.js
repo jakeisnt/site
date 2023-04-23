@@ -3,6 +3,21 @@
 // Sit next to the left or right of the cursor, whichever is closer
 // Sit next to/on/around links if they are hovered
 
+function createNekoImage() {
+  var img = document.createElement('img');
+
+  img.setAttribute("src", currentAnimation[0]);
+  img.setAttribute("width", "32px");
+  img.setAttribute("height", "32px");
+  img.setAttribute("alt", "🐱");
+
+  return img;
+}
+
+function timestamp() {
+  return new Date().getTime();
+}
+
 const neko = document.querySelector('.neko');
 const nekoUrl = "/components/neko/assets/";
 
@@ -25,6 +40,10 @@ const Neko = {
 
 const idleLevelKeys = [
   "awake",
+  "awake",
+  "awake",
+  "awake",
+  "awake",
   "yawn",
   "awake",
   "scratch",
@@ -33,60 +52,6 @@ const idleLevelKeys = [
   "yawn",
   "sleep",
 ]
-
-let nekoAwake = false;
-const mouseTolerance = 5;
-const nekoStepLength = 16;
-const animationSpeed = 200;
-const motionPollInterval = animationSpeed;
-const lastMovedInterval = animationSpeed * 4;
-
-let currentX;
-let currentY;
-let mouseX;
-let mouseY;
-
-const distanceFromCursorX = -30;
-const distanceFromCursorY = 10;
-
-let currentAnimation = Neko.sleep;
-
-function createNekoImage() {
-  var img = document.createElement('img');
-
-  img.setAttribute("src", currentAnimation[0]);
-  img.setAttribute("width", "32px");
-  img.setAttribute("height", "32px");
-  img.setAttribute("alt", "🐱");
-
-  return img;
-}
-
-function timestamp() {
-  return new Date().getTime();
-}
-
-const nekoImage = createNekoImage();
-let lastMouseMoved = timestamp();
-let lastNekoMoved = timestamp();
-
-function animate(first=true) {
-  if (currentAnimation) {
-    nekoImage.setAttribute("src", currentAnimation[first ? 0 : 1]);
-  }
-
-  setTimeout(() => animate(!first), animationSpeed);
-}
-
-function setAnimation(anim) {
-  console.log("setting animation to", anim);
-  currentAnimation = Neko[anim];
-}
-
-function setIdleness(level) {
-  console.log("Neko idle:", level);
-  setAnimation(level);
-}
 
 const Direction = {
   left: "left",
@@ -100,6 +65,41 @@ const Direction = {
   still: "awake",
 };
 
+const mouseTolerance = 5;
+const nekoStepLength = 16;
+const animationSpeed = 200;
+
+let currentX;
+let currentY;
+let mouseX;
+let mouseY;
+
+const distanceFromCursorX = -30;
+const distanceFromCursorY = 10;
+
+let currentAnimation = Neko.sleep;
+
+const nekoImage = createNekoImage();
+
+document.addEventListener('mousemove', function(e) {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+
+  lastMouseMoved = timestamp();
+});
+
+function animate(first=true) {
+  if (currentAnimation) {
+    nekoImage.setAttribute("src", currentAnimation[first ? 0 : 1]);
+  }
+
+  setTimeout(() => animate(!first), animationSpeed);
+}
+
+function setAnimation(anim) {
+  console.log("Neko: ", anim);
+  currentAnimation = Neko[anim];
+}
 
 function determineDirection(x, y) {
   if (x === 0 && y === 0) {
@@ -131,19 +131,6 @@ function determineDirection(x, y) {
   }
 }
 
-function setDirection(direction) {
-  console.log("Neko direction:", direction);
-  setAnimation(direction);
-}
-
-document.addEventListener('mousemove', function(e) {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-
-  lastMouseMoved = timestamp();
-});
-
-
 function moveInX() {
   if ((mouseX - currentX - distanceFromCursorX) > nekoStepLength) {
     return nekoStepLength;
@@ -164,62 +151,47 @@ function moveInY() {
   }
 }
 
+function moveNeko(x, y) {
+    currentX += x;
+    currentY += y;
+    neko.style.left = currentX + 'px';
+    neko.style.top = currentY + 'px';
+}
+
 let idleLevel = 0;
 
-function moveNeko() {
-  console.log("moving neko");
-  if (nekoAwake) {
-    const curTime = timestamp();
-    const x = moveInX();
-    const y = moveInY();
-
-    if (x || y) {
-      console.log(x, y);
-      setDirection(determineDirection(x, y));
-
-      currentX += x;
-      currentY += y;
-
-      neko.style.left = currentX + 'px';
-      neko.style.top = currentY + 'px';
-      lastNekoMoved = timestamp();
-    }
-
-    setTimeout(() => moveNeko(), motionPollInterval);
-  }
-}
-
-
-function trackIdleness() {
-  if (nekoAwake) {
-    const curTime = timestamp();
-    if (curTime - lastNekoMoved > lastMovedInterval) {
-      if (idleLevel < idleLevelKeys.length - 1) {
-        idleLevel++;
-        setIdleness(idleLevelKeys[idleLevel]);
-      }
+function nekoEventLoop() {
+  const x = moveInX();
+  const y = moveInY();
+  if (x !== 0 || y !== 0) { // if we can move, we're moving!
+    console.log("moving", x, y);
+    idleLevel = 0;
+    moveNeko(x, y);
+    setAnimation(determineDirection(x, y));
+  } else { // if we can't move, we're idle
+    console.log("idle", idleLevel);
+    if (idleLevel < idleLevelKeys.length - 1) {
+      idleLevel++;
+      setAnimation(idleLevelKeys[idleLevel]);
     }
   }
 
-  setTimeout(trackIdleness, lastMovedInterval);
+  setTimeout(nekoEventLoop, animationSpeed);
 }
+
+let nekoAwake = false;
 
 neko.addEventListener('click', function(e) {
   if (!nekoAwake) {
     currentX = e.clientX - 32;
     currentY = e.clientY - 32;
-    mouseX = e.clientX;
-    mouseY = e.clientY;
   }
 
   nekoAwake = true;
   idleLevel = 0;
   setAnimation("awake");
-
-  trackIdleness();
-  moveNeko();
+  nekoEventLoop();
 });
 
 neko.appendChild(nekoImage);
-
 animate();
