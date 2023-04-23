@@ -97,7 +97,7 @@ function animate(first=true) {
 }
 
 function setAnimation(anim) {
-  console.log("Neko: ", anim);
+  // console.log("Neko: ", anim);
   currentAnimation = Neko[anim];
 }
 
@@ -164,12 +164,12 @@ function nekoEventLoop() {
   const x = moveInX();
   const y = moveInY();
   if (x !== 0 || y !== 0) { // if we can move, we're moving!
-    console.log("moving", x, y);
+    // console.log("moving", x, y);
     idleLevel = 0;
     moveNeko(x, y);
     setAnimation(determineDirection(x, y));
   } else { // if we can't move, we're idle
-    console.log("idle", idleLevel);
+    // console.log("idle", idleLevel);
     if (idleLevel < idleLevelKeys.length - 1) {
       idleLevel++;
       setAnimation(idleLevelKeys[idleLevel]);
