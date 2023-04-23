@@ -193,5 +193,7 @@ neko.addEventListener('click', function(e) {
   nekoEventLoop();
 });
 
-neko.appendChild(nekoImage);
-animate();
+runOnDesktop(() => {
+  neko.appendChild(nekoImage);
+  animate();
+});
