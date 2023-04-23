@@ -64,4 +64,5 @@
        [:b "jake."]
        [:a {:href "/"} "jake."])
      [:a {:href "https://isnt.online"} " ~ "]
-     (collect-folder-paths path-list title)]))
+     (collect-folder-paths path-list title)
+     (html/css "/components/sidebar/sidebar.css")]))
