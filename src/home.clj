@@ -8,7 +8,7 @@
     (html/head  "/" "Jake Chvatal")
     [:body
      [:div.site-body
-      (html/sidebar "/" "index")
+      (components/sidebar "/" "index")
       [:main
        [:article.wikipage.aboutMe
         [:p "Hey, I'm Jake Chvatal."]

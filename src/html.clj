@@ -79,27 +79,3 @@
   (str "<!DOCTYPE html>" (h/html hiccup-struct)))
 
 ;; --- sidebar
-
-(defn collect-folder-paths
-  "Collect all the paths to folders in a directory as html."
-  ([path-list title] (collect-folder-paths path-list title nil))
-  ([path-list title cur-path]
-   (if (empty? (rest path-list))
-     (list [:span path-delimiter] [:b title])
-     (let [fst (first path-list)
-           rst (rest path-list)
-           cur-path (str (if cur-path cur-path nil) "/" fst)]
-       (cons
-        [:span path-delimiter]
-        (cons
-         [:a {:href "./index.html"} fst]
-         (collect-folder-paths rst title cur-path)))))))
-
-(defn sidebar [path title]
-  (let [path-list (make-path-list path)]
-    [:div.sidebar
-     (if (empty? path-list)
-       [:b "jake."]
-       [:a {:href "/"} "jake."])
-     [:a {:href "https://isnt.online"} " ~ "]
-     (collect-folder-paths path-list title)]))

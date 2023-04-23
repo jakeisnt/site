@@ -35,35 +35,6 @@ blockquote.article-quote p::after {
 }
 
 
-.sidebar {
-  align-self: start; /* do not flex grow */
-  margin: 1rem 0.5rem;
-  padding: 0.5rem;
-  padding-top: 1rem;
-  writing-mode: vertical-rl;
-  text-orientation: sideways;
-  text-align: left;
-  vertical-align: left;
-  line-height: 20px;
-  font-family: 'Noto Sans Mono', monospace;
-  font-size: 12px;
-  background: var(--window-background);
-  position: sticky;
-  top: 0;
-}
-
-.sidebar .current {
-  font-weight: 500;
-}
-
-@media only screen and (max-width: 500px) {
-  .sidebar {
-    writing-mode: horizontal-tb;
-    margin: 0;
-    padding: 0.5rem;
-  }
-}
-
 .file-name-tr {
   white-space: nowrap;
   max-width: 180px;

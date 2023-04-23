@@ -19,7 +19,7 @@
       (html/head target-path title)
       [:body
        [:div.site-body
-        (html/sidebar target-path title)
+        (components/sidebar target-path title)
         [:main
          [:div.folder-index-page-table
           [:table

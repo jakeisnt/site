@@ -1,9 +1,10 @@
 (ns markdown
   (:require
-   [file :as file]
-   [html :as html]
-   [cybermonday.core :as cm]
-   [git :as git]))
+   file
+   html
+   git
+   components
+   [cybermonday.core :as cm]))
 
 (defn parse [file-string]
   (:body (cm/parse-md file-string)))
@@ -37,7 +38,7 @@
       (html/head target-path page-name)
       [:body
        [:div.site-body
-        (html/sidebar target-path page-name)
+        (components/sidebar target-path page-name)
         [:main
          [:article.wikipage
           (if (not has-title) [:h1.title-top page-name] nil)

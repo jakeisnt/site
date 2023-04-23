@@ -1,9 +1,8 @@
 (ns act
   (:require
-   [file :as file]
+   file html components
    [instaparse.core :as insta]
-   [clojure.core.match :refer [match]]
-   [html :as html]))
+   [clojure.core.match :refer [match]]))
 
 (def parse
   (insta/parser "
@@ -135,7 +134,7 @@ STRING=#'[^()\n]+'
    (html/head path (:title script))
    [:body
     [:div.site-body
-     (html/sidebar path (:title script))
+     (components/sidebar path (:title script))
      [:main
       [:div
        (html/css "/filetype/act/act.css")
