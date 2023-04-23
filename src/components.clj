@@ -32,3 +32,11 @@
   [:div.neko
    (html/script "/components/neko/neko.js")
    (html/css "/components/neko/neko.css")])
+
+(defn terminal []
+  [:div.terminal.git-hist-table
+   (html/script "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.js")
+   (html/script "https://cdn.jsdelivr.net/gh/jcubic/jquery.terminal@devel/js/jquery.terminal.min.js")
+   (html/css "https://cdn.jsdelivr.net/gh/jcubic/jquery.terminal@devel/css/jquery.terminal.min.css")
+   (html/script "/components/terminal/terminal.js")
+   (html/css "/components/terminal/terminal.css")])

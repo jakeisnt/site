@@ -24,4 +24,5 @@
        (components/link-info-table)
        (components/lastfm)
        (components/toggle-dark-mode)
-       (components/neko)]]]]))
+       (components/neko)
+       (components/terminal)]]]]))
