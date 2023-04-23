@@ -16,5 +16,4 @@
 
 (defn source->target [path source-dir target-dir]
   (-> path
-      (str/replace (re-pattern source-dir) target-dir)
-      ->html))
+      (str/replace (re-pattern source-dir) target-dir)))

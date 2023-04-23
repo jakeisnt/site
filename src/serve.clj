@@ -46,7 +46,8 @@
     ;; we copy it to the target dir so it triggers the build and updates
     (watch-dir
      (fn [event]
-       (file/copy (:file event) const/target-dir))
+       (let [file (:file event)]
+         (file/copy file (path/source->target file const/resources-dir const/target-dir))))
      (clojure.java.io/file const/resources-dir))
 
     (watch-dir

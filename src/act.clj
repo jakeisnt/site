@@ -138,12 +138,12 @@ STRING=#'[^()\n]+'
      (html/sidebar path (:title script))
      [:main
       [:div
-       [:link {:rel "stylesheet" :href "/conversation.css"}]
+       (html/css "/filetype/act/act.css")
        (character-selector script)
        [:article.conversation
         (for [line (:body script)]
           (line->html line script))]
-       [:script {:src "/script.js"}]]]]]])
+       (html/script "/filetype/act/act.js")]]]]])
 
 (defn ->file [source-path target-path]
   (->

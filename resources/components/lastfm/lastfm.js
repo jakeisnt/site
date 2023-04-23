@@ -79,3 +79,5 @@ function renderNowPlaying(track) {
     nowPlayingNode.setAttribute("class", "now-playing loaded");
   }, 100);
 }
+
+runOnDesktop(getNowPlaying);

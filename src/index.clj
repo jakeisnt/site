@@ -1,5 +1,5 @@
 (ns index
-  (:require file html const git path))
+  (:require file html const git path components))
 
 (defn get-file-info [file]
   (let [last-log (git/last-log (file/path file) const/source-dir)]
@@ -28,7 +28,8 @@
               [:td (:short-hash (:last-log file))]
               [:td.file-name-tr [:a {:href (path/->html (path/->url (file/path (:file file))))} (:name file)]]
               [:td.file-type-row (file/extension (:file file))]
-              [:td (:commit-date (:last-log file))]])]]]]]])))
+              [:td (:commit-date (:last-log file))]])]]
+         (components/scroll-up-button)]]]])))
 
 (defn ->file [source-path target-path key]
   (-> (html source-path target-path key)

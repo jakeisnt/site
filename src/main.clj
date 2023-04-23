@@ -13,7 +13,7 @@
     ;; if file doesn't exist, we assume it's 0 and recompile
     0))
 
-(println "Last build was at timestamp: " last-commit-timestamp)
+(println "Last build was at " last-commit-timestamp)
 
 (defn file-is-new [source-dir source-path]
   (or force-rebuild
@@ -26,8 +26,8 @@
   (let [files (file/list source-dir)]
     (doseq [source-path files]
       (when (file-is-new source-dir source-path)
-        (println "file was updated. rebuilding" (str source-path))
-        (let [target-path (path/source->target source-path source-dir target-dir)]
+        (println "Rebuilding updated file " (str source-path))
+        (let [target-path (path/->html (path/source->target source-path source-dir target-dir))]
           (match (file/extension source-path)
             "md"  (markdown/->file source-path target-path)
             "act" (act/->file source-path target-path)))))))
