@@ -2,6 +2,7 @@
 
 table {
   font-size: 14px;
+  border-collapse: collapse;
 }
 
 th {
@@ -13,6 +14,16 @@ th {
 h1 {
   margin-top: 0.125em;
   margin-bottom: 1rem;
+}
+
+tr:hover {
+  background-color: var(--highlight);
+  color: var(--highlight-text);
+}
+
+td {
+  padding-left: 2px;
+  padding-right: 2px;
 }
 
 p {
