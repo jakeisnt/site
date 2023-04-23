@@ -4,7 +4,7 @@
             [clojure.string :refer [trim-newline]]))
 
 ;; manually override timestamp cache if set to false
-(def force-rebuild true)
+(def force-rebuild false)
 
 ;; the commit on which the file was last built
 (def last-commit-timestamp
