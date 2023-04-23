@@ -9,6 +9,8 @@
 a.now-playing:hover, a.now-playing:focus {
   background: var(--highlight);
   color: var(--highlight-text);
+  padding: 0;
+  margin: 0;
 }
 
 .now-playing img {

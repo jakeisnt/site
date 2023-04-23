@@ -19,6 +19,21 @@
   --window-background: white;
 }
 
+@media (prefers-color-scheme: light) {
+  :root {
+    --highlight: #eee8d5;
+    --quote-background: grey;
+
+    --link: #484848;
+    --highlight-text: #fff;
+      --subtle-text: darkgrey;
+
+    --text-color: black;
+    --page-background: white;
+    --window-background: white;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --highlight: #4C5669;
@@ -34,6 +49,34 @@
   }
 }
 
+.light-theme {
+  --highlight: #eee8d5;
+  --quote-background: grey;
+
+  --link: #484848;
+  --highlight-text: #fff;
+  --subtle-text: darkgrey;
+
+  --text-color: black;
+  --page-background: white;
+  --window-background: white;
+  transition: background-color 0.5s ease;
+}
+
+.dark-theme {
+  --highlight: #4C5669;
+  --quote-background: darkgrey;
+
+  --link: #ccc;
+  --highlight-text: #fff;
+  --subtle-text: grey;
+
+  --text-color: white;
+  --page-background: #111;
+  --window-background: #111;
+  transition: background-color 0.5s ease;
+}
+
 html {
   font-size: 14px;
   font-family: "Noto Sans", sans-serif;
@@ -42,13 +85,13 @@ html {
   -moz-osx-font-smoothing: grayscale;
   word-wrap: break-word;
   hyphens: auto;
-  color: var(--text-color);
 }
 
 body {
   margin: 0;
   padding: 1rem;
-  background: var(--page-background);
+  color: var(--text-color);
+  background-color: var(--page-background);
 }
 
 main {

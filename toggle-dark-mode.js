@@ -2,27 +2,35 @@
  * storing the current state in browser local storage.
  * The button hasn't yet been added...
  */
-const btn = document.querySelector(".btn-toggle");
-const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+const THEME = {
+  LIGHT: "light",
+  DARK: "dark",
+};
 
-const currentTheme = localStorage.getItem("theme");
-if (currentTheme == "dark") {
-  document.body.classList.toggle("dark-theme");
-} else if (currentTheme == "light") {
-  document.body.classList.toggle("light-theme");
+const possibleThemes = Object.values(THEME).map((theme) => `${theme}-theme`);
+const btn = document.querySelector(".toggle-dark-mode");
+const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+let currentTheme = localStorage.getItem("theme") ?? (prefersDarkScheme ? THEME.DARK : THEME.LIGHT);
+
+console.log("our current theme is ",currentTheme);
+
+function switchToTheme(add) {
+  const classes = document.body.classList;
+  classes.remove(...possibleThemes);
+  classes.add(`${add}-theme`);
+  currentTheme = add;
+
+  localStorage.setItem("theme", add);
 }
 
-btn.addEventListener("click", function () {
-  if (prefersDarkScheme.matches) {
-    document.body.classList.toggle("light-theme");
-    var theme = document.body.classList.contains("light-theme")
-      ? "light"
-      : "dark";
+function switchTheme() {
+  if (currentTheme == THEME.DARK) {
+    switchToTheme(THEME.LIGHT);
   } else {
-    document.body.classList.toggle("dark-theme");
-    var theme = document.body.classList.contains("dark-theme")
-      ? "dark"
-      : "light";
+    switchToTheme(THEME.DARK);
   }
-  localStorage.setItem("theme", theme);
-});
+}
+
+btn.addEventListener("click", switchTheme);
+
+switchToTheme(currentTheme);
