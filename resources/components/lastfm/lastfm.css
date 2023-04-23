@@ -1,14 +1,20 @@
 /* -- LastFM live music -- */
 .lastfm-now-playing-box {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   max-width: 20em;
+}
+
+a.now-playing {
+  padding: 1em;
+  margin: 0.5em;
 }
 
 a.now-playing:hover, a.now-playing:focus {
   background: var(--highlight);
   color: var(--highlight-text);
+
   padding: 0;
   margin: 0;
 }

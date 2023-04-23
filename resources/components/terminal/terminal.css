@@ -3,7 +3,7 @@
     position: absolute;
     right: 1em;
     top: 1em;
-    width: 40em;
+    max-width: 40em;
     border: 2px solid var(--highlight);
     z-index: 10;
 }
