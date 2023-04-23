@@ -51,7 +51,7 @@ const distanceFromCursorY = 10;
 function createNekoImage() {
     var img = document.createElement('img');
 
-  img.setAttribute("src", Neko.awake);
+  img.setAttribute("src", Neko.awake[0]);
   img.setAttribute("width", "32px");
   img.setAttribute("height", "32px");
   img.setAttribute("alt", "🐱");
@@ -117,17 +117,17 @@ function determineDirection(x, y) {
       }
     } else {
       if (x > 0) {
-        if (cursorX > cursorY + cursorTolerance) {
+        if (mouseX > mouseY + mouseTolerance) {
           return Direction.downRight;
-        } else if (cursorX < cursorY + cursorTolerance) {
+        } else if (mouseX < mouseY + mouseTolerance) {
           return Direction.upRight;
         } else {
           return Direction.right;
         }
       } else {
-        if (cursorY > cursorX + cursorTolerance) {
+        if (mouseY > mouseX + mouseTolerance) {
           return Direction.downLeft;
-        } else if (cursorY < cursorX + cursorTolerance) {
+        } else if (mouseY < mouseX + mouseTolerance) {
           return Direction.upLeft;
         } else {
           return Direction.left;
