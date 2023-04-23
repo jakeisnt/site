@@ -50,8 +50,12 @@
     (println "Writing path:" path)
     (make-dir (str const/source-dir "/" path) (str const/target-dir "/" path) sort-by)))
 
+(defn copy-resources []
+  (println "Copying resources")
+  (file/copy-force (str const/current-repo "/resources/*") const/target-dir const/current-repo))
+
 (defn -main [_]
-  (file/copy-force (str const/current-repo "/resources/*") const/target-dir const/current-repo)
+  (copy-resources)
   (write-home)
   (doseq [path const/wiki-paths]
     (write-path path))

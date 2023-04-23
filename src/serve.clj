@@ -3,6 +3,7 @@
    const
    file
    path
+   main
    clojure.java.io
    [org.httpkit.server :as http]
    [clojure.java.browse :refer [browse-url]]
@@ -68,6 +69,7 @@
 
 (defn -main [& _]
   (println "SERVE")
+  (main/copy-resources)
   (http/run-server handler {:port const/local-port})
   (println "SOCKET STARTED")
   (browse-url (str "http://localhost:" const/local-port)))

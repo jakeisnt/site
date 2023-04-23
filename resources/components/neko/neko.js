@@ -13,12 +13,32 @@ const Neko = {
   scratch: [nekoUrl + "scratch1.png", nekoUrl + "scratch2.png"],
   wash: [nekoUrl + "wash1.png", nekoUrl + "wash2.png"],
   sleep: [nekoUrl + "sleep1.png", nekoUrl + "sleep2.png"],
+  up: [nekoUrl + "up1.png", nekoUrl + "up2.png"],
+  down: [nekoUrl + "down1.png", nekoUrl + "down2.png"],
+  left: [nekoUrl + "left1.png", nekoUrl + "left2.png"],
+  right: [nekoUrl + "right1.png", nekoUrl + "right2.png"],
+  upLeft: [nekoUrl + "upleft1.png", nekoUrl + "upleft2.png"],
+  upRight: [nekoUrl + "upright1.png", nekoUrl + "upright2.png"],
+  downLeft: [nekoUrl + "downleft1.png", nekoUrl + "downleft2.png"],
+  downRight: [nekoUrl + "downright1.png", nekoUrl + "downright2.png"],
 }
 
-const nekoStepLength = 1;
-const motionPollInterval = 10;
-const animationSpeed = 600;
-const lastMoveInterval = animationSpeed * 3;
+const idleLevelKeys = [
+  "awake",
+  "yawn",
+  "awake",
+  "scratch",
+  "wash",
+  "awake",
+  "yawn",
+  "sleep",
+]
+
+const cursorTolerance = 5;
+const nekoStepLength = 15;
+const animationSpeed = 200;
+const motionPollInterval = animationSpeed;
+const lastMoveInterval = animationSpeed * 4;
 
 const rect = neko.getBoundingClientRect();
 
@@ -48,21 +68,78 @@ let currentAnimation = Neko.awake;
 let lastMoved = timestamp();
 
 
-function animate() {
+function animate(first=true) {
   if (currentAnimation) {
-    nekoImage.setAttribute("src", currentAnimation[0]);
+    nekoImage.setAttribute("src", currentAnimation[first ? 0 : 1]);
   }
-  setTimeout(() => {
-    if (currentAnimation) {
-      nekoImage.setAttribute("src", currentAnimation[1]);
-    }
-    setTimeout(animate, animationSpeed);
-  }, animationSpeed);
+
+  setTimeout(() => animate(!first), animationSpeed);
+}
+
+function setAnimation(anim) {
+  currentAnimation = Neko[anim];
 }
 
 function setIdleness(level) {
   console.log("set idleness", level);
-  currentAnimation = Neko[level];
+  setAnimation(level);
+}
+
+const Direction = {
+  left: "left",
+  right: "right",
+  up: "up",
+  down: "down",
+  downLeft: "downLeft",
+  downRight: "downRight",
+  upLeft: "upLeft",
+  upRight: "upRight",
+  awake: "awake",
+};
+
+
+function determineDirection(x, y) {
+  console.log('determine direction', x, y);
+  if (x === 0) {
+    if (y === 0) {
+      return Direction.awake;
+    } else if (y > 0) {
+      return Direction.down;
+    } else {
+      return Direction.up;
+    }
+  } else {
+    if (y === 0) {
+      if (x > 0) {
+        return Direction.right;
+      } else {
+        return Direction.left;
+      }
+    } else {
+      if (x > 0) {
+        if (cursorX > cursorY + cursorTolerance) {
+          return Direction.downRight;
+        } else if (cursorX < cursorY + cursorTolerance) {
+          return Direction.upRight;
+        } else {
+          return Direction.right;
+        }
+      } else {
+        if (cursorY > cursorX + cursorTolerance) {
+          return Direction.downLeft;
+        } else if (cursorY < cursorX + cursorTolerance) {
+          return Direction.upLeft;
+        } else {
+          return Direction.left;
+        }
+      }
+    }
+  }
+}
+
+function setDirection(direction) {
+  console.log("set direction", direction);
+  setAnimation(direction);
 }
 
 let mouseX = 0;
@@ -107,6 +184,8 @@ function moveNeko() {
 
     lastMoved = timestamp();
 
+    setDirection(determineDirection(x, y));
+
     neko.style.left = currentX + 'px';
     neko.style.top = currentY + 'px';
   }
@@ -114,16 +193,7 @@ function moveNeko() {
   setTimeout(() => moveNeko(), motionPollInterval);
 }
 
-const idleLevelKeys = [
-  "awake",
-  "wash",
-  "awake",
-  "yawn",
-  "awake",
-  "scratch",
-  "yawn",
-  "sleep",
-];
+
 
 function trackIdleness() {
   const curTime = timestamp();
