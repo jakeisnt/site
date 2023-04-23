@@ -12,9 +12,8 @@ const btn = document.querySelector(".toggle-dark-mode");
 const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
 let currentTheme = localStorage.getItem("theme") ?? (prefersDarkScheme ? THEME.DARK : THEME.LIGHT);
 
-console.log("our current theme is ",currentTheme);
-
 function switchToTheme(add) {
+  console.log("Switching to theme ", add)
   const classes = document.body.classList;
   classes.remove(...possibleThemes);
   classes.add(`${add}-theme`);
