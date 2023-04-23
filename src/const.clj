@@ -11,7 +11,12 @@
 
 (def deployment-branch "production")
 
-(def wiki-paths ["pages" "scripts" "journals"])
+(def wiki-paths [{:folder "pages"
+                  :sort-by (fn [v] (:commit-date (:last-log v)))}
+                 {:folder "scripts"
+                  :sort-by (fn [v] (:commit-date (:last-log v)))}
+                 {:folder "journals"
+                  :sort-by :name}])
 
 (def local-port 4242)
 

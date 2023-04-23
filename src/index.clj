@@ -7,11 +7,11 @@
 
 ;; TODO: goes the wrong way
 ;; TODO: customize behavior by folder
-(defn sort-files [files]
+(defn sort-files [files key]
   (let [file-list (for [file files] (get-file-info file))]
-    (sort-by :name file-list)))
+    (reverse (sort-by key file-list))))
 
-(defn html [source-path target-path]
+(defn html [source-path target-path sort-by]
   (let [title (file/name source-path)
         files (file/list source-path)]
     (html/->string
@@ -23,13 +23,13 @@
         [:main
          [:div.folder-index-page-table
           [:table
-           (for [file (sort-files files)]
+           (for [file (sort-files files sort-by)]
              [:tr
               [:td (:short-hash (:last-log file))]
               [:td.file-name-tr [:a {:href (path/->html (path/->url (file/path (:file file))))} (:name file)]]
               [:td.file-type-row (file/extension (:file file))]
               [:td (:commit-date (:last-log file))]])]]]]]])))
 
-(defn ->file [source-path target-path]
-  (-> (html source-path target-path)
+(defn ->file [source-path target-path key]
+  (-> (html source-path target-path key)
       (file/write (str target-path "/index.html"))))
