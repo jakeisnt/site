@@ -80,6 +80,8 @@
 html {
   font-size: 14px;
   font-family: "Noto Sans", sans-serif;
+  /* For jquery-terminal */
+  --font: "Berkeley Mono", monospace;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
