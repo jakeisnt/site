@@ -7,7 +7,6 @@
     border: 2px solid var(--highlight);
 }
 
-
 @media only screen and (max-width: 500px) {
   .terminal {
     position: relative;
