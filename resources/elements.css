@@ -55,3 +55,9 @@ a:active {
   background-color: var(--highlight);
   color: var(--highlight-text);
 }
+
+button {
+  background-color: var(--page-background);
+  color: var(--text-color);
+  transition: background-color 0.075s ease-out;
+}
