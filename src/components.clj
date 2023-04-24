@@ -14,7 +14,7 @@
 
 (defn toggle-dark-mode []
   [:div.toggle-dark-mode-container
-   [:button.toggle-dark-mode "T"]
+   [:button.toggle-dark-mode ""]
    (html/script "/components/toggle-dark-mode/toggle-dark-mode.js")
    (html/css "/components/toggle-dark-mode/toggle-dark-mode.css")])
 
