@@ -25,4 +25,5 @@
        (components/lastfm)
        (components/toggle-dark-mode)
        (components/neko)
-       (components/terminal)]]]]))
+       ;; (components/terminal)
+       ]]]]))
