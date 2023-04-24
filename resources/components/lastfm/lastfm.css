@@ -7,16 +7,13 @@
 }
 
 a.now-playing {
-  padding: 1em;
-  margin: 0.5em;
+  padding: 0.5rem 1em;
+  margin: 1em;
 }
 
 a.now-playing:hover, a.now-playing:focus {
   background: var(--highlight);
   color: var(--highlight-text);
-
-  padding: 0;
-  margin: 0;
 }
 
 .now-playing img {
