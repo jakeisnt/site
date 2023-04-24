@@ -18,8 +18,8 @@
      [:html
       (html/head target-path title)
       [:body
+       (components/sidebar target-path title)
        [:div.site-body
-        (components/sidebar target-path title)
         [:main
          [:div.folder-index-page-table
           [:table

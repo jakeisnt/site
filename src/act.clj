@@ -133,8 +133,8 @@ STRING=#'[^()\n]+'
   [:html
    (html/head path (:title script))
    [:body
+    (components/sidebar path (:title script))
     [:div.site-body
-     (components/sidebar path (:title script))
      [:main
       [:div
        (html/css "/filetype/act/act.css")

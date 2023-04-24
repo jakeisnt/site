@@ -37,8 +37,8 @@
      [:html
       (html/head target-path page-name)
       [:body
+       (components/sidebar target-path page-name)
        [:div.site-body
-        (components/sidebar target-path page-name)
         [:main
          [:article.wikipage
           (if (not has-title) [:h1.title-top page-name] nil)

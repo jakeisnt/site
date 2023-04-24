@@ -13,8 +13,8 @@
    (html/script "/components/lastfm/lastfm.js")])
 
 (defn toggle-dark-mode []
-  [:div.git-hist-table
-   [:button.toggle-dark-mode ""]
+  [:div.toggle-dark-mode-container
+   [:button.toggle-dark-mode "T"]
    (html/script "/components/toggle-dark-mode/toggle-dark-mode.js")
    (html/css "/components/toggle-dark-mode/toggle-dark-mode.css")])
 
@@ -63,9 +63,12 @@
 (defn sidebar [path title]
   (let [path-list (html/make-path-list path)]
     [:div.sidebar
-     (if (empty? path-list)
-       [:b "jake."]
-       [:a {:href "/"} "jake."])
-     [:a {:href "https://isnt.online"} " ~ "]
-     (collect-folder-paths path-list title)
-     (html/css "/components/sidebar/sidebar.css")]))
+     [:div.url-path
+      (if (empty? path-list)
+        [:b "jake."]
+        [:a {:href "/"} "jake."])
+      [:a {:href "https://isnt.online"} " ~ "]
+      (collect-folder-paths path-list title)
+      (html/css "/components/sidebar/sidebar.css")]
+
+     (toggle-dark-mode)]))

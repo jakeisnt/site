@@ -1,14 +1,11 @@
 .toggle-dark-mode {
     border: none;
-    display: inline-block;
     cursor: pointer;
     padding: 0;
     margin: 0;
     width: 36px;
     height: 36px;
     overflow: hidden;
-}
-
-
-.toggle-dark-mode img svg {
+    background-color: var(--highlight);
+    color: var(--page-background);
 }

@@ -7,8 +7,8 @@
    [:html
     (html/head  "/" "Jake Chvatal")
     [:body
+     (components/sidebar "/" "index")
      [:div.site-body
-      (components/sidebar "/" "index")
       [:main
        [:article.wikipage.aboutMe
         [:p "Hey, I'm Jake Chvatal."]
@@ -23,7 +23,6 @@
        (components/no-javascript)
        (components/link-info-table)
        (components/lastfm)
-       (components/toggle-dark-mode)
        (components/neko)
        ;; (components/terminal)
        ]]]]))
