@@ -29,9 +29,11 @@
    (html/script "/components/scroll-up/scroll-up.js")])
 
 (defn neko []
-  [:div.neko
-   (html/script "/components/neko/neko.js")
-   (html/css "/components/neko/neko.css")])
+  [:span
+   [:div.neko-bed]
+   [:div.neko
+    (html/script "/components/neko/neko.js")
+    (html/css "/components/neko/neko.css")]])
 
 (defn terminal []
   [:div.terminal.git-hist-table

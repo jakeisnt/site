@@ -19,6 +19,8 @@ function timestamp() {
 }
 
 const neko = document.querySelector('.neko');
+const nekoBed = document.querySelector('.neko-bed');
+
 const nekoUrl = "/components/neko/assets/";
 
 const Neko = {
@@ -159,11 +161,12 @@ function moveNeko(x, y) {
 }
 
 let idleLevel = 0;
+let nekoAwake = false;
 
 function nekoEventLoop() {
   const x = moveInX();
   const y = moveInY();
-  if (x !== 0 || y !== 0) { // if we can move, we're moving!
+  if (nekoAwake && (x !== 0 || y !== 0)) { // if we can move, we're moving!
     // console.log("moving", x, y);
     idleLevel = 0;
     moveNeko(x, y);
@@ -179,7 +182,6 @@ function nekoEventLoop() {
   setTimeout(nekoEventLoop, animationSpeed);
 }
 
-let nekoAwake = false;
 
 neko.addEventListener('click', function(e) {
   if (!nekoAwake) {
