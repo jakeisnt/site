@@ -1,12 +1,14 @@
 .toggle-dark-mode {
     border: none;
     display: inline-block;
-    color: var(--highlight);
     cursor: pointer;
     padding: 0;
     margin: 0;
+    width: 36px;
+    height: 36px;
+    overflow: hidden;
 }
 
-.toggle-dark-mode object {
-    pointer-events: none;
+
+.toggle-dark-mode img svg {
 }

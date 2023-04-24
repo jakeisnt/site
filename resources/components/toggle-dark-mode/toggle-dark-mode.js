@@ -2,10 +2,13 @@
  * storing the current state in browser local storage.
  * The button hasn't yet been added...
  */
-function svg(url) {
-  let obj = document.createElement("object");
-  obj.data = url;
+function svg(url, mode) {
+  let obj = document.createElement("img");
+  obj.src = url;
   obj.type = "image/svg+xml";
+  obj.style.width = "36px";
+  obj.style.height = "36px";
+  obj.alt = mode;
   return obj;
 }
 
@@ -15,8 +18,8 @@ const THEME = {
 };
 
 const ICONS = {
-  light: svg("/components/toggle-dark-mode/assets/sun_icon.svg"),
-  dark: svg("/components/toggle-dark-mode/assets/moon_icon.svg"),
+  light: svg("/components/toggle-dark-mode/assets/sun_icon.svg", "light mode"),
+  dark: svg("/components/toggle-dark-mode/assets/moon_icon.svg", "dark mode"),
 }
 
 const possibleThemes = Object.values(THEME).map((theme) => `${theme}-theme`);
@@ -38,10 +41,10 @@ function switchToTheme(add) {
 function switchTheme() {
   if (currentTheme == THEME.DARK) {
     switchToTheme(THEME.LIGHT);
-    btn.replaceChild(ICONS.dark, ICONS.light);
+    btn.replaceChild(ICONS.light, ICONS.dark);
   } else {
     switchToTheme(THEME.DARK);
-    btn.replaceChild(ICONS.light, ICONS.light);
+    btn.replaceChild(ICONS.dark, ICONS.light);
   }
 }
 
