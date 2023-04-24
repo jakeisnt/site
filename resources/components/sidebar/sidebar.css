@@ -17,6 +17,7 @@
 }
 
 .url-path {
+  padding-top: 0.75rem;
   align-self: center; /* do not flex grow */
   writing-mode: vertical-rl;
   text-orientation: sideways;
