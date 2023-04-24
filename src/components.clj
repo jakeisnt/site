@@ -14,8 +14,9 @@
 
 (defn toggle-dark-mode []
   [:div.git-hist-table
-   [:button.toggle-dark-mode "Change color scheme"]
-   [:script {:src "/components/toggle-dark-mode/toggle-dark-mode.js"}]])
+   [:button.toggle-dark-mode ""]
+   (html/script "/components/toggle-dark-mode/toggle-dark-mode.js")
+   (html/css "/components/toggle-dark-mode/toggle-dark-mode.css")])
 
 (defn link-info-table []
   [:div.git-hist-table

@@ -1,0 +1,12 @@
+.toggle-dark-mode {
+    border: none;
+    display: inline-block;
+    color: var(--highlight);
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+.toggle-dark-mode object {
+    pointer-events: none;
+}
