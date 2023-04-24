@@ -47,11 +47,13 @@ blockquote.article-quote p::after {
 }
 
 .site-body {
+  padding-left: 2rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
+  overflow-x: hidden;
 }
 
 .git-hist-table, .link-info-table, .folder-index-page-table, a.now-playing, .checkbox-menu {

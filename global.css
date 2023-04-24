@@ -11,10 +11,10 @@
   --quote-background: grey;
 
   --link: #484848;
+  --text-color: black;
   --highlight-text: #fff;
   --subtle-text: darkgrey;
 
-  --text-color: black;
   --page-background: white;
   --window-background: white;
 }
@@ -25,10 +25,10 @@
     --quote-background: grey;
 
     --link: #484848;
-    --highlight-text: #fff;
-      --subtle-text: darkgrey;
-
     --text-color: black;
+    --highlight-text: #fff;
+    --subtle-text: darkgrey;
+
     --page-background: white;
     --window-background: white;
   }
@@ -40,10 +40,10 @@
     --quote-background: darkgrey;
 
     --link: #ccc;
+    --text-color: white;
     --highlight-text: #fff;
     --subtle-text: grey;
 
-    --text-color: white;
     --page-background: #111;
     --window-background: #111;
   }
@@ -54,13 +54,12 @@
   --quote-background: grey;
 
   --link: #484848;
+  --text-color: black;
   --highlight-text: #fff;
   --subtle-text: darkgrey;
 
-  --text-color: black;
   --page-background: white;
   --window-background: white;
-  transition: background-color 0.5s ease;
 }
 
 .dark-theme {
@@ -68,13 +67,12 @@
   --quote-background: darkgrey;
 
   --link: #ccc;
+  --text-color: white;
   --highlight-text: #fff;
   --subtle-text: grey;
 
-  --text-color: white;
   --page-background: #111;
   --window-background: #111;
-  transition: background-color 0.5s ease;
 }
 
 html {

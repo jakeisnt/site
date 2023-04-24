@@ -1,9 +1,11 @@
-const btn = document.querySelector(".scroll-up-button");
+(() => {
+  const btn = document.querySelector(".scroll-up-button");
 
-btn.addEventListener("click", () => {
-  window.scrollTo({
-    top: 0,
-    left: 0,
-    behavior: "smooth",
+  btn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
   });
-});
+})();
