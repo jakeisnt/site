@@ -7,7 +7,7 @@
   margin-left: 0;
   position: fixed;
 
-  height: calc(100% - 4.325rem);
+  height: calc(100% - 4rem - 2px);
   top: 0;
 
   display: flex;

@@ -5,8 +5,10 @@
 
 (() => {
   function svg(url) {
-    let obj = document.createElement("div");
-    obj.mask = "url(" + url + ")";
+    let obj = document.createElement("img");
+    obj.src = url;
+    obj.style.height = "36px";
+    obj.style.width = "36px";
     return obj;
   }
 
