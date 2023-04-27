@@ -11,7 +11,6 @@ function reload_html(path) {
 
   const pathname = window.location.pathname;
   const pathWithIndex = window.location.pathname + "index.html";
-  console.log(path, pathWithIndex);
   if(pathname === path || pathWithIndex === path) {
     window.location.reload();
   }
