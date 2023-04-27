@@ -1,4 +1,5 @@
-{:deps
+{:paths ["src" "components"]
+ :deps
  {hiccup/hiccup {:mvn/version "1.0.5"}
   org.clojure/core.match {:mvn/version "1.0.1"}
   clj-jgit/clj-jgit {:mvn/version "1.0.2"}

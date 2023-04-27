@@ -29,7 +29,7 @@
               [:td.file-name-tr [:a {:href (path/->html (path/->url (file/path (:file file))))} (:name file)]]
               [:td.file-type-row (file/extension (:file file))]
               [:td (:commit-date (:last-log file))]])]]
-         (components/scroll-up-button)]]]])))
+         (components/component "scroll-up")]]]])))
 
 (defn ->file [source-path target-path key]
   (-> (html source-path target-path key)

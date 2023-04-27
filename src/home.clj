@@ -22,7 +22,7 @@
 
        (components/no-javascript)
        (components/link-info-table)
-       (components/lastfm)
-       (components/neko)
+       (components/component "lastfm")
+       (components/component "neko")
        ;; (components/terminal)
        ]]]]))
