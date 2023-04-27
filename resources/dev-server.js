@@ -8,7 +8,11 @@ function filetype(path) {
 
 function reload_html(path) {
   console.log('Reloading HTML');
-  if(window.location.pathname === path) {
+
+  const pathname = window.location.pathname;
+  const pathWithIndex = window.location.pathname + "index.html";
+  console.log(path, pathWithIndex);
+  if(pathname === path || pathWithIndex === path) {
     window.location.reload();
   }
 }

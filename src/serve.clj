@@ -4,6 +4,8 @@
    file
    path
    main
+   home
+   html
    clojure.java.io
    [org.httpkit.server :as http]
    [clojure.java.browse :refer [browse-url]]
@@ -60,6 +62,21 @@
        (file/copy file (path/source->target file const/current-repo const/target-dir))))
    (clojure.java.io/file const/components-dir)))
 
+;;  if any of the dependencies of 'home' are modified,
+;;  we rebuild the home page
+;;  TODO generalize
+;;  TODO deps are determined statically?
+;;  TODO lots of fun things
+(defn watch-home []
+  (let [home-page (home/home)
+        deps (:depends-on home-page)]
+    (doseq [dep-name deps]
+      (watch-dir
+       (fn [event]
+         (println "Home page deps changed, rebuilding home page:" dep-name)
+         (file/write (html/->string (:body (home/home))) (str const/target-dir "/index.html")))
+       (clojure.java.io/file (str const/components-dir "/" dep-name))))))
+
 (defn handle-socket [request]
   (http/with-channel request channel
     (http/on-receive channel (println "\n--- SOCKET CONNECTED ---"))
@@ -85,7 +102,8 @@
   (http/run-server handler {:port const/local-port})
   (println "SOCKET STARTED")
   (watch-resources)
-  (watch-components)
+  ;; (watch-components)
+  (watch-home)
   (browse-url (str "http://localhost:" const/local-port)))
 
 (comment (-main nil))

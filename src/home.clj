@@ -2,8 +2,9 @@
   (:require const html components))
 
 ;; website home page
-(defn html []
-  (html/->string
+(defn home []
+  {:depends-on ["lastfm" "neko"]
+   :body
    [:html
     (html/head  "/" "Jake Chvatal")
     [:body
@@ -23,6 +24,7 @@
        (components/no-javascript)
        (components/link-info-table)
        (components/component "lastfm")
-       (components/component "neko")
-       ;; (components/terminal)
-       ]]]]))
+       (components/component "neko")]]]]})
+
+(defn html []
+  (html/->string (:body (home))))
