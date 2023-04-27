@@ -40,18 +40,30 @@
              (inject-hot-reload contents)
              contents)}))
 
+;; if we update a file in /resources,
+;; we copy it to the target dir so it triggers the build and updates
+(defn watch-resources []
+  (watch-dir
+   (fn [event]
+     (let [file (:file event)]
+       (println "Copying resources file" file)
+       (file/copy file (path/source->target file const/resources-dir const/target-dir))))
+   (clojure.java.io/file const/resources-dir)))
+
+;; we also copy the files of the components dir
+;; (TODO: more build system logic to come)
+(defn watch-components []
+  (watch-dir
+   (fn [event]
+     (let [file (:file event)]
+       (println "Copying component file" file "to " (path/source->target file const/components-dir const/target-dir))
+       (file/copy file (path/source->target file const/current-repo const/target-dir))))
+   (clojure.java.io/file const/components-dir)))
+
 (defn handle-socket [request]
   (http/with-channel request channel
     (http/on-receive channel (println "\n--- SOCKET CONNECTED ---"))
     (http/on-close channel (fn [status] (println "--- SOCKET DISCONNECTED --- " status)))
-
-    ;; if we update a file in /resources,
-    ;; we copy it to the target dir so it triggers the build and updates
-    (watch-dir
-     (fn [event]
-       (let [file (:file event)]
-         (file/copy file (path/source->target file const/resources-dir const/target-dir))))
-     (clojure.java.io/file const/resources-dir))
 
     (watch-dir
      (fn [event]
@@ -72,6 +84,8 @@
   (main/copy-resources)
   (http/run-server handler {:port const/local-port})
   (println "SOCKET STARTED")
+  (watch-resources)
+  (watch-components)
   (browse-url (str "http://localhost:" const/local-port)))
 
 (comment (-main nil))

@@ -8,6 +8,7 @@
 (def current-repo "/home/jake/site")
 (def target-dir (str current-repo "/docs"))
 (def resources-dir (str current-repo "/resources"))
+(def components-dir (str current-repo "/components"))
 
 (def deployment-branch "production")
 
