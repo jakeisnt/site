@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-left: 1rem;
   max-width: 20em;
 }
 
@@ -11,9 +12,10 @@ a.now-playing {
   margin: 1em;
 }
 
-a.now-playing:hover, a.now-playing:focus {
-  background: var(--highlight);
-  color: var(--highlight-text);
+a.now-playing:hover, a.now-playing.focus {
+  border-radius: 10px;
+  box-shadow: 0 0 0 2px var(--highlight);
+  transition: border-radius 1s ease-in-out;
 }
 
 .now-playing img {
