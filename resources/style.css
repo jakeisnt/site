@@ -31,7 +31,6 @@ blockquote.article-quote p::after {
     content: '\201D';
 }
 
-
 .file-name-tr {
   white-space: nowrap;
   max-width: 180px;
@@ -68,6 +67,7 @@ blockquote.article-quote p::after {
 @media only screen and (max-width: 500px) {
   .site-body {
     padding-left: 0;
+    padding-top: 1.25rem;
   }
 
   .url-cage {
@@ -76,7 +76,7 @@ blockquote.article-quote p::after {
   }
 
   .git-hist-table, .link-info-table, .folder-index-page-table, a.now-playing, .checkbox-menu, .wikipage {
-    margin-left: 0.5rem;
+    margin-left: 2rem;
     padding-left: 0;
   }
 }

@@ -102,8 +102,8 @@
   (http/run-server handler {:port const/local-port})
   (println "SOCKET STARTED")
   (watch-resources)
-  ;; (watch-components)
-  (watch-home)
+  (watch-components)
+  ;; (watch-home)
   (browse-url (str "http://localhost:" const/local-port)))
 
 (comment (-main nil))

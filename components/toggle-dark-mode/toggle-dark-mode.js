@@ -7,8 +7,8 @@
   function svg(url) {
     let obj = document.createElement("img");
     obj.src = url;
-    obj.style.height = "36px";
-    obj.style.width = "36px";
+    obj.style.height = "30px";
+    obj.style.width = "30px";
     return obj;
   }
 
