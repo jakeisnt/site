@@ -8,7 +8,6 @@
    [:html
     (html/head  "/" "Jake Chvatal")
     [:body
-     (components/sidebar "/" "index")
      [:div.site-body
       [:main
        [:article.wikipage.aboutMe
@@ -21,8 +20,8 @@
          ", take " [:a.external {:href "https://instagram.com/jakeisnt"} "photos"]
          ", and design simple hardware and software tools."]]
 
-       (components/no-javascript)
-       (components/link-info-table)
+       ;; (components/no-javascript)
+       ;; (components/link-info-table)
        (components/component "lastfm")
        (components/component "neko")]]]]})
 

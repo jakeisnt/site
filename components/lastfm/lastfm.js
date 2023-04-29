@@ -8,6 +8,7 @@
   var LFM_API = "https://ws.audioscrobbler.com/2.0/";
   var LFM_KEY = "14eb0c0c914456103f2c584d930a44ba"; // Get one at https://secure.last.fm/login?next=/api/account/create
   var LFM_USER = "jakeisnt";
+  var nowPlayingNode = null;
 
   function getNowPlaying() {
     var recentTracksUrl =
@@ -41,8 +42,15 @@
     httpRequest.send();
   }
 
-
-  var nowPlayingNode = null;
+  function getMetadata(track, currently) {
+    return (currently ?
+       "<span class=\"np-date\">Playing</span>" :
+       "<span class=\"np-date\">Played on "+track.date["#text"]+"</span>") +
+      "<br>" +
+      "<span class=\"np-title\"><strong>" + track.name + "</strong></span>" +
+      "<br/>" +
+      "<span class=\"np-artist\">"+track.artist["#text"]+"</span>";
+  }
 
   function renderNowPlaying(track) {
     console.log(track);
@@ -61,14 +69,7 @@
 
     var metadata = document.createElement("div");
     metadata.setAttribute("class", "np-metadata");
-    metadata.innerHTML =
-      (currently ?
-       "<span class=\"np-date\">Playing</span>" :
-       "<span class=\"np-date\">Played on "+track.date["#text"]+"</span>") +
-      "<br>" +
-      "<span class=\"np-title\"><strong>" + track.name + "</strong></span>" +
-      "<br/>" +
-      "<span class=\"np-artist\">"+track.artist["#text"]+"</span>";
+    metadata.innerHTML = ""; // getMetadata(track, currently);
 
     nowPlayingNode.appendChild(metadata);
     nowPlayingNode.href = track.url;
