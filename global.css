@@ -89,7 +89,6 @@ html {
 
 body {
   margin: 0;
-  padding: 1rem;
   color: var(--text-color);
   background-color: var(--page-background);
 }

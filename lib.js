@@ -3,7 +3,7 @@ function print(...txt) {
 };
 
 function runOnDesktop(fn) {
-    if (window.matchMedia("(min-width: 500px)")) {
+    if (window.matchMedia("(min-width: 501px)")) {
         return fn();
     }
 }

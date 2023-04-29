@@ -26,6 +26,10 @@ td {
   padding-right: 2px;
 }
 
+td:not(:first-child) {
+  text-align: right;
+}
+
 p {
   margin-top: 0.25em;
 }
