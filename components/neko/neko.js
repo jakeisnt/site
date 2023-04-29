@@ -3,7 +3,7 @@
 // Sit next to the left or right of the cursor, whichever is closer
 // Sit next to/on/around links if they are hovered
 
-(() => {
+const neko = () => {
   function createNekoImage() {
     var img = document.createElement('img');
 
@@ -196,8 +196,8 @@
     nekoEventLoop();
   });
 
-  runOnDesktop(() => {
-    neko.appendChild(nekoImage);
-    animate();
-  });
-})();
+  neko.appendChild(nekoImage);
+  animate();
+};
+
+runOnDesktop(neko);
