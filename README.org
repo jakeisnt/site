@@ -11,14 +11,18 @@ It can be thought of as a projection of my wiki and github repos!
 - Ten packets (to load instantly)
 
 * Running
-To render the website, use `clojure`:
-#+BEGIN_SRC sh
-clj -X main/-main
-#+END_SRC
+Dependencies are managed with Nix. Install `nix` and `direnv`. Open the folder in your system of choice, and all dependencies will install.
 
+The flake has a few commands:
+
+Hot reloading: `watch`
+Build site: `build`
+Deploy site: `deploy`
+
+These commands may not be extensible enough to fit your use case.
+
+* Tech
 Why clojure? It's a modern, dynamically typed language that can gradually be hardened with robust types and tests. The language is smaller, more self-consistent, and more predictable syntactically than languages like Ruby or JavaScript, and allows the user to easily make their own APIs.
 
 Clojure isn't perfect; the eventual objective is to make the best language for me. For now, though, it's a well-tested, flexible starting point.
 
-* Deployment
-For github pages rendering reasons, the folder that deploys the site must be named `/docs`. Land the static files you'd like to bundle at appropriate paths on that folder.
