@@ -25,10 +25,10 @@
           [:table
            (for [file (sort-files files sort-by)]
              [:tr
-              [:td (:short-hash (:last-log file))]
+              [:td.file-hash-tr (:short-hash (:last-log file))]
               [:td.file-name-tr [:a {:href (path/->html (path/->url (file/path (:file file))))} (:name file)]]
-              [:td.file-type-row (file/extension (:file file))]
-              [:td (:commit-date (:last-log file))]])]]
+              [:td.file-type-tr (file/extension (:file file))]
+              [:td.file-date-tr (:commit-date (:last-log file))]])]]
          (components/component "scroll-up")]]]])))
 
 (defn ->file [source-path target-path key]

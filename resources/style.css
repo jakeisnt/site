@@ -9,7 +9,6 @@ article {
   padding-top: 38px !important;
   padding-left: 10px !important;
   max-width: 11.5em;
-
 }
 
 .foot {
@@ -34,6 +33,11 @@ blockquote.article-quote p::after {
     content: '\201D';
 }
 
+.file-hash-tr {
+  color: var(--subtle-text);
+  opacity: 0.7;
+}
+
 .file-name-tr {
   white-space: nowrap;
   max-width: 180px;
@@ -41,8 +45,14 @@ blockquote.article-quote p::after {
   overflow: hidden;
 }
 
-.file-type-row {
+.file-type-tr {
   color: var(--subtle-text);
+  opacity: 0.6;
+}
+
+.file-date-tr {
+  color: var(--subtle-text);
+  opacity: 0.9;
 }
 
 .site-body {
