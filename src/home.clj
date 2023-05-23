@@ -20,10 +20,7 @@
          ", take " [:a.external {:href "https://instagram.com/jakeisnt"} "photos"]
          ", and design simple hardware and software tools."]]
 
-       ;; (components/no-javascript)
-       ;; (components/link-info-table)
-       (components/component "lastfm")
-       (components/component "neko")]]]]})
+       (components/component "lastfm")]]]]})
 
 (defn html []
   (html/->string (:body (home))))
