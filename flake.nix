@@ -21,18 +21,19 @@
 
         deploy = pkgs.writeScriptBin "deploy" ''
           #!/usr/bin/env sh
-          clj -X deploy/-main
+          clj --main deploy "$@"
         '';
 
         build = pkgs.writeScriptBin "build" ''
           #!/usr/bin/env sh
-          clj -X main/-main
+          clj --main main "$@"
         '';
 
         serve = pkgs.writeScriptBin "serve" ''
           #!/usr/bin/env sh
-          clj -X serve/-main
+          clj --main serve  "$@"
         '';
+
       in rec {
         devShell = with pkgs; mkShell {
           name = "site";
