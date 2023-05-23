@@ -24,8 +24,8 @@
   text-align: left;
   vertical-align: right;
   line-height: 20px;
-  font-family: 'Noto Sans Mono', monospace;
-  font-size: 12px;
+  font-size: 14px;
+  font-family: monospace;
 }
 
 .sidebar .current {
@@ -35,15 +35,18 @@
 @media only screen and (max-width: 500px) {
   .sidebar {
     right: 0;
+    z-index: 2;
   }
 
   .url-path {
-    background-color: var(--page-background);
-    mask-image: linear-gradient(
-      to left,
-      black 65%,
-      transparent 95%
-    );
-    opacity: 0.9;
+    background-color: black;
+    border-radius: 28px;
+    border: 1px solid white;
+    padding: 15px 4px;
+    opacity: 0.5;
+  }
+
+  .url-path > * {
+    opacity: 1;
   }
 }

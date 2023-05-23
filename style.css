@@ -91,6 +91,7 @@ blockquote.article-quote p::after {
   .git-hist-table, .link-info-table, .folder-index-page-table, a.now-playing, .checkbox-menu, .wikipage {
     margin-left: 2rem;
     margin-right: 2rem;
+    padding-top: 0;
     padding-left: 0;
   }
 
