@@ -1,8 +1,7 @@
 (ns html
   (:require
-   [const :as const]
-   [hiccup.core :as h]
-   [clojure.string :as str]))
+   path const
+   [hiccup.core :as h]))
 
 ;; --- general ---
 
@@ -27,15 +26,8 @@
   [:link {:rel "icon" :type "image/x-icon" :href "/favicon/favicon.ico"}]
   [:link {:rel "apple-touch-icon" :href "/favicon/apple-touch-icon.png"}])
 
-(defn split-path [path]
-  ;; splitting on the first /" gives us a front empty string that we drop
-  (rest (str/split path #"/")))
-
-(defn remove-path-prefix [path]
-  (str/replace path (re-pattern (str "^" const/target-dir)) ""))
-
 (defn make-path-list [path]
-  (split-path (remove-path-prefix path)))
+  (path/split (path/remove-prefix path const/target-dir)))
 
 (defn collect-folder-paths-string [path-list title]
   (if (empty? (rest path-list))

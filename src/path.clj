@@ -1,7 +1,7 @@
 (ns path
   (:require
-   [clojure.string :as str]
-   [const :as const]))
+   const
+   [clojure.string :as str]))
 
 (defn replace-extension [path extension]
   (str/replace path #"\.\S+$" extension))
@@ -20,4 +20,8 @@
 
 (defn remove-prefix [path prefix]
   (-> path
-      (str/replace (re-pattern prefix) "")))
+      (str/replace (re-pattern (str "^" prefix)) "")))
+
+(defn split [path]
+  ;; splitting on the first /" gives us a front empty string that we drop
+  (rest (str/split path #"/")))
