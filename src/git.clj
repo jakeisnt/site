@@ -1,8 +1,7 @@
 (ns git
   (:require
+   const file path
    [clojure.string :as str]
-   [const :as const]
-   [file :as file]
    [command :as cmd]))
 
 ;; TODO: Figure out how to get git history of org-mode files as well. I don't want to lose it!
@@ -55,8 +54,10 @@
       [:tbody
        (for [commit git-log]
          [:tr
-          [:td (:commit-date commit)]
-          [:td [:a {:href (history-link (:long-hash commit) (:file-path commit))} (:short-hash commit)]]])]]]))
+          [:td.commit-date-tr (:commit-date commit)]
+          [:td.commit-link-tr [:a {:href (history-link
+                                          (:long-hash commit)
+                                          (path/remove-prefix (:file-path commit) const/source-dir))} (:short-hash commit)]]])]]]))
 
 (defn checkout [source-dir branch]
   (cmd/exec (str "git checkout " branch) source-dir))

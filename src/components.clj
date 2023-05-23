@@ -1,7 +1,6 @@
 (ns components
   (:require
    html const file
-   [clojure.edn :as edn]
    [clojure.core.match :refer [match]]))
 
 ;; compile dependencies based on type
