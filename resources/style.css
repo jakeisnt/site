@@ -50,6 +50,11 @@ blockquote.article-quote p::after {
   opacity: 0.6;
 }
 
+.commit-link-tr {
+  width: 1%;
+  white-space: nowrap;
+}
+
 .file-date-tr, .commit-date-tr {
   color: var(--subtle-text);
   opacity: 0.9;
