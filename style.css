@@ -50,7 +50,7 @@ blockquote.article-quote p::after {
   opacity: 0.6;
 }
 
-.file-date-tr {
+.file-date-tr, .commit-date-tr {
   color: var(--subtle-text);
   opacity: 0.9;
 }
