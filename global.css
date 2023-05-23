@@ -1,7 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@400;500;600&display=swap');
-
 /* Global settings for color scheme and such. */
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 :root {
   /* Inform the browser that color schemes are available. */
@@ -77,8 +75,8 @@
 
 html {
   font-size: 16px;
-  line-height: 1.84;
-  font-family: "Noto Sans", sans-serif;
+  line-height: 1.5;
+  font-family: "Inter", sans-serif;
   /* For jquery-terminal */
   --font: "Berkeley Mono", monospace;
   text-rendering: optimizeLegibility;
