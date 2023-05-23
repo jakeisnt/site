@@ -6,6 +6,10 @@ article {
 /* -- Class selectors -- */
 .aboutMe {
   max-width: 20rem;
+  padding-top: 38px !important;
+  padding-left: 10px !important;
+  max-width: 11.5em;
+
 }
 
 .foot {
