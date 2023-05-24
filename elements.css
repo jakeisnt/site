@@ -37,8 +37,29 @@ p {
 
 ul {
   padding-left: 1rem;
-  list-style-type: "➜ ";
+  list-style: none;
 }
+
+ul > li::before {
+  content: '⊶ ';
+  opacity: 0.5;
+  margin-left: -1.3rem;
+}
+
+ol {
+  /* TODO: custom emoji counter style type? */
+  padding-left: 1rem;
+  list-style: none;
+  counter-reset: li;
+}
+
+ol > li::before {
+  content: counter(li) '. ';
+  /* counter-increment: item; */
+  opacity: 0.5;
+  margin-left: -1.1rem;
+}
+
 
 pre {
   white-space: pre-wrap;
@@ -46,6 +67,10 @@ pre {
 
 code {
   display: inline-block;
+  padding: 0.3em 1em;
+  width: 100%;
+  font-size: 14px;
+  background-color: var(--quote-background);
 }
 
 a {
@@ -79,7 +104,7 @@ button {
 }
 
 @media only screen and (max-width: 500px) {
-  ul {
+  ul, ol {
     padding-left: 0;
   }
 }
