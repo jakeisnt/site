@@ -86,7 +86,8 @@ code {
   padding: 0.5em 1em;
   padding-top: 0.4em;
   padding-bottom: 0.6em;
-  width: 100%;
+  width: 98%;
+  overflow-x: auto;
   font-size: 14px;
   background-color: var(--quote-background);
   border-radius: 3px;
@@ -163,4 +164,9 @@ button.inset:hover {
   h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
     margin-left: -1.2rem;
   }
+
+  code {
+    margin-left: -0.8rem;
+    width: 100%;
+}
 }
