@@ -62,7 +62,7 @@
 
 .dark-theme {
   --highlight: #4C5669;
-  --quote-background: darkgrey;
+  --quote-background: #222;
 
   --link: #ccc;
   --text-color: white;
