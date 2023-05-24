@@ -84,13 +84,16 @@ code {
   position: relative;
   display: block;
   padding: 0.5em 1em;
-  padding-top: 0.4em;
-  padding-bottom: 0.6em;
-  width: 100%;
+  padding-top: 0.4em !important;
+  padding-bottom: 0.8em !important;
+  width: 98%;
+  overflow-x: auto;
   font-size: 14px;
-  background-color: var(--quote-background);
+  background-color: var(--quote-background) !important;
   border-radius: 3px;
   border: 1px solid var(--quote-background-border);
+  min-height: 36px;
+  text-color: var(--subtle-text);
 }
 
 code:hover {
@@ -140,9 +143,28 @@ button.inset {
   position: absolute;
   content: 'after';
   background-color: var(--quote-background-border);
-  right: 5px;
-  top: 5px;
+  right: -12px;
+  top: 6px;
   font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.label.inset {
+  display: block;
+  position: absolute;
+  background-color: var(--quote-background-border);
+  right: -1em;
+  bottom: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  padding: 0px 5px;
+  padding-bottom: 1px;
+  padding-right: 6px;
+  margin: 0;
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
+  opacity: 0.8;
 }
 
 button.inset:hover {
@@ -163,4 +185,9 @@ button.inset:hover {
   h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
     margin-left: -1.2rem;
   }
+
+  code {
+    margin-left: -0.8rem;
+    width: 100%;
+}
 }
