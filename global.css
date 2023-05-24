@@ -50,6 +50,7 @@
 .light-theme {
   --highlight: #eee8d5;
   --quote-background: grey;
+  --quote-background-border: lightgrey;
 
   --link: #484848;
   --text-color: black;
@@ -63,6 +64,8 @@
 .dark-theme {
   --highlight: #4C5669;
   --quote-background: #222;
+  --quote-background-border: #333;
+  --quote-background-border-highlighted: #444;
 
   --link: #ccc;
   --text-color: white;
