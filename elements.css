@@ -17,6 +17,14 @@ h1 {
   margin-bottom: 1rem;
 }
 
+h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
+  font-size: 20px;
+  display: inline-block;
+  content: '#';
+  opacity: 0.2;
+  margin-right: 3px;
+}
+
 tr:hover {
   background-color: var(--highlight);
   color: var(--highlight-text);
@@ -41,23 +49,30 @@ ul {
 }
 
 ul > li::before {
-  content: '⊶ ';
-  opacity: 0.5;
-  margin-left: -1.3rem;
+  content: '‒ ';
+  font-weight: 600;
+  opacity: 0.3;
+  margin-left: -1rem;
 }
 
 ol {
-  /* TODO: custom emoji counter style type? */
   padding-left: 1rem;
   list-style: none;
   counter-reset: li;
 }
 
+ol > li {
+  counter-increment: li;
+}
+
 ol > li::before {
   content: counter(li) '. ';
-  /* counter-increment: item; */
-  opacity: 0.5;
-  margin-left: -1.1rem;
+  opacity: 0.3;
+  margin-left: -1rem;
+}
+
+ol > li:first-of-type::before {
+  counter-set: li;
 }
 
 
@@ -106,5 +121,13 @@ button {
 @media only screen and (max-width: 500px) {
   ul, ol {
     padding-left: 0;
+  }
+
+  h1::after {
+    display: none;
+  }
+
+  h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
+    margin-left: -1.2rem;
   }
 }
