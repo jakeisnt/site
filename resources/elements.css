@@ -81,7 +81,8 @@ pre {
 }
 
 code {
-  display: inline-block;
+  position: relative;
+  display: block;
   padding: 0.5em 1em;
   padding-top: 0.4em;
   padding-bottom: 0.6em;
@@ -93,7 +94,7 @@ code {
 }
 
 code:hover {
-  border-color: var(--highlight);
+  border-color: var(--quote-background-border-highlighted);
   transition: border-color 0.25s ease-in-out;
 }
 
@@ -123,8 +124,31 @@ button {
   background-color: var(--page-background);
   color: var(--text-color);
   transition: background-color 0.075s ease-out;
-  padding: 0.3rem 0.5rem;
-  border: 2px solid var(--subtle-text);
+  padding: 0.25em 0.5em;
+  border-radius: 2px;
+  border: 1px solid var(--subtle-text);
+}
+
+button:hover {
+  background-color: var(--highlight);
+  color: var(--highlight-text);
+  transition: background-color 0.075s ease-in;
+}
+
+button.inset {
+  display: block;
+  position: absolute;
+  content: 'after';
+  background-color: var(--quote-background-border);
+  right: 5px;
+  top: 5px;
+  font-family: 'Inter', sans-serif;
+}
+
+button.inset:hover {
+  background-color: var(--highlight);
+  color: var(--highlight-text);
+  transition: background-color 0.075s ease-in;
 }
 
 @media only screen and (max-width: 500px) {

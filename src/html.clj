@@ -52,16 +52,18 @@
    (metm "robots" "index,follow")
 
    ;; TODO: keep this synced with global theme somehow?
-   [:meta  {:name "theme-color" :media "(prefers-color-scheme: light)" :content "white"}]
+   [:meta {:name "theme-color" :media "(prefers-color-scheme: light)" :content "white"}]
    [:meta {:name "theme-color" :media "(prefers-color-scheme: dark)" :content "#111"}]
    (favicon)
 
    [:link {:rel "manifest" :href "/manifest.json"}]
 
    (css "/style.css")
-   (css "/elements.css")
    (css "/global.css")
    (script "/lib.js")
+
+   (css "/elements.css")
+   [:script {:src "/elements.js" :id "/elements.js" :defer true}]
    ;; TODO: highlight.js
    ])
 

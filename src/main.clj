@@ -53,7 +53,8 @@
   (file/copy-force (str const/current-repo "/components") const/target-dir const/current-repo))
 
 (defn -main [& args]
-  (let [force-rebuild (some #(= % "all") args)]
+  (let [force-rebuild true ;; (some #(= % "all") args)
+        ]
     (copy-resources)
     (write-home)
     (doseq [path const/wiki-paths]
