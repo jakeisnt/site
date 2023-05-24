@@ -144,6 +144,7 @@ button.inset {
   right: 5px;
   top: 5px;
   font-family: 'Inter', sans-serif;
+  opacity: 0.8;
 }
 
 button.inset:hover {
