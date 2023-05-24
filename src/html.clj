@@ -64,8 +64,10 @@
 
    (css "/elements.css")
    [:script {:src "/elements.js" :id "/elements.js" :defer true}]
-   ;; TODO: highlight.js
-   ])
+
+   ;; TODO: move to code block enhancements
+   [:script {:src "https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" :defer true}]
+   [:link {:rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/nord.min.css"}]])
 
 (defn ->string
   "Serialize Hiccup-compatible data to a string"
