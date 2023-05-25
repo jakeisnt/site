@@ -132,7 +132,18 @@ pre {
   white-space: pre-wrap;
 }
 
+/* inline literal code */
 code {
+  color: var(--link);
+  font-size: 14px;
+  padding: 0 4px;
+  background-color: var(--quote-background);
+  border-bottom: 2px solid var(--quote-background);
+  border-radius: 3px;
+}
+
+/* Full width code block */
+pre code {
   position: relative;
   display: block;
   padding: 0.5em 0.5em !important;
@@ -153,7 +164,7 @@ code:hover {
 }
 
 @media only screen and (max-width: 500px) {
-  code {
+  pre code {
     margin-left: -1rem;
     width: calc(100% + 1rem);
   }

@@ -20,7 +20,7 @@
 @media (prefers-color-scheme: light) {
   :root {
     --highlight: #eee8d5;
-    --quote-background: grey;
+    --quote-background: lightgrey;
 
     --link: #484848;
     --text-color: black;
@@ -49,7 +49,7 @@
 
 .light-theme {
   --highlight: #eee8d5;
-  --quote-background: grey;
+  --quote-background: lightgrey;
   --quote-background-border: lightgrey;
 
   --link: #484848;
