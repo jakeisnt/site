@@ -6,8 +6,8 @@ article {
 /* -- Class selectors -- */
 .aboutMe {
   max-width: 20rem;
-  padding-top: 38px !important;
-  padding-left: 10px !important;
+  padding-top: 20px !important;
+  padding-left: 20px !important;
   max-width: 11.5em;
 }
 
