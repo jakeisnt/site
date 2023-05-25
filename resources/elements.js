@@ -1,7 +1,7 @@
 /* enhancements to native html elements */
 
 /* code blocks */
-const codeBlocks = document.getElementsByTagName('pre code');
+const codeBlocks = document.querySelectorAll('pre code');
 
 Array.from(codeBlocks).forEach((codeBlock) => {
   const btn = document.createElement('button');
