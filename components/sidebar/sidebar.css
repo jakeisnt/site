@@ -17,6 +17,10 @@
   pointer-events: none;
 }
 
+.sidebar > * {
+  pointer-events: auto;
+}
+
 .url-path {
   padding-left: 1rem;
   align-self: center; /* do not flex grow */

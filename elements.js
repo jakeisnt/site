@@ -1,5 +1,5 @@
 /* enhancements to native html elements */
-const codeBlocks = document.getElementsByTagName('code');
+const codeBlocks = document.getElementsByTagName('pre code');
 console.log(codeBlocks);
 
 Array.from(codeBlocks).forEach((codeBlock) => {
