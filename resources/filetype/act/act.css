@@ -17,6 +17,11 @@
   }
 }
 
+.act-container {
+  padding: 0.5em;
+  max-width: 500px;
+}
+
 .script-control-menu {
   text-align: center;
 }

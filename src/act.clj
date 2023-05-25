@@ -136,7 +136,7 @@ STRING=#'[^()\n]+'
     (components/sidebar path (:title script))
     [:div.site-body
      [:main
-      [:div
+      [:div.act-container
        (html/css "/filetype/act/act.css")
        (character-selector script)
        [:article.conversation

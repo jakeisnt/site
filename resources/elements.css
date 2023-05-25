@@ -189,12 +189,11 @@ button {
   color: var(--text-color);
   transition: background-color 0.075s ease-out;
   padding: 0.25em 0.5em;
-  border-radius: 2px;
+  border-radius: 4px;
   border: 1px solid var(--subtle-text);
 }
 
 button:hover {
-  background-color: var(--highlight);
   color: var(--highlight-text);
   transition: background-color 0.075s ease-in;
 }
