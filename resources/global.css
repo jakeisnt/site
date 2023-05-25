@@ -21,6 +21,8 @@
   :root {
     --highlight: #eee8d5;
     --quote-background: lightgrey;
+    --quote-background-border: #ccc;
+    --quote-background-border-highlighted: #bbb;
 
     --link: #484848;
     --text-color: black;
@@ -36,6 +38,8 @@
   :root {
     --highlight: #4C5669;
     --quote-background: darkgrey;
+    --quote-background-border: #333;
+    --quote-background-border-highlighted: #444;
 
     --link: #ccc;
     --text-color: white;
@@ -50,7 +54,8 @@
 .light-theme {
   --highlight: #eee8d5;
   --quote-background: lightgrey;
-  --quote-background-border: lightgrey;
+  --quote-background-border: #ccc;
+  --quote-background-border-highlighted: #bbb;
 
   --link: #484848;
   --text-color: black;

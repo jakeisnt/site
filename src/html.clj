@@ -14,6 +14,9 @@
 (defn prop [k v]
   [:meta {:property k :content v}])
 
+(defn defer-script
+  ([src] [:script {:src src :id src :defer true}]))
+
 (defn script
   ([src] [:script {:src src :id src}])
   ([src body] [:script {:src src :id src} body]))
@@ -63,11 +66,12 @@
    (script "/lib.js")
 
    (css "/elements.css")
-   [:script {:src "/elements.js" :id "/elements.js" :defer true}]
+   (defer-script "/elements.js")
 
    ;; TODO: move to code block enhancements
-   [:script {:src "https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" :defer true}]
-   [:link {:rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/base16/nord.min.css"}]])
+   (defer-script "https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js")
+   [:link {:rel "stylesheet" :id "dark-theme-highlight" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css"}]
+   [:link {:rel "stylesheet" :id "light-theme-highlight" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css"}]])
 
 (defn ->string
   "Serialize Hiccup-compatible data to a string"

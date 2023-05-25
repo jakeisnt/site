@@ -8,6 +8,7 @@
    [:html
     (html/head  "/" "Jake Chvatal")
     [:body
+     (components/sidebar const/target-dir "~")
      [:div.site-body
       [:main
        [:article.wikipage.aboutMe

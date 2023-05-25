@@ -7,7 +7,7 @@
 (defn make-deps [deps]
   (for [dep deps]
     (match (:type dep)
-      :js (html/script (:src dep))
+      :js (html/defer-script (:src dep))
       :css (html/css (:src dep)))))
 
 ;; imports a component and its dependencies where called
@@ -53,6 +53,7 @@
          [:a {:href "./index.html"} fst]
          (collect-folder-paths rst title cur-path)))))))
 
+;;; path: absolute path to the sidebar (e.g. /home/jake/...)
 (defn sidebar [path title]
   (let [path-list (html/make-path-list path)]
     [:div.sidebar
