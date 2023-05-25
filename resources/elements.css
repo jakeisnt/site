@@ -257,3 +257,19 @@ button.inset:hover {
     margin-right: -1rem;
   }
 }
+
+/* footnotes */
+
+.footnoteRef {
+  font-size: 0.8em;
+  vertical-align: super;
+  line-height: 0;
+  margin-left: 0.2em;
+  margin-right: 0.2em;
+}
+
+.footnote {
+  list-style: none;
+  font-size: 14px;
+  color: var(--subtle-text);
+}
