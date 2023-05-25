@@ -93,11 +93,16 @@ blockquote.article-quote p::after {
     padding: 0.75rem;
   }
 
-  .git-hist-table, .link-info-table, .folder-index-page-table, a.now-playing, .checkbox-menu, .wikipage {
+  .git-hist-table, .link-info-table, .folder-index-page-table, a.now-playing, .checkbox-menu,  {
     margin-left: 2rem;
     margin-right: 2rem;
     padding-top: 0;
     padding-left: 0;
+  }
+
+  .wikipage {
+    margin: 0 1rem;
+    padding: 0 1rem;
   }
 
   .file-hash-tr {
