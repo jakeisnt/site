@@ -1,7 +1,7 @@
 /* enhancements to native html elements */
 
 /* code blocks */
-const codeBlocks = document.getElementsByTagName('pre code');
+const codeBlocks = document.querySelectorAll('pre code');
 
 Array.from(codeBlocks).forEach((codeBlock) => {
   const btn = document.createElement('button');
@@ -45,4 +45,19 @@ Array.from(headings).forEach((heading) => {
     const link = `${url}#${headingId}`;
     navigator.clipboard.writeText(link);
   };
+});
+
+/* Support footnotes */
+const footnoteRefs = document.querySelectorAll('sup');
+
+footnoteRefs.forEach((footnoteRef) => {
+  footnoteRef.classList.add('footnoteRef');
+  const footnoteId = footnoteRef.id;
+  const refNum = footnoteId.replace('fnref-', '');
+  footnoteRef.children[0].innerText = `[${refNum}]`;
+});
+
+const footnotes = document.querySelectorAll('li[id^="fn-"]');
+footnotes.forEach((footnote) => {
+  footnote.classList.add('footnote');
 });
