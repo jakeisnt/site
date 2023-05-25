@@ -1,6 +1,7 @@
 /* enhancements to native html elements */
+
+/* code blocks */
 const codeBlocks = document.getElementsByTagName('pre code');
-console.log(codeBlocks);
 
 Array.from(codeBlocks).forEach((codeBlock) => {
   const btn = document.createElement('button');
@@ -26,4 +27,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
   document.querySelectorAll('pre code').forEach((block) => {
     hljs.highlightElement(block);
   });
+});
+
+/* Allow users to copy links from headings */
+const headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+Array.from(headings).forEach((heading) => {
+  const headingId = heading.id;
+  const btn = document.createElement('button');
+  btn.classList.add('inlineText');
+  btn.innerText = '#';
+  heading.prepend(btn);
+
+  btn.onclick = function(e) {
+    console.log(e.target);
+    const url = window.location.href;
+    const link = `${url}#${headingId}`;
+    navigator.clipboard.writeText(link);
+  };
 });

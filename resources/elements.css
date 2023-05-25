@@ -65,12 +65,19 @@ h1 {
   margin-bottom: 1rem;
 }
 
-h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
+button.inlineText {
   font-size: 20px;
   display: inline-block;
-  content: '#';
   opacity: 0.2;
-  margin-right: 3px;
+  margin-right: 2px;
+  padding: 0px;
+  padding-right: 2px;
+  border: 0;
+}
+
+button.inlineText:hover {
+  opacity: 0.5;
+  transition: opacity 0.2s ease-in;
 }
 
 p {
@@ -82,7 +89,7 @@ p {
     display: none;
   }
 
-  h1::before, h2::before, h3::before, h4::before, h5::before, h6::before {
+  button.inlineText {
     margin-left: -1.2rem;
   }
 }
