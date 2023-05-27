@@ -53,16 +53,17 @@
 
 (defn write-path [config force-rebuild]
   (let [path (:folder config)
+        source-path (str const/source-dir "/" path)
+        target-path (str const/target-dir "/" path)
         sort-by (:sort-by config)
-        files (file/list path)
+        files (file/list source-path)
         sorted-files (sort-files-by-key files sort-by)]
     (println "Writing path:" path)
-    (println "files at path:" files)
-    (println sorted-files)
-    (make-dir (str const/source-dir "/" path)
-              (str const/target-dir "/" path)
-              sorted-files
-              force-rebuild)))
+    (make-dir
+     source-path
+     target-path
+     sorted-files
+     force-rebuild)))
 
 (defn copy-resources []
   (println "Copying resources")
