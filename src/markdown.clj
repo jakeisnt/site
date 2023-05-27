@@ -44,8 +44,9 @@
           (if (not has-title) [:h1.title-top page-name] nil)
           md-article]]
         [:div.article-rhs-container
-         (components/page-map md-article target-path)
-         (components/git-history-table source-path)]]]])))
+         [:div.article-rhs
+          (components/page-map md-article target-path)
+          (components/git-history-table source-path)]]]]])))
 
 (defn ->file
   "Transform a file from source to target."
