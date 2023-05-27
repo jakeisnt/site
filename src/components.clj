@@ -65,3 +65,15 @@
       (collect-folder-paths path-list title)
       (html/css "/components/sidebar/sidebar.css")]
      (component "toggle-dark-mode")]))
+
+;; generate a map of a page with links to content
+(defn page-map [page url]
+  (let [tags (html/find-tags page :h1 :h2 :h3 :h4 :h5 :h6)]
+    [:div.sitemap-container
+     [:table.sitemap
+      (map (fn [tag]
+             (let [tag-id (:id (second tag))
+                   tag-text (nth tag 2)]
+               [:tr
+                [:td [:a {:href (str url "#" tag-id)} tag-text]]]))
+           tags)]]))
