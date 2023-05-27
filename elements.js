@@ -41,7 +41,7 @@ Array.from(headings).forEach((heading) => {
 
   btn.onclick = function(e) {
     console.log(e.target);
-    const url = window.location.href;
+    const url = window.location.origin + window.location.pathname;
     const link = `${url}#${headingId}`;
     navigator.clipboard.writeText(link);
   };
