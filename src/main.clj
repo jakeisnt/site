@@ -12,6 +12,16 @@
 
 (println "Last build was at " last-commit-timestamp)
 
+(defn info [file]
+  (let [last-log (git/last-log (file/path file) const/source-dir)]
+    {:file file :last-log last-log :name (file/name file)}))
+
+;; TODO: goes the wrong way
+;; TODO: customize behavior by folder
+(defn sort-files-by-key [files key]
+  (let [file-list (for [file files] (info file))]
+    (reverse (sort-by key file-list))))
+
 (defn file-is-new [source-dir source-path force-rebuild]
   (or force-rebuild
       (> (git/last-timestamp source-dir source-path) last-commit-timestamp)))
@@ -19,9 +29,9 @@
 (defn record-last-timestamp [source-dir]
   (file/write (git/last-timestamp source-dir) const/last-modified-file))
 
-(defn make-dir-files [source-dir target-dir force-rebuild]
-  (let [files (file/list source-dir)]
-    (doseq [source-path files]
+(defn make-dir-files [source-dir target-dir files force-rebuild]
+  (doseq [file files]
+    (let [source-path (:file file)]
       (when (file-is-new source-dir source-path force-rebuild)
         (println "Rebuilding updated file " (str source-path))
         (let [target-path (path/->html (path/source->target source-path source-dir target-dir))]
@@ -31,11 +41,11 @@
 
 (defn make-dir
   "Make a directory listing page"
-  [source-dir target-dir sort-by force-rebuild]
+  [source-dir target-dir files force-rebuild]
   (file/make-directory target-dir)
   (when (file-is-new source-dir source-dir force-rebuild)
-    (make-dir-files source-dir target-dir force-rebuild)
-    (index/->file source-dir target-dir sort-by)))
+    (make-dir-files source-dir target-dir files force-rebuild)
+    (index/->file source-dir target-dir files)))
 
 (defn write-home []
   (println "Writing home page")
@@ -43,9 +53,16 @@
 
 (defn write-path [config force-rebuild]
   (let [path (:folder config)
-        sort-by (:sort-by config)]
+        sort-by (:sort-by config)
+        files (file/list path)
+        sorted-files (sort-files-by-key files sort-by)]
     (println "Writing path:" path)
-    (make-dir (str const/source-dir "/" path) (str const/target-dir "/" path) sort-by force-rebuild)))
+    (println "files at path:" files)
+    (println sorted-files)
+    (make-dir (str const/source-dir "/" path)
+              (str const/target-dir "/" path)
+              sorted-files
+              force-rebuild)))
 
 (defn copy-resources []
   (println "Copying resources")

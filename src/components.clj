@@ -105,4 +105,8 @@
 (defn snowflake-tool []
   [:iframe {:src "https://snowflake.torproject.org/embed.html" :width 320 :height 240 :frameborder 0 :scrolling "no"}])
 
-(defn prev-next-up-buttons  [])
+(defn prev-next-up-buttons  []
+  [:div.prev-next-up-buttons
+   [:a.prev-button {:href "#"} "Previous"]
+   [:a.up-button {:href "#"} "Up"]
+   [:a.next-button {:href "#"} "Next"]])
