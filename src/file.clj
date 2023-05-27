@@ -1,10 +1,10 @@
 (ns file
   (:refer-clojure :exclude [list read name])
   (:require
+   const
    [clojure.string :as str]
    [clojure.java.io :as io]
    [clojure.edn :as edn]
-   [const :as const]
    [command :as cmd]))
 
 (defn list

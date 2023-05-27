@@ -18,6 +18,10 @@
   (-> path
       (str/replace (re-pattern source-dir) target-dir)))
 
+(defn folder [path]
+  (let [parts (str/split path #"/")]
+    (str/join "/" (take (dec (count parts)) parts))))
+
 (defn remove-prefix [path prefix]
   (-> path
       (str/replace (re-pattern (str "^" prefix)) "")))
