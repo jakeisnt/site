@@ -45,20 +45,6 @@
   [long-hash file-path]
   (str const/source-url "/blob/" long-hash "/" file-path))
 
-(defn history-table
-  "Renders the git history for a file given its path."
-  [source-path]
-  (let [git-log (git/log (file/path source-path) const/source-dir)]
-    [:div.git-hist-table
-     [:table
-      [:tbody
-       (for [commit git-log]
-         [:tr
-          [:td.commit-date-tr (:commit-date commit)]
-          [:td.commit-link-tr [:a {:href (history-link
-                                          (:long-hash commit)
-                                          (path/remove-prefix (:file-path commit) const/source-dir))} (:short-hash commit)]]])]]]))
-
 (defn checkout [source-dir branch]
   (cmd/exec (str "git checkout " branch) source-dir))
 

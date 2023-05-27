@@ -1,6 +1,6 @@
 (ns components
   (:require
-   html const file
+   html const file path git
    [clojure.core.match :refer [match]]))
 
 ;; compile dependencies based on type
@@ -66,14 +66,37 @@
       (html/css "/components/sidebar/sidebar.css")]
      (component "toggle-dark-mode")]))
 
+;; git history table
+(defn git-history-table
+  "Renders the git history for a file given its path."
+  [source-path]
+  (let [git-log (git/log (file/path source-path) const/source-dir)]
+    [:div.git-history-table-container
+     [:span.git-history-table-title "Revisions"]
+     [:table.git-history-table
+      [:tr
+       [:th "Date"]
+       [:th "Hash"]]
+      [:tbody
+       (for [commit git-log]
+         [:tr
+          [:td.commit-date-tr (:commit-date commit)]
+          [:td.commit-link-tr [:a {:href (git/history-link
+                                          (:long-hash commit)
+                                          (path/remove-prefix (:file-path commit) const/source-dir))} (:short-hash commit)]]])]]]))
+
 ;; generate a map of a page with links to content
-(defn page-map [page url]
-  (let [tags (html/find-tags page :h1 :h2 :h3 :h4 :h5 :h6)]
+(defn page-map [page path]
+  (let [tags (html/find-tags page :h1 :h2 :h3 :h4 :h5 :h6)
+        path-link (path/remove-prefix path const/target-dir)]
     [:div.sitemap-container
+     [:span.sitemap-title "In this article"]
      [:table.sitemap
       (map (fn [tag]
              (let [tag-id (:id (second tag))
-                   tag-text (nth tag 2)]
+                   tag-text (or
+                             (and (> 2 (count tag)) (nth tag 2))
+                             tag-id)]
                [:tr
-                [:td [:a {:href (str url "#" tag-id)} tag-text]]]))
+                [:td [:a {:href (str path-link "#" tag-id)} tag-text]]]))
            tags)]]))

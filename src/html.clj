@@ -80,9 +80,10 @@
 
 ;; find all of the elements that fit a predicate
 (defn collect-elements [html-page pred]
-  (filter pred (flatten html-page)))
+  (filter pred (drop 2 html-page)))
 
 ;; collect all of the html tags with a given id
 (defn find-tags [html-page & tags]
-  (let [tags-to-look-for tags]
-    (collect-elements html-page #(contains? tags-to-look-for (first %)))))
+  (collect-elements html-page (fn [html-block]
+                                (let [tag (first html-block)]
+                                  (some #(= tag %) tags)))))
