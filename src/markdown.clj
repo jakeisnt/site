@@ -30,7 +30,7 @@
           backup))
       backup)))
 
-(defn render-article [md-article source-path target-path]
+(defn render-article [md-article source-path target-path files file-list-idx]
   (let [page-name (get-page-name md-article target-path)
         has-title (has-title? md-article)]
     (html/->string
@@ -46,14 +46,15 @@
         [:div.article-rhs-container
          [:div.article-rhs
           (components/page-map md-article target-path)
-          (components/git-history-table source-path)]]]]])))
+          (components/git-history-table source-path)
+          (components/prev-next-up-buttons files file-list-idx)]]]]])))
 
 (defn ->file
   "Transform a file from source to target."
-  [source-path target-path]
+  [source-path target-path files file-list-idx]
   (->
    source-path
    file/read
    parse
-   (render-article source-path target-path)
+   (render-article source-path target-path files file-list-idx)
    (file/write target-path)))
