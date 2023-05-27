@@ -100,3 +100,9 @@
                [:tr
                 [:td [:a {:href (str path-link "#" tag-id)} tag-text]]]))
            tags)]]))
+
+;; tor snowflake - let others proxy
+(defn snowflake-tool []
+  [:iframe {:src "https://snowflake.torproject.org/embed.html" :width 320 :height 240 :frameborder 0 :scrolling "no"}])
+
+(defn prev-next-up-buttons  [])
