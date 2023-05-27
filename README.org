@@ -22,7 +22,7 @@ Deploy site: `deploy`
 These commands may not be extensible enough to fit your use case.
 
 * Tech
-Why clojure? It's a modern, dynamically typed language that can gradually be hardened with robust types and tests. The language is smaller, more self-consistent, and more predictable syntactically than languages like Ruby or JavaScript, and allows the user to easily make their own APIs.
+Why Clojure? It's a modern, dynamically typed language that can gradually be hardened with robust types and tests. The language is smaller, more self-consistent, and more predictable syntactically than languages like Ruby or JavaScript, and allows the user to easily make their own APIs.
 
 Clojure isn't perfect; the eventual objective is to make the best language for me. For now, though, it's a well-tested, flexible starting point.
 
