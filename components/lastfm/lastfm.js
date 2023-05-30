@@ -44,25 +44,23 @@ const lastfm = () => {
       nowPlayingNode.remove();
     }
 
-    nowPlayingNode = create('a', { className: 'now-playing' });
+    nowPlayingNode = create('a', {
+      className: 'now-playing'
+      href: track.url,
+      target: 'blank',
+    });
 
     var nowPlayingImage = create('img', {
       className: 'np-image',
       src: track.image.slice(-1)[0]["#text"],
-    });
-
-    nowPlayingNode.appendChild(nowPlayingImage);
+    }, nowPlayingNode);
 
     var currently = track["@attr"] && track["@attr"].nowplaying == "true";
 
     var metadata = create('div', {
       class: 'np-metadata',
       innerHTML: getMetadata(track, currently),
-    });
-
-    nowPlayingNode.appendChild(metadata);
-    nowPlayingNode.href = track.url;
-    nowPlayingNode.target = "blank";
+    }, nowPlayingNode);
 
     $(".lastfm-now-playing-box").appendChild(nowPlayingNode);
 
