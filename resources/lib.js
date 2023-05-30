@@ -8,6 +8,14 @@ function runOnDesktop(fn) {
     }
 }
 
+function create(elementName, attributes) {
+    const elem = document.createElement(elementName);
+    for (let key in attributes) {
+        elem.setAttribute(key, attributes[key]);
+    }
+    return elem;
+}
+
 function dynLoad(src, id) {
     var s = document.createElement('script');
     s.setAttribute('src', src);

@@ -98,7 +98,7 @@
                              (and (> 2 (count tag)) (nth tag 2))
                              tag-id)]
                [:tr
-                [:td [:a {:href (str path-link "#" tag-id)} tag-text]]]))
+                [:td {:id (str "page-map-" tag-id)} [:a {:href (str path-link "#" tag-id)} tag-text]]]))
            tags)]]))
 
 ;; tor snowflake - let others proxy

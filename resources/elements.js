@@ -46,6 +46,45 @@ Array.from(headings).forEach((heading) => {
   };
 });
 
+// highlight current link in nav
+document.addEventListener('scroll', (event) => {
+  const scrollPosition = window.scrollY;
+
+  for(let i = 0; i < headings.length; i++) {
+    const headingId = headings[i].id;
+    const nextHeadingId = headings[i + 1] ? headings[i + 1].id : null;
+  }
+  Array.from(headings).forEach((heading) => {
+    const headingId = heading.id;
+    const section = document.getElementById(sectionId);
+    const sectionTop = section.offsetTop;
+    const sectionBottom = sectionTop + section.offsetHeight;
+
+    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+});
+
+// $(window).scroll(function(){
+//   var scrollTop = $(document).scrollTop();
+
+//   // highlight the last scrolled-to: set everything inactive first
+//   for (var i = 0; i < headings.length; i++) {
+//     $('nav ul li a[href="#' + $(headings[i]).attr('id') + '"]').removeClass('active');
+//   }
+
+//   // then iterate backwards, on the first match highlight it and break
+//   for (var i = headings.length-1; i >= 0; i--){
+//     if (scrollTop > $(headings[i]).offset().top - 75) {
+//       $('nav ul li a[href="#' + $(headings[i]).attr('id') + '"]').addClass('active');
+//       break;
+//     }
+//   }
+// });
+
 /* Support footnotes */
 const footnoteRefs = document.querySelectorAll('sup');
 
@@ -60,3 +99,4 @@ const footnotes = document.querySelectorAll('li[id^="fn-"]');
 footnotes.forEach((footnote) => {
   footnote.classList.add('footnote');
 });
+

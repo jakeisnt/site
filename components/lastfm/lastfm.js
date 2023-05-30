@@ -4,7 +4,11 @@
   /other cool idea: changing color and contrast of tbe website background when pressing a key, tapping or clicking
 */
 
+console.log('lastfm loaded');
+
 const lastfm = () => {
+  console.log('lastfm is loading');
+
   var LFM_API = "https://ws.audioscrobbler.com/2.0/";
   var LFM_KEY = "14eb0c0c914456103f2c584d930a44ba"; // Get one at https://secure.last.fm/login?next=/api/account/create
   var LFM_USER = "jakeisnt";
@@ -84,4 +88,4 @@ const lastfm = () => {
 
 };
 
-runOnDesktop(lastfm);
+lastfm();
