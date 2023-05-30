@@ -16,6 +16,33 @@ function create(elementName, attributes) {
     return elem;
 }
 
+function req(url, method, then) {
+    if (window.XMLHttpRequest) {
+      httpRequest = new XMLHttpRequest();
+    } else if (window.ActiveXObject) {
+      httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+
+    httpRequest.onreadystatechange = function() {
+      if (httpRequest.readyState === XMLHttpRequest.DONE) {
+        if (httpRequest.status === 200) {
+          // All set
+          var response = JSON.parse(httpRequest.responseText);
+          then(response);
+        } else {
+          console.log('There was a problem with the last.fm request.');
+        }
+      }
+    };
+
+    httpRequest.open(method, url, true);
+    httpRequest.send();
+}
+
+const get = (url, then) => req(url, 'GET', then);
+
+const $ = (selector) => document.querySelector(selector);
+
 function dynLoad(src, id) {
     var s = document.createElement('script');
     s.setAttribute('src', src);

@@ -5,6 +5,8 @@
   align-items: center;
   margin-left: 1rem;
   max-width: 20em;
+  border: 1px solid var(--quote-background-border);
+  border-radius: 2px;
 }
 
 a.now-playing {
