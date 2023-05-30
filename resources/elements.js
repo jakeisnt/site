@@ -17,9 +17,8 @@ Array.from(codeBlocks).forEach((codeBlock) => {
   codeBlock.parentElement.appendChild(label);
 
   btn.onclick = function(e) {
-    const codeContents = e.target.parentElement.innerText;
-    const code = codeContents.substring(0, codeContents.length - e.target.innerText.length);
-    navigator.clipboard.writeText(code);
+    const codeContents = codeBlock.innerText;
+    navigator.clipboard.writeText(codeContents);
   };
 });
 
