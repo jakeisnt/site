@@ -28,14 +28,17 @@ const lastfm = () => {
     });
   }
 
-  function getMetadata(track, currently) {
-    return (currently ?
-            "<span class=\"np-date\">Playing</span>" :
-            "<span class=\"np-date\">Played on "+track.date["#text"]+"</span>") +
-      "<br>" +
-      "<span class=\"np-title\"><strong>" + track.name + "</strong></span>" +
-      "<br/>" +
-      "<span class=\"np-artist\">"+track.artist["#text"]+"</span>";
+  function getMetadata(track) {
+    return create2("table", { className: 'metadata-table'},
+      create2("tr", {},
+              create2("th", {}, "Artist"),
+              create2("td", {}, track.artist["#text"])),
+      create2("tr", {},
+              create2("th", {}, "Title"),
+              create2("td", {}, track.name)),
+      create2("tr", {},
+              create2("th", {}, "Listened"),
+              create2("td", {}, track.date["#text"])));
   }
 
   function renderNowPlaying(track) {
@@ -44,25 +47,27 @@ const lastfm = () => {
       nowPlayingNode.remove();
     }
 
-    nowPlayingNode = create('a', {
-      className: 'now-playing'
+    nowPlayingNode = create('div', {
+      className: 'now-playing',
       href: track.url,
       target: 'blank',
-    });
+    }, $(".lastfm-now-playing-box"));
 
-    var nowPlayingImage = create('img', {
+    const nowPlayingImage = create('img', {
       className: 'np-image',
+      width: '128',
+      height: '128',
       src: track.image.slice(-1)[0]["#text"],
     }, nowPlayingNode);
 
-    var currently = track["@attr"] && track["@attr"].nowplaying == "true";
+    const currently = track["@attr"] && track["@attr"].nowplaying == "true";
 
-    var metadata = create('div', {
-      class: 'np-metadata',
-      innerHTML: getMetadata(track, currently),
-    }, nowPlayingNode);
+    nowPlayingNode.appendChild(getMetadata(track, currently));
 
-    $(".lastfm-now-playing-box").appendChild(nowPlayingNode);
+    // const metadata = create('div', {
+    //   class: 'np-metadata',
+    //   innerHTML: getMetadata(track, currently),
+    // }, nowPlayingNode);
 
     setTimeout(() => {
       nowPlayingNode.setAttribute("class", "now-playing loaded");

@@ -24,6 +24,28 @@ function create(elementName, attributes, parent) {
   return elem;
 }
 
+function create2(elementName, attributes, ...children) {
+  const elem = document.createElement(elementName);
+  for (let key in attributes) {
+    // some things only work one way, so we do both
+    // is this faster than a switch statement? not sure.
+    elem.setAttribute(key, attributes[key]);
+    elem[key] = attributes[key];
+  }
+
+  if (children) {
+    children.forEach(child => {
+      if (typeof child === "string") {
+        elem.appendChild(document.createTextNode(child));
+      } else {
+        elem.appendChild(child);
+      }
+    });
+  }
+
+  return elem;
+}
+
 function req(url, method, then) {
   if (window.XMLHttpRequest) {
     httpRequest = new XMLHttpRequest();
