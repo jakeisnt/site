@@ -42,7 +42,7 @@
             clojure
             leiningen
             clojure-lsp
-            sass
+            dart-sass
 
             serve
             build

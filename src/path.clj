@@ -4,10 +4,10 @@
    [clojure.string :as str]))
 
 (defn replace-extension [path extension]
-  (str/replace path #"\.\S+$" extension))
+  (str/replace path #"\.\S+$" (str "." extension)))
 
 (defn ->html [file]
-  (replace-extension file ".html"))
+  (replace-extension file "html"))
 
 (defn ->url [source-path]
   (-> source-path

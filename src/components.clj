@@ -6,9 +6,10 @@
 ;; compile dependencies based on type
 (defn make-deps [deps]
   (for [dep deps]
-    (match (:type dep)
-      :js (html/defer-script (:src dep))
-      :css (html/css (:src dep)))))
+    (match (file/extension dep)
+      "js" (html/defer-script (:src dep))
+      "css" (html/css (:src dep))
+      "scss" (html/css (path/replace-extension (:src dep) "css")))))
 
 ;; imports a component and its dependencies where called
 (defn component [component-name]
