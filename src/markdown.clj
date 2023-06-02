@@ -45,7 +45,7 @@
        [:div.article-rhs-container
         [:div.article-rhs
          (components/page-map md-article target-path)
-         (components/git-history-table source-path)
+         (components/git-history-table source-path (:from-dir file))
          (components/prev-next-up-buttons file files file-list-idx)]]]]]))
 
 (defn ->file

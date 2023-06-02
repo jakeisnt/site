@@ -63,26 +63,17 @@
   [path]
   (.isDirectory (java.io.File. path)))
 
-(defn directory? [path]
-  (dir? path))
-
 (defn move
-  ([from to] (move from to const/current-repo))
   ([from to dir] (cmd/exec (str "mv " from " " to) dir)))
 
 (defn copy-dir [from to dir]
   (cmd/exec (str "cp -r " from " " to) dir))
 
-(defn copy [from to]
-  (copy-dir from to const/current-repo))
-
-(defn copy-force
-  ([from to] (copy-force from to const/current-repo))
-  ([from to dir] (cmd/exec (str "cp -rf " from " " to) dir)))
+(defn copy [from to from-dir]
+  (copy-dir from to from-dir))
 
 (defn remove-dir
-  ([path] (remove-dir path const/current-repo))
-  ([path in-dir] (cmd/exec (str "rm -r " path) in-dir)))
+  [path in-dir] (cmd/exec (str "rm -r " path) in-dir))
 
 (defn exists? [fp]
   (.exists (io/file fp)))

@@ -1,15 +1,8 @@
 (ns const)
 
 (def source-url "https://github.com/jakeisnt/wiki")
-(def source-dir "/home/jake/wiki")
-
 (def target-url "https://jake.isnt.online")
-
-(def current-repo "/home/jake/site")
-(def target-dir (str current-repo "/docs"))
-(def resources-dir (str current-repo "/resources"))
-(def components-dir (str current-repo "/components"))
-
+(def target-dir "/home/jake/site/docs")
 (def deployment-branch "production")
 
 (def wiki-paths [{:folder "pages"
@@ -21,6 +14,14 @@
                  {:folder "journals"
                   :sort-by :name
                   :show-only []}])
+
+(def site-paths [{:folder "resources"}
+                 {:folder "components"}])
+
+;; source of truth for the whole website
+(def website {:sources [{:dir "/home/jake/site" :paths site-paths}
+                        {:dir "/home/jake/wiki" :paths wiki-paths}]
+              :target "/home/jake/site/docs"})
 
 (def local-port 4242)
 
@@ -71,7 +72,7 @@
 
 (def personal
   {:name "Jake Chvatal"
-   :location "Boston, MA"
+   :location "Stockholm, SV"
    :occupation "Software Engineer"
    :pronouns ["he" "him" "his"]
    :education {:degree "B.S. Computer Science"

@@ -70,8 +70,8 @@
 ;; git history table
 (defn git-history-table
   "Renders the git history for a file given its path."
-  [source-path]
-  (let [git-log (git/log (file/path source-path) const/source-dir)]
+  [source-path source-dir]
+  (let [git-log (git/log (file/path source-path) source-dir)]
     [:div.git-history-table-container
      [:span.git-history-table-title "Revisions"]
      [:table.git-history-table
@@ -84,7 +84,7 @@
           [:td.commit-date-tr (:commit-date commit)]
           [:td.commit-link-tr [:a {:href (git/history-link
                                           (:long-hash commit)
-                                          (path/remove-prefix (:file-path commit) const/source-dir))} (:short-hash commit)]]])]]]))
+                                          (path/remove-prefix (:file-path commit) source-dir))} (:short-hash commit)]]])]]]))
 
 ;; generate a map of a page with links to content
 (defn page-map [page path]

@@ -12,19 +12,23 @@
 
 (println "Last build was at " last-commit-timestamp)
 
-(defn info [file]
-  (let [last-log (git/last-log (file/path file) const/source-dir)]
+(defn info [file source-dir]
+  (let [file-path (file/path file)
+        last-log (git/last-log file-path source-dir)]
     {:file file
-     :source-path (file/path file)
-     :target-path (path/source->target (file/path file) const/source-dir const/target-dir)
-     :link (path/->html (path/->url file))
+     :from-dir source-dir
+     :source-path file-path
+     :target-path (path/source->target file-path source-dir const/target-dir)
+     :link (path/swapext (path/remove-prefix file source-dir) "html")
      :last-log last-log :name (file/name file)}))
 
-;; TODO: goes the wrong way
-;; TODO: customize behavior by folder
+;; get info for files
+(defn fill-info [files source-dir]
+  (map (fn [file] (info file source-dir)) files))
+
+;; assumes we have file info
 (defn sort-files-by-key [files key]
-  (let [file-list (for [file files] (info file))]
-    (reverse (sort-by key file-list))))
+  (reverse (sort-by key files)))
 
 (defn file-is-new [source-dir source-path force-rebuild]
   (or force-rebuild
@@ -33,17 +37,18 @@
 (defn record-last-timestamp [source-dir]
   (file/write (git/last-timestamp source-dir) const/last-modified-file))
 
-(defn make-dir-file
+(defn compile-file
   "Compile a file, returning its file config with file metadata added"
   [source-dir target-dir file files file-list-idx force-rebuild]
-  (let [source-path (:file file)]
+
+  (let [source-path (:source-path file)]
     (when (file-is-new source-dir source-path force-rebuild)
       (println "Rebuilding updated file " (str source-path))
       (let [target-path (path/source->target source-path source-dir target-dir)]
         (assoc file
                :contents
                (match (file/extension source-path)
-                 "scss" (scss/->file source-path (path/swapext target-path "css"))
+                 "scss" (scss/->file file source-path (path/swapext target-path "css"))
                  "md"   (markdown/->file
                          source-path
                          (path/swapext target-path "html")
@@ -51,30 +56,7 @@
                          files
                          file-list-idx)
                  "act"  (act/->file source-path (path/swapext target-path "html"))
-                 true   (file/copy source-path target-path)))))))
-
-;;;  TODO: merge with 'make-dir-file'
-;; move the file from the 'to' path to the 'from' path,
-;; applying any transformations we might want
-;; note that the 'to' path file extension can be changed by this function
-;; (it doesn't really matter?)
-(defn compile-file [from-file to-file]
-  (let [extension (file/extension from-file)]
-    (if (= extension "scss")
-      (scss/->file from-file (path/swapext to-file "css"))
-      (file/copy from-file to-file))))
-
-;; TODO: merge with 'compile-directory-v2'
-;; compile all of the files in a given directory recursively
-(defn compile-directory [from-dir to-dir]
-  (println "=== Compiling directory ===" from-dir)
-  (doseq [file (file/tree from-dir)]
-    (println "Compiling file " (file/path file))
-    (let [from-file (file/path file)
-          to-file (path/source->target from-file from-dir to-dir)]
-      (if (file/directory? from-file)
-        (println "File is a directory. Ignoring " from-file)
-        (compile-file from-file to-file)))))
+                 :else   (file/copy source-path target-path (:from-dir file))))))))
 
 (defn compile-directory-v2
   "Make a directory listing page"
@@ -83,7 +65,7 @@
   (when (file-is-new source-dir source-dir force-rebuild)
     (let [files
           (for [[file-list-idx file] (map-indexed vector files)]
-            (make-dir-file source-dir target-dir file files file-list-idx force-rebuild))]
+            (compile-file source-dir target-dir file files file-list-idx force-rebuild))]
       ;; TODO: should return a 'directory' object with the html of the index page and the directory
       ;; because we iterate through a tree of files, this isn't a simple map.
       (index/->file source-dir target-dir files)
@@ -93,16 +75,19 @@
   (println "Writing home page")
   (file/write (home/html) (str const/target-dir "/index.html")))
 
-(defn compile-wiki-path [config force-rebuild]
+(defn compile-wiki-path [config force-rebuild source-dir]
   (let [path (:folder config)
-        source-path (str const/source-dir "/" path)
+        source-path (str source-dir "/" path)
         target-path (str const/target-dir "/" path)
         sort-by (:sort-by config)
         files-to-show (:show-only config)
-        files (if files-to-show
-                (path/complete files-to-show source-path)
-                (file/tree source-path))
-        sorted-files (sort-files-by-key files sort-by)]
+        files (fill-info (if files-to-show
+                           (path/complete files-to-show source-path)
+                           (file/tree source-path))
+                         source-dir)
+        sorted-files (if sort-by
+                       (sort-files-by-key files sort-by)
+                       files)]
     (println "Writing path:" path)
     (compile-directory-v2
      source-path
@@ -110,16 +95,15 @@
      sorted-files
      force-rebuild)))
 
-(defn copy-resources []
-  (println "Copying resources")
-  (compile-directory (str const/current-repo "/resources") const/target-dir)
-  (compile-directory (str const/current-repo "/components") const/target-dir))
-
+;; TODO: should these `for` forms write files to disk at all?
+;; maybe that should be done at the end?
 (defn -main [& args]
   (let [force-rebuild true ;; (some #(= % "all") args)
         ]
-    (copy-resources)
-    (for [path const/wiki-paths]
-      (compile-wiki-path path force-rebuild))
+
+    (doseq [source (:sources const/website)]
+      (doall (for [path (:paths source)]
+               (compile-wiki-path path force-rebuild (:dir source)))))
+
     (compile-home-page)
-    (record-last-timestamp const/source-dir)))
+    (record-last-timestamp "/home/jake/wiki")))
