@@ -70,10 +70,32 @@
      sorted-files
      force-rebuild)))
 
+;; move the file from the 'to' path to the 'from' path,
+;; applying any transformations we might want
+;; note that the 'to' path file extension can be changed by this function
+;; (it doesn't really matter?)
+(defn compile-file [from-file to-file]
+  (let [extension (file/extension from-file)]
+    (if (= extension "scss")
+      (file/compile-scss from-file (path/replace-extension to-file "css"))
+      (file/copy from-file to-file))))
+
+;; compile all of the files in a given directory recursively
+(defn compile-directory [from-dir to-dir]
+  (println (file/list from-dir))
+  (doseq [file (file/list from-dir)]
+    (println "Compiling file " (file/path file))
+    (let [from-file (file/path file)
+          to-file (path/source->target from-file from-dir to-dir)]
+      (if (file/directory? from-file)
+        (compile-directory from-file to-file)
+        (compile-file from-file to-file)))))
+  ;; (file/copy-force from-dir to-dir))
+
 (defn copy-resources []
   (println "Copying resources")
-  (file/copy-force (str const/current-repo "/resources/*") const/target-dir const/current-repo)
-  (file/copy-force (str const/current-repo "/components") const/target-dir const/current-repo))
+  (compile-directory (str const/current-repo "/resources") const/target-dir)
+  (compile-directory (str const/current-repo "/components") const/target-dir))
 
 (defn -main [& args]
   (let [force-rebuild true ;; (some #(= % "all") args)

@@ -42,14 +42,6 @@
              (inject-hot-reload contents)
              contents)}))
 
-;; move the file from the 'to' path to the 'from' path,
-;; applying any transformations we might want
-(defn convert-file [from-file to-file]
-  (let [extension (file/extension from-file)]
-    (if (= extension "scss")
-      (file/compile-scss from-file (path/replace-extension to-file "css"))
-      (file/copy from-file to-file))))
-
 ;; if we update a file in /resources,
 ;; we copy it to the target dir so it triggers the build and updates
 (defn watch-resources []
@@ -57,7 +49,7 @@
    (fn [event]
      (let [file (:file event)]
        (println "Copying resources file" file)
-       (convert-file file (path/source->target file const/resources-dir const/target-dir))))
+       (main/compile-file file (path/source->target file const/resources-dir const/target-dir))))
    (clojure.java.io/file const/resources-dir)))
 
 ;; we also copy the files of the components dir
@@ -67,7 +59,7 @@
    (fn [event]
      (let [file (:file event)]
        (println "Copying component file" file "to " (path/source->target file const/components-dir const/target-dir))
-       (convert-file file (path/source->target file const/current-repo const/target-dir))))
+       (main/compile-file file (path/source->target file const/current-repo const/target-dir))))
    (clojure.java.io/file const/components-dir)))
 
 ;;  if any of the dependencies of 'home' are modified,

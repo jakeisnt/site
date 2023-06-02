@@ -63,6 +63,9 @@
   [path]
   (.isDirectory (java.io.File. path)))
 
+(defn directory? [path]
+  (dir? path))
+
 (defn move
   ([from to] (move from to const/current-repo))
   ([from to dir] (cmd/exec (str "mv " from " " to) dir)))

@@ -6,7 +6,7 @@
 ;; compile dependencies based on type
 (defn make-deps [deps]
   (for [dep deps]
-    (match (file/extension dep)
+    (match (file/extension (:src dep))
       "js" (html/defer-script (:src dep))
       "css" (html/css (:src dep))
       "scss" (html/css (path/replace-extension (:src dep) "css")))))
