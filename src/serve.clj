@@ -1,12 +1,6 @@
 (ns serve
   (:require
-   const
-   file
-   path
-   main
-   home
-   html
-   clojure.java.io
+   const file path main home html clojure.java.io
    [org.httpkit.server :as http]
    [clojure.java.browse :refer [browse-url]]
    [ring.util.mime-type :as mime]
@@ -14,8 +8,9 @@
    [clojure.string :as str]))
 
 ;; Serve the statically generated files!
-(defn get-path [uri]
-  (let [path (str const/target-dir uri)]
+(defn get-path [uri target-dir]
+  ;; TODO: replace overlap between target-dir and path
+  (let [path (str target-dir uri)]
     (if (file/dir? path)
       (str path "/index.html")
       path)))
@@ -29,83 +24,77 @@
 (defn inject-hot-reload [site]
   (str/replace-first site html-end-tag (str dev-script html-end-tag)))
 
-(defn serve-file [request]
-  (let [file-path (get-path (:uri request))
+(defn serve-file [request source-dir target-dir]
+  (let [file-path (get-path (:uri request) target-dir)
         type (content-type file-path)
         contents (if (= type "image/png")
                    (file/read-image file-path)
                    (file/read file-path))]
-    (println "SERVING [" type "]:" (path/remove-prefix file-path const/target-dir))
+    (println "SERVING [" type "]:" (path/remove-prefix file-path target-dir))
     {:status 200
      :headers {"Content-Type" type}
      :body (if (= type "text/html")
              (inject-hot-reload contents)
              contents)}))
 
-;; if we update a file in /resources,
-;; we copy it to the target dir so it triggers the build and updates
-(defn watch-resources []
+;; recompile a file when it's modified
+(defn recompile-on-change [source-dir target-dir]
   (watch-dir
    (fn [event]
      (let [file (:file event)]
-       (println "Copying resources file" file)
-       (main/compile-file file (path/source->target file const/resources-dir const/target-dir))))
-   (clojure.java.io/file const/resources-dir)))
-
-;; we also copy the files of the components dir
-;; (TODO: more build system logic to come)
-(defn watch-components []
-  (watch-dir
-   (fn [event]
-     (let [file (:file event)]
-       (println "Copying component file" file "to " (path/source->target file const/components-dir const/target-dir))
-       (main/compile-file file (path/source->target file const/current-repo const/target-dir))))
-   (clojure.java.io/file const/components-dir)))
+       (main/compile-file source-dir target-dir file [] nil true)))
+   (clojure.java.io/file source-dir)))
 
 ;;  if any of the dependencies of 'home' are modified,
 ;;  we rebuild the home page
 ;;  TODO generalize
 ;;  TODO deps are determined statically?
 ;;  TODO lots of fun things
-(defn watch-home []
+(defn watch-home [target-dir]
   (let [home-page (home/home)
         deps (:depends-on home-page)]
     (doseq [dep-name deps]
       (watch-dir
        (fn [event]
          (println "Home page deps changed, rebuilding home page:" dep-name)
-         (file/write (html/->string (:body (home/home))) (str const/target-dir "/index.html")))
-       (clojure.java.io/file (str const/components-dir "/" dep-name))))))
+         (file/write (html/->string (:body (home/home))) (str target-dir "/index.html")))
+       (clojure.java.io/file (str "/home/jake/site/components" "/" dep-name))))))
 
-(defn handle-socket [request]
+(defn handle-socket [request source-dir target-dir]
   (http/with-channel request channel
     (http/on-receive channel (println "\n--- SOCKET CONNECTED ---"))
     (http/on-close channel (fn [status] (println "--- SOCKET DISCONNECTED --- " status)))
 
     (watch-dir
      (fn [event]
-       (let [file (path/->url (:file event))]
+       (let [file
+             (path/swapext (path/remove-prefix (:file event) target-dir)
+                           (main/get-target-extension (:file event)))]
          ;; event is: {:file name :count file-count :action :create|:modify|:delete}
          (println "CHANGED: " file)
          (http/send! channel file)))
 
-     (clojure.java.io/file const/target-dir))))
+     (clojure.java.io/file target-dir))))
 
-(defn handler [request]
+(defn handler [request source-dir target-dir]
   (if (= (:uri request) "/__hmr")
-    (handle-socket request)
-    (serve-file request)))
+    (handle-socket request source-dir target-dir)
+    (serve-file request source-dir target-dir)))
 
 (defn -main [& _]
-  (println "SERVE")
-  (main/copy-resources)
-  (http/run-server handler {:port const/local-port})
-  (println "SOCKET STARTED")
+  (let [source-dir "/home/jake/site"
+        target-dir "/home/jake/site/docs"
+        local-port 4242]
+    (println "SERVE")
 
-  (watch-resources)
-  (watch-components)
-  (watch-home)
+    (main/-main)
+    (http/run-server (fn [req] (handler req source-dir target-dir)) {:port local-port})
+    (println "SOCKET STARTED")
 
-  (browse-url (str "http://localhost:" const/local-port)))
+    (doseq [path const/site-paths]
+      (recompile-on-change (str source-dir "/" (:folder path)) target-dir))
+
+    (watch-home target-dir)
+    (browse-url (str "http://localhost:" local-port))))
 
 (comment (-main nil))

@@ -12,19 +12,28 @@
 
 (println "Last build was at " last-commit-timestamp)
 
-(defn info [file source-dir]
+(defn get-target-extension [file-path]
+  (let [extension (file/extension file-path)]
+    (match extension
+      "scss" "css"
+      "md" "html"
+      "act" "html"
+      :else extension)))
+
+(defn info [file source-dir target-dir]
   (let [file-path (file/path file)
         last-log (git/last-log file-path source-dir)]
     {:file file
+     :has-info true
      :from-dir source-dir
      :source-path file-path
-     :target-path (path/source->target file-path source-dir const/target-dir)
+     :target-path (path/source->target file-path source-dir target-dir)
      :link (path/swapext (path/remove-prefix file source-dir) "html")
      :last-log last-log :name (file/name file)}))
 
 ;; get info for files
-(defn fill-info [files source-dir]
-  (map (fn [file] (info file source-dir)) files))
+(defn fill-info [files source-dir target-dir]
+  (map (fn [file] (info file source-dir target-dir)) files))
 
 ;; assumes we have file info
 (defn sort-files-by-key [files key]
@@ -41,24 +50,28 @@
   "Compile a file, returning its file config with file metadata added"
   [source-dir target-dir file files file-list-idx force-rebuild]
 
-  (let [source-path (:source-path file)]
+  (let [file (if (:has-info file)
+               file
+               (info file source-dir target-dir))
+        source-path (:source-path file)]
     (when (file-is-new source-dir source-path force-rebuild)
       (println "Rebuilding updated file " (str source-path))
-      (let [target-path (path/source->target source-path source-dir target-dir)]
+      (let [target-path (path/source->target source-path source-dir target-dir)
+            target-extension (get-target-extension source-path)]
         (assoc file
                :contents
                (match (file/extension source-path)
-                 "scss" (scss/->file file source-path (path/swapext target-path "css"))
+                 "scss" (scss/->file file source-path (path/swapext target-path target-extension))
                  "md"   (markdown/->file
                          source-path
-                         (path/swapext target-path "html")
+                         (path/swapext target-path target-extension)
                          file
                          files
                          file-list-idx)
-                 "act"  (act/->file source-path (path/swapext target-path "html"))
+                 "act"  (act/->file source-path (path/swapext target-path target-extension))
                  :else   (file/copy source-path target-path (:from-dir file))))))))
 
-(defn compile-directory-v2
+(defn compile-directory
   "Make a directory listing page"
   [source-dir target-dir files force-rebuild]
   (file/make-directory target-dir)
@@ -71,25 +84,25 @@
       (index/->file source-dir target-dir files)
       files)))
 
-(defn compile-home-page []
+(defn compile-home-page [target-dir]
   (println "Writing home page")
-  (file/write (home/html) (str const/target-dir "/index.html")))
+  (file/write (home/html) (str target-dir "/index.html")))
 
-(defn compile-wiki-path [config force-rebuild source-dir]
+(defn compile-wiki-path [config force-rebuild source-dir target-dir]
   (let [path (:folder config)
         source-path (str source-dir "/" path)
-        target-path (str const/target-dir "/" path)
+        target-path (str target-dir "/" path)
         sort-by (:sort-by config)
         files-to-show (:show-only config)
         files (fill-info (if files-to-show
                            (path/complete files-to-show source-path)
                            (file/tree source-path))
-                         source-dir)
+                         source-dir target-dir)
         sorted-files (if sort-by
                        (sort-files-by-key files sort-by)
                        files)]
     (println "Writing path:" path)
-    (compile-directory-v2
+    (compile-directory
      source-path
      target-path
      sorted-files
@@ -99,11 +112,11 @@
 ;; maybe that should be done at the end?
 (defn -main [& args]
   (let [force-rebuild true ;; (some #(= % "all") args)
-        ]
+        target-dir "/home/jake/site/docs"]
 
     (doseq [source (:sources const/website)]
       (doall (for [path (:paths source)]
-               (compile-wiki-path path force-rebuild (:dir source)))))
+               (compile-wiki-path path force-rebuild (:dir source) target-dir))))
 
-    (compile-home-page)
-    (record-last-timestamp "/home/jake/wiki")))
+    (compile-home-page target-dir)
+    (record-last-timestamp target-dir)))
