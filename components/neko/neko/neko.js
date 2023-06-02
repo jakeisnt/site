@@ -3,16 +3,15 @@
 // Sit next to the left or right of the cursor, whichever is closer
 // Sit next to/on/around links if they are hovered
 
-(() => {
+const neko = () => {
   function createNekoImage() {
-    var img = document.createElement('img');
-
-    img.setAttribute("src", currentAnimation[0]);
-    img.setAttribute("width", "32px");
-    img.setAttribute("height", "32px");
-    img.setAttribute("alt", "🐱");
-
-    return img;
+    return create('img', {
+      src: currentAnimation[0],
+      width: '32px',
+      height: '32px',
+      alt: '🐱',
+      id: 'neko'
+    });
   }
 
   function timestamp() {
@@ -196,8 +195,8 @@
     nekoEventLoop();
   });
 
-  runOnDesktop(() => {
-    neko.appendChild(nekoImage);
-    animate();
-  });
-})();
+  neko.appendChild(nekoImage);
+  animate();
+};
+
+runOnDesktop(neko);

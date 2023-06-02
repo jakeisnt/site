@@ -1,11 +1,17 @@
 .toggle-dark-mode {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
     border: none;
     cursor: pointer;
     padding: 0;
-    margin: 0;
-    width: 36px;
+    margin-top: 0.125rem;
+    margin-right: 0.125rem;
+    width: 30px;
     height: 36px;
-    overflow: hidden;
-    background-color: var(--highlight);
-    color: var(--page-background);
+    fill: var(--highlight);
 }

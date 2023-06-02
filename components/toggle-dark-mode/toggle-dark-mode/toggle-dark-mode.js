@@ -5,8 +5,10 @@
 
 (() => {
   function svg(url) {
-    let obj = document.createElement("div");
-    obj.mask = "url(" + url + ")";
+    let obj = document.createElement("img");
+    obj.src = url;
+    obj.style.height = "30px";
+    obj.style.width = "30px";
     return obj;
   }
 
@@ -20,11 +22,11 @@
     dark: svg("/components/toggle-dark-mode/assets/moon_icon.svg"),
   }
 
+
   const possibleThemes = Object.values(THEME).map((theme) => `${theme}-theme`);
   const btn = document.querySelector(".toggle-dark-mode");
   const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
   let currentTheme = localStorage.getItem("theme") ?? (prefersDarkScheme ? THEME.DARK : THEME.LIGHT);
-
 
   function switchToTheme(add) {
     console.log("Switching to theme ", add)
@@ -32,6 +34,16 @@
     classes.remove(...possibleThemes);
     classes.add(`${add}-theme`);
     currentTheme = add;
+
+    const ThemeCSS = {
+      [THEME.LIGHT]: document.getElementById("light-theme-highlight"),
+      [THEME.DARK]: document.getElementById("dark-theme-highlight"),
+    };
+
+    [THEME.LIGHT, THEME.DARK].forEach((theme) => {
+      console.log("Theme: ", theme);
+      ThemeCSS[theme].disabled = theme !== add;
+    });
 
     localStorage.setItem("theme", add);
   }
