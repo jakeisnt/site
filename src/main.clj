@@ -40,8 +40,7 @@
         (println "Rebuilding updated file " (str source-path))
         (let [target-path (path/->html (path/source->target source-path source-dir target-dir))]
           (match (file/extension source-path)
-            "md"  (markdown/->file source-path target-path
-                                   files file-list-idx)
+            "md"  (markdown/->file source-path target-path file files file-list-idx)
             "act" (act/->file source-path target-path)))))))
 
 (defn make-dir
@@ -61,9 +60,13 @@
         source-path (str const/source-dir "/" path)
         target-path (str const/target-dir "/" path)
         sort-by (:sort-by config)
-        files (file/list source-path)
+        files-to-show (:show-only config)
+        files (if files-to-show
+                (path/complete files-to-show source-path)
+                (file/list source-path))
         sorted-files (sort-files-by-key files sort-by)]
     (println "Writing path:" path)
+    (println files)
     (make-dir
      source-path
      target-path

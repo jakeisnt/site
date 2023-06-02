@@ -29,3 +29,7 @@
 (defn split [path]
   ;; splitting on the first /" gives us a front empty string that we drop
   (rest (str/split path #"/")))
+
+;; complete a path list with a prefix
+(defn complete [path-list prefix]
+  (map #(str prefix "/" %) path-list))
