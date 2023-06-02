@@ -6,6 +6,9 @@
 (defn replace-extension [path extension]
   (str/replace path #"\.\S+$" (str "." extension)))
 
+(defn swapext [path extension]
+  (replace-extension path extension))
+
 (defn ->html [file]
   (replace-extension file "html"))
 

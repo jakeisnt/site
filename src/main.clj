@@ -33,44 +33,21 @@
 (defn record-last-timestamp [source-dir]
   (file/write (git/last-timestamp source-dir) const/last-modified-file))
 
-(defn make-dir-files [source-dir target-dir files force-rebuild]
-  (doseq [[file-list-idx file] (map-indexed vector files)]
-    (let [source-path (:file file)]
-      (when (file-is-new source-dir source-path force-rebuild)
-        (println "Rebuilding updated file " (str source-path))
-        (let [target-path (path/->html (path/source->target source-path source-dir target-dir))]
-          (match (file/extension source-path)
-            "md"  (markdown/->file source-path target-path file files file-list-idx)
-            "act" (act/->file source-path target-path)))))))
-
-(defn make-dir
-  "Make a directory listing page"
-  [source-dir target-dir files force-rebuild]
-  (file/make-directory target-dir)
-  (when (file-is-new source-dir source-dir force-rebuild)
-    (make-dir-files source-dir target-dir files force-rebuild)
-    (index/->file source-dir target-dir files)))
-
-(defn write-home []
-  (println "Writing home page")
-  (file/write (home/html) (str const/target-dir "/index.html")))
-
-(defn write-path [config force-rebuild]
-  (let [path (:folder config)
-        source-path (str const/source-dir "/" path)
-        target-path (str const/target-dir "/" path)
-        sort-by (:sort-by config)
-        files-to-show (:show-only config)
-        files (if files-to-show
-                (path/complete files-to-show source-path)
-                (file/list source-path))
-        sorted-files (sort-files-by-key files sort-by)]
-    (println "Writing path:" path)
-    (make-dir
-     source-path
-     target-path
-     sorted-files
-     force-rebuild)))
+(defn make-dir-file [source-dir target-dir file files file-list-idx force-rebuild]
+  (let [source-path (:file file)]
+    (when (file-is-new source-dir source-path force-rebuild)
+      (println "Rebuilding updated file " (str source-path))
+      (let [target-path (path/source->target source-path source-dir target-dir)]
+        (match (file/extension source-path)
+          "scss" (file/compile-scss source-path (path/swapext target-path "css"))
+          "md"   (markdown/->file
+                  source-path
+                  (path/swapext target-path "html")
+                  file
+                  files
+                  file-list-idx)
+          "act"  (act/->file source-path (path/swapext target-path "html"))
+          true   (file/copy source-path target-path))))))
 
 ;; move the file from the 'to' path to the 'from' path,
 ;; applying any transformations we might want
@@ -92,7 +69,37 @@
       (if (file/directory? from-file)
         (compile-directory from-file to-file)
         (compile-file from-file to-file)))))
-  ;; (file/copy-force from-dir to-dir))
+
+(defn compile-directory-v2
+  "Make a directory listing page"
+  [source-dir target-dir files force-rebuild]
+  (file/make-directory target-dir)
+  (when (file-is-new source-dir source-dir force-rebuild)
+    (doseq [[file-list-idx file] (map-indexed vector files)]
+      (make-dir-file source-dir target-dir file files file-list-idx force-rebuild))
+
+    (index/->file source-dir target-dir files)))
+
+(defn compile-home-page []
+  (println "Writing home page")
+  (file/write (home/html) (str const/target-dir "/index.html")))
+
+(defn compile-wiki-path [config force-rebuild]
+  (let [path (:folder config)
+        source-path (str const/source-dir "/" path)
+        target-path (str const/target-dir "/" path)
+        sort-by (:sort-by config)
+        files-to-show (:show-only config)
+        files (if files-to-show
+                (path/complete files-to-show source-path)
+                (file/list source-path))
+        sorted-files (sort-files-by-key files sort-by)]
+    (println "Writing path:" path)
+    (compile-directory-v2
+     source-path
+     target-path
+     sorted-files
+     force-rebuild)))
 
 (defn copy-resources []
   (println "Copying resources")
@@ -103,7 +110,7 @@
   (let [force-rebuild true ;; (some #(= % "all") args)
         ]
     (copy-resources)
-    (write-home)
-    (doseq [path const/wiki-paths]
-      (write-path path force-rebuild))
+    (for [path const/wiki-paths]
+      (compile-wiki-path path force-rebuild))
+    (compile-home-page)
     (record-last-timestamp const/source-dir)))
