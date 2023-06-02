@@ -1,22 +1,22 @@
+@charset "UTF-8";
 /* Overrides of default HTML components */
-
 /* --- Table ----------------------------------- */
 table {
   border: 1px solid var(--quote-background-border);
+  border-radius: 3px;
   overflow-wrap: break-word;
   border-spacing: 0;
-  border-radius: 3px;
   font-size: 14px;
   width: 100%;
   margin: 1em 0em;
 }
 
 table tr:last-child td:first-child {
-    border-bottom-left-radius: 3px;
+  border-bottom-left-radius: 3px;
 }
 
 table tr:last-child td:last-child {
-    border-bottom-right-radius: 3px;
+  border-bottom-right-radius: 3px;
 }
 
 table:hover {
@@ -58,7 +58,6 @@ td:hover {
     width: calc(100vw - 2rem);
   }
 }
-
 /* --- Text ------------------------------------ */
 h1 {
   margin-top: 0.125em;
@@ -88,21 +87,18 @@ p {
   h1::after {
     display: none;
   }
-
   button.inlineText {
     margin-left: -1.2rem;
   }
 }
-
 /* Lists */
-
 ul {
   padding-left: 1rem;
   list-style: none;
 }
 
 ul > li::before {
-  content: '‒ ';
+  content: "‒ ";
   font-weight: 600;
   opacity: 0.3;
   margin-left: -1rem;
@@ -119,7 +115,7 @@ ol > li {
 }
 
 ol > li::before {
-  content: counter(li) '. ';
+  content: counter(li) ". ";
   opacity: 0.3;
   margin-left: -1rem;
 }
@@ -133,7 +129,6 @@ ol > li:first-of-type::before {
     padding-left: 0;
   }
 }
-
 /* Code blocks */
 pre {
   white-space: pre-wrap;
@@ -151,6 +146,8 @@ code {
 
 /* Full width code block */
 pre code {
+  border: 1px solid var(--quote-background-border);
+  border-radius: 3px;
   position: relative;
   display: block;
   padding: 0.5em 0.5em !important;
@@ -159,8 +156,6 @@ pre code {
   overflow-x: auto;
   font-size: 14px;
   background-color: var(--quote-background) !important;
-  border-radius: 3px;
-  border: 1px solid var(--quote-background-border);
   min-height: 36px;
   text-color: var(--subtle-text);
 }
@@ -176,7 +171,6 @@ code:hover {
     width: calc(100% + 1rem);
   }
 }
-
 /* Links */
 a {
   text-decoration: none;
@@ -200,14 +194,13 @@ a:active {
   color: var(--highlight-text);
 }
 
-
 /* Buttons and labels */
 button {
   background-color: var(--page-background);
   color: var(--text-color);
   transition: background-color 0.075s ease-out;
   padding: 0.25em 0.5em;
-  border-radius: 4px;
+  border-radius: 3px;
   border: 1px solid var(--subtle-text);
 }
 
@@ -219,11 +212,11 @@ button:hover {
 button.inset {
   display: block;
   position: absolute;
-  content: 'after';
+  content: "after";
   background-color: var(--quote-background-border);
   right: 6px;
   top: 6px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 12px;
   opacity: 0.8;
 }
@@ -240,7 +233,7 @@ button.inset:hover {
   background-color: var(--quote-background-border);
   right: 0px;
   bottom: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 12px;
   padding: 0px 5px;
   padding-bottom: 1px;
@@ -257,9 +250,7 @@ button.inset:hover {
     margin-right: -1rem;
   }
 }
-
 /* footnotes */
-
 .footnoteRef {
   font-size: 0.8em;
   vertical-align: super;
@@ -273,3 +264,5 @@ button.inset:hover {
   font-size: 14px;
   color: var(--subtle-text);
 }
+
+/*# sourceMappingURL=elements.css.map */

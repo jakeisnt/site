@@ -1,54 +1,18 @@
 /* Global settings for color scheme and such. */
-@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 :root {
   /* Inform the browser that color schemes are available. */
   color-scheme: light dark;
-
-  --highlight: #eee8d5;
-  --quote-background: grey;
-
-  --link: #484848;
-  --text-color: black;
+  --highlight: #4C5669;
+  --quote-background: #222;
+  --quote-background-border: #333;
+  --quote-background-border-highlighted: #444;
+  --link: #ccc;
+  --text-color: white;
   --highlight-text: #fff;
-  --subtle-text: darkgrey;
-
-  --page-background: white;
-  --window-background: white;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --highlight: #eee8d5;
-    --quote-background: lightgrey;
-    --quote-background-border: #ccc;
-    --quote-background-border-highlighted: #bbb;
-
-    --link: #484848;
-    --text-color: black;
-    --highlight-text: #fff;
-    --subtle-text: darkgrey;
-
-    --page-background: white;
-    --window-background: white;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --highlight: #4C5669;
-    --quote-background: darkgrey;
-    --quote-background-border: #333;
-    --quote-background-border-highlighted: #444;
-
-    --link: #ccc;
-    --text-color: white;
-    --highlight-text: #fff;
-    --subtle-text: grey;
-
-    --page-background: #111;
-    --window-background: #111;
-  }
+  --subtle-text: grey;
+  --page-background: #111;
+  --window-background: #111;
 }
 
 .light-theme {
@@ -56,12 +20,10 @@
   --quote-background: lightgrey;
   --quote-background-border: #ccc;
   --quote-background-border-highlighted: #bbb;
-
   --link: #484848;
   --text-color: black;
   --highlight-text: #fff;
   --subtle-text: darkgrey;
-
   --page-background: white;
   --window-background: white;
 }
@@ -71,16 +33,42 @@
   --quote-background: #222;
   --quote-background-border: #333;
   --quote-background-border-highlighted: #444;
-
   --link: #ccc;
   --text-color: white;
   --highlight-text: #fff;
   --subtle-text: grey;
-
   --page-background: #111;
   --window-background: #111;
 }
 
+@media (prefers-color-scheme: light) {
+  :root {
+    --highlight: #eee8d5;
+    --quote-background: lightgrey;
+    --quote-background-border: #ccc;
+    --quote-background-border-highlighted: #bbb;
+    --link: #484848;
+    --text-color: black;
+    --highlight-text: #fff;
+    --subtle-text: darkgrey;
+    --page-background: white;
+    --window-background: white;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --highlight: #4C5669;
+    --quote-background: #222;
+    --quote-background-border: #333;
+    --quote-background-border-highlighted: #444;
+    --link: #ccc;
+    --text-color: white;
+    --highlight-text: #fff;
+    --subtle-text: grey;
+    --page-background: #111;
+    --window-background: #111;
+  }
+}
 html {
   font-size: 16px;
   line-height: 1.5;
@@ -108,8 +96,9 @@ main {
   body {
     max-width: 100%;
   }
-
   main {
     max-width: 100%;
   }
 }
+
+/*# sourceMappingURL=global.css.map */

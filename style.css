@@ -1,3 +1,4 @@
+@charset "UTF-8";
 article {
   background: var(--window-background);
   padding: 0.5rem 1rem;
@@ -16,21 +17,21 @@ article {
 }
 
 blockquote.article-quote {
-    margin: 0;
+  margin: 0;
 }
 
 blockquote.article-quote p {
-    padding: 15px;
-    background: var(--quote-background);
-    border-radius: 5px;
+  padding: 15px;
+  background: var(--quote-background);
+  border-radius: 3px;
 }
 
 blockquote.article-quote p::before {
-    content: '\201C';
+  content: "“";
 }
 
 blockquote.article-quote p::after {
-    content: '\201D';
+  content: "”";
 }
 
 .file-hash-tr {
@@ -87,29 +88,24 @@ blockquote.article-quote p::after {
     padding-left: 0;
     padding-top: 0;
   }
-
   .url-cage {
     margin-top: 1rem;
     padding: 0.75rem;
   }
-
-  .git-hist-table, .link-info-table, .folder-index-page-table, a.now-playing, .checkbox-menu,  {
+  .git-hist-table, .link-info-table, .folder-index-page-table, a.now-playing, .checkbox-menu {
     margin-left: 2rem;
     margin-right: 2rem;
     padding-top: 0;
     padding-left: 0;
   }
-
   .wikipage {
     margin: 0 1rem;
     padding: 0 1rem;
   }
-
   .file-hash-tr {
     display: none;
   }
 }
-
 .article-rhs-container {
   position: relative;
 }
@@ -126,15 +122,13 @@ blockquote.article-quote p::after {
 }
 
 .month-calendar {
-  font-family: 'Noto Sans Mono', monospace;
+  font-family: "Noto Sans Mono", monospace;
   margin-top: 0;
 }
 
 /* .month-calendar > tr > th { */
 /*   font-weight: normal; */
 /* } */
-
-
 .calendar-day {
   text-align: right;
   color: var(--link);
@@ -149,3 +143,5 @@ blockquote.article-quote p::after {
   border-left: 2px solid var(--highlight);
   border-right: 2px solid var(--highlight);
 }
+
+/*# sourceMappingURL=style.css.map */

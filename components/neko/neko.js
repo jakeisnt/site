@@ -5,14 +5,13 @@
 
 const neko = () => {
   function createNekoImage() {
-    var img = document.createElement('img');
-
-    img.setAttribute("src", currentAnimation[0]);
-    img.setAttribute("width", "32px");
-    img.setAttribute("height", "32px");
-    img.setAttribute("alt", "🐱");
-
-    return img;
+    return create('img', {
+      src: currentAnimation[0],
+      width: '32px',
+      height: '32px',
+      alt: '🐱',
+      id: 'neko'
+    });
   }
 
   function timestamp() {

@@ -1,47 +1,23 @@
 /* -- LastFM live music -- */
 .lastfm-now-playing-box {
-  display: flex;
-  flex-direction: column;
+  border: 1px solid var(--quote-background-border);
+  border-radius: 2px;
   align-items: center;
-  margin-left: 1rem;
-  max-width: 20em;
 }
 
-a.now-playing {
-  padding: 0.5rem 1em;
-  margin: 1em;
+.now-playing {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 8px;
 }
 
-a.now-playing:hover, a.now-playing.focus {
-  border-radius: 10px;
-  box-shadow: 0 0 0 2px var(--highlight);
-  transition: border-radius 1s ease-in-out;
+.np-image {
+  margin-right: -24px;
 }
 
-.now-playing img {
-  opacity: 0;
-  width: 16em;
-  height: 16em;
-  height: auto;
+.metadata-table {
+  font-size: 13px;
 }
 
-.now-playing.loaded img {
-  opacity: 1;
-  margin-top: 5px;
-}
-
-.np-metadata {
-  text-align: center;
-  max-width: 20rem;
-  text-align: center;
-  padding-top: 0.125rem;
-}
-
-.now-playing .np-metadata .np-heading {
-  letter-spacing: 0.11em;
-}
-
-.now-playing .np-metadata .np-roon {
-  width: 10px;
-  opacity: 0.5;
-}
+/*# sourceMappingURL=lastfm.css.map */
