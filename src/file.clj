@@ -7,8 +7,8 @@
    [clojure.edn :as edn]
    [command :as cmd]))
 
-(defn list
-  "Get all the files in a directory"
+(defn tree
+  "Get all the files in a directory as a tree"
   [dir]
   (let [directory (clojure.java.io/file dir)]
     ;; file-seq consistently includes the dir itself as the first argument

@@ -61,13 +61,13 @@
 
 ;; compile all of the files in a given directory recursively
 (defn compile-directory [from-dir to-dir]
-  (println (file/list from-dir))
-  (doseq [file (file/list from-dir)]
+  (println "=== Compiling directory ===" from-dir)
+  (doseq [file (file/tree from-dir)]
     (println "Compiling file " (file/path file))
     (let [from-file (file/path file)
           to-file (path/source->target from-file from-dir to-dir)]
       (if (file/directory? from-file)
-        (compile-directory from-file to-file)
+        (println "File is a directory. Ignoring " from-file)
         (compile-file from-file to-file)))))
 
 (defn compile-directory-v2
@@ -92,7 +92,7 @@
         files-to-show (:show-only config)
         files (if files-to-show
                 (path/complete files-to-show source-path)
-                (file/list source-path))
+                (file/tree source-path))
         sorted-files (sort-files-by-key files sort-by)]
     (println "Writing path:" path)
     (compile-directory-v2
