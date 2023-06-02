@@ -66,7 +66,6 @@
                 (file/list source-path))
         sorted-files (sort-files-by-key files sort-by)]
     (println "Writing path:" path)
-    (println files)
     (make-dir
      source-path
      target-path
