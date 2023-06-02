@@ -23,6 +23,7 @@
     (git/status repo)
 
     (println "moving tmp dir contents to root")
+
     (file/copy-dir tmp-dir deployment-dir repo)
     (file/copy-dir (str deployment-dir "/*") "." repo)
     (git/status repo)
@@ -50,7 +51,10 @@
     (git/stash-pop repo)))
 
 (defn -main [_]
-  (main/-main nil)
-  (commit-folder-to {:repo const/current-repo
-                     :branch const/deployment-branch
-                     :deployment-dir const/target-dir}))
+  (let [current-repo "/home/jake/site"
+        deployment-branch const/deployment-branch
+        target-dir const/target-dir]
+    (main/-main nil)
+    (commit-folder-to {:repo current-repo
+                       :branch deployment-branch
+                       :deployment-dir target-dir})))
