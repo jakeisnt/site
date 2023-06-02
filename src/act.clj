@@ -145,11 +145,11 @@ STRING=#'[^()\n]+'
        (html/script "/filetype/act/act.js")]]]]])
 
 (defn ->file [source-path target-path]
-  (->
-   source-path
-   file/read
-   parse-script
-   ->ast
-   (->html target-path)
-   html/->string
-   (file/write target-path)))
+  (let [contents
+        (-> source-path
+            file/read
+            parse-script
+            ->ast
+            (->html target-path))]
+    (file/write (html/->string contents) target-path)
+    contents))

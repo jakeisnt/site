@@ -73,9 +73,6 @@
 (defn copy-dir [from to dir]
   (cmd/exec (str "cp -r " from " " to) dir))
 
-(defn compile-scss [from to]
-  (cmd/exec (str "sass " from " " to), const/current-repo))
-
 (defn copy [from to]
   (copy-dir from to const/current-repo))
 

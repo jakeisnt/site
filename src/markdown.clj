@@ -33,28 +33,28 @@
 (defn render-article [md-article source-path target-path file files file-list-idx]
   (let [page-name (get-page-name md-article target-path)
         has-title (has-title? md-article)]
-    (html/->string
-     [:html
-      (html/head target-path page-name)
-      [:body
-       (components/sidebar target-path page-name)
-       [:div.site-body
-        [:main
-         [:article.wikipage
-          (if (not has-title) [:h1.title-top page-name] nil)
-          md-article]]
-        [:div.article-rhs-container
-         [:div.article-rhs
-          (components/page-map md-article target-path)
-          (components/git-history-table source-path)
-          (components/prev-next-up-buttons file files file-list-idx)]]]]])))
+    [:html
+     (html/head target-path page-name)
+     [:body
+      (components/sidebar target-path page-name)
+      [:div.site-body
+       [:main
+        [:article.wikipage
+         (if (not has-title) [:h1.title-top page-name] nil)
+         md-article]]
+       [:div.article-rhs-container
+        [:div.article-rhs
+         (components/page-map md-article target-path)
+         (components/git-history-table source-path)
+         (components/prev-next-up-buttons file files file-list-idx)]]]]]))
 
 (defn ->file
   "Transform a file from source to target."
   [source-path target-path file files file-list-idx]
-  (->
-   source-path
-   file/read
-   parse
-   (render-article source-path target-path file files file-list-idx)
-   (file/write target-path)))
+  (let [contents
+        (-> source-path
+            file/read
+            parse
+            (render-article source-path target-path file files file-list-idx))]
+    (file/write (html/->string contents) target-path)
+    contents))

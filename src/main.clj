@@ -1,5 +1,5 @@
 (ns main
-  (:require file markdown const path act home index git
+  (:require scss file markdown const path act home index git
             [clojure.core.match :refer [match]]
             [clojure.string :refer [trim-newline]]))
 
@@ -33,22 +33,27 @@
 (defn record-last-timestamp [source-dir]
   (file/write (git/last-timestamp source-dir) const/last-modified-file))
 
-(defn make-dir-file [source-dir target-dir file files file-list-idx force-rebuild]
+(defn make-dir-file
+  "Compile a file, returning its file config with file metadata added"
+  [source-dir target-dir file files file-list-idx force-rebuild]
   (let [source-path (:file file)]
     (when (file-is-new source-dir source-path force-rebuild)
       (println "Rebuilding updated file " (str source-path))
       (let [target-path (path/source->target source-path source-dir target-dir)]
-        (match (file/extension source-path)
-          "scss" (file/compile-scss source-path (path/swapext target-path "css"))
-          "md"   (markdown/->file
-                  source-path
-                  (path/swapext target-path "html")
-                  file
-                  files
-                  file-list-idx)
-          "act"  (act/->file source-path (path/swapext target-path "html"))
-          true   (file/copy source-path target-path))))))
+        (assoc file
+               :contents
+               (match (file/extension source-path)
+                 "scss" (scss/->file source-path (path/swapext target-path "css"))
+                 "md"   (markdown/->file
+                         source-path
+                         (path/swapext target-path "html")
+                         file
+                         files
+                         file-list-idx)
+                 "act"  (act/->file source-path (path/swapext target-path "html"))
+                 true   (file/copy source-path target-path)))))))
 
+;;;  TODO: merge with 'make-dir-file'
 ;; move the file from the 'to' path to the 'from' path,
 ;; applying any transformations we might want
 ;; note that the 'to' path file extension can be changed by this function
@@ -56,9 +61,10 @@
 (defn compile-file [from-file to-file]
   (let [extension (file/extension from-file)]
     (if (= extension "scss")
-      (file/compile-scss from-file (path/replace-extension to-file "css"))
+      (scss/->file from-file (path/swapext to-file "css"))
       (file/copy from-file to-file))))
 
+;; TODO: merge with 'compile-directory-v2'
 ;; compile all of the files in a given directory recursively
 (defn compile-directory [from-dir to-dir]
   (println "=== Compiling directory ===" from-dir)
@@ -75,10 +81,13 @@
   [source-dir target-dir files force-rebuild]
   (file/make-directory target-dir)
   (when (file-is-new source-dir source-dir force-rebuild)
-    (doseq [[file-list-idx file] (map-indexed vector files)]
-      (make-dir-file source-dir target-dir file files file-list-idx force-rebuild))
-
-    (index/->file source-dir target-dir files)))
+    (let [files
+          (for [[file-list-idx file] (map-indexed vector files)]
+            (make-dir-file source-dir target-dir file files file-list-idx force-rebuild))]
+      ;; TODO: should return a 'directory' object with the html of the index page and the directory
+      ;; because we iterate through a tree of files, this isn't a simple map.
+      (index/->file source-dir target-dir files)
+      files)))
 
 (defn compile-home-page []
   (println "Writing home page")

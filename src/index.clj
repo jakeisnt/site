@@ -3,8 +3,7 @@
 
 (defn html [source-path target-path files]
   (let [title (file/name source-path)]
-    (html/->string
-     [:html
+    ([:html
       (html/head target-path title)
       [:body
        (components/sidebar target-path title)
@@ -21,5 +20,6 @@
          (components/component "scroll-up")]]]])))
 
 (defn ->file [source-path target-path key]
-  (-> (html source-path target-path key)
-      (file/write (str target-path "/index.html"))))
+  (let [contents (html source-path target-path key)]
+    (file/write (html/->string contents) (str target-path "/index.html"))
+    contents))
