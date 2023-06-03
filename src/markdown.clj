@@ -45,9 +45,9 @@
          md-article]]
        [:div.article-rhs-container
         [:div.article-rhs
-         (components/page-map md-article target-path)
-         (components/component "git-history-table" file files file-list-idx)
-         (components/component "prev-next-up-buttons" file files file-list-idx)]]]]]))
+         (components/component "page-map" file files file-list-idx md-article)
+         (components/component "git-history-table" file files file-list-idx md-article)
+         (components/component "prev-next-up-buttons" file files file-list-idx md-article)]]]]]))
 
 (defn ->file
   "Transform a file from source to target."

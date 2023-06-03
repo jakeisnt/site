@@ -25,6 +25,6 @@
        [:td "Up"]
        [:td [:a.up-button {:href up-link} (file/title up-link)]]]]]))
 
-(defn main [file files file-list-idx]
+(defn main [file files file-list-idx _]
   {:depends-on []
    :body (prev-next-up-buttons file files file-list-idx)})

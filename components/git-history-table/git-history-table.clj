@@ -19,6 +19,6 @@
           [:td.commit-date-tr (:commit-date commit)]
           [:td.commit-link-tr [:a {:href (history-link commit)} (:short-hash commit)]]])]]]))
 
-(defn main [file _ __]
+(defn main [file _ __ ___]
   {:depends-on []
    :body  (git-history-table file)})
