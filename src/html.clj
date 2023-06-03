@@ -62,12 +62,12 @@
 
    [:link {:rel "manifest" :href "/manifest.json"}]
 
-   (css "/style.css")
-   (css "/global.css")
-   (script "/lib.js")
+   (css "/resources/style.css")
+   (css "/resources/global.css")
+   (script "/resources/lib.js")
 
-   (css "/elements.css")
-   (defer-script "/elements.js")
+   (css "/resources/elements.css")
+   (defer-script "/resources/elements.js")
 
    ;; TODO: move to code block enhancements
    (defer-script "https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js")

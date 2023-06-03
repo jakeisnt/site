@@ -55,7 +55,7 @@
                (info file source-dir target-dir))
         source-path (:source-path file)]
     (when (file-is-new source-dir source-path force-rebuild)
-      (println "Rebuilding updated file " (str source-path))
+      (println "  Compiling: " (str source-path))
       (let [target-path (path/source->target source-path source-dir target-dir)
             target-extension (get-target-extension source-path)]
         (assoc file
@@ -89,6 +89,7 @@
   (file/write (home/html) (str target-dir "/index.html")))
 
 (defn compile-wiki-path [config force-rebuild source-dir target-dir]
+
   (let [path (:folder config)
         source-path (str source-dir "/" path)
         target-path (str target-dir "/" path)
@@ -101,7 +102,7 @@
         sorted-files (if sort-by
                        (sort-files-by-key files sort-by)
                        files)]
-    (println "Writing path:" path)
+    (println "Compiling files from '" source-path "' to '" target-path "'")
     (compile-directory
      source-path
      target-path
@@ -115,8 +116,8 @@
         target-dir "/home/jake/site/docs"]
 
     (doseq [source (:sources const/website)]
-      (doall (for [path (:paths source)]
-               (compile-wiki-path path force-rebuild (:dir source) target-dir))))
+      (doseq [path-config (:paths source)]
+        (compile-wiki-path path-config force-rebuild (:dir source) target-dir)))
 
     (compile-home-page target-dir)
     (record-last-timestamp target-dir)))

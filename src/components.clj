@@ -13,9 +13,8 @@
 
 ;; imports a component and its dependencies where called
 (defn component [component-name file files file-list-idx]
-  (let [cfg-ns (load-file (str "/home/jake/site/components/" component-name "/" component-name ".clj"))
-        x (println cfg-ns)
-        cfg (cfg-ns file files file-list-idx)
+  (let [component-function (load-file (str "/home/jake/site/components/" component-name "/" component-name ".clj"))
+        cfg (component-function file files file-list-idx)
         deps (:depends-on cfg)
         body (:body cfg)]
     [:span body (make-deps deps)]))
