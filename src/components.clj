@@ -13,7 +13,7 @@
 
 ;; imports a component and its dependencies where called
 (defn component [component-name]
-  (let [cfg (file/load-edn (str "/home/jake/site/components/" component-name "/" component-name ".edn"))
+  (let [cfg (load-file (str "/home/jake/site/components/" component-name "/" component-name ".clj"))
         deps (:depends-on cfg)
         body (:body cfg)]
     [:span body (make-deps deps)]))
@@ -106,23 +106,3 @@
 (defn snowflake-tool []
   [:iframe {:src "https://snowflake.torproject.org/embed.html" :width 320 :height 240 :frameborder 0 :scrolling "no"}])
 
-(defn prev-next-up-buttons  [file files file-list-idx]
-  (let [prev-file (and (> file-list-idx 0)
-                       (nth files (dec file-list-idx)))
-        next-file (and (< file-list-idx (dec (count files)))
-                       (nth files (inc file-list-idx)))
-        up-link (path/folder (:link file))]
-    [:div.prev-next-up-buttons-container
-     "Navigation"
-     [:table.prev-next-up-buttons
-      (when prev-file
-        [:tr
-         [:td "Previous"]
-         [:td [:a.prev-button {:href (:link prev-file)}  (:name prev-file)]]])
-      (when next-file
-        [:tr
-         [:td "Next"]
-         [:td [:a.next-button {:href (:link next-file)}  (:name next-file)]]])
-      [:tr
-       [:td "Up"]
-       [:td [:a.up-button {:href up-link} (file/title up-link)]]]]]))
