@@ -12,8 +12,10 @@
       "scss" (html/css (path/replace-extension (:src dep) "css")))))
 
 ;; imports a component and its dependencies where called
-(defn component [component-name]
-  (let [cfg (load-file (str "/home/jake/site/components/" component-name "/" component-name ".clj"))
+(defn component [component-name file files file-list-idx]
+  (let [cfg-ns (load-file (str "/home/jake/site/components/" component-name "/" component-name ".clj"))
+        x (println cfg-ns)
+        cfg (cfg-ns file files file-list-idx)
         deps (:depends-on cfg)
         body (:body cfg)]
     [:span body (make-deps deps)]))
@@ -65,7 +67,7 @@
       [:a {:href "https://isnt.online"} " ~ "]
       (collect-folder-paths path-list title)
       (html/css "/components/sidebar/sidebar.css")]
-     (component "toggle-dark-mode")]))
+     (component "toggle-dark-mode" nil nil nil)]))
 
 ;; git history table
 (defn git-history-table
@@ -105,4 +107,3 @@
 ;; tor snowflake - let others proxy
 (defn snowflake-tool []
   [:iframe {:src "https://snowflake.torproject.org/embed.html" :width 320 :height 240 :frameborder 0 :scrolling "no"}])
-

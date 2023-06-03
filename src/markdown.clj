@@ -1,6 +1,7 @@
 (ns markdown
   (:require
    file
+   path
    html
    git
    components
@@ -46,7 +47,9 @@
         [:div.article-rhs
          (components/page-map md-article target-path)
          (components/git-history-table source-path (:from-dir file))
-         (components/prev-next-up-buttons file files file-list-idx)]]]]]))
+         (components/component "prev-next-up-buttons" file files file-list-idx)
+         ;; (components/prev-next-up-buttons file files file-list-idx)
+         ]]]]]))
 
 (defn ->file
   "Transform a file from source to target."

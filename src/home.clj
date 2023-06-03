@@ -21,7 +21,7 @@
          ", take " [:a.external {:href "https://instagram.com/jakeisnt"} "photos"]
          ", and design simple hardware and software tools."]]
 
-       (components/component "lastfm")]]]]})
+       (components/component "lastfm" '() nil nil)]]]]})
 
 (defn html []
   (html/->string (:body (home))))

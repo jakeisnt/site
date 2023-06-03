@@ -17,7 +17,7 @@
              [:td.file-name-tr [:a {:href (:link file)} (:name file)]]
              [:td.file-type-tr (file/extension (:file file))]
              [:td.file-date-tr (:commit-date (:last-log file))]])]]
-        (components/component "scroll-up")]]]]))
+        (components/component "scroll-up" files nil nil)]]]]))
 
 (defn ->file [source-path target-path key]
   (let [contents (html source-path target-path key)]

@@ -1,5 +1,4 @@
-(ns prev-next-up-buttons
-  (:require path file))
+;; (:require path file)
 
 ;; a component is a clojure file with a main function.
 ;; the function accepts some 'statically known' information as arguments,
