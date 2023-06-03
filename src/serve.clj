@@ -19,7 +19,7 @@
   (mime/ext-mime-type file-path))
 
 (def html-end-tag "</html>")
-(def dev-script "<script type=\"text/javascript\" src=\"/dev-server.js\" id=\"/dev-server.js\"></script>")
+(def dev-script "<script type=\"text/javascript\" src=\"/resources/dev-server.js\" id=\"/resources/dev-server.js\"></script>")
 
 (defn inject-hot-reload [site]
   (str/replace-first site html-end-tag (str dev-script html-end-tag)))
