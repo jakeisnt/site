@@ -21,13 +21,14 @@
 ;; ASSUMES file is in relative path to wiki repo
 (defn last-log [file source-dir]
   (let [file (str file)
-        res (cmd/exec (str "git log -1 --full-history --pretty=\"format:%h %H %ad\" --date default --date=format:'%Y-%m-%d' " (str file)) source-dir)]
+        res (cmd/exec (str "git log -1 --full-history --pretty=\"format:%h %H %ad %ct\" --date default --date=format:'%Y-%m-%d' " (str file)) source-dir)]
     (if res
       (let [line (first (str/split res #"\R"))
-            [short-hash long-hash commit-date] (str/split line #" ")]
+            [short-hash long-hash commit-date timestamp] (str/split line #" ")]
         {:short-hash short-hash
          :long-hash long-hash
          :commit-date commit-date
+         :timestamp (Integer/parseInt timestamp)
          :file-path file})
       (throw (Throwable. (str "git log command failed on path " file))))))
 

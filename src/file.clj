@@ -7,12 +7,19 @@
    [clojure.edn :as edn]
    [command :as cmd]))
 
+(defn path
+  "get the path to a file"
+  [file]
+  (if (= (type file) java.lang.String)
+    file
+    (str (.getPath file))))
+
 (defn tree
   "Get all the files in a directory as a tree"
   [dir]
   (let [directory (clojure.java.io/file dir)]
     ;; file-seq consistently includes the dir itself as the first argument
-    (rest (file-seq directory))))
+    (map path (rest (file-seq directory)))))
 
 (defn read [path]
   (slurp path))
@@ -25,13 +32,6 @@
 
 (defn write [content path]
   (spit path content :append false))
-
-(defn path
-  "get the path to a file"
-  [file]
-  (if (= (type file) java.lang.String)
-    file
-    (str (.getPath file))))
 
 (defn title
   "Retrieve the file name, with extension included, from a path"

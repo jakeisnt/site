@@ -1,5 +1,5 @@
 (ns deploy
-  (:require file markdown const path act home index git
+  (:require file const path home index git
             [main]))
 
 (defn commit-folder-to [v]

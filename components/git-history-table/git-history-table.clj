@@ -1,7 +1,7 @@
 (defn git-history-table
   "Renders the git history for a file given its path."
   [file]
-  (let [git-log (git/log (file/path (:source-path file)) (:from-dir file))
+  (let [git-log (git/log (:source-path file) (:from-dir file))
         history-link (fn [commit] (git/history-link
                                    (:long-hash commit)
                                    (path/remove-prefix

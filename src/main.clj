@@ -21,7 +21,7 @@
       "act" "html"
       :else extension)))
 
-(defn info [file source-dir target-dir]
+(defn get-file-info [file source-dir target-dir]
   (let [file-path (file/path file)
         last-log (git/last-log file-path source-dir)]
     {:file file
@@ -30,19 +30,20 @@
      :source-path file-path
      :target-path (path/source->target file-path source-dir target-dir)
      :link (path/swapext (path/remove-prefix file source-dir) "html")
-     :last-log last-log :name (file/name file)}))
+     :last-log last-log
+     :name (file/name file)}))
 
 ;; get info for files
 (defn fill-info [files source-dir target-dir]
-  (map (fn [file] (info file source-dir target-dir)) files))
+  (map (fn [file] (get-file-info file source-dir target-dir)) files))
 
 ;; assumes we have file info
 (defn sort-files-by-key [files key]
   (reverse (sort-by key files)))
 
-(defn file-is-new [source-dir source-path force-rebuild]
+(defn file-is-new [file force-rebuild]
   (or force-rebuild
-      (> (git/last-timestamp source-dir source-path) last-commit-timestamp)))
+      (> (:timestamp (:last-log file)) last-commit-timestamp)))
 
 (defn record-last-timestamp [source-dir]
   (file/write (git/last-timestamp source-dir) const/last-modified-file))
@@ -53,10 +54,11 @@
 
   (let [file (if (:has-info file)
                file
-               (info file source-dir target-dir))
+               (get-file-info file source-dir target-dir))
         source-path (:source-path file)]
-    (when (file-is-new source-dir source-path force-rebuild)
-      (println "  Compiling: " (str source-path))
+    (println "file is!" file)
+    (when (file-is-new file force-rebuild)
+      (println "  Compiling: " source-path)
       (let [target-path (path/source->target source-path source-dir target-dir)
             target-extension (get-target-extension source-path)]
         (assoc file
@@ -79,21 +81,21 @@
   "Make a directory listing page"
   [source-dir target-dir files force-rebuild]
   (file/make-directory target-dir)
-  (when (file-is-new source-dir source-dir force-rebuild)
-    (let [files
-          (for [[file-list-idx file] (map-indexed vector files)]
-            (compile-file source-dir target-dir file files file-list-idx force-rebuild))]
-      ;; TODO: should return a 'directory' object with the html of the index page and the directory
-      ;; because we iterate through a tree of files, this isn't a simple map.
-      (index/->file source-dir target-dir files)
-      files)))
+  (let [file-info (get-file-info source-dir source-dir target-dir)]
+    (when (file-is-new file-info force-rebuild)
+      (let [files
+            (for [[file-list-idx file] (map-indexed vector files)]
+              (compile-file source-dir target-dir file files file-list-idx force-rebuild))]
+        ;; TODO: should return a 'directory' object with the html of the index page and the directory
+        ;; because we iterate through a tree of files, this isn't a simple map.
+        (index/->file source-dir target-dir files)
+        files))))
 
 (defn compile-home-page [target-dir]
   (println "Writing home page")
   (file/write (home/html) (str target-dir "/index.html")))
 
 (defn compile-wiki-path [config force-rebuild source-dir target-dir]
-
   (let [path (:folder config)
         source-path (str source-dir "/" path)
         target-path (str target-dir "/" path)

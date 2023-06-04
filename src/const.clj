@@ -6,14 +6,11 @@
 (def deployment-branch "production")
 
 (def wiki-paths [{:folder "pages"
-                  :sort-by (fn [v] (:commit-date (:last-log v)))
-                  :show-only ["c.md"]}
+                  :sort-by (fn [v] (:commit-date (:last-log v)))}
                  {:folder "scripts"
-                  :sort-by (fn [v] (:commit-date (:last-log v)))
-                  :show-only []}
+                  :sort-by (fn [v] (:commit-date (:last-log v)))}
                  {:folder "journals"
-                  :sort-by :name
-                  :show-only []}])
+                  :sort-by :name}])
 
 (def site-paths [{:folder "resources"}
                  {:folder "components"}])
