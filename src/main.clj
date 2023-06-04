@@ -1,7 +1,5 @@
 (ns main
-  (:require filetype.scss file filetype.markdown filetype.act
-            const path home index git
-            [clojure.core.match :refer [match]]
+  (:require filetype.main file const path home index git
             [clojure.string :refer [trim-newline]]))
 
 ;; the commit on which the file was last built
@@ -13,33 +11,11 @@
 
 (println "Last build was at " last-commit-timestamp)
 
-(defn get-target-extension [file-path]
-  (let [extension (file/extension file-path)]
-    (match extension
-      "scss" "css"
-      "md" "html"
-      "act" "html"
-      :else extension)))
-
-(defn get-file-info [file source-dir target-dir]
-  (let [file-path (file/path file)
-        last-log (git/last-log file-path source-dir)]
-    {:file file
-     :has-info true
-     :from-dir source-dir
-     :source-path file-path
-     :target-path (path/source->target file-path source-dir target-dir)
-     :link (path/swapext (path/remove-prefix file source-dir) "html")
-     :last-log last-log
-     :name (file/name file)}))
-
-;; get info for files
-(defn fill-info [files source-dir target-dir]
-  (map (fn [file] (get-file-info file source-dir target-dir)) files))
-
 ;; assumes we have file info
 (defn sort-files-by-key [files key]
-  (reverse (sort-by key files)))
+  (if (not key)
+    files
+    (reverse (sort-by key files))))
 
 (defn file-is-new [file force-rebuild]
   (or force-rebuild
@@ -49,72 +25,49 @@
   (file/write (git/last-timestamp source-dir) const/last-modified-file))
 
 (defn compile-file
-  "Compile a file, returning its file config with file metadata added"
+  "Compile a file to an AST, adding the contents as metadata"
   [source-dir target-dir file files file-list-idx force-rebuild]
-  (let [file (if (:has-info file)
-               file
-               (get-file-info file source-dir target-dir))
-        source-path (:source-path file)]
+  (let [file (if (:has-info file) file (filetype.main/info file source-dir target-dir))]
     (when (file-is-new file force-rebuild)
-      (println "  Compiling: " source-path)
-      (let [target-path (path/source->target source-path source-dir target-dir)
-            target-extension (get-target-extension source-path)]
-        (assoc file
-               :contents
-               (match (file/extension source-path)
-                 "scss" (filetype.scss/->file file source-path (path/swapext target-path target-extension))
-                 "md"   (filetype.markdown/->file
-                         source-path
-                         (path/swapext target-path target-extension)
-                         file
-                         files
-                         file-list-idx)
-                 "act"  (filetype.act/->file (path/swapext target-path target-extension)
-                                             file
-                                             files
-                                             file-list-idx)
-                 :else   (file/copy source-path target-path (:from-dir file))))))))
+      (println "  Compiling: " (:source-path file))
+      (filetype.main/->html file files file-list-idx))))
 
 (defn compile-directory
-  "Make a directory listing page"
+  "Compile a directory to ASTs that can be written to disk"
   [source-dir target-dir files force-rebuild]
   (file/make-directory target-dir)
-  (let [file-info (get-file-info source-dir source-dir target-dir)]
-    (when (file-is-new file-info force-rebuild)
+  (let [dir-info (filetype.main/info source-dir source-dir target-dir)]
+    (if (file-is-new dir-info force-rebuild)
       (let [files
             (for [[file-list-idx file] (map-indexed vector files)]
               (compile-file source-dir target-dir file files file-list-idx force-rebuild))]
-        ;; TODO: should return a 'directory' object with the html of the index page and the directory
-        ;; because we iterate through a tree of files, this isn't a simple map.
-        (index/->file source-dir target-dir files)
-        files))))
+        (assoc
+         dir-info
+         :children files
+         :contents (index/->file source-dir target-dir files)))
+      dir-info)))
+
+(defn compile-wiki-path
+  "Compile all of the files at a wiki path to ASTs to write to disk"
+  [config force-rebuild source-dir target-dir]
+  (let [path (:folder config)
+        source-path (str source-dir "/" path)
+        target-path (str target-dir "/" path)
+        files-to-show (if (:files-to-show config)
+                        (path/complete (:files-to-show config)  source-path)
+                        (file/tree source-path))
+        files (map
+               (fn [file] (filetype.main/info file source-dir target-dir))
+               files-to-show)
+        sorted-files (sort-files-by-key files (:sort-by config))]
+
+    (println "Compiling files from '" source-path "' to '" target-path "'")
+    (compile-directory source-path target-path sorted-files force-rebuild)))
 
 (defn compile-home-page [target-dir]
   (println "Writing home page")
   (file/write (home/html) (str target-dir "/index.html")))
 
-(defn compile-wiki-path [config force-rebuild source-dir target-dir]
-  (let [path (:folder config)
-        source-path (str source-dir "/" path)
-        target-path (str target-dir "/" path)
-        sort-by (:sort-by config)
-        files-to-show (:show-only config)
-        files (fill-info (if files-to-show
-                           (path/complete files-to-show source-path)
-                           (file/tree source-path))
-                         source-dir target-dir)
-        sorted-files (if sort-by
-                       (sort-files-by-key files sort-by)
-                       files)]
-    (println "Compiling files from '" source-path "' to '" target-path "'")
-    (compile-directory
-     source-path
-     target-path
-     sorted-files
-     force-rebuild)))
-
-;; TODO: should these `for` forms write files to disk at all?
-;; maybe that should be done at the end?
 (defn -main [& args]
   (let [force-rebuild false ;; (some #(= % "all") args)
         target-dir "/home/jake/site/docs"]

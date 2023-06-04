@@ -51,11 +51,11 @@
 
 (defn ->file
   "Transform a file from source to target."
-  [source-path target-path file files file-list-idx]
+  [file files file-list-idx]
   (let [contents
-        (-> source-path
+        (-> (:source-path file)
             file/read
             parse
             (render-article file files file-list-idx))]
-    (file/write (html/->string contents) target-path)
+    (file/write (html/->string contents) (:target-path file))
     contents))

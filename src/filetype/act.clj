@@ -144,12 +144,12 @@ STRING=#'[^()\n]+'
           (line->html line script))]
        (html/script "/filetype/act/act.js")]]]]])
 
-(defn ->file [target-path file files file-list-idx]
+(defn ->file [file files file-list-idx]
   (let [contents
         (-> (:source-path file)
             file/read
             parse-script
             ->ast
-            (->html target-path file files file-list-idx))]
-    (file/write (html/->string contents) target-path)
+            (->html (:target-path file) file files file-list-idx))]
+    (file/write (html/->string contents) (:target-path file))
     contents))
