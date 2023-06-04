@@ -1,5 +1,6 @@
 (ns main
-  (:require scss file markdown const path act home index git
+  (:require filetype.scss file filetype.markdown filetype.act
+            const path home index git
             [clojure.core.match :refer [match]]
             [clojure.string :refer [trim-newline]]))
 
@@ -61,17 +62,17 @@
         (assoc file
                :contents
                (match (file/extension source-path)
-                 "scss" (scss/->file file source-path (path/swapext target-path target-extension))
-                 "md"   (markdown/->file
+                 "scss" (filetype.scss/->file file source-path (path/swapext target-path target-extension))
+                 "md"   (filetype.markdown/->file
                          source-path
                          (path/swapext target-path target-extension)
                          file
                          files
                          file-list-idx)
-                 "act"  (act/->file (path/swapext target-path target-extension)
-                                    file
-                                    files
-                                    file-list-idx)
+                 "act"  (filetype.act/->file (path/swapext target-path target-extension)
+                                             file
+                                             files
+                                             file-list-idx)
                  :else   (file/copy source-path target-path (:from-dir file))))))))
 
 (defn compile-directory

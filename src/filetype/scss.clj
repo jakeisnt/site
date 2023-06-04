@@ -1,4 +1,4 @@
-(ns scss
+(ns filetype.scss
   (:require
    const
    [command :as cmd]))

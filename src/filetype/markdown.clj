@@ -1,4 +1,4 @@
-(ns markdown
+(ns filetype.markdown
   (:require
    file
    path

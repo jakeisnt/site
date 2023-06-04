@@ -1,4 +1,4 @@
-(ns act
+(ns filetype.act
   (:require
    file html components
    [instaparse.core :as insta]
