@@ -8,7 +8,7 @@
    [:html
     (html/head  "/" "Jake Chvatal")
     [:body
-     (components/sidebar const/target-dir "~")
+     (components/component "sidebar" {:target-path "/index.html"} nil nil [[:h1 "~"]])
      [:div.site-body
       [:main
        [:article.wikipage.aboutMe

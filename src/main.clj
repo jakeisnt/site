@@ -68,7 +68,10 @@
                          file
                          files
                          file-list-idx)
-                 "act"  (act/->file source-path (path/swapext target-path target-extension))
+                 "act"  (act/->file (path/swapext target-path target-extension)
+                                    file
+                                    files
+                                    file-list-idx)
                  :else   (file/copy source-path target-path (:from-dir file))))))))
 
 (defn compile-directory

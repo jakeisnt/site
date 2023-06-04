@@ -129,11 +129,11 @@ STRING=#'[^()\n]+'
 
 (defn ->html
   "Convert the script to an HTML document."
-  [script path]
+  [script path file files file-list-idx]
   [:html
    (html/head path (:title script))
    [:body
-    (components/sidebar path (:title script))
+    (components/component "sidebar" file files file-list-idx nil)
     [:div.site-body
      [:main
       [:div.act-container
@@ -144,12 +144,12 @@ STRING=#'[^()\n]+'
           (line->html line script))]
        (html/script "/filetype/act/act.js")]]]]])
 
-(defn ->file [source-path target-path]
+(defn ->file [target-path file files file-list-idx]
   (let [contents
-        (-> source-path
+        (-> (:source-path file)
             file/read
             parse-script
             ->ast
-            (->html target-path))]
+            (->html target-path file files file-list-idx))]
     (file/write (html/->string contents) target-path)
     contents))

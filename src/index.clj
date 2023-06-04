@@ -6,7 +6,7 @@
     [:html
      (html/head target-path title)
      [:body
-      (components/sidebar target-path title)
+      (components/component "sidebar" {:target-path target-path} files nil [[:h1 title]])
       [:div.site-body
        [:main
         [:div.folder-index-page-table
@@ -17,7 +17,7 @@
              [:td.file-name-tr [:a {:href (:link file)} (:name file)]]
              [:td.file-type-tr (file/extension (:file file))]
              [:td.file-date-tr (:commit-date (:last-log file))]])]]
-        (components/component "scroll-up" files nil nil nil)]]]]))
+        (components/component "scroll-up" nil files nil nil)]]]]))
 
 (defn ->file [source-path target-path key]
   (let [contents (html source-path target-path key)]

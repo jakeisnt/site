@@ -31,13 +31,13 @@
           backup))
       backup)))
 
-(defn render-article [md-article source-path target-path file files file-list-idx]
-  (let [page-name (get-page-name md-article target-path)
+(defn render-article [md-article file files file-list-idx]
+  (let [page-name (get-page-name md-article (:target-path file))
         has-title (has-title? md-article)]
     [:html
-     (html/head target-path page-name)
+     (html/head (:target-path file) page-name)
      [:body
-      (components/sidebar target-path page-name)
+      (components/component "sidebar" file files file-list-idx md-article)
       [:div.site-body
        [:main
         [:article.wikipage
@@ -56,6 +56,6 @@
         (-> source-path
             file/read
             parse
-            (render-article source-path target-path file files file-list-idx))]
+            (render-article file files file-list-idx))]
     (file/write (html/->string contents) target-path)
     contents))
