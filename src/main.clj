@@ -51,12 +51,10 @@
 (defn compile-file
   "Compile a file, returning its file config with file metadata added"
   [source-dir target-dir file files file-list-idx force-rebuild]
-
   (let [file (if (:has-info file)
                file
                (get-file-info file source-dir target-dir))
         source-path (:source-path file)]
-    (println "file is!" file)
     (when (file-is-new file force-rebuild)
       (println "  Compiling: " source-path)
       (let [target-path (path/source->target source-path source-dir target-dir)
