@@ -115,7 +115,7 @@
 ;; TODO: should these `for` forms write files to disk at all?
 ;; maybe that should be done at the end?
 (defn -main [& args]
-  (let [force-rebuild true ;; (some #(= % "all") args)
+  (let [force-rebuild false ;; (some #(= % "all") args)
         target-dir "/home/jake/site/docs"]
 
     (doseq [source (:sources const/website)]
