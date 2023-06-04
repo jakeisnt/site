@@ -19,7 +19,9 @@
   (let [file-path (file/path file-obj)
         last-log (git/last-log file-path source-dir)
         target-extension (filetype.main/target-extension file-path)
-        target-path (path/swapext (path/source->target file-path source-dir target-dir) target-extension)]
+        target-path (path/swapext
+                     (path/source->target file-path source-dir target-dir)
+                     target-extension)]
     {:file file-obj
      :has-info true
      :from-dir source-dir
