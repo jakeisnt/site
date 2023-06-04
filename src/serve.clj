@@ -1,6 +1,6 @@
 (ns serve
   (:require
-   const file path main home html clojure.java.io
+   filetype const file path main home html clojure.java.io
    [org.httpkit.server :as http]
    [clojure.java.browse :refer [browse-url]]
    [ring.util.mime-type :as mime]
@@ -21,16 +21,15 @@
 (def html-end-tag "</html>")
 (def dev-script "<script type=\"text/javascript\" src=\"/resources/dev-server.js\" id=\"/resources/dev-server.js\"></script>")
 
-(defn inject-hot-reload [site]
-  (str/replace-first site html-end-tag (str dev-script html-end-tag)))
+(defn inject-hot-reload [html-string]
+  (str/replace-first html-string html-end-tag (str dev-script html-end-tag)))
 
 (defn serve-file [request source-dir target-dir]
   (let [file-path (get-path (:uri request) target-dir)
+        file-obj (filetype/info file-path source-dir target-dir)
         type (content-type file-path)
-        contents (if (= type "image/png")
-                   (file/read-image file-path)
-                   (file/read file-path))]
-    (println "SERVING [" type "]:" (path/remove-prefix file-path target-dir))
+        contents (filetype/->string file-obj)]
+    (println "SERVING [" type "]:" (:link file-obj))
     {:status 200
      :headers {"Content-Type" type}
      :body (if (= type "text/html")
@@ -67,12 +66,10 @@
 
     (watch-dir
      (fn [event]
-       (let [file
-             (path/swapext (path/remove-prefix (:file event) target-dir)
-                           (main/get-target-extension (:file event)))]
-         ;; event is: {:file name :count file-count :action :create|:modify|:delete}
-         (println "CHANGED: " file)
-         (http/send! channel file)))
+       ;; event is: {:file name :count file-count :action :create|:modify|:delete}
+       (let [file-obj (filetype/info (:file event) source-dir target-dir)]
+         (println "CHANGED: " (:link file-obj))
+         (http/send! channel (:link file-obj))))
 
      (clojure.java.io/file target-dir))))
 

@@ -1,6 +1,6 @@
 (ns filetype.main
   (:require
-   filetype.scss filetype.markdown filetype.act file
+   filetype.scss filetype.markdown filetype.act filetype.html filetype.css
    file path git
    [clojure.core.match :refer [match]]))
 
@@ -12,7 +12,10 @@
       "act"  "html"
       :else extension)))
 
-(defn info [file-obj source-dir target-dir]
+(defn info
+  "Provided a source file path, its dir, and a target dir,
+    assemble a map of information about the file."
+  [file-obj source-dir target-dir]
   (let [file-path (file/path file-obj)
         last-log (git/last-log file-path source-dir)
         target-extension (filetype.main/target-extension file-path)
@@ -37,9 +40,19 @@
            "scss" (filetype.scss/->file file-struct)
            "md"   (filetype.markdown/->file file-struct files file-list-idx)
            "act"  (filetype.act/->file file-struct files file-list-idx)
+           "png" (file/read-image (:source-path file-struct))
            :else  (file/copy (:source-path file-struct)
                              (:target-path file-struct)
                              (:from-dir file-struct)))))
+
+(defn ->string
+  "Serialize a file struct to a string"
+  [file-struct]
+  (match (:target-extension file-struct)
+    "html" (filetype.html/->string file-struct)
+    "css"  (filetype.css/->string file-struct)
+    "png"  (file/read-image (:source-path file-struct))
+    :else  (file/read (:source-path file-struct))))
 
 (defn ->disk
   "Write a file to its known target path."
