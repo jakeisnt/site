@@ -1,6 +1,6 @@
 (ns filetype.main
   (:require
-   filetype.scss filetype.markdown filetype.act filetype.html filetype.css
+   filetype.scss filetype.markdown filetype.act filetype.html filetype.css filetype.png filetype.directory
    file path git
    [clojure.core.match :refer [match]]))
 
@@ -27,25 +27,27 @@
      :from-dir source-dir
      :source-path file-path
      :target-path target-path
-     :source-extension (file/extension file-path)
+     :source-extension (or (file/extension file-path) "directory")
      :target-extension target-extension
      :link (path/remove-prefix target-path target-dir)
      :last-log last-log
      :name (file/name file-obj)}))
 
-(defn ->html
-  "Parse a file's contents to an AST, adding :contents to the file struct"
+(defn with-contents
+  "Parse a file's contents to an AST, adding :contents to the file struct.
+   Source files export a function, 'contents', that produces the file's contents
+   as an AST of some target type.
+  "
   [file-struct files file-list-idx]
   (assoc file-struct
          :contents
          (match (:source-extension file-struct)
-           "scss" (filetype.scss/->file file-struct)
-           "md"   (filetype.markdown/->file file-struct files file-list-idx)
-           "act"  (filetype.act/->file file-struct files file-list-idx)
-           "png" (file/read-image (:source-path file-struct))
-           :else  (file/copy (:source-path file-struct)
-                             (:target-path file-struct)
-                             (:from-dir file-struct)))))
+           "directory" (filetype.directory/contents file-struct files file-list-idx)
+           "scss" (filetype.scss/contents file-struct)
+           "md"   (filetype.markdown/contents file-struct files file-list-idx)
+           "act"  (filetype.act/contents file-struct files file-list-idx)
+           "png" (filetype.png/contents (:source-path file-struct))
+           :else (file/read (:source-path file-struct)))))
 
 (defn ->string
   "Serialize a file struct to a string"
@@ -53,10 +55,16 @@
   (match (:target-extension file-struct)
     "html" (filetype.html/->string file-struct)
     "css"  (filetype.css/->string file-struct)
-    "png"  (file/read-image (:source-path file-struct))
-    :else  (file/read (:source-path file-struct))))
+    "png"  (filetype.png/->string file-struct)
+    :else  (:contents file-struct)))
 
 (defn ->disk
   "Write a file to its known target path."
   [file-struct]
-  (file/write (:target-path file-struct) (:contents file-struct)))
+  (match (:target-extension file-struct)
+    "html" (filetype.html/->disk file-struct)
+    "css"  (filetype.css/->disk file-struct)
+    "png"  (filetype.png/->disk file-struct)
+    :else  (file/copy (:source-path file-struct)
+                      (:target-path file-struct)
+                      (:from-dir file-struct))))

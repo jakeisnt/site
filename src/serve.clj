@@ -1,6 +1,6 @@
 (ns serve
   (:require
-   filetype const file path main home html clojure.java.io
+   filetype.main const file path main home html clojure.java.io
    [org.httpkit.server :as http]
    [clojure.java.browse :refer [browse-url]]
    [ring.util.mime-type :as mime]
@@ -26,15 +26,13 @@
 
 (defn serve-file [request source-dir target-dir]
   (let [file-path (get-path (:uri request) target-dir)
-        file-obj (filetype/info file-path source-dir target-dir)
+        file-obj (filetype.main/info file-path source-dir target-dir)
         type (content-type file-path)
-        contents (filetype/->string file-obj)]
+        contents (filetype.main/->string file-obj)]
     (println "SERVING [" type "]:" (:link file-obj))
     {:status 200
      :headers {"Content-Type" type}
-     :body (if (= type "text/html")
-             (inject-hot-reload contents)
-             contents)}))
+     :body contents}))
 
 ;; recompile a file when it's modified
 (defn recompile-on-change [source-dir target-dir]
@@ -67,7 +65,7 @@
     (watch-dir
      (fn [event]
        ;; event is: {:file name :count file-count :action :create|:modify|:delete}
-       (let [file-obj (filetype/info (:file event) source-dir target-dir)]
+       (let [file-obj (filetype.main/info (:file event) source-dir target-dir)]
          (println "CHANGED: " (:link file-obj))
          (http/send! channel (:link file-obj))))
 
@@ -88,10 +86,10 @@
     (http/run-server (fn [req] (handler req source-dir target-dir)) {:port local-port})
     (println "SOCKET STARTED")
 
-    (doseq [path const/site-paths]
-      (recompile-on-change (str source-dir "/" (:folder path)) target-dir))
+    ;; (doseq [path const/site-paths]
+    ;;   (recompile-on-change (str source-dir "/" (:folder path)) target-dir))
 
-    (watch-home target-dir)
+    ;; (watch-home target-dir)
     (browse-url (str "http://localhost:" local-port))))
 
 (comment (-main nil))

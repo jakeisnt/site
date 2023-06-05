@@ -30,7 +30,7 @@
   (let [file (if (:has-info file) file (filetype.main/info file source-dir target-dir))]
     (when (file-is-new file force-rebuild)
       (println "  Compiling: " (:source-path file))
-      (filetype.main/->html file files file-list-idx))))
+      (filetype.main/with-contents file files file-list-idx))))
 
 (defn compile-directory
   "Compile a directory to ASTs that can be written to disk"
@@ -70,11 +70,15 @@
 
 (defn -main [& args]
   (let [force-rebuild false ;; (some #(= % "all") args)
-        target-dir "/home/jake/site/docs"]
-
-    (doseq [source (:sources const/website)]
-      (doseq [path-config (:paths source)]
-        (compile-wiki-path path-config force-rebuild (:dir source) target-dir)))
+        target-dir "/home/jake/site/docs"
+        compiled-site
+        (for [source (:sources const/website)]
+          (for [path-config (:paths source)]
+            (compile-wiki-path path-config force-rebuild (:dir source) target-dir)))]
 
     (compile-home-page target-dir)
+
+    (doseq [source compiled-site]
+      (doseq [folder source]))
+
     (record-last-timestamp target-dir)))

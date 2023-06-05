@@ -1,11 +1,6 @@
 (ns filetype.markdown
-  (:require
-   file
-   path
-   html
-   git
-   components
-   [cybermonday.core :as cm]))
+  (:require file path html git components
+            [cybermonday.core :as cm]))
 
 (defn parse [file-string]
   (:body (cm/parse-md file-string)))
@@ -49,13 +44,7 @@
          (components/component "git-history-table" file files file-list-idx md-article)
          (components/component "prev-next-up-buttons" file files file-list-idx md-article)]]]]]))
 
-(defn ->file
-  "Transform a file from source to target."
-  [file files file-list-idx]
-  (let [contents
-        (-> (:source-path file)
-            file/read
-            parse
-            (render-article file files file-list-idx))]
-    (file/write (html/->string contents) (:target-path file))
-    contents))
+(defn contents [file-obj files file-list-idx]
+  (let [file-string (file/read (:source-path file-obj))
+        md-article (parse file-string)]
+    (render-article md-article file-obj files file-list-idx)))

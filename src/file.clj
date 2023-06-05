@@ -27,6 +27,11 @@
 (defn read-image [path]
   (io/input-stream path))
 
+(defn write-image [in-stream out-path]
+  (with-open
+   [out (io/output-stream out-path)]
+    (io/copy in-stream out)))
+
 (defn make-directory [dir]
   (.mkdir (clojure.java.io/file dir)))
 

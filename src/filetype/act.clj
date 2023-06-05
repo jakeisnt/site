@@ -144,12 +144,17 @@ STRING=#'[^()\n]+'
           (line->html line script))]
        (html/script "/filetype/act/act.js")]]]]])
 
-(defn ->file [file files file-list-idx]
-  (let [contents
-        (-> (:source-path file)
-            file/read
-            parse-script
-            ->ast
-            (->html (:target-path file) file files file-list-idx))]
-    (file/write (html/->string contents) (:target-path file))
-    contents))
+(defn contents
+  "Get the file's contents as an AST"
+  [file-obj files file-list-idx]
+  (-> (:source-path file-obj)
+      file/read
+      parse-script
+      ->ast
+      (->html (:target-path file-obj) file-obj files file-list-idx)))
+
+(defn ->string [file-obj]
+  (html/->string (:contents file-obj)))
+
+(defn ->disk [file-obj]
+  (file/write (->string file-obj) (:target-path file-obj)))

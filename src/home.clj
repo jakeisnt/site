@@ -2,7 +2,7 @@
   (:require const html components))
 
 ;; website home page
-(defn home []
+(defn ->html []
   {:depends-on ["lastfm" "neko"]
    :body
    [:html
@@ -22,6 +22,9 @@
          ", and design simple hardware and software tools."]]
 
        (components/component "lastfm" '() nil nil nil)]]]]})
+
+(defn ->string [file-obj]
+  (html/->string (:body (home))))
 
 (defn html []
   (html/->string (:body (home))))
