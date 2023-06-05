@@ -1,5 +1,5 @@
 (ns home
-  (:require const html components))
+  (:require const file html components))
 
 ;; website home page
 (defn ->html []
@@ -23,8 +23,11 @@
 
        (components/component "lastfm" '() nil nil nil)]]]]})
 
-(defn ->string [file-obj]
-  (html/->string (:body (home))))
+(defn contents []
+  (:body (->html)))
 
-(defn html []
-  (html/->string (:body (home))))
+(defn ->string []
+  (html/->string (contents)))
+
+(defn ->disk [target-path]
+  (file/write (->string) (str target-path "/index.html")))

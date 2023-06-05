@@ -1,6 +1,6 @@
 (ns filetype.main
   (:require
-   filetype.scss filetype.markdown filetype.act filetype.html filetype.css filetype.png filetype.directory
+   filetype.scss filetype.markdown filetype.act filetype.html filetype.css filetype.png
    file path git
    [clojure.core.match :refer [match]]))
 
@@ -42,7 +42,6 @@
   (assoc file-struct
          :contents
          (match (:source-extension file-struct)
-           "directory" (filetype.directory/contents file-struct files file-list-idx)
            "scss" (filetype.scss/contents file-struct)
            "md"   (filetype.markdown/contents file-struct files file-list-idx)
            "act"  (filetype.act/contents file-struct files file-list-idx)
