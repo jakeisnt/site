@@ -26,15 +26,14 @@
 
 (defn compile-file
   "Compile a file to an AST, adding the contents as metadata"
-  [source-dir target-dir file-obj files file-list-idx force-rebuild]
-  (let [file-obj (if (:has-info file-obj) file-obj (filetype.main/info file-obj source-dir target-dir))]
-    (if (file-is-new file-obj force-rebuild)
-      (do
-        (println "  Compiling: " (:source-path file-obj))
-        (filetype.main/with-contents file-obj files file-list-idx))
-      (do
-        (println "  Skipping: " (:source-path file-obj))
-        file-obj))))
+  [file-obj files file-list-idx force-rebuild]
+  (if (file-is-new file-obj force-rebuild)
+    (do
+      (println "  Compiling: " (:source-path file-obj))
+      (filetype.main/with-contents file-obj files file-list-idx))
+    (do
+      (println "  Skipping: " (:source-path file-obj))
+      file-obj)))
 
 (defn compile-directory
   "Compile a directory to ASTs that can be written to disk"
@@ -45,7 +44,7 @@
           (let [files
                 (doall
                  (for [[file-list-idx file] (map-indexed vector files)]
-                   (compile-file source-dir target-dir file files file-list-idx force-rebuild)))]
+                   (compile-file file files file-list-idx force-rebuild)))]
             (filetype.main/with-contents
               (assoc dir-info :type :directory :children files) files nil)))
       dir-info)))
@@ -56,9 +55,11 @@
   (let [path (:folder config)
         source-path (str source-dir "/" path)
         target-path (str target-dir "/" path)
-        files-to-show (if (:files-to-show config)
-                        (path/complete (:files-to-show config)  source-path)
-                        (file/tree source-path))
+        files-to-show (file/tree source-path)
+
+        ;; (if (:files-to-show config)
+        ;;   (path/complete (:files-to-show config)  source-path)
+        ;;   )
         files (map
                (fn [file] (filetype.main/info file source-dir target-dir))
                files-to-show)
