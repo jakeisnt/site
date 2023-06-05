@@ -12,7 +12,8 @@
   [file]
   (if (= (type file) java.lang.String)
     file
-    (str (.getPath file))))
+    (do
+      (str (.getPath file)))))
 
 (defn tree
   "Get all the files in a directory as a tree"

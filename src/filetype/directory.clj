@@ -1,8 +1,5 @@
-(ns directory
+(ns filetype.directory
   (:require html file components))
-
-(ns directory
-  (:require file html const git path components))
 
 (defn html [source-path target-path files]
   (let [title (file/name source-path)]
@@ -22,7 +19,7 @@
              [:td.file-date-tr (:commit-date (:last-log file))]])]]
         (components/component "scroll-up" nil files nil nil)]]]]))
 
-(defn to-html [file-info files _]
+(defn contents [file-info files _]
   (html (:source-path file-info) (:target-path file-info) files))
 
 (defn ->string [file-obj]

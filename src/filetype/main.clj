@@ -1,6 +1,6 @@
 (ns filetype.main
   (:require
-   filetype.scss filetype.markdown filetype.act filetype.html filetype.css filetype.png
+   filetype.directory filetype.scss filetype.markdown filetype.act filetype.html filetype.css filetype.png
    file path git
    [clojure.core.match :refer [match]]))
 
@@ -42,28 +42,37 @@
   (assoc file-struct
          :contents
          (match (:source-extension file-struct)
+           "directory" (filetype.directory/contents file-struct files file-list-idx)
            "scss" (filetype.scss/contents file-struct)
            "md"   (filetype.markdown/contents file-struct files file-list-idx)
            "act"  (filetype.act/contents file-struct files file-list-idx)
-           "png" (filetype.png/contents (:source-path file-struct))
+           "png" (filetype.png/contents file-struct)
            :else (file/read (:source-path file-struct)))))
 
 (defn ->string
   "Serialize a file struct to a string"
   [file-struct]
-  (match (:target-extension file-struct)
-    "html" (filetype.html/->string file-struct)
-    "css"  (filetype.css/->string file-struct)
-    "png"  (filetype.png/->string file-struct)
-    :else  (:contents file-struct)))
+  (if (:contents file-struct)
+    (match (:target-extension file-struct)
+      "directory" (filetype.directory/->string file-struct)
+      "html" (filetype.html/->string file-struct)
+      "css"  (filetype.css/->string file-struct)
+      "png"  (filetype.png/->string file-struct)
+      :else  (:contents file-struct))
+    nil))
 
 (defn ->disk
   "Write a file to its known target path."
   [file-struct]
-  (match (:target-extension file-struct)
-    "html" (filetype.html/->disk file-struct)
-    "css"  (filetype.css/->disk file-struct)
-    "png"  (filetype.png/->disk file-struct)
-    :else  (file/copy (:source-path file-struct)
-                      (:target-path file-struct)
-                      (:from-dir file-struct))))
+  (when (:contents file-struct)
+    (println "Writing [" (target-extension file-struct) "] " (:source-path file-struct) " to disk: " (:target-path file-struct))
+    (match (:target-extension file-struct)
+      "directory" (do (filetype.directory/->disk file-struct)
+                      (for [child (:children file-struct)]
+                        (->disk child)))
+      "html" (filetype.html/->disk file-struct)
+      "css"  (filetype.css/->disk file-struct)
+      "png"  (filetype.png/->disk file-struct)
+      :else  (file/copy (:source-path file-struct)
+                        (:target-path file-struct)
+                        (:from-dir file-struct)))))

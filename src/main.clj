@@ -1,5 +1,5 @@
 (ns main
-  (:require filetype.main file const path home directory git
+  (:require filetype.main file const path home git
             [clojure.string :refer [trim-newline]]))
 
 ;; the commit on which the file was last built
@@ -41,14 +41,13 @@
   [source-dir target-dir files force-rebuild]
   (let [dir-info (filetype.main/info source-dir source-dir target-dir)]
     (if (file-is-new dir-info force-rebuild)
-      (let [files
-            (for [[file-list-idx file] (map-indexed vector files)]
-              (compile-file source-dir target-dir file files file-list-idx force-rebuild))]
-        (assoc
-         dir-info
-         :type :directory
-         :children files
-         :contents (directory/to-html source-dir target-dir files)))
+      (do (println "Compiling directory: " (:source-path dir-info))
+          (let [files
+                (doall
+                 (for [[file-list-idx file] (map-indexed vector files)]
+                   (compile-file source-dir target-dir file files file-list-idx force-rebuild)))]
+            (filetype.main/with-contents
+              (assoc dir-info :type :directory :children files) files nil)))
       dir-info)))
 
 (defn compile-wiki-path
@@ -68,16 +67,6 @@
     (println "Compiling files from '" source-path "' to '" target-path "'")
     (compile-directory source-path target-path sorted-files force-rebuild)))
 
-(defn write-file [file-obj]
-  (if (:contents file-obj)
-    (if (= (:type file-obj) :directory)
-      (do
-        (directory/->disk file-obj)
-        (doseq [child (:children file-obj)]
-          (write-file child)))
-      (filetype.main/->disk file-obj))
-    (println "  Not writing: " (:source-path file-obj))))
-
 (defn compile-home-page [target-dir]
   (println "Writing home page")
   (home/->disk target-dir))
@@ -92,7 +81,7 @@
 
     (doseq [source compiled-site]
       (doseq [file-path source]
-        (write-file file-path)))
+        (filetype.main/->disk file-path)))
 
     (compile-home-page target-dir)
 
