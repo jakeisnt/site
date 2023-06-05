@@ -78,7 +78,4 @@
 
     (compile-home-page target-dir)
 
-    (doseq [source compiled-site]
-      (doseq [folder source]))
-
     (record-last-timestamp target-dir)))
