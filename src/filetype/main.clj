@@ -17,7 +17,8 @@
   [file-obj source-dir target-dir]
   (let [file-path (file/path file-obj)
         last-log (git/last-log file-path source-dir)
-        src-extension (file/extension file-path)
+        directory-ty (if (file/dir? file-path) "dir" nil)
+        src-extension (or (file/extension file-path) directory-ty nil)
         target-extension (filetype.main/target-extension src-extension)
         target-path (path/swapext
                      (path/source->target file-path source-dir target-dir)
@@ -27,9 +28,10 @@
      :has-info true
      :from-dir source-dir
      :source-path file-path
-     :target-path target-path
-     :source-extension (or src-extension "directory")
-     :target-extension (or target-extension "directory")
+     :target-path  target-path
+     :target-dir target-dir
+     :source-extension src-extension
+     :target-extension target-extension
      :link (path/remove-prefix target-path target-dir)
      :last-log last-log
      :name (file/name file-obj)}))
@@ -43,7 +45,7 @@
   (assoc file-struct
          :contents
          (match (:source-extension file-struct)
-           "directory" (filetype.directory/contents file-struct files file-list-idx)
+           "dir" (filetype.directory/contents file-struct files file-list-idx)
            "scss" (filetype.scss/contents file-struct)
            "md"   (filetype.markdown/contents file-struct files file-list-idx)
            "act"  (filetype.act/contents file-struct files file-list-idx)
@@ -55,7 +57,7 @@
   [file-struct]
   (if (:contents file-struct)
     (match (:target-extension file-struct)
-      "directory" (filetype.directory/->string file-struct)
+      "dir" (filetype.directory/->string file-struct)
       "html" (filetype.html/->string file-struct)
       "css"  (filetype.css/->string file-struct)
       "png"  (filetype.png/->string file-struct)
@@ -68,10 +70,10 @@
   (when (:contents file-struct)
     (println "Writing [" (:target-extension file-struct) "] " (:source-path file-struct) " to disk: " (:target-path file-struct))
     (match (:target-extension file-struct)
-      "directory" (do (filetype.directory/->disk file-struct)
-                      (println "writing all children")
-                      (doall (for [child (:children file-struct)]
-                               (->disk child))))
+      "dir" (do (filetype.directory/->disk file-struct)
+                (println "writing all children")
+                (doall (for [child (:children file-struct)]
+                         (->disk child))))
       "html" (filetype.html/->disk file-struct)
       "css"  (filetype.css/->disk file-struct)
       "png"  (filetype.png/->disk file-struct)

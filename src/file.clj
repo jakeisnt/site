@@ -58,10 +58,6 @@
 (defn extension
   "Get the file extension from a path"
   [p]
-  (when (not (= (type p) java.lang.String))
-    (println "p is not a string")
-    (println (:target-path p)))
-
   (-> p
       title
       (str/split #"[.]")
