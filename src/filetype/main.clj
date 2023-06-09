@@ -29,7 +29,7 @@
      :source-path file-path
      :target-path target-path
      :source-extension (or src-extension "directory")
-     :target-extension target-extension
+     :target-extension (or target-extension "directory")
      :link (path/remove-prefix target-path target-dir)
      :last-log last-log
      :name (file/name file-obj)}))
@@ -69,8 +69,9 @@
     (println "Writing [" (:target-extension file-struct) "] " (:source-path file-struct) " to disk: " (:target-path file-struct))
     (match (:target-extension file-struct)
       "directory" (do (filetype.directory/->disk file-struct)
-                      (for [child (:children file-struct)]
-                        (->disk child)))
+                      (println "writing all children")
+                      (doall (for [child (:children file-struct)]
+                               (->disk child))))
       "html" (filetype.html/->disk file-struct)
       "css"  (filetype.css/->disk file-struct)
       "png"  (filetype.png/->disk file-struct)

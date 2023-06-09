@@ -81,12 +81,11 @@
         compiled-site
         (doall (for [source (:sources const/website)]
                  (doall (for [path-config (:paths source)]
-                          (compile-wiki-path path-config force-rebuild (:dir source) target-dir)))))]
+                          (filetype.main/->disk  (compile-wiki-path path-config force-rebuild (:dir source) target-dir))))))]
 
-    (println "done loading files. we will compile now")
-    (doseq [source compiled-site]
-      (doseq [file-path source]
-        (filetype.main/->disk file-path)))
+    ;; (doseq [source compiled-site]
+    ;;   (doseq [file-path source]
+    ;;     (filetype.main/->disk file-path)))
 
     (compile-home-page target-dir)
 
