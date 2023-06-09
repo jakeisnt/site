@@ -4,13 +4,12 @@
    file path git
    [clojure.core.match :refer [match]]))
 
-(defn target-extension [source-path]
-  (let [extension (file/extension source-path)]
-    (match extension
-      "scss" "css"
-      "md"   "html"
-      "act"  "html"
-      :else extension)))
+(defn target-extension [src-extension]
+  (match src-extension
+    "scss" "css"
+    "md"   "html"
+    "act"  "html"
+    :else src-extension))
 
 (defn info
   "Provided a source file path, its dir, and a target dir,
@@ -18,16 +17,18 @@
   [file-obj source-dir target-dir]
   (let [file-path (file/path file-obj)
         last-log (git/last-log file-path source-dir)
-        target-extension (filetype.main/target-extension file-path)
+        src-extension (file/extension file-path)
+        target-extension (filetype.main/target-extension src-extension)
         target-path (path/swapext
                      (path/source->target file-path source-dir target-dir)
                      target-extension)]
+
     {:file file-obj
      :has-info true
      :from-dir source-dir
      :source-path file-path
      :target-path target-path
-     :source-extension (or (file/extension file-path) "directory")
+     :source-extension (or src-extension "directory")
      :target-extension target-extension
      :link (path/remove-prefix target-path target-dir)
      :last-log last-log
@@ -65,7 +66,7 @@
   "Write a file to its known target path."
   [file-struct]
   (when (:contents file-struct)
-    (println "Writing [" (target-extension file-struct) "] " (:source-path file-struct) " to disk: " (:target-path file-struct))
+    (println "Writing [" (:target-extension file-struct) "] " (:source-path file-struct) " to disk: " (:target-path file-struct))
     (match (:target-extension file-struct)
       "directory" (do (filetype.directory/->disk file-struct)
                       (for [child (:children file-struct)]

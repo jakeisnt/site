@@ -46,7 +46,10 @@
                  (for [[file-list-idx file] (map-indexed vector files)]
                    (compile-file file files file-list-idx force-rebuild)))]
             (filetype.main/with-contents
-              (assoc dir-info :type :directory :children files) files nil)))
+              (assoc dir-info
+                     :type :directory
+                     :children files)
+              files nil)))
       dir-info)))
 
 (defn compile-wiki-path
@@ -61,7 +64,7 @@
         ;;   (path/complete (:files-to-show config)  source-path)
         ;;   )
         files (map
-               (fn [file] (filetype.main/info file source-dir target-dir))
+               (fn [file-x] (filetype.main/info file-x source-dir target-dir))
                files-to-show)
         sorted-files (sort-files-by-key files (:sort-by config))]
 
@@ -76,10 +79,11 @@
   (let [force-rebuild true ;; (some #(= % "all") args)
         target-dir "/home/jake/site/docs"
         compiled-site
-        (for [source (:sources const/website)]
-          (for [path-config (:paths source)]
-            (compile-wiki-path path-config force-rebuild (:dir source) target-dir)))]
+        (doall (for [source (:sources const/website)]
+                 (doall (for [path-config (:paths source)]
+                          (compile-wiki-path path-config force-rebuild (:dir source) target-dir)))))]
 
+    (println "done loading files. we will compile now")
     (doseq [source compiled-site]
       (doseq [file-path source]
         (filetype.main/->disk file-path)))

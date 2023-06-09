@@ -10,6 +10,7 @@
         next-file (and (< file-list-idx (dec (count files)))
                        (nth files (inc file-list-idx)))
         up-link (path/folder (:link file-obj))]
+
     [:div.prev-next-up-buttons-container
      "Navigation"
      [:table.prev-next-up-buttons
@@ -23,8 +24,9 @@
          [:td [:a.next-button {:href (:link next-file)}  (:name next-file)]]])
       [:tr
        [:td "Up"]
-       [:td [:a.up-button {:href up-link} (file/title up-link)]]]]]))
+       [:td [:a.up-button {:href up-link}
+             (file/title up-link)]]]]]))
 
-(defn main [file files file-list-idx _]
+(defn main [file-obj files file-list-idx _]
   {:depends-on []
-   :body (prev-next-up-buttons file files file-list-idx)})
+   :body (prev-next-up-buttons file-obj files file-list-idx)})
