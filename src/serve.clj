@@ -47,15 +47,15 @@
 ;;  TODO generalize
 ;;  TODO deps are determined statically?
 ;;  TODO lots of fun things
-(defn watch-home [target-dir]
-  (let [home-page (home/home)
-        deps (:depends-on home-page)]
-    (doseq [dep-name deps]
-      (watch-dir
-       (fn [event]
-         (println "Home page deps changed, rebuilding home page:" dep-name)
-         (file/write (html/->string (:body (home/home))) (str target-dir "/index.html")))
-       (clojure.java.io/file (str "/home/jake/site/components" "/" dep-name))))))
+;; (defn watch-home [target-dir]
+;;   (let [home-page (home/home)
+;;         deps (:depends-on home-page)]
+;;     (doseq [dep-name deps]
+;;       (watch-dir
+;;        (fn [event]
+;;          (println "Home page deps changed, rebuilding home page:" dep-name)
+;;          (home/->disk (str target-dir "/index.html")))
+;;        (clojure.java.io/file (str "/home/jake/site/components" "/" dep-name))))))
 
 (defn handle-socket [request source-dir target-dir]
   (http/with-channel request channel
