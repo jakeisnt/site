@@ -137,12 +137,12 @@ STRING=#'[^()\n]+'
     [:div.site-body
      [:main
       [:div.act-container
-       (html/css "/filetype/act/act.css")
+       (html/css "/resources/filetype/act/act.css")
        (character-selector script)
        [:article.conversation
         (for [line (:body script)]
           (line->html line script))]
-       (html/script "/filetype/act/act.js")]]]]])
+       (html/script "/resources/filetype/act/act.js")]]]]])
 
 (defn contents
   "Get the file's contents as an AST"

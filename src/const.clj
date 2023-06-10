@@ -6,14 +6,17 @@
 (def deployment-branch "production")
 
 (def wiki-paths [{:folder "pages"
-                  :sort-by (fn [v] (:commit-date (:last-log v)))}
+                  :sort-by (fn [v] (:commit-date (:last-log v)))
+                  :force-rebuild false}
                  {:folder "scripts"
-                  :sort-by (fn [v] (:commit-date (:last-log v)))}
+                  :sort-by (fn [v] (:commit-date (:last-log v)))
+                  :force-rebuild true}
                  {:folder "journals"
-                  :sort-by :name}])
+                  :sort-by :name
+                  :force-rebuild false}])
 
-(def site-paths [{:folder "resources"  :force-rebuild true}
-                 {:folder "components"  :force-rebuild true}])
+(def site-paths [{:folder "resources"  :force-rebuild false}
+                 {:folder "components"  :force-rebuild false}])
 
 ;; source of truth for the whole website
 (def website {:sources [{:dir "/home/jake/site" :paths site-paths}
