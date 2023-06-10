@@ -7,6 +7,8 @@ all(codeBlocks).forEach((codeBlock) => {
   const codeContainer = codeBlock.parentElement;
   codeContainer.style = 'position: relative';
 
+    const buttonCodeContainer = create('div', {class: 'insetButtonPanel'}, codeContainer);
+
   const btn = create('button', {
     class: 'inset',
     innerText: 'Copy',
@@ -14,12 +16,25 @@ all(codeBlocks).forEach((codeBlock) => {
       const codeContents = codeBlock.innerText;
       navigator.clipboard.writeText(codeContents);
     },
-  }, codeContainer);
+  }, buttonCodeContainer);
 
   const label = create('div', {
     class: 'label inset',
     innerText: codeBlock.classList[0].replace('language-', ''),
   }, codeContainer);
+
+  if (codeBlock.classList[1] === 'has-raw-code') {
+    const rawCodeURL = codeBlock.classList[2];
+    const rawCode = create('button', {
+      class: 'inset',
+      innerText: 'Raw',
+      href: rawCodeURL,
+      onclick: (e) => {
+        console.log('opening window', rawCodeURL);
+        window.open(rawCodeURL, '_blank');
+      }
+    }, buttonCodeContainer);
+  }
 });
 
 document.addEventListener('DOMContentLoaded', (event) => {

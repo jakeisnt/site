@@ -15,7 +15,7 @@
                   :sort-by :name
                   :force-rebuild false}])
 
-(def site-paths [{:folder "resources"  :force-rebuild false}
+(def site-paths [{:folder "resources"  :force-rebuild true}
                  {:folder "components"  :force-rebuild false}
                  {:folder "src" :force-rebuild true}
                  {:folder "style" :force-rebuild true}])
