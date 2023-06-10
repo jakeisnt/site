@@ -17,11 +17,15 @@
       (when prev-file
         [:tr
          [:td "Previous"]
-         [:td [:a.prev-button {:href (:link prev-file)}  (:name prev-file)]]])
+         [:td [:a.prev-button {:href (or (and (:show-source-view prev-file)
+                                              (:view-link prev-file))
+                                         (:link prev-file))}  (:name prev-file)]]])
       (when next-file
         [:tr
          [:td "Next"]
-         [:td [:a.next-button {:href (:link next-file)}  (:name next-file)]]])
+         [:td [:a.next-button {:href (or (and (:show-source-view next-file)
+                                              (:view-link next-file))
+                                         (:link next-file))}  (:name next-file)]]])
       [:tr
        [:td "Up"]
        [:td [:a.up-button {:href up-link}
