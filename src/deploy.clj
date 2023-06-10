@@ -1,6 +1,5 @@
 (ns deploy
-  (:require file const path home index git
-            [main]))
+  (:require file const path home git [main]))
 
 (defn commit-folder-to [v]
   (let [repo (:repo v)
