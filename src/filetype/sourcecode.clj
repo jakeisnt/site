@@ -24,5 +24,6 @@
 
 (defn contents [file-obj files file-list-idx]
   (let [file-string (file/read (:source-path file-obj))
-        md-article [:pre [:code {:class (str "language-" (:source-extension file-obj))} file-string]]]
+        md-article [:pre [:code {:class (str "language-" (:source-extension file-obj))}
+                          file-string]]]
     (render-article md-article file-obj files file-list-idx)))
