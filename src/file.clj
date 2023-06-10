@@ -26,10 +26,20 @@
     (.listFiles directory)))
 
 (defn read [path]
-  (slurp path))
+  (try
+    (slurp path)
+    (catch Exception e
+      (do (println "File read from path not found: " path)
+          (println e)
+          nil))))
 
 (defn read-image [path]
-  (io/input-stream path))
+  (try
+    (io/input-stream path)
+    (catch Exception e
+      (do (println "File read from path not found: " path)
+          (println e)
+          nil))))
 
 (defn write-image [in-stream out-path]
   (with-open

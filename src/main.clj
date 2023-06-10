@@ -83,10 +83,6 @@
                           (filetype.main/->disk
                            (compile-wiki-path path-config (:dir source) target-dir))))))]
 
-    ;; (doseq [source compiled-site]
-    ;;   (doseq [file-path source]
-    ;;     (filetype.main/->disk file-path)))
-
     (compile-home-page target-dir)
 
     (record-last-timestamp target-dir)))
