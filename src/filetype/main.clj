@@ -23,7 +23,8 @@
         target-extension (filetype.main/target-extension src-extension)
         target-path (path/swapext
                      (path/source->target file-path source-dir target-dir)
-                     target-extension)]
+                     target-extension)
+        link (path/remove-prefix target-path target-dir)]
 
     {:file file-obj
      :has-info true
@@ -34,7 +35,7 @@
      :is-directory is-directory
      :source-extension src-extension
      :target-extension target-extension
-     :link (path/remove-prefix target-path target-dir)
+     :link link
      :last-log last-log
      :name (file/name file-obj)}))
 

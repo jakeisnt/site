@@ -48,14 +48,14 @@
         compiled-files (for [[file-list-idx file] (map-indexed vector pre-files)]
                          (compile-unit file pre-files file-list-idx config))]
     (filetype.main/with-contents
-      (assoc dir-info :children compiled-files) adjacent-files adjacent-idx)))
+      ;; TODO: with-contents as implemented does not make sense with dirs?
+      ;; dirs should probably be special cased more aggressively
+      (assoc dir-info :children compiled-files) compiled-files nil)))
 
 (defn compile-unit [file-info-obj adjacent-files adjacent-idx config]
   (if (file-is-new file-info-obj config)
-    (do
-      (println "  Compiling: " (:source-path file-info-obj))
-      ((if (:is-directory file-info-obj) compile-directory compile-file)
-       file-info-obj adjacent-files adjacent-idx config))
+    ((if (:is-directory file-info-obj) compile-directory compile-file)
+     file-info-obj adjacent-files adjacent-idx config)
     (do
       (println "  Skipping: " (:source-path file-info-obj))
       file-info-obj)))

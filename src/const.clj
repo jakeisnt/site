@@ -12,12 +12,12 @@
                  {:folder "journals"
                   :sort-by :name}])
 
-(def site-paths [{:folder "resources"}
-                 {:folder "components"}])
+(def site-paths [{:folder "resources"  :force-rebuild true}
+                 {:folder "components"  :force-rebuild true}])
 
 ;; source of truth for the whole website
-(def website {:sources [{:dir "/home/jake/site" :paths site-paths :force-rebuild true}
-                        {:dir "/home/jake/wiki" :paths wiki-paths :force-rebuild true}]
+(def website {:sources [{:dir "/home/jake/site" :paths site-paths}
+                        {:dir "/home/jake/wiki" :paths wiki-paths}]
               :target "/home/jake/site/docs"})
 
 (def local-port 4242)
