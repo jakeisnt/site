@@ -71,6 +71,7 @@
 
    ;; TODO: move to code block enhancements
    (defer-script "https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js")
+   (defer-script "https://unpkg.com/@highlightjs/cdn-assets@11.7.0/languages/clojure.min.js")
    [:link {:rel "stylesheet" :id "dark-theme-highlight" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css"}]
    [:link {:rel "stylesheet" :id "light-theme-highlight" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css"}]])
 
