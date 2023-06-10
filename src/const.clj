@@ -10,13 +10,13 @@
                   :force-rebuild false}
                  {:folder "scripts"
                   :sort-by (fn [v] (:commit-date (:last-log v)))
-                  :force-rebuild true}
+                  :force-rebuild false}
                  {:folder "journals"
                   :sort-by :name
                   :force-rebuild false}])
 
-(def site-paths [{:folder "resources"  :force-rebuild false}
-                 {:folder "components"  :force-rebuild false}])
+(def site-paths [{:folder "resources"  :force-rebuild true}
+                 {:folder "components"  :force-rebuild true}])
 
 ;; source of truth for the whole website
 (def website {:sources [{:dir "/home/jake/site" :paths site-paths}

@@ -36,7 +36,7 @@
 (defn compile-file
   "Compile a file to an AST, adding the contents as metadata"
   [file-obj files file-list-idx _]
-  (println "Compiling file " (:source-path file-obj))
+  (println "Compiling file: " (:source-path file-obj))
   (filetype.main/with-contents file-obj files file-list-idx))
 
 (declare compile-unit)
@@ -44,7 +44,7 @@
 (defn compile-directory
   "Compile a directory to ASTs that can be written to disk"
   [dir-info adjacent-files adjacent-idx config]
-  (println "Compiling directory: " (:source-path dir-info))
+  (println "Compiling dir : " (:source-path dir-info))
   (let [pre-files (get-dir-files (:source-path dir-info) (:target-path dir-info) config)
         compiled-files (for [[file-list-idx file] (map-indexed vector pre-files)]
                          (compile-unit file pre-files file-list-idx config))]

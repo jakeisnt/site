@@ -14,7 +14,11 @@
           (for [child-file files]
             [:tr
              [:td.file-hash-tr (:short-hash (:last-log child-file))]
-             [:td.file-name-tr [:a {:href (:link child-file)} (:name child-file)]]
+             [:td.file-name-tr [:a {:href
+                                    (or (and (:show-source-view child-file)
+                                             (:view-link child-file))
+                                        (:link child-file))}
+                                (:name child-file)]]
              [:td.file-type-tr (:source-extension child-file)]
              [:td.file-date-tr (:commit-date (:last-log child-file))]])]]
         (components/component "scroll-up" file-obj files nil nil)]]]]))
