@@ -4,6 +4,9 @@
    file path git
    [clojure.core.match :refer [match]]))
 
+;; TODO: if we have a file that isn't a friendly document,
+;; we should host it with a cool view inside of a code block
+;; with all of the article browsing utilities too
 (defn target-extension [src-extension]
   (match src-extension
     "scss" "css"
