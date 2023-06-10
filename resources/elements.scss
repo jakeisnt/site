@@ -216,13 +216,17 @@ button:hover {
   transition: background-color 0.075s ease-in;
 }
 
-button.inset {
-  display: block;
-  position: absolute;
-  content: 'after';
-  background-color: var(--quote-background-border);
+.insetButtonPanel {
   right: 6px;
   top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: absolute;
+}
+
+button.inset {
+  background-color: var(--quote-background-border);
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   opacity: 0.8;
@@ -238,7 +242,7 @@ button.inset:hover {
   display: block;
   position: absolute;
   background-color: var(--quote-background-border);
-  right: 0px;
+  right: 0;
   bottom: 0;
   font-family: 'Inter', sans-serif;
   font-size: 12px;
