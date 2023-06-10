@@ -1,0 +1,36 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8" /><title>directory / filetype / src / Jake Chvatal</title><meta content="width=device-width,initial-scale=1.0" name="viewport" /><meta content="directory" property="og:title" /><meta content="website" property="og:type" /><meta content="https://jake.isnt.online" property="og:url" /><meta content="Jake Chvatal" property="og:site_name" /><meta content="hi" name="description" /><meta content="Operating Systems, webring, programming, languages" name="keywords" /><meta content="Jake Chvatal" name="author" /><meta content="index,follow" name="robots" /><meta content="white" media="(prefers-color-scheme: light)" name="theme-color" /><meta content="#111" media="(prefers-color-scheme: dark)" name="theme-color" /><link href="/favicon/apple-touch-icon.png" rel="apple-touch-icon" /><link href="/manifest.json" rel="manifest" /><link href="/resources/style.css" id="/resources/style.css" rel="stylesheet" type="text/css" /><link href="/resources/global.css" id="/resources/global.css" rel="stylesheet" type="text/css" /><script id="/resources/lib.js" src="/resources/lib.js"></script><link href="/resources/elements.css" id="/resources/elements.css" rel="stylesheet" type="text/css" /><script defer="defer" id="/resources/elements.js" src="/resources/elements.js"></script><script defer="defer" id="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css" id="dark-theme-highlight" rel="stylesheet" /><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css" id="light-theme-highlight" rel="stylesheet" /></head><body><span><div class="sidebar"><div class="url-path"><a href="/">jake.</a><a href="https://isnt.online"> ~ </a><span> / </span><a href="./index.html">src</a><span> / </span><a href="./index.html">filetype</a><span> / </span><b>directory</b></div><span><div class="toggle-dark-mode-container"><button class="toggle-dark-mode"></button></div><script defer="defer" id="/components/toggle-dark-mode/toggle-dark-mode.js" src="/components/toggle-dark-mode/toggle-dark-mode.js"></script><link href="/components/toggle-dark-mode/toggle-dark-mode.css" id="/components/toggle-dark-mode/toggle-dark-mode.css" rel="stylesheet" type="text/css" /></span></div><link href="/components/sidebar/sidebar.css" id="/components/sidebar/sidebar.css" rel="stylesheet" type="text/css" /></span><div class="site-body"><main><article class="wikipage"><h1 class="title-top">directory</h1><pre><code class="language-clj">(ns filetype.directory
+  (:require html file components))
+
+(defn html [file-obj files]
+  (let [title (:name file-obj)]
+    [:html
+     (html/head (:target-path file-obj) title)
+     [:body
+      (components/component "sidebar" file-obj files nil [[:h1 title]])
+      [:div.site-body
+       [:main
+        [:div.folder-index-page-table
+         [:table
+          (for [child-file files]
+            [:tr
+             [:td.file-hash-tr (:short-hash (:last-log child-file))]
+             [:td.file-name-tr [:a {:href
+                                    (or (and (:show-source-view child-file)
+                                             (:view-link child-file))
+                                        (:link child-file))}
+                                (:name child-file)]]
+             [:td.file-type-tr (:source-extension child-file)]
+             [:td.file-date-tr (:commit-date (:last-log child-file))]])]]
+        (components/component "scroll-up" file-obj files nil nil)]]]]))
+
+(defn contents [file-info files _]
+  (html file-info files))
+
+(defn ->string [file-obj]
+  (html/->string (:contents file-obj)))
+
+(defn ->disk [file-obj]
+  (println "Making target directory " (:target-path file-obj))
+  (file/make-directory (:target-path file-obj))
+  (file/write (->string file-obj) (str (:target-path file-obj) "/index.html")))
+</code></pre></article></main><div class="article-rhs-container"><div class="article-rhs"><span><div class="git-history-table-container"><span class="git-history-table-title">Revisions</span><table class="git-history-table"><tr><th>Date</th><th>Hash</th></tr><tbody><tr><td class="commit-date-tr">2023-06-10</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/8e932b1f048951873b0a94c1488a494f8609ba2c//directory.clj">8e932b1</a></td></tr><tr><td class="commit-date-tr">2023-06-10</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/1164f7ca2e87c0b23150a3deca4bf95dda9a0e9e//directory.clj">1164f7c</a></td></tr><tr><td class="commit-date-tr">2023-06-10</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/030583aa949a0bcfc85f9dbf3b2c30b17959989a//directory.clj">030583a</a></td></tr><tr><td class="commit-date-tr">2023-06-05</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/a059575b06165829ad26711b5d55a685107e700d//directory.clj">a059575</a></td></tr><tr><td class="commit-date-tr">2023-06-05</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/a554a0eea744ba6696684d0e0044c0f00aa89108//directory.clj">a554a0e</a></td></tr><tr><td class="commit-date-tr">2023-06-05</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/2493192e1ae5ab2ac010100d004ec11236bb2edb//directory.clj">2493192</a></td></tr><tr><td class="commit-date-tr">2023-06-05</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/2ad6367bb9b2f10ea00fb058710ea39ef742c8bb//directory.clj">2ad6367</a></td></tr></tbody></table></div></span><span><div class="prev-next-up-buttons-container">Navigation<table class="prev-next-up-buttons"><tr><td>Previous</td><td><a class="prev-button" href="/src/filetype/act.clj">act</a></td></tr><tr><td>Next</td><td><a class="next-button" href="/src/filetype/sourcecode.clj">sourcecode</a></td></tr><tr><td>Up</td><td><a class="up-button" href="/src/filetype">filetype</a></td></tr></table></div></span></div></div></div></body></html>

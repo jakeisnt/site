@@ -1,0 +1,60 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8" /><title>sidebar / sidebar / components / Jake Chvatal</title><meta content="width=device-width,initial-scale=1.0" name="viewport" /><meta content="sidebar" property="og:title" /><meta content="website" property="og:type" /><meta content="https://jake.isnt.online" property="og:url" /><meta content="Jake Chvatal" property="og:site_name" /><meta content="hi" name="description" /><meta content="Operating Systems, webring, programming, languages" name="keywords" /><meta content="Jake Chvatal" name="author" /><meta content="index,follow" name="robots" /><meta content="white" media="(prefers-color-scheme: light)" name="theme-color" /><meta content="#111" media="(prefers-color-scheme: dark)" name="theme-color" /><link href="/favicon/apple-touch-icon.png" rel="apple-touch-icon" /><link href="/manifest.json" rel="manifest" /><link href="/resources/style.css" id="/resources/style.css" rel="stylesheet" type="text/css" /><link href="/resources/global.css" id="/resources/global.css" rel="stylesheet" type="text/css" /><script id="/resources/lib.js" src="/resources/lib.js"></script><link href="/resources/elements.css" id="/resources/elements.css" rel="stylesheet" type="text/css" /><script defer="defer" id="/resources/elements.js" src="/resources/elements.js"></script><script defer="defer" id="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css" id="dark-theme-highlight" rel="stylesheet" /><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css" id="light-theme-highlight" rel="stylesheet" /></head><body><span><div class="sidebar"><div class="url-path"><a href="/">jake.</a><a href="https://isnt.online"> ~ </a><span> / </span><a href="./index.html">components</a><span> / </span><a href="./index.html">sidebar</a><span> / </span><b>sidebar</b></div><span><div class="toggle-dark-mode-container"><button class="toggle-dark-mode"></button></div><script defer="defer" id="/components/toggle-dark-mode/toggle-dark-mode.js" src="/components/toggle-dark-mode/toggle-dark-mode.js"></script><link href="/components/toggle-dark-mode/toggle-dark-mode.css" id="/components/toggle-dark-mode/toggle-dark-mode.css" rel="stylesheet" type="text/css" /></span></div><link href="/components/sidebar/sidebar.css" id="/components/sidebar/sidebar.css" rel="stylesheet" type="text/css" /></span><div class="site-body"><main><article class="wikipage"><h1 class="title-top">sidebar</h1><pre><code class="language-css">.sidebar {
+  width: 3rem;
+  padding: 1.5rem 0.5rem;
+  margin: 0.5rem 0.5rem;
+
+  padding-left: 0;
+  margin-left: 0;
+  position: fixed;
+
+  height: calc(100% - 4rem - 2px);
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-end;
+  pointer-events: none;
+}
+
+.sidebar > * {
+  pointer-events: auto;
+}
+
+.url-path {
+  padding-left: 1rem;
+  align-self: center; /* do not flex grow */
+  writing-mode: vertical-rl;
+  text-orientation: sideways;
+  text-align: left;
+  vertical-align: right;
+  line-height: 20px;
+  font-size: 14px;
+  font-family: monospace;
+  pointer-events: auto;
+}
+
+.sidebar .current {
+  font-weight: 500;
+}
+
+@media only screen and (max-width: 500px) {
+  .sidebar {
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+  }
+
+  .url-path {
+    background-color: black;
+    border-radius: 28px;
+    border: 1px solid white;
+    padding: 15px 4px;
+    opacity: 0.5;
+  }
+
+  .url-path > * {
+    opacity: 1;
+  }
+}
+</code></pre></article></main><div class="article-rhs-container"><div class="article-rhs"><span><div class="git-history-table-container"><span class="git-history-table-title">Revisions</span><table class="git-history-table"><tr><th>Date</th><th>Hash</th></tr><tbody><tr><td class="commit-date-tr">2023-05-26</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/e511ef13478a384f8756dae2f455a038385bd5bb//sidebar.css">e511ef1</a></td></tr><tr><td class="commit-date-tr">2023-05-26</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/0db9bc83c3243a3421cf76f5eec1fc5e382aec0f//sidebar.css">0db9bc8</a></td></tr><tr><td class="commit-date-tr">2023-05-25</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/b0664a8496d200d11c0816bfbf91127e2bfea8ab//sidebar.css">b0664a8</a></td></tr><tr><td class="commit-date-tr">2023-05-25</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/9393f94b813840b05809d25f6c1409fe481bf188//sidebar.css">9393f94</a></td></tr><tr><td class="commit-date-tr">2023-05-24</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/6b6629e3440b25cc4819341a0e65e2d3e301d4ed//sidebar.css">6b6629e</a></td></tr><tr><td class="commit-date-tr">2023-05-24</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/be9ad7be32471f14358052e94f2d2d782240979c//sidebar.css">be9ad7b</a></td></tr><tr><td class="commit-date-tr">2023-05-23</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/6234714825f4fafe01e199d6f5f97ba7e35ef1a3//sidebar.css">6234714</a></td></tr><tr><td class="commit-date-tr">2023-05-23</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/df46e5d2ca4a5938136e6418c09ad10719dfc179//sidebar.css">df46e5d</a></td></tr><tr><td class="commit-date-tr">2023-05-23</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/a1a46bfa323ac2afc6d83ea73c11f433e8271a65//sidebar.css">a1a46bf</a></td></tr><tr><td class="commit-date-tr">2023-05-23</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/4307658796ae552c7432ebc075a5aa768e3762e6//sidebar.css">4307658</a></td></tr><tr><td class="commit-date-tr">2023-04-29</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/75d93cdd80cde8cc5129ded8e20b6b1cfce2f8a2//sidebar.css">75d93cd</a></td></tr><tr><td class="commit-date-tr">2023-04-29</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/fc9c50e8fed8c2386be4a091fa03e40ee0edbdde//sidebar.css">fc9c50e</a></td></tr><tr><td class="commit-date-tr">2023-04-27</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/7d7424036b1447206d9015bf773d2a1d8cb05fb3//sidebar.css">7d74240</a></td></tr><tr><td class="commit-date-tr">2023-04-24</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/9318338cd7febe7c0366c028bb802c6033ff73c0//sidebar.css">9318338</a></td></tr><tr><td class="commit-date-tr">2023-04-24</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/09aca1bcd26819277df0eef837a15311a7acfb80//sidebar.css">09aca1b</a></td></tr><tr><td class="commit-date-tr">2023-04-24</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/452d8506c9d6e8a99b93041d95e7356ab928d2e7//sidebar.css">452d850</a></td></tr><tr><td class="commit-date-tr">2023-04-24</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/bb7f08ce76f798f98da87e164e29fd681717e702//sidebar.css">bb7f08c</a></td></tr><tr><td class="commit-date-tr">2023-04-23</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/cbc0177ae22be0f167a03881f7f78cd7fd99db7f//sidebar.css">cbc0177</a></td></tr></tbody></table></div></span><span><div class="prev-next-up-buttons-container">Navigation<table class="prev-next-up-buttons"><tr><td>Next</td><td><a class="next-button" href="/components/sidebar/sidebar.clj">sidebar</a></td></tr><tr><td>Up</td><td><a class="up-button" href="/components/sidebar">sidebar</a></td></tr></table></div></span></div></div></div></body></html>

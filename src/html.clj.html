@@ -1,0 +1,136 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8" /><title>html / src / Jake Chvatal</title><meta content="width=device-width,initial-scale=1.0" name="viewport" /><meta content="html" property="og:title" /><meta content="website" property="og:type" /><meta content="https://jake.isnt.online" property="og:url" /><meta content="Jake Chvatal" property="og:site_name" /><meta content="hi" name="description" /><meta content="Operating Systems, webring, programming, languages" name="keywords" /><meta content="Jake Chvatal" name="author" /><meta content="index,follow" name="robots" /><meta content="white" media="(prefers-color-scheme: light)" name="theme-color" /><meta content="#111" media="(prefers-color-scheme: dark)" name="theme-color" /><link href="/favicon/apple-touch-icon.png" rel="apple-touch-icon" /><link href="/manifest.json" rel="manifest" /><link href="/resources/style.css" id="/resources/style.css" rel="stylesheet" type="text/css" /><link href="/resources/global.css" id="/resources/global.css" rel="stylesheet" type="text/css" /><script id="/resources/lib.js" src="/resources/lib.js"></script><link href="/resources/elements.css" id="/resources/elements.css" rel="stylesheet" type="text/css" /><script defer="defer" id="/resources/elements.js" src="/resources/elements.js"></script><script defer="defer" id="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css" id="dark-theme-highlight" rel="stylesheet" /><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css" id="light-theme-highlight" rel="stylesheet" /></head><body><span><div class="sidebar"><div class="url-path"><a href="/">jake.</a><a href="https://isnt.online"> ~ </a><span> / </span><a href="./index.html">src</a><span> / </span><b>html</b></div><span><div class="toggle-dark-mode-container"><button class="toggle-dark-mode"></button></div><script defer="defer" id="/components/toggle-dark-mode/toggle-dark-mode.js" src="/components/toggle-dark-mode/toggle-dark-mode.js"></script><link href="/components/toggle-dark-mode/toggle-dark-mode.css" id="/components/toggle-dark-mode/toggle-dark-mode.css" rel="stylesheet" type="text/css" /></span></div><link href="/components/sidebar/sidebar.css" id="/components/sidebar/sidebar.css" rel="stylesheet" type="text/css" /></span><div class="site-body"><main><article class="wikipage"><h1 class="title-top">html</h1><pre><code class="language-clj">(ns html
+  (:require
+   path const
+   [hiccup.core :as h]
+   [clojure.core.match :refer [match]]))
+
+;; --- general ---
+
+;; delimits paths in title and in body
+(def ^:const path-delimiter " / ")
+
+(defn metm [k v]
+  [:meta {:name k :content v}])
+
+(defn prop [k v]
+  [:meta {:property k :content v}])
+
+(defn defer-script
+  ([src] [:script {:src src :id src :defer true}]))
+
+(defn script
+  ([src] [:script {:src src :id src}])
+  ([src body] [:script {:src src :id src} body]))
+
+(defn css
+  ([href] [:link {:rel "stylesheet" :type "text/css" :href href :id href}])
+  ([href body] [:link {:rel "stylesheet" :type "text/css" :href href :id href} body]))
+
+(defmacro favicon []
+  [:link {:rel "icon" :type "image/x-icon" :href "/favicon/favicon.ico"}]
+  [:link {:rel "apple-touch-icon" :href "/favicon/apple-touch-icon.png"}])
+
+(defn make-path-list [path]
+  (path/split (path/remove-prefix path const/target-dir)))
+
+(defn collect-folder-paths-string [path-list title]
+  (if (empty? (rest path-list))
+    title
+    (str (collect-folder-paths-string (rest path-list) title) path-delimiter (first path-list))))
+
+(defn head
+  "A page header that works for all pages"
+  [path title]
+  [:head
+   [:meta {:charset "UTF-8"}]
+   [:title (str (collect-folder-paths-string (make-path-list path) title) path-delimiter const/site-name)]
+   (metm "viewport" "width=device-width,initial-scale=1.0")
+   (prop "og:title" title)
+   (prop "og:type" "website")
+   (prop "og:url" const/target-url)
+   (prop "og:site_name" const/site-name)
+   (metm "description" "hi") ;; TODO
+   ;; TODO pull this information from the articles
+   (metm "keywords" "Operating Systems, webring, programming, languages")
+   (metm "author" "Jake Chvatal")
+   (metm "robots" "index,follow")
+
+   ;; TODO: keep this synced with global theme somehow?
+   [:meta {:name "theme-color" :media "(prefers-color-scheme: light)" :content "white"}]
+   [:meta {:name "theme-color" :media "(prefers-color-scheme: dark)" :content "#111"}]
+   (favicon)
+
+   [:link {:rel "manifest" :href "/manifest.json"}]
+
+   (css "/resources/style.css")
+   (css "/resources/global.css")
+   (script "/resources/lib.js")
+
+   (css "/resources/elements.css")
+   (defer-script "/resources/elements.js")
+
+   ;; TODO: move to code block enhancements
+   (defer-script "https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js")
+   [:link {:rel "stylesheet" :id "dark-theme-highlight" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css"}]
+   [:link {:rel "stylesheet" :id "light-theme-highlight" :href "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css"}]])
+
+(defn ->string
+  "Serialize Hiccup-compatible data to a string"
+  [hiccup-struct]
+  (str "<!DOCTYPE html>" (h/html hiccup-struct)))
+
+;; find all of the elements that fit a predicate
+(defn collect-elements [html-page pred]
+  (filter pred (drop 2 html-page)))
+
+;; collect all of the html tags with a given id
+(defn find-tags [html-page & tags]
+  (collect-elements html-page (fn [html-block]
+                                (let [tag (first html-block)]
+                                  (some #(= tag %) tags)))))
+
+(defn heading-rank [heading-tag]
+  (match heading-tag
+    "h1" 1
+    "h2" 2
+    "h3" 3
+    "h4" 4
+    "h5" 5
+    "h6" 6
+    :else 7))
+
+(defn heading-hierarchy
+  ([tag-list] (heading-hierarchy tag-list 0))
+  ([tag-list rank]
+   (cond
+     (empty? tag-list) '()
+     :else
+     (let [first-heading (first tag-list)
+           [cur-headings next-headings]
+           (split-with #(= (heading-rank %) rank) (rest tag-list))]
+       (concat
+        ;; if the first heading is the level we're looking for,
+        ;; we construct it
+        (if (= (heading-rank (first first-heading)) rank)
+          (list {:tag (first first-heading)
+                 :id (:id (second first-heading))
+                 :depth heading-rank
+                 :children (heading-hierarchy cur-headings (inc rank))})
+          ;; if the first heading is not the level we're looking for,
+          ;; we increment the rank and try again
+          (heading-hierarchy (cons first-heading cur-headings) (inc rank)))
+
+        ;; join this to the heading hierarchy of the rest of the headings
+        (heading-hierarchy next-headings rank))))))
+
+(defn heading-hierarchy->html [hierarchy]
+  (map (fn [heading]
+         (let [children (:children heading)]
+           (if (empty? children)
+             [:div.hierarchy-part
+              {:class (str "hierarchy-part " (:depth heading))}
+              [:span.hierarchy-pipe "├╴"] [:a {:id (:id heading)} [:span.hierarchy-text (:id heading)]]]
+
+             [:a {:id (:id heading)} (heading-hierarchy->html children)])))
+       hierarchy))
+</code></pre></article></main><div class="article-rhs-container"><div class="article-rhs"><span><div class="git-history-table-container"><span class="git-history-table-title">Revisions</span><table class="git-history-table"><tr><th>Date</th><th>Hash</th></tr><tbody><tr><td class="commit-date-tr">2023-06-03</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/b6621e75046fed91e36c634d9b5cbe937115bc01//html.clj">b6621e7</a></td></tr><tr><td class="commit-date-tr">2023-05-27</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/92d4fa7c87281bf71c6c80025b9c14fcb4fb5f22//html.clj">92d4fa7</a></td></tr><tr><td class="commit-date-tr">2023-05-27</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/690d8cae7f3a7bcbeadce2c69ee4ac0422061e98//html.clj">690d8ca</a></td></tr><tr><td class="commit-date-tr">2023-05-27</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/aae1ebbe9b9213d2607d06b757c7681a635757fe//html.clj">aae1ebb</a></td></tr><tr><td class="commit-date-tr">2023-05-25</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/d9a39f885ff48f58d46e9ae3d29ec9328e5ba363//html.clj">d9a39f8</a></td></tr><tr><td class="commit-date-tr">2023-05-24</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/bd165e1266aec433e3aa5a89a09926317ca0edfc//html.clj">bd165e1</a></td></tr><tr><td class="commit-date-tr">2023-05-24</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/d676c916949e07bd4fc914f3adf92451f8a88c04//html.clj">d676c91</a></td></tr><tr><td class="commit-date-tr">2023-05-24</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/e6dad1ee17ed1a032f8028ca361a3da008e2f92a//html.clj">e6dad1e</a></td></tr><tr><td class="commit-date-tr">2023-04-23</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/e88dc7dc5520fb4f5c21e5e3d6afc4ddc299fd51//html.clj">e88dc7d</a></td></tr><tr><td class="commit-date-tr">2023-04-23</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/4848f1d09f5cba89de0aeca513baa4222c7f3187//html.clj">4848f1d</a></td></tr><tr><td class="commit-date-tr">2023-04-22</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/577a00358f48f396d40beccaedd1f3b1d8416130//html.clj">577a003</a></td></tr><tr><td class="commit-date-tr">2023-04-22</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/1aee19b32fc00a9c0d461877e1a86a84b52d204c//html.clj">1aee19b</a></td></tr><tr><td class="commit-date-tr">2023-04-22</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/16b11a844f8aed1b987c392203a1fb34bd2519eb//html.clj">16b11a8</a></td></tr><tr><td class="commit-date-tr">2023-04-22</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/44401b74ce25679af5ea2dc3d2b9694b3ac8ff45//html.clj">44401b7</a></td></tr><tr><td class="commit-date-tr">2023-04-22</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/90d03fb1f3bfe25148a2d81c4a6f8f7de8df97e4//html.clj">90d03fb1</a></td></tr><tr><td class="commit-date-tr">2023-02-28</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/20e57326370b1d8db0cc8393cd72f886e29c699c//html.clj">20e5732</a></td></tr><tr><td class="commit-date-tr">2023-02-28</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/603931691c3e935462d84798c5ce226ffdea5432//html.clj">6039316</a></td></tr><tr><td class="commit-date-tr">2023-02-24</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/decf6561d01bd91baa4b0ff534029922b0d20310//html.clj">decf656</a></td></tr><tr><td class="commit-date-tr">2023-02-24</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/e4ba849b1499d316ff3958557b43e3f1f3dd2659//html.clj">e4ba849</a></td></tr><tr><td class="commit-date-tr">2023-02-24</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/686f88d372e8baf45169325140c04184341696a5//html.clj">686f88d</a></td></tr><tr><td class="commit-date-tr">2023-02-24</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/2bb74681e6c3db6ebd22e4ea1517ff86381eeba0//html.clj">2bb7468</a></td></tr></tbody></table></div></span><span><div class="prev-next-up-buttons-container">Navigation<table class="prev-next-up-buttons"><tr><td>Previous</td><td><a class="prev-button" href="/src/deploy.clj">deploy</a></td></tr><tr><td>Next</td><td><a class="next-button" href="/src/filetype">filetype</a></td></tr><tr><td>Up</td><td><a class="up-button" href="/src">src</a></td></tr></table></div></span></div></div></div></body></html>

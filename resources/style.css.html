@@ -1,0 +1,154 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8" /><title>style / resources / Jake Chvatal</title><meta content="width=device-width,initial-scale=1.0" name="viewport" /><meta content="style" property="og:title" /><meta content="website" property="og:type" /><meta content="https://jake.isnt.online" property="og:url" /><meta content="Jake Chvatal" property="og:site_name" /><meta content="hi" name="description" /><meta content="Operating Systems, webring, programming, languages" name="keywords" /><meta content="Jake Chvatal" name="author" /><meta content="index,follow" name="robots" /><meta content="white" media="(prefers-color-scheme: light)" name="theme-color" /><meta content="#111" media="(prefers-color-scheme: dark)" name="theme-color" /><link href="/favicon/apple-touch-icon.png" rel="apple-touch-icon" /><link href="/manifest.json" rel="manifest" /><link href="/resources/style.css" id="/resources/style.css" rel="stylesheet" type="text/css" /><link href="/resources/global.css" id="/resources/global.css" rel="stylesheet" type="text/css" /><script id="/resources/lib.js" src="/resources/lib.js"></script><link href="/resources/elements.css" id="/resources/elements.css" rel="stylesheet" type="text/css" /><script defer="defer" id="/resources/elements.js" src="/resources/elements.js"></script><script defer="defer" id="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css" id="dark-theme-highlight" rel="stylesheet" /><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css" id="light-theme-highlight" rel="stylesheet" /></head><body><span><div class="sidebar"><div class="url-path"><a href="/">jake.</a><a href="https://isnt.online"> ~ </a><span> / </span><a href="./index.html">resources</a><span> / </span><b>style</b></div><span><div class="toggle-dark-mode-container"><button class="toggle-dark-mode"></button></div><script defer="defer" id="/components/toggle-dark-mode/toggle-dark-mode.js" src="/components/toggle-dark-mode/toggle-dark-mode.js"></script><link href="/components/toggle-dark-mode/toggle-dark-mode.css" id="/components/toggle-dark-mode/toggle-dark-mode.css" rel="stylesheet" type="text/css" /></span></div><link href="/components/sidebar/sidebar.css" id="/components/sidebar/sidebar.css" rel="stylesheet" type="text/css" /></span><div class="site-body"><main><article class="wikipage"><h1 class="title-top">style</h1><pre><code class="language-scss">@use '../style/core';
+
+article {
+  background: var(--window-background);
+  padding: 0.5rem 1rem;
+}
+
+/* -- Class selectors -- */
+.aboutMe {
+  max-width: 20rem;
+  padding-top: 20px !important;
+  padding-left: 20px !important;
+  max-width: 11.5em;
+}
+
+.foot {
+  padding-right: 0.5rem;
+}
+
+blockquote.article-quote {
+    margin: 0;
+}
+
+blockquote.article-quote p {
+    padding: 15px;
+    background: var(--quote-background);
+    border-radius: core.$border-radius;
+}
+
+blockquote.article-quote p::before {
+    content: '\201C';
+}
+
+blockquote.article-quote p::after {
+    content: '\201D';
+}
+
+.file-hash-tr {
+  color: var(--subtle-text);
+  opacity: 0.7;
+}
+
+.file-name-tr {
+  white-space: nowrap;
+  max-width: 180px;
+  width: 20vw;
+  overflow: hidden;
+}
+
+.file-type-tr {
+  color: var(--subtle-text);
+  opacity: 0.6;
+}
+
+.commit-link-tr {
+  width: 1%;
+  white-space: nowrap;
+}
+
+.file-date-tr, .commit-date-tr {
+  color: var(--subtle-text);
+  opacity: 0.9;
+}
+
+.site-body {
+  padding-left: 2rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  overflow-x: hidden;
+}
+
+.git-hist-table, .link-info-table, .folder-index-page-table, a.now-playing, .checkbox-menu {
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+  width: auto;
+  background-color: var(--window-background);
+  align-self: start;
+}
+
+.wikipage {
+  margin: 1rem;
+}
+
+@media only screen and (max-width: 500px) {
+  .site-body {
+    padding-left: 0;
+    padding-top: 0;
+  }
+
+  .url-cage {
+    margin-top: 1rem;
+    padding: 0.75rem;
+  }
+
+  .git-hist-table, .link-info-table, .folder-index-page-table, a.now-playing, .checkbox-menu,  {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    padding-top: 0;
+    padding-left: 0;
+  }
+
+  .wikipage {
+    margin: 0 1rem;
+    padding: 0 1rem;
+  }
+
+  .file-hash-tr {
+    display: none;
+  }
+}
+
+.article-rhs-container {
+  position: relative;
+}
+
+.article-rhs {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
+}
+
+.calendar-title {
+  color: var(--subtle-text);
+}
+
+.month-calendar {
+  font-family: 'Noto Sans Mono', monospace;
+  margin-top: 0;
+}
+
+/* .month-calendar > tr > th { */
+/*   font-weight: normal; */
+/* } */
+
+
+.calendar-day {
+  text-align: right;
+  color: var(--link);
+}
+
+.calendar-day:hover {
+  background-color: var(--highlight);
+}
+
+.current-day {
+  background-color: var(--highlight);
+  border-left: 2px solid var(--highlight);
+  border-right: 2px solid var(--highlight);
+}
+</code></pre></article></main><div class="article-rhs-container"><div class="article-rhs"><span><div class="git-history-table-container"><span class="git-history-table-title">Revisions</span><table class="git-history-table"><tr><th>Date</th><th>Hash</th></tr><tbody><tr><td class="commit-date-tr">2023-06-02</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/509802b76647b08ac4a2c2db5db9cdd9bd7a8344//style.scss">509802b</a></td></tr><tr><td class="commit-date-tr">2023-05-31</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/aa24e464f06b7290cf5c706144953f61cae571c9//style.scss">aa24e46</a></td></tr></tbody></table></div></span><span><div class="prev-next-up-buttons-container">Navigation<table class="prev-next-up-buttons"><tr><td>Previous</td><td><a class="prev-button" href="/resources/elements.js">elements</a></td></tr><tr><td>Next</td><td><a class="next-button" href="/resources/icons">icons</a></td></tr><tr><td>Up</td><td><a class="up-button" href="/resources">resources</a></td></tr></table></div></span></div></div></div></body></html>

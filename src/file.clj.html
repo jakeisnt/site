@@ -1,0 +1,99 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8" /><title>file / src / Jake Chvatal</title><meta content="width=device-width,initial-scale=1.0" name="viewport" /><meta content="file" property="og:title" /><meta content="website" property="og:type" /><meta content="https://jake.isnt.online" property="og:url" /><meta content="Jake Chvatal" property="og:site_name" /><meta content="hi" name="description" /><meta content="Operating Systems, webring, programming, languages" name="keywords" /><meta content="Jake Chvatal" name="author" /><meta content="index,follow" name="robots" /><meta content="white" media="(prefers-color-scheme: light)" name="theme-color" /><meta content="#111" media="(prefers-color-scheme: dark)" name="theme-color" /><link href="/favicon/apple-touch-icon.png" rel="apple-touch-icon" /><link href="/manifest.json" rel="manifest" /><link href="/resources/style.css" id="/resources/style.css" rel="stylesheet" type="text/css" /><link href="/resources/global.css" id="/resources/global.css" rel="stylesheet" type="text/css" /><script id="/resources/lib.js" src="/resources/lib.js"></script><link href="/resources/elements.css" id="/resources/elements.css" rel="stylesheet" type="text/css" /><script defer="defer" id="/resources/elements.js" src="/resources/elements.js"></script><script defer="defer" id="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css" id="dark-theme-highlight" rel="stylesheet" /><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css" id="light-theme-highlight" rel="stylesheet" /></head><body><span><div class="sidebar"><div class="url-path"><a href="/">jake.</a><a href="https://isnt.online"> ~ </a><span> / </span><a href="./index.html">src</a><span> / </span><b>file</b></div><span><div class="toggle-dark-mode-container"><button class="toggle-dark-mode"></button></div><script defer="defer" id="/components/toggle-dark-mode/toggle-dark-mode.js" src="/components/toggle-dark-mode/toggle-dark-mode.js"></script><link href="/components/toggle-dark-mode/toggle-dark-mode.css" id="/components/toggle-dark-mode/toggle-dark-mode.css" rel="stylesheet" type="text/css" /></span></div><link href="/components/sidebar/sidebar.css" id="/components/sidebar/sidebar.css" rel="stylesheet" type="text/css" /></span><div class="site-body"><main><article class="wikipage"><h1 class="title-top">file</h1><pre><code class="language-clj">(ns file
+  (:refer-clojure :exclude [list read name])
+  (:require
+   const
+   [clojure.string :as str]
+   [clojure.java.io :as io]
+   [clojure.edn :as edn]
+   [command :as cmd]))
+
+(defn path
+  "get the path to a file"
+  [file]
+  (if (= (type file) java.lang.String)
+    file
+    (str (.getPath file))))
+
+(defn tree
+  "Get all the files in a directory as a tree"
+  [dir]
+  (let [directory (clojure.java.io/file dir)]
+    ;; file-seq consistently includes the dir itself as the first argument
+    (map path (rest (file-seq directory)))))
+
+(defn list-dir [dir]
+  (let [directory (clojure.java.io/file dir)]
+    (.listFiles directory)))
+
+(defn read [path]
+  (try
+    (slurp path)
+    (catch Exception e
+      (do (println "File read from path not found: " path)
+          (println e)
+          nil))))
+
+(defn read-image [path]
+  (try
+    (io/input-stream path)
+    (catch Exception e
+      (do (println "File read from path not found: " path)
+          (println e)
+          nil))))
+
+(defn write-image [in-stream out-path]
+  (with-open
+   [out (io/output-stream out-path)]
+    (io/copy in-stream out)))
+
+(defn make-directory [dir]
+  (.mkdir (clojure.java.io/file dir)))
+
+(defn write [content path]
+  (spit path content :append false))
+
+(defn title
+  "Retrieve the file name, with extension included, from a path"
+  [p]
+  (-> p
+      path
+      (str/split #"/")
+      reverse
+      first))
+
+(defn name
+  "Get the file name, without the extension, from a path"
+  [p]
+  (-> p
+      title
+      (str/split #"[.]")
+      first))
+
+(defn extension
+  "Get the file extension from a path"
+  [p]
+  (-> p
+      title
+      (str/split #"[.]")
+      second))
+
+(defn dir?
+  "Is this path a directory?"
+  [path]
+  (.isDirectory (java.io.File. path)))
+
+(defn move
+  ([from to dir] (cmd/exec (str "mv " from " " to) dir)))
+
+(defn copy-dir [from to dir]
+  (cmd/exec (str "cp -r " from " " to) dir))
+
+(defn copy [from to from-dir]
+  (copy-dir from to from-dir))
+
+(defn remove-dir
+  [path in-dir] (cmd/exec (str "rm -r " path) in-dir))
+
+(defn exists? [fp]
+  (.exists (io/file fp)))
+</code></pre></article></main><div class="article-rhs-container"><div class="article-rhs"><span><div class="git-history-table-container"><span class="git-history-table-title">Revisions</span><table class="git-history-table"><tr><th>Date</th><th>Hash</th></tr><tbody><tr><td class="commit-date-tr">2023-06-10</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/59c52662fb55cdda8616f8e3189b0e19c7cfd9b4//file.clj">59c5266</a></td></tr><tr><td class="commit-date-tr">2023-06-10</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/1164f7ca2e87c0b23150a3deca4bf95dda9a0e9e//file.clj">1164f7c</a></td></tr><tr><td class="commit-date-tr">2023-06-10</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/d39f839d1463c43ae22b1aa206a64c20c076a223//file.clj">d39f839</a></td></tr><tr><td class="commit-date-tr">2023-06-10</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/030583aa949a0bcfc85f9dbf3b2c30b17959989a//file.clj">030583a</a></td></tr><tr><td class="commit-date-tr">2023-06-10</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/d1af44ef984ddbe79f7240e42ac4ccca7926de3e//file.clj">d1af44e</a></td></tr><tr><td class="commit-date-tr">2023-06-05</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/a554a0eea744ba6696684d0e0044c0f00aa89108//file.clj">a554a0e</a></td></tr><tr><td class="commit-date-tr">2023-06-05</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/2ad6367bb9b2f10ea00fb058710ea39ef742c8bb//file.clj">2ad6367</a></td></tr><tr><td class="commit-date-tr">2023-06-04</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/8d71aac6a51c8a1ecf6a4782a2dc6cc05ae69e53//file.clj">8d71aac</a></td></tr><tr><td class="commit-date-tr">2023-06-02</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/ea7981758f639c28ca373723fd2d95549359f061//file.clj">ea79817</a></td></tr><tr><td class="commit-date-tr">2023-06-02</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/e12af2a4d323124e26b254f859015cf4b66e674f//file.clj">e12af2a</a></td></tr><tr><td class="commit-date-tr">2023-06-02</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/e6382e92d2f06fdec7e2bb7231026f0ffaedde62//file.clj">e6382e9</a></td></tr><tr><td class="commit-date-tr">2023-06-02</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/915d33118f863924829ec96fcf9fca76433d4908//file.clj">915d331</a></td></tr><tr><td class="commit-date-tr">2023-05-31</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/a530febb040b74beea5d0a09ef6c2a6fce1a8d5b//file.clj">a530feb</a></td></tr><tr><td class="commit-date-tr">2023-05-27</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/edd26625212a291471214366de77d10bc2f8cb56//file.clj">edd2662</a></td></tr><tr><td class="commit-date-tr">2023-05-27</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/82738c82f0273b39240b9c85f9958a12a0763d06//file.clj">82738c8</a></td></tr><tr><td class="commit-date-tr">2023-04-27</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/e6f8d95992495ff12a19bdc689a3a043bfe84dde//file.clj">e6f8d95</a></td></tr><tr><td class="commit-date-tr">2023-04-23</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/4848f1d09f5cba89de0aeca513baa4222c7f3187//file.clj">4848f1d</a></td></tr><tr><td class="commit-date-tr">2023-04-23</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/a34db285433c8b3895e31337c88e9400b305ca5c//file.clj">a34db28</a></td></tr><tr><td class="commit-date-tr">2023-04-22</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/79877a4e72d8c04c03f85837bb7ad5b1e65b5f09//file.clj">79877a4</a></td></tr><tr><td class="commit-date-tr">2023-04-22</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/090334d8f1a3ab91315855914f8bcbe77571e9c5//file.clj">090334d</a></td></tr><tr><td class="commit-date-tr">2023-04-22</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/88ea9b75367049c7a95bd0d48db6acb08a224232//file.clj">88ea9b7</a></td></tr><tr><td class="commit-date-tr">2023-04-22</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/6b487ea67ab90bc1fb3dd8c39a708f06e2090974//file.clj">6b487ea</a></td></tr><tr><td class="commit-date-tr">2023-04-22</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/577a00358f48f396d40beccaedd1f3b1d8416130//file.clj">577a003</a></td></tr><tr><td class="commit-date-tr">2023-04-22</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/1aee19b32fc00a9c0d461877e1a86a84b52d204c//file.clj">1aee19b</a></td></tr><tr><td class="commit-date-tr">2023-04-22</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/8646cfa4ff84684baf00aeb47b9f0e8d70ab9c60//file.clj">8646cfa</a></td></tr><tr><td class="commit-date-tr">2023-04-22</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/ca99bfd4492e3f461f63799afa70e2bd10f8f7c7//file.clj">ca99bfd</a></td></tr><tr><td class="commit-date-tr">2023-04-22</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/8b29ea14306eaf2d04a4fb822998ead56ed74e6d//file.clj">8b29ea1</a></td></tr><tr><td class="commit-date-tr">2023-02-25</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/71715efd4817a54a901670e43b06c3b5cd8b4658//file.clj">71715ef</a></td></tr><tr><td class="commit-date-tr">2023-02-25</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/b245721aa3aee51defacd23b21902ab9eadeadda//file.clj">b245721</a></td></tr><tr><td class="commit-date-tr">2023-02-24</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/decf6561d01bd91baa4b0ff534029922b0d20310//file.clj">decf656</a></td></tr><tr><td class="commit-date-tr">2023-02-23</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/e79ce78dcb87083f8cc931fef9bbd85757d75893//file.clj">e79ce78</a></td></tr><tr><td class="commit-date-tr">2023-02-23</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/18f46b915c2c152c8488b6f0ccb55fd57363da88//file.clj">18f46b9</a></td></tr><tr><td class="commit-date-tr">2023-02-23</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/f2dd1b2aa5813d434a28894fded612b5bb8b80a4//file.clj">f2dd1b2</a></td></tr></tbody></table></div></span><span><div class="prev-next-up-buttons-container">Navigation<table class="prev-next-up-buttons"><tr><td>Previous</td><td><a class="prev-button" href="/src/components.clj">components</a></td></tr><tr><td>Next</td><td><a class="next-button" href="/src/home.clj">home</a></td></tr><tr><td>Up</td><td><a class="up-button" href="/src">src</a></td></tr></table></div></span></div></div></div></body></html>

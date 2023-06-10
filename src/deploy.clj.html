@@ -1,0 +1,60 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8" /><title>deploy / src / Jake Chvatal</title><meta content="width=device-width,initial-scale=1.0" name="viewport" /><meta content="deploy" property="og:title" /><meta content="website" property="og:type" /><meta content="https://jake.isnt.online" property="og:url" /><meta content="Jake Chvatal" property="og:site_name" /><meta content="hi" name="description" /><meta content="Operating Systems, webring, programming, languages" name="keywords" /><meta content="Jake Chvatal" name="author" /><meta content="index,follow" name="robots" /><meta content="white" media="(prefers-color-scheme: light)" name="theme-color" /><meta content="#111" media="(prefers-color-scheme: dark)" name="theme-color" /><link href="/favicon/apple-touch-icon.png" rel="apple-touch-icon" /><link href="/manifest.json" rel="manifest" /><link href="/resources/style.css" id="/resources/style.css" rel="stylesheet" type="text/css" /><link href="/resources/global.css" id="/resources/global.css" rel="stylesheet" type="text/css" /><script id="/resources/lib.js" src="/resources/lib.js"></script><link href="/resources/elements.css" id="/resources/elements.css" rel="stylesheet" type="text/css" /><script defer="defer" id="/resources/elements.js" src="/resources/elements.js"></script><script defer="defer" id="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css" id="dark-theme-highlight" rel="stylesheet" /><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css" id="light-theme-highlight" rel="stylesheet" /></head><body><span><div class="sidebar"><div class="url-path"><a href="/">jake.</a><a href="https://isnt.online"> ~ </a><span> / </span><a href="./index.html">src</a><span> / </span><b>deploy</b></div><span><div class="toggle-dark-mode-container"><button class="toggle-dark-mode"></button></div><script defer="defer" id="/components/toggle-dark-mode/toggle-dark-mode.js" src="/components/toggle-dark-mode/toggle-dark-mode.js"></script><link href="/components/toggle-dark-mode/toggle-dark-mode.css" id="/components/toggle-dark-mode/toggle-dark-mode.css" rel="stylesheet" type="text/css" /></span></div><link href="/components/sidebar/sidebar.css" id="/components/sidebar/sidebar.css" rel="stylesheet" type="text/css" /></span><div class="site-body"><main><article class="wikipage"><h1 class="title-top">deploy</h1><pre><code class="language-clj">(ns deploy
+  (:require file const path home git [main]))
+
+(defn commit-folder-to [v]
+  (let [repo (:repo v)
+        deployment-dir (:deployment-dir v)
+        branch (:branch v)
+        current-branch (git/current-branch repo)
+        tmp-dir "/tmp/jake-site-deploy"]
+
+    (println "saving current changes")
+    (git/add-all repo)
+    (git/stash repo)
+
+    (println "copying deployment to tmp dir")
+    (git/checkout repo branch)
+    (file/move deployment-dir tmp-dir repo)
+    (git/status repo)
+
+    (println "removing all untracked files")
+    (git/remove-untracked repo)
+    (git/status repo)
+
+    (println "moving tmp dir contents to root")
+
+    (file/copy-dir tmp-dir deployment-dir repo)
+    (file/copy-dir (str deployment-dir "/*") "." repo)
+    (git/status repo)
+
+    (println "pushing build")
+    (println "we are on branch " (git/current-branch repo))
+    (git/add-all repo)
+    (git/commit repo)
+    (git/push repo)
+    (git/status repo)
+
+    (println "restoring working branch")
+    (git/checkout repo current-branch)
+    (git/status repo)
+
+    (print "removing untracked")
+    (git/remove-untracked repo)
+    (git/status repo)
+
+    (print "removing deployment dir")
+    (file/remove-dir deployment-dir repo)
+    (print "moving tmp dir to deployment dir")
+    (file/move tmp-dir deployment-dir repo)
+
+    (git/stash-pop repo)))
+
+(defn -main [_]
+  (let [current-repo "/home/jake/site"
+        deployment-branch const/deployment-branch
+        target-dir const/target-dir]
+    (main/-main nil)
+    (commit-folder-to {:repo current-repo
+                       :branch deployment-branch
+                       :deployment-dir target-dir})))
+</code></pre></article></main><div class="article-rhs-container"><div class="article-rhs"><span><div class="git-history-table-container"><span class="git-history-table-title">Revisions</span><table class="git-history-table"><tr><th>Date</th><th>Hash</th></tr><tbody><tr><td class="commit-date-tr">2023-06-04</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/8d71aac6a51c8a1ecf6a4782a2dc6cc05ae69e53//deploy.clj">8d71aac</a></td></tr><tr><td class="commit-date-tr">2023-06-03</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/384f02451689321e8d758f916ae3a51c4dbcdd8f//deploy.clj">384f024</a></td></tr><tr><td class="commit-date-tr">2023-06-02</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/ea7981758f639c28ca373723fd2d95549359f061//deploy.clj">ea79817</a></td></tr><tr><td class="commit-date-tr">2023-04-23</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/a34db285433c8b3895e31337c88e9400b305ca5c//deploy.clj">a34db28</a></td></tr><tr><td class="commit-date-tr">2023-04-22</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/c6a4292bd4e3c94353933e78ab392d40f88a47e4//deploy.clj">c6a4292</a></td></tr><tr><td class="commit-date-tr">2023-04-22</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/b4ce851d30a1fc2aad4bf368bc87bb0a8fdf57de//deploy.clj">b4ce851</a></td></tr></tbody></table></div></span><span><div class="prev-next-up-buttons-container">Navigation<table class="prev-next-up-buttons"><tr><td>Previous</td><td><a class="prev-button" href="/src/const.clj">const</a></td></tr><tr><td>Next</td><td><a class="next-button" href="/src/html.clj">html</a></td></tr><tr><td>Up</td><td><a class="up-button" href="/src">src</a></td></tr></table></div></span></div></div></div></body></html>

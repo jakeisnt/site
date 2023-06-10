@@ -1,0 +1,51 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8" /><title>markdown / filetype / src / Jake Chvatal</title><meta content="width=device-width,initial-scale=1.0" name="viewport" /><meta content="markdown" property="og:title" /><meta content="website" property="og:type" /><meta content="https://jake.isnt.online" property="og:url" /><meta content="Jake Chvatal" property="og:site_name" /><meta content="hi" name="description" /><meta content="Operating Systems, webring, programming, languages" name="keywords" /><meta content="Jake Chvatal" name="author" /><meta content="index,follow" name="robots" /><meta content="white" media="(prefers-color-scheme: light)" name="theme-color" /><meta content="#111" media="(prefers-color-scheme: dark)" name="theme-color" /><link href="/favicon/apple-touch-icon.png" rel="apple-touch-icon" /><link href="/manifest.json" rel="manifest" /><link href="/resources/style.css" id="/resources/style.css" rel="stylesheet" type="text/css" /><link href="/resources/global.css" id="/resources/global.css" rel="stylesheet" type="text/css" /><script id="/resources/lib.js" src="/resources/lib.js"></script><link href="/resources/elements.css" id="/resources/elements.css" rel="stylesheet" type="text/css" /><script defer="defer" id="/resources/elements.js" src="/resources/elements.js"></script><script defer="defer" id="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css" id="dark-theme-highlight" rel="stylesheet" /><link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css" id="light-theme-highlight" rel="stylesheet" /></head><body><span><div class="sidebar"><div class="url-path"><a href="/">jake.</a><a href="https://isnt.online"> ~ </a><span> / </span><a href="./index.html">src</a><span> / </span><a href="./index.html">filetype</a><span> / </span><b>markdown</b></div><span><div class="toggle-dark-mode-container"><button class="toggle-dark-mode"></button></div><script defer="defer" id="/components/toggle-dark-mode/toggle-dark-mode.js" src="/components/toggle-dark-mode/toggle-dark-mode.js"></script><link href="/components/toggle-dark-mode/toggle-dark-mode.css" id="/components/toggle-dark-mode/toggle-dark-mode.css" rel="stylesheet" type="text/css" /></span></div><link href="/components/sidebar/sidebar.css" id="/components/sidebar/sidebar.css" rel="stylesheet" type="text/css" /></span><div class="site-body"><main><article class="wikipage"><h1 class="title-top">markdown</h1><pre><code class="language-clj">(ns filetype.markdown
+  (:require file path html git components
+            [cybermonday.core :as cm]))
+
+(defn parse [file-string]
+  (:body (cm/parse-md file-string)))
+
+(defn has-title?
+  "Does the markdown page have a built-in title"
+  [md-article]
+  (and
+   (> (count md-article) 2)
+   (> (count (nth md-article 2)) 2)
+   (= (first (nth md-article 2)) :h1)))
+
+(defn get-page-name
+  "Get the name of the article's page.
+  Assume it's the first h1 in the file.
+  If unavailable, use the filename."
+  [md-article target-path]
+  (let [backup (file/name target-path)]
+    (if (> (count md-article) 2)
+      (let [maybe-title (nth md-article 2)]
+        (if (= (first maybe-title) :h1)
+          (nth maybe-title 2)
+          backup))
+      backup)))
+
+(defn render-article [md-article file files file-list-idx]
+  (let [page-name (get-page-name md-article (:target-path file))
+        has-title (has-title? md-article)]
+    [:html
+     (html/head (:target-path file) page-name)
+     [:body
+      (components/component "sidebar" file files file-list-idx md-article)
+      [:div.site-body
+       [:main
+        [:article.wikipage
+         (if (not has-title) [:h1.title-top page-name] nil)
+         md-article]]
+       [:div.article-rhs-container
+        [:div.article-rhs
+         (components/component "page-map" file files file-list-idx md-article)
+         (components/component "git-history-table" file files file-list-idx md-article)
+         (components/component "prev-next-up-buttons" file files file-list-idx md-article)]]]]]))
+
+(defn contents [file-obj files file-list-idx]
+  (let [file-string (file/read (:source-path file-obj))
+        md-article (parse file-string)]
+    (render-article md-article file-obj files file-list-idx)))
+</code></pre></article></main><div class="article-rhs-container"><div class="article-rhs"><span><div class="git-history-table-container"><span class="git-history-table-title">Revisions</span><table class="git-history-table"><tr><th>Date</th><th>Hash</th></tr><tbody><tr><td class="commit-date-tr">2023-06-05</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/2ad6367bb9b2f10ea00fb058710ea39ef742c8bb//markdown.clj">2ad6367</a></td></tr><tr><td class="commit-date-tr">2023-06-04</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/f8302e25314168c545d65526c55007a871e845ce//markdown.clj">f8302e2</a></td></tr><tr><td class="commit-date-tr">2023-06-04</td><td class="commit-link-tr"><a href="https://github.com/jakeisnt/wiki/blob/31ada04a0d78da69058a5bcd8d195f047855bb71//markdown.clj">31ada04</a></td></tr></tbody></table></div></span><span><div class="prev-next-up-buttons-container">Navigation<table class="prev-next-up-buttons"><tr><td>Next</td><td><a class="next-button" href="/src/filetype/scss.clj">scss</a></td></tr><tr><td>Up</td><td><a class="up-button" href="/src/filetype">filetype</a></td></tr></table></div></span></div></div></div></body></html>
