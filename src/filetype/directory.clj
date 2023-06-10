@@ -26,6 +26,6 @@
   (html/->string (:contents file-obj)))
 
 (defn ->disk [file-obj]
-  (println "making target directory " (:target-dir file-obj))
-  (file/make-directory (:target-dir file-obj))
+  (println "Making target directory " (:target-path file-obj))
+  (file/make-directory (:target-path file-obj))
   (file/write (->string file-obj) (str (:target-path file-obj) "/index.html")))

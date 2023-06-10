@@ -17,71 +17,71 @@
     files
     (reverse (sort-by key files))))
 
-(defn file-is-new [file force-rebuild]
-  (or force-rebuild
+(defn file-is-new [file config]
+  (or (:force-rebuild config)
       (> (:timestamp (:last-log file)) last-commit-timestamp)))
 
 (defn record-last-timestamp [source-dir]
   (file/write (git/last-timestamp source-dir) const/last-modified-file))
 
-(defn compile-file
-  "Compile a file to an AST, adding the contents as metadata"
-  [file-obj files file-list-idx force-rebuild]
-  (if (file-is-new file-obj force-rebuild)
-    (do
-      (println "  Compiling: " (:source-path file-obj))
-      (filetype.main/with-contents file-obj files file-list-idx))
-    (do
-      (println "  Skipping: " (:source-path file-obj))
-      file-obj)))
-
-(defn compile-directory
-  "Compile a directory to ASTs that can be written to disk"
-  [source-dir target-dir files force-rebuild]
-  (let [dir-info (filetype.main/info source-dir source-dir target-dir)]
-    (if (file-is-new dir-info force-rebuild)
-      (do (println "Compiling directory: " (:source-path dir-info))
-          (let [files
-                (doall
-                 (for [[file-list-idx file] (map-indexed vector files)]
-                   (compile-file file files file-list-idx force-rebuild)))]
-            (filetype.main/with-contents
-              (assoc dir-info
-                     :type :directory
-                     :children files)
-              files nil)))
-      dir-info)))
-
-(defn compile-wiki-path
-  "Compile all of the files at a wiki path to ASTs to write to disk"
-  [config force-rebuild source-dir target-dir]
-  (let [path (:folder config)
-        source-path (str source-dir "/" path)
-        target-path (str target-dir "/" path)
-        files-to-show (file/tree source-path)
-
-        ;; (if (:files-to-show config)
-        ;;   (path/complete (:files-to-show config)  source-path)
-        ;;   )
+(defn get-dir-files [source-dir target-dir config]
+  (let [files-to-show (file/list-dir source-dir)
         files (map
                (fn [file-x] (filetype.main/info file-x source-dir target-dir))
                files-to-show)
         sorted-files (sort-files-by-key files (:sort-by config))]
+    sorted-files))
+
+(defn compile-file
+  "Compile a file to an AST, adding the contents as metadata"
+  [file-obj files file-list-idx _]
+  (println "Compiling file " (:source-path file-obj))
+  (filetype.main/with-contents file-obj files file-list-idx))
+
+(declare compile-unit)
+
+(defn compile-directory
+  "Compile a directory to ASTs that can be written to disk"
+  [dir-info adjacent-files adjacent-idx config]
+  (println "Compiling directory: " (:source-path dir-info))
+  (let [pre-files (get-dir-files (:source-path dir-info) (:target-path dir-info) config)
+        compiled-files (for [[file-list-idx file] (map-indexed vector pre-files)]
+                         (compile-unit file pre-files file-list-idx config))]
+    (filetype.main/with-contents
+      (assoc dir-info :children compiled-files) adjacent-files adjacent-idx)))
+
+(defn compile-unit [file-info-obj adjacent-files adjacent-idx config]
+  (if (file-is-new file-info-obj config)
+    (do
+      (println "  Compiling: " (:source-path file-info-obj))
+      ((if (:is-directory file-info-obj) compile-directory compile-file)
+       file-info-obj adjacent-files adjacent-idx config))
+    (do
+      (println "  Skipping: " (:source-path file-info-obj))
+      file-info-obj)))
+
+(defn compile-wiki-path
+  "Compile all of the files at a wiki path to ASTs to write to disk"
+  [config source-dir target-dir]
+  (let [path (:folder config)
+        source-path (str source-dir "/" path)
+        target-path (str target-dir "/" path)
+        dir-info (filetype.main/info source-path source-dir target-dir)]
 
     (println "Compiling files from '" source-path "' to '" target-path "'")
-    (compile-directory source-path target-path sorted-files force-rebuild)))
+    (compile-unit dir-info '() nil config)))
 
 (defn compile-home-page [target-dir]
   (println "Writing home page")
   (home/->disk target-dir))
 
 (defn -main [& args]
-  (let [force-rebuild true ;; (some #(= % "all") args)
-        target-dir "/home/jake/site/docs"
+  (let [target-dir "/home/jake/site/docs"
         compiled-site
         (doall (for [source (:sources const/website)]
                  (doall (for [path-config (:paths source)]
-                          (filetype.main/->disk  (compile-wiki-path path-config force-rebuild (:dir source) target-dir))))))]
+                          (filetype.main/->disk
+                           (compile-wiki-path path-config (:dir source) target-dir))))))]
 
     ;; (doseq [source compiled-site]
     ;;   (doseq [file-path source]

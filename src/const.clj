@@ -16,8 +16,8 @@
                  {:folder "components"}])
 
 ;; source of truth for the whole website
-(def website {:sources [{:dir "/home/jake/site" :paths site-paths}
-                        {:dir "/home/jake/wiki" :paths wiki-paths}]
+(def website {:sources [{:dir "/home/jake/site" :paths site-paths :force-rebuild true}
+                        {:dir "/home/jake/wiki" :paths wiki-paths :force-rebuild true}]
               :target "/home/jake/site/docs"})
 
 (def local-port 4242)

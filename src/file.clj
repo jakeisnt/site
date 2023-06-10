@@ -21,6 +21,10 @@
     ;; file-seq consistently includes the dir itself as the first argument
     (map path (rest (file-seq directory)))))
 
+(defn list-dir [dir]
+  (let [directory (clojure.java.io/file dir)]
+    (.listFiles directory)))
+
 (defn read [path]
   (slurp path))
 

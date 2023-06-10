@@ -17,7 +17,8 @@
   [file-obj source-dir target-dir]
   (let [file-path (file/path file-obj)
         last-log (git/last-log file-path source-dir)
-        directory-ty (if (file/dir? file-path) "dir" nil)
+        is-directory (file/dir? file-path)
+        directory-ty (if is-directory "dir" nil)
         src-extension (or (file/extension file-path) directory-ty nil)
         target-extension (filetype.main/target-extension src-extension)
         target-path (path/swapext
@@ -30,6 +31,7 @@
      :source-path file-path
      :target-path  target-path
      :target-dir target-dir
+     :is-directory is-directory
      :source-extension src-extension
      :target-extension target-extension
      :link (path/remove-prefix target-path target-dir)
@@ -71,7 +73,6 @@
     (println "Writing [" (:target-extension file-struct) "] " (:source-path file-struct) " to disk: " (:target-path file-struct))
     (match (:target-extension file-struct)
       "dir" (do (filetype.directory/->disk file-struct)
-                (println "writing all children")
                 (doall (for [child (:children file-struct)]
                          (->disk child))))
       "html" (filetype.html/->disk file-struct)
