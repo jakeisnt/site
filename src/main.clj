@@ -27,7 +27,8 @@
 (defn get-dir-files [source-dir target-dir config]
   (let [files-to-show (file/list-dir source-dir)
         files (map
-               (fn [file-x] (filetype.main/info file-x source-dir target-dir))
+               (fn [file-x] (filetype.main/info file-x source-dir target-dir
+                                                (:website-target config)))
                files-to-show)
         sorted-files (sort-files-by-key files (:sort-by config))]
     sorted-files))
@@ -66,7 +67,7 @@
   (let [path (:folder config)
         source-path (str source-dir "/" path)
         target-path (str target-dir "/" path)
-        dir-info (filetype.main/info source-path source-dir target-dir)]
+        dir-info (filetype.main/info source-path source-dir target-dir (:website-target config))]
 
     (println "Compiling files from '" source-path "' to '" target-path "'")
     (compile-unit dir-info '() nil config)))
@@ -76,12 +77,15 @@
   (home/->disk target-dir))
 
 (defn -main [& args]
-  (let [target-dir "/home/jake/site/docs"
+  (let [target-dir (:target const/website)
         compiled-site
         (doall (for [source (:sources const/website)]
                  (doall (for [path-config (:paths source)]
                           (filetype.main/->disk
-                           (compile-wiki-path path-config (:dir source) target-dir))))))]
+                           (compile-wiki-path
+                            (assoc path-config :website-target target-dir)
+                            (:dir source)
+                            target-dir))))))]
 
     (compile-home-page target-dir)
 

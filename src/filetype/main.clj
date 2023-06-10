@@ -17,7 +17,7 @@
 (defn info
   "Provided a source file path, its dir, and a target dir,
     assemble a map of information about the file."
-  [file-obj source-dir target-dir]
+  [file-obj source-dir target-dir root-target]
   (let [file-path (file/path file-obj)
         last-log (git/last-log file-path source-dir)
         is-directory (file/dir? file-path)
@@ -27,7 +27,8 @@
         target-path (path/swapext
                      (path/source->target file-path source-dir target-dir)
                      target-extension)
-        link (path/remove-prefix target-path target-dir)]
+        name (file/name file-obj)
+        link (path/remove-prefix target-path root-target)]
 
     {:file file-obj
      :has-info true
@@ -40,7 +41,7 @@
      :target-extension target-extension
      :link link
      :last-log last-log
-     :name (file/name file-obj)}))
+     :name name}))
 
 (defn with-contents
   "Parse a file's contents to an AST, adding :contents to the file struct.
