@@ -91,9 +91,9 @@ function compileHomePage(targetDir) {
 }
 
 function main() {
-  const targetDir = website.target;
-  const compiledSite = website.sources.forEach(({ dir, paths }) =>
-    paths.forEach((pathConfig) => {
+  const { target: targetDir, source } = website;
+  const compiledSite = website.sources.map(({ dir, paths }) =>
+    paths.map((pathConfig) => {
       fileType.toDisk(
         compileWikiPath(
           { ...pathConfig, websiteTarget: targetDir },
