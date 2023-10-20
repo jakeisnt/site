@@ -39,10 +39,7 @@
           buildInputs = [
             inotify-tools
 
-            clojure
-            leiningen
-            clojure-lsp
-            dart-sass
+            bun
 
             serve
             build
