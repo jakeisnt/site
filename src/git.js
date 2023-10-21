@@ -1,12 +1,5 @@
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
-const path = require('path');
-
+import { exec } from './cmd';
 import { Path } from './path';
-
-function historyLink(longHash, filePath) {
-  return `${const.sourceUrl}/blob/${longHash}/${filePath}`;
-}
 
 // a git repository is a directory with a .git subdirectory
 class Repo {
@@ -20,6 +13,11 @@ class Repo {
   constructor(sourcePath, remotePath) {
     const path = new Path(dir);
     this.path = path;
+  }
+
+  // get the link to a particular file in git history
+  historyLink(longHash, filePath) {
+    return `${const.sourceUrl}/blob/${longHash}/${filePath}`;
   }
 
   // run a command in this git repository
