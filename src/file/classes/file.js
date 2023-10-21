@@ -51,6 +51,12 @@ class File {
     return this.path.extension;
   }
 
+  // get the target extension of this file when written
+  // override this if your file compiles to something of a different type?
+  get targetExtension() {
+    return this.path.extension;
+  }
+
   // get the string of the folder the path is contained in
   get directory() {
     return this.path.parent;
