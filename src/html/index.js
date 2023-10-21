@@ -1,4 +1,4 @@
-import { html } from './dsl';
+import { html, htmlPage } from './dsl';
 import { header } from './utils';
 
-export { html, header };
+export { html, htmlPage, header };

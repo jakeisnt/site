@@ -17,12 +17,6 @@
     title
     (str (collect-folder-paths-string (rest path-list) title) path-delimiter (first path-list))))
 
-
-(defn ->string
-  "Serialize Hiccup-compatible data to a string"
-  [hiccup-struct]
-  (str "<!DOCTYPE html>" (h/html hiccup-struct)))
-
 ;; find all of the elements that fit a predicate
 (defn collect-elements [html-page pred]
   (filter pred (drop 2 html-page)))

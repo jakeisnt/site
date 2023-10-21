@@ -7,6 +7,10 @@ function html() {
     return buffer.join("");
 }
 
+function htmlPage() {
+    return "<!DOCTYPE html>" + html(arguments);
+}
+
 function build(list, buffer) {
     var index = 0;
     var length = list.length;
@@ -67,4 +71,4 @@ function splitTag(tag) {
     return [match[1], attr];
 }
 
-export { html };
+export { html, htmlPage };
