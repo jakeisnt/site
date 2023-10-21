@@ -27,6 +27,11 @@ class File {
     throw new Error('File.write() is not implemented');
   }
 
+  // what to return when this file is requested by a server or something
+  onRequest() {
+    throw new Error('File.onRequest() is not implemented');
+  }
+
   get path() {
     return this.path;
   }
@@ -138,7 +143,15 @@ class TextFile extends File {
   }
 
   get text() {
+    if (!this.asString) {
+      this.read();
+    }
+
     return this.asString;
+  }
+
+  onRequest() {
+    return this.text;
   }
 }
 
