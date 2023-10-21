@@ -21,6 +21,12 @@ class File {
 
   constructor(path) {
     // make the path a full path if it's not
+    // if the file doesn't exist, throw an error
+
+    if (!fs.existsSync) {
+      throw new Error(`from File constructor: File at path '${path}' does not exist`);
+    }
+
     this.path = path;
   }
 
@@ -53,28 +59,89 @@ class File {
   get extension() {
     return this.title.split('.')[1];
   }
+
+  // get the string of the folder the path is contained in
+  get directory() {
+    const parts = filePath.split('/');
+    return parts.slice(0, -1).join('/');
+  }
+
+  // I hope the file is not a directory
+  get isDirectory() {
+    return false;
+  }
+
+  // write this file to disk at the path
+  write() {
+    fs.writeFileSync(this.path, this.asString);
+    return this;
+  }
+
+  // try to move this file to a new location, err otherwise
+  // update this File's path to the new location
+  move(toPath) {
+    const fromPath = this.path;
+    const cwd = this.directory:
+
+    const { stdout, stderr } = await exec(`mv "${fromPath}" "${toPath}"`, { cwd });
+
+    console.log(stdout);
+    console.error(stderr);
+
+    return this;
+  }
+
+  // copy this file to a new path, returning the new File
+  // if the file already exists at the new path, throw an error
+  // if the path doesn't exist, throw an error
+  copy() {
+    const fromPath = this.path;
+    const toPath = path.join(this.directory, toPath);
+
+    const cwd = this.directory:
+
+    const { stdout, stderr } = await exec(`cp "${fromPath}" "${toPath}"`, { cwd });
+
+    console.log(stdout);
+    console.error(stderr);
+
+    return new File(toPath);
+  }
 }
 
-// TODO: image files are like files, but have to be read differently
-class ImageFile extends File {}
+// a directory is a file that contains other filesq
+class Directory extends File {
+  // get all the files in this dir, and those dirs, and those as a flat array
+  tree() {
+    const dir = this.path;
+    const filePaths = fs.readdirSync(dir, { withFileTypes: true });
+    const childFiles = [];
 
+    filePaths.forEach((filePath) => {
+      // TODO: how we get the path to the file depends on the name
+      // okay, a file is a Dirent. we can find docs for this.
+      const file = new File(path.join(dir, filePath));
+      if (file.isDirectory) {
+        result.push(...tree(filePath));
+      } else {
+        result.push(filePath);
+      }
+    });
 
-function tree(dir) {
-  const files = fs.readdirSync(dir, { withFileTypes: true });
-  const result = [];
-  files.forEach((file) => {
-    const filePath = path.join(dir, file.name);
-    if (file.isDirectory()) {
-      result.push(...tree(filePath));
-    } else {
-      result.push(filePath);
-    }
-  });
-  return result;
-}
+    return childFiles;
+  }
 
-function listDir(dir) {
-  return fs.readdirSync(dir);
+  // get all the files in the immediate dir
+  contents() {
+    const filesInDir = fs.readdirSync(this.path, { withFileTypes: true });
+    return filesInDir.map((file) => {
+      return new File(path.join(this.path, file));
+    });
+  }
+
+  get isDirectory() {
+    return true;
+  }
 }
 
 function readImage(filePath) {
@@ -99,38 +166,10 @@ function makeDirectory(dir) {
   fs.mkdirSync(dir);
 }
 
-function write(content, filePath) {
-  fs.writeFileSync(filePath, content, 'utf8');
-}
-
-function isDir(path) {
-  return fs.statSync(path).isDirectory();
-}
-
-async function move(from, to, dir) {
-  const { stdout, stderr } = await exec(`mv "${from}" "${to}"`, { cwd: dir });
-  console.log(stdout);
-  console.error(stderr);
-}
-
-async function copyDir(from, to, dir) {
-  const { stdout, stderr } = await exec(`cp -r "${from}" "${to}"`, { cwd: dir });
-  console.log(stdout);
-  console.error(stderr);
-}
-
-async function copy(from, to, fromDir) {
-  await copyDir(from, to, fromDir);
-}
-
 async function removeDir(path, inDir) {
   const { stdout, stderr } = await exec(`rm -r "${path}"`, { cwd: inDir });
   console.log(stdout);
   console.error(stderr);
-}
-
-function exists(filePath) {
-  return fs.existsSync(filePath);
 }
 
 module.exports = {

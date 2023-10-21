@@ -12,11 +12,6 @@ function sourceToTarget(filePath, sourceDir, targetDir) {
   return filePath.replace(new RegExp(sourceDir), targetDir);
 }
 
-function folder(filePath) {
-  const parts = filePath.split('/');
-  return parts.slice(0, -1).join('/');
-}
-
 function removePrefix(filePath, prefix) {
   return filePath.replace(new RegExp(`^${prefix}`), '');
 }
