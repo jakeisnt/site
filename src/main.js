@@ -2,6 +2,7 @@
 
 import { deploy } from './deploy';
 import { deploymentBranch, targetDir, website } from './constants';
+import { cli } from './utils/cli';
 
 const currentRepo = "/home/jake/site";
 
@@ -41,8 +42,13 @@ const currentRepo = "/home/jake/site";
 //   recordLastTimestamp(targetDir);
 // }
 
+const app = cli()
+      .option('deploy').describe('deploy the website').action(() => console.log('deploy'))
+      .option('build').describe('build the website').action(() => console.log('build'));
+
 function main() {
-  console.log('running the app omo');
+  const args = process.argv.slice(2);
+  app.exec(args);
 }
 
 main();
