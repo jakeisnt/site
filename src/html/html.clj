@@ -17,25 +17,6 @@
     title
     (str (collect-folder-paths-string (rest path-list) title) path-delimiter (first path-list))))
 
-;; find all of the elements that fit a predicate
-(defn collect-elements [html-page pred]
-  (filter pred (drop 2 html-page)))
-
-;; collect all of the html tags with a given id
-(defn find-tags [html-page & tags]
-  (collect-elements html-page (fn [html-block]
-                                (let [tag (first html-block)]
-                                  (some #(= tag %) tags)))))
-
-(defn heading-rank [heading-tag]
-  (match heading-tag
-    "h1" 1
-    "h2" 2
-    "h3" 3
-    "h4" 4
-    "h5" 5
-    "h6" 6
-    :else 7))
 
 (defn heading-hierarchy
   ([tag-list] (heading-hierarchy tag-list 0))
