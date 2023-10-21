@@ -1,55 +1,56 @@
-const { file, const, path, home, git, main } = require('./your_module'); // Assuming you have these modules
+// this file manages deployment to an external service
+// right now its just github pages lol
+import { Repo } from './git';
+import { buildWebsite } from './build';
 
-async function commitFolderTo({ repo, deploymentDir, branch }) {
-  const currentBranch = git.currentBranch(repo);
+async function commitFolderToBranch({ repo, folderToCommit, targetBranch }) {
   const tmpDir = "/tmp/jake-site-deploy";
 
+  const currentBranch = await repo.currentBranch();
+
   console.log("saving current changes");
-  git.addAll(repo);
-  git.stash(repo);
+  repo.addAll();
+  repo.stash();
 
   console.log("copying deployment to tmp dir");
-  git.checkout(repo, branch);
-  file.move(deploymentDir, tmpDir, repo);
-  git.status(repo);
+  repo.checkout(targetBranch);
+  // TODO file.move(folderToCommit, tmpDir, repo);
+  repo.status();
 
   console.log("removing all untracked files");
-  git.removeUntracked(repo);
-  git.status(repo);
+  repo.removeUntracked();
+  repo.status();
 
   console.log("moving tmp dir contents to root");
-
-  file.copyDir(tmpDir, deploymentDir, repo);
-  // Note: Copying files within a directory in JavaScript may require additional code to list and copy each file individually.
-  git.status(repo);
+  // TODO: file.copyDir(tmpDir, folderToCommit, repo);
+  repo.status();
 
   console.log("pushing build");
   console.log("we are on branch " + git.currentBranch(repo));
-  git.addAll(repo);
-  git.commit(repo);
-  git.push(repo);
-  git.status(repo);
+  repo.addAll();
+  repo.commit();
+  repo.push();
+  repo.status();
 
   console.log("restoring working branch");
-  git.checkout(repo, currentBranch);
-  git.status(repo);
+  repo.checkout(currentBranch);
+  repo.status();
 
   console.log("removing untracked");
-  git.removeUntracked(repo);
-  git.status(repo);
+  repo.removeUntracked();
+  repo.status();
 
   console.log("removing deployment dir");
-  file.removeDir(deploymentDir, repo);
+  // TODO: file.removeDir(folderToCommit, repo);
   console.log("moving tmp dir to deployment dir");
-  file.move(tmpDir, deploymentDir, repo);
+  // TODO: file.move(tmpDir, folderToCommit, repo);
 
-  git.stashPop(repo);
+  repo.stashPop();
 }
 
-async function mainFunction() {
-  const currentRepo = "/home/jake/site";
-  const deploymentBranch = const.deploymentBranch;
-  const targetDir = const.targetDir;
-  await main.mainFunction();
-  await commitFolderTo({ repo: currentRepo, branch: deploymentBranch, deploymentDir: targetDir });
+async function deploy({ currentRepo, deploymentBranch, targetDir }) {
+  await buildWebsite();
+  await commitFolderToBranch({ repo: currentRepo, branch: deploymentBranch, folderToCommit: targetDir });
 }
+
+export { deploy }
