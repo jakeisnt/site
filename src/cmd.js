@@ -1,7 +1,7 @@
 // command execution made stupid simple
 
 // exec a command synchronously
-const exec = (command, args) => {
+const execSync = (command, args) => {
   const child = spawn(command, args, { stdio: 'inherit' });
   return new Promise((resolve, reject) => {
     child.on('close', (code) => {
@@ -15,7 +15,7 @@ const exec = (command, args) => {
 };
 
 // exec a command asynchronously
-const execAsync = (command, args) => {
+const exec = (command, args) => {
   const child = spawn(command, args, { stdio: 'inherit' });
   return new Promise((resolve, reject) => {
     child.on('close', (code) => {
@@ -28,4 +28,4 @@ const execAsync = (command, args) => {
   });
 };
 
-export { exec, execAsync };
+export { exec, execSync };
