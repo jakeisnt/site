@@ -8,6 +8,11 @@ import { makeSpaces } from './string';
 //   .option(name).describe(desc).action(fn)
 //   .exec(argv)
 
+// bold a string when printing it out
+function bold(str) {
+  return '\x1b[1m' + str + '\x1b[0m';
+}
+
 class Option {
   constructor(name, creator) {
     this.name = name;
@@ -79,14 +84,16 @@ class CLI {
   }
 
   printHelp() {
-    console.log(`${this.name}${this.description ? `: ${this.description}` : ''}`);
-    console.log(`usage: ${this.name} [options]`);
+    console.log(`${bold(this.name)}${this.description ? `: ${this.description}` : ''}`);
+    console.log(``);
     const maxNameLength = this.options.reduce((max, o) => Math.max(max, o.name.length), 0);
 
     this.options.forEach(o => {
       const spaces = makeSpaces(maxNameLength - o.name.length);
-      console.log(`  ${o.name} ${spaces}- ${o.description}`);
+      console.log(`  ${bold(o.name)} ${spaces} ${o.description}`);
     });
+
+    console.log(``);
   }
 }
 
