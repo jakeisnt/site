@@ -130,18 +130,4 @@ class Repo {
   }
 }
 
-module.exports = {
-  log,
-  lastLog,
-  lastTimestamp,
-  historyLink,
-  checkout,
-  addAll,
-  commit,
-  push,
-  removeUntracked,
-  currentBranch,
-  status,
-  stash,
-  stashPop,
-};
+export { Repo };
