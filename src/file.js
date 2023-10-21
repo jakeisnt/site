@@ -3,6 +3,8 @@ const path = require('path');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
+const Path =
+
 // a file has three stages:
 // - read
 // - parsed (JSON)
@@ -19,15 +21,15 @@ class File {
   // the full path to the file
   path = null;
 
+  // make the path a full path if it's not
+  // if the file doesn't exist, throw an error
   constructor(path) {
-    // make the path a full path if it's not
-    // if the file doesn't exist, throw an error
-
-    if (!fs.existsSync) {
+    const filePath =  new Path(path);
+    if (!filePath.exists()) {
       throw new Error(`from File constructor: File at path '${path}' does not exist`);
     }
 
-    this.path = path;
+    this.path = filePath;
   }
 
   // read the file at the path
@@ -44,7 +46,6 @@ class File {
     return this.path;
   }
 
-  // the title of a file is the file name with the extension
   get title() {
     const parts = this.path.split('/');
     return parts[parts.length - 1];
@@ -55,15 +56,14 @@ class File {
     return this.title.split('.')[0];
   }
 
-  // the extension of a file is the file name without the name
-  get extension() {
-    return this.title.split('.')[1];
+  // the type of the file is the extension (for now?)
+  get type() {
+    return this.path.extension;
   }
 
   // get the string of the folder the path is contained in
   get directory() {
-    const parts = filePath.split('/');
-    return parts.slice(0, -1).join('/');
+    return this.path.parent;
   }
 
   // I hope the file is not a directory
