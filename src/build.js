@@ -3,8 +3,6 @@
 import fs from 'fs';
 import path from 'path';
 import fileType from './filetype/main'; // Import the fileType module
-import { website } from './constants';
-
 
 // The commit on which the file was last built
 const lastCommitTimestamp = fs.existsSync(const.lastModifiedFile)
@@ -93,38 +91,5 @@ function compileHomePage(targetDir) {
   home.toDisk(targetDir);
 }
 
-
-// compile the full website
-function main() {
-  // pull in website config
-  const { target: targetDir, source } = website;
-
-  // for each website source:
-  const compiledSite = website.sources.map(({ dir, paths }) =>
-    // for each path within that source:
-    paths.map((pathConfig) => {
-      // compile all of the files at that path.
-      fileType.toDisk(
-        compileWikiPath(
-          { ...pathConfig, websiteTarget: targetDir },
-          source.dir,
-          targetDir
-        )
-      );
-    });
-  );
-
-  // now that we have all of that info, compile the home page.
-  compileHomePage(targetDir);
-
-  // when should the files be written to disk?
-  //
-  // thinking about a more OO approach:
-  // File is a class that has methods
-
-  // re/record the build timestamp.
-  // TODO: these should be recorded per-source instead.
-  recordLastTimestamp(targetDir);
-}
-
-// main();
+// TODO: this  needs to expose tools for compiling file by file, compiling the whole website, etc.
+export { compileHomePage };
