@@ -2,9 +2,10 @@
 import { makeSpaces } from './string';
 
 // api:
-// cli()
-//   option(name).describe(desc).action(fn)
-//   option(name).describe(desc).action(fn)
+// cli('name')
+//   .describe('description')
+//   .option(name).describe(desc).action(fn)
+//   .option(name).describe(desc).action(fn)
 //   .exec(argv)
 
 class Option {
@@ -37,6 +38,7 @@ class Option {
 class CLI {
   name = '';
   options = [];
+  description = null;
 
   constructor(name = '<command>') {
     this.name = name;
@@ -47,6 +49,11 @@ class CLI {
     const option = new Option(name, this);
     this.options.push(option);
     return option;
+  }
+
+  describe(desc) {
+    this.description = desc;
+    return this;
   }
 
   exec(args) {
@@ -71,8 +78,8 @@ class CLI {
     return this;
   }
 
-
   printHelp() {
+    console.log(`${this.name}${this.description ? `: ${this.description}` : ''}`);
     console.log(`usage: ${this.name} [options]`);
     const maxNameLength = this.options.reduce((max, o) => Math.max(max, o.name.length), 0);
 

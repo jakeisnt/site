@@ -43,6 +43,7 @@ const currentRepo = "/home/jake/site";
 // }
 
 const app = cli('site')
+      .describe('compiles the website')
       .option('deploy').describe('deploy the website').action(() => console.log('deploy'))
       .option('build').describe('build the website').action(() => console.log('build'));
 
