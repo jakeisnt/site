@@ -1,14 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const util = require('util');
-const exec = util.promisify(require('child_process').exec);
-
-import Path from './path';
-
-// a file has three stages:
-// - read
-// - parsed (JSON)
-// - compiled (JS)
+import fs from 'fs';
+import { exec } from './cmd';
+import { Path } from './path';
 
 class File {
   // the full path to the file
@@ -165,3 +157,9 @@ class BinaryFile extends File {
     return this;
   }
 }
+
+export {
+  Directory,
+  TextFile,
+  BinaryFile
+};
