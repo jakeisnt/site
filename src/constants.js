@@ -51,7 +51,62 @@ const profiles = [
     url: "https://twitter.com/jakeissnt",
     user: "jakeissnt"
   },
-  // ... (other profile objects)
+  {
+    name: "GitHub",
+    url: "https://github.com/jakeisnt",
+    user: "jakeisnt"
+  },
+  {
+    name: "Gitlab",
+    url: "https://gitlab.com/jakeisnt",
+    user: "jakeisnt"
+  },
+  {
+    name: "sourcehut",
+    url: "https://sr.ht/~jakeisnt/",
+    user: "jakeisnt"
+  },
+  {
+    name: "YouTube",
+    url: "https://www.youtube.com/@jakeisnt",
+    user: "jakeisnt"
+  },
+  {
+    name: "Email",
+    url: "mailto://jake+website@isnt.online",
+    user: "jake @ ~"
+  },
+  {
+    name: "Google Maps",
+    url: "https://www.google.com/maps/contrib/109731430420919295575/",
+    user: "Jake Chvatal"
+  },
+  {
+    name: "OpenStreetMaps",
+    url: "https://www.openstreetmap.org/user/jakeisnt",
+    user: "jakeisnt"
+  },
+  {
+    name: "Hacker News",
+    url: "https://news.ycombinator.com/user?id=jakeisnt",
+    user: "jakeisnt"
+  },
+  {
+    name: "Instagram",
+    url: "https://instagram.com/jakeisnt",
+    user: "jakeisnt"
+  },
+  {
+    name: "read.cv",
+    url: "https://read.cv/jakeisnt",
+    user: "jakeisnt"
+  },
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/jacob-chvatal",
+    user: "jacob-chvatal",
+    deprecated: true
+  }
 ];
 
 const personal = {
