@@ -1,5 +1,6 @@
 // utilities for creating cli programs
 import { makeSpaces } from './string';
+import { bold, color } from './printstyle';
 
 // api:
 // cli('name')
@@ -8,10 +9,6 @@ import { makeSpaces } from './string';
 //   .option(name).describe(desc).action(fn)
 //   .exec(argv)
 
-// bold a string when printing it out
-function bold(str) {
-  return '\x1b[1m' + str + '\x1b[0m';
-}
 
 class Option {
   constructor(name, creator) {
@@ -90,7 +87,7 @@ class CLI {
 
     this.options.forEach(o => {
       const spaces = makeSpaces(maxNameLength - o.name.length);
-      console.log(`  ${bold(o.name)} ${spaces} ${o.description}`);
+      console.log(`  ${color(o.name, 'blue')} ${spaces} ${o.description}`);
     });
 
     console.log(``);
