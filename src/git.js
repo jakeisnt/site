@@ -2,103 +2,132 @@ const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 const path = require('path');
 
-async function log(file, sourceDir) {
-  const filePath = path.join(sourceDir, file);
-  const command = `git log --all --full-history --pretty="format:%h %H %ad" --date default --date=format:'%Y-%m-%d' ${filePath}`;
-  try {
-    const { stdout } = await exec(command);
-    if (stdout) {
-      return stdout.split('\n').map((line) => {
-        const [shortHash, longHash, commitDate] = line.split(' ');
-        return {
-          shortHash,
-          longHash,
-          commitDate,
-          file: file,
-        };
-      });
-    } else {
-      throw new Error(`git log command failed on path ${file}`);
-    }
-  } catch (error) {
-    throw error;
-  }
-}
-
-async function lastLog(file, sourceDir) {
-  const filePath = path.join(sourceDir, file);
-  const command = `git log -1 --full-history --pretty="format:%h %H %ad %ct" --date default --date=format:'%Y-%m-%d' ${filePath}`;
-  try {
-    const { stdout } = await exec(command);
-    if (stdout) {
-      const [line] = stdout.split('\n');
-      const [shortHash, longHash, commitDate, timestamp] = line.split(' ');
-      return {
-        shortHash,
-        longHash,
-        commitDate,
-        timestamp: parseInt(timestamp, 10),
-        file: file,
-      };
-    } else {
-      throw new Error(`git log command failed on path ${file}`);
-    }
-  } catch (error) {
-    throw error;
-  }
-}
-
-async function lastTimestamp(sourceDir, path) {
-  const filePath = path ? path : '';
-  const command = `git log -1 --pretty=format:%ct --follow -- ${filePath}`;
-  try {
-    const { stdout } = await exec(command, { cwd: sourceDir });
-    return parseInt(stdout, 10);
-  } catch (error) {
-    throw error;
-  }
-}
+import { Path } from './path';
 
 function historyLink(longHash, filePath) {
   return `${const.sourceUrl}/blob/${longHash}/${filePath}`;
 }
 
-async function checkout(sourceDir, branch) {
-  await exec(`git checkout ${branch}`, { cwd: sourceDir });
-}
+// a git repository is a directory with a .git subdirectory
+class Repo {
+  // the full path to the git repository
+  path = null;
 
-async function addAll(sourceDir) {
-  await exec('git add .', { cwd: sourceDir });
-}
+  // the remote URL of the git repository
+  // optional?
+  remote = null;
 
-async function commit(sourceDir) {
-  await exec('git -c commit.gpgsign=false commit -m "robot commit"', { cwd: sourceDir });
-}
+  constructor(sourcePath, remotePath) {
+    const path = new Path(dir);
+    this.path = path;
+  }
 
-async function push(sourceDir) {
-  await exec('git push', { cwd: sourceDir });
-}
+  // run a command in this git repository
+  async runCmd(command) {
+    return exec(command, { cwd: this.path.toString() });
+  }
 
-async function removeUntracked(dir) {
-  await exec('git clean -fxd', { cwd: dir });
-}
+  // Get the full log of a file at the provided path
+  async log(file) {
+    const filePath = path.join(this.path.toString(), file);
+    const command = `git log --all --full-history --pretty="format:%h %H %ad" --date default --date=format:'%Y-%m-%d' ${filePath}`;
+    try {
+      const { stdout } = await exec(command);
+      if (stdout) {
+        return stdout.split('\n').map((line) => {
+          const [shortHash, longHash, commitDate] = line.split(' ');
+          return {
+            shortHash,
+            longHash,
+            commitDate,
+            file: file,
+          };
+        });
+      } else {
+        throw new Error(`git log command failed on path ${file}`);
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
 
-async function currentBranch(dir) {
-  const { stdout } = await exec('git branch --show-current', { cwd: dir });
-  return stdout.trim();
-}
+  // get the last log of a file at the provided path
+  async lastLog(file) {
+    const filePath = path.join(sourceDir, file);
+    const command = `git log -1 --full-history --pretty="format:%h %H %ad %ct" --date default --date=format:'%Y-%m-%d' ${filePath}`;
+    try {
+      const { stdout } = await exec(command);
+      if (stdout) {
+        const [line] = stdout.split('\n');
+        const [shortHash, longHash, commitDate, timestamp] = line.split(' ');
+        return {
+          shortHash,
+          longHash,
+          commitDate,
+          timestamp: parseInt(timestamp, 10),
+          file: file,
+        };
+      } else {
+        throw new Error(`git log command failed on path ${file}`);
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
 
-async function status(dir) {
-  const { stdout } = await exec('git status', { cwd: dir });
-  console.log(stdout);
-}
+  // get the last timestamp of a file at the provided path
+  async lastTimestamp(path) {
+    const filePath = path ? path : '';
+    const command = `git log -1 --pretty=format:%ct --follow -- ${filePath}`;
+    try {
+      const { stdout } = await exec(command, { cwd: sourceDir });
+      return parseInt(stdout, 10);
+    } catch (error) {
+      throw error;
+    }
+  }
 
-async function stash(dir) {
-  await exec('git stash', { cwd: dir });
-}
+  historyLink(longHash, filePath) {
+    return historyLink(longHash, filePath);
+  }
 
-async function stashPop(dir) {
-  await exec('git stash pop', { cwd: dir });
+  async checkout(branchName) {
+    return this.runCmd(`git checkout ${branchName}`);
+  }
+
+  async addAll() {
+    await this.runCmd('git add .');
+  }
+
+  async commit(message = 'robot commit') {
+    await this.runCmd(`git -c commit.gpgsign=false commit -m "${message}"`);
+  }
+
+  async push() {
+    await this.runCmd('git push');
+  }
+
+  async removeUntracked() {
+    await this.runCmd('git clean -fxd');
+  }
+
+  async currentBranch() {
+    const { stdout } = await this.runCmd('git branch --show-current');
+    return stdout.trim();
+  }
+
+  async status() {
+    const { stdout } = await this.runCmd('git status');
+    console.log(stdout);
+  }
+
+  async stash() {
+    await this.runCmd('git stash');
+  }
+
+  async stashPop() {
+    await this.runCmd('git stash pop');
+  }
 }
 
 module.exports = {
