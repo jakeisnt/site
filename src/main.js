@@ -42,7 +42,7 @@ const currentRepo = "/home/jake/site";
 //   recordLastTimestamp(targetDir);
 // }
 
-const app = cli()
+const app = cli('site')
       .option('deploy').describe('deploy the website').action(() => console.log('deploy'))
       .option('build').describe('build the website').action(() => console.log('build'));
 

@@ -31,7 +31,11 @@ class Option {
 }
 
 class CLI {
-  constructor() {
+  name = '';
+  options = [];
+
+  constructor(name = '<command>') {
+    this.name = name;
     this.options = [];
   }
 
@@ -42,17 +46,39 @@ class CLI {
   }
 
   exec(args) {
+    this.addHelpOption();
     const option = this.options.find(o => o.name === args[0]);
+
     if (option) {
       option.apply(args.slice(1));
     } else {
-      console.log('unknown option');
+      this.printHelp();
     }
+  }
+
+  // add the help option
+  // the help option needs to reference `this`,
+  // so it can't be added in the constructor
+  addHelpOption() {
+    this.option('help')
+      .describe('Show help')
+      .action(() => this.printHelp());
+
+    return this;
+  }
+
+
+  printHelp() {
+    console.log(`usage: ${this.name} [options]`);
+
+    this.options.forEach(o => {
+      console.log(`  ${o.name} - ${o.description}`);
+    });
   }
 }
 
-function cli() {
-  return new CLI();
+function cli(...args) {
+  return new CLI(...args);
 }
 
 export { cli };
