@@ -9,9 +9,6 @@
 ;; delimits paths in title and in body
 (def ^:const path-delimiter " / ")
 
-(defn make-path-list [path]
-  (path/split (path/remove-prefix path const/target-dir)))
-
 (defn collect-folder-paths-string [path-list title]
   (if (empty? (rest path-list))
     title

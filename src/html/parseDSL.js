@@ -1,3 +1,5 @@
+import { Path } from '../utils/path';
+
 const headingRank = (headingTag) => {
   switch(headingTag) {
     case "h1":

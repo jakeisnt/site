@@ -13,7 +13,7 @@ class Path {
     this.pathArray = pathString.split('/').slice(1);
   }
 
-  get toString() {
+  toString() {
     return this.pathString;
   }
 
@@ -28,6 +28,27 @@ class Path {
 
   get parent() {
     return new Path(this.pathArray.slice(0, this.pathArray.length - 1).join('/'));
+  }
+
+  // get this path's position relative to another path or string
+  // ASSUME that the other path is the prefix of this one
+  relativeTo(maybeOtherPath) {
+    let otherPath = maybeOtherPath;
+    if (typeof otherPath === "string") {
+      otherPath = new Path(otherPath);
+    }
+
+    // assuming the other path is the prefix of this one,
+    // remove it from this path
+    const curPathArray = [...this.pathArray];
+    otherPath.pathArray.forEach((prefixFolderName) => {
+      if (!(curPathArray[0] === prefixFolderName)) {
+        throw new Error(`'${otherPath.pathString}' is not a prefix of this path, '${this.pathString}'`);
+      }
+      curPathArray.shift();
+    });
+
+    return new Path(curPathArray.join('/'));
   }
 
   // does this path exist on disk?
