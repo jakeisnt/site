@@ -1,3 +1,7 @@
+// Settings that are necessary for the app to run.
+// Only 'main.js' should import this file.
+// If another file needs them, consider placing those in a different file.
+
 const sourceUrl = 'https://github.com/jakeisnt/wiki';
 const siteName = "Jake Chvatal";
 

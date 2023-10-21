@@ -1,4 +1,4 @@
-// has all the stuff that builds the website
+// Utilities for building the website.
 
 import fs from 'fs';
 import path from 'path';

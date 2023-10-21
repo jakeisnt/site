@@ -10,7 +10,7 @@ function deployWebsite() {
 }
 
 // compile the full website
-function main() {
+function compileWebsite() {
   // pull in website config
   const { target: targetDir, source } = website;
 
@@ -42,3 +42,6 @@ function main() {
   recordLastTimestamp(targetDir);
 }
 
+function main() {
+  console.log('running the app omo');
+}
