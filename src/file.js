@@ -3,7 +3,7 @@ const path = require('path');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
-const Path =
+import Path from './path';
 
 // a file has three stages:
 // - read
@@ -11,20 +11,13 @@ const Path =
 // - compiled (JS)
 
 class File {
-  // the string contents of the file
-  asString = null;
-  // the parsed JSON contents of the file
-  asAST = null;
-  // the compiled HTML file
-  asHtml = null;
-
   // the full path to the file
   path = null;
 
   // make the path a full path if it's not
   // if the file doesn't exist, throw an error
   constructor(path) {
-    const filePath =  new Path(path);
+    const filePath = new Path(path);
     if (!filePath.exists()) {
       throw new Error(`from File constructor: File at path '${path}' does not exist`);
     }
@@ -34,12 +27,12 @@ class File {
 
   // read the file at the path
   read() {
-    this.asString = fs.readFileSync(this.path, 'utf8');
-    return this;
+    throw new Error('File.read() is not implemented');
   }
 
-  get text() {
-    return this.read().asString;
+  // write this file to disk at the path
+  write() {
+    throw new Error('File.write() is not implemented');
   }
 
   get path() {
@@ -69,12 +62,6 @@ class File {
   // I hope the file is not a directory
   get isDirectory() {
     return false;
-  }
-
-  // write this file to disk at the path
-  write() {
-    fs.writeFileSync(this.path, this.asString);
-    return this;
   }
 
   // try to move this file to a new location, err otherwise
@@ -110,8 +97,7 @@ class File {
 }
 
 // a directory is a file that contains other filesq
-class Directory extends File {
-  // get all the files in this dir, and those dirs, and those as a flat array
+class Directory extends File {// get all the files in this dir, and those dirs, and those as a flat array
   tree() {
     const dir = this.path;
     const filePaths = fs.readdirSync(dir, { withFileTypes: true });
@@ -144,50 +130,38 @@ class Directory extends File {
   }
 }
 
-function readImage(filePath) {
-  try {
-    return fs.createReadStream(filePath);
-  } catch (e) {
-    console.error('File read from path not found:', filePath);
-    console.error(e);
-    return null;
+// A text file is a file that can be read as a utf-8 string
+class TextFile extends File {
+  // the string contents of the file
+  asString = null;
+
+  read() {
+    this.asString = fs.readFileSync(this.path, 'utf8');
+    return this;
+  }
+
+  write() {
+    this.path.writeString(this.asString);
+    return this;
+  }
+
+  get text() {
+    return this.asString;
   }
 }
 
-async function writeImage(inStream, outPath) {
-  const outStream = fs.createWriteStream(outPath);
-  inStream.pipe(outStream);
-  await new Promise((resolve) => {
-    outStream.on('close', resolve);
-  });
-}
+// A BinaryFile is a file that we can't read or write as a string (like an image)
+class BinaryFile extends File {
+  // the binary contents of the file
+  asBinary = null;
 
-function makeDirectory(dir) {
-  fs.mkdirSync(dir);
-}
+  read() {
+    this.asBinary = this.path.readBinary();
+    return this;
+  }
 
-async function removeDir(path, inDir) {
-  const { stdout, stderr } = await exec(`rm -r "${path}"`, { cwd: inDir });
-  console.log(stdout);
-  console.error(stderr);
+  write() {
+    this.path.writeBinary(this.asBinary);
+    return this;
+  }
 }
-
-module.exports = {
-  getPath,
-  tree,
-  listDir,
-  read,
-  readImage,
-  writeImage,
-  makeDirectory,
-  write,
-  title,
-  name,
-  extension,
-  isDir,
-  move,
-  copyDir,
-  copy,
-  removeDir,
-  exists,
-};

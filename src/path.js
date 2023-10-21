@@ -1,7 +1,7 @@
 const path = require('path');
+const fs = require('fs');
 
 // a Path is the path to a file or directory on a system.
-// A Path can be changed to
 class Path {
   // this params are immutable, so it's safe to store both and use directly
   pathArray = [];
@@ -36,11 +36,53 @@ class Path {
   }
 
   replaceExtension(extension) {
-    const newExtension = this.path.replace(/\.\S+$/, `.${extension}`);
+    const newExtension = this.pathString.replace(/\.\S+$/, `.${extension}`);
     return new Path(newExtension);
   };
 
-  // return a new path with the directories provided replaced with new ones
+  // is this path a directory?
+  isDirectory() {
+    return fs.lstatSync(this.pathString).isDirectory();
+  }
+
+  // read this path as a utf8 string
+  readString() {
+    return fs.readFileSync(this.pathString, 'utf8');
+  }
+
+  // write a string to this path, creating the file if it doesn't exist
+  writeString(str) {
+    this.make();
+    fs.writeFileSync(this.pathString, str);
+  }
+
+  readBinary() {
+    return fs.createReadStream(this.pathString);
+  }
+
+  writeBinary(fromStream) {
+    const outStream = fs.createWriteStream(outPath);
+    inStream.pipe(outStream);
+    await new Promise((resolve) => {
+      outStream.on('close', resolve);
+    });
+  }
+
+  // make this path exist, creating any parent directories along the way
+  make() {
+    if (this.exists()) {
+      return;
+    }
+
+    const parent = this.parent;
+    if (!parent.exists()) {
+      parent.make();
+    }
+
+    fs.mkdirSync(this.pathString);
+  }
+
+  // TODO: return a new path with the directories provided replaced with new ones
   // for example: replaceDirectories(['foo', 'bar'], ['baz', 'qux']) would replace
   replaceDirectories(oldDirectories, newDirectories) {
 
