@@ -1,7 +1,11 @@
 // utilities for creating cli programs
+import { makeSpaces } from './string';
 
 // api:
-//   option(name).description(desc).action(fn)
+// cli()
+//   option(name).describe(desc).action(fn)
+//   option(name).describe(desc).action(fn)
+//   .exec(argv)
 
 class Option {
   constructor(name, creator) {
@@ -70,9 +74,11 @@ class CLI {
 
   printHelp() {
     console.log(`usage: ${this.name} [options]`);
+    const maxNameLength = this.options.reduce((max, o) => Math.max(max, o.name.length), 0);
 
     this.options.forEach(o => {
-      console.log(`  ${o.name} - ${o.description}`);
+      const spaces = makeSpaces(maxNameLength - o.name.length);
+      console.log(`  ${o.name} ${spaces}- ${o.description}`);
     });
   }
 }
