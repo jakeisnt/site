@@ -1,3 +1,4 @@
+// a hiccup-like HTML domain specific language!!
 // https://gist.github.com/hns/654226
 
 function html() {
