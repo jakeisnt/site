@@ -63,9 +63,10 @@ class Path {
   writeBinary(fromStream) {
     const outStream = fs.createWriteStream(outPath);
     inStream.pipe(outStream);
-    await new Promise((resolve) => {
-      outStream.on('close', resolve);
-    });
+    // TODO
+    // await new Promise((resolve) => {
+    //   outStream.on('close', resolve);
+    // });
   }
 
   // make this path exist, creating any parent directories along the way

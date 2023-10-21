@@ -5,43 +5,44 @@ import { deploymentBranch, targetDir, website } from './constants';
 
 const currentRepo = "/home/jake/site";
 
-function deployWebsite() {
-  deploy({ currentRepo, targetDir, deploymentBranch });
-}
+// function deployWebsite() {
+//   deploy({ currentRepo, targetDir, deploymentBranch });
+// }
 
 // compile the full website
-function compileWebsite() {
-  // pull in website config
-  const { target: targetDir, source } = website;
+// function compileWebsite() {
+//   // pull in website config
+//   const { target: targetDir, source } = website;
 
-  // for each website source:
-  const compiledSite = website.sources.map(({ dir, paths }) =>
-    // for each path within that source:
-    paths.map((pathConfig) => {
-      // compile all of the files at that path.
-      fileType.toDisk(
-        compileWikiPath(
-          { ...pathConfig, websiteTarget: targetDir },
-          source.dir,
-          targetDir
-        )
-      );
-    });
-  );
+//   // for each website source:
+//   const compiledSite = website.sources.map(({ dir, paths }) =>
+//     // for each path within that source:
+//     paths.map((pathConfig) => {
+//       // compile all of the files at that path.
+//       fileType.toDisk(
+//         compileWikiPath(
+//           { ...pathConfig, websiteTarget: targetDir },
+//           source.dir,
+//           targetDir
+//         ));
+//     }
+//     ));
 
-  // now that we have all of that info, compile the home page.
-  compileHomePage(targetDir);
+//   // now that we have all of that info, compile the home page.
+//   compileHomePage(targetDir);
 
-  // when should the files be written to disk?
-  //
-  // thinking about a more OO approach:
-  // File is a class that has methods
+//   // when should the files be written to disk?
+//   //
+//   // thinking about a more OO approach:
+//   // File is a class that has methods
 
-  // re/record the build timestamp.
-  // TODO: these should be recorded per-source instead.
-  recordLastTimestamp(targetDir);
-}
+//   // re/record the build timestamp.
+//   // TODO: these should be recorded per-source instead.
+//   recordLastTimestamp(targetDir);
+// }
 
 function main() {
   console.log('running the app omo');
 }
+
+main();

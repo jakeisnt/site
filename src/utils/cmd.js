@@ -1,6 +1,7 @@
 // command execution made stupid simple
 // this might need more stuff... not sure yet.
 
+import util from 'util';
 const exec = util.promisify(require('child_process').exec);
 
 // exec a command synchronously

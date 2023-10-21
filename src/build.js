@@ -2,12 +2,12 @@
 
 import fs from 'fs';
 import path from 'path';
-import fileType from './filetype/main'; // Import the fileType module
+// import fileType from './filetype/main'; // Import the fileType module
 
 // The commit on which the file was last built
-const lastCommitTimestamp = fs.existsSync(const.lastModifiedFile)
-  ? parseInt(fs.readFileSync(const.lastModifiedFile).toString().trim())
-  : 0;
+// const lastCommitTimestamp = fs.existsSync(const.lastModifiedFile)
+//   ? parseInt(fs.readFileSync(const.lastModifiedFile).toString().trim())
+//   : 0;
 
 console.log('Last build was at', lastCommitTimestamp);
 
@@ -22,10 +22,10 @@ function fileIsNew(file, config) {
   return config.forceRebuild || file.lastLog.timestamp > lastCommitTimestamp;
 }
 
-function recordLastTimestamp(sourceDir) {
-  const lastTimestamp = git.lastTimestamp(sourceDir);
-  fs.writeFileSync(const.lastModifiedFile, lastTimestamp.toString());
-}
+// function recordLastTimestamp(sourceDir) {
+//   const lastTimestamp = git.lastTimestamp(sourceDir);
+//   fs.writeFileSync(const.lastModifiedFile, lastTimestamp.toString());
+// }
 
 function getDirFiles(sourceDir, targetDir, config) {
   const filesToShow = fs.readdirSync(sourceDir);

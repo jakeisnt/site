@@ -1,0 +1,5 @@
+{
+  "name": "site",
+  "module": "src/main.js",
+  "type": "module"
+}

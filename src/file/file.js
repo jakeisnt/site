@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { exec } from './cmd';
-import { Path } from './path';
+import { exec } from '../utils/cmd';
+import { Path } from '../utils/path';
 
 class File {
   // the full path to the file

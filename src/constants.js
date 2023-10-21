@@ -4,6 +4,8 @@
 
 const sourceUrl = 'https://github.com/jakeisnt/wiki';
 const siteName = "Jake Chvatal";
+const deploymentBranch = "production";
+const targetDir = "/home/jake/site/docs"
 
 const sitePaths = [
   { folder: "resources", forceRebuild: true },
@@ -126,3 +128,9 @@ const personal = {
 };
 
 const lastModifiedFile = "docs/last-modified.txt";
+
+export {
+  website,
+  deploymentBranch,
+  targetDir,
+};

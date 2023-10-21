@@ -8,7 +8,7 @@ class Repo {
 
   // the remote URL of the git repository
   // optional?
-  remote = null;
+  remoteUrl = null;
 
   constructor(sourcePath, remotePath) {
     const path = new Path(dir);
@@ -17,7 +17,7 @@ class Repo {
 
   // get the link to a particular file in git history
   historyLink(longHash, filePath) {
-    return `${const.sourceUrl}/blob/${longHash}/${filePath}`;
+    return `${this.remoteUrl}/blob/${longHash}/${filePath}`;
   }
 
   // run a command in this git repository
