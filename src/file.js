@@ -3,9 +3,61 @@ const path = require('path');
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 
-function getPath(file) {
-  return (typeof file === 'string') ? file : file.getPath();
+// a file has three stages:
+// - read
+// - parsed (JSON)
+// - compiled (JS)
+
+class File {
+  // the string contents of the file
+  asString = null;
+  // the parsed JSON contents of the file
+  asAST = null;
+  // the compiled HTML file
+  asHtml = null;
+
+  // the full path to the file
+  path = null;
+
+  constructor(path) {
+    // make the path a full path if it's not
+    this.path = path;
+  }
+
+  // read the file at the path
+  read() {
+    this.asString = fs.readFileSync(this.path, 'utf8');
+    return this;
+  }
+
+  get text() {
+    return this.read().asString;
+  }
+
+  get path() {
+    return this.path;
+  }
+
+  // the title of a file is the file name with the extension
+  get title() {
+    const parts = this.path.split('/');
+    return parts[parts.length - 1];
+  }
+
+  // the name of a file is the file name without the extension
+  get name() {
+    return this.title.split('.')[0];
+  }
+
+  // the extension of a file is the file name without the name
+  get extension() {
+    return this.title.split('.')[1];
+  }
 }
+
+// TODO: image files are like files, but have to be read differently
+class ImageFile extends File {}
+
 
 function tree(dir) {
   const files = fs.readdirSync(dir, { withFileTypes: true });
@@ -23,16 +75,6 @@ function tree(dir) {
 
 function listDir(dir) {
   return fs.readdirSync(dir);
-}
-
-function read(filePath) {
-  try {
-    return fs.readFileSync(filePath, 'utf8');
-  } catch (e) {
-    console.error('File read from path not found:', filePath);
-    console.error(e);
-    return null;
-  }
 }
 
 function readImage(filePath) {
@@ -59,22 +101,6 @@ function makeDirectory(dir) {
 
 function write(content, filePath) {
   fs.writeFileSync(filePath, content, 'utf8');
-}
-
-function title(filePath) {
-  const parts = filePath.split('/');
-  return parts[parts.length - 1];
-}
-
-function name(filePath) {
-  const fileName = title(filePath);
-  return fileName.split('.')[0];
-}
-
-function extension(filePath) {
-  const fileName = title(filePath);
-  const parts = fileName.split('.');
-  return parts.length > 1 ? parts[1] : '';
 }
 
 function isDir(path) {

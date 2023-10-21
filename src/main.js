@@ -90,6 +90,7 @@ function compileHomePage(targetDir) {
   home.toDisk(targetDir);
 }
 
+
 // compile the full website
 function main() {
   // pull in website config
