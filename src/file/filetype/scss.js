@@ -1,4 +1,4 @@
-import { TextFile } from '../file';
+import { TextFile } from '../classes';
 import { exec } from '../../utils/cmd';
 
 class SCSSFile extends TextFile {

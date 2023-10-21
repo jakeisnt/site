@@ -1,4 +1,4 @@
-import { TextFile } from '../file';
+import { TextFile } from '../classes';
 
 class HTMLFile extends TextFile {}
 

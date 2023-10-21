@@ -1,4 +1,4 @@
-import { BinaryFile } from '../file';
+import { BinaryFile } from '../classes';
 
 class PNGFile extends BinaryFile {}
 
