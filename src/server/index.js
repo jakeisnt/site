@@ -133,6 +133,7 @@ const singleFileServer = (absolutePathToFile) => {
 //   x.y.html reads file x.y
 //   z.css reads (force compiles) file z.scss
 //   v.js reads  (force compiles) file v.ts
+//   <directory>/ is the same as directory/index.html, which reads directory/
 
 // file extension to the superfile extension
 // TODO: should be able to define this hierarchy in the file class, not here.
@@ -142,12 +143,26 @@ const singleFileServer = (absolutePathToFile) => {
 // we ask the file to create a 'parent file' of itself.
 // the file will then create a parent of itself, and so on, until it reaches a file that exists.
 // the parent file then knows to have to 'translate down' to the child it came from.
-const superMap = {
-  'html': 'html',
-  'css': 'scss',
-  'js': 'ts'
-};
 
+
+// 1. Ask the file to try to make itself
+// 2. If the file doesn't exist, the file should
+//   a. create an instance of a super file
+//   b. wrap the super file in a way that allows it to be 'translated down' to the current file.
+//      this implementation should live on the current file.
+//   c. return the parent file
+// This can continue recursively up up up until we reach a file that exists or a dead end.
+
+// okay, but what if we're looking at a directory of source files
+// and we want to compile them as html files? how do we know how to 'compile down' to what the user wants?
+// this is the static site case / arguably more important than the dynamic site case.
+
+// one approach: emulate a dynamic site's browser requesting behavior.
+// start with a file that represents the root.
+// compile it and determine all of its dependencies, including internal links.
+// for each dependency, make a file that represents it.
+// continue recursively until we have built the 'live' segment of the site;
+// the part that is reachable from the root.
 
 // support serving arbitrary files from a directory;
 // this means we have to handle routing.
@@ -176,15 +191,8 @@ const directoryServer = (absolutePathToDirectory) => {
       // if so, we need to serve the non-html version
       let file = dir.findFile(path);
 
-      // if we have a super mapping, try to get the super file
-      // we also need to 'cast down' from the super file to the requested file
-      // This needs to be thought through more.
-      if (!file && superMap[path.extension]) {
-        file = dir.findFile(path.replaceExtension(superMap[path.extension]));
-
-        if (!file) {
-          return new Response('Not found', { status: 404 });
-        }
+      if (!file) {
+        return new Response('Not found', { status: 404 });
       }
 
       return fileResponse(file, { asHtml: isHtmlVersion });
