@@ -13,7 +13,7 @@ const script = (src, opts) => {
 }
 
 const css = (src, opts, body) => {
-  return ["link" { rel: 'stylesheet', type: 'text/css', href: src, id: src, ...opts}, body];
+  return ["link", { rel: 'stylesheet', type: 'text/css', href: src, id: src, ...opts}, body];
 }
 
 const favicons = (iconDir) => {

@@ -1,4 +1,4 @@
-import { TextFile } from '../file';
+import TextFile from './text';
 import { htmlPage, header } from '../../html';
 
 // if it's a source code file, we want to:
@@ -23,7 +23,7 @@ const renderArticle = (args) => {
        ]
       ],
       ["div", { class: 'article-rhs-container' }
-       ["div", { class: 'article-rhs'}
+       ["div", { class: 'article-rhs'},
         component('GitHistoryTable', args),
         component('PrevNextUpButtons', args)]]]]];
 }

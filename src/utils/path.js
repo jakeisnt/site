@@ -20,8 +20,16 @@ class Path {
 
   // this should always be an absolute path
   constructor(pathString) {
+    if (typeof pathString !== 'string') {
+      throw new Error('Path must be a string');
+    }
+
     this.pathString = pathString;
     this.pathArray = pathString.split('/').slice(1);
+  }
+
+  static fromString(pathString) {
+    return new Path(pathString);
   }
 
   // returns a new Path with the proper full path
@@ -78,9 +86,8 @@ class Path {
     return new Path(curPathArray.join('/'));
   }
 
-  // does this path exist on disk?
   exists() {
-    return fs.existsSync(this.path);
+    return fs.existsSync(this.pathString);
   }
 
   replaceExtension(extension) {
@@ -115,6 +122,20 @@ class Path {
     // await new Promise((resolve) => {
     //   outStream.on('close', resolve);
     // });
+  }
+
+  // read a directory, returning the directory paths
+  readDirectory() {
+    if (!this.isDirectory()) {
+      throw new Error(`Cannot read directory '${this.pathString}' because it is not a directory`);
+    }
+
+    return fs.readdirSync(this.pathString)
+      .map((fileName) => new Path(`${this.pathString}${fileName}`));
+  }
+
+  join(nextPart) {
+    return new Path(this.pathString + nextPart);
   }
 
   // make this path exist, creating any parent directories along the way

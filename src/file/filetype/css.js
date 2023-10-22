@@ -1,4 +1,4 @@
-import TextFile from '../classes';
+import { TextFile } from '../classes';
 
 // a CSS file is a text file
 class CSSFile extends TextFile {

@@ -1,5 +1,11 @@
 import { File } from '../classes';
+import JSFile from './js.js';
+import { readFile } from '../index';
 import { header } from '../../html';
+
+const readJSFile = (path) => {
+  return new JSFile(path);
+}
 
 const folderIndexPageTable = (files) => {
   return ["div",
@@ -17,7 +23,7 @@ const folderIndexPageTable = (files) => {
        ];
 }
 
-const directoryToHtml = (dir, { files }) {
+const directoryToHtml = (dir, { files }) => {
   return [
     "html",
     header(),
@@ -30,21 +36,19 @@ const directoryToHtml = (dir, { files }) {
        component("ScrollUp", { file: dir, files })]]]];
 }
 
-// a directory is a file that contains other filesq
-class Directory extends File {// get all the files in this dir, and those dirs, and those as a flat array
+// a directory is a file that contains other files
+class Directory extends File {
+  // recursively fetch and flatten the file tree
+  // the result should contain no directories
   tree() {
-    const dir = this.path;
-    const filePaths = fs.readdirSync(dir, { withFileTypes: true });
+    const myContents = this.contents();
     const childFiles = [];
 
-    filePaths.forEach((filePath) => {
-      // TODO: how we get the path to the file depends on the name
-      // okay, a file is a Dirent. we can find docs for this.
-      const file = new File(path.join(dir, filePath));
+    myContents.forEach((file) => {
       if (file.isDirectory) {
-        result.push(...tree(filePath));
+        childFiles.push(...file.tree());
       } else {
-        result.push(filePath);
+        childFiles.push(file);
       }
     });
 
@@ -52,10 +56,17 @@ class Directory extends File {// get all the files in this dir, and those dirs, 
   }
 
   // get all the files in the immediate dir
-  contents() {
-    const filesInDir = fs.readdirSync(this.path, { withFileTypes: true });
-    return filesInDir.map((file) => {
-      return new File(path.join(this.path, file));
+  // we don't treat this as a property and don't cache it
+  // because it is very possible for the files in the dir to change
+
+  // the 'assumeJSFile' flag exists to bootstrap the setup:
+  // the readFile function knows how to dispatch because it reads the files in this directory,
+  // but it doesn't know what kind of files they are yet - so we force JS.
+  contents({ assumeJSFile } = { assumeJSFile: false }) {
+    const readFileWithType = assumeJSFile ? readJSFile : readFile;
+
+    return this.path.readDirectory().map((childPath) => {
+      return readFileWithType(childPath.toString());
     });
   }
 

@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { exec } from '../utils/cmd';
-import { Path } from '../utils/path';
+import { exec } from '../../utils/cmd';
+import { Path } from '../../utils/path';
 
 class File {
   // the full path to the file
@@ -76,9 +76,9 @@ class File {
   // update this File's path to the new location
   move(toPath) {
     const fromPath = this.path;
-    const cwd = this.directory:
+    const cwd = this.directory;
 
-    const { stdout, stderr } = await exec(`mv "${fromPath}" "${toPath}"`, { cwd });
+    // const { stdout, stderr } = await exec(`mv "${fromPath}" "${toPath}"`, { cwd });
 
     console.log(stdout);
     console.error(stderr);
@@ -93,9 +93,9 @@ class File {
     const fromPath = this.path;
     const toPath = path.join(this.directory, toPath);
 
-    const cwd = this.directory:
+    // const cwd = this.directory:
 
-    const { stdout, stderr } = await exec(`cp "${fromPath}" "${toPath}"`, { cwd });
+    // const { stdout, stderr } = await exec(`cp "${fromPath}" "${toPath}"`, { cwd });
 
     console.log(stdout);
     console.error(stderr);

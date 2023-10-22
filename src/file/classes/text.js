@@ -1,4 +1,4 @@
-import { File } from '../file';
+import File from './file';
 
 // A text file is a file that can be read as a utf-8 string
 class TextFile extends File {
