@@ -50,6 +50,9 @@ const createServer = (
   return server;
 }
 
+// is the file html?
+const isHtml = (file) => file.mimeType === 'text/html';
+
 // inject a hot reload script into the body iof an html string
 const injectHotReload = (html) => {
   const wsUrl = devWebsocketUrl;
@@ -76,7 +79,7 @@ const singleFileServer = (absolutePathToFile) => {
   createServer({
     onRequest: (request) => {
       return new Response(
-        injectHotReload(file.text),
+        isHtml(file) ? injectHotReload(file.text) : file.text,
         {
           headers: {
             'content-type': file.mimeType
