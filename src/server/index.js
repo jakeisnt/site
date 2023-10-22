@@ -136,6 +136,12 @@ const singleFileServer = (absolutePathToFile) => {
 
 // file extension to the superfile extension
 // TODO: should be able to define this hierarchy in the file class, not here.
+// I think we can use some superclass-like relationship here, right?
+
+// If I try to create a file at a path but the path doesn't exist,
+// we ask the file to create a 'parent file' of itself.
+// the file will then create a parent of itself, and so on, until it reaches a file that exists.
+// the parent file then knows to have to 'translate down' to the child it came from.
 const superMap = {
   'html': 'html',
   'css': 'scss',
@@ -172,6 +178,7 @@ const directoryServer = (absolutePathToDirectory) => {
 
       // if we have a super mapping, try to get the super file
       // we also need to 'cast down' from the super file to the requested file
+      // This needs to be thought through more.
       if (!file && superMap[path.extension]) {
         file = dir.findFile(path.replaceExtension(superMap[path.extension]));
 
