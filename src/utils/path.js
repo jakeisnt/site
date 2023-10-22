@@ -172,6 +172,19 @@ class Path {
 
     return this;
   }
+
+  watch(callback) {
+    if (!this.exists()) {
+      throw new Error(`Cannot watch path '${this.pathString}' because it does not exist`);
+    }
+
+    const watcher = fs.watch(this.pathString, (eventType, filename) => {
+      // TODO: filename could be different if the file moves?
+      callback(eventType, this);
+    });
+
+    return () => watcher.close();
+  }
 }
 
 export { Path };

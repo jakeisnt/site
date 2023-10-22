@@ -102,6 +102,16 @@ class File {
 
     return new File(toPath);
   }
+
+  watch(callback) {
+    const closeWatcher = this.path.watch((eventType, filename) => {
+      if (eventType === 'change') {
+        callback(eventType, this);
+      }
+    });
+
+    return closeWatcher;
+  }
 }
 
 export default File;

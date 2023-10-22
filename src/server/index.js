@@ -77,6 +77,10 @@ const singleFileServer = (absolutePathToFile) => {
       response.end(file.text);
     }
   });
+
+  file.watch((eventType, curFile) => {
+    console.log('File changed');
+  });
 }
 
 const exampleServer = () => {
