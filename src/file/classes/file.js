@@ -52,8 +52,8 @@ class File {
   }
 
   // get the mime type of the file
-  get type() {
-    return this.path.type;
+  get mimeType() {
+    return this.path.mimeType;
   }
 
   // get the target extension of this file when written

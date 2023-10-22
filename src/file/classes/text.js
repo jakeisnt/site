@@ -6,7 +6,7 @@ class TextFile extends File {
   asString = null;
 
   read() {
-    this.asString = fs.readFileSync(this.path, 'utf8');
+    this.asString = this.path.readString();
     return this;
   }
 

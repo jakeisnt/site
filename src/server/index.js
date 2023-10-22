@@ -17,7 +17,9 @@ const formatUrl = ({ url, port }) => `${url}${port ? ':' + port : ''}/`;
 
 // Start a server at the provided URL and port.
 // Handle requests with the provided callback.
-const createServer = ({ url, port, onRequest }) => {
+const createServer = (
+  { url = localhostUrl, port = constPort, onRequest = () => {} } = {}
+) => {
   const fullUrl = formatUrl({ url, port });
   const linkText = link(fullUrl).underline().color('blue');
 
@@ -53,18 +55,29 @@ const createServer = ({ url, port, onRequest }) => {
 //   return filePath;
 // }
 
-// function serveFile(response, file) {
-//   file.onRequest((err, data) => {
-//     if (err) {
-//       response.writeHead(404, { 'Content-Type': 'text/plain' });
-//       response.end('Not Found');
-//     } else {
-//       const contentType = file.type;
-//       response.writeHead(200, { 'Content-Type': contentType });
-//       response.end(data);
-//     }
-//   });
-// }
+function serveFile(response, file) {
+  return file.onRequest((err, data) => {
+    if (err) {
+      response.writeHead(404, { 'Content-Type': 'text/plain' });
+      response.end('Not Found');
+    } else {
+      const contentType = file.type;
+      response.writeHead(200, { 'Content-Type': contentType });
+      response.end(data);
+    }
+  });
+}
+
+const singleFileServer = (absolutePathToFile) => {
+  const file = readFile(absolutePathToFile);
+
+  createServer({
+    onRequest: (request, response) => {
+      response.writeHead(200, { 'Content-Type': file.mimeType });
+      response.end(file.text);
+    }
+  });
+}
 
 const exampleServer = () => {
   createServer({
@@ -81,4 +94,5 @@ const exampleServer = () => {
 
 export {
   exampleServer,
+  singleFileServer,
 };

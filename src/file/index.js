@@ -44,15 +44,17 @@ const getFiletypeMap = () => {
 }
 
 // given the source path of a file, return the appropriate file class
-const readFile = (path) => {
+const readFile = (incomingPath) => {
   if (!filetypeMap) {
     filetypeMap = getFiletypeMap();
   }
 
   // get the file extension
-  const path = Path.create(path);
+  const path = Path.create(incomingPath);
 
-  if (!(path.extension in filetypeMap)) {
+  const extension = path.extension;
+
+  if (!(extension in filetypeMap)) {
     throw new Error(`We do not currently support files with extension ${extension}`);
   }
 

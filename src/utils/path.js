@@ -54,7 +54,7 @@ class Path {
   }
 
   // get the mime type of the file
-  get type() {
+  get mimeType() {
     return mime.getType(this.pathString) || 'text/plain';
   }
 
