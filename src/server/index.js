@@ -204,9 +204,6 @@ const directoryServer = (absolutePathToDirectory) => {
       console.log('socket connected');
     }
   });
-
 }
-
-// does this work
 
 export { singleFileServer, directoryServer };
