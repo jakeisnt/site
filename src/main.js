@@ -3,6 +3,7 @@
 import { deploy } from './deploy';
 import { deploymentBranch, targetDir, website } from './constants';
 import { cli } from './utils/cli';
+import { readFile } from './file';
 
 const currentRepo = "/home/jake/site";
 
@@ -24,7 +25,7 @@ const currentRepo = "/home/jake/site";
 //         compileWikiPath(
 //           { ...pathConfig, websiteTarget: targetDir },
 //           source.dir,
-//           targetDir
+//
 //         ));
 //     }
 //     ));
@@ -42,10 +43,20 @@ const currentRepo = "/home/jake/site";
 //   recordLastTimestamp(targetDir);
 // }
 
+// Serve a file from a particular path.
+  // Supports hot reloading.
+const serve = (paths) => {
+  const path = paths?.[0];
+  console.log('serving file at path: ', path);
+
+  const file = readFile(path);
+}
+
 const app = cli('site')
       .describe('compiles the website')
       .option('deploy').describe('deploy the website').action(() => console.log('deploy'))
-      .option('build').describe('build the website').action(() => console.log('build'));
+      .option('build').describe('build the website').action(() => console.log('build'))
+      .option('serve').describe('serve the website').action(serve);
 
 function main() {
   const args = process.argv.slice(2);

@@ -1,4 +1,4 @@
-const case = (conditionArray) => value => {
+const cond = (conditionArray) => value => {
   for ([conditionPredicate, formatValue] in conditionArray) {
     if (typeof conditionPredicate === "function") {
       if(conditionPredicate(value)) {
@@ -14,4 +14,4 @@ const case = (conditionArray) => value => {
   return null;
 }
 
-export { case };
+export { cond };

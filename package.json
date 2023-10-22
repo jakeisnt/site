@@ -4,5 +4,8 @@
   "type": "module",
   "scripts": {
     "main": "bun run src/main.js"
+  },
+  "dependencies": {
+    "mime": "^3.0.0"
   }
 }

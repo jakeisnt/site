@@ -6,6 +6,7 @@ const sourceUrl = 'https://github.com/jakeisnt/wiki';
 const siteName = "Jake Chvatal";
 const deploymentBranch = "production";
 const targetDir = "/home/jake/site/docs"
+const targetUrl = "https://jake.isnt.online";
 
 const sitePaths = [
   { folder: "resources", forceRebuild: true },

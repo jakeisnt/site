@@ -1,10 +1,11 @@
-import path as pathLibrary from 'path';
+import pathLibrary from 'path';
 import fs from 'fs';
+import mime from 'mime';
 
-import { case } from './match';
+import { cond } from './match';
 
 const stringToPath = (maybePath) => {
-  return case(
+  return cond(
     [(v) => typeof v === 'string', (v) => new Path(otherPath)]
     [true, (v) => v]
   )(maybePath);
@@ -23,6 +24,11 @@ class Path {
     this.pathArray = pathString.split('/').slice(1);
   }
 
+  // returns a new Path with the proper full path
+  static fromUrl(url, websiteName, sourcePath) {
+    return new Path(url.replace(websiteName, sourcePath));
+  }
+
   toString() {
     return this.pathString;
   }
@@ -30,6 +36,11 @@ class Path {
   // the name of the file includes the extension
   get name() {
     return this.pathArray[this.pathArray.length - 1];
+  }
+
+  // get the mime type of the file
+  get type() {
+    return mime.getType(this.pathString) || 'text/plain';
   }
 
   get extension() {
@@ -60,9 +71,9 @@ class Path {
       curPathArray.shift();
     });
 
-    if (replaceWithPath) [
+    if (replaceWithPath) {
       curPathArray = [...replaceWithPath.pathArray, curPathArray];
-    ]
+    }
 
     return new Path(curPathArray.join('/'));
   }
