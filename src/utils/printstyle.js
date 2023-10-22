@@ -30,6 +30,10 @@ const linkText = (text, url) => [
   BEL,
 ].join('');
 
+const underlineText = (text) => {
+  return `\u001b[4m${text}\u001b[24m`;
+}
+
 function boldText(text) {
   return `\x1b[1m${text}\x1b[0m`;
 }
@@ -42,6 +46,7 @@ function colorText(str, color) {
 class PrintStyle {
   isBold = false;
   isItalic = false;
+  isUnderlined = false;
   colorName = null;
   text = '';
   url = null;
@@ -76,6 +81,11 @@ class PrintStyle {
     return this;
   }
 
+  underline() {
+    this.isUnderlined = true;
+    return this;
+  }
+
   // redefine toString behavior
   toString() {
     let str = this.text;
@@ -87,6 +97,10 @@ class PrintStyle {
     }
     if (this.colorName) {
         str = colorText(str, this.colorName);
+    }
+
+    if (this.isUnderlined) {
+        str = underlineText(str);
     }
 
     return str;
@@ -107,6 +121,10 @@ function color(text, colorName) {
 
 function link(text, url) {
   return new PrintStyle(text).link(url);
+}
+
+function underline(text) {
+  return new PrintStyle(text).underline();
 }
 
 export {

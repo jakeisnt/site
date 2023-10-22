@@ -19,31 +19,30 @@ const formatUrl = ({ url, port }) => `${url}${port ? ':' + port : ''}/`;
 // Handle requests with the provided callback.
 const createServer = ({ url, port, onRequest }) => {
   const fullUrl = formatUrl({ url, port });
-  const linkText = link(fullUrl);
+  const linkText = link(fullUrl).underline().color('blue');
 
   console.log(`Starting server at ${linkText}`);
 
   const server = http.createServer(onRequest);
 
   server.listen(constPort, () => {
-    const linkText = link();
     console.log(`Server is running at ${linkText}`);
   });
 }
 
-const fileServer = () => {
-  const onRequest = (request, response) => {
-    const path = Path.fromUrl(url, localhostUrl, sourceDir);
-    const file = readFile(request.url);
-    serveFile(response, file);
-  };
+// const fileServer = () => {
+//   const onRequest = (request, response) => {
+//     const path = Path.fromUrl(url, localhostUrl, sourceDir);
+//     const file = readFile(request.url);
+//     serveFile(response, file);
+//   };
 
-  createServer({
-    url: localhostUrl,
-    port: constPort,
-    onRequest
-  })
-}
+//   createServer({
+//     url: localhostUrl,
+//     port: constPort,
+//     onRequest
+//   })
+// }
 
 
 // function getFilePath(uri) {
@@ -54,19 +53,29 @@ const fileServer = () => {
 //   return filePath;
 // }
 
-function serveFile(response, file) {
-  file.onRequest((err, data) => {
-    if (err) {
-      response.writeHead(404, { 'Content-Type': 'text/plain' });
-      response.end('Not Found');
-    } else {
-      const contentType = file.type;
-      response.writeHead(200, { 'Content-Type': contentType });
-      response.end(data);
+// function serveFile(response, file) {
+//   file.onRequest((err, data) => {
+//     if (err) {
+//       response.writeHead(404, { 'Content-Type': 'text/plain' });
+//       response.end('Not Found');
+//     } else {
+//       const contentType = file.type;
+//       response.writeHead(200, { 'Content-Type': contentType });
+//       response.end(data);
+//     }
+//   });
+// }
+
+const exampleServer = () => {
+  createServer({
+    url: localhostUrl,
+    port: constPort,
+    onRequest: (request, response) => {
+      console.log('Example server received request!');
     }
-  });
+  })
 }
 
 export {
-
-}
+  exampleServer,
+};
