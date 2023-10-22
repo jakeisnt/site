@@ -48,11 +48,6 @@ const currentRepo = "/home/jake/site";
   // Supports hot reloading.
 const serve = (paths) => {
   singleFileServer(paths[0]);
-
-  // const path = paths?.[0];
-  // console.log('serving file at path: ', path);
-
-  // const file = readFile(path);
 }
 
 const app = cli('site')

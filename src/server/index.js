@@ -1,7 +1,3 @@
-import http from 'http';
-import fs from 'fs';
-import path from 'path';
-import mime from 'mime';
 import { Path } from '../utils/path';
 import { link } from '../utils/printstyle';
 
@@ -10,7 +6,13 @@ import { readFile } from '../file';
 const constPort = 4242; // Your desired port
 const targetDir = '/your/target/directory'; // Replace with your target directory
 const localhostUrl = `http://localhost`;
+const wsLocalhostUrl = `ws://localhost`;
 const sourceDir = '/home/jake/site';
+
+const devWebsocketPath = '/__devsocket';
+
+const httpWebsocketUrl = `${localhostUrl}:${constPort}${devWebsocketPath}`;
+const devWebsocketUrl = `${wsLocalhostUrl}:${constPort}${devWebsocketPath}`;
 
 // format url
 const formatUrl = ({ url, port }) => `${url}${port ? ':' + port : ''}/`;
@@ -18,85 +20,85 @@ const formatUrl = ({ url, port }) => `${url}${port ? ':' + port : ''}/`;
 // Start a server at the provided URL and port.
 // Handle requests with the provided callback.
 const createServer = (
-  { url = localhostUrl, port = constPort, onRequest = () => {} } = {}
+  { url = localhostUrl, port = constPort, onRequest = () => {}, onSocketConnected = () => {} } = {}
 ) => {
   const fullUrl = formatUrl({ url, port });
   const linkText = link(fullUrl).underline().color('blue');
 
   console.log(`Starting server at ${linkText}`);
 
-  const server = http.createServer(onRequest);
+  const server = Bun.serve({
+    port,
+    fetch(req, server) {
+      console.log('FETCH', req.url);
+      if (req.url === httpWebsocketUrl) {
+        console.log('websocket request');
+        if (server.upgrade(req)) {
+          return;
+        }
+      }
 
-  server.listen(constPort, () => {
-    console.log(`Server is running at ${linkText}`);
-  });
-}
-
-// const fileServer = () => {
-//   const onRequest = (request, response) => {
-//     const path = Path.fromUrl(url, localhostUrl, sourceDir);
-//     const file = readFile(request.url);
-//     serveFile(response, file);
-//   };
-
-//   createServer({
-//     url: localhostUrl,
-//     port: constPort,
-//     onRequest
-//   })
-// }
-
-
-// function getFilePath(uri) {
-//   let filePath = path.join(targetDir, uri);
-//   if (fs.existsSync(filePath) && fs.lstatSync(filePath).isDirectory()) {
-//     filePath = path.join(filePath, 'index.html');
-//   }
-//   return filePath;
-// }
-
-function serveFile(response, file) {
-  return file.onRequest((err, data) => {
-    if (err) {
-      response.writeHead(404, { 'Content-Type': 'text/plain' });
-      response.end('Not Found');
-    } else {
-      const contentType = file.type;
-      response.writeHead(200, { 'Content-Type': contentType });
-      response.end(data);
+      return onRequest(req, server);
+    },
+    websocket: {
+      open(ws) {
+        onSocketConnected(ws);
+      }
     }
   });
+
+  return server;
 }
 
+// inject a hot reload script into the body iof an html string
+const injectHotReload = (html) => {
+  const wsUrl = devWebsocketUrl;
+  const script = `
+    <script>
+      console.log('hot reload script loaded');
+      const socket = new WebSocket('${wsUrl}');
+      socket.addEventListener('message', function (event) {
+        console.log('Received message from server ', event.data);
+        window.location.reload();
+      });
+    </script>
+  `;
+
+  return html.replace('</body>', `${script}</body>`);
+}
+
+// a hot-reloading server for a single file
 const singleFileServer = (absolutePathToFile) => {
   const file = readFile(absolutePathToFile);
 
+  let wsClientConnection = null;
+
   createServer({
-    onRequest: (request, response) => {
-      response.writeHead(200, { 'Content-Type': file.mimeType });
-      response.end(file.text);
+    onRequest: (request) => {
+      return new Response(
+        injectHotReload(file.text),
+        {
+          headers: {
+            'content-type': 'text/html'
+          }
+        });
+    },
+    onSocketConnected: (ws) => {
+      console.log('socket connected');
+      wsClientConnection = ws;
     }
   });
 
   file.watch((eventType, curFile) => {
-    console.log('File changed');
+    if (eventType === 'change') {
+      console.log('File changed. Reloading...');
+      // re-read the file into memory
+      file.read();
+      wsClientConnection?.send('reload');
+    }
   });
 }
 
-const exampleServer = () => {
-  createServer({
-    url: localhostUrl,
-    port: constPort,
-    onRequest: (request, response) => {
-      response.writeHead(200, { 'Content-Type': 'text/plain' });
-      response.end('Hello World\n');
-
-      console.log('Example server received request!');
-    }
-  })
-}
-
 export {
-  exampleServer,
   singleFileServer,
 };

@@ -105,9 +105,7 @@ class File {
 
   watch(callback) {
     const closeWatcher = this.path.watch((eventType, filename) => {
-      if (eventType === 'change') {
-        callback(eventType, this);
-      }
+      callback(eventType, this);
     });
 
     return closeWatcher;
