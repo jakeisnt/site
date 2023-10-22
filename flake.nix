@@ -24,13 +24,20 @@
           ${pkgs.bun}/bin/bun run main -- $@
         '';
 
+        dev = pkgs.writeScriptBin "dev" ''
+          #!${pkgs.stdenv.shell}
+          ${pkgs.bun}/bin/bun run dev -- $@
+        '';
+
       in rec {
         devShell = with pkgs; mkShell {
           name = "site";
           buildInputs = [
             bun
             inotify-tools
+
             site
+            dev
           ];
 
           LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath(with pkgs; [openssl sqlite])}:LD_LIBRARY_PATH";

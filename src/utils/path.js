@@ -61,6 +61,8 @@ class Path {
   // get this file's extension
   // if we don't have an extension, we find it
   get extension() {
+    // we always fetch [1], because if the file has multiple extensions
+    // we ignore the second and only care about the first.
     const ext = pathLibrary.extname(this.pathString).split('.')[1];
 
     if (ext) {
@@ -154,7 +156,12 @@ class Path {
   }
 
   join(nextPart) {
-    return new Path(this.pathString + nextPart);
+    return new Path(this.pathString + nextPart.toString());
+  }
+
+  // does this path end with the other path
+  endsWith(str) {
+    return this.pathString.endsWith(str);
   }
 
   // make this path exist, creating any parent directories along the way

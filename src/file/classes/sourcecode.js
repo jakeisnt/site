@@ -6,15 +6,18 @@ import { htmlPage, header } from '../../html';
 // - hide 'file.$ext' from the index
 // - show 'file.$ext.html' in the index, looking like 'file.$ext'
 
-const renderArticle = (args) => {
-  const { articleHtml, file, files, fileListIdx } = args;
+const renderArticle = ({ articleHtml, file }) => {
   const pageName = file.name;
 
   return [
     "html",
-    header(),
+    header({
+      title: pageName,
+      url: "the url idk",
+      siteName: "the site name idk",
+    }),
     ["body",
-     component('Sidebar', args),
+     // component('Sidebar', args),
      ["div", { class: 'site-body' },
       ["main",
        ["article", { class: 'wikipage' },
@@ -23,15 +26,14 @@ const renderArticle = (args) => {
        ]
       ],
       ["div", { class: 'article-rhs-container' }
-       ["div", { class: 'article-rhs'},
-        component('GitHistoryTable', args),
-        component('PrevNextUpButtons', args)]]]]];
+       ["div", { class: 'article-rhs'}]]]]];
+
+        // component('GitHistoryTable', args),
+        // component('PrevNextUpButtons', args)
 }
 
 // same args as above fn, but without the articleHtml
-const renderSourceFile = (args) => {
-  const { file } = args;
-
+const renderSourceFile = ({ file }) => {
   const articleHtml = [
     "pre",
     ["code",
@@ -40,9 +42,14 @@ const renderSourceFile = (args) => {
     ]
   ];
 
-  return renderArticle({ ...args, articleHtml });
+  return renderArticle({ file, articleHtml });
 }
 
-class SourceFile extends TextFile {}
+class SourceFile extends TextFile {
+  asHtml() {
+    const page = renderSourceFile({ file: this });
+    return htmlPage(page);
+  }
+}
 
 export default SourceFile;

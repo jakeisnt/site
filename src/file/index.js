@@ -59,7 +59,6 @@ const readFile = (incomingPath) => {
   }
 
   const FiletypeClass = filetypeMap[extension];
-  console.log('Creating a new instance of ', FiletypeClass.name);
   return new FiletypeClass(path);
 }
 

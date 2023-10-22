@@ -1,6 +1,6 @@
-import { TextFile } from '../classes';
+import { SourceFile } from '../classes';
 
-class JavascriptFile extends TextFile {
+class JavascriptFile extends SourceFile {
   static filetypes = ['js', 'jsx', 'ts', 'tsx'];
 
   require() {

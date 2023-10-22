@@ -36,14 +36,14 @@ class File {
     return this.path;
   }
 
+  // the title of the file does not
   get title() {
-    const parts = this.path.split('/');
-    return parts[parts.length - 1];
+    return this.name.split('.')[0];
   }
 
-  // the name of a file is the file name without the extension
+  // the name of a file includes the extension
   get name() {
-    return this.title.split('.')[0];
+    return this.path.name;
   }
 
   // the type of the file is the extension (for now?)

@@ -38,7 +38,7 @@ const theme = () => {
 const openGraphHeaders = ({ title, url, siteName }) => {
   return [
     prop('og:title', title),
-    prop('og:type', website),
+    prop('og:type', 'website'),
     prop('og:url', url),
     prop('og:site_name', siteName),
   ];
@@ -57,7 +57,7 @@ const header = ({ path, title, url, siteName, iconDir }) => {
     meta('robots', 'index,follow'),
     meta('description', 'hi'),
     ...theme(),
-    ...favicons("/icons/"),
+    ...(iconDir ? favicons(iconDir) : []),
     css("/resources/style.css"),
     css("/resources/global.css"),
     script("/resources/lib.js"),

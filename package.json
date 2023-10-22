@@ -3,7 +3,8 @@
   "module": "src/main.js",
   "type": "module",
   "scripts": {
-    "main": "bun run src/main.js"
+    "main": "bun run src/main.js",
+    "dev": "bun run --hot src/main.js"
   },
   "dependencies": {
     "mime": "^3.0.0",

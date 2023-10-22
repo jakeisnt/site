@@ -72,6 +72,18 @@ class Directory extends File {
     });
   }
 
+  // given a file path relative to this directory,
+  // find the relevant source file
+  findFile(relativePath) {
+    const path = this.path.join(relativePath);
+
+    if (path.exists()) {
+      return readFile(path);
+    }
+
+    return null;
+  }
+
   write() {
     // make target directory
     // generate html for this file

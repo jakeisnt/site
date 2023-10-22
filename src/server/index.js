@@ -3,7 +3,7 @@ import { link } from '../utils/printstyle';
 
 import { readFile } from '../file';
 
-const constPort = 4242; // Your desired port
+const localPort = 4242; // Your desired port
 const targetDir = '/your/target/directory'; // Replace with your target directory
 const localhostUrl = `http://localhost`;
 const wsLocalhostUrl = `ws://localhost`;
@@ -11,16 +11,65 @@ const sourceDir = '/home/jake/site';
 
 const devWebsocketPath = '/__devsocket';
 
-const httpWebsocketUrl = `${localhostUrl}:${constPort}${devWebsocketPath}`;
-const devWebsocketUrl = `${wsLocalhostUrl}:${constPort}${devWebsocketPath}`;
-
 // format url
-const formatUrl = ({ url, port }) => `${url}${port ? ':' + port : ''}/`;
+const formatUrl = ({ url, port, path }) => `${url}${port ? ':' + port : ''}${path ?? ''}`;
+
+const devUrl = formatUrl({ url: localhostUrl, port: localPort });
+const httpWebsocketUrl = formatUrl({ url: localhostUrl, port: localPort, path: devWebsocketPath });
+const devWebsocketUrl = formatUrl({ url: wsLocalhostUrl, port: localPort, path: devWebsocketPath });
+
+
+// get the goods without the url
+const withoutUrl = (fullPath, url) => fullPath.replace(url, '');
+
+// is the file html?
+const isHtml = (file) => file.mimeType === 'text/html';
+
+// get the html version of a file
+const getNonHtmlPath = (file) => {
+  const htmlPath = file.path + '.html';
+  const htmlFile = readFile(htmlPath);
+  return htmlFile;
+};
+
+// inject a hot reload script into the body iof an html string
+const injectHotReload = (html) => {
+  const wsUrl = devWebsocketUrl;
+  const script = `
+    <script>
+      console.log('hot reload script loaded');
+      const socket = new WebSocket('${wsUrl}');
+      socket.addEventListener('message', function (event) {
+        console.log('Received message from server ', event.data);
+        window.location.reload();
+      });
+    </script>
+  `;
+
+  return html.replace('</body>', `${script}</body>`);
+}
+
+// make a response to a request for a file with the file
+const fileResponse = (file, { asHtml } = { asHtml: true }) => {
+  let response = isHtml(file) ? injectHotReload(file.text) : file.text;
+
+  if (asHtml) {
+    response = injectHotReload(file.asHtml());
+  }
+
+  return new Response(
+    response,
+    {
+      headers: {
+        'content-type': asHtml ? 'text/html' : file.mimeType
+      }
+    });
+};
 
 // Start a server at the provided URL and port.
 // Handle requests with the provided callback.
 const createServer = (
-  { url = localhostUrl, port = constPort, onRequest = () => {}, onSocketConnected = () => {} } = {}
+  { url = localhostUrl, port = localPort, onRequest = () => {}, onSocketConnected = () => {} } = {}
 ) => {
   const fullUrl = formatUrl({ url, port });
   const linkText = link(fullUrl).underline().color('blue');
@@ -50,26 +99,6 @@ const createServer = (
   return server;
 }
 
-// is the file html?
-const isHtml = (file) => file.mimeType === 'text/html';
-
-// inject a hot reload script into the body iof an html string
-const injectHotReload = (html) => {
-  const wsUrl = devWebsocketUrl;
-  const script = `
-    <script>
-      console.log('hot reload script loaded');
-      const socket = new WebSocket('${wsUrl}');
-      socket.addEventListener('message', function (event) {
-        console.log('Received message from server ', event.data);
-        window.location.reload();
-      });
-    </script>
-  `;
-
-  return html.replace('</body>', `${script}</body>`);
-}
-
 // a hot-reloading server for a single file
 const singleFileServer = (absolutePathToFile) => {
   const file = readFile(absolutePathToFile);
@@ -78,13 +107,7 @@ const singleFileServer = (absolutePathToFile) => {
 
   createServer({
     onRequest: (request) => {
-      return new Response(
-        isHtml(file) ? injectHotReload(file.text) : file.text,
-        {
-          headers: {
-            'content-type': file.mimeType
-          }
-        });
+      return fileResponse(file);
     },
     onSocketConnected: (ws) => {
       console.log('socket connected');
@@ -105,39 +128,40 @@ const singleFileServer = (absolutePathToFile) => {
 // support serving arbitrary files from a directory;
 // this means we have to handle routing.
 const directoryServer = (absolutePathToDirectory) => {
-  const directory = Path.create(absolutePathToDirectory);
+  const dir = readFile(absolutePathToDirectory);
 
-  let file = null;
+  if (!dir.isDirectory) {
+    throw new Error(`Received path '${absolutePathToDirectory}' is not a directory`);
+  }
 
   createServer({
     onRequest: (request) => {
-      file = directory.file(request.url);
-      return new Response(
-        isHtml(file) ? injectHotReload(file.text) : file.text,
-        {
-          headers: {
-            'content-type': file.mimeType
-          }
-        });
+      // example: we receive a request for <url>/src/server/index.js
+      // we want to serve the file at <absolutePathToDirectory>/src/server/index.js
+
+      const path = withoutUrl(request.url, devUrl);
+      console.log('requested path', path);
+
+      // is this the html version of a non-html file?
+      const isHtmlVersion = path.endsWith('.html') && path.extension !== 'html';
+
+      // if so, we need to serve the non-html version
+      const file = dir.findFile(path.toString().replace('.html', ''));
+
+      if (!file) {
+        return new Response('Not found', { status: 404 });
+      }
+
+      return fileResponse(file, { asHtml: isHtmlVersion });
     },
 
     onSocketConnected: (ws) => {
       console.log('socket connected');
-      wsClientConnection = ws;
-
-      // once this socket connects, we start listening
-      // how do we stop listening???
-      file.watch((eventType, curFile) => {
-        if (eventType === 'change') {
-          console.log('File changed. Reloading...');
-          // re-read the file into memory
-          curFile.read();
-          wsClientConnection?.send('reload');
-        }
-      });
     }
   });
 
 }
 
-export { singleFileServer };
+// does this work
+
+export { singleFileServer, directoryServer };

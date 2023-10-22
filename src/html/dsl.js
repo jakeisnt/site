@@ -1,14 +1,14 @@
 // a hiccup-like HTML domain specific language!!
 // https://gist.github.com/hns/654226
 
-function html() {
+function html(...args) {
     var buffer = [];
-    build(arguments, buffer);
+    build(args, buffer);
     return buffer.join("");
 }
 
-function htmlPage() {
-    return "<!DOCTYPE html>" + html(arguments);
+function htmlPage(...args) {
+    return "<!DOCTYPE html>" + html(...args);
 }
 
 function build(list, buffer) {

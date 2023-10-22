@@ -4,19 +4,32 @@ import { deploy } from './deploy';
 import { deploymentBranch, targetDir, website } from './constants';
 import { cli } from './utils/cli';
 import { readFile } from './file';
-import { singleFileServer } from './server';
+import { singleFileServer, directoryServer } from './server';
+import { Path } from './utils/path';
 
 const currentRepo = "/home/jake/site";
 
-// Serve a file from a particular path.
-// Supports hot reloading.
+// Serve whatever's at the first path
 const serve = (paths) => {
   if (!paths.length) {
     console.log("No file path specified. Not serving anything.");
     return;
   }
 
-  singleFileServer(paths[0]);
+  const path = Path.create(paths[0]);
+
+  // if we were provided a dir, that directory
+  // becomes the root of a tree we serve
+  if (path.isDirectory) {
+    directoryServer(path);
+  }
+
+  // otherwise, we serve just the file that was pointed to from all paths
+  // this is mostly useless because html files can't pull in resources, for ex.,
+  // but it's good for testing the parsing and interpretation of new file types.
+  else {
+    singleFileServer(path);
+  }
 }
 
 const app = cli('site')
