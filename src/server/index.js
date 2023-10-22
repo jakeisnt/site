@@ -99,6 +99,4 @@ const singleFileServer = (absolutePathToFile) => {
   });
 }
 
-export {
-  singleFileServer,
-};
+export { singleFileServer };
