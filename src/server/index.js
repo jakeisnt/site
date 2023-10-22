@@ -102,4 +102,42 @@ const singleFileServer = (absolutePathToFile) => {
   });
 }
 
+// support serving arbitrary files from a directory;
+// this means we have to handle routing.
+const directoryServer = (absolutePathToDirectory) => {
+  const directory = Path.create(absolutePathToDirectory);
+
+  let file = null;
+
+  createServer({
+    onRequest: (request) => {
+      file = directory.file(request.url);
+      return new Response(
+        isHtml(file) ? injectHotReload(file.text) : file.text,
+        {
+          headers: {
+            'content-type': file.mimeType
+          }
+        });
+    },
+
+    onSocketConnected: (ws) => {
+      console.log('socket connected');
+      wsClientConnection = ws;
+
+      // once this socket connects, we start listening
+      // how do we stop listening???
+      file.watch((eventType, curFile) => {
+        if (eventType === 'change') {
+          console.log('File changed. Reloading...');
+          // re-read the file into memory
+          curFile.read();
+          wsClientConnection?.send('reload');
+        }
+      });
+    }
+  });
+
+}
+
 export { singleFileServer };
