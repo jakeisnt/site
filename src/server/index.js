@@ -3,13 +3,47 @@ import fs from 'fs';
 import path from 'path';
 import mime from 'mime';
 import { Path } from '../utils/path';
+import { link } from '../utils/printstyle';
 
 import { readFile } from '../file';
 
 const constPort = 4242; // Your desired port
 const targetDir = '/your/target/directory'; // Replace with your target directory
-const localhostUrl = `http://localhost:${constPort}`;
+const localhostUrl = `http://localhost`;
 const sourceDir = '/home/jake/site';
+
+// format url
+const formatUrl = ({ url, port }) => `${url}${port ? ':' + port : ''}/`;
+
+// Start a server at the provided URL and port.
+// Handle requests with the provided callback.
+const createServer = ({ url, port, onRequest }) => {
+  const fullUrl = formatUrl({ url, port });
+  const linkText = link(fullUrl);
+
+  console.log(`Starting server at ${linkText}`);
+
+  const server = http.createServer(onRequest);
+
+  server.listen(constPort, () => {
+    const linkText = link();
+    console.log(`Server is running at ${linkText}`);
+  });
+}
+
+const fileServer = () => {
+  const onRequest = (request, response) => {
+    const path = Path.fromUrl(url, localhostUrl, sourceDir);
+    const file = readFile(request.url);
+    serveFile(response, file);
+  };
+
+  createServer({
+    url: localhostUrl,
+    port: constPort,
+    onRequest
+  })
+}
 
 
 // function getFilePath(uri) {
@@ -33,12 +67,6 @@ function serveFile(response, file) {
   });
 }
 
-const server = http.createServer((request, response) => {
-  const path = Path.fromUrl(url, localhostUrl, sourceDir);
-  const file = readFile(request.url);
-  serveFile(response, file);
-});
+export {
 
-server.listen(constPort, () => {
-  console.log(`Server is running at http://localhost:${constPort}/`);
-});
+}

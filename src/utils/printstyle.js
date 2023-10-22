@@ -10,6 +10,26 @@ const TERMINAL_COLORS = {
   grey: 90,
 };
 
+const ESC = '\u001B[';
+const OSC = '\u001B]';
+const BEL = '\u0007';
+const SEP = ';';
+
+const linkText = (text, url) => [
+  OSC,
+  '8',
+  SEP,
+  SEP,
+  url,
+  BEL,
+  text,
+  OSC,
+  '8',
+  SEP,
+  SEP,
+  BEL,
+].join('');
+
 function boldText(text) {
   return `\x1b[1m${text}\x1b[0m`;
 }
@@ -24,6 +44,7 @@ class PrintStyle {
   isItalic = false;
   colorName = null;
   text = '';
+  url = null;
 
   constructor(text) {
     this.text = text;
@@ -32,6 +53,17 @@ class PrintStyle {
   // bold a string when printing it out
   bold() {
     this.isBold = true;
+    return this;
+  }
+
+  // add a link with a url.
+  // if a url is not provided, assume the text is also the url
+  link(maybeUrl) {
+    if (maybeUrl) {
+      this.url = maybeUrl;
+    } else {
+      this.url = this.text;
+    }
     return this;
   }
 
@@ -47,6 +79,9 @@ class PrintStyle {
   // redefine toString behavior
   toString() {
     let str = this.text;
+    if (this.url) {
+      str = linkText(str, this.url);
+    }
     if (this.isBold) {
         str = boldText(str);
     }
@@ -70,8 +105,13 @@ function color(text, colorName) {
   return new PrintStyle(text).color(colorName);
 }
 
+function link(text, url) {
+  return new PrintStyle(text).link(url);
+}
+
 export {
   style,
   bold,
   color,
+  link,
 }
