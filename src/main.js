@@ -9,7 +9,7 @@ import { singleFileServer } from './server';
 const currentRepo = "/home/jake/site";
 
 // Serve a file from a particular path.
-  // Supports hot reloading.
+// Supports hot reloading.
 const serve = (paths) => {
   if (!paths.length) {
     console.log("No file path specified. Not serving anything.");
