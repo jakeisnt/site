@@ -163,6 +163,8 @@ const singleFileServer = (absolutePathToFile) => {
 // for each dependency, make a file that represents it.
 // continue recursively until we have built the 'live' segment of the site;
 // the part that is reachable from the root.
+// we use directories as kind of a hack here because we specify those ahead of time
+// and a directory's dependencies are every file in the directory. i think this works then.
 
 // support serving arbitrary files from a directory;
 // this means we have to handle routing.
