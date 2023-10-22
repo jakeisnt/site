@@ -132,4 +132,5 @@ export {
   bold,
   color,
   link,
+  underline,
 }
