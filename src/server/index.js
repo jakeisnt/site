@@ -4,7 +4,6 @@ import { link } from '../utils/printstyle';
 import { readFile } from '../file';
 
 const localPort = 4242; // Your desired port
-const targetDir = '/your/target/directory'; // Replace with your target directory
 const localhostUrl = `http://localhost`;
 const wsLocalhostUrl = `ws://localhost`;
 const sourceDir = '/home/jake/site';
