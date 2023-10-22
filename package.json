@@ -6,6 +6,7 @@
     "main": "bun run src/main.js"
   },
   "dependencies": {
-    "mime": "^3.0.0"
+    "mime": "^3.0.0",
+    "ohm": "^0.10.4"
   }
 }
