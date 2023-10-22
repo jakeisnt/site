@@ -38,6 +38,8 @@ const directoryToHtml = (dir, { files }) => {
 
 // a directory is a file that contains other files
 class Directory extends File {
+  static filetypes = ['directory'];
+
   // recursively fetch and flatten the file tree
   // the result should contain no directories
   tree() {

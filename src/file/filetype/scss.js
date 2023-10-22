@@ -2,7 +2,7 @@ import { TextFile } from '../classes';
 import { exec } from '../../utils/cmd';
 
 class SCSSFile extends TextFile {
-  type = 'scss';
+  static filetypes = ['scss', 'sass'];
 
   // use  'sass' to write this file as css
   write() {

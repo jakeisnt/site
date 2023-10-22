@@ -58,8 +58,20 @@ class Path {
     return mime.getType(this.pathString) || 'text/plain';
   }
 
+  // get this file's extension
+  // if we don't have an extension, we find it
   get extension() {
-    return pathLibrary.extname(this.pathString);
+    const ext = pathLibrary.extname(this.pathString).split('.')[1];
+
+    if (ext) {
+      return ext;
+    } else if (this.isDirectory) {
+      return 'directory';
+    } else {
+      // TODO: what should the file look like if we don't have an extension and it
+      // s not a directory?
+      return ext;
+    }
   }
 
   get parent() {

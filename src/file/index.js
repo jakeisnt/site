@@ -18,28 +18,47 @@ const getFiletypeMap = () => {
   // bootstrap the process; we know we have a directory
   const dir = new Directory(__dirname + '/filetype/');
 
+  const newFiletypeMap = {};
+
   // problem: to bootstrap the process, we need to know what class
   // a file is before we can create it. but we need to create it
-  const mapping = dir.contents({ assumeJSFile: true }).map((file) => {
+  dir.contents({ assumeJSFile: true }).map((file) => {
     // because we have a js file, we know we can require it
     const fileClass = file.require();
-    console.log('Loaded file', fileClass.default);
-    return fileClass;
+    return fileClass.default;
+  }).forEach(fileClass => {
+    if (!fileClass.filetypes) {
+      throw new Error(`Filetype ${fileClass.name} does not have a 'filetypes' property`);
+    }
+
+    fileClass.filetypes.forEach(fileType => {
+      if (newFiletypeMap[fileType]) {
+        throw new Error(`Filetype ${fileType} already exists`);
+      }
+
+      newFiletypeMap[fileType] = fileClass;
+    });
   });
+
+  return newFiletypeMap;
 }
-
-console.log(getFiletypeMap());
-
 
 // given the source path of a file, return the appropriate file class
 const readFile = (path) => {
   if (!filetypeMap) {
     filetypeMap = getFiletypeMap();
   }
+
   // get the file extension
-  // match the file extension to the class
-  // create a new instance of the class
-  // read the file in as a string
+  const path = Path.create(path);
+
+  if (!(path.extension in filetypeMap)) {
+    throw new Error(`We do not currently support files with extension ${extension}`);
+  }
+
+  const FiletypeClass = filetypeMap[extension];
+  console.log('Creating a new instance of ', FiletypeClass.name);
+  return new FiletypeClass(path);
 }
 
 export { readFile };
