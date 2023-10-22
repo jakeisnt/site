@@ -19,6 +19,7 @@ class Path {
   parentPath = null;
 
   // this should always be an absolute path
+  // this should only be called by the static methods
   constructor(pathString) {
     if (typeof pathString !== 'string') {
       throw new Error('Path must be a string');
@@ -28,8 +29,14 @@ class Path {
     this.pathArray = pathString.split('/').slice(1);
   }
 
-  static fromString(pathString) {
-    return new Path(pathString);
+  static create(maybePathString) {
+    if (typeof maybePathString === 'string') {
+      return new Path(maybePathString);
+    } else if (maybePathString instanceof Path) {
+      return maybePathString;
+    } else {
+      throw new Error('Path provided must be a string or Path');
+    }
   }
 
   // returns a new Path with the proper full path

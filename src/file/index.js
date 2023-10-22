@@ -42,6 +42,4 @@ const readFile = (path) => {
   // read the file in as a string
 }
 
-export {
-  readFile
-};
+export { readFile };

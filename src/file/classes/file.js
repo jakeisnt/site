@@ -9,7 +9,7 @@ class File {
   // make the path a full path if it's not
   // if the file doesn't exist, throw an error
   constructor(path) {
-    const filePath = new Path(path);
+    const filePath = Path.create(path);
     if (!filePath.exists()) {
       throw new Error(`from File constructor: File at path '${path}' does not exist`);
     }

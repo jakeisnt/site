@@ -11,7 +11,7 @@ class Repo {
   remoteUrl = null;
 
   constructor(sourcePath, remotePath) {
-    const path = new Path(dir);
+    const path = Path.create(dir);
     this.path = path;
   }
 
@@ -27,7 +27,7 @@ class Repo {
 
   // Get the full log of a file at the provided path
   async log(file) {
-    const filePath = path.join(this.path.toString(), file);
+    const filePath = this.path.join(file);
     const command = `git log --all --full-history --pretty="format:%h %H %ad" --date default --date=format:'%Y-%m-%d' ${filePath}`;
     try {
       const { stdout } = await exec(command);

@@ -66,7 +66,7 @@ class Directory extends File {
     const readFileWithType = assumeJSFile ? readJSFile : readFile;
 
     return this.path.readDirectory().map((childPath) => {
-      return readFileWithType(childPath.toString());
+      return readFileWithType(childPath);
     });
   }
 
