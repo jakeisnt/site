@@ -4,28 +4,6 @@
    [instaparse.core :as insta]
    [clojure.core.match :refer [match]]))
 
-(def parse
-  (insta/parser "
-<S> = TITLE,ALIAS*,(SUBTEXT | LINE | COMMENT | NEWLINE)+
-TITLE = HASH,STRING,NEWLINE
-ALIAS = ALIAS_NAME,EQUAL,ALIAS_NAME,NEWLINE
-SUBTEXT = OPEN_PAREN,MESSAGE,CLOSE_PAREN,NEWLINE
-LINE = ALIAS_NAME,COLON,MESSAGE,NEWLINE
-COMMENT = DASH,STRING,NEWLINE
-
-DASH = '-'
-HASH = '#'
-OPEN_PAREN = '('
-CLOSE_PAREN = ')'
-EQUAL = '='
-COLON=': '
-ALIAS_NAME=#'[a-zA-Z0-9]+'
-NEWLINE='\n'
-MESSAGE = (STRING|ITALIC)+
-ITALIC='/'STRING'/'
-STRING=#'[^()\n]+'
-"))
-
 (defn parse-script [str]
   (parse str))
 
