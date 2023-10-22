@@ -79,7 +79,7 @@ const singleFileServer = (absolutePathToFile) => {
         injectHotReload(file.text),
         {
           headers: {
-            'content-type': 'text/html'
+            'content-type': file.mimeType
           }
         });
     },
