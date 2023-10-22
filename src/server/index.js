@@ -125,6 +125,24 @@ const singleFileServer = (absolutePathToFile) => {
   });
 }
 
+// to make those scss files work:
+// we need a general way of saying "if you request this file and it doesnt exist,
+// look for a file with the same name and another extension"
+
+// i.e.:
+//   x.y.html reads file x.y
+//   z.css reads (force compiles) file z.scss
+//   v.js reads  (force compiles) file v.ts
+
+// file extension to the superfile extension
+// TODO: should be able to define this hierarchy in the file class, not here.
+const superMap = {
+  'html': 'html',
+  'css': 'scss',
+  'js': 'ts'
+};
+
+
 // support serving arbitrary files from a directory;
 // this means we have to handle routing.
 const directoryServer = (absolutePathToDirectory) => {
@@ -139,17 +157,27 @@ const directoryServer = (absolutePathToDirectory) => {
       // example: we receive a request for <url>/src/server/index.js
       // we want to serve the file at <absolutePathToDirectory>/src/server/index.js
 
-      const path = withoutUrl(request.url, devUrl);
+      let path = withoutUrl(request.url, devUrl);
       console.log('requested path', path);
 
       // is this the html version of a non-html file?
       const isHtmlVersion = path.endsWith('.html') && path.extension !== 'html';
+      if (isHtmlVersion) {
+        // get the non-html version of the file
+        path = path.toString().replace('.html', '');
+      }
 
       // if so, we need to serve the non-html version
-      const file = dir.findFile(path.toString().replace('.html', ''));
+      let file = dir.findFile(path);
 
-      if (!file) {
-        return new Response('Not found', { status: 404 });
+      // if we have a super mapping, try to get the super file
+      // we also need to 'cast down' from the super file to the requested file
+      if (!file && superMap[path.extension]) {
+        file = dir.findFile(path.replaceExtension(superMap[path.extension]));
+
+        if (!file) {
+          return new Response('Not found', { status: 404 });
+        }
       }
 
       return fileResponse(file, { asHtml: isHtmlVersion });
