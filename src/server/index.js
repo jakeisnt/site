@@ -49,18 +49,14 @@ const injectHotReload = (html) => {
 }
 
 // make a response to a request for a file with the file
-const fileResponse = (file, { asHtml } = { asHtml: true }) => {
+const fileResponse = (file) => {
   let response = isHtml(file) ? injectHotReload(file.text) : file.text;
-
-  if (asHtml) {
-    response = injectHotReload(file.asHtml());
-  }
 
   return new Response(
     response,
     {
       headers: {
-        'content-type': asHtml ? 'text/html' : file.mimeType
+        'content-type': file.mimeType
       }
     });
 };
@@ -78,7 +74,8 @@ const createServer = (
   const server = Bun.serve({
     port,
     fetch(req, server) {
-      console.log('FETCH', req.url);
+      const path = withoutUrl(req.url, fullUrl);
+      console.log('FETCH', path);
       if (req.url === httpWebsocketUrl) {
         console.log('websocket request');
         if (server.upgrade(req)) {
@@ -86,7 +83,7 @@ const createServer = (
         }
       }
 
-      return onRequest(req, server);
+      return onRequest({ req, server, path });
     },
     websocket: {
       open(ws) {
@@ -105,7 +102,7 @@ const singleFileServer = (absolutePathToFile) => {
   let wsClientConnection = null;
 
   createServer({
-    onRequest: (request) => {
+    onRequest: ({ request }) => {
       return fileResponse(file);
     },
     onSocketConnected: (ws) => {
@@ -134,28 +131,14 @@ const directoryServer = (absolutePathToDirectory) => {
   }
 
   createServer({
-    onRequest: (request) => {
-      // example: we receive a request for <url>/src/server/index.js
-      // we want to serve the file at <absolutePathToDirectory>/src/server/index.js
-
-      let path = withoutUrl(request.url, devUrl);
-      console.log('requested path', path);
-
-      // is this the html version of a non-html file?
-      const isHtmlVersion = path.endsWith('.html') && path.extension !== 'html';
-      if (isHtmlVersion) {
-        // get the non-html version of the file
-        path = path.toString().replace('.html', '');
-      }
-
-      // if so, we need to serve the non-html version
-      let file = dir.findFile(path);
+    onRequest: ({ path }) => {
+      const file = dir.findFile(path);
 
       if (!file) {
         return new Response('Not found', { status: 404 });
       }
 
-      return fileResponse(file, { asHtml: isHtmlVersion });
+      return fileResponse(file);
     },
 
     onSocketConnected: (ws) => {
