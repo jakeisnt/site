@@ -17,6 +17,10 @@ class File {
     this.path = filePath;
   }
 
+  static create(path) {
+    return new this(path);
+  }
+
   // read the file at the path
   read() {
     throw new Error('File.read() is not implemented');

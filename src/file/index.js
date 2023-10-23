@@ -59,7 +59,7 @@ const readFile = (incomingPath) => {
   }
 
   const FiletypeClass = filetypeMap[extension];
-  return new FiletypeClass(path);
+  return FiletypeClass.create(path);
 }
 
 export { readFile };
