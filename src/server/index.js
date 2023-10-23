@@ -124,47 +124,6 @@ const singleFileServer = (absolutePathToFile) => {
   });
 }
 
-// to make those scss files work:
-// we need a general way of saying "if you request this file and it doesnt exist,
-// look for a file with the same name and another extension"
-
-// i.e.:
-//   x.y.html reads file x.y
-//   z.css reads (force compiles) file z.scss
-//   v.js reads  (force compiles) file v.ts
-//   <directory>/ is the same as directory/index.html, which reads directory/
-
-// file extension to the superfile extension
-// TODO: should be able to define this hierarchy in the file class, not here.
-// I think we can use some superclass-like relationship here, right?
-
-// If I try to create a file at a path but the path doesn't exist,
-// we ask the file to create a 'parent file' of itself.
-// the file will then create a parent of itself, and so on, until it reaches a file that exists.
-// the parent file then knows to have to 'translate down' to the child it came from.
-
-
-// 1. Ask the file to try to make itself
-// 2. If the file doesn't exist, the file should
-//   a. create an instance of a super file
-//   b. wrap the super file in a way that allows it to be 'translated down' to the current file.
-//      this implementation should live on the current file.
-//   c. return the parent file
-// This can continue recursively up up up until we reach a file that exists or a dead end.
-
-// okay, but what if we're looking at a directory of source files
-// and we want to compile them as html files? how do we know how to 'compile down' to what the user wants?
-// this is the static site case / arguably more important than the dynamic site case.
-
-// one approach: emulate a dynamic site's browser requesting behavior.
-// start with a file that represents the root.
-// compile it and determine all of its dependencies, including internal links.
-// for each dependency, make a file that represents it.
-// continue recursively until we have built the 'live' segment of the site;
-// the part that is reachable from the root.
-// we use directories as kind of a hack here because we specify those ahead of time
-// and a directory's dependencies are every file in the directory. i think this works then.
-
 // support serving arbitrary files from a directory;
 // this means we have to handle routing.
 const directoryServer = (absolutePathToDirectory) => {
