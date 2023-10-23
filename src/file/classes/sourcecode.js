@@ -38,7 +38,7 @@ const renderSourceFile = ({ file }) => {
     "pre",
     ["code",
      { class: `language-${file.extension} has-raw-code` },
-     file.toString()
+     file.text
     ]
   ];
 

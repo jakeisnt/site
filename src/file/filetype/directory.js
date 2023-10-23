@@ -77,11 +77,11 @@ class Directory extends File {
   findFile(relativePath) {
     const path = this.path.join(relativePath);
 
-    if (path.exists()) {
+    try {
       return readFile(path);
+    } catch (e) {
+      return null;
     }
-
-    return null;
   }
 
   write() {
