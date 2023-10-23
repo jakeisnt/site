@@ -26,11 +26,6 @@ class TextFile extends File {
   toString() {
     return this.text;
   }
-
-  // when this file is requested, return the text
-  async onRequest(callback) {
-    return this.text;
-  }
 }
 
 export default TextFile;

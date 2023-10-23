@@ -26,16 +26,6 @@ class File {
     throw new Error('File.read() is not implemented');
   }
 
-  // write this file to disk at the path
-  write() {
-    throw new Error('File.write() is not implemented');
-  }
-
-  // what to return when this file is requested by a server or something
-  onRequest() {
-    throw new Error('File.onRequest() is not implemented');
-  }
-
   get path() {
     return this.path;
   }
@@ -60,12 +50,6 @@ class File {
     return this.path.mimeType;
   }
 
-  // get the target extension of this file when written
-  // override this if your file compiles to something of a different type?
-  get targetExtension() {
-    return this.path.extension;
-  }
-
   // get the string of the folder the path is contained in
   get directory() {
     return this.path.parent;
@@ -74,37 +58,6 @@ class File {
   // I hope the file is not a directory
   get isDirectory() {
     return false;
-  }
-
-  // try to move this file to a new location, err otherwise
-  // update this File's path to the new location
-  move(toPath) {
-    const fromPath = this.path;
-    const cwd = this.directory;
-
-    // const { stdout, stderr } = await exec(`mv "${fromPath}" "${toPath}"`, { cwd });
-
-    console.log(stdout);
-    console.error(stderr);
-
-    return this;
-  }
-
-  // copy this file to a new path, returning the new File
-  // if the file already exists at the new path, throw an error
-  // if the path doesn't exist, throw an error
-  copy() {
-    const fromPath = this.path;
-    const toPath = path.join(this.directory, toPath);
-
-    // const cwd = this.directory:
-
-    // const { stdout, stderr } = await exec(`cp "${fromPath}" "${toPath}"`, { cwd });
-
-    console.log(stdout);
-    console.error(stderr);
-
-    return new File(toPath);
   }
 
   watch(callback) {
