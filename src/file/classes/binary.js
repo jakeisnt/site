@@ -9,11 +9,6 @@ class BinaryFile extends File {
     this.asBinary = this.path.readBinary();
     return this;
   }
-
-  write() {
-    this.path.writeBinary(this.asBinary);
-    return this;
-  }
 }
 
 export default BinaryFile;
