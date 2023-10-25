@@ -40,19 +40,12 @@ class CSSFile extends SourceFile {
       get() {
         return scssToCss(newFile.text);
       }
-    }, {
-      readable: true,
-      enumerable: true,
-
     });
 
     Object.defineProperty(sourceFile, 'extension', {
       get() {
         return 'css';
       }
-    }, {
-      readable: true,
-      enumerable: true,
     });
 
     return sourceFile;

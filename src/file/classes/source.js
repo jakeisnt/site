@@ -43,6 +43,9 @@ const renderSourceFile = ({ file }) => {
 
 class SourceFile extends TextFile {
   asHtml({ siteName, url }) {
+    console.log(
+      `rendering ${this.path} as html with siteName ${siteName} and url ${url}`
+    );
     const page = renderSourceFile({ file: this, siteName, url });
     return htmlPage(page);
   }
