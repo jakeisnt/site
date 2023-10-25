@@ -18,8 +18,8 @@
   };
 
   const ICONS = {
-    light: svg("/components/toggle-dark-mode/assets/sun_icon.svg"),
-    dark: svg("/components/toggle-dark-mode/assets/moon_icon.svg"),
+    light: svg("/components/ToggleDarkMode/assets/sun_icon.svg"),
+    dark: svg("/components/ToggleDarkMode/assets/moon_icon.svg"),
   }
 
 

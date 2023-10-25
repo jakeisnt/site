@@ -1,4 +1,5 @@
 const PATH_DELIMITER = ' / ';
+import { component } from '../../src/html';
 
 const collectFolderPaths = (pathList, title, curPath) => {
   if (curPath === undefined) {
@@ -37,8 +38,8 @@ const makeSidebar = (path, title) => {
      { class: 'url-path' },
      pathList?.length ? ["b", "jake."] : ["a", { href: '/' }, "jake."],
      folderPaths,
-    ]
-    // component("ToggleDarkMode"),
+    ],
+    component("ToggleDarkMode"),
   ]
 }
 

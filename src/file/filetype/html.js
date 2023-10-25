@@ -3,7 +3,7 @@ import { readFile } from '../index';
 import { cloneClassInstance } from '../../utils/class';
 
 class HTMLFile extends SourceFile {
-  static filetypes = ['html', 'htm'];
+  static filetypes = ['html', 'htm', 'svg'];
 
   static create(filePath) {
     // if we have the html, just return it
