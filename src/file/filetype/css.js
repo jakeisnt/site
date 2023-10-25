@@ -42,9 +42,9 @@ class CSSFile extends SourceFile {
       }
     });
 
-    Object.defineProperty(sourceFile, 'extension', {
+    Object.defineProperty(sourceFile, 'mimeType', {
       get() {
-        return 'css';
+        return 'text/css';
       }
     });
 

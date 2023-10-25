@@ -28,7 +28,7 @@ class TextFile extends File {
   }
 
   serve(args) {
-    if (this.asHtml) {
+    if (this.asHtml && this.mimeType === 'text/html') {
       return this.asHtml(args);
     }
     return this.text;

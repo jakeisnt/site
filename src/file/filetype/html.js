@@ -17,12 +17,9 @@ class HTMLFile extends SourceFile {
     const prevFile = readFile(path);
     const sourceFile = prevFile.clone(filePath);
 
-    Object.defineProperty(sourceFile, 'text', {
-      get() {
-        console.log('do we have the prev file?', prevFile, prevFile.asHtml);
-        return prevFile.asHtml();
-      },
-    });
+    sourceFile.asHtml = (args) => {
+      return prevFile.asHtml(args);
+    };
 
     Object.defineProperty(sourceFile, 'mimeType', {
       get() {
