@@ -49,7 +49,7 @@ const header = ({ path, title, url, siteName, iconDir }) => {
   return [
     "head",
     ["meta", { charset: 'utf-8' }],
-    ["title", "TODO"],
+    ["title", title],
     ...openGraphHeaders({ title, url, siteName }),
     meta('keywords', 'jake'),
     meta('author', 'Jake Chvatal'),
