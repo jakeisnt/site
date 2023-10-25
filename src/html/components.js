@@ -26,8 +26,6 @@ const makeDependencyHeader = (dependencies) => {
 
 const component = (name, args) => {
   const componentFunction = require(`/home/jake/site/components/${name}/${name}.js`);
-
-  console.log('componentFunction', componentFunction);
   const {
     dependsOn,
     body,

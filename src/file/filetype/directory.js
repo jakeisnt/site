@@ -1,39 +1,43 @@
 import { File } from '../classes';
 import JSFile from './js.js';
 import { readFile } from '../index';
-import { header } from '../../html';
+import { header, component, html } from '../../html';
 
 const readJSFile = (path) => {
   return new JSFile(path);
 }
 
 const folderIndexPageTable = (files) => {
-  return ["div",
-        { class: 'folder-index-page-table' },
-        ["table",
-         files.map((childFile) =>
-           ["tr",
-            ["td", { class: 'file-hash-tr' }, childFile.lastCommitLog.shortHash],
-            ["td", { class: 'file-name-tr' }, childFile.name],
-            ["td", { class: 'file-type-tr' }, childFile.extension],
-            ["td", { class: 'file-date-tr' }, childFile.lastCommitLog.shortHash],
-           ]
-         )
-        ]
-       ];
+  return [
+    "div",
+    { class: 'folder-index-page-table' },
+    ["table",
+     files.map((childFile) =>
+       ["tr",
+        // ["td", { class: 'file-hash-tr' }, childFile.lastCommit.shortHash],
+        ["td", { class: 'file-name-tr' }, childFile.name],
+        ["td", { class: 'file-type-tr' }, childFile.extension],
+        // ["td", { class: 'file-date-tr' }, childFile.lastCommit.date],
+       ]
+     )
+    ]
+  ];
 }
 
-const directoryToHtml = (dir, { files }) => {
+const directoryToHtml = (dir, { files, siteName, url }) => {
+  const title = dir.name;
+
   return [
     "html",
-    header(),
+    header({ title, siteName, url }),
     ["body",
-     component("Sidebar", { file: dir, files }),
+     component("Sidebar", { path: dir.path, title }),
      ["div",
       { class: 'site-body' },
       ["main",
        folderIndexPageTable(files),
-       component("ScrollUp", { file: dir, files })]]]];
+       // component("ScrollUp", { file: dir, files })
+      ]]]];
 }
 
 // a directory is a file that contains other files
@@ -92,6 +96,10 @@ class Directory extends File {
 
   get isDirectory() {
     return true;
+  }
+
+  serve({ siteName, url }) {
+    return html(directoryToHtml(this, { files: this.contents(), siteName, url }));
   }
 }
 

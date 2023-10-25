@@ -64,6 +64,10 @@ class File {
     return false;
   }
 
+  serve() {
+    throw new Error('File.serve() is not implemented');
+  }
+
   watch(callback) {
     const closeWatcher = this.path.watch((eventType, filename) => {
       callback(eventType, this);
