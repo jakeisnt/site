@@ -1,21 +1,17 @@
 import TextFile from './text';
-import { htmlPage, header } from '../../html';
+import { htmlPage, header, component } from '../../html';
 
 // if it's a source code file, we want to:
 // - render both to 'file.$ext' and 'file.$ext.html'
 // - hide 'file.$ext' from the index
 // - show 'file.$ext.html' in the index, looking like 'file.$ext'
 
-const renderArticle = ({ articleHtml, file }) => {
-  const pageName = file.name;
+const renderArticle = ({ articleHtml, file, siteName, url }) => {
+  const title = file.name;
 
   return [
     "html",
-    header({
-      title: pageName,
-      url: "the url idk",
-      siteName: "the site name idk",
-    }),
+    header({ title, url, siteName }),
     ["body",
      // component('Sidebar', args),
      ["div", { class: 'site-body' },
@@ -46,8 +42,8 @@ const renderSourceFile = ({ file }) => {
 }
 
 class SourceFile extends TextFile {
-  asHtml() {
-    const page = renderSourceFile({ file: this });
+  asHtml({ siteName, url }) {
+    const page = renderSourceFile({ file: this, siteName, url });
     return htmlPage(page);
   }
 }

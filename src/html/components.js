@@ -1,24 +1,18 @@
-import { html } from './html.js';
+import { html } from './dsl';
+import { Path } from '../utils/path';
 
-const getExtension = (filename) => {
-  const i = filename.lastIndexOf('.');
-  return (i < 0) ? '' : filename.substr(i);
-};
-
-const swapExtension = (filename, newExtension) => {
-  const i = filename.lastIndexOf('.');
-  return (i < 0) ? filename + newExtension : filename.substr(0, i) + newExtension;
-};
+// Support the Component interface.
+// Resolves dependencies automatically and allows partial page refresh.
 
 const getDependency = (filename) => {
   const extension = getExtension(filename);
   switch (extension) {
     case 'js':
-      return html`<script src="${filename}"></script>`;
+      return ['script', { src: filename }];
     case 'css':
-      return html`<link rel="stylesheet" href="${filename}">`;
+      return ['link', { rel: 'stylesheet', href: filename }];
     case 'scss':
-      return getDependency(swapExtension(filename, 'css'));
+      return getDependency(Path.create(filename).replaceExtension('css'));
     default:
       throw new Error(`Unknown extension: ${extension}`);
   }
@@ -32,11 +26,12 @@ const makeDependencyHeader = (dependencies) => {
  }
 
 const component = (name, file, files, fileListIndex, compiledHtml) => {
-  const componentFunction = readFileSync(`/home/jake/site/components/${name}/${name}.js`, 'utf8');
+  const componentFunction = require(`/home/jake/site/components/${name}/${name}.js`).default;
   const {
     dependsOn,
     body,
   } = componentFunction(file, files, fileListIndex, compiledHtml);
-
   return html("span", body, makeDependencyHeader(dependsOn));
 }
+
+export { component };
