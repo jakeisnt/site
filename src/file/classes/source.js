@@ -13,7 +13,7 @@ const renderArticle = ({ articleHtml, file, siteName, url }) => {
     "html",
     header({ title, url, siteName }),
     ["body",
-     // component('Sidebar', args),
+     component('Sidebar', { path: file.path, title }),
      ["div", { class: 'site-body' },
       ["main",
        ["article", { class: 'wikipage' },

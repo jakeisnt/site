@@ -15,19 +15,19 @@ const collectFolderPaths = (pathList, title, curPath) => {
   const firstPath = pathList[0];
   const restPaths = pathList.slice(1);
 
-  const curPath = curPath + '/' + firstPath;
+  const nextCurPath = curPath + '/' + firstPath;
 
   return [
     ["span", PATH_DELIMITER],
     [
       "a", { href: `/${curPath}/index.html` }, firstPath,
     ],
-    ...collectFolderPaths(restPaths, title, curPath),
+    ...collectFolderPaths(restPaths, title, nextCurPath),
   ];
 }
 
 const makeSidebar = (path, title) => {
-  const pathList = makePathList(path);
+  const pathList = path.pathArray;
   const folderPaths = collectFolderPaths(pathList, title);
 
   return [
@@ -42,9 +42,9 @@ const makeSidebar = (path, title) => {
   ]
 }
 
-const Sidebar = ({ path, title }) => {
+const Sidebar = ({ path, title }) => ({
    dependsOn: [{ src: '/components/sidebar/sidebar.css' }],
    body: makeSidebar(path, title),
-}
+});
 
 export default Sidebar;

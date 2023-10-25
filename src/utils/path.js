@@ -35,7 +35,7 @@ class Path {
     } else if (maybePathString instanceof Path) {
       return maybePathString;
     } else {
-      throw new Error('Path provided must be a string or Path');
+      throw new Error(`Path provided must be a string or Path, given ${maybePathString}`);
     }
   }
 
