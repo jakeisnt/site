@@ -16,32 +16,23 @@ class HTMLFile extends SourceFile {
 
     const prevFile = readFile(path);
     console.log('copying prev file', prevFile);
-    const sourceFile = cloneClassInstance(prevFile);
+    const sourceFile = prevFile.clone(filePath);
 
-    console.log('source file', sourceFile);
+    Object.defineProperty(sourceFile, 'text', {
+      get() {
+        return prevFile.asHTML();
+      },
+      readable: true,
+      enumerable: true,
+    });
 
-
-    try {
-      Object.defineProperty(sourceFile, 'text', {
-        get() {
-          return prevFile.asHTML();
-        },
-        writable: true,
-        readable: true,
-        enumerable: true,
-      });
-
-      Object.defineProperty(sourceFile, 'mimeType', {
-        get() {
-          return 'text/html';
-        },
-        writable: true,
-        readable: true,
-        enumerable: true,
-      });
-} catch (e) {
-  console.log(e);
-}
+    Object.defineProperty(sourceFile, 'mimeType', {
+      get() {
+        return 'text/html';
+      },
+      readable: true,
+      enumerable: true,
+    });
 
     return sourceFile;
   }

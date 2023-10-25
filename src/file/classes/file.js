@@ -21,6 +21,10 @@ class File {
     return new this(path);
   }
 
+  clone() {
+    return new this.constructor(this.path);
+  }
+
   // read the file at the path
   read() {
     throw new Error('File.read() is not implemented');

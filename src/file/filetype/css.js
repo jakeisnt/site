@@ -34,27 +34,26 @@ class CSSFile extends SourceFile {
     const scssPath = filePath.replaceExtension('scss');
 
     const newFile = readFile(scssPath);
-    const sourceFile = cloneClassInstance(newFile);
+    const sourceFile = newFile.clone();
 
     Object.defineProperty(sourceFile, 'text', {
       get() {
         return scssToCss(newFile.text);
       }
-    }, { writable: true,
-         readable: true,
-         enumerable: true,
+    }, {
+      readable: true,
+      enumerable: true,
 
-       });
+    });
 
     Object.defineProperty(sourceFile, 'extension', {
       get() {
         return 'css';
       }
-    }, { writable: true,
-
-        readable: true,
-        enumerable: true,
-       });
+    }, {
+      readable: true,
+      enumerable: true,
+    });
 
     return sourceFile;
   }
