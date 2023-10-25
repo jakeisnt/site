@@ -25,7 +25,8 @@ const makeDependencyHeader = (dependencies) => {
  }
 
 const component = (name, args) => {
-  const componentFunction = require(`/home/jake/site/components/${name}/${name}.js`);
+  const rootPath = '/home/jake/site';
+  const componentFunction = require(`${rootPath}/components/${name}/${name}.js`);
   const {
     dependsOn,
     body,
