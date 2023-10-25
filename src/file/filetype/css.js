@@ -40,13 +40,21 @@ class CSSFile extends SourceFile {
       get() {
         return scssToCss(newFile.text);
       }
-    });
+    }, { writable: true,
+         readable: true,
+         enumerable: true,
+
+       });
 
     Object.defineProperty(sourceFile, 'extension', {
       get() {
         return 'css';
       }
-    });
+    }, { writable: true,
+
+        readable: true,
+        enumerable: true,
+       });
 
     return sourceFile;
   }

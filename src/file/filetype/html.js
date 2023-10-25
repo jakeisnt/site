@@ -27,6 +27,8 @@ class HTMLFile extends SourceFile {
           return prevFile.asHTML();
         },
         writable: true,
+        readable: true,
+        enumerable: true,
       });
 
       Object.defineProperty(sourceFile, 'mimeType', {
@@ -34,6 +36,8 @@ class HTMLFile extends SourceFile {
           return 'text/html';
         },
         writable: true,
+        readable: true,
+        enumerable: true,
       });
 } catch (e) {
   console.log(e);
