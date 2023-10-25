@@ -1,5 +1,6 @@
 import { SourceFile } from '../classes';
 import { readFile } from '../index';
+import { cloneClassInstance } from '../../utils/class';
 
 class HTMLFile extends SourceFile {
   static filetypes = ['html', 'htm'];
@@ -12,20 +13,33 @@ class HTMLFile extends SourceFile {
 
     // otherwise, try to get the non-html version of the file
     const path = filePath.toString().replace('.html', '');
-    const sourceFile = readFile(path);
 
-    // because the new setter doesn't mutate the object,
-    // it should not affect the object's text accessor, right?
-    return {
-      ...sourceFile,
-      // the text of a wrapped html file is the htmlified file
-      get text() {
-        return sourceFile.asHtml();
-      },
-      get mimeType() {
-        return 'text/html';
-      }
-    };
+    const prevFile = readFile(path);
+    console.log('copying prev file', prevFile);
+    const sourceFile = cloneClassInstance(prevFile);
+
+    console.log('source file', sourceFile);
+
+
+    try {
+      Object.defineProperty(sourceFile, 'text', {
+        get() {
+          return prevFile.asHTML();
+        },
+        writable: true,
+      });
+
+      Object.defineProperty(sourceFile, 'mimeType', {
+        get() {
+          return 'text/html';
+        },
+        writable: true,
+      });
+} catch (e) {
+  console.log(e);
+}
+
+    return sourceFile;
   }
 }
 

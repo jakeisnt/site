@@ -50,7 +50,12 @@ const injectHotReload = (html) => {
 
 // make a response to a request for a file with the file
 const fileResponse = (file) => {
-  let response = isHtml(file) ? injectHotReload(file.text) : file.text;
+  const toServe = file.serve({
+    siteName: 'Jake\'s Site',
+    url: devUrl,
+  })
+
+  let response = isHtml(file) ? injectHotReload(toServe) : toServe;
 
   return new Response(
     response,

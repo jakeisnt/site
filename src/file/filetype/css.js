@@ -3,6 +3,7 @@ import SCSSFile from './scss';
 import * as sass from 'sass';
 const { pathToFileURL } = require('url');
 import { readFile } from '../index';
+import { cloneClassInstance } from '../../utils/class';
 
 const scssToCss = (scssText) => {
   const result = sass.compileString(scssText, {
@@ -31,20 +32,23 @@ class CSSFile extends SourceFile {
 
     // if this file doesn't exist, try making the scss file.
     const scssPath = filePath.replaceExtension('scss');
-    const newFile = readFile(scssPath);
 
-    // how does the new file
-    return {
-      ...newFile,
-      get text() {
-        // use sass to compile the scss file
-        // at the scss file path
+    const newFile = readFile(scssPath);
+    const sourceFile = cloneClassInstance(newFile);
+
+    Object.defineProperty(sourceFile, 'text', {
+      get() {
         return scssToCss(newFile.text);
-      },
-      get extension() {
+      }
+    });
+
+    Object.defineProperty(sourceFile, 'extension', {
+      get() {
         return 'css';
       }
-    }
+    });
+
+    return sourceFile;
   }
 }
 

@@ -17,7 +17,7 @@ const renderArticle = ({ articleHtml, file, siteName, url }) => {
      ["div", { class: 'site-body' },
       ["main",
        ["article", { class: 'wikipage' },
-        ["h1", { class: 'title-top'}, pageName],
+        ["h1", { class: 'title-top'}, title],
         articleHtml,
        ]
       ],

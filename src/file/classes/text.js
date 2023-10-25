@@ -26,6 +26,13 @@ class TextFile extends File {
   toString() {
     return this.text;
   }
+
+  serve(args) {
+    if (this.asHtml) {
+      return this.asHtml(args);
+    }
+    return this.text;
+  }
 }
 
 export default TextFile;
