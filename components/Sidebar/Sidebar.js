@@ -43,7 +43,7 @@ const makeSidebar = (path, title) => {
 }
 
 const Sidebar = ({ path, title }) => ({
-   dependsOn: [{ src: '/components/sidebar/sidebar.css' }],
+   dependsOn: [{ src: '/components/Sidebar/sidebar.css' }],
    body: makeSidebar(path, title),
 });
 

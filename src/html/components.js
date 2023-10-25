@@ -21,7 +21,7 @@ const getDependency = (path) => {
 const makeDependencyHeader = (dependencies) => {
    return dependencies.map(({ src }) => {
      return getDependency(Path.create(src));
-   }).join('\n');
+   });
  }
 
 const component = (name, args) => {
