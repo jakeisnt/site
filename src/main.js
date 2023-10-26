@@ -2,12 +2,10 @@
 
 import { deploy } from './deploy';
 import { deploymentBranch, targetDir, website } from './constants';
-import { cli } from './utils/cli';
-import { readFile } from './file';
+import { cli } from 'utils/cli';
+import { readFile } from 'file';
 import { singleFileServer, directoryServer } from './server';
-import { Path } from './utils/path';
-
-const currentRepo = "/home/jake/site";
+import { Path } from 'utils/path';
 
 // Serve whatever's at the first path
 const serve = (paths) => {
@@ -20,7 +18,7 @@ const serve = (paths) => {
 
   // if we were provided a dir, that directory
   // becomes the root of a tree we serve
-  if (path.isDirectory) {
+  if (path.isDirectory()) {
     directoryServer(path);
   }
 
