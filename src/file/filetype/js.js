@@ -1,4 +1,4 @@
-import { SourceFile } from '../classes';
+import { SourceFile } from 'file/classes';
 import * as ts from "typescript";
 import { readFile } from '../index';
 

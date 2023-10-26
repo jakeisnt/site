@@ -1,6 +1,5 @@
-import { SourceFile } from '../classes';
-import { readFile } from '../index';
-import { cloneClassInstance } from '../../utils/class';
+import { SourceFile } from 'file/classes';
+import { readFile } from 'file';
 
 class HTMLFile extends SourceFile {
   static filetypes = ['html', 'htm', 'svg'];

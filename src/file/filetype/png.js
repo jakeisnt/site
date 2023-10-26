@@ -1,4 +1,4 @@
-import { BinaryFile } from '../classes';
+import { BinaryFile } from 'file/classes';
 
 class PNGFile extends BinaryFile {
  static filetypes = ['png'];

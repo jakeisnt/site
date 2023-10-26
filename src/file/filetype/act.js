@@ -1,6 +1,6 @@
 // act is a custom filetype I have designed to be used with acting scripts.
 
-import { TextFile } from '../classes';
+import { TextFile } from 'file/classes';
 import * as ohm from 'ohm-js';
 
 const grammar = ohm.grammar(`

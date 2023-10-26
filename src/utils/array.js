@@ -15,7 +15,7 @@ function enumerate(array) {
 }
 
 // take from the array until the predicate fails
-function splitWith(array, isValid) => {
+function splitWith(array, isValid) {
   const passedPredicate = [];
   let failedPredicate = [];
 

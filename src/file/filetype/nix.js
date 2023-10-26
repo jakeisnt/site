@@ -1,4 +1,4 @@
-import { SourceFile } from '../classes';
+import { SourceFile } from 'file/classes';
 
 class NixFile extends SourceFile {
   static filetypes = ['nix'];

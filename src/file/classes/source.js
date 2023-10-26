@@ -1,5 +1,5 @@
 import TextFile from './text';
-import { htmlPage, header, component } from '../../html';
+import { htmlPage, header, component } from 'html';
 
 // if it's a source code file, we want to:
 // - render both to 'file.$ext' and 'file.$ext.html'

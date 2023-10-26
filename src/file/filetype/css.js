@@ -1,9 +1,8 @@
-import { SourceFile } from '../classes';
+import { SourceFile } from 'file/classes';
 import SCSSFile from './scss';
 import * as sass from 'sass';
 const { pathToFileURL } = require('url');
-import { readFile } from '../index';
-import { cloneClassInstance } from '../../utils/class';
+import { readFile } from 'file';
 
 const scssToCss = (scssText) => {
   const result = sass.compileString(scssText, {

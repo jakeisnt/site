@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { exec } from '../../utils/cmd';
 import { Path } from '../../utils/path';
-import { readFile } from '../index';
+import { readFile } from 'file';
 
 class File {
   // the full path to the file

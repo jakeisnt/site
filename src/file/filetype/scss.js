@@ -1,4 +1,4 @@
-import { SourceFile } from '../classes';
+import { SourceFile } from 'file/classes';
 
 class SCSSFile extends SourceFile {
   static filetypes = ['scss', 'sass'];

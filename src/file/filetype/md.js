@@ -1,5 +1,5 @@
-import { TextFile } from '../classes';
-import { header } from '../../html';
+import { TextFile } from 'file/classes';
+import { header } from 'html';
 
 // parse markdown to html
 const parseMarkdown = (fileString) => {

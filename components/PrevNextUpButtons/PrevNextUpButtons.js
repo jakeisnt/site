@@ -26,7 +26,7 @@ const prevNextUpHtml = ({ file, rootUrl, sourceDir }) => {
      ]),
      (nextFile && [
        "tr",
-       ["td", "Previous"],
+       ["td", "Next"],
        ["td", ["a", { class: 'next-button', href: nextFile.htmlUrl({ rootUrl, sourceDir }) }, nextFile.name]]
      ]),
      (dir && [

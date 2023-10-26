@@ -1,7 +1,7 @@
-import { File } from '../classes';
+import { File } from 'file/classes';
 import JSFile from './js.js';
-import { readFile } from '../index';
-import { header, component, html } from '../../html';
+import { readFile } from 'file';
+import { header, component, html } from 'html';
 
 const readJSFile = (path) => {
   return new JSFile(path);
