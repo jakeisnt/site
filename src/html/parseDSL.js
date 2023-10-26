@@ -90,3 +90,5 @@ const headingHierarchyToHtml = (hierarchy) => {
     return ["a", { id }, headingHierarchyToHtml(children) ];
   })
 }
+
+export { findTags };
