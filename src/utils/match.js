@@ -1,12 +1,14 @@
 const cond = (conditionArray) => value => {
-  for ([conditionPredicate, formatValue] in conditionArray) {
+  for (const [conditionPredicate, formatValue] in conditionArray) {
+    const valueFormatter = (typeof formatValue === 'function') ? formatValue : () => formatValue;
+
     if (typeof conditionPredicate === "function") {
       if(conditionPredicate(value)) {
-        return formatValue(value);
+        return valueFormatter(value);
       }
     } else {
       if (conditionPredicate) {
-        return formatValue(value);
+        return valueFormatter(value);
       }
     }
   }

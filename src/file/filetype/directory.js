@@ -15,7 +15,7 @@ const folderIndexPageTable = (files) => {
      files.map((childFile) =>
        ["tr",
         // ["td", { class: 'file-hash-tr' }, childFile.lastCommit.shortHash],
-        ["td", { class: 'file-name-tr' }, childFile.name],
+        ["td", { class: 'file-name-tr' }, ["a", { href: '/' + childFile.path.relativeTo('/home/jake/site') + '.html' }, childFile.name]],
         ["td", { class: 'file-type-tr' }, childFile.extension],
         // ["td", { class: 'file-date-tr' }, childFile.lastCommit.date],
        ]

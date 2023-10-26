@@ -5,13 +5,6 @@ import { Repo } from './git';
 
 import { cond } from './match';
 
-const stringToPath = (maybePath) => {
-  return cond(
-    [(v) => typeof v === 'string', (v) => new Path(otherPath)]
-    [true, (v) => v]
-  )(maybePath);
-}
-
 // a Path is the path to a file or directory on a system.
 class Path {
   // this params are immutable, so it's safe to store both and use directly
@@ -124,8 +117,8 @@ class Path {
   // get this path's position relative to another path or string
   // ASSUME that the other paths, if defined, are the prefix of this one
   relativeTo(maybeOtherPath, maybeReplaceWithPath) {
-    const otherPath = stringToPath(maybeOtherPath);
-    const replaceWithPath = stringToPath(maybeReplaceWithPath);
+    const otherPath = Path.create(maybeOtherPath);
+    const replaceWithPath = maybeReplaceWithPath && Path.create(maybeReplaceWithPath);
 
     // assuming the other path is the prefix of this one,
     // remove it from this path
