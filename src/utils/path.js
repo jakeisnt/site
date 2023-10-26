@@ -68,7 +68,7 @@ class Path {
     if (ext) {
       return ext;
     } else if (this.isDirectory()) {
-      return 'directory';
+      return 'dir';
     } else {
       // TODO: what should the file look like if we don't have an extension and it
       // s not a directory?
