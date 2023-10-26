@@ -9,7 +9,6 @@ import { bold, color } from './printstyle';
 //   .option(name).describe(desc).action(fn)
 //   .exec(argv)
 
-
 class Option {
   constructor(name, creator) {
     this.name = name;

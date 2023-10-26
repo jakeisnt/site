@@ -3,8 +3,6 @@ import fs from 'fs';
 import mime from 'mime';
 import { Repo } from './git';
 
-import { cond } from './match';
-
 // a Path is the path to a file or directory on a system.
 class Path {
   // this params are immutable, so it's safe to store both and use directly

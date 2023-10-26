@@ -1,15 +1,4 @@
 // utilities for working with arrays
-
-
-// partition an array into two parts:
-// - all of the values that pass the predicate
-// - all of the values that fail the predicate
-function partition(array, isValid) {
-  return array.reduce(([pass, fail], elem) => {
-    return isValid(elem) ? [[...pass, elem], fail] : [pass, [...fail, elem]];
-  }, [[], []]);
-}
-
 function enumerate(array) {
   return array.map((v, idx) => [v, idx]);
 }
