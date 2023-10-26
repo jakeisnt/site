@@ -45,7 +45,7 @@ const openGraphHeaders = ({ title, url, siteName }) => {
 }
 
 // header we can use for every page
-const header = ({ path, title, url, siteName, iconDir }) => {
+const header = ({ path, title, rootUrl: url, siteName, iconDir }) => {
   return [
     "head",
     ["meta", { charset: 'utf-8' }],

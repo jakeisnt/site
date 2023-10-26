@@ -7,7 +7,7 @@ const readJSFile = (path) => {
   return new JSFile(path);
 }
 
-const folderIndexPageTable = (files) => {
+const folderIndexPageTable = ({ files, rootUrl, sourceDir }) => {
   return [
     "div",
     { class: 'folder-index-page-table' },
@@ -15,7 +15,7 @@ const folderIndexPageTable = (files) => {
      files.map((childFile) =>
        ["tr",
         ["td", { class: 'file-hash-tr' }, childFile.lastLog.shortHash],
-        ["td", { class: 'file-name-tr' }, ["a", { href: 'http://localhost:4242' + childFile.path.relativeTo('/home/jake/site') + '.html' }, childFile.name]],
+        ["td", { class: 'file-name-tr' }, ["a", { href: childFile.htmlUrl({ rootUrl, sourceDir }) }, childFile.name]],
         ["td", { class: 'file-type-tr' }, childFile.extension],
         ["td", { class: 'file-date-tr' }, childFile.lastLog.date],
        ]
@@ -24,18 +24,18 @@ const folderIndexPageTable = (files) => {
   ];
 }
 
-const directoryToHtml = (dir, { files, siteName, url }) => {
+const directoryToHtml = (dir, { files, rootUrl, siteName, sourceDir }) => {
   const title = dir.name;
 
   return [
     "html",
-    header({ title, siteName, url }),
+    header({ title, siteName, rootUrl }),
     ["body",
      component("Sidebar", { path: dir.path, title }),
      ["div",
       { class: 'site-body' },
       ["main",
-       folderIndexPageTable(files),
+       folderIndexPageTable({ files, rootUrl, sourceDir }),
        // component("ScrollUp", { file: dir, files })
       ]]]];
 }
@@ -98,13 +98,13 @@ class Directory extends File {
     return true;
   }
 
-  asHtml({ siteName, url }) {
+  asHtml({ siteName, rootUrl, sourceDir }) {
     const files = this.contents();
-    return html(directoryToHtml(this, { files, siteName, url }));
+    return html(directoryToHtml(this, { files, siteName, rootUrl, sourceDir }));
   }
 
-  serve({ siteName, url }) {
-    return this.asHtml({ siteName, url });
+  serve(args) {
+    return this.asHtml(args);
   }
 }
 

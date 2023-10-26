@@ -45,6 +45,7 @@ const getFiletypeMap = () => {
 
 // given the source path of a file, return the appropriate file class
 const readFile = (incomingPath) => {
+  console.log(`Reading file at ${incomingPath.toString()}`);
   if (!filetypeMap) {
     filetypeMap = getFiletypeMap();
   }

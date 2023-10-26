@@ -6,12 +6,12 @@ import { htmlPage, header, component } from '../../html';
 // - hide 'file.$ext' from the index
 // - show 'file.$ext.html' in the index, looking like 'file.$ext'
 
-const renderArticle = ({ articleHtml, file, siteName, url }) => {
+const renderArticle = ({ articleHtml, file, siteName, rootUrl, sourceDir }) => {
   const title = file.name;
 
   return [
     "html",
-    header({ title, url, siteName }),
+    header({ title, rootUrl, siteName }),
     ["body",
      component('Sidebar', { path: file.path, title }),
      ["div", { class: 'site-body' },
@@ -23,13 +23,12 @@ const renderArticle = ({ articleHtml, file, siteName, url }) => {
       ],
       ["div", { class: 'article-rhs-container' },
        ["div", { class: 'article-rhs'},
-        component('GitHistoryTable', { file })]]]]];
-
-        // component('PrevNextUpButtons', args)
+        component('GitHistoryTable', { file }),
+        component('PrevNextUpButtons', { file, rootUrl, sourceDir })]]]]];
 }
 
 // same args as above fn, but without the articleHtml
-const renderSourceFile = ({ file }) => {
+const renderSourceFile = ({ file, rootUrl, siteName, sourceDir }) => {
   const articleHtml = [
     "pre",
     ["code",
@@ -38,15 +37,15 @@ const renderSourceFile = ({ file }) => {
     ]
   ];
 
-  return renderArticle({ file, articleHtml });
+  return renderArticle({ file, articleHtml, rootUrl, siteName, sourceDir });
 }
 
 class SourceFile extends TextFile {
-  asHtml({ siteName, url }) {
+  asHtml({ siteName, rootUrl, sourceDir }) {
     console.log(
-      `rendering ${this.path} as html with siteName ${siteName} and url ${url}`
+      `rendering ${this.path} as html with siteName ${siteName} and url ${rootUrl}`
     );
-    const page = renderSourceFile({ file: this, siteName, url });
+    const page = renderSourceFile({ file: this, siteName, rootUrl, sourceDir });
     return htmlPage(page);
   }
 }

@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { exec } from '../../utils/cmd';
 import { Path } from '../../utils/path';
+import { readFile } from '../index';
 
 class File {
   // the full path to the file
@@ -56,12 +57,18 @@ class File {
 
   // get the string of the folder the path is contained in
   get directory() {
-    return this.path.parent;
+    console.log(this.path.parent.toString());
+    return readFile(this.path.parent);
   }
 
   // I hope the file is not a directory
   get isDirectory() {
     return false;
+  }
+
+  // get the url to the html page with this file
+  htmlUrl({ rootUrl, sourceDir }) {
+    return `${rootUrl}${this.path.relativeTo(sourceDir)}.html`;
   }
 
   get repo() {

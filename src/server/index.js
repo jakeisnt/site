@@ -52,7 +52,8 @@ const injectHotReload = (html) => {
 const fileResponse = (file) => {
   const toServe = file.serve({
     siteName: 'Jake\'s Site',
-    url: devUrl,
+    rootUrl: devUrl,
+    sourceDir,
   })
 
   let response = isHtml(file) ? injectHotReload(toServe) : toServe;
