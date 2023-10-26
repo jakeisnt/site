@@ -36,8 +36,7 @@ const directoryToHtml = (dir, { files, rootUrl, siteName, sourceDir }) => {
       { class: 'site-body' },
       ["main",
        folderIndexPageTable({ files, rootUrl, sourceDir }),
-       // component("ScrollUp", { file: dir, files })
-      ]]]];
+       component("ScrollUp")]]]];
 }
 
 // a directory is a file that contains other files

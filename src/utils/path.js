@@ -91,14 +91,11 @@ class Path {
     }
 
     if (!this.isDirectory()) {
-      console.log('tried to get repo for a file', this.pathString);
       return this.parent.__repo();
     }
 
-    console.log('getting repo for', this.pathString);
     const gitDir = this.join('/.git');
 
-    console.log('git dir and does it exist', gitDir.toString(), gitDir.exists());
     if (gitDir.exists()) {
       return Repo.create(this);
     } else {
