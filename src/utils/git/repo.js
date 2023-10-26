@@ -1,4 +1,5 @@
 import { exec } from './cmd';
+import RepoFile from './repofile';
 
 // a git repository is a directory with a .git subdirectory
 // This is basically a git porcelain that keeps the current repo
@@ -19,6 +20,14 @@ class Repo {
   static create(sourcePath, remotePath) {
     const repo = new Repo(sourcePath, remotePath);
     return repo;
+  }
+
+  getFile(atPath) {
+    if (!this.path.contains(atPath)) {
+      throw new Error(`File ${atPath} is not in the repository`);
+    }
+
+    return RepoFile.create(this, atPath);
   }
 
   // run a command in this git repository

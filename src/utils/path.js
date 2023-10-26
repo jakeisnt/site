@@ -18,6 +18,8 @@ class Path {
   pathArray = [];
   pathString = '';
   parentPath = null;
+  // the git repo this path is in, if any
+  __gitRepo = null;
 
   // this should always be an absolute path
   // this should only be called by the static methods
@@ -109,11 +111,20 @@ class Path {
 
   // get the git repo that this path is a member of
   get repo() {
+    // retrieve the repo from cache if we have it
+    if (this.__gitRepo) {
+      return this.__gitRepo;
+    }
+
     if (!this.exists()) {
       return null;
     }
 
-    return this.__repo();
+    const rootRepo = this.__repo();
+    if (rootRepo) {
+      this.__gitRepo = rootRepo;
+      return rootRepo;
+    }
   }
 
   // get this path's position relative to another path or string
@@ -194,6 +205,12 @@ class Path {
   // does this path end with the other path
   endsWith(str) {
     return this.pathString.endsWith(str);
+  }
+
+  // not exactly true lol..
+  contains(maybeOtherPathString) {
+    const otherPath = Path.create(maybeOtherPathString);
+    return this.pathString.includes(otherPath.pathString);
   }
 
   // make this path exist, creating any parent directories along the way
