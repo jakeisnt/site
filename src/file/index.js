@@ -55,10 +55,12 @@ const readFile = (incomingPath) => {
   const extension = path.extension;
 
   if (!(extension in filetypeMap)) {
+    console.log(`We do not currently support files with extension ${extension}`);
     throw new Error(`We do not currently support files with extension ${extension}`);
   }
 
   const FiletypeClass = filetypeMap[extension];
+  console.log(`Filetype class is ${FiletypeClass.name}`);
   return FiletypeClass.create(path);
 }
 

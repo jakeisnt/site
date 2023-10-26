@@ -1,9 +1,10 @@
 import { SourceFile } from '../classes';
 import * as ts from "typescript";
+import { readFile } from '../index';
 
 const tsToJs = (tsText) => {
   const options = { compilerOptions: { module: ts.ModuleKind.CommonJS }};
-  return ts.transpileModule(source, options).outputText;
+  return ts.transpileModule(tsText, options).outputText;
 }
 
 class JavascriptFile extends SourceFile {
@@ -21,7 +22,6 @@ class JavascriptFile extends SourceFile {
 
     // if this file doesn't exist, try making the typescript file.
     const tsPath = filePath.replaceExtension('ts');
-
     const newFile = readFile(tsPath);
     const sourceFile = newFile.clone();
 
