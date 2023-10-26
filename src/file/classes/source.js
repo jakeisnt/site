@@ -21,7 +21,7 @@ const renderArticle = ({ articleHtml, file, siteName, url }) => {
         articleHtml,
        ]
       ],
-      ["div", { class: 'article-rhs-container' }
+      ["div", { class: 'article-rhs-container' },
        ["div", { class: 'article-rhs'},
         component('GitHistoryTable', { file })]]]]];
 

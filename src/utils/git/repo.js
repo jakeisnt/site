@@ -12,8 +12,7 @@ class Repo {
   // optional?
   remoteUrl = null;
 
-  constructor(sourcePath, remotePath) {
-    const path = Path.create(dir);
+  constructor(path) {
     this.path = path;
   }
 
@@ -31,8 +30,9 @@ class Repo {
   }
 
   // run a command in this git repository
-  async runCmd(command) {
-    return execSync(command, { cwd: this.path.toString() });
+  runCmd(command) {
+    const cmdResult = execSync(command, { cwd: this.path.toString() });
+    return cmdResult.toString();
   }
 
   checkout(branchName) {

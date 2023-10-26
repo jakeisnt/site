@@ -19,10 +19,14 @@ const getDependency = (path) => {
 };
 
 const makeDependencyHeader = (dependencies) => {
-   return dependencies.map(({ src }) => {
-     return getDependency(Path.create(src));
-   });
- }
+  if (dependencies.length === 0) {
+    return null;
+  }
+
+  return dependencies.map(({ src }) => {
+    return getDependency(Path.create(src));
+  });
+}
 
 const component = (name, args) => {
   const rootPath = '/home/jake/site';
@@ -32,7 +36,9 @@ const component = (name, args) => {
     dependsOn,
     body,
   } = componentFunction.default(args);
-  return html("span", body, makeDependencyHeader(dependsOn));
+
+  console.log(body);
+  return ["span", body, makeDependencyHeader(dependsOn)];
 }
 
 export { component };

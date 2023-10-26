@@ -99,7 +99,9 @@ class Path {
     }
 
     console.log('getting repo for', this.pathString);
-    const gitDir = this.join('.git');
+    const gitDir = this.join('/.git');
+
+    console.log('git dir and does it exist', gitDir.toString(), gitDir.exists());
     if (gitDir.exists()) {
       return Repo.create(this);
     } else {
@@ -203,7 +205,19 @@ class Path {
   // not exactly true lol..
   contains(maybeOtherPathString) {
     const otherPath = Path.create(maybeOtherPathString);
-    return this.pathString.includes(otherPath.pathString);
+
+    if ((this.pathArray.length > otherPath.pathArray.length) ||
+        (this.pathString === otherPath.pathString)) {
+      return false;
+    }
+
+    for(let i = 0; i < this.pathArray.length; i++) {
+      if (otherPath.pathArray[i] !== this.pathArray[i]) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   // make this path exist, creating any parent directories along the way

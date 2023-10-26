@@ -24,10 +24,10 @@ class RepoFile {
   }
 
   // get the last commit that cared about this file
-  lastLog() {
+  get lastLog() {
     const command = `git log -1 --full-history --pretty="format:%h %H %ad %ct" --date default --date=format:'%Y-%m-%d' ${this.path.toString()}`;
     try {
-      const { stdout } = this.repo.runCmd(command);
+      const stdout = this.repo.runCmd(command);
       if (stdout) {
         const [line] = stdout.split('\n');
         const [shortHash, longHash, commitDate, timestamp] = line.split(' ');
@@ -46,10 +46,10 @@ class RepoFile {
   }
 
   // Get the full log of changes to this file
-  log() {
+  get log() {
     const command = `git log --all --full-history --pretty="format:%h %H %ad" --date default --date=format:'%Y-%m-%d' ${this.path.toString()}`;
     try {
-      const { stdout } = this.repo.runCmd(command);
+      const stdout = this.repo.runCmd(command);
       if (stdout) {
         return stdout.split('\n').map((line) => {
           const [shortHash, longHash, commitDate] = line.split(' ');
@@ -60,7 +60,7 @@ class RepoFile {
           });
         });
       } else {
-        throw new Error(`git log command failed on path ${file}`);
+        throw new Error(`git log command failed on path ${this.path.toString()}`);
       }
     } catch (error) {
       throw error;
@@ -68,10 +68,10 @@ class RepoFile {
   }
 
   // get the last timestamp of this file
-  lastTimestamp() {
+  get lastTimestamp() {
     const command = `git log -1 --pretty=format:%ct --follow -- ${this.path.toString()}`;
     try {
-      const { stdout } = this.repo.runCmd(command);
+      const stdout = this.repo.runCmd(command);
       return parseInt(stdout, 10);
     } catch (error) {
       throw error;
