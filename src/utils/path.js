@@ -154,7 +154,6 @@ class Path {
 
   // is this path a directory?
   isDirectory() {
-    console.log('checking if', this.pathString, 'is a directory');
     return this.exists() && fs.lstatSync(this.pathString).isDirectory();
   }
 

@@ -150,7 +150,6 @@ const directoryServer = (absolutePathToDirectory) => {
         pathToUse = Path.create(path.parent.pathString + '.html');
       }
 
-      console.log('using path', pathToUse.pathString);
       const file = dir.findFile(pathToUse);
 
       if (!file) {

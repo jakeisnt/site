@@ -63,7 +63,6 @@ const readFile = (incomingPath) => {
   }
 
   const FiletypeClass = filetypeMap[extension];
-  console.log(`Filetype class is ${FiletypeClass.name}`);
   return FiletypeClass.create(path);
 }
 
