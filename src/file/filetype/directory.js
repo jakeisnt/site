@@ -98,8 +98,13 @@ class Directory extends File {
     return true;
   }
 
+  asHtml({ siteName, url }) {
+    const files = this.contents();
+    return html(directoryToHtml(this, { files, siteName, url }));
+  }
+
   serve({ siteName, url }) {
-    return html(directoryToHtml(this, { files: this.contents(), siteName, url }));
+    return this.asHtml({ siteName, url });
   }
 }
 

@@ -88,7 +88,7 @@ const createServer = (
         }
       }
 
-      return onRequest({ req, server, path });
+      return onRequest({ req, server, path: Path.create(path) });
     },
     websocket: {
       open(ws) {
@@ -137,7 +137,15 @@ const directoryServer = (absolutePathToDirectory) => {
 
   createServer({
     onRequest: ({ path }) => {
-      const file = dir.findFile(path);
+      let pathToUse = path;
+
+      if (path.name === 'index.html') {
+        // if the path is a directory, serve the parent like an html file
+        pathToUse = Path.create(path.parent.pathString + '.html');
+      }
+
+      console.log('using path', pathToUse.pathString);
+      const file = dir.findFile(pathToUse);
 
       if (!file) {
         return new Response('Not found', { status: 404 });

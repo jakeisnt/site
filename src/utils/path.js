@@ -189,8 +189,15 @@ class Path {
       throw new Error(`Cannot read directory '${this.pathString}' because it is not a directory`);
     }
 
-    return fs.readdirSync(this.pathString)
-      .map((fileName) => new Path(`${this.pathString}${fileName}`));
+    let normalizedPathString = this.pathString;
+
+    // if the path doesn't end in a slash, add one
+    if (normalizedPathString[normalizedPathString.length - 1] !== '/') {
+      normalizedPathString += '/';
+    }
+
+    return fs.readdirSync(normalizedPathString)
+      .map((fileName) => new Path(`${normalizedPathString}${fileName}`));
   }
 
   join(nextPart) {
