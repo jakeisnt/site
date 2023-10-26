@@ -1,5 +1,5 @@
 const PATH_DELIMITER = ' / ';
-import { component } from '../../src/html';
+import { component } from 'html';
 
 const collectFolderPaths = (pathList, title, curPath, { rootUrl, sourceDir }) => {
   if (curPath === undefined) {
