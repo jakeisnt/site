@@ -106,6 +106,11 @@ class Directory extends File {
   serve(args) {
     return this.asHtml(args);
   }
+
+  // as of now, we only use folders for their html
+  get mimeType() {
+    return 'text/html';
+  }
 }
 
 export default Directory;

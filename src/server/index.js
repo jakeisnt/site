@@ -139,9 +139,11 @@ const directoryServer = (absolutePathToDirectory) => {
 
   createServer({
     onRequest: ({ path }) => {
-      let pathToUse = path;
+      let pathToUse = Path.create(path);
+
       // if we request the root, serve up the home page
-      if (path == '/') {
+      // TODO this needs a more elegant solution
+      if (path.pathString === '/' || path.pathString === '/index' || path.pathString === '/index.html') {
         return fileResponse({ serve: makeHomePage });
       }
 
