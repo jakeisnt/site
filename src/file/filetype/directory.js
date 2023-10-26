@@ -31,7 +31,7 @@ const directoryToHtml = (dir, { files, rootUrl, siteName, sourceDir }) => {
     "html",
     header({ title, siteName, rootUrl }),
     ["body",
-     component("Sidebar", { path: dir.path, title }),
+     component("Sidebar", { path: dir.path, title, sourceDir, rootUrl }),
      ["div",
       { class: 'site-body' },
       ["main",

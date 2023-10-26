@@ -13,7 +13,7 @@ const renderArticle = ({ articleHtml, file, siteName, rootUrl, sourceDir }) => {
     "html",
     header({ title, rootUrl, siteName }),
     ["body",
-     component('Sidebar', { path: file.path, title }),
+     component('Sidebar', { path: file.path, title, rootUrl, sourceDir }),
      ["div", { class: 'site-body' },
       ["main",
        ["article", { class: 'wikipage' },
@@ -42,9 +42,6 @@ const renderSourceFile = ({ file, rootUrl, siteName, sourceDir }) => {
 
 class SourceFile extends TextFile {
   asHtml({ siteName, rootUrl, sourceDir }) {
-    console.log(
-      `rendering ${this.path} as html with siteName ${siteName} and url ${rootUrl}`
-    );
     const page = renderSourceFile({ file: this, siteName, rootUrl, sourceDir });
     return htmlPage(page);
   }

@@ -1,9 +1,9 @@
 const PATH_DELIMITER = ' / ';
 import { component } from '../../src/html';
 
-const collectFolderPaths = (pathList, title, curPath) => {
+const collectFolderPaths = (pathList, title, curPath, { rootUrl, sourceDir }) => {
   if (curPath === undefined) {
-    return collectFolderPaths(pathList, title, '');
+    return collectFolderPaths(pathList, title, '', { rootUrl, sourceDir });
   }
 
   if (!pathList?.[1]) {
@@ -16,25 +16,21 @@ const collectFolderPaths = (pathList, title, curPath) => {
   const firstPath = pathList[0];
   const restPaths = pathList.slice(1);
 
-  console.log("firstPath", firstPath, 'restPath', restPaths);
   const nextCurPath = curPath + '/' + firstPath;
-  console.log("nextCurPath", nextCurPath);
 
   return [
     ["span", PATH_DELIMITER],
     [
-      "a", { href: `http://localhost:4242${nextCurPath}/index.html` }, firstPath,
+      "a", { href: `${rootUrl}${nextCurPath}/index.html` }, firstPath,
     ],
-    ...collectFolderPaths(restPaths, title, nextCurPath),
+    ...collectFolderPaths(restPaths, title, nextCurPath, { rootUrl, sourceDir }),
   ];
 }
 
-const makeSidebar = (path, title) => {
-  const pathList = path.relativeTo('/home/jake/site').pathArray;
+const makeSidebar = ({ path, title, sourceDir, rootUrl }) => {
+  const pathList = path.relativeTo(sourceDir).pathArray;
   console.log("pathList", pathList);
-  const folderPaths = collectFolderPaths(pathList, title);
-
-  console.log(folderPaths);
+  const folderPaths = collectFolderPaths(pathList, title, null, { rootUrl, sourceDir });
 
   return [
     "div",
@@ -48,9 +44,9 @@ const makeSidebar = (path, title) => {
   ]
 }
 
-const Sidebar = ({ path, title }) => ({
+const Sidebar = (args) => ({
    dependsOn: [{ src: '/components/Sidebar/sidebar.css' }],
-   body: makeSidebar(path, title),
+   body: makeSidebar(args),
 });
 
 export default Sidebar;
