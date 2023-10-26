@@ -117,6 +117,7 @@ class Path {
   // get this path's position relative to another path or string
   // ASSUME that the other paths, if defined, are the prefix of this one
   relativeTo(maybeOtherPath, maybeReplaceWithPath) {
+
     const otherPath = Path.create(maybeOtherPath);
     const replaceWithPath = maybeReplaceWithPath && Path.create(maybeReplaceWithPath);
 
@@ -134,7 +135,8 @@ class Path {
       curPathArray = [...replaceWithPath.pathArray, curPathArray];
     }
 
-    return new Path(curPathArray.join('/'));
+    const pathAfterShift = Path.create('/' + curPathArray.join('/'));
+    return pathAfterShift;
   }
 
   exists() {

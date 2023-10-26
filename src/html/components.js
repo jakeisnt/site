@@ -36,8 +36,6 @@ const component = (name, args) => {
     dependsOn,
     body,
   } = componentFunction.default(args);
-
-  console.log(body);
   return ["span", body, makeDependencyHeader(dependsOn)];
 }
 

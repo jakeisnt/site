@@ -16,20 +16,25 @@ const collectFolderPaths = (pathList, title, curPath) => {
   const firstPath = pathList[0];
   const restPaths = pathList.slice(1);
 
+  console.log("firstPath", firstPath, 'restPath', restPaths);
   const nextCurPath = curPath + '/' + firstPath;
+  console.log("nextCurPath", nextCurPath);
 
   return [
     ["span", PATH_DELIMITER],
     [
-      "a", { href: `/${curPath}/index.html` }, firstPath,
+      "a", { href: `http://localhost:4242${nextCurPath}/index.html` }, firstPath,
     ],
     ...collectFolderPaths(restPaths, title, nextCurPath),
   ];
 }
 
 const makeSidebar = (path, title) => {
-  const pathList = path.pathArray;
+  const pathList = path.relativeTo('/home/jake/site').pathArray;
+  console.log("pathList", pathList);
   const folderPaths = collectFolderPaths(pathList, title);
+
+  console.log(folderPaths);
 
   return [
     "div",
