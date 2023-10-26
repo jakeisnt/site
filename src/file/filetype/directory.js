@@ -14,10 +14,10 @@ const folderIndexPageTable = (files) => {
     ["table",
      files.map((childFile) =>
        ["tr",
-        // ["td", { class: 'file-hash-tr' }, childFile.lastCommit.shortHash],
+        ["td", { class: 'file-hash-tr' }, childFile.lastLog.shortHash],
         ["td", { class: 'file-name-tr' }, ["a", { href: 'http://localhost:4242' + childFile.path.relativeTo('/home/jake/site') + '.html' }, childFile.name]],
         ["td", { class: 'file-type-tr' }, childFile.extension],
-        // ["td", { class: 'file-date-tr' }, childFile.lastCommit.date],
+        ["td", { class: 'file-date-tr' }, childFile.lastLog.date],
        ]
      )
     ]
