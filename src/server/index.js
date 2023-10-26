@@ -143,7 +143,7 @@ const directoryServer = (absolutePathToDirectory) => {
 
       // if we request the root, serve up the home page
       // TODO this needs a more elegant solution
-      if (path.pathString === '/' || path.pathString === '/index' || path.pathString === '/index.html') {
+      if (['/', '/index', '/index.html'].includes(pathToUse)) {
         return fileResponse({ serve: makeHomePage });
       }
 
