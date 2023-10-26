@@ -51,7 +51,6 @@ const readFile = (incomingPath) => {
 
   // get the file extension
   const path = Path.create(incomingPath);
-
   const extension = path.extension;
 
   if (!(extension in filetypeMap)) {
