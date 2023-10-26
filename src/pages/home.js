@@ -1,13 +1,14 @@
-import { header } from '../html';
+import { header, component, htmlPage } from 'html';
+import { Path } from 'utils/path';
 
 const makeHomePage = ({ rootUrl, sourceDir }) => {
-  return [
-    "body",
-    ["html",
-     header(),
+  const title = 'index';
+  const htmlText = [
+    "html",
+     header({ title, rootUrl, sourceDir, siteName: 'Jake Chvatal' }),
      ["body",
      // (components/component "sidebar" {:target-path "/index.html"} nil nil [[:h1 "~"]])
-      component("Sidebar", { path: `~`, title: 'hi', rootUrl, sourceDir }),
+      component("Sidebar", { path: Path.create(sourceDir), title, rootUrl, sourceDir }),
       ["div",
        { class: 'site-body' },
        ["main",
@@ -16,7 +17,7 @@ const makeHomePage = ({ rootUrl, sourceDir }) => {
          ["p", "Hey, I'm Jake Chvatal."],
          ["p", "I'm a software engineer based in Stockholm, Sweden."],
          ["p",
-          "During the day, I work at "
+          "During the day, I work at ",
           ["a", { class: 'external', href: "https://improvin.com" },
            "Improvin'"],
 
@@ -27,7 +28,9 @@ const makeHomePage = ({ rootUrl, sourceDir }) => {
          ", take ",
           ["a", {class: "external",  href: "https://instagram.com/jakeisnt"}, "photos"],
          ", and design simple hardware and software tools."],
-         component("LastFM")]]]]]];
+         component("LastFM")]]]]];
+
+  return htmlPage(htmlText);
 }
 
 export { makeHomePage };

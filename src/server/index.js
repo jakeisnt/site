@@ -63,7 +63,7 @@ const fileResponse = (file) => {
     response,
     {
       headers: {
-        'content-type': file.mimeType
+        'content-type': file?.mimeType ?? 'text/html',
       }
     });
 };
@@ -140,6 +140,10 @@ const directoryServer = (absolutePathToDirectory) => {
   createServer({
     onRequest: ({ path }) => {
       let pathToUse = path;
+      // if we request the root, serve up the home page
+      if (path == '/') {
+        return fileResponse({ serve: makeHomePage });
+      }
 
       if (path.name === 'index.html') {
         // if the path is a directory, serve the parent like an html file

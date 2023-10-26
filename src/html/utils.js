@@ -35,22 +35,22 @@ const theme = () => {
   ]
 }
 
-const openGraphHeaders = ({ title, url, siteName }) => {
+const openGraphHeaders = ({ title, rootUrl, siteName }) => {
   return [
     prop('og:title', title),
     prop('og:type', 'website'),
-    prop('og:url', url),
+    prop('og:url', rootUrl),
     prop('og:site_name', siteName),
   ];
 }
 
 // header we can use for every page
-const header = ({ path, title, rootUrl: url, siteName, iconDir }) => {
+const header = ({ title, rootUrl, siteName, iconDir }) => {
   return [
     "head",
     ["meta", { charset: 'utf-8' }],
-    ["title", title],
-    ...openGraphHeaders({ title, url, siteName }),
+    ["title", `${title} / ${siteName}`],
+    ...openGraphHeaders({ title, rootUrl, siteName }),
     meta('keywords', 'jake'),
     meta('author', 'Jake Chvatal'),
     meta('robots', 'index,follow'),
