@@ -1,13 +1,13 @@
 import { header } from '../html';
 
-const makeHomePage = () => {
+const makeHomePage = ({ rootUrl, sourceDir }) => {
   return [
     "body",
     ["html",
      header(),
      ["body",
      // (components/component "sidebar" {:target-path "/index.html"} nil nil [[:h1 "~"]])
-      component("Sidebar"),
+      component("Sidebar", { path: `~`, title: 'hi', rootUrl, sourceDir }),
       ["div",
        { class: 'site-body' },
        ["main",
@@ -27,5 +27,7 @@ const makeHomePage = () => {
          ", take ",
           ["a", {class: "external",  href: "https://instagram.com/jakeisnt"}, "photos"],
          ", and design simple hardware and software tools."],
-         component("LastFM"),]]]]]];
+         component("LastFM")]]]]]];
 }
+
+export { makeHomePage };

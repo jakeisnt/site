@@ -2,6 +2,7 @@ import { Path } from '../utils/path';
 import { link } from '../utils/printstyle';
 
 import { readFile } from '../file';
+import { makeHomePage } from 'pages/home';
 
 const localPort = 4242; // Your desired port
 const localhostUrl = `http://localhost`;

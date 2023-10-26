@@ -1,6 +1,8 @@
 import fs from 'fs';
-import { Path } from '../utils/path';
+import { Path } from 'utils/path';
 import Directory from './filetype/directory';
+import TextFile from 'file/classes/text';
+
 
 // this file should be a standard interface for interacting with files.
 //
@@ -55,8 +57,9 @@ const readFile = (incomingPath) => {
   const extension = path.extension;
 
   if (!(extension in filetypeMap)) {
-    console.log(`We do not currently support files with extension ${extension}`);
-    throw new Error(`We do not currently support files with extension ${extension}`);
+    return TextFile.create(incomingPath);
+    // console.log(`We do not currently support files with extension ${extension}`);
+    // throw new Error(`We do not currently support files with extension ${extension}`);
   }
 
   const FiletypeClass = filetypeMap[extension];

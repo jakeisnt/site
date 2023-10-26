@@ -23,8 +23,19 @@ class RepoFile {
     return this.repo.historyLink(longHash, this.path);
   }
 
+  // is the file ignored by the repo?
+  // TODO this does not work ofc
+  isIgnored() {
+    return ['.git', 'node_modules'].includes(this.path.name);
+  }
+
   // get the last commit that cared about this file
   get lastLog() {
+    // don't bother if the file is ignored
+    if (this.isIgnored()) {
+      return null;
+    }
+
     const command = `git log -1 --full-history --pretty="format:%h %H %ad %ct" --date default --date=format:'%Y-%m-%d' ${this.path.toString()}`;
     try {
       const stdout = this.repo.runCmd(command);
@@ -47,6 +58,10 @@ class RepoFile {
 
   // Get the full log of changes to this file
   get log() {
+    if (this.isIgnored()) {
+      return [];
+    }
+
     const command = `git log --all --full-history --pretty="format:%h %H %ad" --date default --date=format:'%Y-%m-%d' ${this.path.toString()}`;
     try {
       const stdout = this.repo.runCmd(command);
