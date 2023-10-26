@@ -9,9 +9,9 @@ const makeGitHistoryTable = ({ file }) => {
      ["th", "Date"],
      ["th", "Hash"]]
      ["tbody",
-      ...log.map((entry) => {
+      log.map((entry) => {
         return ["tr",
-                ["td" { class: 'commit-date-tr' }, entry.date],
+                ["td", { class: 'commit-date-tr' }, entry.date],
                 ["td", { class: 'commit-link-tr' }, entry.shortHash]];
       })]]];
 };

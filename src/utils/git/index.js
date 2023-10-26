@@ -1,3 +1,3 @@
-import Repo from './Repo';
+import Repo from './repo';
 
 export { Repo };

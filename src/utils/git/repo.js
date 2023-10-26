@@ -1,4 +1,4 @@
-import { exec } from './cmd';
+import { execSync } from '../cmd';
 import RepoFile from './repofile';
 
 // a git repository is a directory with a .git subdirectory

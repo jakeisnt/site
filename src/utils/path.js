@@ -18,8 +18,6 @@ class Path {
   pathArray = [];
   pathString = '';
   parentPath = null;
-  // the git repo this path is in, if any
-  __gitRepo = null;
 
   // this should always be an absolute path
   // this should only be called by the static methods
@@ -80,15 +78,13 @@ class Path {
   }
 
   get parent() {
-    // cache the parent path because it's probably cheaper
-    if (!this.parentPath) {
-      this.parentPath = new Path(this.pathArray.slice(0, this.pathArray.length - 1).join('/'));
-    }
-    return this.parentPath;
+    return Path.create('/' + this.pathArray.slice(0, this.pathArray.length - 1).join('/'));
   }
 
   isRootPath() {
-    return this.pathArray.length === 0;
+    // console.log('isRootPath', this.pathString, this.pathArray, this.pathString === '/');
+    // NOTE: here, this.pathArray is [""] for some reason?
+    return this.pathString === '/';
   }
 
   // repo helper function
@@ -98,31 +94,27 @@ class Path {
     }
 
     if (!this.isDirectory()) {
-      return this.parent.repo;
+      console.log('tried to get repo for a file', this.pathString);
+      return this.parent.__repo();
     }
 
+    console.log('getting repo for', this.pathString);
     const gitDir = this.join('.git');
     if (gitDir.exists()) {
       return Repo.create(this);
     } else {
-      return this.parent.repo;
+      return this.parent.__repo();
     }
   }
 
   // get the git repo that this path is a member of
   get repo() {
-    // retrieve the repo from cache if we have it
-    if (this.__gitRepo) {
-      return this.__gitRepo;
-    }
-
     if (!this.exists()) {
       return null;
     }
 
     const rootRepo = this.__repo();
     if (rootRepo) {
-      this.__gitRepo = rootRepo;
       return rootRepo;
     }
   }
@@ -161,7 +153,8 @@ class Path {
 
   // is this path a directory?
   isDirectory() {
-    return fs.lstatSync(this.pathString).isDirectory();
+    console.log('checking if', this.pathString, 'is a directory');
+    return this.exists() && fs.lstatSync(this.pathString).isDirectory();
   }
 
   // read this path as a utf8 string

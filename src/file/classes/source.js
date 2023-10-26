@@ -22,8 +22,9 @@ const renderArticle = ({ articleHtml, file, siteName, url }) => {
        ]
       ],
       ["div", { class: 'article-rhs-container' }
-       ["div", { class: 'article-rhs'}]]]]];
-        component('GitHistoryTable', args),
+       ["div", { class: 'article-rhs'},
+        component('GitHistoryTable', { file })]]]]];
+
         // component('PrevNextUpButtons', args)
 }
 
