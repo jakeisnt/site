@@ -64,6 +64,10 @@ class File {
     return false;
   }
 
+  get repo() {
+    return this.path.repo;
+  }
+
   serve() {
     throw new Error('File.serve() is not implemented');
   }

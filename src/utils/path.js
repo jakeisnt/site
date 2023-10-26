@@ -1,6 +1,7 @@
 import pathLibrary from 'path';
 import fs from 'fs';
 import mime from 'mime';
+import { Repo } from './git';
 
 import { cond } from './match';
 
@@ -67,7 +68,7 @@ class Path {
 
     if (ext) {
       return ext;
-    } else if (this.isDirectory) {
+    } else if (this.isDirectory()) {
       return 'directory';
     } else {
       // TODO: what should the file look like if we don't have an extension and it
@@ -82,6 +83,37 @@ class Path {
       this.parentPath = new Path(this.pathArray.slice(0, this.pathArray.length - 1).join('/'));
     }
     return this.parentPath;
+  }
+
+  isRootPath() {
+    return this.pathArray.length === 0;
+  }
+
+  // repo helper function
+  __repo() {
+    if (this.isRootPath()) {
+      return null;
+    }
+
+    if (!this.isDirectory()) {
+      return this.parent.repo;
+    }
+
+    const gitDir = this.join('.git');
+    if (gitDir.exists()) {
+      return Repo.create(this);
+    } else {
+      return this.parent.repo;
+    }
+  }
+
+  // get the git repo that this path is a member of
+  get repo() {
+    if (!this.exists()) {
+      return null;
+    }
+
+    return this.__repo();
   }
 
   // get this path's position relative to another path or string

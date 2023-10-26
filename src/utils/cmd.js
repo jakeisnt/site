@@ -3,6 +3,7 @@
 
 import util from 'util';
 const exec = util.promisify(require('child_process').exec);
+const execSync = require('child_process').execSync;
 
 // exec a command synchronously
 // const execSync = (command, args) => {
@@ -32,4 +33,4 @@ const exec = util.promisify(require('child_process').exec);
 //   });
 // };
 
-export { exec };
+export { exec, execSync };
