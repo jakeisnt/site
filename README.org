@@ -13,13 +13,7 @@ It can be thought of as a projection of my wiki and github repos!
 * Running
 Dependencies are managed with Nix. Install `nix` and `direnv`. Open the folder in your system of choice, and all dependencies will install.
 
-The flake has a few commands:
-
-Hot reloading: `watch`
-Build site: `build`
-Deploy site: `deploy`
-
-These commands may not be extensible enough to fit your use case.
+The flake has one command: `site`. The CLI will tell you what you can do with it :  )
 
 * Tech
 We use javascript because javascript is the language of the internet. Websites should be written in javascript, especially if any code should be able to run on the client, on the server, at build time, or anywhere in between.
