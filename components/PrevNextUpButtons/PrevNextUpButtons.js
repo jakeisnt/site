@@ -1,7 +1,18 @@
+const findFileIndex = (files, file) => {
+  return files.findIndex((f) => f.equals(file));
+};
+
 const prevNextUpHtml = ({ file, rootUrl, sourceDir }) => {
-  const prevFile = file.prevFile;
-  const nextFile = file.nextFile;
   const dir = file.directory;
+  const contents = dir.contents();
+
+  const curFileIndex = findFileIndex(contents, file);
+
+  const prevFileIndex = curFileIndex <= 0 ? null : curFileIndex - 1;
+  const nextFileIndex = curFileIndex < 0 ? null : curFileIndex + 1;
+
+  const prevFile = prevFileIndex && contents[prevFileIndex];
+  const nextFile = nextFileIndex && contents?.[nextFileIndex];
 
   return [
     "div",
@@ -16,7 +27,7 @@ const prevNextUpHtml = ({ file, rootUrl, sourceDir }) => {
      (nextFile && [
        "tr",
        ["td", "Previous"],
-       ["td", ["a", { class: 'next-button', href: nextFile.htmlUrl({ rootUrl, sourceDir }) }, prevFile.name]]
+       ["td", ["a", { class: 'next-button', href: nextFile.htmlUrl({ rootUrl, sourceDir }) }, nextFile.name]]
      ]),
      (dir && [
        "tr",

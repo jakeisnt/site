@@ -42,6 +42,12 @@ class Path {
     return this.pathString;
   }
 
+  // this path is equal to another path if they have the same pathString
+  // if the other path is a string, this is still true
+  equals(otherPath) {
+    return this.pathString === (otherPath?.pathString ?? otherPath);
+  }
+
   // the name of the file includes the extension
   get name() {
     return this.pathArray[this.pathArray.length - 1];

@@ -22,6 +22,11 @@ class File {
     return new this(path);
   }
 
+  // two files are equal if their paths are equal
+  equals(file) {
+    return this.path.equals(file.path);
+  }
+
   clone() {
     return new this.constructor(this.path);
   }

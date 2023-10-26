@@ -29,8 +29,7 @@ const collectFolderPaths = (pathList, title, curPath, { rootUrl, sourceDir }) =>
 
 const makeSidebar = ({ path, title, sourceDir, rootUrl }) => {
   const pathList = path.relativeTo(sourceDir).pathArray;
-  console.log("pathList", pathList);
-  const folderPaths = collectFolderPaths(pathList, title, null, { rootUrl, sourceDir });
+  const folderPaths = collectFolderPaths(pathList, title, undefined, { rootUrl, sourceDir });
 
   return [
     "div",
