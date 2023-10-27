@@ -7,7 +7,6 @@ import { makeHomePage } from 'pages/home';
 const localPort = 4242; // Your desired port
 const localhostUrl = `http://localhost`;
 const wsLocalhostUrl = `ws://localhost`;
-const sourceDir = '/home/jake/site';
 
 const devWebsocketPath = '/__devsocket';
 
@@ -50,7 +49,7 @@ const injectHotReload = (htmlString) => {
 }
 
 // make a response to a request for a file with the file
-const fileResponse = (file) => {
+const fileResponse = (file, { sourceDir }) => {
   const toServe = file.serve({
     siteName: 'Jake Chvatal',
     rootUrl: devUrl,
@@ -110,7 +109,7 @@ const singleFileServer = (absolutePathToFile) => {
 
   createServer({
     onRequest: ({ request }) => {
-      return fileResponse(file);
+      return fileResponse(file, { sourceDir: file.path });
     },
     onSocketConnected: (ws) => {
       console.log('socket connected');
@@ -144,7 +143,7 @@ const directoryServer = (absolutePathToDirectory) => {
       // if we request the root, serve up the home page
       // TODO this needs a more elegant solution
       if (['/', '/index', '/index.html'].includes(pathToUse)) {
-        return fileResponse({ serve: makeHomePage });
+        return fileResponse({ serve: makeHomePage }, { sourceDir: dir.path });
       }
 
       if (path.name === 'index.html') {
@@ -158,7 +157,7 @@ const directoryServer = (absolutePathToDirectory) => {
         return new Response('Not found', { status: 404 });
       }
 
-      return fileResponse(file);
+      return fileResponse(file, { sourceDir: dir.path });
     },
 
     onSocketConnected: (ws) => {
