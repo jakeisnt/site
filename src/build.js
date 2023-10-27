@@ -7,6 +7,16 @@ const build = (websiteSpec) => {
   //
   // Also, reading lots of files / mostly the commits
   // is slow, so make sure to cache everythign.
+  //
+  // Alternatively, we rewrite 'serve'
+  // to collect all of the dependencies at the toplevel,
+  // then use those to build the site, and so forth...
+  //
+  // That seems like the more scalable solution:
+  // it'll save tons of fiddling with string parsing lol.
+  // schema:
+  // serve({ args }) => { result, mimeType, dependencies },
+  // then at the end we have all of the dependencies!
 }
 
 export { build };
