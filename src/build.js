@@ -17,6 +17,11 @@ const build = (websiteSpec) => {
   // schema:
   // serve({ args }) => { result, mimeType, dependencies },
   // then at the end we have all of the dependencies!
+  //
+  // This allows us to do other cool things like:
+  // - generate our own import maps
+  // - control when and how dependencies are loaded
+  // - break out components into subparts
 }
 
 export { build };
