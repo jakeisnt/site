@@ -169,17 +169,17 @@ class Path {
     const chunks = [];
     let buffer;
 
-    const readStream = fs.createReadStream(this.pathString);
-    readStream.on('data', (chunk) => {
-      chunks.push(chunk);
-    });
+    // const readStream = fs.createReadStream(this.pathString);
+    // readStream.on('data', (chunk) => {
+    //   chunks.push(chunk);
+    // });
 
-    readStream.on('end', () => {
-      buffer = Buffer.concat(chunks);
-    });
+    // readStream.on('end', () => {
+    //   buffer = Buffer.concat(chunks);
+    // });
 
-    while (!buffer) {
-    }
+    // while (!buffer) {
+    // }
     return buffer;
   }
 
