@@ -1,5 +1,6 @@
 import { BinaryFile } from 'file/classes';
 
+// can follow!! https://github.com/lovell/sharp/issues/1118
 class IcoFile extends BinaryFile {
   static filetypes = ['ico'];
 
