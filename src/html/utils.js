@@ -18,8 +18,8 @@ const css = (src, opts, body) => {
 
 const favicons = (iconDir) => {
   return [
-    ["link", { rel: 'icon', type: 'image/x-icon', href: iconDir + 'favicon.ico' }],
-    ["link", { rel: 'apple-touch-icon', href: iconDir + 'apple-touch-icon.png' }],
+    ["link", { rel: 'icon', type: 'image/x-icon', href: iconDir + '/favicon.ico' }],
+    ["link", { rel: 'apple-touch-icon', href: iconDir + '/apple-touch-icon.png' }],
   ]
 }
 
@@ -45,7 +45,9 @@ const openGraphHeaders = ({ title, rootUrl, siteName }) => {
 }
 
 // header we can use for every page
-const header = ({ title, rootUrl, siteName, iconDir }) => {
+const header = ({ title, rootUrl, siteName, resourcesDir: maybeResource }) => {
+  const resourcesDir = maybeResource || '/resources';
+
   return [
     "head",
     ["meta", { charset: 'utf-8' }],
@@ -56,7 +58,7 @@ const header = ({ title, rootUrl, siteName, iconDir }) => {
     meta('robots', 'index,follow'),
     meta('description', 'hi'),
     ...theme(),
-    ...(iconDir ? favicons(iconDir) : []),
+    ...(resourcesDir ? favicons(resourcesDir) : []),
     css("/resources/style.css"),
     css("/resources/global.css"),
     script("/resources/lib.js"),

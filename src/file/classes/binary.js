@@ -4,11 +4,6 @@ import File from './file';
 class BinaryFile extends File {
   // the binary contents of the file
   asBinary = null;
-
-  read() {
-    this.asBinary = this.path.readBinary();
-    return this;
-  }
 }
 
 export default BinaryFile;

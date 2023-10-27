@@ -33,7 +33,7 @@ const getNonHtmlPath = (file) => {
 };
 
 // inject a hot reload script into the body iof an html string
-const injectHotReload = (html) => {
+const injectHotReload = (htmlString) => {
   const wsUrl = devWebsocketUrl;
   const script = `
     <script>
@@ -46,13 +46,13 @@ const injectHotReload = (html) => {
     </script>
   `;
 
-  return html.replace('</body>', `${script}</body>`);
+  return htmlString.replace('</body>', `${script}</body>`);
 }
 
 // make a response to a request for a file with the file
 const fileResponse = (file) => {
   const toServe = file.serve({
-    siteName: 'Jake\'s Site',
+    siteName: 'Jake Chvatal',
     rootUrl: devUrl,
     sourceDir,
   })

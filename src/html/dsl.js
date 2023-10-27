@@ -8,7 +8,7 @@ function html(...args) {
 }
 
 function htmlPage(...args) {
-    return "<!DOCTYPE html>" + html(...args);
+    return "<!DOCTYPE html>\n" + html(...args);
 }
 
 function build(list, buffer) {

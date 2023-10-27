@@ -166,7 +166,21 @@ class Path {
   }
 
   readBinary() {
-    return fs.createReadStream(this.pathString);
+    const chunks = [];
+    let buffer;
+
+    const readStream = fs.createReadStream(this.pathString);
+    readStream.on('data', (chunk) => {
+      chunks.push(chunk);
+    });
+
+    readStream.on('end', () => {
+      buffer = Buffer.concat(chunks);
+    });
+
+    while (!buffer) {
+    }
+    return buffer;
   }
 
   writeBinary(fromStream) {
