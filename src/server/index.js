@@ -131,6 +131,7 @@ const singleFileServer = (absolutePathToFile) => {
 // this means we have to handle routing.
 const directoryServer = (absolutePathToDirectory) => {
   const dir = readFile(absolutePathToDirectory);
+  const fallbackDir = readFile('/home/jake/site');
 
   if (!dir.isDirectory) {
     throw new Error(`Received path '${absolutePathToDirectory}' is not a directory`);
@@ -151,7 +152,11 @@ const directoryServer = (absolutePathToDirectory) => {
         pathToUse = Path.create(path.parent.pathString + '.html');
       }
 
-      const file = dir.findFile(pathToUse);
+      let file = dir.findFile(pathToUse);
+      if (!file) {
+        // if we can't find the file, serve the fallback
+        file = fallbackDir.findFile(pathToUse);
+      }
 
       if (!file) {
         return new Response('Not found', { status: 404 });
