@@ -3,7 +3,7 @@
 // If another file needs them, consider placing those in a different file.
 
 const sourceUrl = 'https://github.com/jakeisnt/wiki';
-const sourceDir = '/home/jake/site';
+const sourceDir = '/Users/jake/Desktop/personal/site';
 const siteName = "Jake Chvatal";
 const deploymentBranch = "production";
 const targetDir = "/home/jake/site/docs"
