@@ -56,6 +56,11 @@ const fileResponse = (file, { sourceDir }) => {
     sourceDir,
   })
 
+  // plan:
+  // - file.serve: returns the text and the headers needed to immediately return it
+  // - toHtml or asHtml (decide on name): returns { html, dependencies }, up to caller to bundle
+  // this allows a default serve() implementation to manage the whole operation
+
   let response = isHtml(file) ? injectHotReload(toServe) : toServe;
 
   return new Response(
