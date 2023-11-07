@@ -10,7 +10,7 @@ const scssToCss = (scssText) => {
     importers: [{
       findFileUrl(url) {
         // TODO hardcoded 'site' reference
-        const nextUrl = new URL(url, pathToFileURL("/home/jake/site/"));
+        const nextUrl = new URL(url, pathToFileURL(`${sourceDir}/`));
         return nextUrl;
       }
     }],

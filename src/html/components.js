@@ -1,5 +1,6 @@
 import { html } from './dsl';
 import { Path } from '../utils/path';
+import { sourceDir } from '../constants';
 
 // Support the Component interface.
 // Resolves dependencies automatically and allows partial page refresh.
@@ -29,7 +30,7 @@ const makeDependencyHeader = (dependencies) => {
 }
 
 const component = (name, args) => {
-  const rootPath = '/home/jake/site';
+  const rootPath = sourceDir;
   const componentFunction = require(`${rootPath}/components/${name}/${name}.js`);
   console.log('rendering component', name);
   const {

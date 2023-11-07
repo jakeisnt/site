@@ -129,12 +129,12 @@ const singleFileServer = (absolutePathToFile) => {
 
 // support serving arbitrary files from a directory;
 // this means we have to handle routing.
-const directoryServer = (absolutePathToDirectory) => {
+const directoryServer = (absolutePathToDirectory, fallbackDirPath) => {
   const dir = readFile(absolutePathToDirectory);
   let fallbackDir;
 
   try {
-    fallbackDir = readFile('/home/jake/site');
+    fallbackDir = fallbackDirPath && readFile(fallbackDirPath);
   } catch(e) {
     console.log('Error finding fallback dir:', e.message);
   }

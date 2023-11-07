@@ -1,7 +1,7 @@
 // entrypoint of the program; this is the cli
 
 import { deploy } from './deploy';
-import { deploymentBranch, targetDir, website } from './constants';
+import { deploymentBranch, sourceDir, targetDir, website } from './constants';
 import { cli } from 'utils/cli';
 import { readFile } from 'file';
 import { singleFileServer, directoryServer } from './server';
@@ -19,7 +19,7 @@ const serve = (paths) => {
   // if we were provided a dir, that directory
   // becomes the root of a tree we serve
   if (path.isDirectory()) {
-    directoryServer(path);
+    directoryServer(path, sourceDir);
   }
 
   // otherwise, we serve just the file that was pointed to from all paths

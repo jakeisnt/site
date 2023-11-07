@@ -3,6 +3,7 @@
 // If another file needs them, consider placing those in a different file.
 
 const sourceUrl = 'https://github.com/jakeisnt/wiki';
+const sourceDir = '/home/jake/site';
 const siteName = "Jake Chvatal";
 const deploymentBranch = "production";
 const targetDir = "/home/jake/site/docs"
@@ -31,13 +32,13 @@ const wikiPaths = [
 ];
 
 const sources = [
-  { dir: "/home/jake/site", paths: sitePaths },
+  { dir: sourceDir, paths: sitePaths },
   { dir: "/home/jake/wiki", paths: wikiPaths }
 ];
 
 const website = {
   sources,
-  target: "/home/jake/site/docs"
+  target: targetDir
 };
 
 const localPort = 4242;
@@ -134,4 +135,5 @@ export {
   website,
   deploymentBranch,
   targetDir,
+  sourceDir
 };
