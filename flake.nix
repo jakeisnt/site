@@ -34,7 +34,7 @@
           name = "site";
           buildInputs = [
             bun
-            inotify-tools
+            # inotify-tools
 
             site
             dev
