@@ -3,6 +3,7 @@ import SCSSFile from './scss';
 import * as sass from 'sass';
 const { pathToFileURL } = require('url');
 import { readFile } from 'file';
+import { sourceDir } from '../../constants';
 
 const scssToCss = (scssText) => {
   const result = sass.compileString(scssText, {
