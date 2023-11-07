@@ -59,7 +59,16 @@ const fileResponse = (file, { sourceDir }) => {
   // plan:
   // - file.serve: returns the text and the headers needed to immediately return it
   // - toHtml or asHtml (decide on name): returns { html, dependencies }, up to caller to bundle
+  //   we might also want to render some other header information. figure it out!
   // this allows a default serve() implementation to manage the whole operation
+  // to compile the site statically, we:
+  // 1. write the root file relative to its path
+  // 2. get all of the dependencies
+  // 3. Render those relative to their paths
+  // 4. Repeat, traversing the site by all of the links. FS guarantees no loops (no links thankfully)
+  // how do we differentiate between dependencies that are links and 'actual' dependencies?
+  // we can either return a separate field, 'links', or tag them with an attribute in the dependency array
+  // i think keeping them separate is fine for now, such a small thingto change either way
 
   let response = isHtml(file) ? injectHotReload(toServe) : toServe;
 
