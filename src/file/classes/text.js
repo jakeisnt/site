@@ -48,10 +48,12 @@ class TextFile extends File {
   }
 
   serve(args) {
+    let contents = this.text;
     if (this.asHtml && this.mimeType === 'text/html') {
-      return this.asHtml(args);
+      contents = this.asHtml(args);
     }
-    return this.text;
+
+    return { contents, mimeType: this.mimeType };
   }
 }
 

@@ -7,8 +7,7 @@ class IcoFile extends BinaryFile {
   static filetypes = ['ico'];
 
   serve() {
-    console.log('--- SERVING FAVICON!!!!!!!!!!!!!');
-    return this.path.readBinary();
+    return { contents: this.path.readBinary(), mimeType: 'image/x-icon' };
   }
 
   asHtml() {

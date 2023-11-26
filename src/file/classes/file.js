@@ -79,22 +79,23 @@ class File {
   get repo() {
     const repoAtPath = this.path.repo;
     if (!repoAtPath) {
-      throw new Error(`from File.repo: File at path '${this.path}' is not in a repo`);
+      console.log(`from File.repo: File at path '${this.path}' is not in a repo`);
+      return null;
     }
 
     return repoAtPath;
   }
 
   get lastLog() {
-    return this.repo.getFile(this.path).lastLog;
+    return this.repo?.getFile(this.path)?.lastLog;
   }
 
   get log() {
-    return this.repo.getFile(this.path).log;
+    return this.repo?.getFile(this.path)?.log ?? [];
   }
 
   get lastTimestamp() {
-    return this.repo.getFile(this.path).lastTimestamp;
+    return this.repo?.getFile(this.path).lastTimestamp;
   }
 
   serve() {

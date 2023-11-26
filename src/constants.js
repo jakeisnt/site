@@ -19,11 +19,11 @@ const sitePaths = [
 const wikiPaths = [
   {
     folder: "pages",
-    sortBy: (v) => v.lastLog.commitDate,
+    sortBy: (v) => v.lastLog?.commitDate,
   },
   {
     folder: "scripts",
-    sortBy: (v) => v.lastLog.commitDate,
+    sortBy: (v) => v.lastLog?.commitDate,
   },
   {
     folder: "journals",

@@ -50,11 +50,14 @@ const injectHotReload = (htmlString) => {
 
 // make a response to a request for a file with the file
 const fileResponse = (file, { sourceDir }) => {
-  const toServe = file.serve({
+  const res = file.serve({
     siteName: 'Jake Chvatal',
     rootUrl: devUrl,
     sourceDir,
   })
+
+  console.log('res', res);
+  const { contents, mimeType } = res;
 
   // plan:
   // - file.serve: returns the text and the headers needed to immediately return it
@@ -70,13 +73,15 @@ const fileResponse = (file, { sourceDir }) => {
   // we can either return a separate field, 'links', or tag them with an attribute in the dependency array
   // i think keeping them separate is fine for now, such a small thingto change either way
 
-  let response = isHtml(file) ? injectHotReload(toServe) : toServe;
+
+  console.log(isHtml(file), file.path);
+  let response = isHtml(file) ? injectHotReload(contents) : contents;
 
   return new Response(
     response,
     {
       headers: {
-        'content-type': file?.mimeType ?? 'text/html',
+        'content-type': mimeType,
       }
     });
 };
