@@ -4,6 +4,10 @@ const findFileIndex = (files, file) => {
 
 const prevNextUpHtml = ({ file, rootUrl, sourceDir }) => {
   const dir = file.directory;
+
+  console.log('directory path', file.path.toString());
+
+
   const contents = dir.contents();
 
   const curFileIndex = findFileIndex(contents, file);

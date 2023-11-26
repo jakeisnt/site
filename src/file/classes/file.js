@@ -62,7 +62,12 @@ class File {
 
   // get the string of the folder the path is contained in
   get directory() {
-    console.log(this.path.parent.toString());
+    console.log(
+      'Reading the parent directory of a file',
+      this.path.toString(),
+      this.path.parent.toString(),
+    );
+
     return readFile(this.path.parent);
   }
 
