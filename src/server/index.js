@@ -70,7 +70,6 @@ const fileResponse = (file, { sourceDir }) => {
   const { contents, mimeType } = res;
 
   // plan:
-  // - file.serve: returns the text and the headers needed to immediately return it
   // - toHtml or asHtml (decide on name): returns { html, dependencies }, up to caller to bundle
   //   we might also want to render some other header information. figure it out!
   // this allows a default serve() implementation to manage the whole operation
