@@ -1,28 +1,36 @@
-import { File } from 'file/classes';
-import JSFile from './js.js';
-import { readFile } from 'file';
-import { header, component, html } from 'html';
+import { File } from "file/classes";
+import JSFile from "./js.js";
+import { readFile } from "file";
+import { header, component, html } from "html";
 
 const readJSFile = (path) => {
   return new JSFile(path);
-}
+};
 
 const folderIndexPageTable = ({ files, rootUrl, sourceDir }) => {
   return [
     "div",
-    { class: 'folder-index-page-table' },
-    ["table",
-     files.map((childFile) =>
-       ["tr",
-        ["td", { class: 'file-hash-tr' }, childFile.lastLog?.shortHash],
-        ["td", { class: 'file-name-tr' }, ["a", { href: childFile.htmlUrl({ rootUrl, sourceDir }) }, childFile.name]],
-        ["td", { class: 'file-type-tr' }, childFile.extension],
-        ["td", { class: 'file-date-tr' }, childFile.lastLog?.date],
-       ]
-     )
-    ]
+    { class: "folder-index-page-table" },
+    [
+      "table",
+      files.map((childFile) => [
+        "tr",
+        ["td", { class: "file-hash-tr" }, childFile.lastLog?.shortHash],
+        [
+          "td",
+          { class: "file-name-tr" },
+          [
+            "a",
+            { href: childFile.htmlUrl({ rootUrl, sourceDir }) },
+            childFile.name,
+          ],
+        ],
+        ["td", { class: "file-type-tr" }, childFile.extension],
+        ["td", { class: "file-date-tr" }, childFile.lastLog?.date],
+      ]),
+    ],
   ];
-}
+};
 
 const directoryToHtml = (dir, { files, rootUrl, siteName, sourceDir }) => {
   const title = dir.name;
@@ -30,18 +38,25 @@ const directoryToHtml = (dir, { files, rootUrl, siteName, sourceDir }) => {
   return [
     "html",
     header({ title, siteName, rootUrl }),
-    ["body",
-     component("Sidebar", { path: dir.path, title, sourceDir, rootUrl }),
-     ["div",
-      { class: 'site-body' },
-      ["main",
-       folderIndexPageTable({ files, rootUrl, sourceDir }),
-       component("ScrollUp")]]]];
-}
+    [
+      "body",
+      component("Sidebar", { path: dir.path, title, sourceDir, rootUrl }),
+      [
+        "div",
+        { class: "site-body" },
+        [
+          "main",
+          folderIndexPageTable({ files, rootUrl, sourceDir }),
+          component("ScrollUp"),
+        ],
+      ],
+    ],
+  ];
+};
 
 // a directory is a file that contains other files
 class Directory extends File {
-  static filetypes = ['dir'];
+  static filetypes = ["dir"];
 
   // recursively fetch and flatten the file tree
   // the result should contain no directories
@@ -90,7 +105,7 @@ class Directory extends File {
   write() {
     // make target directory
     // generate html for this file
-    throw new Error('write for directories has not been implemented yet');
+    throw new Error("write for directories has not been implemented yet");
   }
 
   get isDirectory() {
@@ -108,7 +123,7 @@ class Directory extends File {
 
   // as of now, we only use folders for their html
   get mimeType() {
-    return 'text/html';
+    return "text/html";
   }
 }
 
