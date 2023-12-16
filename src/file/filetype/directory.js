@@ -14,29 +14,30 @@ const folderIndexPageTable = ({ files, rootUrl, sourceDir }) => {
     { class: "folder-index-page-table" },
     [
       "table",
-      files.map((childFile) => [
-        "tr",
-        ["td", { class: "file-hash-tr" }, childFile.lastLog?.shortHash],
-        [
-          "td",
-          { class: "file-name-tr" },
+      files.map((childFile) => {
+        const lastLog = childFile.lastLog;
+        return [
+          "tr",
+          ["td", { class: "file-hash-tr" }, lastLog?.shortHash],
           [
-            "a",
-            { href: childFile.htmlUrl({ rootUrl, sourceDir }) },
-            childFile.name,
+            "td",
+            { class: "file-name-tr" },
+            [
+              "a",
+              { href: childFile.htmlUrl({ rootUrl, sourceDir }) },
+              childFile.name,
+            ],
           ],
-        ],
-        ["td", { class: "file-type-tr" }, childFile.extension],
-        [
-          "td",
-          {
-            class: childFile.lastLog?.date
-              ? "file-date-tr"
-              : "file-date-untracked-tr",
-          },
-          childFile.lastLog?.date ?? "untracked",
-        ],
-      ]),
+          ["td", { class: "file-type-tr" }, childFile.extension],
+          [
+            "td",
+            {
+              class: lastLog?.date ? "file-date-tr" : "file-date-untracked-tr",
+            },
+            lastLog?.date ?? "untracked",
+          ],
+        ];
+      }),
     ],
   ];
 };
