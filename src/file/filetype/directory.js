@@ -26,7 +26,15 @@ const folderIndexPageTable = ({ files, rootUrl, sourceDir }) => {
           ],
         ],
         ["td", { class: "file-type-tr" }, childFile.extension],
-        ["td", { class: "file-date-tr" }, childFile.lastLog?.date],
+        [
+          "td",
+          {
+            class: childFile.lastLog?.date
+              ? "file-date-tr"
+              : "file-date-untracked-tr",
+          },
+          childFile.lastLog?.date ?? "untracked",
+        ],
       ]),
     ],
   ];

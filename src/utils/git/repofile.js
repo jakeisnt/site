@@ -1,4 +1,5 @@
-import RepoCommit from './commit';
+import RepoCommit from "./commit";
+import logger from "utils/log";
 
 // A file we know to be in a git repo
 class RepoFile {
@@ -26,7 +27,7 @@ class RepoFile {
   // is the file ignored by the repo?
   // TODO this does not work ofc
   isIgnored() {
-    return ['.git', 'node_modules'].includes(this.path.name);
+    return [".git", "node_modules"].includes(this.path.name);
   }
 
   // get the last commit that cared about this file
@@ -40,8 +41,8 @@ class RepoFile {
     try {
       const stdout = this.repo.runCmd(command);
       if (stdout) {
-        const [line] = stdout.split('\n');
-        const [shortHash, longHash, commitDate, timestamp] = line.split(' ');
+        const [line] = stdout.split("\n");
+        const [shortHash, longHash, commitDate, timestamp] = line.split(" ");
         return RepoCommit.create({
           shortHash,
           longHash,
@@ -49,7 +50,10 @@ class RepoFile {
           timestamp: parseInt(timestamp, 10),
         });
       } else {
-        throw new Error(`git log command failed on path ${this.path.toString()}`);
+        logger.git(
+          `git log command failed on path ${this.path.toString()}. It's likely that no commit history was found for the path.`
+        );
+        return null;
       }
     } catch (error) {
       throw error;
@@ -66,8 +70,8 @@ class RepoFile {
     try {
       const stdout = this.repo.runCmd(command);
       if (stdout) {
-        return stdout.split('\n').map((line) => {
-          const [shortHash, longHash, commitDate] = line.split(' ');
+        return stdout.split("\n").map((line) => {
+          const [shortHash, longHash, commitDate] = line.split(" ");
           return RepoCommit.create({
             shortHash,
             longHash,
@@ -75,7 +79,10 @@ class RepoFile {
           });
         });
       } else {
-        throw new Error(`git log command failed on path ${this.path.toString()}`);
+        logger.git(
+          `git log command failed on path ${this.path.toString()}. It's likely that no commit history was found for the path.`
+        );
+        return [];
       }
     } catch (error) {
       throw error;

@@ -25,6 +25,10 @@ let logger = {
   production(...args) {
     console.log(...args);
   },
+
+  git(...args) {
+    console.log(...args);
+  },
 };
 
 export default logger;
