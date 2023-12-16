@@ -12,8 +12,8 @@ const prevNextUpHtml = ({ file, rootUrl, sourceDir }) => {
   const prevFileIndex = curFileIndex <= 0 ? null : curFileIndex - 1;
   const nextFileIndex = curFileIndex < 0 ? null : curFileIndex + 1;
 
-  const prevFile = prevFileIndex && contents[prevFileIndex];
-  const nextFile = nextFileIndex && contents?.[nextFileIndex];
+  const prevFile = (prevFileIndex && contents?.[prevFileIndex]) || null;
+  const nextFile = (nextFileIndex && contents?.[nextFileIndex]) || null;
 
   return [
     "div",
