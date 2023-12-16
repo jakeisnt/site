@@ -1,8 +1,8 @@
-import { SourceFile } from 'file/classes';
-import { readFile } from 'file';
+import { SourceFile } from "file/classes";
+import { readFile } from "file";
 
 class HTMLFile extends SourceFile {
-  static filetypes = ['html', 'htm', 'svg'];
+  static filetypes = ["html", "htm", "svg"];
 
   static create(filePath) {
     // if we have the html, just return it
@@ -11,7 +11,7 @@ class HTMLFile extends SourceFile {
     }
 
     // otherwise, try to get the non-html version of the file
-    const path = filePath.toString().replace('.html', '');
+    const path = filePath.toString().replace(".html", "");
 
     const prevFile = readFile(path);
     const sourceFile = prevFile.clone(filePath);
@@ -20,9 +20,9 @@ class HTMLFile extends SourceFile {
       return prevFile.asHtml(args);
     };
 
-    Object.defineProperty(sourceFile, 'mimeType', {
+    Object.defineProperty(sourceFile, "mimeType", {
       get() {
-        return 'text/html';
+        return "text/html";
       },
     });
 

@@ -1,6 +1,7 @@
-import { html, htmlPage } from './dsl';
-import { header } from './utils';
-import { component } from './components';
-import { findTags } from './parseDSL';
+import { header } from "./utils";
+import { component } from "./components";
+import { findTags } from "./parseDSL";
 
-export { html, htmlPage, header, component, findTags };
+import HtmlPage from "./builder";
+
+export { HtmlPage, header, component, findTags };

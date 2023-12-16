@@ -1,4 +1,3 @@
-import { html } from "./dsl";
 import { Path } from "utils/path";
 import logger from "utils/log";
 import { sourceDir } from "../constants";

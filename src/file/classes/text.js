@@ -1,19 +1,15 @@
-import File from './file';
-import { htmlPage, header, component } from 'html';
-
-import { renderArticle } from './utils';
+import { HtmlPage } from "../../html";
+import File from "./file";
+import { renderArticle } from "./utils";
 
 const renderTextFile = ({ file, rootUrl, siteName, sourceDir }) => {
   const articleHtml = [
     "pre",
-    ["code",
-     { class: `language-${file.extension} has-raw-code` },
-     file.text
-    ]
+    ["code", { class: `language-${file.extension} has-raw-code` }, file.text],
   ];
 
   return renderArticle({ file, articleHtml, rootUrl, siteName, sourceDir });
-}
+};
 
 // A text file is a file that can be read as a utf-8 string
 class TextFile extends File {
@@ -44,13 +40,13 @@ class TextFile extends File {
 
   asHtml({ siteName, rootUrl, sourceDir }) {
     const page = renderTextFile({ file: this, siteName, rootUrl, sourceDir });
-    return htmlPage(page);
+    return HtmlPage.create(page);
   }
 
   serve(args) {
     let contents = this.text;
-    if (this.asHtml && this.mimeType === 'text/html') {
-      contents = this.asHtml(args);
+    if (this.asHtml && this.mimeType === "text/html") {
+      contents = this.asHtml(args).toString();
     }
 
     return { contents, mimeType: this.mimeType };

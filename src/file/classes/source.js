@@ -1,7 +1,6 @@
-import TextFile from './text';
-import { htmlPage, header, component } from 'html';
-
-import { renderArticle } from './utils';
+import TextFile from "./text";
+import { renderArticle } from "./utils";
+import { HtmlPage } from "../../html";
 
 // if it's a source code file, we want to:
 // - render both to 'file.$ext' and 'file.$ext.html'
@@ -12,19 +11,17 @@ import { renderArticle } from './utils';
 const renderSourceFile = ({ file, rootUrl, siteName, sourceDir }) => {
   const articleHtml = [
     "pre",
-    ["code",
-     { class: `language-${file.extension} has-raw-code` },
-     file.text
-    ]
+    ["code", { class: `language-${file.extension} has-raw-code` }, file.text],
   ];
 
   return renderArticle({ file, articleHtml, rootUrl, siteName, sourceDir });
-}
+};
 
 class SourceFile extends TextFile {
   asHtml({ siteName, rootUrl, sourceDir }) {
     const page = renderSourceFile({ file: this, siteName, rootUrl, sourceDir });
-    return htmlPage(page);
+
+    return HtmlPage.create(page);
   }
 }
 

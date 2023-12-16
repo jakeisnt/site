@@ -1,7 +1,8 @@
 import { File } from "file/classes";
 import JSFile from "./js.js";
 import { readFile } from "file";
-import { header, component, html } from "html";
+import { header, component } from "html";
+import HtmlPage from "../../html/builder.js";
 
 const readJSFile = (path) => {
   return new JSFile(path);
@@ -122,11 +123,13 @@ class Directory extends File {
 
   asHtml({ siteName, rootUrl, sourceDir }) {
     const files = this.contents();
-    return html(directoryToHtml(this, { files, siteName, rootUrl, sourceDir }));
+    const page = directoryToHtml(this, { files, siteName, rootUrl, sourceDir });
+
+    return HtmlPage.create(page);
   }
 
   serve(args) {
-    return { contents: this.asHtml(args), mimeType: this.mimeType };
+    return { contents: this.asHtml(args).toString(), mimeType: this.mimeType };
   }
 
   // as of now, we only use folders for their html
