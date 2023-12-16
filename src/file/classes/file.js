@@ -72,6 +72,12 @@ class File {
     return false;
   }
 
+  write() {
+    throw new Error(
+      `file.write() is not implemented for file at '${this.path.toString()}'`
+    );
+  }
+
   // get the url to the html page with this file
   htmlUrl({ rootUrl, sourceDir }) {
     return `${rootUrl}${this.path.relativeTo(sourceDir)}.html`;
