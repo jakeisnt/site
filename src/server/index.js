@@ -69,17 +69,6 @@ const fileResponse = (file, { sourceDir }) => {
   log.network("file response returned", res);
   const { contents, mimeType } = res;
 
-  // plan:
-  // this allows a default serve() implementation to manage the whole operation
-  // to compile the site statically, we:
-  // 1. write the root file relative to its path
-  // 2. get all of the dependencies
-  // 3. Render those relative to their paths
-  // 4. Repeat, traversing the site by all of the links. FS guarantees no loops (no links thankfully)
-  // how do we differentiate between dependencies that are links and 'actual' dependencies?
-  // we can either return a separate field, 'links', or tag them with an attribute in the dependency array
-  // i think keeping them separate is fine for now, such a small thingto change either way
-
   log.debug("file is", isHtml(file) ? "" : "not", "html", file.path.toString());
 
   let response = isHtml(file) ? injectHotReload(contents) : contents;
