@@ -112,10 +112,23 @@ class Directory extends File {
     }
   }
 
-  write() {
+  write(config) {
+    const { sourceDir, targetDir } = config;
+    const targetPath = this.path.relativeTo(sourceDir, targetDir);
+
+    console.log("dir target path", targetPath.toString());
+    const targetHtmlPath = targetPath.join("index.html");
+
+    // this is e.g. '/site/docs/
+    // and mkdir /site/docs/
+    targetPath.make();
+
+    // we need to write /site/docs.html
+    targetHtmlPath.writeString(this.serve(config).contents);
+
     // make target directory
+
     // generate html for this file
-    throw new Error("write for directories has not been implemented yet");
   }
 
   get isDirectory() {

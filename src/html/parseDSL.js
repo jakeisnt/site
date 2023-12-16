@@ -31,9 +31,9 @@ const headingRank = (headingTag) => {
   }
 };
 
-const isMultipleElements = htmlTagOrTags => {
-  return isArray(htmlTagOrTags) && isArray(htmlTagOrTags?.0);
-}
+const isMultipleElements = (htmlTagOrTags) => {
+  return isArray(htmlTagOrTags) && isArray(htmlTagOrTags?.[0]);
+};
 
 // drop the first two elems, look through the rest
 const collectElements = (htmlPage, predicate) => {
@@ -46,21 +46,18 @@ const collectElements = (htmlPage, predicate) => {
   const contents = tagContents(htmlPage);
 
   // if we can act on the contents:
-  if (isArray(contents))  {
+  if (isArray(contents)) {
     // if it's multiple elements, we map over them
     if (isMultipleElements) {
       return [
-        ...elements, 
+        ...elements,
         ...contents.flatMap((tag) => collectElements(tag, predicate)),
       ];
     }
 
     // otherwise, we collect elemeents from the single elemnet
-    return [
-      ...elements, 
-      ...collectElements(contents, predicate),
-    ];
-  } 
+    return [...elements, ...collectElements(contents, predicate)];
+  }
 
   // if we're at a leaf, we terminate, returning just the current element.
   return elements;

@@ -48,7 +48,7 @@ const app = cli("site")
   .action(() => console.log("deploy"))
   .option("build")
   .describe("build the website")
-  .action(() => console.log("build"))
+  .action(build)
   .option("serve")
   .describe("serve the website")
   .action(serve);
