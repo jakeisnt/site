@@ -16,7 +16,13 @@ const buildSiteFromFile = (file, settings, filesSeenSoFar) => {
   });
 };
 
+// build a website from a path to a directory.
+// requires:
+// { siteName, rootUrl, sourceDir, targetDir }
 const buildFromPath = (settings) => {
+  const { sourceDir } = settings;
+
+  // start off from the root, source dir
   const dir = readFile(sourceDir);
 
   // if we've already seen a file path, we should ignore it
