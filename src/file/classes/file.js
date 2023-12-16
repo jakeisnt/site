@@ -1,7 +1,7 @@
-import fs from 'fs';
-import { exec } from '../../utils/cmd';
-import { Path } from '../../utils/path';
-import { readFile } from 'file';
+import fs from "fs";
+import { exec } from "../../utils/cmd";
+import { Path } from "../../utils/path";
+import { readFile } from "file";
 
 class File {
   // the full path to the file
@@ -12,7 +12,9 @@ class File {
   constructor(path) {
     const filePath = Path.create(path);
     if (!filePath.exists()) {
-      throw new Error(`from File constructor: File at path '${path}' does not exist`);
+      throw new Error(
+        `from File constructor: File at path '${path}' does not exist`
+      );
     }
 
     this.path = filePath;
@@ -33,7 +35,7 @@ class File {
 
   // read the file at the path
   read() {
-    throw new Error('File.read() is not implemented');
+    throw new Error("File.read() is not implemented");
   }
 
   get path() {
@@ -42,7 +44,7 @@ class File {
 
   // the title of the file does not
   get title() {
-    return this.name.split('.')[0];
+    return this.name.split(".")[0];
   }
 
   // the name of a file includes the extension
@@ -62,12 +64,6 @@ class File {
 
   // get the string of the folder the path is contained in
   get directory() {
-    console.log(
-      'Reading the parent directory of a file',
-      this.path.toString(),
-      this.path.parent.toString(),
-    );
-
     return readFile(this.path.parent);
   }
 
@@ -84,7 +80,9 @@ class File {
   get repo() {
     const repoAtPath = this.path.repo;
     if (!repoAtPath) {
-      console.log(`from File.repo: File at path '${this.path}' is not in a repo`);
+      console.log(
+        `from File.repo: File at path '${this.path}' is not in a repo`
+      );
       return null;
     }
 
@@ -104,7 +102,7 @@ class File {
   }
 
   serve() {
-    throw new Error('File.serve() is not implemented');
+    throw new Error("File.serve() is not implemented");
   }
 
   watch(callback) {

@@ -1,5 +1,6 @@
 import pathLibrary from "path";
 import fs from "fs";
+import logger from "./log";
 import mime from "mime";
 import { Repo } from "./git";
 
@@ -224,7 +225,7 @@ class Path {
   }
 
   join(nextPart) {
-    console.log("joining path", this.pathString, nextPart.toString());
+    logger.file("Joining path", this.pathString, "with", nextPart.toString());
     return new Path(this.pathString + nextPart.toString());
   }
 

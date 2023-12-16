@@ -1,6 +1,8 @@
 import { Path } from "../utils/path";
 import { link } from "../utils/printstyle";
 
+import log from "utils/log";
+
 import { readFile } from "../file";
 import { makeHomePage } from "pages/home";
 
@@ -64,7 +66,7 @@ const fileResponse = (file, { sourceDir }) => {
     sourceDir,
   });
 
-  console.log("res", res);
+  log.network("file response returned", res);
   const { contents, mimeType } = res;
 
   // plan:
@@ -81,7 +83,8 @@ const fileResponse = (file, { sourceDir }) => {
   // we can either return a separate field, 'links', or tag them with an attribute in the dependency array
   // i think keeping them separate is fine for now, such a small thingto change either way
 
-  console.log(isHtml(file), file.path);
+  log.debug("file is", isHtml(file) ? "" : "not", "html", file.path.toString());
+
   let response = isHtml(file) ? injectHotReload(contents) : contents;
 
   return new Response(response, {
@@ -102,15 +105,15 @@ const createServer = ({
   const fullUrl = formatUrl({ url, port });
   const linkText = link(fullUrl).underline().color("blue");
 
-  console.log(`Starting server at ${linkText}`);
+  log.production(`Starting server at ${linkText}`);
 
   const server = Bun.serve({
     port,
     fetch(req, server) {
       const path = withoutUrl(req.url, fullUrl);
-      console.log("FETCH", path);
+      log.network("FETCH", path);
       if (req.url === httpWebsocketUrl) {
-        console.log("websocket request");
+        log.network("websocket request");
         if (server.upgrade(req)) {
           return;
         }
@@ -139,14 +142,14 @@ const singleFileServer = (absolutePathToFile) => {
       return fileResponse(file, { sourceDir: file.path });
     },
     onSocketConnected: (ws) => {
-      console.log("socket connected");
+      log.network("socket connected");
       wsClientConnection = ws;
     },
   });
 
   file.watch((eventType, curFile) => {
     if (eventType === "change") {
-      console.log("File changed. Reloading...");
+      log.hotReload("File changed. Reloading...");
       // re-read the file into memory
       file.read();
       wsClientConnection?.send("reload");
@@ -163,7 +166,7 @@ const directoryServer = (absolutePathToDirectory, fallbackDirPath) => {
   try {
     fallbackDir = fallbackDirPath && readFile(fallbackDirPath);
   } catch (e) {
-    console.log("Error finding fallback dir:", e.message);
+    log.debug("Error finding fallback dir:", e.message);
   }
 
   if (!dir.isDirectory) {
@@ -187,7 +190,7 @@ const directoryServer = (absolutePathToDirectory, fallbackDirPath) => {
         pathToUse = Path.create(path.parent.pathString + ".html");
       }
 
-      console.log("finding file in dir", pathToUse.toString(), dir.toString());
+      log.debug("finding file in dir", pathToUse.toString(), dir.toString());
       let file = dir.findFile(pathToUse);
       if (!file) {
         // if we can't find the file, serve the fallback
@@ -202,7 +205,7 @@ const directoryServer = (absolutePathToDirectory, fallbackDirPath) => {
     },
 
     onSocketConnected: (ws) => {
-      console.log("socket connected");
+      log.hotReload("hot reload socket connected");
     },
   });
 };

@@ -1,8 +1,8 @@
-import fs from 'fs';
-import { Path } from 'utils/path';
-import Directory from './filetype/directory';
-import TextFile from 'file/classes/text';
+import { Path } from "utils/path";
 
+import logger from "utils/log";
+import Directory from "./filetype/directory";
+import TextFile from "file/classes/text";
 
 // this file should be a standard interface for interacting with files.
 //
@@ -12,42 +12,46 @@ import TextFile from 'file/classes/text';
 // import all the files from the 'filetype' directory
 // and associate them with their filetype names
 
-
 var filetypeMap = null;
 
 // obtain a map of file to filetype
 const getFiletypeMap = () => {
   // bootstrap the process; we know we have a directory
-  const dir = new Directory(__dirname + '/filetype/');
+  const dir = new Directory(__dirname + "/filetype/");
 
   const newFiletypeMap = {};
 
   // problem: to bootstrap the process, we need to know what class
   // a file is before we can create it. but we need to create it
-  dir.contents({ assumeJSFile: true }).map((file) => {
-    // because we have a js file, we know we can require it
-    const fileClass = file.require();
-    return fileClass.default;
-  }).forEach(fileClass => {
-    if (!fileClass.filetypes) {
-      throw new Error(`Filetype ${fileClass.name} does not have a 'filetypes' property`);
-    }
-
-    fileClass.filetypes.forEach(fileType => {
-      if (newFiletypeMap[fileType]) {
-        throw new Error(`Filetype ${fileType} already exists`);
+  dir
+    .contents({ assumeJSFile: true })
+    .map((file) => {
+      // because we have a js file, we know we can require it
+      const fileClass = file.require();
+      return fileClass.default;
+    })
+    .forEach((fileClass) => {
+      if (!fileClass.filetypes) {
+        throw new Error(
+          `Filetype ${fileClass.name} does not have a 'filetypes' property`
+        );
       }
 
-      newFiletypeMap[fileType] = fileClass;
+      fileClass.filetypes.forEach((fileType) => {
+        if (newFiletypeMap[fileType]) {
+          throw new Error(`Filetype ${fileType} already exists`);
+        }
+
+        newFiletypeMap[fileType] = fileClass;
+      });
     });
-  });
 
   return newFiletypeMap;
-}
+};
 
 // given the source path of a file, return the appropriate file class
 const readFile = (incomingPath) => {
-  console.log(`Reading file at ${incomingPath.toString()}`);
+  logger.file(`Reading file at ${incomingPath.toString()}`);
   if (!filetypeMap) {
     filetypeMap = getFiletypeMap();
   }
@@ -64,6 +68,6 @@ const readFile = (incomingPath) => {
 
   const FiletypeClass = filetypeMap[extension];
   return FiletypeClass.create(path);
-}
+};
 
 export { readFile };
