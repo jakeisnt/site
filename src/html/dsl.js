@@ -71,4 +71,4 @@ function splitTag(tag) {
   return [match[1], attr];
 }
 
-export { html, htmlPage };
+export { html, htmlPage, isObject };

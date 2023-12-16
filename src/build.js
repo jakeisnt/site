@@ -1,27 +1,39 @@
-const build = (websiteSpec) => {
-  // stupid strategy: pretend we are a server.
-  // 1. Get the root file's HTML.
-  // 2. Find all of the URLs on the file.
-  // 3. Convert those URLs into files.
-  // 4. Repeat until we have all of the files.
-  //
-  // Also, reading lots of files / mostly the commits
-  // is slow, so make sure to cache everythign.
-  //
-  // Alternatively, we rewrite 'serve'
-  // to collect all of the dependencies at the toplevel,
-  // then use those to build the site, and so forth...
-  //
-  // That seems like the more scalable solution:
-  // it'll save tons of fiddling with string parsing lol.
-  // schema:
-  // serve({ args }) => { result, mimeType, dependencies },
-  // then at the end we have all of the dependencies!
-  //
-  // This allows us to do other cool things like:
-  // - generate our own import maps
-  // - control when and how dependencies are loaded
-  // - break out components into subparts
-}
+const build = (websiteSpec) => {};
+
+// given a relative path, build the whole file tree as static html.
+const buildSiteFromFile = (file, settings, filesSeenSoFar) => {
+  const { siteName, rootUrl, sourceDir, targetDir } = settings;
+
+  // register that we've seen the file.
+  filesSeenSoFar.push(dependencyPath);
+
+  // if the file is html,
+  if (file.isHtml()) {
+    // Get the file as HTML.
+    const htmlExport = file.asHtml({ siteName, rootUrl, sourceDir });
+
+    // Write the file as HTML to disk.
+
+    // Write all of the dependencies of the file (that we haven't seen yet) to disk.
+    htmlExport.dependencies.forEach((dependencyFile) => {
+      if (!filesSeenSoFar.contains(dependencyFile.path.toString())) {
+        buildSiteFromFile(dependencyFile, settings, filesSeenSoFar);
+      }
+    });
+  } else {
+    // if the file isn't html, it doesn't have dependencies (yet).
+    // write the file as it is to disk.
+    file.write();
+  }
+};
+
+const buildFromPath = (settings) => {
+  const dir = readFile(sourceDir);
+
+  // if we've already seen a file path, we should ignore it
+  const filePathsSeenSoFar = new Set();
+
+  buildSiteFromFile(dir, settings, filePathsSeenSoFar);
+};
 
 export { build };

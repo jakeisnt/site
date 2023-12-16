@@ -1,7 +1,8 @@
-import { splitWith } from 'utils/array';
+import { splitWith } from "utils/array";
+import { isObject } from "./dsl";
 
 const headingRank = (headingTag) => {
-  switch(headingTag) {
+  switch (headingTag) {
     case "h1":
       return 1;
     case "h2":
@@ -17,18 +18,44 @@ const headingRank = (headingTag) => {
     default:
       return 7;
   }
-}
+};
 
 // drop the first two elems, look through the rest
 const collectElements = (htmlPage, predicate) => {
   return htmlPage.slice(2).filter(predicate);
-}
+};
 
-// find tags with the given tag names on an html page
+// find html elements with the given tag names on an html page
 const findTags = (htmlPage, tags) => {
   return collectElements(htmlPage, ([tagName]) => {
     return tags.includes(tagName);
-  })
-}
+  });
+};
 
-export { findTags };
+// get the name of a tag.
+const tagName = ([name]) => name;
+// get the attributes object of a tag.
+const tagAttributes = ([, attributes]) => {
+  return isObject(attributes) ? attributes : null;
+};
+// get the contents of a tag.
+const tagContents = ([, maybeAttributes, maybeContents]) => {
+  return isObject(maybeAttributes) ? maybeContents : maybeAttributes;
+};
+
+// Get the link(s) embedded in an HTML tag
+// for example, the 'href' field of an <a> tag,
+// the 'link' of a 'style' tag,
+// or the 'src' of a 'script' tag.
+const getTagLink = (tag) => {
+  switch (tagName(tag)) {
+    case ("a", "href"):
+      return tagAttributes(tag).href;
+    case ("img", "script"):
+      return tagAttributes(tag).src;
+    default:
+      return null;
+  }
+};
+
+export { findTags, getTagLink };

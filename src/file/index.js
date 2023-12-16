@@ -61,9 +61,11 @@ const readFile = (incomingPath) => {
   const extension = path.extension;
 
   if (!(extension in filetypeMap)) {
+    logger.file(
+      `We don't have a filetype mapping for files with extension ${extension}. Assuming plaintext for file at path '${path.toString()}'.`
+    );
+
     return TextFile.create(incomingPath);
-    // console.log(`We do not currently support files with extension ${extension}`);
-    // throw new Error(`We do not currently support files with extension ${extension}`);
   }
 
   const FiletypeClass = filetypeMap[extension];
