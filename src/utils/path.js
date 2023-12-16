@@ -1,33 +1,37 @@
-import pathLibrary from 'path';
-import fs from 'fs';
-import mime from 'mime';
-import { Repo } from './git';
+import pathLibrary from "path";
+import fs from "fs";
+import mime from "mime";
+import { Repo } from "./git";
 
 // a Path is the path to a file or directory on a system.
 class Path {
   // this params are immutable, so it's safe to store both and use directly
   pathArray = [];
-  pathString = '';
+  pathString = "";
   parentPath = null;
 
-  // this should always be an absolute path
+  // works for both relative and absolute paths, fixing them into absolute paths as needed
   // this should only be called by the static methods
   constructor(pathString) {
-    if (typeof pathString !== 'string') {
-      throw new Error('Path must be a string');
+    let normalizedPath = pathLibrary.normalize(pathString);
+
+    if (!pathLibrary.isAbsolute(normalizedPath)) {
+      normalizedPath = pathLibrary.resolve(normalizedPath, process.cwd());
     }
 
-    this.pathString = pathString;
-    this.pathArray = pathString.split('/').slice(1);
+    this.pathString = normalizedPath;
+    this.pathArray = normalizedPath.split("/").slice(1);
   }
 
   static create(maybePathString) {
-    if (typeof maybePathString === 'string') {
+    if (typeof maybePathString === "string") {
       return new Path(maybePathString);
     } else if (maybePathString instanceof Path) {
       return maybePathString;
     } else {
-      throw new Error(`Path provided must be a string or Path, given ${maybePathString}`);
+      throw new Error(
+        `Path provided must be a string or Path, given ${maybePathString}`
+      );
     }
   }
 
@@ -53,7 +57,7 @@ class Path {
 
   // get the mime type of the file
   get mimeType() {
-    return mime.getType(this.pathString) || 'text/plain';
+    return mime.getType(this.pathString) || "text/plain";
   }
 
   // get this file's extension
@@ -61,12 +65,12 @@ class Path {
   get extension() {
     // we always fetch [1], because if the file has multiple extensions
     // we ignore the second and only care about the first.
-    const ext = pathLibrary.extname(this.pathString).split('.')[1];
+    const ext = pathLibrary.extname(this.pathString).split(".")[1];
 
     if (ext) {
       return ext;
     } else if (this.isDirectory()) {
-      return 'dir';
+      return "dir";
     } else {
       // TODO: what should the file look like if we don't have an extension and it
       // s not a directory?
@@ -75,13 +79,15 @@ class Path {
   }
 
   get parent() {
-    return Path.create('/' + this.pathArray.slice(0, this.pathArray.length - 1).join('/'));
+    return Path.create(
+      "/" + this.pathArray.slice(0, this.pathArray.length - 1).join("/")
+    );
   }
 
   isRootPath() {
     // console.log('isRootPath', this.pathString, this.pathArray, this.pathString === '/');
     // NOTE: here, this.pathArray is [""] for some reason?
-    return this.pathString === '/';
+    return this.pathString === "/";
   }
 
   // repo helper function
@@ -94,7 +100,7 @@ class Path {
       return this.parent.__repo();
     }
 
-    const gitDir = this.join('/.git');
+    const gitDir = this.join("/.git");
 
     if (gitDir.exists()) {
       return Repo.create(this);
@@ -118,16 +124,18 @@ class Path {
   // get this path's position relative to another path or string
   // ASSUME that the other paths, if defined, are the prefix of this one
   relativeTo(maybeOtherPath, maybeReplaceWithPath) {
-
     const otherPath = Path.create(maybeOtherPath);
-    const replaceWithPath = maybeReplaceWithPath && Path.create(maybeReplaceWithPath);
+    const replaceWithPath =
+      maybeReplaceWithPath && Path.create(maybeReplaceWithPath);
 
     // assuming the other path is the prefix of this one,
     // remove it from this path
     let curPathArray = [...this.pathArray];
     otherPath.pathArray.forEach((prefixFolderName) => {
       if (!(curPathArray[0] === prefixFolderName)) {
-        throw new Error(`'${otherPath.pathString}' is not a prefix of this path, '${this.pathString}'`);
+        throw new Error(
+          `'${otherPath.pathString}' is not a prefix of this path, '${this.pathString}'`
+        );
       }
       curPathArray.shift();
     });
@@ -136,7 +144,7 @@ class Path {
       curPathArray = [...replaceWithPath.pathArray, curPathArray];
     }
 
-    const pathAfterShift = Path.create('/' + curPathArray.join('/'));
+    const pathAfterShift = Path.create("/" + curPathArray.join("/"));
     return pathAfterShift;
   }
 
@@ -145,9 +153,12 @@ class Path {
   }
 
   replaceExtension(extension) {
-    const newPathWithExtension = this.pathString.replace(/\.\S+$/, `.${extension}`);
+    const newPathWithExtension = this.pathString.replace(
+      /\.\S+$/,
+      `.${extension}`
+    );
     return new Path(newPathWithExtension);
-  };
+  }
 
   // is this path a directory?
   isDirectory() {
@@ -156,7 +167,7 @@ class Path {
 
   // read this path as a utf8 string
   readString() {
-    return fs.readFileSync(this.pathString, 'utf8');
+    return fs.readFileSync(this.pathString, "utf8");
   }
 
   // write a string to this path, creating the file if it doesn't exist
@@ -195,21 +206,25 @@ class Path {
   // read a directory, returning the directory paths
   readDirectory() {
     if (!this.isDirectory()) {
-      throw new Error(`Cannot read directory '${this.pathString}' because it is not a directory`);
+      throw new Error(
+        `Cannot read directory '${this.pathString}' because it is not a directory`
+      );
     }
 
     let normalizedPathString = this.pathString;
 
     // if the path doesn't end in a slash, add one
-    if (normalizedPathString[normalizedPathString.length - 1] !== '/') {
-      normalizedPathString += '/';
+    if (normalizedPathString[normalizedPathString.length - 1] !== "/") {
+      normalizedPathString += "/";
     }
 
-    return fs.readdirSync(normalizedPathString)
+    return fs
+      .readdirSync(normalizedPathString)
       .map((fileName) => new Path(`${normalizedPathString}${fileName}`));
   }
 
   join(nextPart) {
+    console.log("joining path", this.pathString, nextPart.toString());
     return new Path(this.pathString + nextPart.toString());
   }
 
@@ -222,12 +237,14 @@ class Path {
   contains(maybeOtherPathString) {
     const otherPath = Path.create(maybeOtherPathString);
 
-    if ((this.pathArray.length > otherPath.pathArray.length) ||
-        (this.pathString === otherPath.pathString)) {
+    if (
+      this.pathArray.length > otherPath.pathArray.length ||
+      this.pathString === otherPath.pathString
+    ) {
       return false;
     }
 
-    for(let i = 0; i < this.pathArray.length; i++) {
+    for (let i = 0; i < this.pathArray.length; i++) {
       if (otherPath.pathArray[i] !== this.pathArray[i]) {
         return false;
       }
@@ -254,7 +271,9 @@ class Path {
 
   watch(callback) {
     if (!this.exists()) {
-      throw new Error(`Cannot watch path '${this.pathString}' because it does not exist`);
+      throw new Error(
+        `Cannot watch path '${this.pathString}' because it does not exist`
+      );
     }
 
     const watcher = fs.watch(this.pathString, (eventType, filename) => {
