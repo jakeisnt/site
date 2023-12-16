@@ -70,8 +70,6 @@ const fileResponse = (file, { sourceDir }) => {
   const { contents, mimeType } = res;
 
   // plan:
-  // - toHtml or asHtml (decide on name): returns { html, dependencies }, up to caller to bundle
-  //   we might also want to render some other header information. figure it out!
   // this allows a default serve() implementation to manage the whole operation
   // to compile the site statically, we:
   // 1. write the root file relative to its path
