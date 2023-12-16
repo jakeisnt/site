@@ -1,11 +1,22 @@
 // entrypoint of the program; this is the cli
 
-import { deploy } from './deploy';
-import { deploymentBranch, sourceDir, targetDir, website } from './constants';
-import { cli } from 'utils/cli';
-import { readFile } from 'file';
-import { singleFileServer, directoryServer } from './server';
-import { Path } from 'utils/path';
+import { deploy } from "./deploy";
+import { deploymentBranch, sourceDir, targetDir, website } from "./constants";
+import { cli } from "utils/cli";
+import { buildFromPath } from "./build.js";
+import { singleFileServer, directoryServer } from "./server";
+import { Path } from "utils/path";
+
+const build = () => {
+  console.log("Building the website at a path...");
+
+  buildFromPath({
+    siteName: "Jake site",
+    rootUrl: "http://localhost:4242",
+    sourceDir: "/Users/jake/Desktop/personal/site",
+    targetDir: "/Users/jake/Desktop/personal/site/docs",
+  });
+};
 
 // Serve whatever's at the first path
 const serve = (paths) => {
@@ -28,13 +39,19 @@ const serve = (paths) => {
   else {
     singleFileServer(path);
   }
-}
+};
 
-const app = cli('site')
-      .describe('compiles the website')
-      .option('deploy').describe('deploy the website').action(() => console.log('deploy'))
-      .option('build').describe('build the website').action(() => console.log('build'))
-      .option('serve').describe('serve the website').action(serve);
+const app = cli("site")
+  .describe("compiles the website")
+  .option("deploy")
+  .describe("deploy the website")
+  .action(() => console.log("deploy"))
+  .option("build")
+  .describe("build the website")
+  .action(() => console.log("build"))
+  .option("serve")
+  .describe("serve the website")
+  .action(serve);
 
 function main() {
   const args = process.argv.slice(2);

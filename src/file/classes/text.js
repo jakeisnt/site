@@ -21,8 +21,11 @@ class TextFile extends File {
     return this;
   }
 
-  write() {
-    this.path.writeString(this.asString);
+  // write a file to a path at the provided config location
+  write(config) {
+    const { sourceDir, targetDir } = config;
+    const targetPath = this.path.relativeTo(sourceDir, targetDir);
+    this.path.writeString(this.serve(config).contents);
     return this;
   }
 

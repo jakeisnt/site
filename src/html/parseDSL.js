@@ -1,5 +1,16 @@
 import { splitWith } from "utils/array";
-import { isObject } from "./dsl";
+import { isObject, isArray } from "./dsl";
+
+// get the name of a tag.
+const tagName = ([name]) => name;
+// get the attributes object of a tag.
+const tagAttributes = ([, attributes]) => {
+  return isObject(attributes) ? attributes : null;
+};
+// get the contents of a tag.
+const tagContents = ([, maybeAttributes, maybeContents]) => {
+  return isObject(maybeAttributes) ? maybeContents : maybeAttributes;
+};
 
 const headingRank = (headingTag) => {
   switch (headingTag) {
@@ -20,27 +31,44 @@ const headingRank = (headingTag) => {
   }
 };
 
+const isMultipleElements = htmlTagOrTags => {
+  return isArray(htmlTagOrTags) && isArray(htmlTagOrTags?.0);
+}
+
 // drop the first two elems, look through the rest
 const collectElements = (htmlPage, predicate) => {
-  return htmlPage.slice(2).filter(predicate);
+  const elements = [];
+
+  if (predicate(htmlPage)) {
+    elements.push(htmlPage);
+  }
+
+  const contents = tagContents(htmlPage);
+
+  // if we can act on the contents:
+  if (isArray(contents))  {
+    // if it's multiple elements, we map over them
+    if (isMultipleElements) {
+      return [
+        ...elements, 
+        ...contents.flatMap((tag) => collectElements(tag, predicate)),
+      ];
+    }
+
+    // otherwise, we collect elemeents from the single elemnet
+    return [
+      ...elements, 
+      ...collectElements(contents, predicate),
+    ];
+  } 
+
+  // if we're at a leaf, we terminate, returning just the current element.
+  return elements;
 };
 
 // find html elements with the given tag names on an html page
 const findTags = (htmlPage, tags) => {
-  return collectElements(htmlPage, ([tagName]) => {
-    return tags.includes(tagName);
-  });
-};
-
-// get the name of a tag.
-const tagName = ([name]) => name;
-// get the attributes object of a tag.
-const tagAttributes = ([, attributes]) => {
-  return isObject(attributes) ? attributes : null;
-};
-// get the contents of a tag.
-const tagContents = ([, maybeAttributes, maybeContents]) => {
-  return isObject(maybeAttributes) ? maybeContents : maybeAttributes;
+  return collectElements(htmlPage, ([tagName]) => tags.includes(tagName));
 };
 
 // Get the link(s) embedded in an HTML tag

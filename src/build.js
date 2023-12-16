@@ -1,5 +1,3 @@
-const build = (websiteSpec) => {};
-
 // given a relative path, build the whole file tree as static html.
 const buildSiteFromFile = (file, settings, filesSeenSoFar) => {
   const { siteName, rootUrl, sourceDir, targetDir } = settings;
@@ -31,4 +29,4 @@ const buildFromPath = (settings) => {
   buildSiteFromFile(dir, settings, filePathsSeenSoFar);
 };
 
-export { build };
+export { buildFromPath };
