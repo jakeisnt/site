@@ -11,7 +11,7 @@ const buildSiteFromFile = (file, settings, filesSeenSoFar) => {
   file.write(settings);
 
   // Write all of the dependencies of the file (that we haven't seen yet) to disk.
-  file.dependencies(settings).forEach((dependencyFile) => {
+  file.dependencies(settings, filesSeenSoFar).forEach((dependencyFile) => {
     if (!filesSeenSoFar.contains(dependencyFile.path.toString())) {
       buildSiteFromFile(dependencyFile, settings, filesSeenSoFar);
     }

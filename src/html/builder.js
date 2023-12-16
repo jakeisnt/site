@@ -29,11 +29,12 @@ class HtmlPage {
   // We define a 'dependency' as any internal link.
   // For example -- src/index.css, src/file.html, etc.
   // Produces these dependencies as Files.
-  dependencies() {
+  dependencies(seenPaths = new Set()) {
     return findTags(this.pageStructure, ["a", "href", "img", "script"])
       .map(getTagLink)
       .filter(isInternalLink)
       .map(linkStringToFile)
+      .filter((path) => !seenPaths.includes(path))
       .map(readFile);
   }
 

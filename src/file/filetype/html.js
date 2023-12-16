@@ -31,8 +31,8 @@ class HTMLFile extends SourceFile {
 
   // the dependencies of an html file are the internal links
   // in the file's html.
-  dependencies(settings) {
-    return this.asHtml(settings).dependencies();
+  dependencies(settings, seenPaths = new Set()) {
+    return this.asHtml(settings).dependencies(seenPaths);
   }
 }
 
