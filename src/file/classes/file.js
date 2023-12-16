@@ -101,6 +101,11 @@ class File {
     return this.repo?.getFile(this.path).lastTimestamp;
   }
 
+  // by default, files do not depend on any other files.
+  dependencies() {
+    return [];
+  }
+
   serve() {
     throw new Error("File.serve() is not implemented");
   }

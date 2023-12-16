@@ -28,6 +28,12 @@ class HTMLFile extends SourceFile {
 
     return sourceFile;
   }
+
+  // the dependencies of an html file are the internal links
+  // in the file's html.
+  dependencies(settings) {
+    return this.asHtml(settings).dependencies();
+  }
 }
 
 export default HTMLFile;
