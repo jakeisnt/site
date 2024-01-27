@@ -133,8 +133,9 @@ class Directory extends File {
   
   // the dependencies of a directory are all of the files that it contains,
   // but as html versions. this is a proxy for finding those links in the html
-  dependencies() {
+  dependencies(settings, filesSeenSoFar) {
     return this.path.readDirectory()
+      .filter((childPath) => !filesSeenSoFar.has(childPath.toString()))
       .map((childPath) => {
         if (childPath.isDirectory()) {
           return childPath.join('/index.html');

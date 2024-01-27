@@ -112,7 +112,7 @@ class File {
   }
 
   // by default, files do not depend on any other files.
-  dependencies() {
+  dependencies(settings, filesSeenSoFar) {
     return [];
   }
 

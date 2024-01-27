@@ -66,7 +66,7 @@ class HTMLFile extends SourceFile {
 
   // the dependencies of an html file are the internal links
   // in the file's html.
-  dependencies(settings) {
+  dependencies(settings, filesSeenSoFar) {
     return this.asHtml(settings).dependencies();
   }
 }
