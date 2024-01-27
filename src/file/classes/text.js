@@ -25,7 +25,7 @@ class TextFile extends File {
   write(config) {
     const { sourceDir, targetDir } = config;
     const targetPath = this.path.relativeTo(sourceDir, targetDir);
-    this.path.writeString(this.serve(config).contents);
+    targetPath.writeString(this.serve(config).contents);
     return this;
   }
 
