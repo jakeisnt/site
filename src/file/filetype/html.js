@@ -44,12 +44,15 @@ class HTMLFile extends SourceFile {
 
     sourceFile.asHtml = prevFile.asHtml;
     sourceFile.read = prevFile.asHtml;
-    sourceFile.dependencies = prevFile.dependencies;
 
     sourceFile.serve = (args) => {
       const contents = prevFile.asHtml(args).toString();
-      return { contents, mimeType: 'text/html' };
+      return { contents, mimeType: "text/html" };
     };
+
+    sourceFile.dependencies = (settings) => {
+      return prevFile.asHtml(settings).dependencies();
+    }
 
     // the path of this new source file needs to resolve to the html path
     Object.defineProperty(sourceFile, "path", {
