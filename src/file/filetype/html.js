@@ -37,11 +37,10 @@ class HTMLFile extends SourceFile {
       prevFile = readFile(directoryPath);
     };
 
-    const sourceFile = prevFile.clone(filePath);
+    const sourceFile = prevFile.clone();
 
     // now, we override the new file to act like an html file.
     sourceFile.fakeFileOf = prevFile;
-
     sourceFile.asHtml = prevFile.asHtml;
     sourceFile.read = prevFile.asHtml;
 

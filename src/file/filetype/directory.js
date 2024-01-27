@@ -92,7 +92,7 @@ class Directory extends File {
   // the 'assumeJSFile' flag exists to bootstrap the setup:
   // the readFile function knows how to dispatch because it reads the files in this directory,
   // but it doesn't know what kind of files they are yet - so we force JS.
-  contents({ omitNonJSFiles } = { omitNonJSFiles: false }) {
+  contents({ omitNonJSFiles = false } = { omitNonJSFiles: false }) {
     const readFileWithType = omitNonJSFiles ? readJSFile : readFile;
 
     return this.path.readDirectory().map((childPath) => {
@@ -129,11 +129,8 @@ class Directory extends File {
   // but as html versions. this is a proxy for finding those links in the html
   // SHORTCUT: the dependencies of a directory in general
   // are not html-ified. that's a quick hack we use here to bootstrap building files.
-  dependencies(settings, filesSeenSoFar) {
-    return this.path.readDirectory()
-      .filter((childPath) => !filesSeenSoFar.has(childPath.toString()))
-      .map((childPath) => childPath.join('.html'))
-      .map(readFile);
+  dependencies(settings) {
+    return this.asHtml(settings).dependencies();
   }
 
   get isDirectory() {
