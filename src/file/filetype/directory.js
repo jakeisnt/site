@@ -94,22 +94,24 @@ class Directory extends File {
   // the readFile function knows how to dispatch because it reads the files in this directory,
   // but it doesn't know what kind of files they are yet - so we force JS.
   contents({ omitNonJSFiles = false } = { omitNonJSFiles: false }) {
+
+    // special case for the js files: make sure they all exist
+    if (omitNonJSFiles) {
+      return this.path.readDirectory().map((childPath) => {
+        if (childPath.extension !== "js") {
+          return null;
+        } else {
+          return readJSFile(childPath);
+        }
+      }).filter(file => file);
+    }
+
     if (this.enumeratedContents) {
       return this.enumeratedContents;
     }
 
-    const readFileWithType = omitNonJSFiles ? readJSFile : readFile;
-
-    const fileContents = this.path.readDirectory().map((childPath) => {
-      if (omitNonJSFiles && childPath.extension !== "js") {
-        return null;
-      } else {
-        return readFileWithType(childPath);
-      }
-    }).filter(file => file);
-
+    const fileContents = this.path.readDirectory().map(readFile);
     this.enumeratedContents = fileContents;
-
     return fileContents;
   }
 
