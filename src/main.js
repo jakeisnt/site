@@ -15,6 +15,10 @@ const build = () => {
     rootUrl: "http://localhost:4242",
     sourceDir: "/Users/jake/Desktop/personal/site",
     targetDir: "/Users/jake/Desktop/personal/site/docs",
+    ignorePaths: [
+      "/Users/jake/Desktop/personal/site/.git",
+      "/Users/jake/Desktop/personal/site/node_modules",
+    ],
   });
 };
 

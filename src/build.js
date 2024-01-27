@@ -6,7 +6,13 @@ const buildSiteFromFile = (file, settings, filesSeenSoFar) => {
 
   const dependencyPath = file.path.toString();
 
-  if(file.isDirectory) {
+  // if we've already seen this file, we don't need to build it again.
+  if (filesSeenSoFar.has(dependencyPath)) {
+    console.log("Already built file at path ", dependencyPath);
+    return;
+  }
+
+  if (file.isDirectory) {
     console.log("Building directory at path ", dependencyPath);
   } else {
     console.log("Building file at path ", dependencyPath);
@@ -19,9 +25,7 @@ const buildSiteFromFile = (file, settings, filesSeenSoFar) => {
   file.write(settings);
 
   // Write all of the dependencies of the file (that we haven't seen yet) to disk.
-  file.dependencies(settings)
-      .filter((dependencyFile) => !filesSeenSoFar.has(dependencyFile.path.toString()))
-      .forEach((dependencyFile) => {
+  file.dependencies(settings).forEach((dependencyFile) => {
     buildSiteFromFile(dependencyFile, settings, filesSeenSoFar);
   });
 };
@@ -30,15 +34,18 @@ const buildSiteFromFile = (file, settings, filesSeenSoFar) => {
 // requires:
 // { siteName, rootUrl, sourceDir, targetDir }
 const buildFromPath = (settings) => {
-  const { sourceDir } = settings;
+  const { sourceDir, targetDir, ignorePaths } = settings;
 
   // start off from the root, source dir
   const dir = readFile(sourceDir);
 
-  console.log("starting with", dir.path.toString());
+  console.log("Starting with", dir.path.toString());
 
-  // if we've already seen a file path, we should ignore it
-  const filePathsSeenSoFar = new Set();
+  // if we've already seen a file path, we should ignore it.
+  // ignore paths the user is provided and the target dir --
+  // the target dir could be a subdirectory of the source dir,
+  // and we don't want to build the site into itself.
+  const filePathsSeenSoFar = new Set([...ignorePaths, targetDir]);
 
   buildSiteFromFile(dir, settings, filePathsSeenSoFar);
 };
