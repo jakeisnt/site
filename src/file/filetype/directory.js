@@ -92,12 +92,16 @@ class Directory extends File {
   // the 'assumeJSFile' flag exists to bootstrap the setup:
   // the readFile function knows how to dispatch because it reads the files in this directory,
   // but it doesn't know what kind of files they are yet - so we force JS.
-  contents({ assumeJSFile } = { assumeJSFile: false }) {
-    const readFileWithType = assumeJSFile ? readJSFile : readFile;
+  contents({ omitNonJSFiles } = { omitNonJSFiles: false }) {
+    const readFileWithType = omitNonJSFiles ? readJSFile : readFile;
 
     return this.path.readDirectory().map((childPath) => {
-      return readFileWithType(childPath);
-    });
+      if (omitNonJSFiles && childPath.extension !== "js") {
+        return null;
+      } else {
+        return readFileWithType(childPath);
+      }
+    }).filter(file => file);
   }
 
   // given a file path relative to this directory,
@@ -114,13 +118,13 @@ class Directory extends File {
 
   write(config) {
     const { sourceDir, targetDir } = config;
-     
 
     // first, make sure the corresponding directory exists.
     // this is e.g. '/site/docs/' and mkdir /site/docs/
     const targetPath = this.path.relativeTo(sourceDir, targetDir);
     console.log("dir target path", targetPath.toString());
-    targetPath.make();
+    // as the target path doesn't exist, it has no information about itself
+    targetPath.make({ isDirectory: true });
 
     // make sure the target html path exists, too.
     // creating a folder both creates the target dir and an index page at the target.

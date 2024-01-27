@@ -24,11 +24,12 @@ const getFiletypeMap = () => {
   // problem: to bootstrap the process, we need to know what class
   // a file is before we can create it. but we need to create it
   dir
-    .contents({ assumeJSFile: true })
+    .contents({ omitNonJSFiles: true })
     .map((file) => {
       // because we have a js file, we know we can require it
       const fileClass = file.require();
-      return fileClass.default;
+      // default to using the raw 'fileClass' if there is no default export (?)
+      return fileClass?.default ?? fileClass;
     })
     .forEach((fileClass) => {
       if (!fileClass.filetypes) {
