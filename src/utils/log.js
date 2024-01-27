@@ -13,7 +13,7 @@ let logger = {
   },
 
   file(...args) {
-    // console.log(...args);
+    console.log(...args);
   },
 
   // logs relevant to network

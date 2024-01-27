@@ -14,6 +14,7 @@ class Path {
   // works for both relative and absolute paths, fixing them into absolute paths as needed
   // this should only be called by the static methods
   constructor(pathString) {
+    console.log('constructing an awesome path string that we probably mess up', pathString);
     let normalizedPath = pathLibrary.normalize(pathString);
 
     if (!pathLibrary.isAbsolute(normalizedPath)) {

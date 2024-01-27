@@ -90,7 +90,7 @@ class Directory extends File {
   // we don't treat this as a property and don't cache it
   // because it is very possible for the files in the dir to change
 
-  // the 'assumeJSFile' flag exists to bootstrap the setup:
+  // the 'omitNonJSFiles' flag exists to bootstrap the setup:
   // the readFile function knows how to dispatch because it reads the files in this directory,
   // but it doesn't know what kind of files they are yet - so we force JS.
   contents({ omitNonJSFiles = false } = { omitNonJSFiles: false }) {
