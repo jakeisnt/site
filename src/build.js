@@ -6,7 +6,11 @@ const buildSiteFromFile = (file, settings, filesSeenSoFar) => {
 
   const dependencyPath = file.path.toString();
 
-  console.log("building file", dependencyPath);
+  if(file.isDirectory) {
+    console.log("Building directory at path ", dependencyPath);
+  } else {
+    console.log("Building file at path ", dependencyPath);
+  }
 
   // register that we've seen the file.
   filesSeenSoFar.add(dependencyPath);
