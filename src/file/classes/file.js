@@ -87,8 +87,6 @@ class File {
       ? rootUrl + relativeToSource.toString() + '.html' 
       : rootUrl + '/index.html';
 
-    console.log(url);
-
     return url;
   }
 
