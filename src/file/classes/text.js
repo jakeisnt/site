@@ -47,11 +47,7 @@ class TextFile extends File {
   }
 
   serve(args) {
-    let contents = this.text;
-    if (this.path.extension === 'html' && this.asHtml) {
-      contents = this.asHtml(args).toString();
-    } 
-    return { contents, mimeType: this.mimeType };
+    return { contents: this.text, mimeType: this.mimeType };
   }
 }
 
