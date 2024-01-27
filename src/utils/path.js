@@ -261,7 +261,7 @@ class Path {
   // assume the path is a file unless provided that it's a directory
   make({isDirectory = false} = { isDirectory: false }) {
     if (this.exists()) {
-      console.log('Trying to make a file at a path that exists. Not duplicating it!', this.pathString);
+      console.log('.make: File already exists at path ', this.pathString);
       return this;
     }
 

@@ -12,8 +12,13 @@ const isInternalLink = (l) => {
 // Convert a link string to a legitimate file path on disk.
 // probably requires more arguments
 const linkStringToFile = (l, settings) => {
-  const { sourceDir } = settings;
-  return sourceDir.concat(l.toString());
+  const { sourceDir, rootUrl } = settings;
+
+  // remove the leading rootUrl from the link if it exists
+  const linkWithoutRoot = l.replace(rootUrl, "");
+
+  // path the now-local url to the source dir
+  return sourceDir.concat(linkWithoutRoot);
 };
 
 // Represents an HTML AST that may not be associated with a file
