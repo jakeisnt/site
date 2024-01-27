@@ -124,11 +124,17 @@ class Directory extends File {
 
     // make sure the target html path exists, too.
     // creating a folder both creates the target dir and an index page at the target.
-    const targetHtmlPath = targetPath.join("index.html");
+    // TODO: maybe .join should not require the prefixing slash, but whatever..
+    const targetHtmlPath = targetPath.join("/index.html");
     targetHtmlPath.make();
 
     // we need to write /site/docs.html
     targetHtmlPath.writeString(this.serve(config).contents);
+  }
+  
+  // the dependencies of a directory are all of the files that it contains
+  dependencies() {
+    return this.contents();
   }
 
   get isDirectory() {
