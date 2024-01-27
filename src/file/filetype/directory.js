@@ -135,7 +135,13 @@ class Directory extends File {
   // but as html versions. this is a proxy for finding those links in the html
   dependencies() {
     return this.path.readDirectory()
-      .map((childPath) => childPath.join('.html'))
+      .map((childPath) => {
+        if (childPath.isDirectory()) {
+          return childPath.join('/index.html');
+        } else {
+          return childPath.join('.html');
+        }
+      })
       .map(readFile);
   }
 

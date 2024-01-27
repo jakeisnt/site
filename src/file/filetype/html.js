@@ -4,6 +4,20 @@ import { readFile } from "file";
 class HTMLFile extends SourceFile {
   static filetypes = ["html", "htm", "svg"];
 
+  // write a file to a path at the provided config location
+  // when writing the html file,
+  // we also write the non-html file if the file was faked.
+  write(config) {
+    const { sourceDir, targetDir } = config;
+    const targetPath = this.path.relativeTo(sourceDir, targetDir);
+    targetPath.writeString(this.serve(config).contents);
+
+    // write the fake file if it exists also
+    this.fakeFileOf?.write(config);
+
+    return this;
+  }
+
   static create(filePath) {
     // if we have the html, just return it
     if (filePath.exists()) {
@@ -16,13 +30,20 @@ class HTMLFile extends SourceFile {
     const prevFile = readFile(path);
     const sourceFile = prevFile.clone(filePath);
 
+    sourceFile.fakeFileOf = prevFile;
+
     // now, we override the new file to act like an html file.
     sourceFile.asHtml = (args) => {
       return prevFile.asHtml(args);
     };
 
-    sourceFile.read = () => {
-      return prevFile.read();
+    sourceFile.read = (args) => {
+      return prevFile.asHtml(args);
+    };
+
+    sourceFile.serve = (args) => {
+      const contents = prevFile.asHtml(args).toString();
+      return { contents, mimeType: 'text/html' };
     };
 
     // the path of this new source file needs to resolve to the html path
