@@ -12,11 +12,11 @@ class IcoFile extends BinaryFile {
     return { contents: this.path.readBinary(), mimeType: "image/x-icon" };
   }
 
-  asHtml() {
+  asHtml(settings) {
     const binaryContents = this.path.readBinary();
     logger.file("Reading favicon binary. Contents:", binaryContents);
     const src = "data:image/x-icon;base64,${binaryContents.toString()}";
-    return HtmlPage.create(["html", ["img", { src }]]);
+    return HtmlPage.create(["html", ["img", { src }]], settings);
   }
 }
 

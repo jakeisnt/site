@@ -1,7 +1,8 @@
 import { header, component, HtmlPage } from "html";
 import { Path } from "utils/path";
 
-const makeHomePage = ({ rootUrl, sourceDir }) => {
+const makeHomePage = (settings) => {
+  const { rootUrl, sourceDir } = settings;
   const title = "index";
   const htmlText = [
     "html",
@@ -55,7 +56,7 @@ const makeHomePage = ({ rootUrl, sourceDir }) => {
     ],
   ];
 
-  return HtmlPage.create(htmlText);
+  return HtmlPage.create(htmlText, settings);
 };
 
 export { makeHomePage };

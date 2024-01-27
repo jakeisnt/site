@@ -41,9 +41,10 @@ class TextFile extends File {
     return this.text;
   }
 
-  asHtml({ siteName, rootUrl, sourceDir }) {
+  asHtml(settings) {
+    const { siteName, rootUrl, sourceDir } = settings;
     const page = renderTextFile({ file: this, siteName, rootUrl, sourceDir });
-    return HtmlPage.create(page);
+    return HtmlPage.create(page, settings);
   }
 
   serve(args) {

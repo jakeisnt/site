@@ -140,11 +140,12 @@ class Directory extends File {
     return true;
   }
 
-  asHtml({ siteName, rootUrl, sourceDir }) {
+  asHtml(settings) {
+    const { siteName, rootUrl, sourceDir } = settings;
     const files = this.contents();
     const page = directoryToHtml(this, { files, siteName, rootUrl, sourceDir });
 
-    return HtmlPage.create(page);
+    return HtmlPage.create(page, settings);
   }
 
   serve(args) {

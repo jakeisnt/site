@@ -18,10 +18,11 @@ const renderSourceFile = ({ file, rootUrl, siteName, sourceDir }) => {
 };
 
 class SourceFile extends TextFile {
-  asHtml({ siteName, rootUrl, sourceDir }) {
+  asHtml(settings) {
+    const { siteName, rootUrl, sourceDir } = settings;
     const page = renderSourceFile({ file: this, siteName, rootUrl, sourceDir });
 
-    return HtmlPage.create(page);
+    return HtmlPage.create(page, settings);
   }
 }
 
