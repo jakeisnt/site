@@ -34,13 +34,6 @@ const withoutUrl = (fullPath, url) => fullPath.replace(url, "");
 // is the file html?
 const isHtml = (file) => file.mimeType === "text/html";
 
-// get the html version of a file
-const getNonHtmlPath = (file) => {
-  const htmlPath = file.path + ".html";
-  const htmlFile = readFile(htmlPath);
-  return htmlFile;
-};
-
 // inject a hot reload script into the body iof an html string
 const injectHotReload = (htmlString) => {
   const wsUrl = devWebsocketUrl;
