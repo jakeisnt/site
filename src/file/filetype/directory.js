@@ -24,7 +24,10 @@ const folderIndexPageTable = ({ files, rootUrl, sourceDir }) => {
             { class: "file-name-tr" },
             [
               "a",
-              { href: childFile.htmlUrl({ rootUrl, sourceDir }) },
+              { href: childFile.htmlUrl({ 
+                rootUrl, 
+                sourceDir, 
+              }) },
               childFile.name,
             ],
           ],
@@ -151,6 +154,7 @@ class Directory extends File {
   asHtml(settings) {
     const { siteName, rootUrl, sourceDir } = settings;
     const files = this.contents();
+
     const page = directoryToHtml(this, { files, siteName, rootUrl, sourceDir });
 
     return HtmlPage.create(page, settings);

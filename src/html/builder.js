@@ -3,7 +3,13 @@ import { htmlPage } from "./dsl";
 import { getTagLink, findTags } from "./parseDSL";
 
 // is the link string that we have internal?
-const isInternalLink = (l) => {
+const isInternalLink = (l, settings) => {
+  const { rootUrl } = settings;
+
+  if (l.includes(rootUrl)) {
+    return true;
+  }
+
   const isExternal = l.includes("http://") || l.includes("https://") || l.startsWith("#");
 
   return !isExternal;
@@ -15,7 +21,10 @@ const linkStringToFile = (l, settings) => {
   const { sourceDir, rootUrl } = settings;
 
   // remove the leading rootUrl from the link if it exists
-  const linkWithoutRoot = l.replace(rootUrl, "");
+  const linkWithoutRoot = l
+    .replace(rootUrl, "")
+    .replace('http://', '')
+    .replace('https://', '');
 
   // path the now-local url to the source dir
   return sourceDir.concat(linkWithoutRoot);

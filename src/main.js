@@ -12,7 +12,7 @@ const build = () => {
 
   buildFromPath({
     siteName: "Jake site",
-    rootUrl: "localhost:4242",
+    rootUrl: "http://localhost:4242",
     sourceDir: "/Users/jake/Desktop/personal/site",
     targetDir: "/Users/jake/Desktop/personal/site/docs",
     ignorePaths: [

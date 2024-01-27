@@ -124,9 +124,9 @@ class Path {
 
   // get this path's position relative to another path or string
   // ASSUME that the other paths, if defined, are the prefix of this one
-  relativeTo(maybeOtherPath, maybeReplaceWithPath) {
+  relativeTo(maybeOtherPath, maybeReplaceWithPath = '') {
     const otherPath = Path.create(maybeOtherPath);
-    const replaceWithPath = maybeReplaceWithPath ? Path.create(maybeReplaceWithPath) : '';
+    const replaceWith = maybeReplaceWithPath.toString();
 
     // assuming the other path is the prefix of this one,
     // remove it from this path
@@ -140,11 +140,7 @@ class Path {
       curPathArray.shift();
     });
 
-    if (replaceWithPath) {
-      curPathArray = [...replaceWithPath.pathArray, ...curPathArray];
-    }
-
-    const pathAfterShift = Path.create("/" + curPathArray.join("/"));
+    const pathAfterShift = Path.create("/" + replaceWith + '/' + curPathArray.join("/"));
     return pathAfterShift;
   }
 

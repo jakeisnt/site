@@ -65,8 +65,6 @@ class File {
 
   // get the string of the folder the path is contained in
   get directory() {
-
-    console.log("this.path.parent", this.path.toString(), this.path.parent.toString());
     return readFile(this.path.parent);
   }
 
@@ -85,8 +83,13 @@ class File {
   // if provided a directory, get the url to the directory with index.html postfixed (?)
   htmlUrl({ rootUrl, sourceDir }) {
     const relativeToSource = this.path.relativeTo(sourceDir);
-    let relativePathHere = relativeToSource?.length ? relativeToSource : "/index";
-    return `${rootUrl}${relativePathHere}.html`;
+    const url = relativeToSource?.toString()?.length 
+      ? rootUrl + relativeToSource.toString() + '.html' 
+      : rootUrl + '/index.html';
+
+    console.log(url);
+
+    return url;
   }
 
   get repo() {
