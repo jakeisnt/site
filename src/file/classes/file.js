@@ -77,10 +77,6 @@ class File {
     console.error(
       `file.write() is not implemented for file at '${this.path.toString()}'`
     );
-
-    // throw new Error(
-    //   `file.write() is not implemented for file at '${this.path.toString()}'`
-    // );
   }
 
   // get the url to the html page with this file
