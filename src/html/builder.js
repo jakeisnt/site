@@ -34,7 +34,7 @@ class HtmlPage {
       .map(getTagLink)
       .filter(isInternalLink)
       .map(linkStringToFile)
-      .filter((path) => !seenPaths.includes(path))
+      .filter((path) => !seenPaths.has(path))
       .map(readFile);
   }
 
