@@ -123,16 +123,12 @@ class Directory extends File {
     // this is e.g. '/site/docs/' and mkdir /site/docs/
     const targetPath = this.path.relativeTo(sourceDir, targetDir);
     console.log("dir target path", targetPath.toString());
-    // as the target path doesn't exist, it has no information about itself
-    targetPath.make({ isDirectory: true });
-
     // make sure the target html path exists, too.
     // creating a folder both creates the target dir and an index page at the target.
-    // TODO: maybe .join should not require the prefixing slash, but whatever..
     const targetHtmlPath = targetPath.join("/index.html");
-    targetHtmlPath.make();
 
     // we need to write /site/docs.html
+    // this should implicitly create the parent directory if it doesn't exist!
     targetHtmlPath.writeString(this.serve(config).contents);
   }
   

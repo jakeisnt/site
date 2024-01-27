@@ -262,19 +262,26 @@ class Path {
   // assume the path is a file unless provided that it's a directory
   make({isDirectory = false} = { isDirectory: false }) {
     if (this.exists()) {
-      return;
+      console.log('Trying to make a file at a path that exists', this.pathString);
+      return this;
     }
 
     // if this file is supposed to have a parent, then,
     // by definition, its parent must be a directory.
     // make sure the parent directory exists.
+
+    console.log('getting parent', this.parent);
+    console.log('does parent exist', this.parent.exists());
     if (!this.parent.exists()) {
+      console.log('The parent of this path does not exist. Making it: ', this.parent.pathString)
       this.parent.make({ isDirectory: true });
     }
 
     if (isDirectory) {
+      console.log("Making directory at", this.pathString);
       fs.mkdirSync(this.pathString); 
     } else {
+      console.log("Making file at", this.pathString);
       fs.writeFileSync(this.pathString, "");
     }
 
