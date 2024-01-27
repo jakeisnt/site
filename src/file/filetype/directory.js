@@ -131,9 +131,12 @@ class Directory extends File {
     targetHtmlPath.writeString(this.serve(config).contents);
   }
   
-  // the dependencies of a directory are all of the files that it contains
+  // the dependencies of a directory are all of the files that it contains,
+  // but as html versions. this is a proxy for finding those links in the html
   dependencies() {
-    return this.contents();
+    return this.path.readDirectory()
+      .map((childPath) => childPath.join('.html'))
+      .map(readFile);
   }
 
   get isDirectory() {

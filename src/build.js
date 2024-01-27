@@ -8,21 +8,19 @@ const buildSiteFromFile = (file, settings, filesSeenSoFar) => {
 
   // if we've already seen this file, we don't need to build it again.
   if (filesSeenSoFar.has(dependencyPath)) {
-    console.log("Already built file at path ", dependencyPath);
     return;
   }
 
-  if (file.isDirectory) {
-    console.log("Building directory at path ", dependencyPath);
-  } else {
-    console.log("Building file at path ", dependencyPath);
-  }
-
-  // register that we've seen the file.
+  // register that we've seen the file so we don't build it again.
   filesSeenSoFar.add(dependencyPath);
 
-  // write the file to disk. (note: needs more context for sure.)
+  // write the file to disk. (note: may need more context.)
   file.write(settings);
+
+  const dependencies = file.dependencies(settings);
+  if (dependencies.length) {
+    console.log('dependencies of file', dependencies.map((f) => f.path.toString()));
+  }
 
   // Write all of the dependencies of the file (that we haven't seen yet) to disk.
   file.dependencies(settings).forEach((dependencyFile) => {

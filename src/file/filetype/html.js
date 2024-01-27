@@ -16,16 +16,30 @@ class HTMLFile extends SourceFile {
     const prevFile = readFile(path);
     const sourceFile = prevFile.clone(filePath);
 
+    // now, we override the new file to act like an html file.
     sourceFile.asHtml = (args) => {
       return prevFile.asHtml(args);
     };
 
+    sourceFile.read = () => {
+      return prevFile.read();
+    };
+
+    // the path of this new source file needs to resolve to the html path
+    Object.defineProperty(sourceFile, "path", {
+      get() {
+        return filePath;
+      },
+    });
+
+    // the mime type of this new source file needs to be html
     Object.defineProperty(sourceFile, "mimeType", {
       get() {
         return "text/html";
       },
     });
 
+    // produce this new source file.
     return sourceFile;
   }
 
