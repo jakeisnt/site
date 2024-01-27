@@ -30,7 +30,7 @@ const renderArticle = ({ articleHtml, file, siteName, rootUrl, sourceDir }) => {
             "div",
             { class: "article-rhs" },
             component("GitHistoryTable", { file }),
-            component("PrevNextUpButtons", { file, rootUrl, sourceDir }),
+            // component("PrevNextUpButtons", { file, rootUrl, sourceDir }),
           ],
         ],
       ],
