@@ -1,5 +1,6 @@
 import { SourceFile } from "file/classes";
 import { readFile } from "file";
+import { Path } from "utils/path";
 
 class HTMLFile extends SourceFile {
   static filetypes = ["html", "htm", "svg"];
@@ -27,7 +28,7 @@ class HTMLFile extends SourceFile {
     // otherwise, try to get the non-html version of the file.
     // if the path is a directory, this won't work;
     // we then get the containing directory if this fails.
-    const path = filePath.toString().replace(".html", "");
+    const path = Path.create(filePath.toString().replace(".html", ""));
     const directoryPath = filePath.parent;
 
     let prevFile;
