@@ -24,22 +24,27 @@ class HTMLFile extends SourceFile {
       return new HTMLFile(filePath);
     }
 
-    // otherwise, try to get the non-html version of the file
+    // otherwise, try to get the non-html version of the file.
+    // if the path is a directory, this won't work;
+    // we then get the containing directory if this fails.
     const path = filePath.toString().replace(".html", "");
+    const directoryPath = filePath.parent;
 
-    const prevFile = readFile(path);
+    let prevFile;
+    try { 
+      prevFile = readFile(path);
+     } catch (e) {
+      prevFile = readFile(directoryPath);
+    };
+
     const sourceFile = prevFile.clone(filePath);
 
+    // now, we override the new file to act like an html file.
     sourceFile.fakeFileOf = prevFile;
 
-    // now, we override the new file to act like an html file.
-    sourceFile.asHtml = (args) => {
-      return prevFile.asHtml(args);
-    };
-
-    sourceFile.read = (args) => {
-      return prevFile.asHtml(args);
-    };
+    sourceFile.asHtml = prevFile.asHtml;
+    sourceFile.read = prevFile.asHtml;
+    sourceFile.dependencies = prevFile.dependencies;
 
     sourceFile.serve = (args) => {
       const contents = prevFile.asHtml(args).toString();
