@@ -64,7 +64,7 @@ const getTagLink = (tag) => {
     case ("img", "script"):
       return tagAttributes(tag).src;
     default:
-      return null;
+      throw new Error("No link found in tag, invalid input to getLinkTag", tag);
   }
 };
 
