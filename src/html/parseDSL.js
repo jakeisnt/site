@@ -33,9 +33,7 @@ const collectElements = (htmlPage, predicate) => {
     return [htmlPage];
   } else if (isArray(htmlPage)) {
       // if we can act on the contents: 
-
       const results = htmlPage.flatMap((tag) => collectElements(tag, predicate));
-      console.log('before', htmlPage, 'after acting on contents', results);
       return results;
   }
 
