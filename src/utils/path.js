@@ -265,7 +265,11 @@ class Path {
       parent.make();
     }
 
-    fs.mkdirSync(this.pathString);
+    if (this.isDirectory()) {
+      fs.mkdirSync(this.pathString); 
+    } else {
+      fs.writeFileSync(this.pathString, "");
+    }
 
     return this;
   }
