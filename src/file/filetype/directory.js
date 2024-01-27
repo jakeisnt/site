@@ -67,6 +67,7 @@ const directoryToHtml = (dir, { files, rootUrl, siteName, sourceDir }) => {
 // a directory is a file that contains other files
 class Directory extends File {
   static filetypes = ["dir"];
+  enumeratedContents = null;
 
   // recursively fetch and flatten the file tree
   // the result should contain no directories
@@ -93,15 +94,23 @@ class Directory extends File {
   // the readFile function knows how to dispatch because it reads the files in this directory,
   // but it doesn't know what kind of files they are yet - so we force JS.
   contents({ omitNonJSFiles = false } = { omitNonJSFiles: false }) {
+    if (this.enumeratedContents) {
+      return this.enumeratedContents;
+    }
+
     const readFileWithType = omitNonJSFiles ? readJSFile : readFile;
 
-    return this.path.readDirectory().map((childPath) => {
+    const fileContents = this.path.readDirectory().map((childPath) => {
       if (omitNonJSFiles && childPath.extension !== "js") {
         return null;
       } else {
         return readFileWithType(childPath);
       }
     }).filter(file => file);
+
+    this.enumeratedContents = fileContents;
+
+    return fileContents;
   }
 
   // given a file path relative to this directory,
