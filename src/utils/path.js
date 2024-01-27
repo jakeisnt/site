@@ -163,7 +163,11 @@ class Path {
 
   // is this path a directory?
   isDirectory() {
-    return this.exists() && fs.lstatSync(this.pathString).isDirectory();
+    if (!this.exists()) {
+      throw new Error("Cannot check if a path is a directory if it doesn't exist", this.pathString);
+    }
+
+    return fs.lstatSync(this.pathString).isDirectory();
   }
 
   // read this path as a utf8 string
@@ -255,17 +259,20 @@ class Path {
   }
 
   // make this path exist, creating any parent directories along the way
-  make() {
+  // assume the path is a file unless provided that it's a directory
+  make({isDirectory = false} = { isDirectory: false }) {
     if (this.exists()) {
       return;
     }
 
-    const parent = this.parent;
-    if (!parent.exists()) {
-      parent.make();
+    // if this file is supposed to have a parent, then,
+    // by definition, its parent must be a directory.
+    // make sure the parent directory exists.
+    if (!this.parent.exists()) {
+      this.parent.make({ isDirectory: true });
     }
 
-    if (this.isDirectory()) {
+    if (isDirectory) {
       fs.mkdirSync(this.pathString); 
     } else {
       fs.writeFileSync(this.pathString, "");
