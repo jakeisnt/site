@@ -9,11 +9,10 @@ const makePageMap = ({ articleHtml, file, rootDir, sourceDir }) => {
     { class: 'sitemap-container' },
     ["span", { class: 'sitemap-title' }, "In this article"],
     ["table", { class: 'sitemap'}
-      ["tbody",
-       ...(tags.map(tag => [
+      ["tbody"].concat(tags.map(tag => [
          "tr",
         ["td", { class: 'sitemap-indent' }, tag.depth],
-        ["td", { class: 'sitemap-link' }, ["a", { href: `${link}#${tag.id}` }, tag.text]]]))]]];
+        ["td", { class: 'sitemap-link' }, ["a", { href: `${link}#${tag.id}` }, tag.text]]]))]];
 };
 
 const PageMap = (args) => ({

@@ -7,10 +7,6 @@ const tagName = ([name]) => name;
 const tagAttributes = ([, attributes]) => {
   return isObject(attributes) ? attributes : null;
 };
-// get the contents of a tag.
-const tagContents = ([, maybeAttributes, maybeContents]) => {
-  return isObject(maybeAttributes) ? maybeContents : maybeAttributes;
-};
 
 const headingRank = (headingTag) => {
   switch (headingTag) {
@@ -31,32 +27,21 @@ const headingRank = (headingTag) => {
   }
 };
 
-const isMultipleElements = (htmlTagOrTags) => {
-  return isArray(htmlTagOrTags) && isArray(htmlTagOrTags?.[0]);
-};
-
 // drop the first two elems, look through the rest
 const collectElements = (htmlPage, predicate) => {
+
   const elements = [];
 
   if (predicate(htmlPage)) {
     elements.push(htmlPage);
   }
 
-  const contents = tagContents(htmlPage);
-
   // if we can act on the contents:
-  if (isArray(contents)) {
-    // if it's multiple elements, we map over them
-    if (isMultipleElements) {
-      return [
-        ...elements,
-        ...contents.flatMap((tag) => collectElements(tag, predicate)),
-      ];
-    }
-
-    // otherwise, we collect elemeents from the single elemnet
-    return [...elements, ...collectElements(contents, predicate)];
+  if (isArray(htmlPage)) {
+    return [
+      ...(elements.length ? elements : []),
+      ...htmlPage.map((tag) => collectElements(tag, predicate)),
+    ];
   }
 
   // if we're at a leaf, we terminate, returning just the current element.
@@ -65,7 +50,7 @@ const collectElements = (htmlPage, predicate) => {
 
 // find html elements with the given tag names on an html page
 const findTags = (htmlPage, tags) => {
-  return collectElements(htmlPage, ([tagName]) => tags.includes(tagName));
+  return collectElements(htmlPage, (tl) => tl && tl?.[0] && tags.includes(tl?.[0]));
 };
 
 // Get the link(s) embedded in an HTML tag
