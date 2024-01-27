@@ -122,7 +122,6 @@ class Directory extends File {
     // first, make sure the corresponding directory exists.
     // this is e.g. '/site/docs/' and mkdir /site/docs/
     const targetPath = this.path.relativeTo(sourceDir, targetDir);
-    console.log("dir target path", targetPath.toString());
     // make sure the target html path exists, too.
     // creating a folder both creates the target dir and an index page at the target.
     const targetHtmlPath = targetPath.join("/index.html");
