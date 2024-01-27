@@ -27,30 +27,25 @@ const headingRank = (headingTag) => {
   }
 };
 
-// drop the first two elems, look through the rest
 const collectElements = (htmlPage, predicate) => {
+  // assume we only look for roots, so we return directly here lol
+  if (predicate(htmlPage)) { 
+    return [htmlPage];
+  } else if (isArray(htmlPage)) {
+      // if we can act on the contents: 
 
-  const elements = [];
-
-  if (predicate(htmlPage)) {
-    elements.push(htmlPage);
+      const results = htmlPage.flatMap((tag) => collectElements(tag, predicate));
+      console.log('before', htmlPage, 'after acting on contents', results);
+      return results;
   }
 
-  // if we can act on the contents:
-  if (isArray(htmlPage)) {
-    return [
-      ...(elements.length ? elements : []),
-      ...htmlPage.map((tag) => collectElements(tag, predicate)),
-    ];
-  }
-
-  // if we're at a leaf, we terminate, returning just the current element.
-  return elements;
+  return [];
 };
 
 // find html elements with the given tag names on an html page
 const findTags = (htmlPage, tags) => {
-  return collectElements(htmlPage, (tl) => tl && tl?.[0] && tags.includes(tl?.[0]));
+  const elems = collectElements(htmlPage, (tl) => tl && tl?.[0] && tags.includes(tl?.[0]));
+  return elems;
 };
 
 // Get the link(s) embedded in an HTML tag
@@ -58,11 +53,16 @@ const findTags = (htmlPage, tags) => {
 // the 'link' of a 'style' tag,
 // or the 'src' of a 'script' tag.
 const getTagLink = (tag) => {
-  switch (tagName(tag)) {
-    case ("a", "href"):
-      return tagAttributes(tag).href;
-    case ("img", "script"):
-      return tagAttributes(tag).src;
+  const name = tagName(tag);
+  const attrs = tagAttributes(tag);
+
+  // NOTE: there is a bug here where some attrs to an a tag are null. not sure why.
+
+  switch (true) {
+    case ["a", "href"].includes(name):
+      return tagAttributes(tag)?.href;
+    case ["img", "script"].includes(name):
+      return tagAttributes(tag)?.src;
     default:
       throw new Error("No link found in tag, invalid input to getLinkTag", tag);
   }

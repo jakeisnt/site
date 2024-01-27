@@ -37,6 +37,7 @@ class HtmlPage {
   dependencies(settings = this.currentBuildSettings) {
     return findTags(this.pageStructure, ["a", "href", "img", "script"])
       .map(getTagLink)
+      .filter(v => v)
       .filter(isInternalLink)
       .map(f => linkStringToFile(f, settings))
       .map(readFile);
