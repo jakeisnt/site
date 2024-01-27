@@ -43,7 +43,7 @@ class HTMLFile extends SourceFile {
     // now, we override the new file to act like an html file.
     sourceFile.fakeFileOf = prevFile;
     sourceFile.asHtml = prevFile.asHtml;
-    sourceFile.read = prevFile.asHtml;
+    sourceFile.read = (...args) => prevFile.asHtml(...args).toString();
 
     sourceFile.serve = (args) => {
       const contents = prevFile.asHtml(args).toString();
