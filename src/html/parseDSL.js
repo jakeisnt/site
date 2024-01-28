@@ -56,8 +56,6 @@ const getTagLink = (tag) => {
 
   // NOTE: there is a bug here where some attrs to an a tag are null. not sure why.
 
-  console.log("getTagLink", { name, attrs });
-
   switch (true) {
     case ["a", "href"].includes(name):
       return tagAttributes(tag)?.href;

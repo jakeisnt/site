@@ -22,7 +22,7 @@ const buildSiteFromFile = (file, settings, filesSeenSoFar) => {
   console.log("Dependencies:", dependencies.map((d) => d.path.toString()));
 
   // Write all of the dependencies of the file (that we haven't seen yet) to disk.
-  dependencies.forEach((dependencyFile) => {
+  dependencies.filter(f => !filesSeenSoFar.has(f.path.toString())).forEach((dependencyFile) => {
     buildSiteFromFile(dependencyFile, settings, filesSeenSoFar);
   });
 };
@@ -42,7 +42,11 @@ const buildFromPath = (settings) => {
   // ignore paths the user is provided and the target dir --
   // the target dir could be a subdirectory of the source dir,
   // and we don't want to build the site into itself.
-  const filePathsSeenSoFar = new Set([...ignorePaths, targetDir]);
+  const filePathsSeenSoFar = new Set([
+    ...ignorePaths,
+    ...ignorePaths.map(p => p + '.html'),
+     targetDir
+    ]);
 
   buildSiteFromFile(dir, settings, filePathsSeenSoFar);
 };
