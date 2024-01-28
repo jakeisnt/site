@@ -2,7 +2,7 @@ import { readFile } from "../file";
 import { htmlPage } from "./dsl";
 import { getTagLink, findTags } from "./parseDSL";
 
-// is the link string that we have internal?
+// is the link string that we are provided internal?
 const isInternalLink = (l, settings) => {
   const { rootUrl } = settings;
 
@@ -10,10 +10,10 @@ const isInternalLink = (l, settings) => {
     return true;
   }
 
-  const isExternal = 
-    l.includes('data:image') ||
-    l.includes("http://") || 
-    l.includes("https://") || 
+  const isExternal =
+    l.includes("data:image") ||
+    l.includes("http://") ||
+    l.includes("https://") ||
     l.startsWith("#");
 
   return !isExternal;
@@ -27,8 +27,8 @@ const linkStringToFile = (l, settings) => {
   // remove the leading rootUrl from the link if it exists
   const linkWithoutRoot = l
     .replace(rootUrl, "")
-    .replace('http://', '')
-    .replace('https://', '');
+    .replace("http://", "")
+    .replace("https://", "");
 
   // path the now-local url to the source dir
   return sourceDir.concat(linkWithoutRoot);
@@ -55,11 +55,16 @@ class HtmlPage {
   // Produces these dependencies as Files.
   dependencies(settings = this.currentBuildSettings) {
     if (!this.cachedDependencies) {
-      this.cachedDependencies = findTags(this.pageStructure, ["a", "href", "img", "script"])
+      this.cachedDependencies = findTags(this.pageStructure, [
+        "a",
+        "href",
+        "img",
+        "script",
+      ])
         .map(getTagLink)
-        .filter(v => v)
-        .filter(f => isInternalLink(f, settings))
-        .map(f => linkStringToFile(f, settings))
+        .filter((v) => v)
+        .filter((f) => isInternalLink(f, settings))
+        .map((f) => linkStringToFile(f, settings))
         .map(readFile);
     }
 

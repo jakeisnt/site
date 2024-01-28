@@ -39,6 +39,11 @@ class Path {
     }
   }
 
+  // returns a new Path with the proper full path
+  static fromUrl(url, websiteName, sourcePath) {
+    return new Path(url.replace(websiteName, sourcePath));
+  }
+
   toString() {
     return this.pathString;
   }

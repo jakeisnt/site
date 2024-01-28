@@ -1,6 +1,8 @@
 import { isObject } from "utils/object";
 import { isArray } from "utils/array";
 
+// Utilities for parsing the HTML DSL internal to this project.
+
 // get the name of a tag.
 const tagName = ([name]) => name;
 // get the attributes object of a tag.

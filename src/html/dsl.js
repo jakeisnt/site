@@ -1,5 +1,5 @@
-// a hiccup-like HTML domain specific language!!
-// https://gist.github.com/hns/654226
+// a hiccup-like HTML domain specific language
+// inspired by https://gist.github.com/hns/654226
 
 import { isArray } from "utils/array";
 import { isObject } from "utils/object";
