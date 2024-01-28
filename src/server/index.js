@@ -31,9 +31,6 @@ const devWebsocketUrl = formatUrl({
 // get the goods without the url
 const withoutUrl = (fullPath, url) => fullPath.replace(url, "");
 
-// is the file html?
-const isHtml = (file) => file.mimeType === "text/html";
-
 // inject a hot reload script into the body iof an html string
 const injectHotReload = (htmlString) => {
   const wsUrl = devWebsocketUrl;
@@ -53,20 +50,16 @@ const injectHotReload = (htmlString) => {
 
 // make a response to a request for a file with the file
 const fileResponse = (file, { sourceDir }) => {
-  const res = file.serve({
+  const { contents, mimeType } = file.serve({
     siteName: "Jake Chvatal",
     rootUrl: devUrl,
     sourceDir,
   });
 
-  log.network("file response returned", res);
-  const { contents, mimeType } = res;
+  let responseText =
+    mimeType === "text/html" ? injectHotReload(contents) : contents;
 
-  log.debug("file is", isHtml(file) ? "" : "not", "html", file.path.toString());
-
-  let response = isHtml(file) ? injectHotReload(contents) : contents;
-
-  return new Response(response, {
+  return new Response(responseText, {
     headers: {
       "content-type": mimeType,
     },
@@ -169,10 +162,10 @@ const directoryServer = (absolutePathToDirectory, fallbackDirPath) => {
         pathToUse = Path.create(path.parent.toString() + ".html");
       }
 
-      log.debug("finding file in dir", pathToUse.toString(), dir.toString());
+      log.debug("Finding file: ", dir.toString(), pathToUse.toString());
       let file = dir.findFile(pathToUse);
       if (!file) {
-        // if we can't find the file, serve the fallback
+        // if we can't find the file, attempt to find it in a fallback directory.
         file = fallbackDir?.findFile(pathToUse);
       }
 
