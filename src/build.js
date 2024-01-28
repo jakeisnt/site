@@ -42,7 +42,9 @@ const buildFromPath = (settings) => {
   // start off from the root, source dir
 
   // bootstrap by reading the root file as HTML
-  const dir = readFile(sourceDir.toString() + '/index.html');
+  const dir = readFile(sourceDir.toString() + "/index.html");
+  // An exception either has to be made here or how the files are linked to.
+  // const dir = readFile(sourceDir.toString());
 
   console.log("Starting with", dir.path.toString());
 

@@ -80,8 +80,6 @@ class Path {
   }
 
   get parent() {
-
-    console.log('getting parent', this.pathArray, this.pathArray.length, this.pathArray.slice(0, this.pathArray.length - 1).join("/"));
     return Path.create(
       "/" + this.pathArray.slice(0, this.pathArray.length - 1).join("/")
     );
