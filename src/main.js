@@ -26,7 +26,6 @@ const build = (paths) => {
   buildFromPath({
     siteName: "Jake Chvatal",
     rootUrl,
-    // TODO: fix where these are expected to be strings
     sourceDir: sourceDir,
     targetDir: targetDir,
     // 'ignorePaths' are expected to be absolute
