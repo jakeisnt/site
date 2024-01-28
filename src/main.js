@@ -27,8 +27,8 @@ const build = (paths) => {
     siteName: "Jake Chvatal",
     rootUrl,
     // TODO: fix where these are expected to be strings
-    sourceDir: sourceDir.toString(),
-    targetDir: targetDir.toString(),
+    sourceDir: sourceDir,
+    targetDir: targetDir,
     // 'ignorePaths' are expected to be absolute
     ignorePaths: commonIgnorePaths.map((p) => sourceDir.toString() + "/" + p),
   });

@@ -31,7 +31,7 @@ const linkStringToFile = (l, settings) => {
     .replace("https://", "");
 
   // path the now-local url to the source dir
-  return sourceDir.concat(linkWithoutRoot);
+  return sourceDir.toString().concat(linkWithoutRoot);
 };
 
 // Represents an HTML AST that may not be associated with a file
