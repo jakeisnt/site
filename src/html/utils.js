@@ -59,8 +59,15 @@ const openGraphHeaders = ({ title, rootUrl, siteName }) => {
 };
 
 // header we can use for every page
-const header = ({ title, rootUrl, siteName, resourcesDir: maybeResource }) => {
-  const resourcesDir = maybeResource || "/resources";
+const header = ({
+  title,
+  rootUrl,
+  siteName,
+  resourcesDir: maybeResource,
+  faviconsDir: maybeFaviconsDir,
+}) => {
+  const resourcesDir = maybeResource ?? "/resources";
+  const faviconsDir = maybeFaviconsDir ?? resourcesDir + "/favicon";
 
   return [
     "head",
@@ -72,14 +79,15 @@ const header = ({ title, rootUrl, siteName, resourcesDir: maybeResource }) => {
     meta("robots", "index,follow"),
     meta("description", "hi"),
     ...theme(),
-    ...(resourcesDir ? favicons(resourcesDir) : []),
+    ...(resourcesDir ? favicons(faviconsDir) : []),
     css("/resources/style.css"),
     css("/resources/global.css"),
     script("/resources/lib.js"),
     css("/resources/elements.css"),
     script("/resources/elements.js", { defer: true }),
 
-    ["link", { rel: "manifest", href: "/manifest.json" }],
+    // TODO: generate manifest.
+    ["link", { rel: "manifest", href: "/resources/manifest.json" }],
 
     script(
       "https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js",

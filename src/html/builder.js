@@ -60,6 +60,7 @@ class HtmlPage {
         "href",
         "img",
         "script",
+        "link",
       ])
         .map(getTagLink)
         .filter((v) => v)
