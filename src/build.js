@@ -24,8 +24,11 @@ const buildSiteFromFile = (file, settings, filesSeenSoFar) => {
   file.write(settings);
 
   const dependencies = file.dependencies(settings, filesSeenSoFar);
-  // console.log('Building a file!', dependencyPath);
-  // console.log("Dependencies:", dependencies.map((d) => d.path.toString()));
+  // console.log("Building a file!", dependencyPath);
+  // console.log(
+  //   "Dependencies:",
+  //   dependencies.map((d) => d.path.toString())
+  // );
 
   // Write all of the dependencies of the file (that we haven't seen yet) to disk.
   dependencies
