@@ -4,6 +4,14 @@ import logger from "./log";
 import mime from "mime";
 import { Repo } from "./git";
 
+const removePostfixedSlash = (pathString) => {
+  if (pathString[pathString.length - 1] === "/") {
+    return pathString.slice(0, pathString.length - 1);
+  } else {
+    return pathString;
+  }
+};
+
 // a Path is the path to a file or directory on a system.
 class Path {
   // this params are immutable, so it's safe to store both and use directly
@@ -17,8 +25,10 @@ class Path {
     let normalizedPath = pathLibrary.normalize(pathString);
 
     if (!pathLibrary.isAbsolute(normalizedPath)) {
-      normalizedPath = pathLibrary.resolve(normalizedPath, process.cwd());
+      normalizedPath = pathLibrary.resolve(process.cwd(), normalizedPath);
     }
+
+    normalizedPath = removePostfixedSlash(normalizedPath);
 
     this.pathString = normalizedPath;
     this.pathArray = normalizedPath
@@ -69,7 +79,7 @@ class Path {
   get extension() {
     // we always fetch [1], because if the file has multiple extensions
     // we ignore the second and only care about the first.
-    const ext = pathLibrary.extname(this.pathString).split(".")[1];
+    const ext = pathLibrary.extname(this.pathString).split(".")[1] ?? null;
 
     if (ext) {
       return ext;
@@ -89,7 +99,7 @@ class Path {
   }
 
   isRootPath() {
-    return this.pathString === "/";
+    return this.pathArray.length === 0;
   }
 
   // repo helper function
