@@ -84,8 +84,6 @@ class File {
   htmlUrl({ rootUrl, sourceDir }) {
     const relativeToSource = this.path.relativeTo(sourceDir);
 
-    // console.log({ rootUrl, relativeToSource, toString: relativeToSource?.toString() });
-
     const isRootPath = !relativeToSource.toString().length 
         || relativeToSource?.toString() === '/';
 

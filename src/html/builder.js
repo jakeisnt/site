@@ -38,6 +38,7 @@ const linkStringToFile = (l, settings) => {
 class HtmlPage {
   pageStructure = null;
   currentBuildSettings = null;
+  cachedDependencies = null;
 
   constructor(pageSyntax, settings) {
     this.pageStructure = pageSyntax;
@@ -53,12 +54,16 @@ class HtmlPage {
   // For example -- src/index.css, src/file.html, etc.
   // Produces these dependencies as Files.
   dependencies(settings = this.currentBuildSettings) {
-    return findTags(this.pageStructure, ["a", "href", "img", "script"])
-      .map(getTagLink)
-      .filter(v => v)
-      .filter(f => isInternalLink(f, settings))
-      .map(f => linkStringToFile(f, settings))
-      .map(readFile);
+    if (!this.cachedDependencies) {
+      this.cachedDependencies = findTags(this.pageStructure, ["a", "href", "img", "script"])
+        .map(getTagLink)
+        .filter(v => v)
+        .filter(f => isInternalLink(f, settings))
+        .map(f => linkStringToFile(f, settings))
+        .map(readFile);
+    }
+
+    return this.cachedDependencies;
   }
 
   toString() {

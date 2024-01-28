@@ -71,6 +71,8 @@ const directoryToHtml = (dir, { files, rootUrl, siteName, sourceDir }) => {
 class Directory extends File {
   static filetypes = ["dir"];
   enumeratedContents = null;
+  enumeratedDependencies = null;
+  enumeratedHtml = null;
 
   // recursively fetch and flatten the file tree
   // the result should contain no directories
@@ -144,7 +146,11 @@ class Directory extends File {
   // SHORTCUT: the dependencies of a directory in general
   // are not html-ified. that's a quick hack we use here to bootstrap building files.
   dependencies(settings) {
-    return this.asHtml(settings).dependencies();
+    if (!this.enumeratedDependencies) {
+      this.enumeratedDependencies = this.asHtml(settings).dependencies();
+    }
+
+    return this.enumeratedDependencies;
   }
 
   get isDirectory() {
@@ -152,12 +158,15 @@ class Directory extends File {
   }
 
   asHtml(settings) {
-    const { siteName, rootUrl, sourceDir } = settings;
-    const files = this.contents();
+    if (!this.enumeratedHtml) {
+      const { siteName, rootUrl, sourceDir } = settings;
+      const files = this.contents();
+      const page = directoryToHtml(this, { files, siteName, rootUrl, sourceDir });
 
-    const page = directoryToHtml(this, { files, siteName, rootUrl, sourceDir });
+      this.enumeratedHtml = HtmlPage.create(page, settings);
+    }
 
-    return HtmlPage.create(page, settings);
+    return this.enumeratedHtml;
   }
 
   serve(args) {
