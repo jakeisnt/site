@@ -21,7 +21,7 @@ class Path {
     }
 
     this.pathString = normalizedPath;
-    this.pathArray = normalizedPath.split("/").slice(1);
+    this.pathArray = normalizedPath.split("/").slice(1).filter(p => p.length);
   }
 
   static create(maybePathString) {
@@ -80,6 +80,8 @@ class Path {
   }
 
   get parent() {
+
+    console.log('getting parent', this.pathArray, this.pathArray.length, this.pathArray.slice(0, this.pathArray.length - 1).join("/"));
     return Path.create(
       "/" + this.pathArray.slice(0, this.pathArray.length - 1).join("/")
     );
@@ -132,12 +134,21 @@ class Path {
     // remove it from this path
     let curPathArray = [...this.pathArray];
     otherPath.pathArray.forEach((prefixFolderName) => {
-      if (!(curPathArray[0] === prefixFolderName)) {
+
+      // if we can completely replace the path, do that.
+      if ((curPathArray[0] === prefixFolderName)) {
+        curPathArray.shift();
+
+      // if the path is a prefix, replace it with the replaceWith path
+      } else if (curPathArray.length === 1 && curPathArray[0].startsWith(prefixFolderName)) {
+        curPathArray[0] = curPathArray[0].replace(prefixFolderName, replaceWith);
+
+      // if the paths don't share prefixes at all, blow up.
+      } else {
         throw new Error(
           `'${otherPath.pathString}' is not a prefix of this path, '${this.pathString}'`
         );
       }
-      curPathArray.shift();
     });
 
     const pathAfterShift = Path.create("/" + replaceWith + '/' + curPathArray.join("/"));
