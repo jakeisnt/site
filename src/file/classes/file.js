@@ -84,11 +84,16 @@ class File {
   htmlUrl({ rootUrl, sourceDir }) {
     const relativeToSource = this.path.relativeTo(sourceDir);
 
-    const url = relativeToSource?.toString()?.length 
-      ? rootUrl + relativeToSource.toString() + '.html' 
-      : rootUrl + '/index.html';
+    // console.log({ rootUrl, relativeToSource, toString: relativeToSource?.toString() });
 
-    return url;
+    const isRootPath = !relativeToSource.toString().length 
+        || relativeToSource?.toString() === '/';
+
+    if (isRootPath) {
+      return rootUrl + '/index.html';
+    }
+
+    return rootUrl + relativeToSource.toString() + '.html' 
   }
 
   get repo() {
