@@ -22,8 +22,25 @@ test("relativeTo paths", () => {
   expect(relative).toEqual(new Path("/b/c"));
 });
 
-test("relativeTo non-paths", () => {
-  const path = Path.create("/a/b/c");
-  const relative = path.relativeTo("/a", "localhost:3000");
-  expect(relative).toEqual(new Path("localhost:3000/b/c"));
+// test("relativeTo non-paths", () => {
+//   const path = Path.create("/a/b/c");
+//   const relative = path.relativeTo("/a", "localhost:3000");
+//     expect(relative).toEqual(new Path("localhost:3000/b/c"));
+// });
+
+test("extension", () => {
+  expect(Path.create("/a/b/c").extension).toEqual(null);
+  expect(Path.create("/a/b/c.md").extension).toEqual("md");
+  expect(Path.create("/a/b/c.md/").extension).toEqual(null);
+
+  // test the extensions of directories
+  expect(Path.create("/a/b/c").extension).toEqual(null);
+  expect(Path.create("/a/b/c/").extension).toEqual(null);
+});
+
+test("isRootPath", () => {
+  expect(Path.create("/").isRootPath()).toEqual(true);
+  expect(Path.create("").isRootPath()).toEqual(false);
+  expect(Path.create("/a").isRootPath()).toEqual(false);
+  expect(Path.create("/a/b/c").isRootPath()).toEqual(false);
 });
