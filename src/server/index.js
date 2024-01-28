@@ -61,6 +61,11 @@ const fileResponse = (file, { sourceDir }) => {
 
   return new Response(responseText, {
     headers: {
+      // NEVER cache. this is always a dev server.
+      "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+      Pragma: "no-cache",
+      Expires: "0",
+      // content-type (required)
       "content-type": mimeType,
     },
   });
