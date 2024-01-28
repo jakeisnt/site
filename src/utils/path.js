@@ -39,11 +39,6 @@ class Path {
     }
   }
 
-  // returns a new Path with the proper full path
-  static fromUrl(url, websiteName, sourcePath) {
-    return new Path(url.replace(websiteName, sourcePath));
-  }
-
   toString() {
     return this.pathString;
   }
@@ -246,11 +241,6 @@ class Path {
   join(nextPart) {
     logger.file("Joining path", this.pathString, "with", nextPart.toString());
     return new Path(this.pathString + nextPart.toString());
-  }
-
-  // does this path end with the other path
-  endsWith(str) {
-    return this.pathString.endsWith(str);
   }
 
   // not exactly true lol..
