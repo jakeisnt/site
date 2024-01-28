@@ -1,5 +1,11 @@
 import { readFile } from "./file";
 
+// PROGRESS:
+// - some files render as plaintext, not html first, when serving.
+// - it's unclear why - not able to easily find a pattern.
+// the folders with '.html' appended are weird.
+// - figure out why serve fn behaves a bit strangely. there must be some stupid http way
+
 // given a relative path, build the whole file tree as static html.
 const buildSiteFromFile = (file, settings, filesSeenSoFar) => {
   const { siteName, rootUrl, sourceDir, targetDir } = settings;
