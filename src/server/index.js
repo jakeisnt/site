@@ -166,7 +166,7 @@ const directoryServer = (absolutePathToDirectory, fallbackDirPath) => {
 
       if (path.name === "index.html") {
         // if the path is a directory, serve the parent like an html file
-        pathToUse = Path.create(path.parent.pathString + ".html");
+        pathToUse = Path.create(path.parent.toString() + ".html");
       }
 
       log.debug("finding file in dir", pathToUse.toString(), dir.toString());

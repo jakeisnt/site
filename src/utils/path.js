@@ -4,6 +4,14 @@ import logger from "./log";
 import mime from "mime";
 import { Repo } from "./git";
 
+const removePostfixedSlash = (pathString) => {
+  if (pathString[pathString.length - 1] === "/") {
+    return pathString.slice(0, pathString.length - 1);
+  } else {
+    return pathString;
+  }
+};
+
 // a Path is the path to a file or directory on a system.
 class Path {
   // this params are immutable, so it's safe to store both and use directly
@@ -17,11 +25,16 @@ class Path {
     let normalizedPath = pathLibrary.normalize(pathString);
 
     if (!pathLibrary.isAbsolute(normalizedPath)) {
-      normalizedPath = pathLibrary.resolve(normalizedPath, process.cwd());
+      normalizedPath = pathLibrary.resolve(process.cwd(), normalizedPath);
     }
 
+    normalizedPath = removePostfixedSlash(normalizedPath);
+
     this.pathString = normalizedPath;
-    this.pathArray = normalizedPath.split("/").slice(1).filter(p => p.length);
+    this.pathArray = normalizedPath
+      .split("/")
+      .slice(1)
+      .filter((p) => p.length);
   }
 
   static create(maybePathString) {
@@ -66,7 +79,7 @@ class Path {
   get extension() {
     // we always fetch [1], because if the file has multiple extensions
     // we ignore the second and only care about the first.
-    const ext = pathLibrary.extname(this.pathString).split(".")[1];
+    const ext = pathLibrary.extname(this.pathString).split(".")[1] ?? null;
 
     if (ext) {
       return ext;
@@ -86,9 +99,7 @@ class Path {
   }
 
   isRootPath() {
-    // console.log('isRootPath', this.pathString, this.pathArray, this.pathString === '/');
-    // NOTE: here, this.pathArray is [""] for some reason?
-    return this.pathString === "/";
+    return this.pathArray.length === 0;
   }
 
   // repo helper function
@@ -124,7 +135,7 @@ class Path {
 
   // get this path's position relative to another path or string
   // ASSUME that the other paths, if defined, are the prefix of this one
-  relativeTo(maybeOtherPath, maybeReplaceWithPath = '') {
+  relativeTo(maybeOtherPath, maybeReplaceWithPath = "") {
     const otherPath = Path.create(maybeOtherPath);
     const replaceWith = maybeReplaceWithPath.toString();
 
@@ -132,16 +143,21 @@ class Path {
     // remove it from this path
     let curPathArray = [...this.pathArray];
     otherPath.pathArray.forEach((prefixFolderName) => {
-
       // if we can completely replace the path, do that.
-      if ((curPathArray[0] === prefixFolderName)) {
+      if (curPathArray[0] === prefixFolderName) {
         curPathArray.shift();
 
-      // if the path is a prefix, replace it with the replaceWith path
-      } else if (curPathArray.length === 1 && curPathArray[0].startsWith(prefixFolderName)) {
-        curPathArray[0] = curPathArray[0].replace(prefixFolderName, replaceWith);
+        // if the path is a prefix, replace it with the replaceWith path
+      } else if (
+        curPathArray.length === 1 &&
+        curPathArray[0].startsWith(prefixFolderName)
+      ) {
+        curPathArray[0] = curPathArray[0].replace(
+          prefixFolderName,
+          replaceWith
+        );
 
-      // if the paths don't share prefixes at all, blow up.
+        // if the paths don't share prefixes at all, blow up.
       } else {
         throw new Error(
           `'${otherPath.pathString}' is not a prefix of this path, '${this.pathString}'`
@@ -149,7 +165,9 @@ class Path {
       }
     });
 
-    const pathAfterShift = Path.create("/" + replaceWith + '/' + curPathArray.join("/"));
+    const pathAfterShift = Path.create(
+      "/" + replaceWith + "/" + curPathArray.join("/")
+    );
     return pathAfterShift;
   }
 
@@ -168,7 +186,10 @@ class Path {
   // is this path a directory?
   isDirectory() {
     if (!this.exists()) {
-      throw new Error("Cannot check if a path is a directory if it doesn't exist", this.pathString);
+      throw new Error(
+        "Cannot check if a path is a directory if it doesn't exist",
+        this.pathString
+      );
     }
 
     return fs.lstatSync(this.pathString).isDirectory();
@@ -237,11 +258,6 @@ class Path {
     return new Path(this.pathString + nextPart.toString());
   }
 
-  // does this path end with the other path
-  endsWith(str) {
-    return this.pathString.endsWith(str);
-  }
-
   // not exactly true lol..
   contains(maybeOtherPathString) {
     const otherPath = Path.create(maybeOtherPathString);
@@ -264,9 +280,9 @@ class Path {
 
   // make this path exist, creating any parent directories along the way
   // assume the path is a file unless provided that it's a directory
-  make({isDirectory = false} = { isDirectory: false }) {
+  make({ isDirectory = false } = { isDirectory: false }) {
     if (this.exists()) {
-      console.log('.make: File already exists at path ', this.pathString);
+      console.log(".make: File already exists at path ", this.pathString);
       return this;
     }
 
@@ -276,9 +292,9 @@ class Path {
 
     if (!this.parent.exists()) {
       console.log(
-        'The parent of this path', 
-        this.toString(), 
-        'does not exist. Making it: ', 
+        "The parent of this path",
+        this.toString(),
+        "does not exist. Making it: ",
         this.parent.toString()
       );
 
@@ -287,7 +303,7 @@ class Path {
 
     if (isDirectory) {
       console.log("Making directory at", this.pathString);
-      fs.mkdirSync(this.pathString); 
+      fs.mkdirSync(this.pathString);
     } else {
       console.log("Making file at", this.pathString);
       fs.writeFileSync(this.pathString, "");

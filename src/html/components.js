@@ -9,9 +9,9 @@ const getDependency = (path) => {
   const extension = path.extension;
   switch (extension) {
     case "js":
-      return ["script", { src: path.pathString }];
+      return ["script", { src: path.toString() }];
     case "css":
-      return ["link", { rel: "stylesheet", href: path.pathString }];
+      return ["link", { rel: "stylesheet", href: path.toString() }];
     case "scss":
       return getDependency(path.replaceExtension("css"));
     default:

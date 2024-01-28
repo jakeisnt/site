@@ -1,3 +1,5 @@
+// Utility functions for generating HTML tags.
+
 const meta = (key, value) => {
   return ["meta", { name: key, content: value }];
 };
