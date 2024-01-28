@@ -1,6 +1,9 @@
 // a hiccup-like HTML domain specific language!!
 // https://gist.github.com/hns/654226
 
+import { isArray } from "utils/array";
+import { isObject } from "utils/object";
+
 function html(...args) {
   var buffer = [];
   build(args, buffer);
@@ -13,7 +16,7 @@ function htmlPage(...args) {
 
 function build(list, buffer) {
   var index = 0;
-  var length = list.length;
+
   if (typeof list[index] === "string") {
     var tag = splitTag(list[index++]);
     var attr = tag[1];
@@ -45,14 +48,6 @@ function buildRest(list, index, buffer) {
   }
 }
 
-function isObject(item) {
-  return item instanceof Object && item.constructor !== Array;
-}
-
-function isArray(item) {
-  return item instanceof Object && item.constructor === Array;
-}
-
 function mergeAttributes(attr1, attr2) {
   for (var key in attr2) {
     if (!attr1.hasOwnProperty(key)) {
@@ -71,4 +66,4 @@ function splitTag(tag) {
   return [match[1], attr];
 }
 
-export { html, htmlPage, isObject, isArray };
+export { html, htmlPage };

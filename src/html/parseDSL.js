@@ -1,5 +1,5 @@
-import { splitWith } from "utils/array";
-import { isObject, isArray } from "./dsl";
+import { isObject } from "utils/object";
+import { isArray } from "utils/array";
 
 // get the name of a tag.
 const tagName = ([name]) => name;
@@ -29,12 +29,12 @@ const headingRank = (headingTag) => {
 
 const collectElements = (htmlPage, predicate) => {
   // assume we only look for roots, so we return directly here lol
-  if (predicate(htmlPage)) { 
+  if (predicate(htmlPage)) {
     return [htmlPage];
   } else if (isArray(htmlPage)) {
-      // if we can act on the contents: 
-      const results = htmlPage.flatMap((tag) => collectElements(tag, predicate));
-      return results;
+    // if we can act on the contents:
+    const results = htmlPage.flatMap((tag) => collectElements(tag, predicate));
+    return results;
   }
 
   return [];
@@ -42,7 +42,10 @@ const collectElements = (htmlPage, predicate) => {
 
 // find html elements with the given tag names on an html page
 const findTags = (htmlPage, tags) => {
-  const elems = collectElements(htmlPage, (tl) => tl && tl?.[0] && tags.includes(tl?.[0]));
+  const elems = collectElements(
+    htmlPage,
+    (tl) => tl && tl?.[0] && tags.includes(tl?.[0])
+  );
   return elems;
 };
 
