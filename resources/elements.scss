@@ -1,4 +1,4 @@
-@use '../style/core';
+@use 'style/core';
 
 /* Overrides of default HTML components */
 
@@ -162,7 +162,6 @@ pre code {
   font-size: 14px;
   background-color: var(--quote-background) !important;
   min-height: 36px;
-  text-color: var(--subtle-text);
 }
 
 code:hover {

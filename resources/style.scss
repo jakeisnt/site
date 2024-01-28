@@ -1,4 +1,4 @@
-@use '../style/core';
+@use 'style/core';
 
 article {
   background: var(--window-background);
@@ -62,6 +62,11 @@ blockquote.article-quote p::after {
   opacity: 0.9;
 }
 
+.file-date-untracked-tr {
+  @extend .file-date-tr;
+  color: var(--warning-text);
+}
+
 .site-body {
   padding-left: 2rem;
   display: flex;
@@ -95,7 +100,7 @@ blockquote.article-quote p::after {
     padding: 0.75rem;
   }
 
-  .git-hist-table, .link-info-table, .folder-index-page-table, a.now-playing, .checkbox-menu,  {
+  .git-hist-table, .link-info-table, .folder-index-page-table, a.now-playing, .checkbox-menu {
     margin-left: 2rem;
     margin-right: 2rem;
     padding-top: 0;

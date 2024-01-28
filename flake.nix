@@ -19,34 +19,25 @@
         pkgs = import nixpkgs { inherit system; };
         lib = pkgs.lib;
 
-        deploy = pkgs.writeScriptBin "deploy" ''
-          #!/usr/bin/env sh
-          clj -X deploy/-main "$@"
+        site = pkgs.writeScriptBin "site" ''
+          #!${pkgs.stdenv.shell}
+          ${pkgs.bun}/bin/bun run main -- $@
         '';
 
-        build = pkgs.writeScriptBin "build" ''
-          #!/usr/bin/env sh
-          clj -X main/-main "$@"
+        dev = pkgs.writeScriptBin "dev" ''
+          #!${pkgs.stdenv.shell}
+          ${pkgs.bun}/bin/bun run dev -- $@
         '';
 
-        serve = pkgs.writeScriptBin "serve" ''
-          #!/usr/bin/env sh
-          clj -X serve/-main "$@"
-        '';
       in rec {
         devShell = with pkgs; mkShell {
           name = "site";
           buildInputs = [
-            inotify-tools
+            bun
+            # inotify-tools
 
-            clojure
-            leiningen
-            clojure-lsp
-            dart-sass
-
-            serve
-            build
-            deploy
+            site
+            dev
           ];
 
           LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath(with pkgs; [openssl sqlite])}:LD_LIBRARY_PATH";
