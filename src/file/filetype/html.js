@@ -73,6 +73,13 @@ class HTMLFile extends SourceFile {
       },
     });
 
+    // the path of this new source file needs to resolve to the html path
+    Object.defineProperty(sourceFile, "isDirectory", {
+      get() {
+        return false;
+      },
+    });
+
     // the mime type of this new source file needs to be html
     Object.defineProperty(sourceFile, "mimeType", {
       get() {
