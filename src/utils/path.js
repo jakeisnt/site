@@ -266,7 +266,13 @@ class Path {
     // make sure the parent directory exists.
 
     if (!this.parent.exists()) {
-      console.log('The parent of this path does not exist. Making it: ', this.parent.pathString)
+      console.log(
+        'The parent of this path', 
+        this.toString(), 
+        'does not exist. Making it: ', 
+        this.parent.toString()
+      );
+
       this.parent.make({ isDirectory: true });
     }
 

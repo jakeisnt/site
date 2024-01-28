@@ -41,15 +41,20 @@ class HTMLFile extends SourceFile {
     const sourceFile = prevFile.clone();
 
     // now, we override the new file to act like an html file.
+    // NOTE: all of the question marks are hacks.
+    // some files are too eagerly linked as html,
+    // so we ignore them and create spurious html here with no contents.
+    // like image files. 
+    // really, those files should not be linked to as html at all.
     sourceFile.fakeFileOf = prevFile;
     sourceFile.asHtml = prevFile.asHtml;
-    sourceFile.read = (...args) => prevFile?.asHtml(...args).toString();
+    sourceFile.read = (...args) => prevFile?.asHtml?.(...args).toString() ?? '';
 
     sourceFile.write = (config) => {
       const { sourceDir, targetDir } = config;
 
       const targetPath = sourceFile.path.relativeTo(sourceDir, targetDir);
-      targetPath.writeString(sourceFile.serve(config).contents);
+      targetPath.writeString(sourceFile.serve(config)?.contents ?? '');
 
       // also write the previous file
       prevFile.write(config);
@@ -58,7 +63,7 @@ class HTMLFile extends SourceFile {
     }
 
     sourceFile.serve = (...args) => {
-      const contents = prevFile?.asHtml(...args).toString();
+      const contents = prevFile?.asHtml?.(...args).toString() ?? '';
       return { contents, mimeType: "text/html" };
     };
 
