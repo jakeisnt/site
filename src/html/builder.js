@@ -10,7 +10,11 @@ const isInternalLink = (l, settings) => {
     return true;
   }
 
-  const isExternal = l.includes("http://") || l.includes("https://") || l.startsWith("#");
+  const isExternal = 
+    l.includes('data:image') ||
+    l.includes("http://") || 
+    l.includes("https://") || 
+    l.startsWith("#");
 
   return !isExternal;
 };
