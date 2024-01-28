@@ -56,7 +56,7 @@ class HtmlPage {
     return findTags(this.pageStructure, ["a", "href", "img", "script"])
       .map(getTagLink)
       .filter(v => v)
-      .filter(isInternalLink)
+      .filter(f => isInternalLink(f, settings))
       .map(f => linkStringToFile(f, settings))
       .map(readFile);
   }

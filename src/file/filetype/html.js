@@ -43,15 +43,15 @@ class HTMLFile extends SourceFile {
     // now, we override the new file to act like an html file.
     sourceFile.fakeFileOf = prevFile;
     sourceFile.asHtml = prevFile.asHtml;
-    sourceFile.read = (...args) => prevFile.asHtml(...args).toString();
+    sourceFile.read = (...args) => prevFile?.asHtml(...args).toString();
 
     sourceFile.serve = (args) => {
-      const contents = prevFile.asHtml(args).toString();
+      const contents = prevFile?.asHtml(args).toString();
       return { contents, mimeType: "text/html" };
     };
 
     sourceFile.dependencies = (settings) => {
-      return prevFile.asHtml(settings).dependencies();
+      return prevFile?.asHtml?.(settings)?.dependencies() ?? [];
     }
 
     // the path of this new source file needs to resolve to the html path
