@@ -45,8 +45,8 @@ class HTMLFile extends SourceFile {
     sourceFile.asHtml = prevFile.asHtml;
     sourceFile.read = (...args) => prevFile?.asHtml(...args).toString();
 
-    sourceFile.serve = (args) => {
-      const contents = prevFile?.asHtml(args).toString();
+    sourceFile.serve = (...args) => {
+      const contents = prevFile?.asHtml(...args).toString();
       return { contents, mimeType: "text/html" };
     };
 

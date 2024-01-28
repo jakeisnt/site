@@ -45,7 +45,9 @@ const buildFromPath = (settings) => {
   const filePathsSeenSoFar = new Set([
     ...ignorePaths,
     ...ignorePaths.map(p => p + '.html'),
-     targetDir
+     targetDir,
+     targetDir + '.html',
+     targetDir + '/index.html',
     ]);
 
   buildSiteFromFile(dir, settings, filePathsSeenSoFar);

@@ -18,6 +18,7 @@ const build = () => {
     ignorePaths: [
       "/Users/jake/Desktop/personal/site/.git",
       "/Users/jake/Desktop/personal/site/node_modules",
+      "/Users/jake/Desktop/personal/site/docs",
     ],
   });
 };
