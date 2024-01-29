@@ -11,7 +11,7 @@ function html(...args) {
 }
 
 function htmlPage(...args) {
-  return "<!DOCTYPE html>\n" + html(...args);
+  return "<!DOCTYPE html>" + html(...args);
 }
 
 function build(list, buffer) {
