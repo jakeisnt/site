@@ -10,11 +10,8 @@ import { Path } from "utils/path";
 // paths to ignore by default from the website we build
 const commonIgnorePaths = [".git", "node_modules"];
 
-const build = (paths) => {
-  if (!paths.length) {
-    console.log("No file path specified. Not building anything.");
-    return;
-  }
+const build = (incomingPaths) => {
+  const paths = incomingPaths?.length ? incomingPaths : ['.'];
 
   const sourceDir = Path.create(paths[0]);
   const targetDir = paths[1]
@@ -34,11 +31,8 @@ const build = (paths) => {
 };
 
 // Serve whatever's at the first path
-const serve = (paths) => {
-  if (!paths.length) {
-    console.log("No file path specified. Not serving anything.");
-    return;
-  }
+const serve = (incomingPaths) => {
+  const paths = incomingPaths?.length ? incomingPaths : ['.'];
 
   const path = Path.create(paths[0]);
 
