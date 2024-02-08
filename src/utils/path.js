@@ -148,7 +148,9 @@ class Path {
     // }
 
     try {
-      execSync(`cp -r ${from.pathString} ${to.pathString}`);
+      execSync(`cp -r ${from.pathString} ${to.pathString}`, {
+        cwd: this.toString(),
+      });
     } catch (e) {
       console.log("error copying directory", e);
     }
@@ -169,7 +171,9 @@ class Path {
     // }
 
     try {
-      execSync(`mv ${from.pathString} ${to.pathString}`);
+      execSync(`mv ${from.pathString} ${to.pathString}`, {
+        cwd: this.toString(),
+      });
     } catch (e) {
       console.log("error moving directory", e);
     }
