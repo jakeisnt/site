@@ -147,10 +147,10 @@ class Path {
     //   );
     // }
 
-    if (from.isDirectory()) {
+    try {
       execSync(`cp -r ${from.pathString} ${to.pathString}`);
-    } else {
-      execSync(`cp ${from.pathString} ${to.pathString}`);
+    } catch (e) {
+      console.log("error copying directory", e);
     }
   }
 
@@ -168,10 +168,10 @@ class Path {
     //   );
     // }
 
-    if (from.isDirectory()) {
+    try {
       execSync(`mv ${from.pathString} ${to.pathString}`);
-    } else {
-      execSync(`mv ${from.pathString} ${to.pathString}`);
+    } catch (e) {
+      console.log("error moving directory", e);
     }
   }
 
