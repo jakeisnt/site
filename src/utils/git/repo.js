@@ -40,10 +40,12 @@ class Repo {
   }
 
   addAll() {
+    console.log("adding all to git");
     this.runCmd("git add .");
   }
 
   commit(message = "robot commit") {
+    console.log("committing", { message });
     this.runCmd(`git -c commit.gpgsign=false commit -m "${message}"`);
   }
 
