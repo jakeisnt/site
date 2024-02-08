@@ -1,4 +1,5 @@
 import pathLibrary from "path";
+import { execSync } from "./cmd";
 import fs from "fs";
 import logger from "./log";
 import mime from "mime";
@@ -147,9 +148,9 @@ class Path {
     // }
 
     if (from.isDirectory()) {
-      fs.copySync(from.pathString, to.pathString);
+      execSync(`cp -r ${from.pathString} ${to.pathString}`);
     } else {
-      fs.copyFileSync(from.pathString, to.pathString);
+      execSync(`cp ${from.pathString} ${to.pathString}`);
     }
   }
 
@@ -168,9 +169,9 @@ class Path {
     // }
 
     if (from.isDirectory()) {
-      fs.renameSync(from.pathString, to.pathString);
+      execSync(`mv ${from.pathString} ${to.pathString}`);
     } else {
-      fs.renameSync(from.pathString, to.pathString);
+      execSync(`mv ${from.pathString} ${to.pathString}`);
     }
   }
 
