@@ -1,13 +1,12 @@
 // this file manages deployment to an external service
 // right now its just github pages lol
 
-import { Repo } from './utils/git';
-// import { buildWebsite } from './build';
-
-async function commitFolderToBranch({ repo, folderToCommit, targetBranch }) {
+function commitFolderToBranch({ repo, folderToCommit, targetBranch }) {
   const tmpDir = "/tmp/jake-site-deploy";
 
-  const currentBranch = await repo.currentBranch();
+  const currentBranch = repo.currentBranch();
+
+  console.log("current branch", currentBranch);
 
   console.log("saving current changes");
   repo.addAll();
@@ -50,8 +49,11 @@ async function commitFolderToBranch({ repo, folderToCommit, targetBranch }) {
 }
 
 async function deploy({ currentRepo, deploymentBranch, targetDir }) {
-  // await buildWebsite();
-  await commitFolderToBranch({ repo: currentRepo, branch: deploymentBranch, folderToCommit: targetDir });
+  commitFolderToBranch({
+    repo: currentRepo,
+    branch: deploymentBranch,
+    folderToCommit: targetDir,
+  });
 }
 
 export { deploy };
