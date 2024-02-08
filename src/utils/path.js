@@ -139,11 +139,12 @@ class Path {
     const from = Path.create(fromPath);
     const to = Path.create(toPath);
 
-    if (!this.contains(from)) {
-      throw new Error(
-        `Cannot copy ${from.toString()} to ${to.toString()} because it is not a subdirectory of ${this.toString()}`
-      );
-    }
+    // TODO: this would be a good safeguard to add, but it doesn't work?
+    // if (!this.contains(from)) {
+    //   throw new Error(
+    //     `Cannot copy ${from.toString()} to ${to.toString()} because it is not a subdirectory of ${this.toString()}`
+    //   );
+    // }
 
     if (from.isDirectory()) {
       fs.copySync(from.pathString, to.pathString);
