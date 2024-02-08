@@ -31,7 +31,7 @@ const build = (incomingPaths) => {
 };
 
 const deployWebsite = () => {
-  const currentRepo = Path.create(".");
+  const currentRepo = Path.create(".").repo;
 
   deploy({
     currentRepo,

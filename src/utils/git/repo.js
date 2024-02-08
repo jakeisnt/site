@@ -1,5 +1,5 @@
-import { execSync } from '../cmd';
-import RepoFile from './repofile';
+import { execSync } from "../cmd";
+import RepoFile from "./repofile";
 
 // a git repository is a directory with a .git subdirectory
 // This is basically a git porcelain that keeps the current repo
@@ -40,37 +40,36 @@ class Repo {
   }
 
   addAll() {
-    this.runCmd('git add .');
+    this.runCmd("git add .");
   }
 
-  commit(message = 'robot commit') {
+  commit(message = "robot commit") {
     this.runCmd(`git -c commit.gpgsign=false commit -m "${message}"`);
   }
 
   push() {
-    this.runCmd('git push');
+    this.runCmd("git push");
   }
 
   removeUntracked() {
-    this.runCmd('git clean -fxd');
+    this.runCmd("git clean -fxd");
   }
 
   currentBranch() {
-    const { stdout } = this.runCmd('git branch --show-current');
-    return stdout.trim();
+    return this.runCmd("git branch --show-current");
   }
 
   status() {
-    const { stdout } = this.runCmd('git status');
+    const { stdout } = this.runCmd("git status");
     console.log(stdout);
   }
 
   stash() {
-    this.runCmd('git stash');
+    this.runCmd("git stash");
   }
 
   stashPop() {
-    this.runCmd('git stash pop');
+    this.runCmd("git stash pop");
   }
 }
 
