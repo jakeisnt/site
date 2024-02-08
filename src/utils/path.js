@@ -161,11 +161,11 @@ class Path {
 
     console.log("moving from ", { from: from.toString(), to: to.toString() });
 
-    if (!this.contains(from)) {
-      throw new Error(
-        `Cannot move ${from.toString()} to ${to.toString()} because it is not a subdirectory of ${this.toString()}`
-      );
-    }
+    // if (!this.contains(from)) {
+    //   throw new Error(
+    //     `Cannot move ${from.toString()} to ${to.toString()} because it is not a subdirectory of ${this.toString()}`
+    //   );
+    // }
 
     if (from.isDirectory()) {
       fs.renameSync(from.pathString, to.pathString);
