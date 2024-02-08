@@ -1,7 +1,7 @@
 // entrypoint of the program; this is the cli
 
 import { deploy } from "./deploy";
-import { deploymentBranch, sourceDir, targetDir, website } from "./constants";
+import { sourceDir } from "./constants";
 import { cli } from "utils/cli";
 import { buildFromPath } from "./build.js";
 import { singleFileServer, directoryServer } from "./server";
@@ -11,7 +11,7 @@ import { Path } from "utils/path";
 const commonIgnorePaths = [".git", "node_modules"];
 
 const build = (incomingPaths) => {
-  const paths = incomingPaths?.length ? incomingPaths : ['.'];
+  const paths = incomingPaths?.length ? incomingPaths : ["."];
 
   const sourceDir = Path.create(paths[0]);
   const targetDir = paths[1]
@@ -30,9 +30,19 @@ const build = (incomingPaths) => {
   });
 };
 
+const deployWebsite = () => {
+  const currentRepo = Path.create(".");
+
+  deploy({
+    currentRepo,
+    deploymentBranch: "production",
+    targetDir: Path.create("./docs").toString(),
+  });
+};
+
 // Serve whatever's at the first path
 const serve = (incomingPaths) => {
-  const paths = incomingPaths?.length ? incomingPaths : ['.'];
+  const paths = incomingPaths?.length ? incomingPaths : ["."];
 
   const path = Path.create(paths[0]);
 
@@ -54,7 +64,7 @@ const app = cli("site")
   .describe("compiles the website")
   .option("deploy")
   .describe("deploy the website")
-  .action(() => console.log("deploy"))
+  .action(deployWebsite)
   .option("build")
   .describe("build the website")
   .action(build)
