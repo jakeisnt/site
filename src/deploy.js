@@ -1,7 +1,7 @@
 // this file manages deployment to an external service
 // right now its just github pages lol
 
-import { Path } from "./path";
+import { Path } from "./utils/path";
 
 function commitFolderToBranch({ repo, folderToCommit, targetBranch }) {
   const tmpDir = "/tmp/jake-site-deploy";
