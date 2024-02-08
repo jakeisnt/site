@@ -15,10 +15,10 @@ function commitFolderToBranch({ repo, folderToCommit, targetBranch }) {
   console.log("copying deployment to tmp dir");
 
   // TODO: code should make sure 'production' branch is fetched.
-  // itwasn't fetched!
+  // it wasn't fetched! or the variable was not defined?
   console.log("trying to check out", { targetBranch });
   repo.checkout(targetBranch);
-  // TODO file.move(folderToCommit, tmpDir, repo);
+  repo.path.move(folderToCommit, tmpDir);
   repo.status();
 
   console.log("removing all untracked files");
@@ -26,11 +26,11 @@ function commitFolderToBranch({ repo, folderToCommit, targetBranch }) {
   repo.status();
 
   console.log("moving tmp dir contents to root");
-  // TODO: file.copyDir(tmpDir, folderToCommit, repo);
+  repo.path.copyDir(tmpDir, folderToCommit, repo);
   repo.status();
 
   console.log("pushing build");
-  console.log("we are on branch " + git.currentBranch(repo));
+  console.log("we are on branch ", repo.currentBranch());
   repo.addAll();
   repo.commit();
   repo.push();

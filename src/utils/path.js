@@ -133,6 +133,44 @@ class Path {
     }
   }
 
+  // copy the file or directory at this path to another path
+  // if the path is not a subdir of this path, throw an error
+  copy(fromPath, toPath) {
+    const from = Path.create(fromPath);
+    const to = Path.create(toPath);
+
+    if (!this.contains(from)) {
+      throw new Error(
+        `Cannot copy ${from.toString()} to ${to.toString()} because it is not a subdirectory of ${this.toString()}`
+      );
+    }
+
+    if (from.isDirectory()) {
+      fs.copySync(from.pathString, to.pathString);
+    } else {
+      fs.copyFileSync(from.pathString, to.pathString);
+    }
+  }
+
+  // move the file or directory at this path to another path
+  // if the path is not a subdir of this path, throw an error
+  move(fromPath, toPath) {
+    const from = Path.create(fromPath);
+    const to = Path.create(toPath);
+
+    if (!this.contains(from)) {
+      throw new Error(
+        `Cannot move ${from.toString()} to ${to.toString()} because it is not a subdirectory of ${this.toString()}`
+      );
+    }
+
+    if (from.isDirectory()) {
+      fs.renameSync(from.pathString, to.pathString);
+    } else {
+      fs.renameSync(from.pathString, to.pathString);
+    }
+  }
+
   // get this path's position relative to another path or string
   // ASSUME that the other paths, if defined, are the prefix of this one
   relativeTo(maybeOtherPath, maybeReplaceWithPath = "") {
