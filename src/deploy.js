@@ -13,6 +13,9 @@ function commitFolderToBranch({ repo, folderToCommit, targetBranch }) {
   repo.stash();
 
   console.log("copying deployment to tmp dir");
+
+  // TODO: code should make sure 'production' branch is fetched.
+  // itwasn't fetched!
   repo.checkout(targetBranch);
   // TODO file.move(folderToCommit, tmpDir, repo);
   repo.status();
