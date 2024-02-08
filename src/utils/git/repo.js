@@ -56,12 +56,14 @@ class Repo {
   }
 
   currentBranch() {
-    return this.runCmd("git branch --show-current");
+    const branch = this.runCmd("git branch --show-current");
+    console.log("current branch", branch);
+    return branch;
   }
 
   status() {
-    const { stdout } = this.runCmd("git status");
-    console.log(stdout);
+    const status = this.runCmd("git status");
+    console.log(status);
   }
 
   stash() {
