@@ -16,7 +16,6 @@ function commitFolderToBranch({ repo, folderToCommit, targetBranch }) {
 
   // TODO: code should make sure 'production' branch is fetched.
   // it wasn't fetched! or the variable was not defined?
-  console.log("trying to check out", { targetBranch });
   repo.checkout(targetBranch);
   repo.path.move(folderToCommit, tmpDir);
   repo.status();

@@ -158,6 +158,8 @@ class Path {
     const from = Path.create(fromPath);
     const to = Path.create(toPath);
 
+    console.log("moving from ", { from: from.toString(), to: to.toString() });
+
     if (!this.contains(from)) {
       throw new Error(
         `Cannot move ${from.toString()} to ${to.toString()} because it is not a subdirectory of ${this.toString()}`
