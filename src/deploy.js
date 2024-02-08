@@ -28,7 +28,8 @@ function commitFolderToBranch({ repo, folderToCommit, targetBranch }) {
 
   console.log("moving tmp dir contents to root");
 
-  Path.create(tmpDir).move(tmpDir, folderToCommit);
+  Path.create(folderToCommit).move(tmpDir, Path.create(folderToCommit).parent);
+
   repo.status();
 
   exit(1);
