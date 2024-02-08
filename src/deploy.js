@@ -55,7 +55,7 @@ function commitFolderToBranch({ repo, folderToCommit, targetBranch }) {
 async function deploy({ currentRepo, deploymentBranch, targetDir }) {
   commitFolderToBranch({
     repo: currentRepo,
-    branch: deploymentBranch,
+    targetBranch: deploymentBranch,
     folderToCommit: targetDir,
   });
 }
