@@ -181,7 +181,7 @@ class Path {
 
   // get this path's position relative to another path or string
   // ASSUME that the other paths, if defined, are the prefix of this one
-  relativeTo(maybeOtherPath, maybeReplaceWithPath = "") {
+  relativeTo(maybeOtherPath = this, maybeReplaceWithPath = "") {
     const otherPath = Path.create(maybeOtherPath);
     const replaceWith = maybeReplaceWithPath.toString();
 
@@ -203,9 +203,11 @@ class Path {
           replaceWith
         );
 
-        // if the paths don't share prefixes at all, blow up.
+        // if the paths don't share prefixes at all, idk.
       } else {
-        throw new Error(
+        console.log({ prefixFolderName, replaceWith, curPathArray });
+
+        console.warn(
           `'${otherPath.pathString}' is not a prefix of this path, '${this.pathString}'`
         );
       }

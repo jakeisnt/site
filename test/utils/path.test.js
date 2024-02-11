@@ -22,6 +22,17 @@ test("relativeTo paths", () => {
   expect(relative).toEqual(new Path("/b/c"));
 });
 
+test("relativeTo both args", () => {
+  const path = Path.create(
+    "/Users/jake/Desktop/personal/site/resources/style.css"
+  );
+  const relative = path.relativeTo(
+    "/Users/jake/wiki",
+    "/Users/jake/Desktop/personal"
+  );
+  expect(relative).toEqual(new Path("/b/b/c"));
+});
+
 test("extension", () => {
   expect(Path.create("/a/b/c").extension).toEqual(null);
   expect(Path.create("/a/b/c.md").extension).toEqual("md");
