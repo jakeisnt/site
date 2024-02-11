@@ -26,11 +26,16 @@ test("relativeTo both args", () => {
   const path = Path.create(
     "/Users/jake/Desktop/personal/site/resources/style.css"
   );
-  const relative = path.relativeTo(
-    "/Users/jake/wiki",
-    "/Users/jake/Desktop/personal"
+
+  console.log("argumetns", {
+    maybeOtherPath: "/Users/jake/Desktop",
+    maybeReplaceWithPath: "/Users/jake/wiki",
+  });
+
+  const relative = path.relativeTo("/Users/jake/Desktop", "/Users/jake/wiki");
+  expect(relative).toEqual(
+    new Path("/Users/jake/wiki/site/resources/style.css")
   );
-  expect(relative).toEqual(new Path("/b/b/c"));
 });
 
 test("extension", () => {

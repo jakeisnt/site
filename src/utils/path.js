@@ -179,50 +179,45 @@ class Path {
     }
   }
 
-  // get this path's position relative to another path or string
-  // ASSUME that the other paths, if defined, are the prefix of this one
-  relativeTo(maybeOtherPath = this, maybeReplaceWithPath = "") {
+  /**
+   * get this path's position relative to another path or string
+   * ASSUME that the other paths, if defined, are the prefix of this one.
+   * REMOVE 'maybeOtherPath' from this path's string.
+   * If 'maypeReplaceWithPath' is defined, append it.
+   */
+  relativeTo(maybeOtherPath, maybeReplaceWithPath = "") {
+    console.log("arguments", { maybeOtherPath, maybeReplaceWithPath });
+
     const otherPath = Path.create(maybeOtherPath);
     const replaceWith = maybeReplaceWithPath.toString();
 
-    // assuming the other path is the prefix of this one,
-    // remove it from this path
-    let curPathArray = [...this.pathArray];
-    otherPath.pathArray.forEach((prefixFolderName) => {
-      // if we can completely replace the path, do that.
-      if (curPathArray[0] === prefixFolderName) {
-        curPathArray.shift();
-
-        // if the path is a prefix, replace it with the replaceWith path
-      } else if (
-        curPathArray.length === 1 &&
-        curPathArray[0].startsWith(prefixFolderName)
-      ) {
-        curPathArray[0] = curPathArray[0].replace(
-          prefixFolderName,
-          replaceWith
-        );
-
-        // if the paths don't share prefixes at all, idk.
-      } else {
-        console.log({
-          prefixFolderName,
-          otherPath: otherPath.toString(),
-          replaceWith,
-          curPathArray,
-          path: this.pathString,
-        });
-
-        console.warn(
-          `'${otherPath.pathString}' is not a prefix of this path, '${this.pathString}'`
-        );
-      }
+    console.log({
+      maybeOtherPath,
+      otherPath: otherPath.toString(),
+      maybeReplaceWithPath,
+      replaceWith: replaceWith.toString(),
+      pathString: this.pathString,
     });
+    if (!this.pathString.startsWith(otherPath.toString())) {
+      throw new Error(
+        "Path we are removing is no present on the current path",
+        { path: this.pathString, maybeOtherPath }
+      );
+    }
 
-    const pathAfterShift = Path.create(
-      "/" + replaceWith + "/" + curPathArray.join("/")
-    );
-    return pathAfterShift;
+    let resultingPathString = this.pathString;
+    if (otherPath) {
+      resultingPathString = resultingPathString.replace(
+        `${otherPath.toString()}`,
+        ""
+      );
+    }
+
+    if (maybeReplaceWithPath) {
+      resultingPath = replaceWith.toString() + resultingPathString;
+    }
+
+    return Path.create(resultingPathString);
   }
 
   exists() {
