@@ -186,18 +186,9 @@ class Path {
    * If 'maypeReplaceWithPath' is defined, append it.
    */
   relativeTo(maybeOtherPath, maybeReplaceWithPath = "") {
-    console.log("arguments", { maybeOtherPath, maybeReplaceWithPath });
-
     const otherPath = Path.create(maybeOtherPath);
     const replaceWith = maybeReplaceWithPath.toString();
 
-    console.log({
-      maybeOtherPath,
-      otherPath: otherPath.toString(),
-      maybeReplaceWithPath,
-      replaceWith: replaceWith.toString(),
-      pathString: this.pathString,
-    });
     if (!this.pathString.startsWith(otherPath.toString())) {
       throw new Error(
         "Path we are removing is no present on the current path",
