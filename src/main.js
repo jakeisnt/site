@@ -7,23 +7,35 @@ import { buildFromPath } from "./build.js";
 import { singleFileServer, directoryServer } from "./server";
 import { Path } from "utils/path";
 
+const SITE_DIRECTORY = "/Users/jake/Desktop/personal/site";
+
 // paths to ignore by default from the website we build
 const commonIgnorePaths = [".git", "node_modules"];
 
 const build = (incomingPaths) => {
   const paths = incomingPaths?.length ? incomingPaths : ["."];
 
+  if (!paths[0]) {
+    throw new Error(`No source directory provided. Exiting!`);
+  }
+
   const sourceDir = Path.create(paths[0]);
+
   const targetDir = paths[1]
     ? Path.create(paths[1])
     : Path.create(sourceDir.toString() + "/docs");
 
-  const rootUrl = paths[2] ?? "file://" + targetDir.toString();
+  const fallbackSourceDir = paths[2]
+    ? Path.create(paths[2])
+    : Path.create(SITE_DIRECTORY);
+
+  const rootUrl = paths[3] ?? "file://" + targetDir.toString();
 
   buildFromPath({
     siteName: "Jake Chvatal",
     rootUrl,
     sourceDir: sourceDir,
+    fallbackSourceDir,
     targetDir: targetDir,
     // 'ignorePaths' are expected to be absolute
     ignorePaths: commonIgnorePaths.map((p) => sourceDir.toString() + "/" + p),

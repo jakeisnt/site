@@ -51,14 +51,22 @@ const getFiletypeMap = () => {
 };
 
 // given the source path of a file, return the appropriate file class
-const readFile = (incomingPath) => {
+const readFile = (incomingPath, { sourceDir, fallbackSourceDir } = {}) => {
   logger.file(`Reading file at ${incomingPath.toString()}`);
   if (!filetypeMap) {
     filetypeMap = getFiletypeMap();
   }
 
   // get the file extension
-  const path = Path.create(incomingPath);
+  let path = Path.create(incomingPath);
+
+  console.log(path.toString());
+
+  // if the path doesn't exist, try it against a fallback
+  if (!path.exists() && sourceDir && fallbackSourceDir) {
+    path = path.relativeTo(sourceDir, fallbackSourceDir);
+  }
+
   const extension = path.extension;
 
   if (!(extension in filetypeMap)) {
