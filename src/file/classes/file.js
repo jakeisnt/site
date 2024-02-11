@@ -84,21 +84,22 @@ class File {
   htmlUrl({ rootUrl, sourceDir }) {
     const relativeToSource = this.path.relativeTo(sourceDir);
 
-    const isRootPath = !relativeToSource.toString().length 
-        || relativeToSource?.toString() === '/';
+    const isRootPath =
+      !relativeToSource.toString().length ||
+      relativeToSource?.toString() === "/";
 
     if (isRootPath) {
-      return rootUrl + '/index.html';
+      return rootUrl + "/index.html";
     }
 
-    return rootUrl + relativeToSource.toString() + '.html' 
+    return rootUrl + relativeToSource.toString() + ".html";
   }
 
   get repo() {
     const repoAtPath = this.path.repo;
     if (!repoAtPath) {
       console.log(
-        `from File.repo: File at path '${this.path}' is not in a repo`
+        `From File.repo: File at path '${this.path}' is not in a repo`
       );
       return null;
     }

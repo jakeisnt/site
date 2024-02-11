@@ -60,8 +60,6 @@ const readFile = (incomingPath, { sourceDir, fallbackSourceDir } = {}) => {
   // get the file extension
   let path = Path.create(incomingPath);
 
-  console.log(path.toString());
-
   // if the path doesn't exist, try it against a fallback
   if (!path.exists() && sourceDir && fallbackSourceDir) {
     path = path.relativeTo(sourceDir, fallbackSourceDir);
@@ -74,7 +72,7 @@ const readFile = (incomingPath, { sourceDir, fallbackSourceDir } = {}) => {
       `We don't have a filetype mapping for files with extension ${extension}. Assuming plaintext for file at path '${path.toString()}'.`
     );
 
-    return TextFile.create(incomingPath);
+    return TextFile.create(path);
   }
 
   const FiletypeClass = filetypeMap[extension];
