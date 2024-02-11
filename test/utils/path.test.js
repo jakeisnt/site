@@ -16,6 +16,20 @@ test("Get the parent of a path", () => {
   expect(Path.create("/").parent).toEqual(Path.create("/"));
 });
 
+test("relativeTo poop", () => {
+  const path = Path.create(
+    "/Users/jake/Desktop/personal/site/resources/style.css"
+  );
+
+  const relative = path.relativeTo(
+    "/Users/jake/Desktop/personal",
+    "/Users/jake/wiki"
+  );
+  expect(relative).toEqual(
+    new Path("/Users/jake/wiki/site/resources/style.css")
+  );
+});
+
 test("relativeTo paths", () => {
   const path = Path.create("/a/b/c");
   const relative = path.relativeTo("/a");

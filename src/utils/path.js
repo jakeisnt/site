@@ -214,7 +214,7 @@ class Path {
     }
 
     if (maybeReplaceWithPath) {
-      resultingPath = replaceWith.toString() + resultingPathString;
+      resultingPathString = replaceWith.toString() + resultingPathString;
     }
 
     return Path.create(resultingPathString);
