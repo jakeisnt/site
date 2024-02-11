@@ -205,7 +205,13 @@ class Path {
 
         // if the paths don't share prefixes at all, idk.
       } else {
-        console.log({ prefixFolderName, replaceWith, curPathArray });
+        console.log({
+          prefixFolderName,
+          otherPath: otherPath.toString(),
+          replaceWith,
+          curPathArray,
+          path: this.pathString,
+        });
 
         console.warn(
           `'${otherPath.pathString}' is not a prefix of this path, '${this.pathString}'`
