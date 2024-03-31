@@ -55,13 +55,12 @@ type HtmlAttributes = {
   [key: string | number]: string | number | Function;
 };
 
-type HtmlNode = string | number | HtmlTagNode;
+type HtmlNode = string | number | HtmlTagNode | HtmlNode[];
 type HtmlTagNode =
-  | HtmlNode[]
   | [HtmlTag]
   | [HtmlTag, ...HtmlNode[]]
   | [HtmlTag, HtmlAttributes, ...HtmlNode[]];
 
 type PageSyntax = HtmlNode;
 
-export type { HtmlTag, PageSyntax, HtmlAttributes };
+export type { HtmlTag, PageSyntax, HtmlNode, HtmlTagNode, HtmlAttributes };

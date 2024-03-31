@@ -1,22 +1,38 @@
 import { isObject } from "utils/object";
 import { isArray } from "utils/array";
-import { HtmlTag } from "../types/html";
+import {
+  HtmlTag,
+  HtmlNode,
+  HtmlTagNode,
+  PageSyntax,
+  HtmlAttributes,
+} from "../types/html";
+
+/**
+ * Is `attrs` a set of HTML attributes`
+ */
+const isHtmlAttributes = (attrs: any): attrs is HtmlAttributes => {
+  return isObject(attrs);
+};
 
 // Utilities for parsing the HTML DSL internal to this project.
 
 /**
  * Get the name of a tag.
  */
-const tagName = ([name]) => name;
+const tagName = ([name]: HtmlTagNode) => name;
 
 /**
  * Get the attributes object of a tag.
  */
-const tagAttributes = ([, attributes]) => {
-  return isObject(attributes) ? attributes : null;
+const tagAttributes = ([, attributes]: HtmlTagNode) => {
+  return isHtmlAttributes(attributes) ? attributes : undefined;
 };
 
-const headingRank = (headingTag) => {
+/**
+ * Get the sorting rank of an HTML heading.
+ */
+const headingRank = (headingTag: HtmlTag) => {
   switch (headingTag) {
     case "h1":
       return 1;
@@ -35,7 +51,10 @@ const headingRank = (headingTag) => {
   }
 };
 
-const collectElements = (htmlPage, predicate) => {
+const collectElements = (
+  htmlPage: PageSyntax,
+  predicate: (node: HtmlNode) => boolean
+) => {
   // assume we only look for roots, so we return directly here lol
   if (predicate(htmlPage)) {
     return [htmlPage];
@@ -48,32 +67,36 @@ const collectElements = (htmlPage, predicate) => {
   return [];
 };
 
-// find html elements with the given tag names on an html page
-const findTags = (htmlPage, tags: HtmlTag[]) => {
-  const elems = collectElements(
+/**
+ * Find html elements with the given tag names on an html page
+ */
+const findTags = (htmlPage: PageSyntax, tags: HtmlTag[]) => {
+  return collectElements(
     htmlPage,
     (tl) => tl && tl?.[0] && tags.includes(tl?.[0])
   );
-  return elems;
 };
 
-// Get the link(s) embedded in an HTML tag
-// for example, the 'href' field of an <a> tag,
-// the 'link' of a 'style' tag,
-// or the 'src' of a 'script' tag.
-const getTagLink = (tag) => {
+/**
+ * Get the link(s) embedded in an HTML tag
+ * for example, the 'href' field of an <a> tag,
+ * the 'link' of a 'style' tag,
+ * or the 'src' of a 'script' tag.
+ */
+const getTagLink = (tag: HtmlTagNode) => {
   const name = tagName(tag);
   const attrs = tagAttributes(tag);
 
-  // NOTE: there is a bug here where some attrs to an a tag are null. not sure why.
-
+  // NOTE: There is a bug here where some attrs to an a tag are null. Not sure why.
   switch (true) {
     case ["a", "href", "link"].includes(name):
-      return tagAttributes(tag)?.href;
+      return attrs?.href;
     case ["img", "script"].includes(name):
-      return tagAttributes(tag)?.src;
+      return attrs?.src;
     default:
-      throw new Error("No link found in tag, invalid input to getLinkTag", tag);
+      throw new Error(
+        `No link found in tag, invalid input to getLinkTag: ${tag.toString()}`
+      );
   }
 };
 

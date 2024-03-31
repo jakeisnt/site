@@ -5,22 +5,31 @@ import logger from "./log";
 import mime from "mime";
 import { Repo } from "./git";
 
-const removePostfixedSlash = (pathString) => {
+/**
+ * If a path string has a postfixed slash, remove it.
+ */
+const removePostfixedSlash = (pathString: string) => {
   if (pathString[pathString.length - 1] === "/") {
     return pathString.slice(0, pathString.length - 1);
-  } else {
-    return pathString;
   }
+
+  return pathString;
 };
 
-// a Path is the path to a file or directory on a system.
+/**
+ * A Path is the path to a file or directory on a system.
+ */
 class Path {
-  // this params are immutable, so it's safe to store both and use directly
-  pathArray = [];
-  pathString = "";
-  parentPath = null;
+  // These params are immutable, so it's safe to store both
+  // and access them directly.
+  private pathArray: string[] = [];
+  private pathString: string = "";
+  private parentPath: Path = null;
 
   /**
+   * Construct a Path.
+   * Do not call this directly.
+   *
    * Works for both relative and absolute paths, fixing them into absolute paths as needed.
    * this should only be called by the static methods.
    */
@@ -41,7 +50,7 @@ class Path {
   }
 
   /**
-   * Create a path.
+   * Create a path. Call this to make a path.
    * @param maybePathString either an existing Path or a string.
    */
   static create(maybePathString: Path | string) {
@@ -49,11 +58,11 @@ class Path {
       return new Path(maybePathString);
     } else if (maybePathString instanceof Path) {
       return maybePathString;
-    } else {
-      throw new Error(
-        `Path provided must be a string or Path, given ${maybePathString}`
-      );
     }
+
+    throw new Error(
+      `Path provided must be a string or Path, given ${maybePathString}`
+    );
   }
 
   /**
@@ -103,11 +112,9 @@ class Path {
       return ext;
     } else if (this.exists() && this.isDirectory()) {
       return "dir";
-    } else {
-      // TODO: what should the file look like if we don't have an extension and it
-      // s not a directory?
-      return ext;
     }
+
+    return ext;
   }
 
   /**
@@ -140,9 +147,9 @@ class Path {
 
     if (gitDir.exists()) {
       return Repo.create(this);
-    } else {
-      return this.parent.__repo();
     }
+
+    return this.parent.__repo();
   }
 
   // get the git repo that this path is a member of
@@ -152,9 +159,7 @@ class Path {
     }
 
     const rootRepo = this.__repo();
-    if (rootRepo) {
-      return rootRepo;
-    }
+    return rootRepo ?? undefined;
   }
 
   /**

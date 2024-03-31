@@ -1,27 +1,10 @@
 // styles things that print out to the cli
-
-enum TerminalColors {
-  red = 31,
-  green = 32,
-  yellow = 33,
-  blue = 34,
-  magenta = 35,
-  cyan = 36,
-  grey = 90,
-}
-
-enum KeyCodes {
-  ESC = "\u001B[",
-  OSC = "\u001B]",
-  BEL = "\u0007",
-  SEP = ";",
-}
+import { TerminalColors, KeyCodes } from "../types/ascii";
 
 /**
  * Generate link text in the terminal.
- * @param text
- * @param url
- * @returns
+ * @param text the text to show for the link.
+ * @param url the url that the link should direct the user to.
  */
 const linkText = (text: string, url: string) =>
   [
@@ -52,15 +35,18 @@ function colorText(str: string, color: TerminalColors) {
   return "\x1b[" + TerminalColors[color] + "m" + str + "\x1b[0m";
 }
 
+/**
+ * Configure the style of text to print to the console.
+ */
 class PrintStyle {
-  isBold = false;
-  isItalic = false;
-  isUnderlined = false;
-  colorName = null;
-  text = "";
-  url = null;
+  private isBold = false;
+  private isItalic = false;
+  private isUnderlined = false;
+  private colorName: TerminalColors = null;
+  private text = "";
+  private url = null;
 
-  constructor(text) {
+  constructor(text: string) {
     this.text = text;
   }
 
@@ -83,14 +69,14 @@ class PrintStyle {
     return this;
   }
 
-  color(colorName) {
+  color(colorName: string) {
     if (!(colorName in TerminalColors)) {
       throw new Error(
         `Tried to color a terminal value. ${colorName} is not a valid color`
       );
     }
 
-    this.colorName = colorName;
+    this.colorName = colorName as any as TerminalColors;
     return this;
   }
 
@@ -127,11 +113,21 @@ function style(text: string) {
   return new PrintStyle(text);
 }
 
+/**
+ * Make text bold when rendering to the terminal.
+ * @param text
+ * @returns
+ */
 function bold(text: string) {
   return new PrintStyle(text).bold();
 }
 
-function color(text: string, colorName) {
+/**
+ * Choose a color for text that's rendered to the terminal.
+ * @param text the text to color
+ * @param colorName the color to use for the text.
+ */
+function color(text: string, colorName: string) {
   return new PrintStyle(text).color(colorName);
 }
 

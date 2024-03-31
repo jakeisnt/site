@@ -1,14 +1,13 @@
 import { HtmlPage } from "../../html";
 import File from "./file";
 import { renderArticle } from "./utils";
+import { PageSettings } from "../../types/site";
 
 const renderTextFile = ({
   file,
-  rootUrl,
-  siteName,
-  sourceDir,
-  resourcesDir,
-  faviconsDir,
+  ...config
+}: PageSettings & {
+  file: TextFile;
 }) => {
   const articleHtml = [
     "pre",
@@ -18,11 +17,7 @@ const renderTextFile = ({
   return renderArticle({
     file,
     articleHtml,
-    rootUrl,
-    siteName,
-    sourceDir,
-    resourcesDir,
-    faviconsDir,
+    ...config,
   });
 };
 
