@@ -6,6 +6,7 @@ import { formatUrl, makeFileResponse } from "./utils";
 import { readFile } from "../file";
 import { makeHomePage } from "pages/home";
 import { createServer } from "./createServer";
+import Directory from "../file/filetype/directory";
 
 /**
  * Serve the files in a directory.
@@ -33,7 +34,7 @@ const directoryServer = ({
   });
 
   const devUrl = formatUrl({ url, port });
-  let fallbackDir;
+  let fallbackDir: Directory;
 
   try {
     fallbackDir =
@@ -45,8 +46,6 @@ const directoryServer = ({
   } catch (e) {
     log.debug("Error finding fallback dir:", e.message);
   }
-
-  console.log(typeof dir, dir, dir.isDirectory());
 
   if (!dir.isDirectory()) {
     throw new Error(
