@@ -6,7 +6,11 @@ import { cli } from "utils/cli";
 import { buildFromPath } from "./build.js";
 import { singleFileServer, directoryServer } from "./server";
 import { Path } from "utils/path";
-import { sourceDir as SITE_DIRECTORY } from "./constants";
+import {
+  sourceDir as SITE_DIRECTORY,
+  siteName,
+  deploymentBranch,
+} from "./constants";
 
 // paths to ignore by default from the website we build
 const commonIgnorePaths = [".git", "node_modules"];
@@ -31,7 +35,7 @@ const build = (incomingPaths) => {
   const rootUrl = paths[3] ?? "file://" + targetDir.toString();
 
   buildFromPath({
-    siteName: "Jake Chvatal",
+    siteName,
     rootUrl,
     sourceDir: sourceDir,
     fallbackSourceDir,
@@ -46,7 +50,7 @@ const deployWebsite = () => {
 
   deploy({
     currentRepo,
-    deploymentBranch: "production",
+    deploymentBranch,
     targetDir: Path.create("./docs").toString(),
   });
 };

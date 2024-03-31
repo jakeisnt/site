@@ -3,12 +3,10 @@
  * Only 'main.js' should import this file.
  */
 
-const sourceUrl = "https://github.com/jakeisnt/wiki";
 const sourceDir = "/Users/jake/Documents/personal/site";
 const siteName = "Jake Chvatal";
 const deploymentBranch = "production";
-const targetDir = "/home/jake/site/docs";
-const targetUrl = "https://jake.isnt.online";
+const targetDir = sourceDir + "/docs";
 const localPort = 4242;
 
 const sitePaths = [
@@ -131,4 +129,4 @@ const personal = {
 
 const lastModifiedFile = "docs/last-modified.txt";
 
-export { website, deploymentBranch, targetDir, sourceDir, localPort };
+export { website, deploymentBranch, targetDir, sourceDir, localPort, siteName };
