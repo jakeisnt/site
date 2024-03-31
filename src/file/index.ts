@@ -50,17 +50,29 @@ const getFiletypeMap = () => {
   return newFiletypeMap;
 };
 
-// given the source path of a file, return the appropriate file class
-const readFile = (incomingPath, { sourceDir, fallbackSourceDir } = {}) => {
+/**
+ * Given the source path of a file, return the appropriate file class.
+ * @param {string} incomingPath - The source path of the file.
+ * @param {Object} options - Additional options.
+ * @param {string} options.sourceDir - The source directory.
+ * @param {string} options.fallbackSourceDir - The fallback source directory.
+ * @returns {Object} The appropriate file class.
+ */
+const readFile = (
+  incomingPath: string,
+  options?: { sourceDir: string; fallbackSourceDir: string }
+) => {
   logger.file(`Reading file at ${incomingPath.toString()}`);
   if (!filetypeMap) {
     filetypeMap = getFiletypeMap();
   }
 
-  // get the file extension
+  const { sourceDir, fallbackSourceDir } = options ?? {};
+
+  // Get the file extension
   let path = Path.create(incomingPath);
 
-  // if the path doesn't exist, try it against a fallback
+  // If the path doesn't exist, try it against a fallback
   if (!path.exists() && sourceDir && fallbackSourceDir) {
     path = path.relativeTo(sourceDir, fallbackSourceDir);
   }
