@@ -25,6 +25,10 @@ const singleFileServer = ({
 
   let wsClientConnection = null;
 
+  const sourceDir = file.path.parent.toString();
+  const resourcesDir = `${sourceDir}/resources`;
+  const faviconsDir = `${sourceDir}/favicons`;
+
   createServer({
     url,
     port: localPort,
@@ -32,9 +36,12 @@ const singleFileServer = ({
     onRequest: () => {
       return makeFileResponse(file, {
         siteName,
-        sourceDir: file.path,
+        sourceDir,
         devUrl,
         devWebsocketUrl,
+        resourcesDir,
+        faviconsDir,
+        targetDir: sourceDir,
       });
     },
     onSocketConnected: (ws) => {
