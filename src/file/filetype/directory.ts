@@ -3,6 +3,7 @@ import JSFile from "./js.js";
 import { readFile } from "file";
 import { header, component } from "html";
 import HtmlPage from "../../html/builder.js";
+import { PageSettings } from "../../types/site.js";
 
 const readJSFile = (path) => {
   return new JSFile(path);
@@ -47,12 +48,15 @@ const folderIndexPageTable = ({ files, rootUrl, sourceDir }) => {
   ];
 };
 
-const directoryToHtml = (dir, { files, rootUrl, siteName, sourceDir }) => {
+const directoryToHtml = (
+  dir,
+  { files, rootUrl, siteName, sourceDir, resourcesDir, faviconsDir }
+) => {
   const title = dir.name;
 
   return [
     "html",
-    header({ title, siteName, rootUrl }),
+    header({ title, siteName, rootUrl, resourcesDir, faviconsDir }),
     [
       "body",
       component("Sidebar", { path: dir.path, title, sourceDir, rootUrl }),
@@ -148,6 +152,8 @@ class Directory extends File {
     // this is e.g. '/site/docs/' and mkdir /site/docs/
     const targetPath = this.path.relativeTo(sourceDir, targetDir);
     targetPath.make({ isDirectory: true });
+
+    return this;
   }
 
   // the dependencies of a directory are all of the files that it contains,
@@ -166,15 +172,12 @@ class Directory extends File {
     return true;
   }
 
-  asHtml(settings) {
+  asHtml(settings: PageSettings) {
     if (!this.enumeratedHtml) {
-      const { siteName, rootUrl, sourceDir } = settings;
       const files = this.contents();
       const page = directoryToHtml(this, {
         files,
-        siteName,
-        rootUrl,
-        sourceDir,
+        ...settings,
       });
 
       this.enumeratedHtml = HtmlPage.create(page, settings);

@@ -1,15 +1,11 @@
 import { readFile } from "../file";
 import { htmlPage } from "./dsl";
 import { getTagLink, findTags } from "./parseDSL";
-
-type Settings = {
-  rootUrl: string;
-  sourceDir: string;
-  fallbackSourceDir?: string;
-};
+import { PageSettings } from "../types/site";
+import { PageSyntax } from "../types/html";
 
 // is the link string that we are provided internal?
-const isInternalLink = (l, settings: Settings) => {
+const isInternalLink = (l, settings: PageSettings) => {
   const { rootUrl } = settings;
 
   if (l.includes(rootUrl)) {
@@ -27,7 +23,7 @@ const isInternalLink = (l, settings: Settings) => {
 
 // Convert a link string to a legitimate file path on disk.
 // probably requires more arguments
-const linkStringToFile = (l, settings: Settings) => {
+const linkStringToFile = (l, settings: PageSettings) => {
   const { sourceDir, rootUrl } = settings;
 
   // remove the leading rootUrl from the link if it exists
@@ -43,15 +39,15 @@ const linkStringToFile = (l, settings: Settings) => {
 // Represents an HTML AST that may not be associated with a file
 class HtmlPage {
   private pageStructure;
-  private currentBuildSettings: Settings;
+  private currentBuildSettings: PageSettings;
   private cachedDependencies;
 
-  constructor(pageSyntax, settings: Settings) {
+  constructor(pageSyntax, settings: PageSettings) {
     this.pageStructure = pageSyntax;
     this.currentBuildSettings = settings;
   }
 
-  static create(pageSyntax, settings: Settings) {
+  static create(pageSyntax: PageSyntax, settings: PageSettings) {
     return new this(pageSyntax, settings);
   }
 
@@ -63,7 +59,6 @@ class HtmlPage {
     if (!this.cachedDependencies) {
       this.cachedDependencies = findTags(this.pageStructure, [
         "a",
-        "href",
         "img",
         "script",
         "link",

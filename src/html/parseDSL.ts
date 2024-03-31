@@ -1,5 +1,6 @@
 import { isObject } from "utils/object";
 import { isArray } from "utils/array";
+import { HtmlTag } from "../types/html";
 
 // Utilities for parsing the HTML DSL internal to this project.
 
@@ -48,7 +49,7 @@ const collectElements = (htmlPage, predicate) => {
 };
 
 // find html elements with the given tag names on an html page
-const findTags = (htmlPage, tags: string[]) => {
+const findTags = (htmlPage, tags: HtmlTag[]) => {
   const elems = collectElements(
     htmlPage,
     (tl) => tl && tl?.[0] && tags.includes(tl?.[0])

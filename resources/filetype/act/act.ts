@@ -12,6 +12,7 @@ var characterSelector = document.getElementById("characterSelector");
 
 /* Get the character names from the character selector. */
 function getCharacterNames() {
+  // @ts-ignore
   return Array.from(characterSelector.childNodes).map((option) => option.value);
 }
 
