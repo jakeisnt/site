@@ -260,8 +260,9 @@ class Path {
    */
   isDirectory({ noFSOperation } = { noFSOperation: false }) {
     if (noFSOperation) {
-      const path = this.pathString.split(".");
-      const extension = path.pop();
+      const extension = this.pathString.split(".")[1];
+
+      console.log("file extension", extension);
       return extension ? false : true;
     }
 
