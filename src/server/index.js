@@ -6,10 +6,10 @@ import log from "utils/log";
 import { readFile } from "../file";
 import { makeHomePage } from "pages/home";
 
-const localPort = 4242; // Your desired port
+import { localPort } from "../constants";
+
 const localhostUrl = `http://localhost`;
 const wsLocalhostUrl = `ws://localhost`;
-
 const devWebsocketPath = "/__devsocket";
 
 // format url

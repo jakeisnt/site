@@ -1,6 +1,7 @@
-// Settings that are necessary for the app to run.
-// Only 'main.js' should import this file.
-// If another file needs them, consider placing those in a different file.
+/**
+ * Settings that are necessary for the app to run.
+ * Only 'main.js' should import this file.
+ */
 
 const sourceUrl = "https://github.com/jakeisnt/wiki";
 const sourceDir = "/Users/jake/Documents/personal/site";
@@ -8,6 +9,7 @@ const siteName = "Jake Chvatal";
 const deploymentBranch = "production";
 const targetDir = "/home/jake/site/docs";
 const targetUrl = "https://jake.isnt.online";
+const localPort = 4242;
 
 const sitePaths = [
   { folder: "resources", forceRebuild: true },
@@ -40,8 +42,6 @@ const website = {
   sources,
   target: targetDir,
 };
-
-const localPort = 4242;
 
 const profiles = [
   {
@@ -131,4 +131,4 @@ const personal = {
 
 const lastModifiedFile = "docs/last-modified.txt";
 
-export { website, deploymentBranch, targetDir, sourceDir };
+export { website, deploymentBranch, targetDir, sourceDir, localPort };
