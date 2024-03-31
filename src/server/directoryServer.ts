@@ -31,18 +31,18 @@ const directoryServer = ({
   const dir = readFile(absolutePathToDirectory, {
     sourceDir: absolutePathToDirectory.toString(),
     fallbackSourceDir: fallbackDirPath,
-  });
+  }) as Directory;
 
   const devUrl = formatUrl({ url, port });
-  let fallbackDir: Directory;
+  let fallbackDir: Directory = undefined;
 
   try {
     fallbackDir =
       fallbackDirPath &&
-      readFile(fallbackDirPath, {
+      (readFile(fallbackDirPath, {
         sourceDir: absolutePathToDirectory.toString(),
         fallbackSourceDir: fallbackDirPath,
-      });
+      }) as Directory);
   } catch (e) {
     log.debug("Error finding fallback dir:", e.message);
   }

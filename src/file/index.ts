@@ -1,8 +1,10 @@
 import { Path } from "utils/path";
+import File from "./classes/file";
 
 import logger from "utils/log";
 import Directory from "./filetype/directory";
 import TextFile from "file/classes/text";
+import JavascriptFile from "./filetype/js";
 
 // this file should be a standard interface for interacting with files.
 //
@@ -12,7 +14,7 @@ import TextFile from "file/classes/text";
 // import all the files from the 'filetype' directory
 // and associate them with their filetype names
 
-let filetypeMap;
+let filetypeMap: { [key: string]: typeof File };
 
 // obtain a map of file to filetype
 const getFiletypeMap = () => {
@@ -25,7 +27,7 @@ const getFiletypeMap = () => {
   // a file is before we can create it. but we need to create it
   dir
     .contents({ omitNonJSFiles: true })
-    .map((file) => {
+    .map((file: JavascriptFile) => {
       // because we have a js file, we know we can require it
       const fileClass = file.require();
       // default to using the raw 'fileClass' if there is no default export (?)
@@ -38,7 +40,7 @@ const getFiletypeMap = () => {
         );
       }
 
-      fileClass.filetypes.forEach((fileType) => {
+      fileClass.filetypes.forEach((fileType: string) => {
         if (newFiletypeMap[fileType]) {
           throw new Error(`Filetype ${fileType} already exists`);
         }
@@ -61,7 +63,7 @@ const getFiletypeMap = () => {
 const readFile = (
   incomingPath: string | Path,
   options?: { sourceDir: string; fallbackSourceDir?: string }
-) => {
+): File => {
   logger.file(`Reading file at ${incomingPath.toString()}`);
   if (!filetypeMap) {
     filetypeMap = getFiletypeMap();

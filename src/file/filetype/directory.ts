@@ -98,7 +98,7 @@ class Directory extends File {
     const childFiles = [];
 
     myContents.forEach((file) => {
-      if (file.isDirectory) {
+      if (file.isDirectory()) {
         childFiles.push(...file.tree());
       } else {
         childFiles.push(file);
@@ -118,7 +118,7 @@ class Directory extends File {
     { omitNonJSFiles = false }: { omitNonJSFiles: boolean } = {
       omitNonJSFiles: false,
     }
-  ) {
+  ): File[] {
     // special case for the js files: make sure they all exist.
     // don't cache this because we only want the default full dir cached.
     if (omitNonJSFiles) {
@@ -138,7 +138,7 @@ class Directory extends File {
       return this.enumeratedContents;
     }
 
-    const fileContents = this.path.readDirectory().map(readFile);
+    const fileContents = this.path.readDirectory().map((v) => readFile(v));
     this.enumeratedContents = fileContents;
     return fileContents;
   }
@@ -196,7 +196,7 @@ class Directory extends File {
     return this.enumeratedHtml;
   }
 
-  serve(args) {
+  serve(args: PageSettings) {
     return { contents: this.asHtml(args).toString(), mimeType: this.mimeType };
   }
 

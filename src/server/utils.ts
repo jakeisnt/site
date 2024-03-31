@@ -53,17 +53,26 @@ const makeFileResponse = (
     sourceDir,
     devUrl,
     devWebsocketUrl,
+    resourcesDir,
+    faviconsDir,
+    targetDir,
   }: {
     siteName: string;
     sourceDir: string;
     devUrl: string;
     devWebsocketUrl: string;
+    resourcesDir;
+    faviconsDir;
+    targetDir;
   }
 ) => {
   const { contents, mimeType } = file.serve({
     siteName,
     rootUrl: devUrl,
     sourceDir,
+    targetDir,
+    resourcesDir,
+    faviconsDir,
   });
 
   let responseText =

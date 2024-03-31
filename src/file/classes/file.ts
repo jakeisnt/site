@@ -1,9 +1,11 @@
 import { Path } from "../../utils/path";
 import { readFile } from "file";
+import Directory from "../filetype/directory";
+import { PageSettings } from "../../types/site";
 
 class File {
   // the full path to the file
-  public path = null;
+  public path: Path = null;
 
   // make the path a full path if it's not
   // if the file doesn't exist, throw an error
@@ -62,7 +64,7 @@ class File {
   }
 
   // I hope the file is not a directory
-  isDirectory() {
+  isDirectory(): this is Directory {
     return false;
   }
 
@@ -119,10 +121,17 @@ class File {
     return [];
   }
 
-  serve(args: any): { contents: string; mimeType: string } {
+  /**
+   * Serve the file.
+   * By default, this should serve the file as a binary?
+   */
+  serve(args: PageSettings): { contents: string; mimeType: string } {
     throw new Error("File.serve() is not implemented");
   }
 
+  /**
+   * Watch the file for any listeners.
+   */
   watch(callback) {
     const closeWatcher = this.path.watch((eventType, filename) => {
       callback(eventType, this);
