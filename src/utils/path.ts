@@ -191,8 +191,7 @@ class Path {
 
     if (!this.pathString.startsWith(otherPath.toString())) {
       throw new Error(
-        "Path we are removing is no present on the current path",
-        { path: this.pathString, maybeOtherPath }
+        `Path we are removing is no present on the current path. Was looking for path: ${this.pathString} relative to ${maybeOtherPath}`
       );
     }
 
@@ -227,8 +226,7 @@ class Path {
   isDirectory() {
     if (!this.exists()) {
       throw new Error(
-        "Cannot check if a path is a directory if it doesn't exist",
-        this.pathString
+        `Cannot check if a path is a directory if it doesn't exist. Was looking for path: ${this.pathString}`
       );
     }
 

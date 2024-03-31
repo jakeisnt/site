@@ -1,7 +1,7 @@
 // command execution made stupid simple
+import { promisify } from "util";
 
-import util from 'util';
-const exec = util.promisify(require('child_process').exec);
-const execSync = require('child_process').execSync;
+const exec = promisify(require("child_process").exec);
+const execSync = require("child_process").execSync;
 
 export { exec, execSync };

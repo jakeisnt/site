@@ -2,6 +2,9 @@
 import { makeSpaces } from "./string";
 import { bold, color } from "./printstyle";
 
+/**
+ * Configure a single command line option.
+ */
 class Option {
   private name: string;
   private description: string;

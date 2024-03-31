@@ -1,46 +1,55 @@
 // styles things that print out to the cli
 
-const TERMINAL_COLORS = {
-  red: 31,
-  green: 32,
-  yellow: 33,
-  blue: 34,
-  magenta: 35,
-  cyan: 36,
-  grey: 90,
-};
-
-const ESC = '\u001B[';
-const OSC = '\u001B]';
-const BEL = '\u0007';
-const SEP = ';';
-
-const linkText = (text, url) => [
-  OSC,
-  '8',
-  SEP,
-  SEP,
-  url,
-  BEL,
-  text,
-  OSC,
-  '8',
-  SEP,
-  SEP,
-  BEL,
-].join('');
-
-const underlineText = (text) => {
-  return `\u001b[4m${text}\u001b[24m`;
+enum TerminalColors {
+  red = 31,
+  green = 32,
+  yellow = 33,
+  blue = 34,
+  magenta = 35,
+  cyan = 36,
+  grey = 90,
 }
 
-function boldText(text) {
+enum KeyCodes {
+  ESC = "\u001B[",
+  OSC = "\u001B]",
+  BEL = "\u0007",
+  SEP = ";",
+}
+
+/**
+ * Generate link text in the terminal.
+ * @param text
+ * @param url
+ * @returns
+ */
+const linkText = (text: string, url: string) =>
+  [
+    KeyCodes.OSC,
+    "8",
+    KeyCodes.SEP,
+    KeyCodes.SEP,
+    url,
+    KeyCodes.BEL,
+    text,
+    KeyCodes.OSC,
+    "8",
+    KeyCodes.SEP,
+    KeyCodes.SEP,
+    KeyCodes.BEL,
+  ].join("");
+
+const underlineText = (text: string) => {
+  return `\u001b[4m${text}\u001b[24m`;
+};
+
+function boldText(text: string) {
   return `\x1b[1m${text}\x1b[0m`;
 }
 
 // change the color of the text when printing it out
-function colorText(str, color) {
-  return '\x1b[' + TERMINAL_COLORS[color] + 'm' + str + '\x1b[0m';
+function colorText(str: string, color: TerminalColors) {
+  return "\x1b[" + TerminalColors[color] + "m" + str + "\x1b[0m";
 }
 
 class PrintStyle {
@@ -48,7 +57,7 @@ class PrintStyle {
   isItalic = false;
   isUnderlined = false;
   colorName = null;
-  text = '';
+  text = "";
   url = null;
 
   constructor(text) {
@@ -61,9 +70,11 @@ class PrintStyle {
     return this;
   }
 
-  // add a link with a url.
-  // if a url is not provided, assume the text is also the url
-  link(maybeUrl) {
+  /**
+   * add a link with a url.
+   * if a url is not provided, assume the text is also the url.
+   */
+  link(maybeUrl?: string) {
     if (maybeUrl) {
       this.url = maybeUrl;
     } else {
@@ -73,8 +84,10 @@ class PrintStyle {
   }
 
   color(colorName) {
-    if (!(colorName in TERMINAL_COLORS)) {
-      throw new Error(`Tried to color a terminal value. ${colorName} is not a valid color`);
+    if (!(colorName in TerminalColors)) {
+      throw new Error(
+        `Tried to color a terminal value. ${colorName} is not a valid color`
+      );
     }
 
     this.colorName = colorName;
@@ -86,51 +99,48 @@ class PrintStyle {
     return this;
   }
 
-  // redefine toString behavior
+  /**
+   * Redefine the default toString behavior to pretty-print.
+   * @returns
+   */
   toString() {
     let str = this.text;
     if (this.url) {
       str = linkText(str, this.url);
     }
     if (this.isBold) {
-        str = boldText(str);
+      str = boldText(str);
     }
     if (this.colorName) {
-        str = colorText(str, this.colorName);
+      str = colorText(str, this.colorName);
     }
 
     if (this.isUnderlined) {
-        str = underlineText(str);
+      str = underlineText(str);
     }
 
     return str;
   }
 }
 
-function style(text) {
+function style(text: string) {
   return new PrintStyle(text);
 }
 
-function bold(text) {
-  return new PrintStyle(text).bold()
+function bold(text: string) {
+  return new PrintStyle(text).bold();
 }
 
-function color(text, colorName) {
+function color(text: string, colorName) {
   return new PrintStyle(text).color(colorName);
 }
 
-function link(text, url) {
+function link(text: string, url: string) {
   return new PrintStyle(text).link(url);
 }
 
-function underline(text) {
+function underline(text: string) {
   return new PrintStyle(text).underline();
 }
 
-export {
-  style,
-  bold,
-  color,
-  link,
-  underline,
-}
+export { style, bold, color, link, underline };

@@ -1,8 +1,10 @@
 import { execSync } from "../cmd";
 import RepoFile from "./repofile";
 
-// a git repository is a directory with a .git subdirectory
-// This is basically a git porcelain that keeps the current repo
+/**
+ * a git repository is a directory with a .git subdirectory
+ * This is basically a git porcelain that keeps the current repo
+ */
 class Repo {
   // the full path to the repository
   // this is the directory that contains the .git subdirectory
@@ -12,11 +14,12 @@ class Repo {
   // optional?
   remoteUrl = null;
 
-  constructor(path) {
+  constructor(path: string, remotePath?: string) {
     this.path = path;
+    this.remoteUrl = remotePath;
   }
 
-  static create(sourcePath, remotePath) {
+  static create(sourcePath: string, remotePath?: string) {
     const repo = new Repo(sourcePath, remotePath);
     return repo;
   }

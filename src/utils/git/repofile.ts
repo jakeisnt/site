@@ -1,7 +1,9 @@
 import RepoCommit from "./commit";
 import logger from "utils/log";
 
-// A file we know to be in a git repo
+/**
+ * A file we know to be in a git repository.
+ */
 class RepoFile {
   // the path to the file
   path = null;
@@ -20,7 +22,7 @@ class RepoFile {
   }
 
   // get the link to this file in git history at a particular commit
-  historyLink(longHash) {
+  historyLink(longHash: string) {
     return this.repo.historyLink(longHash, this.path);
   }
 
