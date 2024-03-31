@@ -1,65 +1,63 @@
 // utilities for creating cli programs
-import { makeSpaces } from './string';
-import { bold, color } from './printstyle';
-
-// api:
-// cli('name')
-//   .describe('description')
-//   .option(name).describe(desc).action(fn)
-//   .option(name).describe(desc).action(fn)
-//   .exec(argv)
+import { makeSpaces } from "./string";
+import { bold, color } from "./printstyle";
 
 class Option {
-  constructor(name, creator) {
+  private name: string;
+  private description: string;
+  private apply: Function;
+  private creator: CLI;
+
+  constructor(name: string, creator: CLI) {
     this.name = name;
-    this.description = '';
+    this.description = "";
     this.apply = () => {};
     this.creator = creator;
   }
 
-  describe(desc) {
+  describe(desc: string) {
     this.description = desc;
     return this;
   }
 
-  action(fn) {
+  action(fn: Function) {
     this.apply = fn;
     return this;
   }
 
-  option(name) {
+  option(name: string) {
     return this.creator.option(name);
   }
 
-  exec(args) {
+  exec(args: string[]) {
     return this.creator.exec(args);
   }
 }
 
 class CLI {
-  name = '';
-  options = [];
-  description = null;
+  private name = "";
+  private options = [];
+  private description = null;
 
-  constructor(name = '<command>') {
+  constructor(name: string = "<command>") {
     this.name = name;
     this.options = [];
   }
 
-  option(name) {
+  option(name: string) {
     const option = new Option(name, this);
     this.options.push(option);
     return option;
   }
 
-  describe(desc) {
+  describe(desc: string) {
     this.description = desc;
     return this;
   }
 
-  exec(args) {
+  exec(args: string[]) {
     this.addHelpOption();
-    const option = this.options.find(o => o.name === args[0]);
+    const option = this.options.find((o) => o.name === args[0]);
 
     if (option) {
       option.apply(args.slice(1));
@@ -72,28 +70,44 @@ class CLI {
   // the help option needs to reference `this`,
   // so it can't be added in the constructor
   addHelpOption() {
-    this.option('help')
-      .describe('Show help')
+    this.option("help")
+      .describe("Show help")
       .action(() => this.printHelp());
 
     return this;
   }
 
   printHelp() {
-    console.log(`${bold(this.name)}${this.description ? `: ${this.description}` : ''}`);
+    console.log(
+      `${bold(this.name)}${this.description ? `: ${this.description}` : ""}`
+    );
     console.log(``);
-    const maxNameLength = this.options.reduce((max, o) => Math.max(max, o.name.length), 0);
+    const maxNameLength = this.options.reduce(
+      (max, o) => Math.max(max, o.name.length),
+      0
+    );
 
-    this.options.forEach(o => {
+    this.options.forEach((o) => {
       const spaces = makeSpaces(maxNameLength - o.name.length);
-      console.log(`  ${color(o.name, 'blue')} ${spaces} ${o.description}`);
+      console.log(`  ${color(o.name, "blue")} ${spaces} ${o.description}`);
     });
 
     console.log(``);
   }
 }
 
-function cli(...args) {
+/**
+ * Create a new CLI.
+ * @param args the string of arguments passed to the cli wehn created.
+ *
+ * api:
+ * cli('name')
+ *   .describe('description')
+ *   .option(name).describe(desc).action(fn)
+ *   .option(name).describe(desc).action(fn)
+ *   .exec(argv)
+ */
+function cli(...args: string[]) {
   return new CLI(...args);
 }
 

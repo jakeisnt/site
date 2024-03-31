@@ -70,7 +70,7 @@ const deployWebsite = () => {
  * Serve whatever is on the path provided.
  * @param {*} incomingPaths a list of paths to serve from.
  */
-const serve = (incomingPaths) => {
+const serve = (incomingPaths?: string[]) => {
   const paths = incomingPaths?.length ? incomingPaths : ["."];
 
   const path = Path.create(paths[0]);
