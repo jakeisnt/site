@@ -135,10 +135,17 @@ function color(text: string, colorName) {
   return new PrintStyle(text).color(colorName);
 }
 
-function link(text: string, url: string) {
+/**
+ * Accepts a string and a url. Prints a link.
+ * If no url is provided, the text is assumed to be the url.
+ */
+function link(text: string, url?: string) {
   return new PrintStyle(text).link(url);
 }
 
+/**
+ * Prints an underlined version of the text.
+ */
 function underline(text: string) {
   return new PrintStyle(text).underline();
 }
