@@ -12,7 +12,7 @@ const prop = (key, value): PageSyntax => {
 
 type HtmlOptions = {};
 
-const script = (src: string, opts?: HtmlOptions) => {
+const script = (src: string, opts?: HtmlOptions): PageSyntax => {
   return ["script", { src, id: src, ...opts }];
 };
 
@@ -37,7 +37,10 @@ const favicons = (iconDir: string) => {
   ];
 };
 
-const colorScheme = (schemeName: string, backgroundColor: string) => {
+const colorScheme = (
+  schemeName: string,
+  backgroundColor: string
+): PageSyntax => {
   return [
     "meta",
     {
@@ -49,7 +52,7 @@ const colorScheme = (schemeName: string, backgroundColor: string) => {
 };
 
 // theme headers
-const theme = () => {
+const theme = (): PageSyntax[] => {
   return [colorScheme("light", "white"), colorScheme("dark", "#111")];
 };
 

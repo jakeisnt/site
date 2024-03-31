@@ -4,12 +4,13 @@ import { readFile } from "file";
 import { header, component } from "html";
 import HtmlPage from "../../html/builder.js";
 import { PageSettings } from "../../types/site.js";
+import { PageSyntax } from "../../types/html.js";
 
 const readJSFile = (path) => {
   return new JSFile(path);
 };
 
-const folderIndexPageTable = ({ files, rootUrl, sourceDir }) => {
+const folderIndexPageTable = ({ files, rootUrl, sourceDir }): PageSyntax => {
   return [
     "div",
     { class: "folder-index-page-table" },
@@ -51,7 +52,7 @@ const folderIndexPageTable = ({ files, rootUrl, sourceDir }) => {
 const directoryToHtml = (
   dir,
   { files, rootUrl, siteName, sourceDir, resourcesDir, faviconsDir }
-) => {
+): PageSyntax => {
   const title = dir.name;
 
   return [
