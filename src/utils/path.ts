@@ -20,9 +20,11 @@ class Path {
   pathString = "";
   parentPath = null;
 
-  // works for both relative and absolute paths, fixing them into absolute paths as needed
-  // this should only be called by the static methods
-  constructor(pathString) {
+  /**
+   * Works for both relative and absolute paths, fixing them into absolute paths as needed.
+   * this should only be called by the static methods.
+   */
+  constructor(pathString: string) {
     let normalizedPath = pathLibrary.normalize(pathString);
 
     if (!pathLibrary.isAbsolute(normalizedPath)) {
@@ -38,6 +40,10 @@ class Path {
       .filter((p) => p.length);
   }
 
+  /**
+   * Create a path.
+   * @param maybePathString either an existing Path or a string.
+   */
   static create(maybePathString: Path | string) {
     if (typeof maybePathString === "string") {
       return new Path(maybePathString);
@@ -50,8 +56,10 @@ class Path {
     }
   }
 
-  // returns a new Path with the proper full path
-  static fromUrl(url, websiteName, sourcePath) {
+  /**
+   * Returns a new Path with the proper full path.
+   */
+  static fromUrl(url: string, websiteName: string, sourcePath: string) {
     return new Path(url.replace(websiteName, sourcePath));
   }
 
@@ -59,24 +67,33 @@ class Path {
     return this.pathString;
   }
 
-  // this path is equal to another path if they have the same pathString
-  // if the other path is a string, this is still true
-  equals(otherPath) {
-    return this.pathString === (otherPath?.pathString ?? otherPath);
+  /**
+   * This path is equal to another path if they have the same pathString.
+   * If the other path is a string, this is still true..
+   * @param otherPath The other path to compare this path to.
+   */
+  equals(otherPath: Path | string) {
+    return this.pathString === Path.create(otherPath).pathString;
   }
 
-  // the name of the file includes the extension
+  /**
+   * Get the name of this file, including the extension.
+   */
   get name() {
     return this.pathArray[this.pathArray.length - 1];
   }
 
-  // get the mime type of the file
+  /**
+   * Get the mimeType of this file based on its path string.
+   */
   get mimeType() {
     return mime.getType(this.pathString) || "text/plain";
   }
 
-  // get this file's extension
-  // if we don't have an extension, we find it
+  /**
+   * Get this file's extension.
+   * If we don't have an extension provided, we determine it from disk.
+   */
   get extension() {
     // we always fetch [1], because if the file has multiple extensions
     // we ignore the second and only care about the first.
@@ -93,12 +110,18 @@ class Path {
     }
   }
 
+  /**
+   * Get the parent of this path.
+   */
   get parent() {
     return Path.create(
       "/" + this.pathArray.slice(0, this.pathArray.length - 1).join("/")
     );
   }
 
+  /**
+   * Is this path the root path of the directory?
+   */
   isRootPath() {
     return this.pathArray.length === 0;
   }
@@ -214,7 +237,10 @@ class Path {
     return fs.existsSync(this.pathString);
   }
 
-  replaceExtension(extension) {
+  /**
+   * Replace the path's extension with a new one.
+   */
+  replaceExtension(extension: string) {
     const newPathWithExtension = this.pathString.replace(
       /\.\S+$/,
       `.${extension}`
@@ -245,7 +271,7 @@ class Path {
   }
 
   // write a string to this path, creating the file if it doesn't exist
-  writeString(str) {
+  writeString(str: string) {
     this.make();
     fs.writeFileSync(this.pathString, str);
   }
@@ -277,7 +303,9 @@ class Path {
     // });
   }
 
-  // read a directory, returning the directory paths
+  /**
+   * Read an entire directory, returning all of the paths in the directory.
+   */
   readDirectory() {
     if (!this.isDirectory()) {
       throw new Error(
@@ -297,13 +325,16 @@ class Path {
       .map((fileName) => new Path(`${normalizedPathString}${fileName}`));
   }
 
-  join(nextPart) {
+  join(nextPart: Path | string) {
     logger.file("Joining path", this.pathString, "with", nextPart.toString());
     return new Path(this.pathString + nextPart.toString());
   }
 
-  // not exactly true lol..
-  contains(maybeOtherPathString) {
+  /**
+   * Determines whether this path contains the other.
+   * This implementation is a bit strange and title might not be accurate.
+   */
+  contains(maybeOtherPathString: Path | string) {
     const otherPath = Path.create(maybeOtherPathString);
 
     if (
@@ -323,8 +354,8 @@ class Path {
   }
 
   /**
-   * make this path exist, creating any parent directories along the way
-   * assume the path is a file unless provided that it's a directory
+   * Make this path exist, creating any parent directories along the way.
+   * Assume the path is a file unless provided that it's a directory.
    */
   make(settings?: { isDirectory?: boolean }) {
     const { isDirectory } = settings;
@@ -334,10 +365,9 @@ class Path {
       return this;
     }
 
-    // if this file is supposed to have a parent, then,
+    // If this file is supposed to have a parent, then,
     // by definition, its parent must be a directory.
-    // make sure the parent directory exists.
-
+    // Make sure the parent directory exists.
     if (!this.parent.exists()) {
       console.log(
         "The parent of this path",
@@ -360,7 +390,14 @@ class Path {
     return this;
   }
 
-  watch(callback) {
+  /**
+   * Watch this file for any action.
+   * Invoke a callback listener if the file changes.
+   *
+   * NOTE: We currently don't listen for file change events.
+   * Those cause this to fail because we pass `this` through.
+   */
+  watch(callback: Function) {
     if (!this.exists()) {
       throw new Error(
         `Cannot watch path '${this.pathString}' because it does not exist`
