@@ -53,6 +53,10 @@ const directoryServer = ({
     );
   }
 
+  const sourceDir = dir.path.toString();
+  const resourcesDir = `${sourceDir}/resources`;
+  const faviconsDir = `${sourceDir}/favicons`;
+
   createServer({
     url,
     port,
@@ -92,9 +96,12 @@ const directoryServer = ({
 
       return makeFileResponse(file, {
         siteName,
-        sourceDir: dir.path,
+        sourceDir,
         devUrl,
         devWebsocketUrl,
+        resourcesDir,
+        faviconsDir,
+        targetDir: sourceDir,
       });
     },
 
