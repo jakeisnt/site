@@ -1,8 +1,8 @@
-
 // note: this replacement assumes that the replaced classname is not hte first classname to be modified
 function changeClassName(old, neew) {
-  Array.from(document.getElementsByClassName(old)).forEach(
-    (elem) => {elem.className = elem.className.replace(` ${old}`, ` ${neew}`);});
+  Array.from(document.getElementsByClassName(old)).forEach((elem) => {
+    elem.className = elem.className.replace(` ${old}`, ` ${neew}`);
+  });
 }
 
 var params = new URLSearchParams(window.location.search);
@@ -21,9 +21,9 @@ function characterInUrl() {
 
 function setCharacter(charName) {
   currentCharacter = charName;
-  characterSelector.value = currentCharacter;
+  characterSelector["value"] = currentCharacter;
   params.set("actingAs", charName);
-  window.history.replaceState({}, '', `${location.pathname}?${params}`);
+  window.history.replaceState({}, "", `${location.pathname}?${params}`);
 }
 
 /* Make the chosen character the current character. */
@@ -42,9 +42,9 @@ function cacheCharacters() {
   makeCharacterCurrent(characterInUrl() || characters[0]);
 }
 
-function selectCharacter(e) {
-  makeCharacterCurrent(event.target.value);
+function selectCharacter(e: PointerEvent) {
+  makeCharacterCurrent(e.target.value);
 }
 
 cacheCharacters();
-characterSelector.addEventListener('change', selectCharacter);
+characterSelector.addEventListener("change", selectCharacter);

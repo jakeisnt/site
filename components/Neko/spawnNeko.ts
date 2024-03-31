@@ -1,3 +1,5 @@
+import { create, runOnDesktop } from "../../resources/lib";
+
 // TODO:
 // Go to a specific place to sleep
 // Sit next to the left or right of the cursor, whichever is closer

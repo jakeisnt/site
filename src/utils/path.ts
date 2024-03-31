@@ -263,8 +263,8 @@ class Path {
   }
 
   writeBinary(fromStream) {
-    const outStream = fs.createWriteStream(outPath);
-    inStream.pipe(outStream);
+    // const outStream = fs.createWriteStream(outPath);
+    // inStream.pipe(outStream);
     // TODO
     // await new Promise((resolve) => {
     //   outStream.on('close', resolve);
@@ -320,7 +320,9 @@ class Path {
    * make this path exist, creating any parent directories along the way
    * assume the path is a file unless provided that it's a directory
    */
-  make({ isDirectory = false }: { isDirectory?: boolean }) {
+  make(settings?: { isDirectory?: boolean }) {
+    const { isDirectory } = settings;
+
     if (this.exists()) {
       console.log(".make: File already exists at path ", this.pathString);
       return this;

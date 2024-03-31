@@ -2,6 +2,7 @@
 // right now its just github pages lol
 
 import { Path } from "./utils/path";
+import { exit } from "process";
 
 function commitFolderToBranch({ repo, folderToCommit, targetBranch }) {
   const tmpDir = "/tmp/jake-site-deploy";

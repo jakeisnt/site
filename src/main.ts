@@ -82,7 +82,9 @@ const serve = (incomingPaths?: string[]) => {
       absolutePathToDirectory: path,
       fallbackDirPath: sourceDir,
       url: localhostUrl,
-      localPort,
+      port: localPort,
+      siteName: "Jake Chvatal",
+      devWebsocketUrl: devWebsocketPath,
     });
   }
 

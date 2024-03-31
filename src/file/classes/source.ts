@@ -18,6 +18,8 @@ const renderSourceFile = ({ file, rootUrl, siteName, sourceDir }) => {
 };
 
 class SourceFile extends TextFile {
+  private fakeFileOf;
+
   asHtml(settings) {
     const { siteName, rootUrl, sourceDir } = settings;
     const page = renderSourceFile({ file: this, siteName, rootUrl, sourceDir });

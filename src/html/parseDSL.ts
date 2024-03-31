@@ -48,7 +48,7 @@ const collectElements = (htmlPage, predicate) => {
 };
 
 // find html elements with the given tag names on an html page
-const findTags = (htmlPage, tags) => {
+const findTags = (htmlPage, tags: string[]) => {
   const elems = collectElements(
     htmlPage,
     (tl) => tl && tl?.[0] && tags.includes(tl?.[0])

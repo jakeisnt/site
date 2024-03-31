@@ -2,12 +2,20 @@
 
 import { header, component } from "html";
 
-const renderArticle = ({ articleHtml, file, siteName, rootUrl, sourceDir }) => {
+const renderArticle = ({
+  articleHtml,
+  file,
+  siteName,
+  rootUrl,
+  sourceDir,
+  resourcesDir,
+  faviconsDir,
+}) => {
   const title = file.name;
 
   return [
     "html",
-    header({ title, rootUrl, siteName }),
+    header({ title, rootUrl, siteName, resourcesDir, faviconsDir }),
     [
       "body",
       component("Sidebar", { path: file.path, title, rootUrl, sourceDir }),

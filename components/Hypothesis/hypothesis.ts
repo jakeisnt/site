@@ -1,3 +1,5 @@
+import { dynLoad, print } from "../../resources/lib";
+
 (() => {
   var __PS_MV_REG = [];
 

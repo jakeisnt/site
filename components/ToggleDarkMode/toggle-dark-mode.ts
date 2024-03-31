@@ -4,7 +4,7 @@
  */
 
 (() => {
-  function svg(url) {
+  function svg(url: string) {
     let obj = document.createElement("img");
     obj.src = url;
     obj.style.height = "30px";
@@ -20,16 +20,19 @@
   const ICONS = {
     light: svg("/components/ToggleDarkMode/assets/sun_icon.svg"),
     dark: svg("/components/ToggleDarkMode/assets/moon_icon.svg"),
-  }
-
+  };
 
   const possibleThemes = Object.values(THEME).map((theme) => `${theme}-theme`);
   const btn = document.querySelector(".toggle-dark-mode");
-  const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  let currentTheme = localStorage.getItem("theme") ?? (prefersDarkScheme ? THEME.DARK : THEME.LIGHT);
+  const prefersDarkScheme = window.matchMedia(
+    "(prefers-color-scheme: dark)"
+  ).matches;
+  let currentTheme =
+    localStorage.getItem("theme") ??
+    (prefersDarkScheme ? THEME.DARK : THEME.LIGHT);
 
   function switchToTheme(add) {
-    console.log("Switching to theme ", add)
+    console.log("Switching to theme ", add);
     const classes = document.body.classList;
     classes.remove(...possibleThemes);
     classes.add(`${add}-theme`);
@@ -42,7 +45,7 @@
 
     [THEME.LIGHT, THEME.DARK].forEach((theme) => {
       console.log("Theme: ", theme);
-      ThemeCSS[theme].disabled = theme !== add;
+      ThemeCSS[theme]["disabled"] = theme !== add;
     });
 
     localStorage.setItem("theme", add);

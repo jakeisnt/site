@@ -1,20 +1,18 @@
-import fs from "fs";
-import { exec } from "../../utils/cmd";
 import { Path } from "../../utils/path";
 import { readFile } from "file";
 
 class File {
   // the full path to the file
-  path = null;
+  public path = null;
 
   // make the path a full path if it's not
   // if the file doesn't exist, throw an error
-  constructor(path) {
-    const filePath = Path.create(path);
+  constructor(pathArg: string | Path) {
+    const filePath = Path.create(pathArg);
 
     if (!filePath.exists()) {
       throw new Error(
-        `from File constructor: File at path '${path}' does not exist`
+        `from File constructor: File at path '${pathArg}' does not exist`
       );
     }
 
@@ -31,16 +29,12 @@ class File {
   }
 
   clone() {
-    return new this.constructor(this.path);
+    return this.constructor(this.path);
   }
 
   // read the file at the path
   read() {
     throw new Error("File.read() is not implemented");
-  }
-
-  get path() {
-    return this.path;
   }
 
   // the title of the file does not
@@ -73,10 +67,12 @@ class File {
     return false;
   }
 
-  write() {
+  write(config: any): typeof this {
     console.error(
       `file.write() is not implemented for file at '${this.path.toString()}'`
     );
+
+    return this;
   }
 
   // get the url to the html page with this file
@@ -124,7 +120,7 @@ class File {
     return [];
   }
 
-  serve() {
+  serve(args: any): { contents: string; mimeType: string } {
     throw new Error("File.serve() is not implemented");
   }
 

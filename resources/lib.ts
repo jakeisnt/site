@@ -95,4 +95,4 @@ function dynLoad(src, id) {
   return s;
 }
 
-export { create, create2, dynLoad, get, $, all };
+export { create, create2, dynLoad, get, $, all, print, runOnDesktop };

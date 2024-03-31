@@ -4,6 +4,8 @@
 import { isArray } from "utils/array";
 import { isObject } from "utils/object";
 
+type HtmlAttribute = { id?: string; class?: string };
+
 function html(...args) {
   var buffer = [];
   build(args, buffer);
@@ -48,7 +50,7 @@ function buildRest(list, index, buffer) {
   }
 }
 
-function mergeAttributes(attr1, attr2) {
+function mergeAttributes(attr1: HtmlAttribute, attr2: HtmlAttribute) {
   for (var key in attr2) {
     if (!attr1.hasOwnProperty(key)) {
       attr1[key] = attr2[key];
@@ -59,7 +61,7 @@ function mergeAttributes(attr1, attr2) {
 }
 
 function splitTag(tag) {
-  var attr = {};
+  var attr: HtmlAttribute = {};
   var match = tag.match(/([^\s\.#]+)(?:#([^\s\.#]+))?(?:\.([^\s#]+))?/);
   if (match[2]) attr.id = match[2];
   if (match[3]) attr["class"] = match[3].replace(/\./g, " ");
