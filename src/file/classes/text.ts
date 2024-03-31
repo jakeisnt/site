@@ -2,13 +2,28 @@ import { HtmlPage } from "../../html";
 import File from "./file";
 import { renderArticle } from "./utils";
 
-const renderTextFile = ({ file, rootUrl, siteName, sourceDir }) => {
+const renderTextFile = ({
+  file,
+  rootUrl,
+  siteName,
+  sourceDir,
+  resourcesDir,
+  faviconsDir,
+}) => {
   const articleHtml = [
     "pre",
     ["code", { class: `language-${file.extension} has-raw-code` }, file.text],
   ];
 
-  return renderArticle({ file, articleHtml, rootUrl, siteName, sourceDir });
+  return renderArticle({
+    file,
+    articleHtml,
+    rootUrl,
+    siteName,
+    sourceDir,
+    resourcesDir,
+    faviconsDir,
+  });
 };
 
 // A text file is a file that can be read as a utf-8 string
@@ -42,8 +57,10 @@ class TextFile extends File {
   }
 
   asHtml(settings) {
-    const { siteName, rootUrl, sourceDir } = settings;
-    const page = renderTextFile({ file: this, siteName, rootUrl, sourceDir });
+    const page = renderTextFile({
+      file: this,
+      ...settings,
+    });
     return HtmlPage.create(page, settings);
   }
 
