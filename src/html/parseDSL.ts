@@ -76,7 +76,7 @@ const collectElements = (
 const findTags = (htmlPage: PageSyntax, tags: HtmlTag[]) => {
   return collectElements(
     htmlPage,
-    (tl) => tl && tl?.[0] && tags.includes(tl?.[0])
+    (tl: HtmlTagNode) => tl && tl?.[0] && tags.includes(tl?.[0])
   );
 };
 

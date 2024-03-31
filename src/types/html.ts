@@ -60,7 +60,15 @@ type HtmlAttributes = {
   id?: string;
 };
 
-type HtmlNode = string | HtmlTagNode | HtmlNode[];
+// HTML nodes that are never rendered.
+// These should be discarded if found in the tree.
+type FalsyHtmlNode = undefined | null;
+
+// An HTML node available to our DSL.
+type HtmlNode = string | HtmlTagNode | HtmlNode[] | FalsyHtmlNode;
+
+// A compound HTML tag.
+// Optionally allows the user to configure the HTML with attributes.
 type HtmlTagNode =
   | [HtmlTag]
   | [HtmlTag, ...HtmlNode[]]
