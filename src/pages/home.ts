@@ -2,11 +2,11 @@ import { header, component, HtmlPage } from "html";
 import { Path } from "utils/path";
 
 const makeHomePage = (settings) => {
-  const { rootUrl, sourceDir } = settings;
+  const { rootUrl, sourceDir, siteName } = settings;
   const title = "index";
   const htmlText = [
     "html",
-    header({ title, rootUrl, sourceDir, siteName: "Jake Chvatal" }),
+    header({ title, rootUrl, siteName }),
     [
       "body",
       // (components/component "sidebar" {:target-path "/index.html"} nil nil [[:h1 "~"]])

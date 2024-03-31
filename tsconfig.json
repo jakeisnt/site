@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "./src",
-    "noEmit": true
+    "noEmit": true,
+    "esModuleInterop": true
   }
 }
