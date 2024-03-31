@@ -25,8 +25,10 @@ function build(list, buffer: string[]) {
       mergeAttributes(attr, list[index++]);
     }
     buffer.push("<", tagName);
-    for (var key in Object.keys(attr)) {
-      buffer.push(" ", key, '="', attr[key].toString(), '"');
+    if (isObject(attr)) {
+      for (var key in Object.keys(attr)) {
+        buffer.push(" ", key, '="', attr[key]?.toString(), '"');
+      }
     }
     buffer.push(">");
     buildRest(list, index, buffer);

@@ -218,15 +218,26 @@ const directoryServer = ({
   siteName: string;
   devWebsocketUrl: string;
 }) => {
-  const dir = readFile(absolutePathToDirectory);
+  const dir = readFile(absolutePathToDirectory, {
+    sourceDir: absolutePathToDirectory.toString(),
+    fallbackSourceDir: fallbackDirPath,
+  });
+
   const devUrl = formatUrl({ url, port });
   let fallbackDir;
 
   try {
-    fallbackDir = fallbackDirPath && readFile(fallbackDirPath);
+    fallbackDir =
+      fallbackDirPath &&
+      readFile(fallbackDirPath, {
+        sourceDir: absolutePathToDirectory.toString(),
+        fallbackSourceDir: fallbackDirPath,
+      });
   } catch (e) {
     log.debug("Error finding fallback dir:", e.message);
   }
+
+  console.log(typeof dir, dir, dir.isDirectory());
 
   if (!dir.isDirectory()) {
     throw new Error(

@@ -125,7 +125,7 @@ class Directory extends File {
       return this.path
         .readDirectory()
         .map((childPath: Path) => {
-          if (childPath.extension !== "js") {
+          if (childPath.extension !== "js" && childPath.extension !== "ts") {
             return null;
           } else {
             return readJSFile(childPath);

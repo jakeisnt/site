@@ -12,7 +12,7 @@ import TextFile from "file/classes/text";
 // import all the files from the 'filetype' directory
 // and associate them with their filetype names
 
-var filetypeMap = null;
+let filetypeMap;
 
 // obtain a map of file to filetype
 const getFiletypeMap = () => {
@@ -80,7 +80,7 @@ const readFile = (
   const extension = path.extension;
 
   if (!(extension in filetypeMap)) {
-    logger.file(
+    console.log(
       `We don't have a filetype mapping for files with extension ${extension}. Assuming plaintext for file at path '${path.toString()}'.`
     );
 
