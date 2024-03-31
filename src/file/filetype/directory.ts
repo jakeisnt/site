@@ -7,7 +7,10 @@ import { PageSettings } from "../../types/site.js";
 import { PageSyntax } from "../../types/html.js";
 import { Path } from "../../utils/path.js";
 
-const readJSFile = (path) => {
+/**
+ * Read a javascript file to string.
+ */
+const readJSFile = (path: Path) => {
   return new JSFile(path);
 };
 
@@ -166,11 +169,15 @@ class Directory extends File {
     return this;
   }
 
-  // the dependencies of a directory are all of the files that it contains,
-  // but as html versions. this is a proxy for finding those links in the html
-  // SHORTCUT: the dependencies of a directory in general
-  // are not html-ified. that's a quick hack we use here to bootstrap building files.
-  dependencies(settings) {
+  /**
+   * Find all of the dependencies of a directory.
+   *
+   * The dependencies of a directory are all of the files that it contains,
+   * but as html versions. this is a proxy for finding those links in the html
+   * SHORTCUT: the dependencies of a directory in general are not html-ified.
+   * That's a quick hack we use here to bootstrap building files.
+   */
+  dependencies(settings: PageSettings) {
     if (!this.enumeratedDependencies) {
       this.enumeratedDependencies = this.asHtml(settings).dependencies();
     }

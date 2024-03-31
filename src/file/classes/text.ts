@@ -21,21 +21,25 @@ const renderTextFile = ({
   });
 };
 
-// A text file is a file that can be read as a utf-8 string
+/**
+ * Represents any file that can be read as a UTF-8 string.
+ */
 class TextFile extends File {
   // the string contents of the file
-  asString = null;
+  protected asString: string = null;
 
   read() {
     this.asString = this.path.readString();
     return this;
   }
 
-  // write a file to a path at the provided config location
-  write(config) {
+  /**
+   * Write a file to a path at the provided config location.
+   */
+  write(config: PageSettings) {
     const { sourceDir, targetDir } = config;
     const targetPath = this.path.relativeTo(sourceDir, targetDir);
-    targetPath.writeString(this.serve(config).contents);
+    targetPath.writeString(this.serve().contents);
     return this;
   }
 
@@ -51,7 +55,7 @@ class TextFile extends File {
     return this.text;
   }
 
-  asHtml(settings) {
+  asHtml(settings: PageSettings) {
     const page = renderTextFile({
       file: this,
       ...settings,
@@ -59,7 +63,7 @@ class TextFile extends File {
     return HtmlPage.create(page, settings);
   }
 
-  serve(args) {
+  serve() {
     return { contents: this.text, mimeType: this.mimeType };
   }
 }

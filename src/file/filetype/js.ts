@@ -2,6 +2,7 @@ import { SourceFile } from "file/classes";
 import * as ts from "typescript";
 import { readFile } from "../index";
 import { Path } from "../../utils/path";
+import TypescriptFile from "./ts";
 
 const tsToJs = (tsText: string) => {
   const options = { compilerOptions: { module: ts.ModuleKind.CommonJS } };
@@ -16,14 +17,14 @@ class JavascriptFile extends SourceFile {
   }
 
   // override the create behavior to create the parent
-  static create(filePath: Path) {
+  static create(filePath: Path): JavascriptFile {
     if (filePath.exists()) {
       return new JavascriptFile(filePath);
     }
 
     // if this file doesn't exist, try making the typescript file.
     const tsPath = filePath.replaceExtension("ts");
-    const newFile = readFile(tsPath);
+    const newFile = readFile(tsPath) as TypescriptFile;
     const sourceFile = newFile.clone();
 
     Object.defineProperty(sourceFile, "text", {

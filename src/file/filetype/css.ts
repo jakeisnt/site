@@ -3,6 +3,7 @@ import * as sass from "sass";
 const { pathToFileURL } = require("url");
 import { readFile } from "file";
 import { sourceDir } from "../../constants";
+import SCSSFile from "./scss";
 
 const scssToCss = (scssText) => {
   const result = sass.compileString(scssText, {
@@ -19,7 +20,10 @@ const scssToCss = (scssText) => {
   return result.css.toString();
 };
 
-// a CSS file is a text file
+/**
+ * A CSS file on disk.
+ * A CSS file is a source file that can convert from SCSS, etc.
+ */
 class CSSFile extends SourceFile {
   static filetypes = ["css"];
 
@@ -37,7 +41,7 @@ class CSSFile extends SourceFile {
     // this css file can be interfaced with just like a css file,
     // but the underlying source of truth is always the scss file.
 
-    const prevFile = readFile(scssPath);
+    const prevFile = readFile(scssPath) as SCSSFile;
     const sourceFile = prevFile.clone();
 
     sourceFile.fakeFileOf = prevFile;

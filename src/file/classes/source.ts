@@ -7,8 +7,8 @@ import { PageSettings } from "../../types/site";
 // - render both to 'file.$ext' and 'file.$ext.html'
 // - hide 'file.$ext' from the index
 // - show 'file.$ext.html' in the index, looking like 'file.$ext'
+// same args as above fn, but without the articleHtml.
 
-// same args as above fn, but without the articleHtml
 const renderSourceFile = ({
   file,
   ...settings
@@ -25,8 +25,18 @@ const renderSourceFile = ({
   });
 };
 
+/**
+ * A source code file.
+ */
 class SourceFile extends TextFile {
-  protected fakeFileOf;
+  // If this file is 'pretending' to be another file,
+  // the file that this was wrapped around is accessible here.
+
+  // This allows us to pull tricks like asking questions about a
+  // javascript file when the actual file is written in typescript,
+  // converting configuration files into others on the fly,
+  // reading SCSS as CSS, etc.
+  protected fakeFileOf: SourceFile;
 
   asHtml(settings: PageSettings) {
     const page = renderSourceFile({

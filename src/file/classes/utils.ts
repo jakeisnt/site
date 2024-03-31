@@ -3,6 +3,10 @@ import { PageSyntax } from "../../types/html";
 import { PageSettings } from "../../types/site";
 import TextFile from "./text";
 
+/**
+ * Render an 'article' using some standard style configuration.
+ * An article is usually a source code file.
+ */
 const renderArticle = ({
   articleHtml,
   file,

@@ -3,13 +3,19 @@ import { readFile } from "file";
 import Directory from "../filetype/directory";
 import { PageSettings } from "../../types/site";
 
+/**
+ * Any file on the system.
+ */
 class File {
   // the full path to the file
   public path: Path = null;
 
-  // make the path a full path if it's not
-  // if the file doesn't exist, throw an error
-  constructor(pathArg: string | Path) {
+  /**
+   * Make the path a full path if it's not.
+   * If the file doesn't exist at all, throw an error.
+   * Otherwise, construct a file.
+   */
+  constructor(pathArg: Path) {
     const filePath = Path.create(pathArg);
 
     if (!filePath.exists()) {
@@ -21,15 +27,22 @@ class File {
     this.path = filePath;
   }
 
-  static create(path) {
+  static create(path: Path) {
     return new this(path);
   }
 
-  // two files are equal if their paths are equal
-  equals(file) {
+  /**
+   * Two files are equal if their paths are equal.
+   */
+  equals(file: File) {
     return this.path.equals(file.path);
   }
-  clone() {
+
+  clone(): typeof this {
+    // note: `this.constructor` is always callable as a constructor,
+    // but TypeScript doesn't seem to have a special notion of a 'constructor'
+    // function that can be invoked like an arbitrary function.
+    // Not even sure it's possible with the JS spec.
     return new (this.constructor as any)(this.path);
   }
 
@@ -58,17 +71,23 @@ class File {
     return this.path.mimeType;
   }
 
-  // get the string of the folder the path is contained in
-  get directory() {
-    return readFile(this.path.parent);
+  /**
+   * Get the parent directory of this file.
+   */
+  get directory(): Directory {
+    // A `parent` file, by definition, is a directory that contains this one.
+    return readFile(this.path.parent) as any as Directory;
   }
 
-  // I hope the file is not a directory
+  /**
+   * Determine if the file is a directory.
+   * Always false here; directory subclass reimplements this.
+   */
   isDirectory(): this is Directory {
     return false;
   }
 
-  write(config: any): typeof this {
+  write(config: PageSettings): typeof this {
     console.error(
       `file.write() is not implemented for file at '${this.path.toString()}'`
     );
