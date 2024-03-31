@@ -6,33 +6,23 @@ import log from "utils/log";
 import { readFile } from "../file";
 import { makeHomePage } from "pages/home";
 
-const localPort = 4242; // Your desired port
-const localhostUrl = `http://localhost`;
-const wsLocalhostUrl = `ws://localhost`;
-
-const devWebsocketPath = "/__devsocket";
-
-// format url
+/**
+ * Format a URL with the URL, port, and path.
+ */
 const formatUrl = ({ url, port, path }) =>
   `${url}${port ? ":" + port : ""}${path ?? ""}`;
 
-const devUrl = formatUrl({ url: localhostUrl, port: localPort });
-const httpWebsocketUrl = formatUrl({
-  url: localhostUrl,
-  port: localPort,
-  path: devWebsocketPath,
-});
-const devWebsocketUrl = formatUrl({
-  url: wsLocalhostUrl,
-  port: localPort,
-  path: devWebsocketPath,
-});
-
-// get the goods without the url
+/**
+ * Remove the full path from the URL.
+ */
 const withoutUrl = (fullPath, url) => fullPath.replace(url, "");
 
-// inject a hot reload script into the body iof an html string
-const injectHotReload = (htmlString) => {
+/**
+ * inject a hot reload script into the body iof an html string.
+ * @param {*} param0
+ * @returns
+ */
+const injectHotReload = ({ htmlString, devWebsocketUrl }) => {
   const wsUrl = devWebsocketUrl;
   const script = `
     <script>
@@ -48,16 +38,24 @@ const injectHotReload = (htmlString) => {
   return htmlString.replace("</body>", `${script}</body>`);
 };
 
-// make a response to a request for a file with the file
-const fileResponse = (file, { sourceDir }) => {
+/**
+ * make a response to a request for a file with the file
+ * @param {*} file
+ */
+const makeFileResponse = (
+  file,
+  { siteName, sourceDir, devUrl, devWebsocketUrl }
+) => {
   const { contents, mimeType } = file.serve({
-    siteName: "Jake Chvatal",
+    siteName,
     rootUrl: devUrl,
     sourceDir,
   });
 
   let responseText =
-    mimeType === "text/html" ? injectHotReload(contents) : contents;
+    mimeType === "text/html"
+      ? injectHotReload({ htmlString: contents, devWebsocketUrl })
+      : contents;
 
   return new Response(responseText, {
     headers: {
@@ -71,16 +69,25 @@ const fileResponse = (file, { sourceDir }) => {
   });
 };
 
-// Start a server at the provided URL and port.
-// Handle requests with the provided callback.
+/**
+ * Start a server at the provided URL and port.
+ * Handle requests with the provided callback.
+ */
 const createServer = ({
-  url = localhostUrl,
-  port = localPort,
+  url,
+  port,
+  websocketPath,
   onRequest = () => {},
   onSocketConnected = () => {},
 } = {}) => {
   const fullUrl = formatUrl({ url, port });
   const linkText = link(fullUrl).underline().color("blue");
+
+  const httpWebsocketUrl = formatUrl({
+    url,
+    port,
+    path: websocketPath,
+  });
 
   log.production(`Starting server at ${linkText}`);
 
@@ -108,15 +115,32 @@ const createServer = ({
   return server;
 };
 
-// a hot-reloading server for a single file
-const singleFileServer = (absolutePathToFile) => {
+/**
+ * A hot-reloading single file server.
+ */
+const singleFileServer = ({ url, localPort, absolutePathToFile, siteName }) => {
   const file = readFile(absolutePathToFile);
+  const devUrl = formatUrl({ url, port: localPort });
+
+  const devWebsocketUrl = formatUrl({
+    url: wsLocalhostUrl,
+    port: localPort,
+    path: devWebsocketPath,
+  });
 
   let wsClientConnection = null;
 
   createServer({
+    url,
+    port: localPort,
+    websocketPath: devWebsocketPath,
     onRequest: ({ request }) => {
-      return fileResponse(file, { sourceDir: file.path });
+      return makeFileResponse(file, {
+        siteName,
+        sourceDir: file.path,
+        devUrl,
+        devWebsocketUrl,
+      });
     },
     onSocketConnected: (ws) => {
       log.network("socket connected");
@@ -134,10 +158,21 @@ const singleFileServer = (absolutePathToFile) => {
   });
 };
 
-// support serving arbitrary files from a directory;
-// this means we have to handle routing.
-const directoryServer = (absolutePathToDirectory, fallbackDirPath) => {
+/**
+ * Serve the files in a directory.
+ * @param {*} absolutePathToDirectory primary directory we should source files from.
+ * @param {*} fallbackDirPath path to directory we should fall back to serving.
+ */
+const directoryServer = ({
+  absolutePathToDirectory,
+  fallbackDirPath,
+  url,
+  localPort,
+  siteName,
+  devWebsocketUrl,
+}) => {
   const dir = readFile(absolutePathToDirectory);
+  const devUrl = formatUrl({ url, port: localPort });
   let fallbackDir;
 
   try {
@@ -153,13 +188,23 @@ const directoryServer = (absolutePathToDirectory, fallbackDirPath) => {
   }
 
   createServer({
+    url,
+    port: localPort,
     onRequest: ({ path }) => {
       let pathToUse = Path.create(path);
 
       // if we request the root, serve up the home page
       // TODO this needs a more elegant solution
       if (["/", "/index", "/index.html"].includes(pathToUse)) {
-        return fileResponse({ serve: makeHomePage }, { sourceDir: dir.path });
+        return makeFileResponse(
+          { serve: makeHomePage },
+          {
+            sourceDir: dir.path,
+            siteName,
+            devUrl,
+            devWebsocketUrl,
+          }
+        );
       }
 
       if (path.name === "index.html") {
@@ -178,7 +223,7 @@ const directoryServer = (absolutePathToDirectory, fallbackDirPath) => {
         return new Response("Not found", { status: 404 });
       }
 
-      return fileResponse(file, { sourceDir: dir.path });
+      return makeFileResponse(file, { sourceDir: dir.path });
     },
 
     onSocketConnected: (ws) => {

@@ -1,6 +1,8 @@
 // this file manages deployment to an external service
 // right now its just github pages lol
 
+import { Path } from "./utils/path";
+
 function commitFolderToBranch({ repo, folderToCommit, targetBranch }) {
   const tmpDir = "/tmp/jake-site-deploy";
 
@@ -13,8 +15,11 @@ function commitFolderToBranch({ repo, folderToCommit, targetBranch }) {
   repo.stash();
 
   console.log("copying deployment to tmp dir");
+
+  // TODO: code should make sure 'production' branch is fetched.
+  // it wasn't fetched! or the variable was not defined?
+  repo.path.move(folderToCommit, tmpDir);
   repo.checkout(targetBranch);
-  // TODO file.move(folderToCommit, tmpDir, repo);
   repo.status();
 
   console.log("removing all untracked files");
@@ -22,11 +27,17 @@ function commitFolderToBranch({ repo, folderToCommit, targetBranch }) {
   repo.status();
 
   console.log("moving tmp dir contents to root");
-  // TODO: file.copyDir(tmpDir, folderToCommit, repo);
+
+  Path.create(folderToCommit).move(
+    tmpDir,
+    `${Path.create(folderToCommit).parent.toString()}/`
+  );
   repo.status();
 
+  exit(1);
+
   console.log("pushing build");
-  console.log("we are on branch " + git.currentBranch(repo));
+  console.log("we are on branch ", repo.currentBranch());
   repo.addAll();
   repo.commit();
   repo.push();
@@ -51,7 +62,7 @@ function commitFolderToBranch({ repo, folderToCommit, targetBranch }) {
 async function deploy({ currentRepo, deploymentBranch, targetDir }) {
   commitFolderToBranch({
     repo: currentRepo,
-    branch: deploymentBranch,
+    targetBranch: deploymentBranch,
     folderToCommit: targetDir,
   });
 }

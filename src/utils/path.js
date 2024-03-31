@@ -1,4 +1,5 @@
 import pathLibrary from "path";
+import { execSync } from "./cmd";
 import fs from "fs";
 import logger from "./log";
 import mime from "mime";
@@ -133,42 +134,81 @@ class Path {
     }
   }
 
-  // get this path's position relative to another path or string
-  // ASSUME that the other paths, if defined, are the prefix of this one
+  // copy the file or directory at this path to another path
+  // if the path is not a subdir of this path, throw an error
+  copy(fromPath, toPath) {
+    const from = Path.create(fromPath);
+    const to = Path.create(toPath);
+
+    // TODO: this would be a good safeguard to add, but it doesn't work?
+    // if (!this.contains(from)) {
+    //   throw new Error(
+    //     `Cannot copy ${from.toString()} to ${to.toString()} because it is not a subdirectory of ${this.toString()}`
+    //   );
+    // }
+
+    try {
+      execSync(`cp -r ${from.pathString} ${to.pathString}`, {
+        cwd: this.toString(),
+      });
+    } catch (e) {
+      console.log("error copying directory", e);
+    }
+  }
+
+  // move the file or directory at this path to another path
+  // if the path is not a subdir of this path, throw an error
+  move(fromPath, toPath) {
+    const from = Path.create(fromPath);
+    const to = Path.create(toPath);
+
+    console.log("moving from ", { from: from.toString(), to: to.toString() });
+
+    // if (!this.contains(from)) {
+    //   throw new Error(
+    //     `Cannot move ${from.toString()} to ${to.toString()} because it is not a subdirectory of ${this.toString()}`
+    //   );
+    // }
+
+    try {
+      execSync(`mv ${from.pathString} ${to.pathString}`, {
+        cwd: this.toString(),
+      });
+    } catch (e) {
+      console.log("error moving directory", e);
+    }
+  }
+
+  /**
+   * get this path's position relative to another path or string
+   * ASSUME that the other paths, if defined, are the prefix of this one.
+   * REMOVE 'maybeOtherPath' from this path's string.
+   * If 'maypeReplaceWithPath' is defined, append it.
+   */
   relativeTo(maybeOtherPath, maybeReplaceWithPath = "") {
     const otherPath = Path.create(maybeOtherPath);
     const replaceWith = maybeReplaceWithPath.toString();
 
-    // assuming the other path is the prefix of this one,
-    // remove it from this path
-    let curPathArray = [...this.pathArray];
-    otherPath.pathArray.forEach((prefixFolderName) => {
-      // if we can completely replace the path, do that.
-      if (curPathArray[0] === prefixFolderName) {
-        curPathArray.shift();
+    if (!this.pathString.startsWith(otherPath.toString())) {
+      throw new Error(
+        "Path we are removing is no present on the current path",
+        { path: this.pathString, maybeOtherPath }
+      );
+    }
 
-        // if the path is a prefix, replace it with the replaceWith path
-      } else if (
-        curPathArray.length === 1 &&
-        curPathArray[0].startsWith(prefixFolderName)
-      ) {
-        curPathArray[0] = curPathArray[0].replace(
-          prefixFolderName,
-          replaceWith
-        );
+    let resultingPathString = this.pathString;
+    if (otherPath) {
+      resultingPathString = resultingPathString.replace(
+        `${otherPath.toString()}`,
+        ""
+      );
+    }
 
-        // if the paths don't share prefixes at all, blow up.
-      } else {
-        throw new Error(
-          `'${otherPath.pathString}' is not a prefix of this path, '${this.pathString}'`
-        );
-      }
-    });
+    if (maybeReplaceWithPath) {
+      resultingPathString = replaceWith.toString() + resultingPathString;
+    }
 
-    const pathAfterShift = Path.create(
-      "/" + replaceWith + "/" + curPathArray.join("/")
-    );
-    return pathAfterShift;
+    return Path.create(resultingPathString);
   }
 
   exists() {
