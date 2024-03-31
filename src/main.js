@@ -10,11 +10,19 @@ import {
   sourceDir as SITE_DIRECTORY,
   siteName,
   deploymentBranch,
+  localPort,
 } from "./constants";
+
+const localhostUrl = `http://localhost`;
+const wsLocalhostUrl = `ws://localhost`;
+const devWebsocketPath = "/__devsocket";
 
 // paths to ignore by default from the website we build
 const commonIgnorePaths = [".git", "node_modules"];
 
+/**
+ * Build a website from the incoming paths.
+ */
 const build = (incomingPaths) => {
   const paths = incomingPaths?.length ? incomingPaths : ["."];
 
@@ -45,6 +53,9 @@ const build = (incomingPaths) => {
   });
 };
 
+/**
+ * Deploy the current website.
+ */
 const deployWebsite = () => {
   const currentRepo = Path.create(".").repo;
 
@@ -55,7 +66,10 @@ const deployWebsite = () => {
   });
 };
 
-// Serve whatever's at the first path
+/**
+ * Serve whatever is on the path provided.
+ * @param {*} incomingPaths a list of paths to serve from.
+ */
 const serve = (incomingPaths) => {
   const paths = incomingPaths?.length ? incomingPaths : ["."];
 
@@ -64,14 +78,24 @@ const serve = (incomingPaths) => {
   // if we were provided a dir, that directory
   // becomes the root of a tree we serve
   if (path.isDirectory()) {
-    directoryServer(path, sourceDir);
+    directoryServer({
+      absolutePathToDirectory: path,
+      fallbackDirPath: sourceDir,
+      url: localhostUrl,
+      localPort,
+    });
   }
 
   // otherwise, we serve just the file that was pointed to from all paths
   // this is mostly useless because html files can't pull in resources, for ex.,
   // but it's good for testing the parsing and interpretation of new file types.
   else {
-    singleFileServer(path);
+    singleFileServer({
+      url: localhostUrl,
+      localPort,
+      absolutePathToFile: path,
+      siteName: "Jake Chvatal",
+    });
   }
 };
 
