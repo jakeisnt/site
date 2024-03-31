@@ -267,7 +267,6 @@ class Path {
     if (noFSOperation) {
       const extension = this.pathString.split(".")[1];
 
-      console.log("file extension", extension);
       return extension ? false : true;
     }
 
