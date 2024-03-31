@@ -157,9 +157,11 @@ class Path {
     }
   }
 
-  // copy the file or directory at this path to another path
-  // if the path is not a subdir of this path, throw an error
-  copy(fromPath, toPath) {
+  /**
+   * Copy the file or directory at this path to another path.
+   * If the path is not a subdir of this path, throw an error.
+   */
+  copy(fromPath: Path | string, toPath: Path | string) {
     const from = Path.create(fromPath);
     const to = Path.create(toPath);
 
@@ -179,9 +181,11 @@ class Path {
     }
   }
 
-  // move the file or directory at this path to another path
-  // if the path is not a subdir of this path, throw an error
-  move(fromPath, toPath) {
+  /**
+   * Move the file or directory at this path to another path.
+   * If the path is not a subdir of this path, throw an error.
+   */
+  move(fromPath: Path | string, toPath: Path | string) {
     const from = Path.create(fromPath);
     const to = Path.create(toPath);
 
@@ -233,6 +237,9 @@ class Path {
     return Path.create(resultingPathString);
   }
 
+  /**
+   * Does the file at this path exist?
+   */
   exists() {
     return fs.existsSync(this.pathString);
   }
@@ -248,7 +255,9 @@ class Path {
     return new Path(newPathWithExtension);
   }
 
-  // is this path a directory?
+  /**
+   * Is this path a directory?
+   */
   isDirectory({ noFSOperation } = { noFSOperation: false }) {
     if (noFSOperation) {
       const path = this.pathString.split(".");
@@ -270,7 +279,11 @@ class Path {
     return fs.readFileSync(this.pathString, "utf8");
   }
 
-  // write a string to this path, creating the file if it doesn't exist
+  /**
+   * Write a string to the file at this path,
+   * creating the file if it doesn't exist.
+   *
+   */
   writeString(str: string) {
     this.make();
     fs.writeFileSync(this.pathString, str);
@@ -325,6 +338,10 @@ class Path {
       .map((fileName) => new Path(`${normalizedPathString}${fileName}`));
   }
 
+  /**
+   * Join the provided next part of the path to this path,
+   * producing the conjunction of the two.
+   */
   join(nextPart: Path | string) {
     logger.file("Joining path", this.pathString, "with", nextPart.toString());
     return new Path(this.pathString + nextPart.toString());
