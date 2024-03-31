@@ -19,8 +19,8 @@ type ElementNames = "img" | "a" | "h1";
  */
 function create(
   elementName: ElementNames,
-  attributes: { [key: string]: any },
-  parent: HTMLElement
+  attributes?: { [key: string]: any },
+  parent?: HTMLElement
 ) {
   const elem = document.createElement(elementName);
   for (let key in attributes) {
