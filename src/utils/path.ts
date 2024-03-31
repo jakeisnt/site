@@ -316,9 +316,11 @@ class Path {
     return true;
   }
 
-  // make this path exist, creating any parent directories along the way
-  // assume the path is a file unless provided that it's a directory
-  make({ isDirectory = false } = { isDirectory: false }) {
+  /**
+   * make this path exist, creating any parent directories along the way
+   * assume the path is a file unless provided that it's a directory
+   */
+  make({ isDirectory = false }: { isDirectory?: boolean }) {
     if (this.exists()) {
       console.log(".make: File already exists at path ", this.pathString);
       return this;

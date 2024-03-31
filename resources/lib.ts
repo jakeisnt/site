@@ -8,7 +8,7 @@ function runOnDesktop(fn: Function) {
   }
 }
 
-type ElementNames = "img" | "a" | "h1";
+type ElementNames = "div" | "img" | "a" | "h1";
 
 /**
  * Create an html element with attributes and append it to a parent element

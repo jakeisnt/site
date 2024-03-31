@@ -1,33 +1,37 @@
 (() => {
-    function loadHypothesis() {
-        __PS_MV_REG = [];
-        return document.body.appendChild(dynLoad('https://hypothes.is/embed.js', 'hypothesis'));
-    };
+  var __PS_MV_REG = [];
 
-    function hypothesisAnnotatorLink() {
-        return document.querySelector('link[type=\"application/annotator+html\"]');
-    };
+  function loadHypothesis() {
+    __PS_MV_REG = [];
+    return document.body.appendChild(
+      dynLoad("https://hypothes.is/embed.js", "hypothesis")
+    );
+  }
 
-    function unloadHypothesis(annotatorLink) {
-        if (annotatorLink) {
-            var destroyEvent = new Event('destroy');
-            __PS_MV_REG = [];
-            return annotatorLink.dispatchEvent(destroyEvent);
-        };
-    };
+  function hypothesisAnnotatorLink() {
+    return document.querySelector('link[type="application/annotator+html"]');
+  }
 
-    function toggleHypothesis() {
-        print('loading hypothesis');
-        var annotatorLink = hypothesisAnnotatorLink();
-        print('trying to print annotator link');
-        print(annotatorLink);
-        __PS_MV_REG = [];
-        return annotatorLink ? unloadHypothesis(annotatorLink) : loadHypothesis();
-    };
+  function unloadHypothesis(annotatorLink) {
+    if (annotatorLink) {
+      var destroyEvent = new Event("destroy");
+      __PS_MV_REG = [];
+      return annotatorLink.dispatchEvent(destroyEvent);
+    }
+  }
 
-    // (function () {
-    //     var hypothesisDoc = document.getElementById('hypothesis-checkbox');
-    //     __PS_MV_REG = [];
-    //     return hypothesisDoc.checked ? loadHypothesis() : null;
-    // })();
+  function toggleHypothesis() {
+    print("loading hypothesis");
+    var annotatorLink = hypothesisAnnotatorLink();
+    print("trying to print annotator link");
+    print(annotatorLink);
+    __PS_MV_REG = [];
+    return annotatorLink ? unloadHypothesis(annotatorLink) : loadHypothesis();
+  }
+
+  // (function () {
+  //     var hypothesisDoc = document.getElementById('hypothesis-checkbox');
+  //     __PS_MV_REG = [];
+  //     return hypothesisDoc.checked ? loadHypothesis() : null;
+  // })();
 })();
