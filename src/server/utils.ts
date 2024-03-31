@@ -1,3 +1,5 @@
+import File from "../file/classes/file";
+
 /**
  * Format a URL with the URL, port, and path.
  */
@@ -45,7 +47,7 @@ const injectHotReload = ({
  * make a response to a request for a file with the file
  */
 const makeFileResponse = (
-  file,
+  file: File,
   {
     siteName,
     sourceDir,
