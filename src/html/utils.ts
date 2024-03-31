@@ -3,23 +3,33 @@
 // this works but theres something wrong with the type configuration
 // @ts-nocheck
 
-import { PageSyntax } from "../types/html";
+import { PageSyntax, HtmlAttributes } from "../types/html";
 
-const meta = (key, value): PageSyntax => {
+/**
+ * Construct a meta tag with a name and content.
+ */
+const meta = (key: string, value: string): PageSyntax => {
   return ["meta", { name: key, content: value }];
 };
 
-const prop = (key, value): PageSyntax => {
+/**
+ * Construct a meta property tag.
+ */
+const prop = (key: string, value: string): PageSyntax => {
   return ["meta", { property: key, content: value }];
 };
 
-type HtmlOptions = {};
-
-const script = (src: string, opts?: HtmlOptions): PageSyntax => {
+/**
+ * Construct a script tags with provided options.
+ */
+const script = (src: string, opts?: HtmlAttributes): PageSyntax => {
   return ["script", { src, id: src, ...opts }];
 };
 
-const css = (src: string, opts?: HtmlOptions, body?: string) => {
+/**
+ * Construct a style tag with provided options and an optional body.
+ */
+const css = (src: string, opts?: HtmlAttributes, body?: string) => {
   return [
     "link",
     { rel: "stylesheet", type: "text/css", href: src, id: src, ...opts },
@@ -27,6 +37,9 @@ const css = (src: string, opts?: HtmlOptions, body?: string) => {
   ];
 };
 
+/**
+ * Provided an icon directory, configure page icons of the front matter.
+ */
 const favicons = (iconDir: string) => {
   return [
     [
@@ -40,6 +53,9 @@ const favicons = (iconDir: string) => {
   ];
 };
 
+/**
+ * Configure the page color scheme.
+ */
 const colorScheme = (
   schemeName: string,
   backgroundColor: string
@@ -54,12 +70,28 @@ const colorScheme = (
   ];
 };
 
-// theme headers
+/**
+ * Configure the color theme of this particular site. (hardcoded.)
+ */
 const theme = (): PageSyntax[] => {
   return [colorScheme("light", "white"), colorScheme("dark", "#111")];
 };
 
-const openGraphHeaders = ({ title, rootUrl, siteName }): PageSyntax[] => {
+/**
+ * Generate open graph headers for this website
+ * @param title the title of this specific page.
+ * @param rootUrl the root URL that the site will be hosted on
+ * @param siteName the name of the website as a whole.
+ */
+const openGraphHeaders = ({
+  title,
+  rootUrl,
+  siteName = title,
+}: {
+  title: string;
+  rootUrl: string;
+  siteName?: string;
+}): PageSyntax[] => {
   return [
     prop("og:title", title),
     prop("og:type", "website"),

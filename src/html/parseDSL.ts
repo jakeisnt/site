@@ -51,10 +51,13 @@ const headingRank = (headingTag: HtmlTag) => {
   }
 };
 
+/**
+ * Collect elements from an HTML page that meet the provided predicate.
+ */
 const collectElements = (
   htmlPage: PageSyntax,
   predicate: (node: HtmlNode) => boolean
-) => {
+): HtmlNode[] => {
   // assume we only look for roots, so we return directly here lol
   if (predicate(htmlPage)) {
     return [htmlPage];
@@ -83,7 +86,7 @@ const findTags = (htmlPage: PageSyntax, tags: HtmlTag[]) => {
  * the 'link' of a 'style' tag,
  * or the 'src' of a 'script' tag.
  */
-const getTagLink = (tag: HtmlTagNode) => {
+const getTagLink = (tag: HtmlTagNode): string => {
   const name = tagName(tag);
   const attrs = tagAttributes(tag);
 

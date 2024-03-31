@@ -53,6 +53,11 @@ type HtmlTag =
 
 type HtmlAttributes = {
   [key: string | number]: string | number | Function;
+  src?: string;
+  href?: string;
+  class?: string;
+  role?: string;
+  id?: string;
 };
 
 type HtmlNode = string | number | HtmlTagNode | HtmlNode[];

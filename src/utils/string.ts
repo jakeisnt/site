@@ -1,8 +1,8 @@
 // generate a string of `numSpaces` spaces
-const makeSpaces = (numSpaces) => {
-  let spaces = '';
+const makeSpaces = (numSpaces: number) => {
+  let spaces = "";
   for (let i = 0; i < numSpaces; i++) {
-    spaces += ' ';
+    spaces += " ";
   }
   return spaces;
 };

@@ -19,7 +19,7 @@ let filetypeMap: { [key: string]: typeof File };
 // obtain a map of file to filetype
 const getFiletypeMap = () => {
   // bootstrap the process; we know we have a directory
-  const dir = new Directory(__dirname + "/filetype/");
+  const dir = new Directory(Path.create(__dirname + "/filetype/"));
 
   const newFiletypeMap = {};
 

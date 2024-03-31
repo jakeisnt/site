@@ -6,6 +6,10 @@ import { PageSyntax } from "../types/html";
 // Support the Component interface.
 // Resolves dependencies automatically and allows partial page refresh.
 
+/**
+ * Convert a Path-specified dependency into an HTML tag.
+ * Usually used to pull them into frontmatter.
+ */
 const getDependency = (path: Path): PageSyntax => {
   const extension = path.extension;
   switch (extension) {
@@ -20,6 +24,9 @@ const getDependency = (path: Path): PageSyntax => {
   }
 };
 
+/**
+ * Construct a dependency header with a list of source configurations.
+ */
 const makeDependencyHeader = (dependencies: { src: string }[]): PageSyntax => {
   if (dependencies.length === 0) {
     return null;

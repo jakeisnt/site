@@ -4,10 +4,13 @@ import { getTagLink, findTags } from "./parseDSL";
 import { PageSettings } from "../types/site";
 import { PageSyntax } from "../types/html";
 
-// is the link string that we are provided internal?
-const isInternalLink = (l, settings: PageSettings) => {
-  const { rootUrl } = settings;
-
+/**
+ * Is the link string that we are provided internal?
+ * @param l the link to reference
+ * @param settings page settings configuration
+ * @returns
+ */
+const isInternalLink = (l: string, { rootUrl }: PageSettings) => {
   if (l.includes(rootUrl)) {
     return true;
   }
@@ -21,9 +24,13 @@ const isInternalLink = (l, settings: PageSettings) => {
   return !isExternal;
 };
 
-// Convert a link string to a legitimate file path on disk.
-// probably requires more arguments
-const linkStringToFile = (l, settings: PageSettings) => {
+/**
+ * Convert a link string to a legitimate file path on disk.
+ *
+ * @param l the link to convert
+ * @param settings page settings to carry
+ */
+const linkStringToFile = (l: string, settings: PageSettings) => {
   const { sourceDir, rootUrl } = settings;
 
   // remove the leading rootUrl from the link if it exists
@@ -36,9 +43,12 @@ const linkStringToFile = (l, settings: PageSettings) => {
   return sourceDir.toString().concat(linkWithoutRoot);
 };
 
-// Represents an HTML AST that may not be associated with a file
+/**
+ * An HTML AST builder.
+ * May or may not be assocaited with a file.
+ */
 class HtmlPage {
-  private pageStructure;
+  private pageStructure: PageSyntax;
   private currentBuildSettings: PageSettings;
   private cachedDependencies;
 
