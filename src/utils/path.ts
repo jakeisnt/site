@@ -223,7 +223,13 @@ class Path {
   }
 
   // is this path a directory?
-  isDirectory() {
+  isDirectory({ noFSOperation } = { noFSOperation: false }) {
+    if (noFSOperation) {
+      const path = this.pathString.split(".");
+      const extension = path.pop();
+      return extension ? false : true;
+    }
+
     if (!this.exists()) {
       throw new Error(
         `Cannot check if a path is a directory if it doesn't exist. Was looking for path: ${this.pathString}`

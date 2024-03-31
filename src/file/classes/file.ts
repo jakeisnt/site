@@ -27,9 +27,8 @@ class File {
   equals(file) {
     return this.path.equals(file.path);
   }
-
   clone() {
-    return this.constructor(this.path);
+    return new (this.constructor as any)(this.path);
   }
 
   // read the file at the path

@@ -77,7 +77,7 @@ const serve = (incomingPaths?: string[]) => {
 
   // if we were provided a dir, that directory
   // becomes the root of a tree we serve
-  if (path.isDirectory()) {
+  if (path.isDirectory({ noFSOperation: true })) {
     directoryServer({
       absolutePathToDirectory: path,
       fallbackDirPath: sourceDir,
