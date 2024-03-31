@@ -35,7 +35,7 @@ const makeDependencyHeader = (dependencies: { src: string }[]) => {
  * @param args arguments to pass to that component.
  * @returns the component
  */
-const component = (name: string, args?: any[]) => {
+const component = (name: string, args?: Object) => {
   const rootPath = sourceDir;
   const componentFunction = require(`${rootPath}/components/${name}/${name}.js`);
   logger.file("Rendering component", name);

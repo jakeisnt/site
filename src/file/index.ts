@@ -60,7 +60,7 @@ const getFiletypeMap = () => {
  */
 const readFile = (
   incomingPath: string,
-  options?: { sourceDir: string; fallbackSourceDir: string }
+  options?: { sourceDir: string; fallbackSourceDir?: string }
 ) => {
   logger.file(`Reading file at ${incomingPath.toString()}`);
   if (!filetypeMap) {

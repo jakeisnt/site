@@ -18,7 +18,7 @@ const neko = () => {
     return new Date().getTime();
   }
 
-  const neko = document.querySelector(".neko");
+  const neko: HTMLElement = document.querySelector(".neko");
   const nekoBed = document.querySelector(".neko-bed");
 
   const nekoUrl = "/components/neko/assets/";
@@ -70,6 +70,7 @@ const neko = () => {
   const mouseTolerance = 5;
   const nekoStepLength = 16;
   const animationSpeed = 200;
+  var lastMouseMoved;
 
   let currentX;
   let currentY;

@@ -5,7 +5,7 @@ import { getTagLink, findTags } from "./parseDSL";
 type Settings = {
   rootUrl: string;
   sourceDir: string;
-  fallbackSourceDir: string;
+  fallbackSourceDir?: string;
 };
 
 // is the link string that we are provided internal?
