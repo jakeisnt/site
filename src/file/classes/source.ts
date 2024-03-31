@@ -36,7 +36,7 @@ class SourceFile extends TextFile {
   // javascript file when the actual file is written in typescript,
   // converting configuration files into others on the fly,
   // reading SCSS as CSS, etc.
-  protected fakeFileOf: SourceFile;
+  public fakeFileOf: SourceFile;
 
   asHtml(settings: PageSettings) {
     const page = renderSourceFile({
