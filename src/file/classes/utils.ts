@@ -2,6 +2,7 @@
 
 import { header, component } from "html";
 import { PageSyntax } from "../../types/html";
+import { PageSettings } from "../../types/site";
 
 const renderArticle = ({
   articleHtml,
@@ -11,7 +12,7 @@ const renderArticle = ({
   sourceDir,
   resourcesDir,
   faviconsDir,
-}): PageSyntax => {
+}: PageSettings & { articleHtml: PageSyntax; file }): PageSyntax => {
   const title = file.name;
 
   return [

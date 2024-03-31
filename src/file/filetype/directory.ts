@@ -50,8 +50,15 @@ const folderIndexPageTable = ({ files, rootUrl, sourceDir }): PageSyntax => {
 };
 
 const directoryToHtml = (
-  dir,
-  { files, rootUrl, siteName, sourceDir, resourcesDir, faviconsDir }
+  dir: Directory,
+  {
+    files,
+    rootUrl,
+    siteName,
+    sourceDir,
+    resourcesDir,
+    faviconsDir,
+  }: PageSettings & { files: File[] }
 ): PageSyntax => {
   const title = dir.name;
 

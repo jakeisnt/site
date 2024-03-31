@@ -52,7 +52,7 @@ type HtmlTag =
   | "g";
 
 type HtmlAttributes = {
-  [key: string | number]: string | number;
+  [key: string | number]: string | number | Function;
 };
 
 type HtmlNode = string | number | HtmlTagNode;
