@@ -169,6 +169,7 @@ const directoryServer = ({
   url,
   localPort,
   siteName,
+  devWebsocketUrl,
 }) => {
   const dir = readFile(absolutePathToDirectory);
   const devUrl = formatUrl({ url, port: localPort });
