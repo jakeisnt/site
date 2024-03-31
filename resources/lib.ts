@@ -1,3 +1,5 @@
+import type { HtmlTag } from "../src/types/html";
+
 function print(...txt: any[]) {
   return console.log(txt);
 }
@@ -8,17 +10,11 @@ function runOnDesktop(fn: Function) {
   }
 }
 
-type ElementNames = "div" | "img" | "a" | "h1";
-
 /**
  * Create an html element with attributes and append it to a parent element
- * @param elementName
- * @param attributes
- * @param parent
- * @returns
  */
 function create(
-  elementName: ElementNames,
+  elementName: HtmlTag,
   attributes?: { [key: string]: any },
   parent?: HTMLElement
 ) {
@@ -61,7 +57,9 @@ function create2(elementName, attributes, ...children) {
 
 var httpRequest: XMLHttpRequest;
 
-function req(url, method, then) {
+type HttpMethod = "GET" | "POST";
+
+function req(url: string, method: HttpMethod, then: Function) {
   if (window.XMLHttpRequest) {
     httpRequest = new XMLHttpRequest();
   } else if (window.ActiveXObject) {
@@ -84,7 +82,7 @@ function req(url, method, then) {
   httpRequest.send();
 }
 
-const get = (url, then) => req(url, "GET", then);
+const get = (url: string, then: Function) => req(url, "GET", then);
 
 const $ = (selector) => document.querySelector(selector);
 const all = (selector) => Array.from(document.querySelectorAll(selector));
@@ -96,3 +94,5 @@ function dynLoad(src, id) {
   s.setAttribute("async", "true");
   return s;
 }
+
+export { create, create2, dynLoad, get, $, all };

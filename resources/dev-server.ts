@@ -1,27 +1,27 @@
-function id(id) {
-    return document.getElementById(id);
-};
+function id(id: string): HTMLElement {
+  return document.getElementById(id);
+}
 
 function filetype(path) {
-  return path.split('.').pop();
+  return path.split(".").pop();
 }
 
 function reload_html(path) {
-  console.log('Reloading HTML');
+  console.log("Reloading HTML");
 
   const pathname = window.location.pathname;
   const pathWithIndex = window.location.pathname + "index.html";
-  if(pathname === path || pathWithIndex === path) {
+  if (pathname === path || pathWithIndex === path) {
     window.location.reload();
   }
 }
 
 function reload_js(path) {
-  id(path).src = `${path}?${Date.now()}`;
+  id(path)["src"] = `${path}?${Date.now()}`;
 }
 
 function add_css(path, onload) {
-  const elem = document.createElement('link', onload);
+  const elem = document.createElement("link", onload);
   elem.rel = "stylesheet";
   elem.type = "text/css";
   elem.href = path;
@@ -48,38 +48,38 @@ function reload_css(path) {
 }
 
 // connect to dev server websocket
-const ws = new WebSocket('ws://127.0.0.1:4242/__hmr');
+const ws = new WebSocket("ws://127.0.0.1:4242/__hmr");
 
 ws.onopen = () => {
-  console.log('Connected to dev server');
+  console.log("Connected to dev server");
 };
 
 ws.onmessage = (msg) => {
-  console.log('Received message from dev server', msg);
-  if (msg.data === 'reload') {
+  console.log("Received message from dev server", msg);
+  if (msg.data === "reload") {
     window.location.reload();
   } else {
     // assume that a path has been sent for a specific file to refresh
     switch (filetype(msg.data)) {
-      case 'html':
+      case "html":
         reload_html(msg.data);
         break;
-      case 'js':
+      case "js":
         reload_js(msg.data);
         break;
-      case 'css':
+      case "css":
         reload_css(msg.data);
         break;
       default:
-        console.log('Unknown file type', msg.data);
+        console.log("Unknown file type", msg.data);
     }
   }
 };
 
 ws.onerror = (err) => {
-  console.error('Error connecting to dev server', err);
+  console.error("Error connecting to dev server", err);
 };
 
 ws.onclose = () => {
-  console.log('Connection closed to the dev server');
-}
+  console.log("Connection closed to the dev server");
+};

@@ -1,4 +1,5 @@
 import { execSync } from "../cmd";
+import { Path } from "../path";
 import RepoFile from "./repofile";
 
 /**
@@ -14,17 +15,17 @@ class Repo {
   // optional?
   remoteUrl = null;
 
-  constructor(path: string, remotePath?: string) {
+  constructor(path: Path, remotePath?: string) {
     this.path = path;
     this.remoteUrl = remotePath;
   }
 
-  static create(sourcePath: string, remotePath?: string) {
+  static create(sourcePath: Path, remotePath?: string) {
     const repo = new Repo(sourcePath, remotePath);
     return repo;
   }
 
-  getFile(atPath) {
+  getFile(atPath: Path | string) {
     if (!this.path.contains(atPath)) {
       throw new Error(`File ${atPath} is not in the repository`);
     }
@@ -33,12 +34,12 @@ class Repo {
   }
 
   // run a command in this git repository
-  runCmd(command) {
+  runCmd(command: string) {
     const cmdResult = execSync(command, { cwd: this.path.toString() });
     return cmdResult.toString();
   }
 
-  checkout(branchName) {
+  checkout(branchName: string) {
     return this.runCmd(`git checkout ${branchName}`);
   }
 

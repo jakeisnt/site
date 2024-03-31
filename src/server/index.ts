@@ -211,7 +211,7 @@ const directoryServer = ({
   siteName,
   devWebsocketUrl,
 }: {
-  absolutePathToDirectory: string;
+  absolutePathToDirectory: Path | string;
   fallbackDirPath: string;
   url: string;
   port: number;

@@ -95,6 +95,8 @@ const serve = (incomingPaths?: string[]) => {
       localPort,
       absolutePathToFile: path,
       siteName: "Jake Chvatal",
+      devWebsocketPath,
+      wsLocalhostUrl,
     });
   }
 };

@@ -38,7 +38,7 @@ class Path {
       .filter((p) => p.length);
   }
 
-  static create(maybePathString) {
+  static create(maybePathString: Path | string) {
     if (typeof maybePathString === "string") {
       return new Path(maybePathString);
     } else if (maybePathString instanceof Path) {
