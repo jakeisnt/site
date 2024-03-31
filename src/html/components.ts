@@ -5,7 +5,7 @@ import { sourceDir } from "../constants";
 // Support the Component interface.
 // Resolves dependencies automatically and allows partial page refresh.
 
-const getDependency = (path) => {
+const getDependency = (path: Path) => {
   const extension = path.extension;
   switch (extension) {
     case "js":
@@ -19,7 +19,7 @@ const getDependency = (path) => {
   }
 };
 
-const makeDependencyHeader = (dependencies) => {
+const makeDependencyHeader = (dependencies: { src: string }[]) => {
   if (dependencies.length === 0) {
     return null;
   }
@@ -29,7 +29,13 @@ const makeDependencyHeader = (dependencies) => {
   });
 };
 
-const component = (name, args) => {
+/**
+ * Render a JS component.
+ * @param name the name of the component
+ * @param args arguments to pass to that component.
+ * @returns the component
+ */
+const component = (name: string, args?: string[]) => {
   const rootPath = sourceDir;
   const componentFunction = require(`${rootPath}/components/${name}/${name}.js`);
   logger.file("Rendering component", name);

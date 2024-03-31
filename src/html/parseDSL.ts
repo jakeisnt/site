@@ -3,9 +3,14 @@ import { isArray } from "utils/array";
 
 // Utilities for parsing the HTML DSL internal to this project.
 
-// get the name of a tag.
+/**
+ * Get the name of a tag.
+ */
 const tagName = ([name]) => name;
-// get the attributes object of a tag.
+
+/**
+ * Get the attributes object of a tag.
+ */
 const tagAttributes = ([, attributes]) => {
   return isObject(attributes) ? attributes : null;
 };

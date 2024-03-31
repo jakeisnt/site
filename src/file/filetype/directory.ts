@@ -24,10 +24,12 @@ const folderIndexPageTable = ({ files, rootUrl, sourceDir }) => {
             { class: "file-name-tr" },
             [
               "a",
-              { href: childFile.htmlUrl({ 
-                rootUrl, 
-                sourceDir, 
-              }) },
+              {
+                href: childFile.htmlUrl({
+                  rootUrl,
+                  sourceDir,
+                }),
+              },
               childFile.name,
             ],
           ],
@@ -67,7 +69,9 @@ const directoryToHtml = (dir, { files, rootUrl, siteName, sourceDir }) => {
   ];
 };
 
-// a directory is a file that contains other files
+/**
+ * Represents a directory, which is a file that contains other files.
+ */
 class Directory extends File {
   static filetypes = ["dir"];
   enumeratedContents = null;
@@ -91,24 +95,29 @@ class Directory extends File {
     return childFiles;
   }
 
-  // get all the files in the immediate dir
-  // we don't treat this as a property and don't cache it
-  // because it is very possible for the files in the dir to change
-
-  // the 'omitNonJSFiles' flag exists to bootstrap the setup:
-  // the readFile function knows how to dispatch because it reads the files in this directory,
-  // but it doesn't know what kind of files they are yet - so we force JS.
-  contents({ omitNonJSFiles = false } = { omitNonJSFiles: false }) {
-
+  /**
+   * Get all the files in the immediate directory.
+   * This is not treated as a property and is not cached due to the possibility of files changing.
+   *
+   * @param {boolean} omitNonJSFiles - Flag to bootstrap the setup. The 'readFile' function dispatches based on this flag to force JavaScript files.
+   */
+  contents(
+    { omitNonJSFiles = false }: { omitNonJSFiles: boolean } = {
+      omitNonJSFiles: false,
+    }
+  ) {
     // special case for the js files: make sure they all exist
     if (omitNonJSFiles) {
-      return this.path.readDirectory().map((childPath) => {
-        if (childPath.extension !== "js") {
-          return null;
-        } else {
-          return readJSFile(childPath);
-        }
-      }).filter(file => file);
+      return this.path
+        .readDirectory()
+        .map((childPath) => {
+          if (childPath.extension !== "js") {
+            return null;
+          } else {
+            return readJSFile(childPath);
+          }
+        })
+        .filter((file) => file);
     }
 
     if (this.enumeratedContents) {
@@ -140,7 +149,7 @@ class Directory extends File {
     const targetPath = this.path.relativeTo(sourceDir, targetDir);
     targetPath.make({ isDirectory: true });
   }
-  
+
   // the dependencies of a directory are all of the files that it contains,
   // but as html versions. this is a proxy for finding those links in the html
   // SHORTCUT: the dependencies of a directory in general
@@ -161,7 +170,12 @@ class Directory extends File {
     if (!this.enumeratedHtml) {
       const { siteName, rootUrl, sourceDir } = settings;
       const files = this.contents();
-      const page = directoryToHtml(this, { files, siteName, rootUrl, sourceDir });
+      const page = directoryToHtml(this, {
+        files,
+        siteName,
+        rootUrl,
+        sourceDir,
+      });
 
       this.enumeratedHtml = HtmlPage.create(page, settings);
     }

@@ -9,8 +9,15 @@ import { makeHomePage } from "pages/home";
 /**
  * Format a URL with the URL, port, and path.
  */
-const formatUrl = ({ url, port, path }) =>
-  `${url}${port ? ":" + port : ""}${path ?? ""}`;
+const formatUrl = ({
+  url,
+  port,
+  path,
+}: {
+  url: string;
+  port: number;
+  path?: string;
+}) => `${url}${port ? ":" + port : ""}${path ?? ""}`;
 
 /**
  * Remove the full path from the URL.
@@ -79,7 +86,11 @@ const createServer = ({
   websocketPath,
   onRequest = () => {},
   onSocketConnected = () => {},
-} = {}) => {
+}: {
+  url: string;
+  port: number;
+  websocketPath: string;
+}) => {
   const fullUrl = formatUrl({ url, port });
   const linkText = link(fullUrl).underline().color("blue");
 
@@ -167,12 +178,19 @@ const directoryServer = ({
   absolutePathToDirectory,
   fallbackDirPath,
   url,
-  localPort,
+  port,
   siteName,
   devWebsocketUrl,
+}: {
+  absolutePathToDirectory: string;
+  fallbackDirPath: string;
+  url: string;
+  port: number;
+  siteName: string;
+  devWebsocketUrl: string;
 }) => {
   const dir = readFile(absolutePathToDirectory);
-  const devUrl = formatUrl({ url, port: localPort });
+  const devUrl = formatUrl({ url, port });
   let fallbackDir;
 
   try {
@@ -189,7 +207,7 @@ const directoryServer = ({
 
   createServer({
     url,
-    port: localPort,
+    port,
     onRequest: ({ path }) => {
       let pathToUse = Path.create(path);
 

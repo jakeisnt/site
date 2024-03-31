@@ -2,8 +2,14 @@ import { readFile } from "../file";
 import { htmlPage } from "./dsl";
 import { getTagLink, findTags } from "./parseDSL";
 
+type Settings = {
+  rootUrl: string;
+  sourceDir: string;
+  fallbackSourceDir: string;
+};
+
 // is the link string that we are provided internal?
-const isInternalLink = (l, settings) => {
+const isInternalLink = (l, settings: Settings) => {
   const { rootUrl } = settings;
 
   if (l.includes(rootUrl)) {
@@ -21,7 +27,7 @@ const isInternalLink = (l, settings) => {
 
 // Convert a link string to a legitimate file path on disk.
 // probably requires more arguments
-const linkStringToFile = (l, settings) => {
+const linkStringToFile = (l, settings: Settings) => {
   const { sourceDir, rootUrl } = settings;
 
   // remove the leading rootUrl from the link if it exists
@@ -36,16 +42,16 @@ const linkStringToFile = (l, settings) => {
 
 // Represents an HTML AST that may not be associated with a file
 class HtmlPage {
-  pageStructure = null;
-  currentBuildSettings = null;
-  cachedDependencies = null;
+  private pageStructure;
+  private currentBuildSettings: Settings;
+  private cachedDependencies;
 
-  constructor(pageSyntax, settings) {
+  constructor(pageSyntax, settings: Settings) {
     this.pageStructure = pageSyntax;
     this.currentBuildSettings = settings;
   }
 
-  static create(pageSyntax, settings) {
+  static create(pageSyntax, settings: Settings) {
     return new this(pageSyntax, settings);
   }
 

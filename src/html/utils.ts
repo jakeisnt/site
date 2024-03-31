@@ -8,11 +8,13 @@ const prop = (key, value) => {
   return ["meta", { property: key, content: value }];
 };
 
-const script = (src, opts) => {
+type HtmlOptions = {};
+
+const script = (src: string, opts?: HtmlOptions) => {
   return ["script", { src, id: src, ...opts }];
 };
 
-const css = (src, opts, body) => {
+const css = (src: string, opts?: HtmlOptions, body?: string) => {
   return [
     "link",
     { rel: "stylesheet", type: "text/css", href: src, id: src, ...opts },
@@ -20,7 +22,7 @@ const css = (src, opts, body) => {
   ];
 };
 
-const favicons = (iconDir) => {
+const favicons = (iconDir: string) => {
   return [
     [
       "link",
@@ -33,7 +35,7 @@ const favicons = (iconDir) => {
   ];
 };
 
-const colorScheme = (schemeName, backgroundColor) => {
+const colorScheme = (schemeName: string, backgroundColor: string) => {
   return [
     "meta",
     {
