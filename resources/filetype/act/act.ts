@@ -44,6 +44,7 @@ function cacheCharacters() {
 }
 
 function selectCharacter(e: PointerEvent) {
+  // @ts-ignore
   makeCharacterCurrent(e.target.value);
 }
 

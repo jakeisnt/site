@@ -1,4 +1,4 @@
-import type { HtmlTag } from "../src/types/html";
+import type { HtmlAttributes, HtmlTag } from "../src/types/html";
 
 function print(...txt: any[]) {
   return console.log(txt);
@@ -15,7 +15,7 @@ function runOnDesktop(fn: Function) {
  */
 function create(
   elementName: HtmlTag,
-  attributes?: { [key: string]: any },
+  attributes?: HtmlAttributes,
   parent?: HTMLElement
 ) {
   const elem = document.createElement(elementName);
@@ -33,7 +33,11 @@ function create(
   return elem;
 }
 
-function create2(elementName, attributes, ...children) {
+function create2(
+  elementName: HtmlTag,
+  attributes: HtmlAttributes,
+  ...children
+) {
   const elem = document.createElement(elementName);
   for (let key in attributes) {
     // some things only work one way, so we do both

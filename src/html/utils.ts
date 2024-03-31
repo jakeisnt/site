@@ -1,10 +1,12 @@
 // Utility functions for generating HTML tags.
 
-const meta = (key, value) => {
+import { PageSyntax } from "../types/html";
+
+const meta = (key, value): PageSyntax => {
   return ["meta", { name: key, content: value }];
 };
 
-const prop = (key, value) => {
+const prop = (key, value): PageSyntax => {
   return ["meta", { property: key, content: value }];
 };
 
@@ -51,7 +53,7 @@ const theme = () => {
   return [colorScheme("light", "white"), colorScheme("dark", "#111")];
 };
 
-const openGraphHeaders = ({ title, rootUrl, siteName }) => {
+const openGraphHeaders = ({ title, rootUrl, siteName }): PageSyntax[] => {
   return [
     prop("og:title", title),
     prop("og:type", "website"),
@@ -67,7 +69,7 @@ const header = ({
   siteName,
   resourcesDir: maybeResource,
   faviconsDir: maybeFaviconsDir,
-}) => {
+}): PageSyntax => {
   const resourcesDir = maybeResource ?? "/resources";
   const faviconsDir = maybeFaviconsDir ?? resourcesDir + "/favicon";
 

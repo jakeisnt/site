@@ -1,6 +1,7 @@
 // utils for files, mostly for rendering
 
 import { header, component } from "html";
+import { PageSyntax } from "../../types/html";
 
 const renderArticle = ({
   articleHtml,
@@ -10,7 +11,7 @@ const renderArticle = ({
   sourceDir,
   resourcesDir,
   faviconsDir,
-}) => {
+}): PageSyntax => {
   const title = file.name;
 
   return [

@@ -63,7 +63,7 @@ class File {
   }
 
   // I hope the file is not a directory
-  get isDirectory() {
+  isDirectory() {
     return false;
   }
 

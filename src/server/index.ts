@@ -211,7 +211,7 @@ const directoryServer = ({
   siteName,
   devWebsocketUrl,
 }: {
-  absolutePathToDirectory: Path | string;
+  absolutePathToDirectory: Path;
   fallbackDirPath: string;
   url: string;
   port: number;
@@ -228,7 +228,7 @@ const directoryServer = ({
     log.debug("Error finding fallback dir:", e.message);
   }
 
-  if (!dir.isDirectory) {
+  if (!dir.isDirectory()) {
     throw new Error(
       `Received path '${absolutePathToDirectory}' is not a directory`
     );

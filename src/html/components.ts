@@ -1,11 +1,12 @@
 import { Path } from "utils/path";
 import logger from "utils/log";
 import { sourceDir } from "../constants";
+import { PageSyntax } from "../types/html";
 
 // Support the Component interface.
 // Resolves dependencies automatically and allows partial page refresh.
 
-const getDependency = (path: Path) => {
+const getDependency = (path: Path): PageSyntax => {
   const extension = path.extension;
   switch (extension) {
     case "js":
@@ -19,7 +20,7 @@ const getDependency = (path: Path) => {
   }
 };
 
-const makeDependencyHeader = (dependencies: { src: string }[]) => {
+const makeDependencyHeader = (dependencies: { src: string }[]): PageSyntax => {
   if (dependencies.length === 0) {
     return null;
   }
@@ -35,7 +36,7 @@ const makeDependencyHeader = (dependencies: { src: string }[]) => {
  * @param args arguments to pass to that component.
  * @returns the component
  */
-const component = (name: string, args?: Object) => {
+const component = (name: string, args?: Object): PageSyntax => {
   const rootPath = sourceDir;
   const componentFunction = require(`${rootPath}/components/${name}/${name}.js`);
   logger.file("Rendering component", name);

@@ -3,42 +3,40 @@
 
 import { isArray } from "utils/array";
 import { isObject } from "utils/object";
+import { PageSyntax, HtmlAttributes, HtmlTag } from "../types/html";
 
-type HtmlAttribute = { id?: string; class?: string };
-
-function html(...args) {
+function html(...args: PageSyntax[]) {
   var buffer = [];
   build(args, buffer);
   return buffer.join("");
 }
 
-function htmlPage(...args) {
+function htmlPage(...args: PageSyntax[]): string {
   return "<!DOCTYPE html>" + html(...args);
 }
 
-function build(list, buffer) {
+function build(list, buffer: string[]) {
   var index = 0;
 
   if (typeof list[index] === "string") {
-    var tag = splitTag(list[index++]);
-    var attr = tag[1];
-    tag = tag[0];
+    const [tagName, attr] = splitTag(list[index++]);
+
     if (isObject(list[index])) {
       mergeAttributes(attr, list[index++]);
     }
-    buffer.push("<", tag);
-    for (var key in attr) {
-      buffer.push(" ", key, '="', attr[key], '"');
+    buffer.push("<", tagName);
+    for (var key in Object.keys(attr)) {
+      buffer.push(" ", key, '="', attr[key].toString(), '"');
     }
     buffer.push(">");
     buildRest(list, index, buffer);
-    buffer.push("</", tag, ">");
+    buffer.push("</", tagName, ">");
   } else {
     buildRest(list, index, buffer);
   }
 }
 
-function buildRest(list, index, buffer) {
+function buildRest(list, index: number, buffer: string[]) {
   var length = list.length;
   while (index < length) {
     var item = list[index++];
@@ -50,7 +48,7 @@ function buildRest(list, index, buffer) {
   }
 }
 
-function mergeAttributes(attr1: HtmlAttribute, attr2: HtmlAttribute) {
+function mergeAttributes(attr1: HtmlAttributes, attr2: HtmlAttributes) {
   for (var key in attr2) {
     if (!attr1.hasOwnProperty(key)) {
       attr1[key] = attr2[key];
@@ -60,12 +58,12 @@ function mergeAttributes(attr1: HtmlAttribute, attr2: HtmlAttribute) {
   }
 }
 
-function splitTag(tag) {
-  var attr: HtmlAttribute = {};
+function splitTag(tag: string): [HtmlTag, HtmlAttributes] {
+  var attr: HtmlAttributes = {};
   var match = tag.match(/([^\s\.#]+)(?:#([^\s\.#]+))?(?:\.([^\s#]+))?/);
   if (match[2]) attr.id = match[2];
   if (match[3]) attr["class"] = match[3].replace(/\./g, " ");
-  return [match[1], attr];
+  return [match[1] as HtmlTag, attr];
 }
 
 export { html, htmlPage };

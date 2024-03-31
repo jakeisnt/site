@@ -10,13 +10,13 @@ const fileHasTitle = (fileString) => {
 };
 
 // after the article is in some html ast form, get more info from it
-const renderArticle = (mdArticle) => {
+const renderArticle = (mdArticle, config) => {
   const pageName = mdArticle.name;
   const hasTitle = fileHasTitle(mdArticle);
 
   return [
     "html",
-    header(),
+    header(config),
     [
       "body",
       component("Sidebar"),

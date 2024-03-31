@@ -1,10 +1,11 @@
 import { header, component, HtmlPage } from "html";
 import { Path } from "utils/path";
+import { PageSyntax } from "../types/html";
 
 const makeHomePage = (settings) => {
   const { rootUrl, sourceDir, siteName, resourcesDir, faviconsDir } = settings;
   const title = "index";
-  const htmlText = [
+  const htmlText: PageSyntax = [
     "html",
     header({ title, rootUrl, siteName, resourcesDir, faviconsDir }),
     [

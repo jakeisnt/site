@@ -51,15 +51,17 @@ type HtmlTag =
   | "path"
   | "g";
 
-type HtmlAttributes = Record<string, string | number | boolean>;
+type HtmlAttributes = {
+  [key: string | number]: string | number;
+};
 
 type HtmlNode = string | number | HtmlTagNode;
-type HtmlTagNode = [
-  HtmlTag,
-  HtmlAttributes | HtmlNode | undefined,
-  ...HtmlNode[]
-];
+type HtmlTagNode =
+  | HtmlNode[]
+  | [HtmlTag]
+  | [HtmlTag, ...HtmlNode[]]
+  | [HtmlTag, HtmlAttributes, ...HtmlNode[]];
 
 type PageSyntax = HtmlNode;
 
-export type { HtmlTag, PageSyntax };
+export type { HtmlTag, PageSyntax, HtmlAttributes };

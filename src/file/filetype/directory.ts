@@ -168,7 +168,7 @@ class Directory extends File {
     return this.enumeratedDependencies;
   }
 
-  get isDirectory() {
+  isDirectory() {
     return true;
   }
 
