@@ -230,6 +230,8 @@ class Path {
       );
     }
 
+    console.log(this.pathString, fs.lstatSync(this.pathString));
+
     return fs.lstatSync(this.pathString).isDirectory();
   }
 

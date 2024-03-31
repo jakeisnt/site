@@ -5,6 +5,7 @@ import { header, component } from "html";
 import HtmlPage from "../../html/builder.js";
 import { PageSettings } from "../../types/site.js";
 import { PageSyntax } from "../../types/html.js";
+import { Path } from "../../utils/path.js";
 
 const readJSFile = (path) => {
   return new JSFile(path);
@@ -118,18 +119,19 @@ class Directory extends File {
       omitNonJSFiles: false,
     }
   ) {
-    // special case for the js files: make sure they all exist
+    // special case for the js files: make sure they all exist.
+    // don't cache this because we only want the default full dir cached.
     if (omitNonJSFiles) {
       return this.path
         .readDirectory()
-        .map((childPath) => {
+        .map((childPath: Path) => {
           if (childPath.extension !== "js") {
             return null;
           } else {
             return readJSFile(childPath);
           }
         })
-        .filter((file) => file);
+        .filter((file: File | null) => file);
     }
 
     if (this.enumeratedContents) {
@@ -143,7 +145,7 @@ class Directory extends File {
 
   // given a file path relative to this directory,
   // find the relevant source file
-  findFile(relativePath) {
+  findFile(relativePath: Path) {
     const path = this.path.join(relativePath);
 
     try {
@@ -153,7 +155,7 @@ class Directory extends File {
     }
   }
 
-  write(config) {
+  write(config: PageSettings) {
     const { sourceDir, targetDir } = config;
 
     // first, make sure the corresponding directory exists.
