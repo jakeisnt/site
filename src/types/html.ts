@@ -60,7 +60,7 @@ type HtmlAttributes = {
   id?: string;
 };
 
-type HtmlNode = string | number | HtmlTagNode | HtmlNode[];
+type HtmlNode = string | HtmlTagNode | HtmlNode[];
 type HtmlTagNode =
   | [HtmlTag]
   | [HtmlTag, ...HtmlNode[]]

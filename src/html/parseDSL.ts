@@ -103,4 +103,4 @@ const getTagLink = (tag: HtmlTagNode): string => {
   }
 };
 
-export { findTags, getTagLink };
+export { isHtmlAttributes, findTags, getTagLink };
