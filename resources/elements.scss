@@ -138,7 +138,6 @@ ol > li:first-of-type::before {
 /* Code blocks */
 pre {
   white-space: pre-wrap;
-  min-width: 60ch;
 }
 
 /* inline literal code */
@@ -163,6 +162,7 @@ pre code {
   font-size: 14px;
   background-color: var(--quote-background) !important;
   min-height: 36px;
+  min-width: 70ch;
 }
 
 code:hover {
@@ -172,8 +172,10 @@ code:hover {
 
 @media only screen and (max-width: 500px) {
   pre code {
+    $width: calc(100% + 1rem);
     margin-left: -1rem;
-    width: calc(100% + 1rem);
+    min-width: $width;
+    max-width: $width;
   }
 }
 
