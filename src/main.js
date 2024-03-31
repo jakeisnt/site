@@ -6,8 +6,7 @@ import { cli } from "utils/cli";
 import { buildFromPath } from "./build.js";
 import { singleFileServer, directoryServer } from "./server";
 import { Path } from "utils/path";
-
-const SITE_DIRECTORY = "/Users/jake/Desktop/personal/site";
+import { sourceDir as SITE_DIRECTORY } from "./constants";
 
 // paths to ignore by default from the website we build
 const commonIgnorePaths = [".git", "node_modules"];
