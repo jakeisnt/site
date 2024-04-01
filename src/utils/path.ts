@@ -24,7 +24,6 @@ class Path {
   // and access them directly.
   private pathArray: string[] = [];
   private pathString: string = "";
-  private parentPath: Path = null;
 
   /**
    * Construct a Path.
@@ -133,8 +132,11 @@ class Path {
     return this.pathArray.length === 0;
   }
 
-  // repo helper function
-  __repo() {
+  /**
+   * Fetch and construct the repo if we don't have one yet.
+   * Returns null if we can't find a repo for the page.
+   */
+  private __repo(): Repo | null {
     if (this.isRootPath()) {
       return null;
     }
@@ -152,7 +154,9 @@ class Path {
     return this.parent.__repo();
   }
 
-  // get the git repo that this path is a member of
+  /**
+   * Get the git repo that this path is a member of.
+   */
   get repo() {
     if (!this.exists()) {
       return null;
@@ -295,7 +299,7 @@ class Path {
   }
 
   readBinary() {
-    const chunks = [];
+    // const chunks = [];
     let buffer;
 
     // const readStream = fs.createReadStream(this.pathString);
@@ -312,7 +316,7 @@ class Path {
     return buffer;
   }
 
-  writeBinary(fromStream) {
+  writeBinary() {
     // const outStream = fs.createWriteStream(outPath);
     // inStream.pipe(outStream);
     // TODO
@@ -380,7 +384,7 @@ class Path {
    * Assume the path is a file unless provided that it's a directory.
    */
   make(settings?: { isDirectory?: boolean }) {
-    const { isDirectory } = settings;
+    const isDirectory = settings?.isDirectory;
 
     if (this.exists()) {
       console.log(".make: File already exists at path ", this.pathString);

@@ -1,7 +1,7 @@
 import { Path } from "utils/path";
 import logger from "utils/log";
 import { sourceDir } from "../constants";
-import { PageSyntax } from "../types/html";
+import type { PageSyntax } from "../types/html";
 
 // Support the Component interface.
 // Resolves dependencies automatically and allows partial page refresh.

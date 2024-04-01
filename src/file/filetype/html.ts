@@ -1,7 +1,8 @@
 import { SourceFile } from "file/classes";
 import { readFile } from "file";
 import { Path } from "utils/path";
-import { PageSettings } from "../../types/site";
+import type { PageSettings } from "../../types/site";
+import { File } from "file/classes";
 
 class HTMLFile extends SourceFile {
   static filetypes = ["html", "htm", "svg"];
@@ -37,7 +38,7 @@ class HTMLFile extends SourceFile {
     const path = Path.create(filePath.toString().replace(".html", ""));
     const directoryPath = filePath.parent;
 
-    let prevFile;
+    let prevFile: File;
     try {
       prevFile = readFile(path);
     } catch (e) {

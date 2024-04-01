@@ -1,6 +1,8 @@
 // TODO: define custom getter for the logger that allows any object access,
 // but only actually logs info from the supported loggers
 
+// @ts-nocheck
+
 let logger = {
   // general debug logs
   debug(...args) {
