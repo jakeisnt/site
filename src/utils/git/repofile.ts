@@ -1,3 +1,5 @@
+import type { Repo } from ".";
+import type { Path } from "../path";
 import RepoCommit from "./commit";
 import logger from "utils/log";
 
@@ -6,25 +8,27 @@ import logger from "utils/log";
  */
 class RepoFile {
   // the path to the file
-  path = null;
-
+  path: Path;
   // the repo this file is in
-  repo = null;
+  private repo: Repo;
 
-  constructor(repo, path) {
+  constructor(repo: Repo, path: Path) {
     this.repo = repo;
     this.path = path;
   }
 
-  static create(repo, path) {
+  static create(repo: Repo, path: Path) {
     const file = new RepoFile(repo, path);
     return file;
   }
 
-  // get the link to this file in git history at a particular commit
-  historyLink(longHash: string) {
-    return this.repo.historyLink(longHash, this.path);
-  }
+  /**
+   * Get the link to this file in git history at a particular commit
+   * @param longHash the specific hash to link to
+   */
+  // historyLink(longHash: string) {
+  //   return this.repo.historyLink(longHash, this.path);
+  // }
 
   // is the file ignored by the repo?
   // TODO this does not work ofc
@@ -50,6 +54,7 @@ class RepoFile {
           longHash,
           commitDate,
           timestamp: parseInt(timestamp, 10),
+          repo: this.repo,
         });
       } else {
         logger.git(
@@ -62,7 +67,9 @@ class RepoFile {
     }
   }
 
-  // Get the full log of changes to this file
+  /**
+   * Get the full git log of changes to this file
+   */
   get log() {
     if (this.isIgnored()) {
       return [];
@@ -72,12 +79,14 @@ class RepoFile {
     try {
       const stdout = this.repo.runCmd(command);
       if (stdout) {
-        return stdout.split("\n").map((line) => {
+        return stdout.split("\n").map((line: string) => {
           const [shortHash, longHash, commitDate] = line.split(" ");
           return RepoCommit.create({
             shortHash,
             longHash,
-            commitDate,
+            commitDate: new Date(commitDate),
+            timestamp: 0,
+            repo: this.repo,
           });
         });
       } else {
@@ -91,7 +100,9 @@ class RepoFile {
     }
   }
 
-  // get the last timestamp of this file
+  /**
+   * Get the last timestamp of this file.
+   */
   get lastTimestamp() {
     const command = `git log -1 --pretty=format:%ct --follow -- ${this.path.toString()}`;
     try {

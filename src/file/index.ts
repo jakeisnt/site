@@ -14,22 +14,24 @@ import JavascriptFile from "./filetype/js";
 // import all the files from the 'filetype' directory
 // and associate them with their filetype names
 
-let filetypeMap: { [key: string]: typeof File };
+type FiletypeMap = { [key: string]: typeof File };
+
+let filetypeMap: FiletypeMap;
 
 // obtain a map of file to filetype
 const getFiletypeMap = () => {
   // bootstrap the process; we know we have a directory
   const dir = new Directory(Path.create(__dirname + "/filetype/"));
 
-  const newFiletypeMap = {};
+  const newFiletypeMap: FiletypeMap = {};
 
   // problem: to bootstrap the process, we need to know what class
   // a file is before we can create it. but we need to create it
   dir
     .contents({ omitNonJSFiles: true })
-    .map((file: JavascriptFile) => {
+    .map((file: File) => {
       // because we have a js file, we know we can require it
-      const fileClass = file.require();
+      const fileClass = (file as JavascriptFile).require();
       // default to using the raw 'fileClass' if there is no default export (?)
       return fileClass?.default ?? fileClass;
     })
@@ -81,7 +83,7 @@ const readFile = (
 
   const extension = path.extension;
 
-  if (!(extension in filetypeMap)) {
+  if (!extension || !(extension in filetypeMap)) {
     console.log(
       `We don't have a filetype mapping for files with extension ${extension}. Assuming plaintext for file at path '${path.toString()}'.`
     );

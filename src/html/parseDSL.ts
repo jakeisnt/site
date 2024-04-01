@@ -1,6 +1,6 @@
 import { isObject } from "utils/object";
 import { isArray } from "utils/array";
-import {
+import type {
   HtmlTag,
   HtmlNode,
   HtmlTagNode,
@@ -30,28 +30,6 @@ const tagAttributes = ([, attributes]: HtmlTagNode) => {
 };
 
 /**
- * Get the sorting rank of an HTML heading.
- */
-const headingRank = (headingTag: HtmlTag) => {
-  switch (headingTag) {
-    case "h1":
-      return 1;
-    case "h2":
-      return 2;
-    case "h3":
-      return 3;
-    case "h4":
-      return 4;
-    case "h5":
-      return 5;
-    case "h6":
-      return 6;
-    default:
-      return 7;
-  }
-};
-
-/**
  * Collect elements from an HTML page that meet the provided predicate.
  */
 const collectElements = (
@@ -63,7 +41,9 @@ const collectElements = (
     return [htmlPage];
   } else if (isArray(htmlPage)) {
     // if we can act on the contents:
-    const results = htmlPage.flatMap((tag) => collectElements(tag, predicate));
+    const results = htmlPage.flatMap((tag) =>
+      collectElements(tag as HtmlNode, predicate)
+    );
     return results;
   }
 
@@ -76,8 +56,12 @@ const collectElements = (
 const findTags = (htmlPage: PageSyntax, tags: HtmlTag[]) => {
   return collectElements(
     htmlPage,
-    (tl: HtmlTagNode) => tl && tl?.[0] && tags.includes(tl?.[0])
+    (tl: HtmlNode) => isHtmlTagNode(tl) && tl?.[0] && tags.includes(tl?.[0])
   );
+};
+
+const isHtmlTagNode = (v: any): v is HtmlTagNode => {
+  return isArray(v);
 };
 
 /**
@@ -86,7 +70,11 @@ const findTags = (htmlPage: PageSyntax, tags: HtmlTag[]) => {
  * the 'link' of a 'style' tag,
  * or the 'src' of a 'script' tag.
  */
-const getTagLink = (tag: HtmlTagNode): string => {
+const getTagLink = (tag: HtmlNode): string | undefined => {
+  if (!isHtmlTagNode(tag)) {
+    return;
+  }
+
   const name = tagName(tag);
   const attrs = tagAttributes(tag);
 

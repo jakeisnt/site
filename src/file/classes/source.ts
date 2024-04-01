@@ -1,7 +1,7 @@
 import TextFile from "./text";
 import { renderArticle } from "./utils";
 import { HtmlPage } from "../../html";
-import { PageSettings } from "../../types/site";
+import type { PageSettings } from "../../types/site";
 
 // if it's a source code file, we want to:
 // - render both to 'file.$ext' and 'file.$ext.html'
@@ -36,7 +36,7 @@ class SourceFile extends TextFile {
   // javascript file when the actual file is written in typescript,
   // converting configuration files into others on the fly,
   // reading SCSS as CSS, etc.
-  public fakeFileOf: SourceFile;
+  public fakeFileOf: SourceFile | undefined;
 
   asHtml(settings: PageSettings) {
     const page = renderSourceFile({

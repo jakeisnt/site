@@ -4,7 +4,6 @@ import log from "utils/log";
 
 import { formatUrl, makeFileResponse } from "./utils";
 import { readFile } from "../file";
-import { makeHomePage } from "pages/home";
 import { createServer } from "./createServer";
 import Directory from "../file/filetype/directory";
 
@@ -31,19 +30,19 @@ const directoryServer = ({
   const dir = readFile(absolutePathToDirectory, {
     sourceDir: absolutePathToDirectory.toString(),
     fallbackSourceDir: fallbackDirPath,
-  }) as Directory;
+  }) as unknown as Directory;
 
   const devUrl = formatUrl({ url, port });
-  let fallbackDir: Directory = undefined;
+  let fallbackDir: Directory;
 
   try {
-    fallbackDir =
-      fallbackDirPath &&
-      (readFile(fallbackDirPath, {
+    if (fallbackDirPath) {
+      fallbackDir = readFile(fallbackDirPath, {
         sourceDir: absolutePathToDirectory.toString(),
         fallbackSourceDir: fallbackDirPath,
-      }) as Directory);
-  } catch (e) {
+      }) as unknown as Directory;
+    }
+  } catch (e: any) {
     log.debug("Error finding fallback dir:", e.message);
   }
 

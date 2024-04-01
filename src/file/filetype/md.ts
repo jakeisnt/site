@@ -1,18 +1,19 @@
 import { TextFile } from "file/classes";
 import { header, component } from "html";
-
-// parse markdown to html
-const parseMarkdown = (fileString) => {};
+import type { PageSettings } from "../../types/site";
 
 // TODO
-const fileHasTitle = (fileString) => {
+const fileHasTitle = (fileString: string) => {
   return fileString.indexOf("# ") === 0;
 };
 
 // after the article is in some html ast form, get more info from it
-const renderArticle = (mdArticle, config) => {
+// @ts-ignore
+const renderArticle = (
+  mdArticle: any,
+  config: PageSettings & { title: string; siteName: string }
+) => {
   const pageName = mdArticle.name;
-  const hasTitle = fileHasTitle(mdArticle);
 
   return [
     "html",

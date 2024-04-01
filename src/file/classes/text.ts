@@ -1,7 +1,8 @@
 import { HtmlPage } from "../../html";
 import File from "./file";
 import { renderArticle } from "./utils";
-import { PageSettings } from "../../types/site";
+import type { PageSettings } from "../../types/site";
+import type { HtmlNode } from "../../types/html";
 
 const renderTextFile = ({
   file,
@@ -9,9 +10,13 @@ const renderTextFile = ({
 }: PageSettings & {
   file: TextFile;
 }) => {
-  const articleHtml = [
+  const articleHtml: HtmlNode = [
     "pre",
-    ["code", { class: `language-${file.extension} has-raw-code` }, file.text],
+    [
+      "code",
+      { class: `language-${file.extension} has-raw-code` },
+      file.text,
+    ] as HtmlNode,
   ];
 
   return renderArticle({
@@ -26,7 +31,7 @@ const renderTextFile = ({
  */
 class TextFile extends File {
   // the string contents of the file
-  protected asString: string = null;
+  protected asString: string | undefined;
 
   read() {
     this.asString = this.path.readString();
@@ -43,12 +48,12 @@ class TextFile extends File {
     return this;
   }
 
-  get text() {
+  get text(): string {
     if (!this.asString) {
       this.read();
     }
 
-    return this.asString;
+    return this.asString as string;
   }
 
   toString() {

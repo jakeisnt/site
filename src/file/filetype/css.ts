@@ -4,8 +4,12 @@ const { pathToFileURL } = require("url");
 import { readFile } from "file";
 import { sourceDir } from "../../constants";
 import SCSSFile from "./scss";
+import type { Path } from "../../utils/path";
 
-const scssToCss = (scssText) => {
+/**
+ * Convert provided SCSS text to a CSS string.
+ */
+const scssToCss = (scssText: string) => {
   const result = sass.compileString(scssText, {
     sourceMap: false,
     importers: [
@@ -17,6 +21,7 @@ const scssToCss = (scssText) => {
       },
     ],
   });
+
   return result.css.toString();
 };
 
@@ -27,8 +32,12 @@ const scssToCss = (scssText) => {
 class CSSFile extends SourceFile {
   static filetypes = ["css"];
 
-  // override the create behavior to create the parent
-  static create(filePath) {
+  /**
+   * Override the default 'create' behavior.
+   * Potentially create a parent as well.
+   * @param filePath path to the file to create from.
+   */
+  static create(filePath: Path) {
     if (filePath.exists()) {
       return new CSSFile(filePath);
     }

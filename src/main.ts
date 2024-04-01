@@ -42,14 +42,19 @@ const build = (incomingPaths?: string[]) => {
 
   const rootUrl = paths[3] ?? "file://" + targetDir.toString();
 
+  const resourcesDir = Path.create(sourceDir.toString() + "/resources");
+  const faviconsDir = Path.create(sourceDir.toString() + "/favicons");
+
   buildFromPath({
     siteName,
     rootUrl,
-    sourceDir: sourceDir,
-    fallbackSourceDir,
-    targetDir: targetDir,
+    sourceDir: sourceDir.toString(),
+    fallbackSourceDir: fallbackSourceDir.toString(),
+    targetDir: targetDir.toString(),
     // 'ignorePaths' are expected to be absolute
     ignorePaths: commonIgnorePaths.map((p) => sourceDir.toString() + "/" + p),
+    resourcesDir: resourcesDir.toString(),
+    faviconsDir: faviconsDir.toString(),
   });
 };
 
@@ -58,6 +63,13 @@ const build = (incomingPaths?: string[]) => {
  */
 const deployWebsite = () => {
   const currentRepo = Path.create(".").repo;
+
+  if (!currentRepo) {
+    console.log(
+      "Current path does not have a git repository. Unable to deploy."
+    );
+    return;
+  }
 
   deploy({
     currentRepo,
@@ -95,7 +107,7 @@ const serve = (incomingPaths?: string[]) => {
     singleFileServer({
       url: localhostUrl,
       localPort,
-      absolutePathToFile: path,
+      absolutePathToFile: path.toString(),
       siteName: "Jake Chvatal",
       devWebsocketPath,
       wsLocalhostUrl,

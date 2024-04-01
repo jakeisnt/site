@@ -40,11 +40,10 @@ function colorText(str: string, color: TerminalColors) {
  */
 class PrintStyle {
   private isBold = false;
-  private isItalic = false;
   private isUnderlined = false;
-  private colorName: TerminalColors = null;
+  private colorName: TerminalColors | undefined;
   private text = "";
-  private url = null;
+  private url: string | undefined;
 
   constructor(text: string) {
     this.text = text;

@@ -2,14 +2,19 @@
 // inspired by https://gist.github.com/hns/654226
 
 import { isArray } from "utils/array";
-import { PageSyntax, HtmlAttributes, HtmlTag, HtmlNode } from "../types/html";
+import type {
+  PageSyntax,
+  HtmlAttributes,
+  HtmlTag,
+  HtmlNode,
+} from "../types/html";
 import { isHtmlAttributes } from "./parseDSL";
 
 /**
  * Convert HTML to a string.
  */
 function html(...args: PageSyntax[]) {
-  var buffer = [];
+  let buffer: string[] = [];
   build(args, buffer);
   return buffer.join("");
 }
@@ -40,7 +45,7 @@ function buildAttributes(attrs: HtmlAttributes, buffer: string[]) {
 function build(list: HtmlNode, buffer: string[]) {
   let index = 0;
 
-  let nextElement = list[index];
+  let nextElement = list?.[index];
 
   // if our next element is the start of an HTML tag:
   if (typeof nextElement === "string") {
@@ -49,7 +54,7 @@ function build(list: HtmlNode, buffer: string[]) {
     index += 1;
 
     let attributesToUse = attr;
-    nextElement = list[index];
+    nextElement = list?.[index];
 
     // If, after the tag, we have more attributes,
     // merge them with the attributes we found when splitting the tag.
@@ -81,10 +86,10 @@ function build(list: HtmlNode, buffer: string[]) {
  * @param buffer our output string buffer.
  */
 function buildRest(list: HtmlNode, index: number, buffer: string[]) {
-  const length = list.length;
+  const length = list?.length ?? 0;
 
   while (index < length) {
-    var item = list[index++];
+    var item = list?.[index++];
     if (isArray(item)) {
       build(item, buffer);
     } else {
@@ -124,11 +129,11 @@ function mergeAttributes(attr1: HtmlAttributes, attr2: HtmlAttributes) {
  * @returns the tag name and corresponding HTML attributes to set -- if any.
  */
 function splitTag(tag: string): [HtmlTag, HtmlAttributes] {
-  var attr: HtmlAttributes = {};
-  var match = tag.match(/([^\s\.#]+)(?:#([^\s\.#]+))?(?:\.([^\s#]+))?/);
-  if (match[2]) attr.id = match[2];
-  if (match[3]) attr.class = match[3].replace(/\./g, " ");
-  return [match[1] as HtmlTag, attr];
+  let attr: HtmlAttributes = {};
+  let match = tag.match(/([^\s\.#]+)(?:#([^\s\.#]+))?(?:\.([^\s#]+))?/);
+  if (match?.[2]) attr.id = match[2];
+  if (match?.[3]) attr.class = match[3].replace(/\./g, " ");
+  return [match?.[1] as HtmlTag, attr];
 }
 
 export { html, htmlPage };

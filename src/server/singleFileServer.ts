@@ -13,6 +13,13 @@ const singleFileServer = ({
   siteName,
   wsLocalhostUrl,
   devWebsocketPath,
+}: {
+  url: string;
+  localPort: number;
+  absolutePathToFile: string;
+  siteName: string;
+  wsLocalhostUrl: string;
+  devWebsocketPath: string;
 }) => {
   const file = readFile(absolutePathToFile);
   const devUrl = formatUrl({ url, port: localPort });
@@ -23,7 +30,8 @@ const singleFileServer = ({
     path: devWebsocketPath,
   });
 
-  let wsClientConnection = null;
+  // TODO: hunt down the websocket type and use it properly
+  let wsClientConnection: any = null;
 
   const sourceDir = file.path.parent.toString();
   const resourcesDir = `${sourceDir}/resources`;

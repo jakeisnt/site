@@ -51,8 +51,11 @@ type HtmlTag =
   | "path"
   | "g";
 
-type HtmlAttributes = {
-  [key: string | number]: string | number | Function;
+// A generic HTML attribute.
+// Doesn't type specific tag names.
+type GenericAttribute = { [key: string]: string | number | Function };
+
+type HtmlAttributes = GenericAttribute & {
   src?: string;
   href?: string;
   class?: string;
@@ -72,7 +75,10 @@ type HtmlNode = string | HtmlTagNode | HtmlNode[] | FalsyHtmlNode;
 type HtmlTagNode =
   | [HtmlTag]
   | [HtmlTag, ...HtmlNode[]]
-  | [HtmlTag, HtmlAttributes, ...HtmlNode[]];
+  | [HtmlTag, HtmlAttributes, ...HtmlNode[]]
+  // NOTE: this should be the same type as the above.
+  // but typescript is having trouble reading it?
+  | [HtmlTag, HtmlAttributes, ...string[]];
 
 type PageSyntax = HtmlNode;
 

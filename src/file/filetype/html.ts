@@ -1,7 +1,8 @@
 import { SourceFile } from "file/classes";
 import { readFile } from "file";
 import { Path } from "utils/path";
-import { PageSettings } from "../../types/site";
+import type { PageSettings } from "../../types/site";
+import { File } from "file/classes";
 
 class HTMLFile extends SourceFile {
   static filetypes = ["html", "htm", "svg"];
@@ -37,7 +38,7 @@ class HTMLFile extends SourceFile {
     const path = Path.create(filePath.toString().replace(".html", ""));
     const directoryPath = filePath.parent;
 
-    let prevFile;
+    let prevFile: File;
     try {
       prevFile = readFile(path);
     } catch (e) {
@@ -52,8 +53,12 @@ class HTMLFile extends SourceFile {
     // so we ignore them and create spurious html here with no contents.
     // like image files.
     // really, those files should not be linked to as html at all.
+
+    // @ts-ignore
     sourceFile.fakeFileOf = prevFile;
+    // @ts-ignore
     sourceFile.asHtml = prevFile.asHtml;
+    // @ts-ignore
     sourceFile.read = (...args) => prevFile?.asHtml?.(...args).toString() ?? "";
 
     sourceFile.write = (config) => {
@@ -69,11 +74,13 @@ class HTMLFile extends SourceFile {
     };
 
     sourceFile.serve = (...args) => {
+      // @ts-ignore
       const contents = prevFile?.asHtml?.(...args).toString() ?? "";
       return { contents, mimeType: "text/html" };
     };
 
     sourceFile.dependencies = (settings) => {
+      // @ts-ignore
       return prevFile?.asHtml?.(settings)?.dependencies() ?? [];
     };
 

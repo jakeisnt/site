@@ -9,23 +9,22 @@ import RepoFile from "./repofile";
 class Repo {
   // the full path to the repository
   // this is the directory that contains the .git subdirectory
-  path = null;
+  public path: Path;
 
-  // the remote URL of the git repository
-  // optional?
-  remoteUrl = null;
-
-  constructor(path: Path, remotePath?: string) {
+  constructor(path: Path) {
     this.path = path;
-    this.remoteUrl = remotePath;
   }
 
-  static create(sourcePath: Path, remotePath?: string) {
-    const repo = new Repo(sourcePath, remotePath);
-    return repo;
+  static create(sourcePath: Path) {
+    return new Repo(sourcePath);
   }
 
-  getFile(atPath: Path | string) {
+  /**
+   * Get a reference to the git repo's file at the provided path.
+   * @param atPath
+   * @returns
+   */
+  getFile(atPath: Path) {
     if (!this.path.contains(atPath)) {
       throw new Error(`File ${atPath} is not in the repository`);
     }
@@ -33,7 +32,9 @@ class Repo {
     return RepoFile.create(this, atPath);
   }
 
-  // run a command in this git repository
+  /**
+   * Run a command from this git repository's root.
+   */
   runCmd(command: string) {
     const cmdResult = execSync(command, { cwd: this.path.toString() });
     return cmdResult.toString();
