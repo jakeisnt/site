@@ -2,6 +2,8 @@ import TextFile from "./text";
 import { renderArticle } from "./utils";
 import { HtmlPage } from "../../html";
 import type { PageSettings } from "../../types/site";
+import { escapeHtml } from "../../html/utils";
+import type { HtmlNode } from "../../types/html";
 
 // if it's a source code file, we want to:
 // - render both to 'file.$ext' and 'file.$ext.html'
@@ -15,7 +17,11 @@ const renderSourceFile = ({
 }: PageSettings & { file: any }) => {
   const articleHtml = [
     "pre",
-    ["code", { class: `language-${file.extension} has-raw-code` }, file.text],
+    [
+      "code",
+      { class: `language-${file.extension} has-raw-code` },
+      escapeHtml(file.text),
+    ] as HtmlNode,
   ];
 
   return renderArticle({

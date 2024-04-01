@@ -4,6 +4,7 @@
 // @ts-nocheck
 
 import { PageSyntax, HtmlAttributes } from "../types/html";
+import { escapeHTML } from "bun";
 
 /**
  * Construct a meta tag with a name and content.
@@ -146,4 +147,12 @@ const header = ({
   ];
 };
 
-export { header };
+/**
+ * Excape things from HTML strings to avoid rendering them in the browser.
+ * Forwarded from the 'bun' implementation.
+ */
+const escapeHtml = (text: string) => {
+  return escapeHTML(text);
+};
+
+export { header, escapeHtml };

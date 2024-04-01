@@ -3,6 +3,7 @@ import File from "./file";
 import { renderArticle } from "./utils";
 import type { PageSettings } from "../../types/site";
 import type { HtmlNode } from "../../types/html";
+import { escapeHtml } from "../../html/utils";
 
 const renderTextFile = ({
   file,
@@ -15,7 +16,7 @@ const renderTextFile = ({
     [
       "code",
       { class: `language-${file.extension} has-raw-code` },
-      file.text,
+      escapeHtml(file.text),
     ] as HtmlNode,
   ];
 
