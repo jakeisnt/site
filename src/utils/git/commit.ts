@@ -6,10 +6,14 @@ import type { Repo } from ".";
  * Ask me questions about the specific commit.
  */
 class RepoCommit {
+  // short hash to reference teh git commit
   public shortHash: string;
+  // long hash to reference the git commit
   public longHash: string;
-  public commitDate: Date;
+  // commit date from the git format: YYYY-MM-DD
+  public commitDate: string;
   public timestamp: number;
+  // 'backlink' ref to the repo that this commit is a part of
   public repo: Repo;
 
   constructor({
@@ -21,7 +25,7 @@ class RepoCommit {
   }: {
     shortHash: string;
     longHash: string;
-    commitDate: Date;
+    commitDate: string;
     timestamp: number;
     repo: Repo;
   }) {
@@ -35,7 +39,7 @@ class RepoCommit {
   static create(args: {
     shortHash: string;
     longHash: string;
-    commitDate: Date;
+    commitDate: string;
     timestamp: number;
     repo: Repo;
   }) {

@@ -84,7 +84,7 @@ class RepoFile {
           return RepoCommit.create({
             shortHash,
             longHash,
-            commitDate: new Date(commitDate),
+            commitDate,
             timestamp: 0,
             repo: this.repo,
           });
