@@ -4,6 +4,7 @@ import { getTagLink, findTags } from "./parseDSL";
 import type { PageSettings } from "../types/site";
 import type { PageSyntax, HtmlNode } from "../types/html";
 import { isArray } from "../utils/array";
+import { File } from "../file/classes";
 
 /**
  * Is the link string that we are provided internal?
@@ -51,7 +52,7 @@ const linkStringToFile = (l: string, settings: PageSettings) => {
 class HtmlPage {
   private pageStructure: PageSyntax;
   private currentBuildSettings: PageSettings;
-  private cachedDependencies;
+  private cachedDependencies: File[] | undefined;
 
   constructor(pageSyntax: PageSyntax, settings: PageSettings) {
     this.pageStructure = pageSyntax;
@@ -81,9 +82,10 @@ class HtmlPage {
           getTagLink;
         })
         .filter((v) => v)
-        .filter((f) => isInternalLink(f, settings))
-        .map((f) => linkStringToFile(f, settings))
-        .map((f) => readFile(f, settings));
+        .filter((f) => f && isInternalLink(f, settings))
+        .map((f) => f && linkStringToFile(f, settings))
+        .map((f) => (f ? readFile(f, settings) : undefined))
+        .filter((f) => !!f);
     }
 
     return this.cachedDependencies;

@@ -13,6 +13,13 @@ const singleFileServer = ({
   siteName,
   wsLocalhostUrl,
   devWebsocketPath,
+}: {
+  url: string;
+  localPort: number;
+  absolutePathToFile: string;
+  siteName: string;
+  wsLocalhostUrl: string;
+  devWebsocketPath: string;
 }) => {
   const file = readFile(absolutePathToFile);
   const devUrl = formatUrl({ url, port: localPort });

@@ -53,7 +53,7 @@ type HtmlTag =
 
 // A generic HTML attribute.
 // Doesn't type specific tag names.
-type GenericAttribute = { [key: string | number]: string | number | Function };
+type GenericAttribute = { [key: string]: string | number | Function };
 
 type HtmlAttributes = GenericAttribute & {
   src?: string;

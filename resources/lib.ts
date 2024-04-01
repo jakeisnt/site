@@ -22,10 +22,10 @@ function create(
   parent?: HTMLElement
 ) {
   const elem = document.createElement(elementName);
-  for (let key in Object.keys(attributes)) {
+  for (let key in Object.keys(attributes ?? {})) {
     // some things only work one way, so we do both
     // is this faster than a switch statement? not sure.
-    const attributeValue = attributes[key];
+    const attributeValue = attributes?.[key];
     elem.setAttribute(key, attributeValue as string);
     elem[key] = attributeValue;
   }
