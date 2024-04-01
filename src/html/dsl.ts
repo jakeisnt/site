@@ -54,10 +54,36 @@ function htmlPage(...args: PageSyntax[]): string {
           console.log('loaded script via require', script);
 
           var code = script.textContent;
+
+          // if the code has already been pulled into the browser,
+          // immediately append it as the text content of a script tag so it's available.
           if (code) {
-            eval(code);
-            return window[libnameToUse];
+            script = document.createElement('script');
+            script.textContent = newCode;
+            document.head.appendChild(script);
+          } else {
+            // otherwise, fetch the code, then attach it when we have it.
+            let newCode;
+            let script;
+            fetch(libnameToUse)
+              .then(response => response.text())
+              .then(fetchedCode => {
+                code = fetchedCode;
+                script = document.createElement('script');
+                script.textContent = code;
+                document.head.appendChild(script);
+              })
+              .finally(() => {
+                return new Promise(resolve => {
+                  script.onload = resolve;
+                });
+              });
           }
+
+          // return a reference to the whole window
+          // because we are synchronously attaching JS to the window and running it
+          // lmfao.....................................
+          return window;
         }
         throw new Error('Script ' + libname + ' not found or empty, searched for ' + libnameToUse);
       }
