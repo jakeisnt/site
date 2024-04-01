@@ -1,8 +1,9 @@
 import { readFile } from "../file";
 import { htmlPage } from "./dsl";
 import { getTagLink, findTags } from "./parseDSL";
-import { PageSettings } from "../types/site";
-import { PageSyntax } from "../types/html";
+import type { PageSettings } from "../types/site";
+import type { PageSyntax, HtmlNode } from "../types/html";
+import { isArray } from "../utils/array";
 
 /**
  * Is the link string that we are provided internal?
@@ -52,7 +53,7 @@ class HtmlPage {
   private currentBuildSettings: PageSettings;
   private cachedDependencies;
 
-  constructor(pageSyntax, settings: PageSettings) {
+  constructor(pageSyntax: PageSyntax, settings: PageSettings) {
     this.pageStructure = pageSyntax;
     this.currentBuildSettings = settings;
   }
@@ -73,7 +74,12 @@ class HtmlPage {
         "script",
         "link",
       ])
-        .map(getTagLink)
+        .map((n: HtmlNode) => {
+          if (isArray(n)) {
+            return getTagLink(n);
+          }
+          getTagLink;
+        })
         .filter((v) => v)
         .filter((f) => isInternalLink(f, settings))
         .map((f) => linkStringToFile(f, settings))

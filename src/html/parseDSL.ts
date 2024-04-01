@@ -1,6 +1,6 @@
 import { isObject } from "utils/object";
 import { isArray } from "utils/array";
-import {
+import type {
   HtmlTag,
   HtmlNode,
   HtmlTagNode,
@@ -27,28 +27,6 @@ const tagName = ([name]: HtmlTagNode) => name;
  */
 const tagAttributes = ([, attributes]: HtmlTagNode) => {
   return isHtmlAttributes(attributes) ? attributes : undefined;
-};
-
-/**
- * Get the sorting rank of an HTML heading.
- */
-const headingRank = (headingTag: HtmlTag) => {
-  switch (headingTag) {
-    case "h1":
-      return 1;
-    case "h2":
-      return 2;
-    case "h3":
-      return 3;
-    case "h4":
-      return 4;
-    case "h5":
-      return 5;
-    case "h6":
-      return 6;
-    default:
-      return 7;
-  }
 };
 
 /**
@@ -80,13 +58,21 @@ const findTags = (htmlPage: PageSyntax, tags: HtmlTag[]) => {
   );
 };
 
+const isHtmlTagNode = (v: any): v is HtmlTagNode => {
+  return isArray(v);
+};
+
 /**
  * Get the link(s) embedded in an HTML tag
  * for example, the 'href' field of an <a> tag,
  * the 'link' of a 'style' tag,
  * or the 'src' of a 'script' tag.
  */
-const getTagLink = (tag: HtmlTagNode): string => {
+const getTagLink = (tag: HtmlNode): string | undefined => {
+  if (!isHtmlTagNode(tag)) {
+    return;
+  }
+
   const name = tagName(tag);
   const attrs = tagAttributes(tag);
 

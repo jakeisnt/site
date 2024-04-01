@@ -2,7 +2,7 @@ import { BinaryFile } from "file/classes";
 
 import logger from "utils/log";
 import { HtmlPage } from "../../html";
-import { PageSettings } from "../../types/site";
+import type { PageSettings } from "../../types/site";
 
 // can follow!! https://github.com/lovell/sharp/issues/1118
 // for html, you should inline the base64 image: https://stackoverflow.com/questions/13094257/display-an-ico-within-an-image-element-img
