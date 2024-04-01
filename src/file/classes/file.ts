@@ -1,14 +1,14 @@
 import { Path } from "../../utils/path";
 import { readFile } from "file";
 import Directory from "../filetype/directory";
-import { PageSettings } from "../../types/site";
+import type { PageSettings } from "../../types/site";
 
 /**
  * Any file on the system.
  */
 class File {
   // the full path to the file
-  public path: Path = null;
+  public path: Path;
 
   /**
    * Make the path a full path if it's not.
@@ -97,7 +97,7 @@ class File {
 
   // get the url to the html page with this file
   // if provided a directory, get the url to the directory with index.html postfixed (?)
-  htmlUrl({ rootUrl, sourceDir }) {
+  htmlUrl({ rootUrl, sourceDir }: { rootUrl: string; sourceDir: string }) {
     const relativeToSource = this.path.relativeTo(sourceDir);
 
     const isRootPath =
@@ -136,7 +136,7 @@ class File {
   }
 
   // by default, files do not depend on any other files.
-  dependencies(settings, filesSeenSoFar) {
+  dependencies(settings: PageSettings): File[] {
     return [];
   }
 
@@ -149,12 +149,14 @@ class File {
   }
 
   /**
-   * Watch the file for any listeners.
+   * Watch the file, attaching an event listener to pick up on file events.
    */
-  watch(callback) {
-    const closeWatcher = this.path.watch((eventType, filename) => {
-      callback(eventType, this);
-    });
+  watch(callback: (eventType: string, file: File) => void) {
+    const closeWatcher = this.path.watch(
+      (eventType: string, filename: string) => {
+        callback(eventType, this);
+      }
+    );
 
     return closeWatcher;
   }

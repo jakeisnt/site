@@ -2,10 +2,10 @@ import { File } from "file/classes";
 import JSFile from "./js.js";
 import { readFile } from "file";
 import { header, component } from "html";
-import HtmlPage from "../../html/builder.js";
-import { PageSettings } from "../../types/site.js";
-import { PageSyntax } from "../../types/html.js";
-import { Path } from "../../utils/path.js";
+import HtmlPage from "../../html/builder";
+import type { PageSettings } from "../../types/site";
+import type { PageSyntax } from "../../types/html";
+import { Path } from "../../utils/path";
 
 /**
  * Read a javascript file to string.
@@ -14,7 +14,15 @@ const readJSFile = (path: Path) => {
   return new JSFile(path);
 };
 
-const folderIndexPageTable = ({ files, rootUrl, sourceDir }): PageSyntax => {
+const folderIndexPageTable = ({
+  files,
+  rootUrl,
+  sourceDir,
+}: {
+  files: File[];
+  rootUrl: string;
+  sourceDir: string;
+}): PageSyntax => {
   return [
     "div",
     { class: "folder-index-page-table" },
@@ -90,15 +98,15 @@ const directoryToHtml = (
  */
 class Directory extends File {
   static filetypes = ["dir"];
-  enumeratedContents = null;
-  enumeratedDependencies = null;
-  enumeratedHtml = null;
+  private enumeratedContents: File[];
+  private enumeratedDependencies = null;
+  private enumeratedHtml: HtmlPage;
 
   // recursively fetch and flatten the file tree
   // the result should contain no directories
   tree() {
     const myContents = this.contents();
-    const childFiles = [];
+    const childFiles: File[] = [];
 
     myContents.forEach((file) => {
       if (file.isDirectory()) {
@@ -134,7 +142,7 @@ class Directory extends File {
             return readJSFile(childPath);
           }
         })
-        .filter((file: File | null) => file);
+        .filter((file: File | null) => file !== null);
     }
 
     if (this.enumeratedContents) {
@@ -146,8 +154,10 @@ class Directory extends File {
     return fileContents;
   }
 
-  // given a file path relative to this directory,
-  // find the relevant source file
+  /**
+   * Given a file path relative to this directory,
+   * find the relevant source file.
+   */
   findFile(relativePath: Path) {
     const path = this.path.join(relativePath);
 
@@ -174,21 +184,28 @@ class Directory extends File {
    *
    * The dependencies of a directory are all of the files that it contains,
    * but as html versions. this is a proxy for finding those links in the html
+   *
    * SHORTCUT: the dependencies of a directory in general are not html-ified.
    * That's a quick hack we use here to bootstrap building files.
    */
   dependencies(settings: PageSettings) {
     if (!this.enumeratedDependencies) {
-      this.enumeratedDependencies = this.asHtml(settings).dependencies();
+      this.enumeratedDependencies = this.asHtml(settings)?.dependencies();
     }
 
     return this.enumeratedDependencies;
   }
 
+  /**
+   * This is a directory, so we return true.
+   */
   isDirectory() {
     return true;
   }
 
+  /**
+   * Render the directory as HTML, cacheing the rendering if necessary.
+   */
   asHtml(settings: PageSettings) {
     if (!this.enumeratedHtml) {
       const files = this.contents();
@@ -203,11 +220,19 @@ class Directory extends File {
     return this.enumeratedHtml;
   }
 
+  /**
+   * Serve the directory as HTML.
+   */
   serve(args: PageSettings) {
     return { contents: this.asHtml(args).toString(), mimeType: this.mimeType };
   }
 
-  // as of now, we only use folders for their html
+  /**
+   * Get the MIME type of this directory.
+   *
+   * SHORTCUT: As of now we only use folders for their HTML rendering,
+   * so we always treat them as HTML files.
+   */
   get mimeType() {
     return "text/html";
   }

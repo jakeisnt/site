@@ -23,7 +23,9 @@
 
     // Some stricter flags
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    // We must allow 'no unused parameters' to support parent classes
+    // that don't use all of their fields.
+    // "noUnusedParameters": true,
     "noPropertyAccessFromIndexSignature": true
   }
 }

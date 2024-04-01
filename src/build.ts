@@ -1,4 +1,6 @@
 import { readFile } from "./file";
+import type { PageSettings } from "./types/site";
+import { File } from "./file/classes";
 
 // PROGRESS:
 // - some files render as plaintext, not html first, when serving.
@@ -6,9 +8,15 @@ import { readFile } from "./file";
 // the folders with '.html' appended are weird.
 // - figure out why serve fn behaves a bit strangely. there must be some stupid http way
 
-// given a relative path, build the whole file tree as static html.
-const buildSiteFromFile = (file, settings, filesSeenSoFar) => {
-  const { siteName, rootUrl, sourceDir, targetDir } = settings;
+/**
+ * Given a relative path, build the whole file tree as static html.
+ */
+const buildSiteFromFile = (
+  file: File,
+  settings: PageSettings,
+  filesSeenSoFar: Set<string>
+) => {
+  // const { siteName, rootUrl, sourceDir, targetDir } = settings;
 
   const dependencyPath = file.path.toString();
 
@@ -23,7 +31,7 @@ const buildSiteFromFile = (file, settings, filesSeenSoFar) => {
   // write the file to disk. (note: may need more context.)
   file.write(settings);
 
-  const dependencies = file.dependencies(settings, filesSeenSoFar);
+  const dependencies = file.dependencies(settings);
 
   // Write all of the dependencies of the file (that we haven't seen yet) to disk.
   dependencies
@@ -36,11 +44,10 @@ const buildSiteFromFile = (file, settings, filesSeenSoFar) => {
 // build a website from a path to a directory.
 // requires:
 // { siteName, rootUrl, sourceDir, targetDir }
-const buildFromPath = (settings) => {
+const buildFromPath = (settings: PageSettings) => {
   const { sourceDir, targetDir, ignorePaths } = settings;
 
-  // start off from the root, source dir
-
+  // start off from the root, source dir,
   // bootstrap by reading the root file as HTML
   const dir = readFile(sourceDir.toString() + "/index.html");
 
@@ -51,8 +58,8 @@ const buildFromPath = (settings) => {
   // the target dir could be a subdirectory of the source dir,
   // and we don't want to build the site into itself.
   const filePathsSeenSoFar = new Set([
-    ...ignorePaths,
-    ...ignorePaths.map((p) => p + ".html"),
+    ...(ignorePaths ?? []),
+    ...(ignorePaths ?? []).map((p) => p + ".html"),
     targetDir.toString(),
     targetDir.toString() + ".html",
     targetDir.toString() + "/index.html",

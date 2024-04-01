@@ -6,6 +6,7 @@ type PageSettings = {
   resourcesDir: string;
   faviconsDir: string;
   fallbackSourceDir?: string;
+  ignorePaths?: string[];
 };
 
 export type { PageSettings };

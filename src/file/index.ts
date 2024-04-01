@@ -27,9 +27,9 @@ const getFiletypeMap = () => {
   // a file is before we can create it. but we need to create it
   dir
     .contents({ omitNonJSFiles: true })
-    .map((file: JavascriptFile) => {
+    .map((file: File) => {
       // because we have a js file, we know we can require it
-      const fileClass = file.require();
+      const fileClass = (file as JavascriptFile).require();
       // default to using the raw 'fileClass' if there is no default export (?)
       return fileClass?.default ?? fileClass;
     })
@@ -81,7 +81,7 @@ const readFile = (
 
   const extension = path.extension;
 
-  if (!(extension in filetypeMap)) {
+  if (!extension || !(extension in filetypeMap)) {
     console.log(
       `We don't have a filetype mapping for files with extension ${extension}. Assuming plaintext for file at path '${path.toString()}'.`
     );
