@@ -53,15 +53,19 @@ class HTMLFile extends SourceFile {
     // so we ignore them and create spurious html here with no contents.
     // like image files.
     // really, those files should not be linked to as html at all.
+
+    // @ts-ignore
     sourceFile.fakeFileOf = prevFile;
+    // @ts-ignore
     sourceFile.asHtml = prevFile.asHtml;
+    // @ts-ignore
     sourceFile.read = (...args) => prevFile?.asHtml?.(...args).toString() ?? "";
 
     sourceFile.write = (config) => {
       const { sourceDir, targetDir } = config;
 
       const targetPath = sourceFile.path.relativeTo(sourceDir, targetDir);
-      targetPath.writeString(sourceFile.serve(config)?.contents ?? "");
+      targetPath.writeString(sourceFile.serve()?.contents ?? "");
 
       // also write the previous file
       prevFile.write(config);
@@ -70,11 +74,13 @@ class HTMLFile extends SourceFile {
     };
 
     sourceFile.serve = (...args) => {
+      // @ts-ignore
       const contents = prevFile?.asHtml?.(...args).toString() ?? "";
       return { contents, mimeType: "text/html" };
     };
 
     sourceFile.dependencies = (settings) => {
+      // @ts-ignore
       return prevFile?.asHtml?.(settings)?.dependencies() ?? [];
     };
 
