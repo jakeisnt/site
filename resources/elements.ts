@@ -10,7 +10,9 @@ const codeBlocks = "pre code";
 
 all(codeBlocks).forEach((codeBlock) => {
   const codeContainer = codeBlock.parentElement;
-  codeContainer.style = "position: relative";
+  if (!codeContainer) return;
+
+  codeContainer.style.position = "relative";
 
   const buttonCodeContainer = create(
     "div",
@@ -23,8 +25,8 @@ all(codeBlocks).forEach((codeBlock) => {
     {
       class: "inset",
       innerText: "Copy",
-      onclick: (e) => {
-        const codeContents = codeBlock.innerText;
+      onclick: (e: MouseEvent) => {
+        const codeContents = (codeBlock as HTMLPreElement).innerText;
         navigator.clipboard.writeText(codeContents);
       },
     },
@@ -91,7 +93,7 @@ all(footnoteReferences).forEach((footnoteRef) => {
   footnoteRef.classList.add("footnoteRef");
   const footnoteId = footnoteRef.id;
   const refNum = footnoteId.replace("fnref-", "");
-  footnoteRef.children[0].innerText = `[${refNum}]`;
+  (footnoteRef.children[0] as HTMLPreElement).innerText = `[${refNum}]`;
 });
 
 all(footnotes).forEach((footnote) => {
