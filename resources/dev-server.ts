@@ -1,4 +1,4 @@
-function id(id: string): HTMLElement {
+function id(id: string): HTMLElement | null {
   return document.getElementById(id);
 }
 
@@ -17,7 +17,9 @@ function reload_html(path) {
 }
 
 function reload_js(path) {
-  id(path)["src"] = `${path}?${Date.now()}`;
+  const v = id(path);
+  if (!v) return;
+  v["src"] = `${path}?${Date.now()}`;
 }
 
 function add_css(path, onload) {
@@ -37,10 +39,12 @@ function reload_css(path) {
   add_css(path_hashed, () => {
     // TODO: This is supposed to avoid style flicker by adding a new stylesheet
     // i think this is a light->darkmode thing?
-    if (last_ids[path]) {
-      id(last_ids[path]).remove();
+
+    const findIdPath = last_ids[path] && id(last_ids[path]);
+    if (findIdPath) {
+      findIdPath.remove();
     } else {
-      id(path).remove();
+      id(path)?.remove();
     }
 
     last_ids[path] = path_hashed;
