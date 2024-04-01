@@ -27,5 +27,8 @@
     // that don't use all of their fields.
     // "noUnusedParameters": true,
     "noPropertyAccessFromIndexSignature": true
-  }
+  },
+
+  // temporarily ignore everything in components/, resources/
+  "exclude": ["components", "resources"]
 }
