@@ -1,12 +1,17 @@
 import { HtmlPage } from "html";
 import { expect, test } from "bun:test";
 
+const PAGE_SETTINGS = {
+  rootUrl: "http://localhost:3000",
+  sourceDir: "/",
+};
+
 test("Create an HtmlPage", () => {
   // create just html
-  const page = HtmlPage.create(["html", ["body", ["h1", "hello world"]]], {
-    rootUrl: "http://localhost:3000",
-    sourceDir: "/",
-  });
+  const page = HtmlPage.create(
+    ["html", ["body", ["h1", "hello world"]]],
+    PAGE_SETTINGS
+  );
 
   expect(page.toString()).toEqual(
     "<!DOCTYPE html><html><body><h1>hello world</h1></body></html>"
@@ -29,10 +34,7 @@ test("Create an HtmlPage with a table", () => {
         ],
       ],
     ],
-    {
-      rootUrl: "http://localhost:3000",
-      sourceDir: "/",
-    }
+    PAGE_SETTINGS
   );
 
   expect(page.toString()).toEqual(
@@ -57,10 +59,7 @@ test("Create an HtmlPage with a tag, href, etc..", () => {
         ],
       ],
     ],
-    {
-      rootUrl: "http://localhost:3000",
-      sourceDir: "/",
-    }
+    PAGE_SETTINGS
   );
 
   expect(page.toString()).toEqual(
@@ -82,10 +81,7 @@ test("Create an HTML page with some inline styles and javascript", () => {
         ],
       ],
     ],
-    {
-      rootUrl: "http://localhost:3000",
-      sourceDir: "/",
-    }
+    PAGE_SETTINGS
   );
 
   expect(page.toString()).toEqual(

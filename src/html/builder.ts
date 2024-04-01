@@ -1,7 +1,6 @@
 import { readFile } from "../file";
 import { htmlPage } from "./dsl";
 import { getTagLink, findTags } from "./parseDSL";
-import type { PageSettings } from "../types/site";
 import type { PageSyntax, HtmlNode } from "../types/html";
 import { isArray } from "../utils/array";
 import { File } from "../file/classes";
@@ -12,7 +11,7 @@ import { File } from "../file/classes";
  * @param settings page settings configuration
  * @returns
  */
-const isInternalLink = (l: string, { rootUrl }: PageSettings) => {
+const isInternalLink = (l: string, { rootUrl }: { rootUrl: string }) => {
   if (l.includes(rootUrl)) {
     return true;
   }
@@ -32,9 +31,10 @@ const isInternalLink = (l: string, { rootUrl }: PageSettings) => {
  * @param l the link to convert
  * @param settings page settings to carry
  */
-const linkStringToFile = (l: string, settings: PageSettings) => {
-  const { sourceDir, rootUrl } = settings;
-
+const linkStringToFile = (
+  l: string,
+  { rootUrl, sourceDir }: { rootUrl: string; sourceDir: string }
+) => {
   // remove the leading rootUrl from the link if it exists
   const linkWithoutRoot = l
     .replace(rootUrl, "")
@@ -45,21 +45,26 @@ const linkStringToFile = (l: string, settings: PageSettings) => {
   return sourceDir.toString().concat(linkWithoutRoot);
 };
 
+type HtmlPageSettings = {
+  rootUrl: string;
+  sourceDir: string;
+};
+
 /**
  * An HTML AST builder.
  * May or may not be assocaited with a file.
  */
 class HtmlPage {
   private pageStructure: PageSyntax;
-  private currentBuildSettings: PageSettings;
+  private currentBuildSettings: HtmlPageSettings;
   private cachedDependencies: File[] | undefined;
 
-  constructor(pageSyntax: PageSyntax, settings: PageSettings) {
+  constructor(pageSyntax: PageSyntax, settings: HtmlPageSettings) {
     this.pageStructure = pageSyntax;
     this.currentBuildSettings = settings;
   }
 
-  static create(pageSyntax: PageSyntax, settings: PageSettings) {
+  static create(pageSyntax: PageSyntax, settings: HtmlPageSettings) {
     return new this(pageSyntax, settings);
   }
 

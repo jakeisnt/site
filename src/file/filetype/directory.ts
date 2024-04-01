@@ -98,9 +98,9 @@ const directoryToHtml = (
  */
 class Directory extends File {
   static filetypes = ["dir"];
-  private enumeratedContents: File[];
-  private enumeratedDependencies = null;
-  private enumeratedHtml: HtmlPage;
+  private enumeratedContents: File[] | undefined = undefined;
+  private enumeratedDependencies: File[] | undefined = undefined;
+  private enumeratedHtml: HtmlPage | undefined = undefined;
 
   // recursively fetch and flatten the file tree
   // the result should contain no directories
@@ -137,12 +137,12 @@ class Directory extends File {
         .readDirectory()
         .map((childPath: Path) => {
           if (childPath.extension !== "js" && childPath.extension !== "ts") {
-            return null;
+            return undefined;
           } else {
             return readJSFile(childPath);
           }
         })
-        .filter((file: File | null) => file !== null);
+        .filter((file: File | undefined) => !!file);
     }
 
     if (this.enumeratedContents) {

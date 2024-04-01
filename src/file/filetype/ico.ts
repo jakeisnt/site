@@ -14,7 +14,7 @@ class IcoFile extends BinaryFile {
   static filetypes = ["ico"];
 
   serve() {
-    return { contents: this.path.readBinary(), mimeType: "image/x-icon" };
+    return { contents: this.path.readBinary() ?? "", mimeType: "image/x-icon" };
   }
 
   asHtml(settings: PageSettings) {

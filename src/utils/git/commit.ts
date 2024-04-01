@@ -1,5 +1,5 @@
 import type { Repo } from ".";
-import type { Path } from "../path";
+// import type { Path } from "../path";
 
 /**
  * A single commit in a repository.
