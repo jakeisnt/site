@@ -24,7 +24,7 @@ function html(...args: PageSyntax[]) {
  * Include front matter that configures the document as a whole.
  */
 function htmlPage(...args: PageSyntax[]): string {
-  return "<!DOCTYPE html>" + html(...args);
+  return "<!DOCTYPE html><script>var exports = {};</script>" + html(...args);
 }
 
 /**
