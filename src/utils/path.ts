@@ -221,7 +221,7 @@ class Path {
    * REMOVE 'maybeOtherPath' from this path's string.
    * If 'maypeReplaceWithPath' is defined, append it.
    */
-  relativeTo(maybeOtherPath, maybeReplaceWithPath = "") {
+  relativeTo(maybeOtherPath: Path | string, maybeReplaceWithPath = "") {
     const otherPath = Path.create(maybeOtherPath);
     const replaceWith = maybeReplaceWithPath.toString();
 

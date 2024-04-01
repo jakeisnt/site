@@ -85,7 +85,7 @@ class HtmlPage {
         .filter((f) => f && isInternalLink(f, settings))
         .map((f) => f && linkStringToFile(f, settings))
         .map((f) => (f ? readFile(f, settings) : undefined))
-        .filter((f) => !!f);
+        .filter((f) => !!f) as File[];
     }
 
     return this.cachedDependencies;

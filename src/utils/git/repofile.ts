@@ -26,9 +26,9 @@ class RepoFile {
    * Get the link to this file in git history at a particular commit
    * @param longHash the specific hash to link to
    */
-  historyLink(longHash: string) {
-    return this.repo.historyLink(longHash, this.path);
-  }
+  // historyLink(longHash: string) {
+  //   return this.repo.historyLink(longHash, this.path);
+  // }
 
   // is the file ignored by the repo?
   // TODO this does not work ofc
@@ -54,6 +54,7 @@ class RepoFile {
           longHash,
           commitDate,
           timestamp: parseInt(timestamp, 10),
+          repo: this.repo,
         });
       } else {
         logger.git(
@@ -83,7 +84,9 @@ class RepoFile {
           return RepoCommit.create({
             shortHash,
             longHash,
-            commitDate,
+            commitDate: new Date(commitDate),
+            timestamp: 0,
+            repo: this.repo,
           });
         });
       } else {

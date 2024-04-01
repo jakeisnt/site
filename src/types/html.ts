@@ -75,7 +75,10 @@ type HtmlNode = string | HtmlTagNode | HtmlNode[] | FalsyHtmlNode;
 type HtmlTagNode =
   | [HtmlTag]
   | [HtmlTag, ...HtmlNode[]]
-  | [HtmlTag, HtmlAttributes, ...HtmlNode[]];
+  | [HtmlTag, HtmlAttributes, ...HtmlNode[]]
+  // NOTE: this should be the same type as the above.
+  // but typescript is having trouble reading it?
+  | [HtmlTag, HtmlAttributes, ...string[]];
 
 type PageSyntax = HtmlNode;
 

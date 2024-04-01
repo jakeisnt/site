@@ -1,3 +1,5 @@
+import { File } from "./file/classes";
+
 /**
  * Settings that are necessary for the app to run.
  * Only 'main.js' should import this file.
@@ -19,11 +21,11 @@ const sitePaths = [
 const wikiPaths = [
   {
     folder: "pages",
-    sortBy: (v) => v.lastLog?.commitDate,
+    sortBy: (v: File) => v.lastLog?.commitDate,
   },
   {
     folder: "scripts",
-    sortBy: (v) => v.lastLog?.commitDate,
+    sortBy: (v: File) => v.lastLog?.commitDate,
   },
   {
     folder: "journals",
@@ -41,6 +43,7 @@ const website = {
   target: targetDir,
 };
 
+// @ts-ignore
 const profiles = [
   {
     name: "Are.na",
@@ -115,6 +118,7 @@ const profiles = [
   },
 ];
 
+// @ts-ignore
 const personal = {
   name: "Jake Chvatal",
   location: "Stockholm, SV",
@@ -127,6 +131,7 @@ const personal = {
   },
 };
 
+// @ts-ignore
 const lastModifiedFile = "docs/last-modified.txt";
 
 export { website, deploymentBranch, targetDir, sourceDir, localPort, siteName };

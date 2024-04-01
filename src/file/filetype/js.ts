@@ -1,5 +1,5 @@
 import { SourceFile } from "file/classes";
-import * as ts from "typescript";
+import ts from "typescript";
 import { readFile } from "../index";
 import { Path } from "../../utils/path";
 import TypescriptFile from "./ts";
@@ -39,7 +39,13 @@ class JavascriptFile extends SourceFile {
       },
     });
 
-    return sourceFile;
+    Object.defineProperty(sourceFile, "require", {
+      get() {
+        return require(tsPath.toString());
+      },
+    });
+
+    return sourceFile as JavascriptFile;
   }
 }
 

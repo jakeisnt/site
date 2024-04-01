@@ -107,7 +107,7 @@ const serve = (incomingPaths?: string[]) => {
     singleFileServer({
       url: localhostUrl,
       localPort,
-      absolutePathToFile: path,
+      absolutePathToFile: path.toString(),
       siteName: "Jake Chvatal",
       devWebsocketPath,
       wsLocalhostUrl,

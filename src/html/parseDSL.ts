@@ -41,7 +41,9 @@ const collectElements = (
     return [htmlPage];
   } else if (isArray(htmlPage)) {
     // if we can act on the contents:
-    const results = htmlPage.flatMap((tag) => collectElements(tag, predicate));
+    const results = htmlPage.flatMap((tag) =>
+      collectElements(tag as HtmlNode, predicate)
+    );
     return results;
   }
 
@@ -54,7 +56,7 @@ const collectElements = (
 const findTags = (htmlPage: PageSyntax, tags: HtmlTag[]) => {
   return collectElements(
     htmlPage,
-    (tl: HtmlTagNode) => tl && tl?.[0] && tags.includes(tl?.[0])
+    (tl: HtmlNode) => isHtmlTagNode(tl) && tl?.[0] && tags.includes(tl?.[0])
   );
 };
 

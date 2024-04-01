@@ -61,9 +61,9 @@ const makeFileResponse = (
     sourceDir: string;
     devUrl: string;
     devWebsocketUrl: string;
-    resourcesDir;
-    faviconsDir;
-    targetDir;
+    resourcesDir: string;
+    faviconsDir: string;
+    targetDir: string;
   }
 ) => {
   const { contents, mimeType } = file.serve({

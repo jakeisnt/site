@@ -1,6 +1,6 @@
 import { header, component } from "html";
-import { PageSyntax } from "../../types/html";
-import { PageSettings } from "../../types/site";
+import type { PageSyntax } from "../../types/html";
+import type { PageSettings } from "../../types/site";
 import TextFile from "./text";
 
 /**
