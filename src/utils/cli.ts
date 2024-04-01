@@ -6,9 +6,9 @@ import { bold, color } from "./printstyle";
  * Configure a single command line option.
  */
 class Option {
-  private name: string;
-  private description: string;
-  private apply: Function;
+  public name: string;
+  public apply: Function;
+  public description: string;
   private creator: CLI;
 
   constructor(name: string, creator: CLI) {
@@ -18,20 +18,35 @@ class Option {
     this.creator = creator;
   }
 
+  /**
+   * Provide a description for this CLI option.
+   */
   describe(desc: string) {
     this.description = desc;
     return this;
   }
 
-  action(fn: Function) {
+  /**
+   * Add an action to be called with this CLI option.
+   */
+  action(fn: () => any) {
     this.apply = fn;
     return this;
   }
 
+  /**
+   * Create the next CLI option.
+   * @param name the name of the next option.
+   */
   option(name: string) {
     return this.creator.option(name);
   }
 
+  /**
+   * Execute this CLI option.
+   * Allows us to execute the CLI regardless of where we are
+   * in the builder process.
+   */
   exec(args: string[]) {
     return this.creator.exec(args);
   }
@@ -39,8 +54,8 @@ class Option {
 
 class CLI {
   private name = "";
-  private options = [];
-  private description = null;
+  private options: Option[] = [];
+  private description: string = "";
 
   constructor(name: string = "<command>") {
     this.name = name;

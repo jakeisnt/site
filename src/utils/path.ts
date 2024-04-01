@@ -103,7 +103,7 @@ class Path {
    * Get this file's extension.
    * If we don't have an extension provided, we determine it from disk.
    */
-  get extension() {
+  get extension(): string | null {
     // we always fetch [1], because if the file has multiple extensions
     // we ignore the second and only care about the first.
     const ext = pathLibrary.extname(this.pathString).split(".")[1] ?? null;
