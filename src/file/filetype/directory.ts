@@ -4,7 +4,7 @@ import { readFile } from "file";
 import { header, component } from "html";
 import HtmlPage from "../../html/builder";
 import type { PageSettings } from "../../types/site";
-import type { PageSyntax } from "../../types/html";
+import type { HtmlTag, PageSyntax } from "../../types/html";
 import { Path } from "../../utils/path";
 
 /**
@@ -30,6 +30,7 @@ const folderIndexPageTable = ({
       "table",
       files.map((childFile) => {
         const lastLog = childFile.lastLog;
+
         return [
           "tr",
           ["td", { class: "file-hash-tr" }, lastLog?.shortHash],

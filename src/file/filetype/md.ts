@@ -8,7 +8,11 @@ const fileHasTitle = (fileString: string) => {
 };
 
 // after the article is in some html ast form, get more info from it
-const renderArticle = (mdArticle: any, config: PageSettings) => {
+// @ts-ignore
+const renderArticle = (
+  mdArticle: any,
+  config: PageSettings & { title: string; siteName: string }
+) => {
   const pageName = mdArticle.name;
 
   return [

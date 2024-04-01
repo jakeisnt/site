@@ -1,7 +1,9 @@
 // act is a custom filetype I have designed to be used with acting scripts.
 
-import { TextFile } from 'file/classes';
-import * as ohm from 'ohm-js';
+// @ts-nocheck
+
+import { TextFile } from "file/classes";
+import * as ohm from "ohm-js";
 
 const grammar = ohm.grammar(`
 Act {
@@ -39,10 +41,9 @@ astring
 }
 `);
 
-
 // a CSS file is a text file
 class ActFile extends TextFile {
-  static filetypes = ['act'];
+  static filetypes = ["act"];
 }
 
 export default ActFile;
