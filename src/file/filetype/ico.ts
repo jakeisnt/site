@@ -20,7 +20,7 @@ class IcoFile extends BinaryFile {
   asHtml(settings: PageSettings) {
     const binaryContents = this.path.readBinary();
     logger.file("Reading favicon binary. Contents:", binaryContents);
-    const src = `data:image/x-icon;base64,${binaryContents?.toString()}`;
+    const src = `data:image/x-icon;base64,${binaryContents ?? ""}`;
     return HtmlPage.create(["html", ["img", { src }]], settings);
   }
 }

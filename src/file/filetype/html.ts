@@ -65,7 +65,7 @@ class HTMLFile extends SourceFile {
       const { sourceDir, targetDir } = config;
 
       const targetPath = sourceFile.path.relativeTo(sourceDir, targetDir);
-      targetPath.writeString(sourceFile.serve()?.contents ?? "");
+      targetPath.writeString(sourceFile.serve(config)?.contents ?? "");
 
       // also write the previous file
       prevFile.write(config);

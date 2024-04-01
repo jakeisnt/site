@@ -9,7 +9,7 @@ import RepoFile from "./repofile";
 class Repo {
   // the full path to the repository
   // this is the directory that contains the .git subdirectory
-  private path: Path;
+  public path: Path;
 
   constructor(path: Path) {
     this.path = path;

@@ -4,7 +4,7 @@ import { readFile } from "file";
 import { header, component } from "html";
 import HtmlPage from "../../html/builder";
 import type { PageSettings } from "../../types/site";
-import type { HtmlTag, PageSyntax } from "../../types/html";
+import type { HtmlNode, PageSyntax } from "../../types/html";
 import { Path } from "../../utils/path";
 
 /**
@@ -57,7 +57,7 @@ const folderIndexPageTable = ({
             lastLog?.date ?? "untracked",
           ],
         ];
-      }),
+      }) as HtmlNode[],
     ],
   ];
 };
@@ -134,16 +134,27 @@ class Directory extends File {
     // special case for the js files: make sure they all exist.
     // don't cache this because we only want the default full dir cached.
     if (omitNonJSFiles) {
-      return this.path
-        .readDirectory()
-        .map((childPath: Path) => {
-          if (childPath.extension !== "js" && childPath.extension !== "ts") {
-            return undefined;
-          } else {
-            return readJSFile(childPath);
-          }
-        })
-        .filter((file: File | undefined) => !!file);
+      const jsPaths = this.path.readDirectory();
+      const maybeJSFiles = jsPaths.map((childPath: Path) => {
+        if (childPath.extension !== "js" && childPath.extension !== "ts") {
+          return undefined;
+        } else {
+          return readJSFile(childPath);
+        }
+      });
+
+      // this .filter() is not working with typescript,
+      // so we use a forEach to iterate instead
+      // return maybeJSFiles.filter((f) => !!f);
+
+      const retFiles: File[] = [];
+      maybeJSFiles.forEach((f) => {
+        if (f) {
+          retFiles.push(f);
+        }
+      });
+
+      return retFiles;
     }
 
     if (this.enumeratedContents) {
