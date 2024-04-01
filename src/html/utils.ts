@@ -24,7 +24,7 @@ const prop = (key: string, value: string): PageSyntax => {
  * Construct a script tags with provided options.
  */
 const script = (src: string, opts?: HtmlAttributes): PageSyntax => {
-  return ["script", { src, id: src, ...opts }];
+  return ["script", { src, id: src, type: "module", ...opts }];
 };
 
 /**

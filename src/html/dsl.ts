@@ -24,7 +24,45 @@ function html(...args: PageSyntax[]) {
  * Include front matter that configures the document as a whole.
  */
 function htmlPage(...args: PageSyntax[]): string {
-  return "<!DOCTYPE html><script>var exports = {};</script>" + html(...args);
+  return (
+    `<!DOCTYPE html>
+    <script>
+      var exports = {}; 
+
+      function normalizeLibName(libname) {
+        let libnameToReturn = libname;
+        if (libnameToReturn.startsWith('./')) {
+          libnameToReturn = '/resources/' + libnameToReturn.slice(2);
+        }
+
+        // if we have an extension, replace it with '.js';
+        // otherwise, append '.js' to the extension.
+        if (libnameToReturn.includes('.')) {
+          libnameToReturn = libnameToReturn.replace(/\.[^/.]+$/, ".js");
+        } else {
+          libnameToReturn += '.js';
+        }
+
+        return libnameToReturn;
+      }
+
+      function require(libname) {
+        var script;
+        var libnameToUse = normalizeLibName(libname);
+        script = document.querySelector('script[src="' + libnameToUse + '"]');
+        if (script) {
+          console.log('loaded script via require', script);
+
+          var code = script.textContent;
+          if (code) {
+            eval(code);
+            return window[libnameToUse];
+          }
+        }
+        throw new Error('Script ' + libname + ' not found or empty, searched for ' + libnameToUse);
+      }
+    </script>` + html(...args)
+  );
 }
 
 /**
