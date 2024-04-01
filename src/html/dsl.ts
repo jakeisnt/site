@@ -26,7 +26,7 @@ function html(...args: PageSyntax[]) {
 function htmlPage(...args: PageSyntax[]): string {
   return (
     `<!DOCTYPE html>
-    <script>
+    <script defer='true'>
       var exports = {}; 
 
       function normalizeLibName(libname) {
