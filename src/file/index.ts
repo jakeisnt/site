@@ -14,14 +14,16 @@ import JavascriptFile from "./filetype/js";
 // import all the files from the 'filetype' directory
 // and associate them with their filetype names
 
-let filetypeMap: { [key: string]: typeof File };
+type FiletypeMap = { [key: string]: typeof File };
+
+let filetypeMap: FiletypeMap;
 
 // obtain a map of file to filetype
 const getFiletypeMap = () => {
   // bootstrap the process; we know we have a directory
   const dir = new Directory(Path.create(__dirname + "/filetype/"));
 
-  const newFiletypeMap = {};
+  const newFiletypeMap: FiletypeMap = {};
 
   // problem: to bootstrap the process, we need to know what class
   // a file is before we can create it. but we need to create it
