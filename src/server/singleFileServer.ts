@@ -30,7 +30,8 @@ const singleFileServer = ({
     path: devWebsocketPath,
   });
 
-  let wsClientConnection = null;
+  // TODO: hunt down the websocket type and use it properly
+  let wsClientConnection: any = null;
 
   const sourceDir = file.path.parent.toString();
   const resourcesDir = `${sourceDir}/resources`;

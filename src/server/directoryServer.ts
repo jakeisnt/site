@@ -42,7 +42,7 @@ const directoryServer = ({
         fallbackSourceDir: fallbackDirPath,
       }) as unknown as Directory;
     }
-  } catch (e) {
+  } catch (e: any) {
     log.debug("Error finding fallback dir:", e.message);
   }
 
