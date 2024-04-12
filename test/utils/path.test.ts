@@ -16,6 +16,18 @@ test("Get the parent of a path", () => {
   expect(Path.create("/").parent).toEqual(Path.create("/"));
 });
 
+test("replaceExtension", () => {
+  expect(Path.create("/a/b/c").replaceExtension("js")).toEqual(
+    Path.create("/a/b/c.js")
+  );
+  expect(Path.create("/a/b/c").replaceExtension("")).toEqual(
+    Path.create("/a/b/c")
+  );
+  expect(Path.create("/a/b/c.js").replaceExtension("ts")).toEqual(
+    Path.create("/a/b/c.ts")
+  );
+});
+
 test("relativeTo poop", () => {
   const path = Path.create(
     "/Users/jake/Desktop/personal/site/resources/style.css"

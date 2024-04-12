@@ -255,12 +255,18 @@ class Path {
 
   /**
    * Replace the path's extension with a new one.
+   * @argument extension the extension WITHOUT a prefixed period
    */
   replaceExtension(extension: string) {
-    const newPathWithExtension = this.pathString.replace(
-      /\.\S+$/,
-      `.${extension}`
-    );
+    let newPathWithExtension = this.pathString;
+    if (!newPathWithExtension.includes(".") && extension.length) {
+      newPathWithExtension += `.${extension}`;
+    } else {
+      newPathWithExtension = newPathWithExtension.replace(
+        /\.\S+$/,
+        `.${extension}`
+      );
+    }
     return new Path(newPathWithExtension);
   }
 
