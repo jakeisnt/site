@@ -25,71 +25,7 @@ function html(...args: PageSyntax[]) {
  * Include front matter that configures the document as a whole.
  */
 function htmlPage(...args: PageSyntax[]): string {
-  return (
-    `<!DOCTYPE html>
-    <script defer='true'>
-      var exports = {}; 
-
-      function normalizeLibName(libname) {
-        let libnameToReturn = libname;
-        if (libnameToReturn.startsWith('./')) {
-          libnameToReturn = '/resources/' + libnameToReturn.slice(2);
-        }
-
-        // if we have an extension, replace it with '.js';
-        // otherwise, append '.js' to the extension.
-        if (libnameToReturn.includes('.')) {
-          libnameToReturn = libnameToReturn.replace(/\.[^/.]+$/, ".js");
-        } else {
-          libnameToReturn += '.js';
-        }
-
-        return libnameToReturn;
-      }
-
-      function require(libname) {
-        var script;
-        var libnameToUse = normalizeLibName(libname);
-        script = document.querySelector('script[src="' + libnameToUse + '"]');
-        if (script) {
-          console.log('loaded script via require', script);
-
-          var code = script.textContent;
-
-          // if the code has already been pulled into the browser,
-          // immediately append it as the text content of a script tag so it's available.
-          if (code) {
-            script = document.createElement('script');
-            script.textContent = newCode;
-            document.head.appendChild(script);
-          } else {
-            // otherwise, fetch the code, then attach it when we have it.
-            let newCode;
-            let script;
-            fetch(libnameToUse)
-              .then(response => response.text())
-              .then(fetchedCode => {
-                code = fetchedCode;
-                script = document.createElement('script');
-                script.textContent = code;
-                document.head.appendChild(script);
-              })
-              .finally(() => {
-                return new Promise(resolve => {
-                  script.onload = resolve;
-                });
-              });
-          }
-
-          // return a reference to the whole window
-          // because we are synchronously attaching JS to the window and running it
-          // lmfao.....................................
-          return window;
-        }
-        throw new Error('Script ' + libname + ' not found or empty, searched for ' + libnameToUse);
-      }
-    </script>` + html(...args)
-  );
+  return `<!DOCTYPE html>${html(...args)}`;
 }
 
 /**
