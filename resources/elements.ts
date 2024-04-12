@@ -1,7 +1,6 @@
 import { create, all } from "./lib";
 
-// TODO
-var hljs;
+declare var hljs: any;
 
 /* enhancements to native html elements */
 
