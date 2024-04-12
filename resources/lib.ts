@@ -16,39 +16,31 @@ function runOnDesktop(fn: () => void) {
 /**
  * Create an html element with attributes and append it to a parent element
  */
-function create(
+function createParent(
   elementName: HtmlTag,
-  attributes?: HtmlAttributes,
-  parent?: HTMLElement
+  attributes: HtmlAttributes = {},
+  {
+    parent,
+    children,
+  }: {
+    parent?: HTMLElement;
+    children?: HTMLElement[];
+  }
 ) {
   const elem = document.createElement(elementName);
-  for (let key in Object.keys(attributes ?? {})) {
-    // some things only work one way, so we do both
-    // is this faster than a switch statement? not sure.
+  for (let key in attributes) {
     const attributeValue = attributes?.[key];
-    elem.setAttribute(key, attributeValue as string);
-    elem[key] = attributeValue;
+
+    // If we can explicitly define it, use the assigning function.
+    // Otherwise mutate the element directly.
+    if (attributeValue !== undefined) {
+      elem.setAttribute(key, attributeValue);
+      elem[key] = attributeValue;
+    }
   }
 
   if (parent) {
     parent.appendChild(elem);
-  }
-
-  return elem;
-}
-
-function create2(
-  elementName: HtmlTag,
-  attributes: HtmlAttributes,
-  ...children: HTMLElement[]
-) {
-  const elem = document.createElement(elementName);
-
-  for (let key in attributes) {
-    // some things only work one way, so we do both
-    // is this faster than a switch statement? not sure.
-    elem.setAttribute(key, attributes[key] as string);
-    elem[key] = attributes[key];
   }
 
   if (children) {
@@ -62,6 +54,24 @@ function create2(
   }
 
   return elem;
+}
+
+function create(
+  elementName: HtmlTag,
+  attributes: HtmlAttributes,
+  parent?: HTMLElement
+) {
+  return createParent(elementName, attributes, { parent });
+}
+
+function create2(
+  elementName: HtmlTag,
+  attributes: HtmlAttributes,
+  ...children: HTMLElement[]
+) {
+  return createParent(elementName, attributes, {
+    children,
+  });
 }
 
 var httpRequest: XMLHttpRequest;

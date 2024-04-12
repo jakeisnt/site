@@ -46,10 +46,19 @@ const createServer = ({
         }
       }
 
+      let returnPath = Path.create(path);
+
+      // 'sec-fetch-dest' header determines how the script will be used
+      // on the website, so we assume it's a js file - and push that -
+      // if it's used in a script.
+      if (req.headers.get("sec-fetch-dest") === "script") {
+        returnPath = returnPath.replaceExtension("js");
+      }
+
       return onRequest({
         // req,
         // server,
-        path: Path.create(path),
+        path: returnPath,
       });
     },
     websocket: {
