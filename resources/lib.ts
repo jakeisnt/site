@@ -23,11 +23,15 @@ function create(
 ) {
   const elem = document.createElement(elementName);
   for (let key in Object.keys(attributes ?? {})) {
-    // some things only work one way, so we do both
-    // is this faster than a switch statement? not sure.
     const attributeValue = attributes?.[key];
-    elem.setAttribute(key, attributeValue as string);
-    elem[key] = attributeValue;
+
+    // If we can explicitly define it, use the assigning function.
+    // Otherwise mutate the element directly.
+    if (attributeValue !== undefined) {
+      elem.setAttribute(key, attributeValue.toString());
+    } else {
+      elem[key] = attributeValue;
+    }
   }
 
   if (parent) {
