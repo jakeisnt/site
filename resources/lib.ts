@@ -18,18 +18,17 @@ function runOnDesktop(fn: () => void) {
  */
 function create(
   elementName: HtmlTag,
-  attributes?: HtmlAttributes,
+  attributes: HtmlAttributes = {},
   parent?: HTMLElement
 ) {
   const elem = document.createElement(elementName);
-  for (let key in Object.keys(attributes ?? {})) {
+  for (let key in attributes) {
     const attributeValue = attributes?.[key];
 
     // If we can explicitly define it, use the assigning function.
     // Otherwise mutate the element directly.
     if (attributeValue !== undefined) {
-      elem.setAttribute(key, attributeValue.toString());
-    } else {
+      elem.setAttribute(key, attributeValue);
       elem[key] = attributeValue;
     }
   }
