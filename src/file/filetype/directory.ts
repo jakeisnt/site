@@ -1,7 +1,6 @@
 import { File } from "file/classes";
 import JSFile from "./js.js";
 import { readFile } from "file";
-import { header } from "html";
 import HtmlPage from "../../html/builder";
 import type { PageSettings } from "../../types/site";
 import type { HtmlNode, PageSyntax } from "../../types/html";
@@ -77,7 +76,7 @@ const directoryToHtml = (
 
   return [
     "html",
-    header({ title, siteName, rootUrl, resourcesDir, faviconsDir }),
+    ["Header", { title, siteName, rootUrl, resourcesDir, faviconsDir }],
     [
       "body",
       ["Sidebar", { path: dir.path, title, sourceDir, rootUrl }],
