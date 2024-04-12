@@ -69,13 +69,8 @@ const requireComponent = (name: string) => {
 const component = (name: string, args?: Object): PageSyntax => {
   const componentFunction = requireComponent(name);
   const { dependsOn, body } = componentFunction(args);
-  const componentWithDependencies = [
-    "span",
-    makeDependencyHeader(dependsOn),
-    body,
-  ];
+  const componentWithDependencies = [makeDependencyHeader(dependsOn), body];
 
-  logger.file("Rendering component", name);
   return componentWithDependencies;
 };
 
