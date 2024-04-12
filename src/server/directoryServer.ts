@@ -6,8 +6,7 @@ import { formatUrl, makeFileResponse } from "./utils";
 import { readFile } from "../file";
 import { createServer } from "./createServer";
 import Directory from "../file/filetype/directory";
-import { File } from "../file/classes";
-import { makeHomePage } from "../pages/home";
+import { homePage } from "../pages/home";
 
 /**
  * Serve the files in a directory.
@@ -68,7 +67,7 @@ const directoryServer = ({
       console.log(pathToUse.toString());
       // If we request the root, serve up the home page
       if (["", "/", "/index", "/index.html"].includes(pathToUse.toString())) {
-        return makeFileResponse({ serve: makeHomePage } as unknown as File, {
+        return makeFileResponse(homePage(), {
           sourceDir: dir.path.toString(),
           siteName,
           devUrl,
