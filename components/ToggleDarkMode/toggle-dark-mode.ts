@@ -3,7 +3,7 @@
  * The button hasn't yet been added...
  */
 
-(() => {
+const loadTheme = () => {
   function svg(url: string) {
     let obj = document.createElement("img");
     obj.src = url;
@@ -45,13 +45,22 @@
 
     [THEME.LIGHT, THEME.DARK].forEach((theme) => {
       console.log("Theme: ", theme);
-      ThemeCSS[theme]["disabled"] = theme !== add;
+
+      if (!ThemeCSS?.[theme]?.["disabled"]) {
+        return;
+      }
+
+      ThemeCSS[theme]!["disabled"] = theme !== add;
     });
 
     localStorage.setItem("theme", add);
   }
 
   function switchTheme() {
+    if (!btn) {
+      return;
+    }
+
     if (currentTheme == THEME.DARK) {
       switchToTheme(THEME.LIGHT);
       btn.replaceChild(ICONS.light, ICONS.dark);
@@ -61,7 +70,13 @@
     }
   }
 
+  if (!btn) {
+    return;
+  }
+
   btn.addEventListener("click", switchTheme);
   switchToTheme(currentTheme);
   btn.appendChild(ICONS[currentTheme]);
-})();
+};
+
+document.addEventListener("DOMContentLoaded", loadTheme);
