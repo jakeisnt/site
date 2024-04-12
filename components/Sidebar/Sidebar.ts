@@ -1,9 +1,13 @@
-const PATH_DELIMITER = ' / ';
-import { component } from 'html';
+const PATH_DELIMITER = " / ";
 
-const collectFolderPaths = (pathList, title, curPath, { rootUrl, sourceDir }) => {
+const collectFolderPaths = (
+  pathList,
+  title,
+  curPath,
+  { rootUrl, sourceDir }
+) => {
   if (curPath === undefined) {
-    return collectFolderPaths(pathList, title, '', { rootUrl, sourceDir });
+    return collectFolderPaths(pathList, title, "", { rootUrl, sourceDir });
   }
 
   if (!pathList?.[1]) {
@@ -16,36 +20,41 @@ const collectFolderPaths = (pathList, title, curPath, { rootUrl, sourceDir }) =>
   const firstPath = pathList[0];
   const restPaths = pathList.slice(1);
 
-  const nextCurPath = curPath + '/' + firstPath;
+  const nextCurPath = curPath + "/" + firstPath;
 
   return [
     ["span", PATH_DELIMITER],
-    [
-      "a", { href: `${rootUrl}${nextCurPath}/index.html` }, firstPath,
-    ],
-    ...collectFolderPaths(restPaths, title, nextCurPath, { rootUrl, sourceDir }),
+    ["a", { href: `${rootUrl}${nextCurPath}/index.html` }, firstPath],
+    ...collectFolderPaths(restPaths, title, nextCurPath, {
+      rootUrl,
+      sourceDir,
+    }),
   ];
-}
+};
 
 const makeSidebar = ({ path, title, sourceDir, rootUrl }) => {
   const pathList = path.relativeTo(sourceDir).pathArray;
-  const folderPaths = collectFolderPaths(pathList, title, undefined, { rootUrl, sourceDir });
+  const folderPaths = collectFolderPaths(pathList, title, undefined, {
+    rootUrl,
+    sourceDir,
+  });
 
   return [
     "div",
-    { class: 'sidebar' },
-    ["div",
-     { class: 'url-path' },
-     pathList?.length ? ["b", "jake."] : ["a", { href: '/' }, "jake."],
-     folderPaths,
+    { class: "sidebar" },
+    [
+      "div",
+      { class: "url-path" },
+      pathList?.length ? ["b", "jake."] : ["a", { href: "/" }, "jake."],
+      folderPaths,
     ],
-    component("ToggleDarkMode"),
-  ]
-}
+    ["ToggleDarkMode"],
+  ];
+};
 
 const Sidebar = (args) => ({
-   dependsOn: [{ src: '/components/Sidebar/sidebar.css' }],
-   body: makeSidebar(args),
+  dependsOn: [{ src: "/components/Sidebar/sidebar.css" }],
+  body: makeSidebar(args),
 });
 
 export default Sidebar;

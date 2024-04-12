@@ -1,4 +1,4 @@
-import { header, component } from "html";
+import { header } from "html";
 import type { PageSyntax } from "../../types/html";
 import type { PageSettings } from "../../types/site";
 import TextFile from "./text";
@@ -23,7 +23,7 @@ const renderArticle = ({
     header({ title, rootUrl, siteName, resourcesDir, faviconsDir }),
     [
       "body",
-      component("Sidebar", { path: file.path, title, rootUrl, sourceDir }),
+      ["Sidebar", { path: file.path, title, rootUrl, sourceDir }],
       [
         "div",
         { class: "site-body" },
@@ -42,8 +42,8 @@ const renderArticle = ({
           [
             "div",
             { class: "article-rhs" },
-            component("GitHistoryTable", { file }),
-            component("PrevNextUpButtons", { file, rootUrl, sourceDir }),
+            ["GitHistoryTable", { file }],
+            ["PrevNextUpButtons", { file, rootUrl, sourceDir }],
           ],
         ],
       ],

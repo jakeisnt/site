@@ -2,6 +2,7 @@
 // inspired by https://gist.github.com/hns/654226
 
 import { isArray } from "utils/array";
+import { component } from "./components";
 import type {
   PageSyntax,
   HtmlAttributes,
@@ -103,6 +104,46 @@ function buildAttributes(attrs: HtmlAttributes, buffer: string[]) {
 }
 
 /**
+ * Build a custom component.
+ * @param name the name of the component
+ * @param args the arguments to the component
+ */
+function buildComponent(name: string, args: object, buffer: string[]) {
+  const componentDetails = component(name, args);
+  build(componentDetails, buffer);
+}
+
+/**
+ * Build a single HTML tag.
+ * The callback proceeds to build the rest of the page sequentially.
+ */
+function buildTag(
+  tagName: string,
+  attributes: HtmlAttributes,
+  buffer: string[],
+  // build the children
+  buildContents: (buffer: string[]) => void
+) {
+  const isComponent = tagName[0] === tagName[0].toUpperCase();
+
+  if (isComponent) {
+    buildComponent(tagName, attributes, buffer);
+    return;
+  }
+
+  // Create the start of the tag: <tag { .. attrs .. }>
+  buffer.push("<", tagName);
+  buildAttributes(attributes, buffer);
+  buffer.push(">");
+
+  // Build the contents of the tag - an arbitrary array of elements.
+  buildContents(buffer);
+
+  // Close the tag: </ tag >
+  buffer.push("</", tagName, ">");
+}
+
+/**
  * Build an HTML configuration from the list of nodes,
  * adding the stringified representation to the buffer.
  */
@@ -127,16 +168,9 @@ function build(list: HtmlNode, buffer: string[]) {
       index += 1;
     }
 
-    // Create the start of the tag: <tag { .. attrs .. }>
-    buffer.push("<", tagName);
-    buildAttributes(attributesToUse, buffer);
-    buffer.push(">");
-
-    // Build the contents of the tag - an arbitrary array of elements.
-    buildRest(list, index, buffer);
-
-    // Close the tag: </ tag >
-    buffer.push("</", tagName, ">");
+    buildTag(tagName, attributesToUse, buffer, (buffer: string[]) =>
+      buildRest(list, index, buffer)
+    );
   } else {
     // if we don't have a tag, we know we have an array of tags. Process those.
     buildRest(list, index, buffer);
