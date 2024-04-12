@@ -1,5 +1,4 @@
 import { TextFile } from "file/classes";
-import { header } from "html";
 import type { PageSettings } from "../../types/site";
 
 // TODO
@@ -17,7 +16,7 @@ const renderArticle = (
 
   return [
     "html",
-    header(config),
+    ["header", config],
     [
       "body",
       ["Sidebar"],

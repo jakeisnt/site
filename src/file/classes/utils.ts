@@ -1,4 +1,3 @@
-import { header } from "html";
 import type { PageSyntax } from "../../types/html";
 import type { PageSettings } from "../../types/site";
 import TextFile from "./text";
@@ -20,7 +19,7 @@ const renderArticle = ({
 
   return [
     "html",
-    header({ title, rootUrl, siteName, resourcesDir, faviconsDir }),
+    ["Header", { title, rootUrl, siteName, resourcesDir, faviconsDir }],
     [
       "body",
       ["Sidebar", { path: file.path, title, rootUrl, sourceDir }],
