@@ -2,6 +2,7 @@
 // inspired by https://gist.github.com/hns/654226
 
 import { isArray } from "utils/array";
+import { component } from "./components";
 import type {
   PageSyntax,
   HtmlAttributes,
@@ -103,6 +104,16 @@ function buildAttributes(attrs: HtmlAttributes, buffer: string[]) {
 }
 
 /**
+ * Build a custom component.
+ * @param name the name of the component
+ * @param args the arguments to the component
+ */
+function buildComponent(name: string, args: object, buffer: string[]) {
+  const componentDetails = component(name, args);
+  build(componentDetails, buffer);
+}
+
+/**
  * Build a single HTML tag.
  * The callback proceeds to build the rest of the page sequentially.
  */
@@ -113,6 +124,13 @@ function buildTag(
   // build the children
   buildContents: (buffer: string[]) => void
 ) {
+  const isComponent = tagName[0] === tagName[0].toUpperCase();
+
+  if (isComponent) {
+    buildComponent(tagName, attributes, buffer);
+    return;
+  }
+
   // Create the start of the tag: <tag { .. attrs .. }>
   buffer.push("<", tagName);
   buildAttributes(attributes, buffer);

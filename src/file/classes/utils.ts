@@ -23,7 +23,7 @@ const renderArticle = ({
     header({ title, rootUrl, siteName, resourcesDir, faviconsDir }),
     [
       "body",
-      component("Sidebar", { path: file.path, title, rootUrl, sourceDir }),
+      ["Sidebar", { path: file.path, title, rootUrl, sourceDir }],
       [
         "div",
         { class: "site-body" },
