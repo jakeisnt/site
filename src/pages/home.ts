@@ -11,7 +11,6 @@ const makeHomePage = (settings: PageSettings) => {
     header({ title, rootUrl, siteName, resourcesDir, faviconsDir }),
     [
       "body",
-      // (components/component "sidebar" {:target-path "/index.html"} nil nil [[:h1 "~"]])
       [
         "Sidebar",
         {
@@ -54,7 +53,7 @@ const makeHomePage = (settings: PageSettings) => {
               ],
               ", and design simple hardware and software tools.",
             ],
-            component("LastFM"),
+            ["LastFM"],
           ],
         ],
       ],
