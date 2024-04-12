@@ -73,8 +73,10 @@ type HtmlAttributes = GenericAttribute & {
 // These should be discarded if found in the tree.
 type FalsyHtmlNode = undefined | null;
 
+type HtmlTerminalNode = string | FalsyHtmlNode;
+
 // An HTML node available to our DSL.
-type HtmlNode = string | HtmlTagNode | HtmlNode[] | FalsyHtmlNode;
+type HtmlNode = string | HtmlTagNode | HtmlNode[] | HtmlTerminalNode;
 
 // A compound HTML tag.
 // Optionally allows the user to configure the HTML with attributes.
@@ -88,4 +90,11 @@ type HtmlTagNode =
 
 type PageSyntax = HtmlNode;
 
-export type { HtmlTag, PageSyntax, HtmlNode, HtmlTagNode, HtmlAttributes };
+export type {
+  HtmlTag,
+  PageSyntax,
+  HtmlNode,
+  HtmlTagNode,
+  HtmlAttributes,
+  HtmlTerminalNode,
+};

@@ -1,4 +1,9 @@
-import type { HtmlAttributes, HtmlTag } from "../src/types/html";
+import type {
+  HtmlAttributes,
+  HtmlNode,
+  HtmlTag,
+  HtmlTerminalNode,
+} from "../src/types/html";
 
 function print(...txt: any[]) {
   return console.log(txt);
@@ -24,7 +29,7 @@ function createParent(
     children,
   }: {
     parent?: HTMLElement;
-    children?: HTMLElement[];
+    children?: HtmlTerminalNode[];
   }
 ) {
   const elem = document.createElement(elementName);
@@ -47,7 +52,7 @@ function createParent(
     children.forEach((child) => {
       if (typeof child === "string") {
         elem.appendChild(document.createTextNode(child));
-      } else {
+      } else if (child) {
         elem.appendChild(child);
       }
     });
@@ -67,7 +72,7 @@ function create(
 function create2(
   elementName: HtmlTag,
   attributes: HtmlAttributes,
-  ...children: HTMLElement[]
+  ...children: HtmlTerminalNode[]
 ) {
   return createParent(elementName, attributes, {
     children,
