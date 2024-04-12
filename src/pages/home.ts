@@ -1,4 +1,4 @@
-import { header, component, HtmlPage } from "html";
+import { header, HtmlPage } from "html";
 import { Path } from "utils/path";
 import type { PageSyntax } from "../types/html";
 import type { PageSettings } from "../types/site";
@@ -12,12 +12,15 @@ const makeHomePage = (settings: PageSettings) => {
     [
       "body",
       // (components/component "sidebar" {:target-path "/index.html"} nil nil [[:h1 "~"]])
-      component("Sidebar", {
-        path: Path.create(sourceDir),
-        title,
-        rootUrl,
-        sourceDir,
-      }),
+      [
+        "Sidebar",
+        {
+          path: Path.create(sourceDir),
+          title,
+          rootUrl,
+          sourceDir,
+        },
+      ],
       [
         "div",
         { class: "site-body" },

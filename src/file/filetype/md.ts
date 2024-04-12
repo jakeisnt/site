@@ -1,5 +1,5 @@
 import { TextFile } from "file/classes";
-import { header, component } from "html";
+import { header } from "html";
 import type { PageSettings } from "../../types/site";
 
 // TODO
@@ -20,7 +20,7 @@ const renderArticle = (
     header(config),
     [
       "body",
-      component("Sidebar"),
+      ["Sidebar"],
       [
         "div",
         { class: "site-body" },
@@ -39,9 +39,9 @@ const renderArticle = (
           [
             "div",
             { class: "article-rhs" },
-            component("PageMap"),
-            component("GitHistoryTable"),
-            component("PrevNextUpButtons"),
+            ["PageMap"],
+            ["GitHistoryTable"],
+            ["PrevNextUpButtons"],
           ],
         ],
       ],

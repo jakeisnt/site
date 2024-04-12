@@ -1,7 +1,7 @@
 import { File } from "file/classes";
 import JSFile from "./js.js";
 import { readFile } from "file";
-import { header, component } from "html";
+import { header } from "html";
 import HtmlPage from "../../html/builder";
 import type { PageSettings } from "../../types/site";
 import type { HtmlNode, PageSyntax } from "../../types/html";
@@ -80,14 +80,14 @@ const directoryToHtml = (
     header({ title, siteName, rootUrl, resourcesDir, faviconsDir }),
     [
       "body",
-      component("Sidebar", { path: dir.path, title, sourceDir, rootUrl }),
+      ["Sidebar", { path: dir.path, title, sourceDir, rootUrl }],
       [
         "div",
         { class: "site-body" },
         [
           "main",
           folderIndexPageTable({ files, rootUrl, sourceDir }),
-          component("ScrollUp"),
+          ["ScrollUp"],
         ],
       ],
     ],
