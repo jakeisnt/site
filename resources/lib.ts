@@ -16,10 +16,16 @@ function runOnDesktop(fn: () => void) {
 /**
  * Create an html element with attributes and append it to a parent element
  */
-function create(
+function createParent(
   elementName: HtmlTag,
   attributes: HtmlAttributes = {},
-  parent?: HTMLElement
+  {
+    parent,
+    children,
+  }: {
+    parent?: HTMLElement;
+    children?: HTMLElement[];
+  }
 ) {
   const elem = document.createElement(elementName);
   for (let key in attributes) {
@@ -37,23 +43,6 @@ function create(
     parent.appendChild(elem);
   }
 
-  return elem;
-}
-
-function create2(
-  elementName: HtmlTag,
-  attributes: HtmlAttributes,
-  ...children: HTMLElement[]
-) {
-  const elem = document.createElement(elementName);
-
-  for (let key in attributes) {
-    // some things only work one way, so we do both
-    // is this faster than a switch statement? not sure.
-    elem.setAttribute(key, attributes[key] as string);
-    elem[key] = attributes[key];
-  }
-
   if (children) {
     children.forEach((child) => {
       if (typeof child === "string") {
@@ -65,6 +54,24 @@ function create2(
   }
 
   return elem;
+}
+
+function create(
+  elementName: HtmlTag,
+  attributes: HtmlAttributes,
+  parent?: HTMLElement
+) {
+  return createParent(elementName, attributes, { parent });
+}
+
+function create2(
+  elementName: HtmlTag,
+  attributes: HtmlAttributes,
+  ...children: HTMLElement[]
+) {
+  return createParent(elementName, attributes, {
+    children,
+  });
 }
 
 var httpRequest: XMLHttpRequest;
