@@ -103,6 +103,29 @@ function buildAttributes(attrs: HtmlAttributes, buffer: string[]) {
 }
 
 /**
+ * Build a single HTML tag.
+ * The callback proceeds to build the rest of the page sequentially.
+ */
+function buildTag(
+  tagName: string,
+  attributes: HtmlAttributes,
+  buffer: string[],
+  // build the children
+  buildContents: (buffer: string[]) => void
+) {
+  // Create the start of the tag: <tag { .. attrs .. }>
+  buffer.push("<", tagName);
+  buildAttributes(attributes, buffer);
+  buffer.push(">");
+
+  // Build the contents of the tag - an arbitrary array of elements.
+  buildContents(buffer);
+
+  // Close the tag: </ tag >
+  buffer.push("</", tagName, ">");
+}
+
+/**
  * Build an HTML configuration from the list of nodes,
  * adding the stringified representation to the buffer.
  */
@@ -127,16 +150,9 @@ function build(list: HtmlNode, buffer: string[]) {
       index += 1;
     }
 
-    // Create the start of the tag: <tag { .. attrs .. }>
-    buffer.push("<", tagName);
-    buildAttributes(attributesToUse, buffer);
-    buffer.push(">");
-
-    // Build the contents of the tag - an arbitrary array of elements.
-    buildRest(list, index, buffer);
-
-    // Close the tag: </ tag >
-    buffer.push("</", tagName, ">");
+    buildTag(tagName, attributesToUse, buffer, (buffer: string[]) =>
+      buildRest(list, index, buffer)
+    );
   } else {
     // if we don't have a tag, we know we have an array of tags. Process those.
     buildRest(list, index, buffer);
