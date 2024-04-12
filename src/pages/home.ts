@@ -60,7 +60,10 @@ const makeHomePage = (settings: PageSettings) => {
     ],
   ];
 
-  return HtmlPage.create(htmlText, settings);
+  return {
+    contents: HtmlPage.create(htmlText, settings).toString(),
+    mimeType: "text/html",
+  };
 };
 
 export { makeHomePage };
