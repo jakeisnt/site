@@ -1,4 +1,6 @@
-type HtmlTag =
+// All tags supported by the browser.
+// @ts-ignore
+type NativeHtmlTag =
   | "html"
   | "body"
   | "div"
@@ -51,9 +53,13 @@ type HtmlTag =
   | "path"
   | "g";
 
+// Any acceptable tag, including components.
+type HtmlTag = string;
+
 // A generic HTML attribute.
 // Doesn't type specific tag names.
-type GenericAttribute = { [key: string]: string | number | Function };
+// Allows passing anything.
+type GenericAttribute = { [key: string]: any };
 
 type HtmlAttributes = GenericAttribute & {
   src?: string;
