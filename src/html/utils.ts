@@ -127,15 +127,9 @@ const header = ({
     css("/resources/global.css"),
     script("/resources/lib.js"),
     css("/resources/elements.css"),
-    script("/resources/elements.js", { defer: true }),
-
     // TODO: generate manifest.
     ["link", { rel: "manifest", href: "/resources/manifest.json" }],
 
-    script(
-      "https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js",
-      { defer: true }
-    ),
     css(
       "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css",
       { id: "dark-theme-highlight" }
@@ -144,6 +138,9 @@ const header = ({
       "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css",
       { id: "light-theme-highlight" }
     ),
+    script("https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"),
+
+    script("/resources/elements.js", { defer: true }),
   ];
 };
 
