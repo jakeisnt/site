@@ -1,6 +1,6 @@
 import { create, all } from "./lib";
 
-declare var hljs: any;
+declare var hljs: any | undefined;
 
 /* enhancements to native html elements */
 

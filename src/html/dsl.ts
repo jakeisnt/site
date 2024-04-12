@@ -35,7 +35,7 @@ function htmlPage(...args: PageSyntax[]): string {
  */
 function buildAttributes(attrs: HtmlAttributes, buffer: string[]) {
   for (var key in attrs) {
-    buffer.push(" ", key, '="', attrs[key].toString(), '"');
+    buffer.push(" ", key, '="', attrs[key]?.toString(), '"');
   }
 }
 
