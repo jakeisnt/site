@@ -5,7 +5,7 @@ import { Path } from "../../utils/path";
 import TypescriptFile from "./ts";
 
 const tsToJs = (tsText: string) => {
-  const options = { compilerOptions: { module: ts.ModuleKind.CommonJS } };
+  const options = { compilerOptions: { module: ts.ModuleKind.ESNext } };
   return ts.transpileModule(tsText, options).outputText;
 };
 
