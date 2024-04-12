@@ -45,7 +45,7 @@ class TextFile extends File {
   write(config: PageSettings) {
     const { sourceDir, targetDir } = config;
     const targetPath = this.path.relativeTo(sourceDir, targetDir);
-    targetPath.writeString(this.serve().contents);
+    targetPath.writeString(this.serve(config).contents);
     return this;
   }
 
@@ -69,7 +69,7 @@ class TextFile extends File {
     return HtmlPage.create(page, settings);
   }
 
-  serve() {
+  serve(settings: PageSettings) {
     return { contents: this.text, mimeType: this.mimeType };
   }
 }

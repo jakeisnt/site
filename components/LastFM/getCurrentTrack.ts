@@ -1,4 +1,5 @@
-import { create, create2, get } from "../../resources/lib";
+import { create, create2, get, $ } from "/resources/lib.js";
+
 /* OLD SCHOOL CURRENT PLAYING STUFF */
 /* source: https://gist.github.com/trisweb/2c0c94273f653c81f34dbe8e85ad30e7 via https://www.trisweb.com/ */
 /*
@@ -19,7 +20,7 @@ var recentTracksUrl =
 const LFM_TIMEOUT = 1000 * 60; // 1 minute
 
 const lastfm = () => {
-  var nowPlayingNode = null;
+  var nowPlayingNode: HTMLElement | null = null;
 
   function getNowPlaying() {
     get(recentTracksUrl, (response) => {

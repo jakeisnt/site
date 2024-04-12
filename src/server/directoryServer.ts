@@ -6,6 +6,7 @@ import { formatUrl, makeFileResponse } from "./utils";
 import { readFile } from "../file";
 import { createServer } from "./createServer";
 import Directory from "../file/filetype/directory";
+import { homePage } from "../pages/home";
 
 /**
  * Serve the files in a directory.
@@ -63,19 +64,19 @@ const directoryServer = ({
     onRequest: ({ path }: { path: Path }) => {
       let pathToUse = Path.create(path);
 
-      // if we request the root, serve up the home page
-      // TODO this seems to just not work.
-      //   if (["/", "/index", "/index.html"].includes(pathToUse.toString())) {
-      //     return makeFileResponse(
-      //       { serve: makeHomePage },
-      //       {
-      //         sourceDir: dir.path,
-      //         siteName,
-      //         devUrl,
-      //         devWebsocketUrl,
-      //       }
-      //     );
-      //   }
+      console.log(pathToUse.toString());
+      // If we request the root, serve up the home page
+      if (["", "/", "/index", "/index.html"].includes(pathToUse.toString())) {
+        return makeFileResponse(homePage(), {
+          sourceDir: dir.path.toString(),
+          siteName,
+          devUrl,
+          devWebsocketUrl,
+          resourcesDir,
+          faviconsDir,
+          targetDir: sourceDir,
+        });
+      }
 
       if (path.name === "index.html") {
         // if the path is a directory, serve the parent like an html file

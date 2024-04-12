@@ -11,9 +11,7 @@ class File {
   public path: Path;
 
   /**
-   * Make the path a full path if it's not.
-   * If the file doesn't exist at all, throw an error.
-   * Otherwise, construct a file.
+   * Construct a file.
    */
   constructor(pathArg: Path) {
     const filePath = Path.create(pathArg);

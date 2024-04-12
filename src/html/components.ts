@@ -1,5 +1,4 @@
 import { Path } from "utils/path";
-import logger from "utils/log";
 import { sourceDir } from "../constants";
 import type { PageSyntax } from "../types/html";
 
@@ -14,7 +13,7 @@ const getDependency = (path: Path): PageSyntax => {
   const extension = path.extension;
   switch (extension) {
     case "js":
-      return ["script", { src: path.toString() }];
+      return ["script", { src: path.toString(), type: "module" }];
     case "css":
       return ["link", { rel: "stylesheet", href: path.toString() }];
     case "scss":

@@ -1,5 +1,6 @@
 import { HtmlPage } from "html";
 import { Path } from "utils/path";
+import { TextFile } from "../file/classes";
 import type { PageSyntax } from "../types/html";
 import type { PageSettings } from "../types/site";
 
@@ -60,7 +61,20 @@ const makeHomePage = (settings: PageSettings) => {
     ],
   ];
 
-  return HtmlPage.create(htmlText, settings);
+  return HtmlPage.create(htmlText, settings).toString();
 };
 
-export { makeHomePage };
+class HomePage extends TextFile {
+  serve(settings: PageSettings) {
+    return {
+      contents: makeHomePage(settings),
+      mimeType: "text/html",
+    };
+  }
+}
+
+const homePage = () => {
+  return new HomePage(Path.create(""));
+};
+
+export { homePage };
