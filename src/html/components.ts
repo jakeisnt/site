@@ -24,10 +24,14 @@ const getDependency = (path: Path): PageSyntax => {
   }
 };
 
+type Dependency = {
+  src: string;
+};
+
 /**
  * Construct a dependency header with a list of source configurations.
  */
-const makeDependencyHeader = (dependencies: { src: string }[]): PageSyntax => {
+const makeDependencyHeader = (dependencies: Dependency[]): PageSyntax => {
   if (dependencies.length === 0) {
     return null;
   }
@@ -37,6 +41,25 @@ const makeDependencyHeader = (dependencies: { src: string }[]): PageSyntax => {
   });
 };
 
+const componentCache: { [key: string]: Function } = {};
+
+/**
+ * Require a component from disk.
+ * @param name name of the component
+ */
+const requireComponent = (name: string) => {
+  const maybeComponent = componentCache[name];
+  if (maybeComponent) {
+    return maybeComponent;
+  }
+  const rootPath = sourceDir;
+  const componentFunction =
+    require(`${rootPath}/components/${name}/${name}.js`).default;
+
+  componentCache[name] = componentFunction;
+  return componentFunction;
+};
+
 /**
  * Render a JS component.
  * @param name the name of the component
@@ -44,11 +67,16 @@ const makeDependencyHeader = (dependencies: { src: string }[]): PageSyntax => {
  * @returns the component
  */
 const component = (name: string, args?: Object): PageSyntax => {
-  const rootPath = sourceDir;
-  const componentFunction = require(`${rootPath}/components/${name}/${name}.js`);
+  const componentFunction = requireComponent(name);
+  const { dependsOn, body } = componentFunction(args);
+  const componentWithDependencies = [
+    "span",
+    makeDependencyHeader(dependsOn),
+    body,
+  ];
+
   logger.file("Rendering component", name);
-  const { dependsOn, body } = componentFunction.default(args);
-  return ["span", body, makeDependencyHeader(dependsOn)];
+  return componentWithDependencies;
 };
 
 export { component };
