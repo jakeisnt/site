@@ -25,7 +25,9 @@ const tagName = ([name]: HtmlTagNode) => name;
 /**
  * Get the attributes object of a tag.
  */
-const tagAttributes = ([, attributes]: HtmlTagNode) => {
+const tagAttributes = ([, attributes]: HtmlTagNode):
+  | HtmlAttributes
+  | undefined => {
   return isHtmlAttributes(attributes) ? attributes : undefined;
 };
 
@@ -56,7 +58,8 @@ const collectElements = (
 const findTags = (htmlPage: PageSyntax, tags: HtmlTag[]) => {
   return collectElements(
     htmlPage,
-    (tl: HtmlNode) => isHtmlTagNode(tl) && tl?.[0] && tags.includes(tl?.[0])
+    (tl: HtmlNode) =>
+      (isHtmlTagNode(tl) && tl?.[0] && tags.includes(tl?.[0])) || false
   );
 };
 
