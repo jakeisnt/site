@@ -71,8 +71,8 @@ const component = (name: string, args?: Object): PageSyntax => {
   const { dependsOn, body } = componentFunction(args);
   const componentWithDependencies = [
     "span",
-    body,
     makeDependencyHeader(dependsOn),
+    body,
   ];
 
   logger.file("Rendering component", name);
