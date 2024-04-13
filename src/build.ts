@@ -16,8 +16,6 @@ const buildSiteFromFile = (
   settings: PageSettings,
   filesSeenSoFar: Set<string>
 ) => {
-  // const { siteName, rootUrl, sourceDir, targetDir } = settings;
-
   const dependencyPath = file.path.toString();
 
   // if we've already seen this file, we don't need to build it again.
@@ -33,11 +31,13 @@ const buildSiteFromFile = (
 
   const dependencies = file.dependencies(settings);
 
-  dependencies
-    .filter((f) => !filesSeenSoFar.has(f.path.toString()))
-    .forEach((dependencyFile) => {
-      buildSiteFromFile(dependencyFile, settings, filesSeenSoFar);
-    });
+  Promise.all([
+    dependencies
+      .filter((f) => !filesSeenSoFar.has(f.path.toString()))
+      .map(async (dependencyFile) => {
+        buildSiteFromFile(dependencyFile, settings, filesSeenSoFar);
+      }),
+  ]);
 };
 
 // build a website from a path to a directory.
