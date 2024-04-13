@@ -205,12 +205,9 @@ class Path {
 
     try {
       // Avoid normalizing the paths by using the originals provided
-      execSync(
-        `mv ${force ? "--" : ""}${force ? "force" : ""} ${fromPath} ${toPath}`,
-        {
-          cwd: this.toString(),
-        }
-      );
+      execSync(`rsync -av --delete  ${fromPath} ${toPath}`, {
+        cwd: this.toString(),
+      });
     } catch (e) {
       console.log("error moving directory", e);
     }
