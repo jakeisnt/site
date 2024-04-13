@@ -22,6 +22,8 @@ const commonIgnorePaths = [".git", "node_modules"];
 
 /**
  * Build a website from the incoming paths.
+ *
+ * Usage: site build ./ ./docs ./ http://localhost:3000
  */
 const build = (incomingPaths?: string[]) => {
   const paths = incomingPaths?.length ? incomingPaths : ["."];
