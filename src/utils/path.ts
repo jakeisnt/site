@@ -211,7 +211,8 @@ class Path {
     // }
 
     try {
-      execSync(`mv ${force ? "-f" : ""} ${from.pathString} ${to.pathString}`, {
+      // Avoid normalizing the paths by using the originals provided
+      execSync(`mv ${force ? "-f" : ""} ${fromPath} ${toPath}`, {
         cwd: this.toString(),
       });
     } catch (e) {
