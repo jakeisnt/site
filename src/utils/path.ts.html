@@ -22,7 +22,10 @@ const removePostfixedSlash = (pathString: string) =&gt; {
 class Path {
   // These params are immutable, so it&#x27;s safe to store both
   // and access them directly.
-  private pathArray: string[] = [];
+  public pathArray: string[] = [];
+  public relativePathArray: string[] = [];
+
+  public relativePathString: String = &quot;&quot;;
   private pathString: string = &quot;&quot;;
 
   /**
@@ -35,14 +38,22 @@ class Path {
   constructor(pathString: string) {
     let normalizedPath = pathLibrary.normalize(pathString);
 
+    let absolutePath = normalizedPath;
     if (!pathLibrary.isAbsolute(normalizedPath)) {
-      normalizedPath = pathLibrary.resolve(process.cwd(), normalizedPath);
+      absolutePath = pathLibrary.resolve(process.cwd(), normalizedPath);
     }
 
     normalizedPath = removePostfixedSlash(normalizedPath);
+    absolutePath = removePostfixedSlash(absolutePath);
 
-    this.pathString = normalizedPath;
-    this.pathArray = normalizedPath
+    this.relativePathString = normalizedPath;
+    this.relativePathArray = normalizedPath
+      .split(&quot;/&quot;)
+      .slice(1)
+      .filter((p) =&gt; p.length);
+
+    this.pathString = absolutePath;
+    this.pathArray = absolutePath
       .split(&quot;/&quot;)
       .slice(1)
       .filter((p) =&gt; p.length);
@@ -231,6 +242,10 @@ class Path {
 
     let resultingPathString = this.pathString;
     if (otherPath) {
+      if (otherPath.toString() === resultingPathString) {
+        resultingPathString = &quot;&quot;;
+      }
+
       resultingPathString = resultingPathString.replace(
         `${otherPath.toString()}`,
         &quot;&quot;
@@ -445,4 +460,4 @@ class Path {
 }
 
 export { Path };
-</code></pre></article></main><div class="article-rhs-container"><div class="article-rhs"><div class="git-history-table-container"><span class="git-history-table-title">Revisions</span><table class="git-history-table"><thead ><tr ><th >Date</th><th >Hash</th></tr></thead><tbody ><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">5eebe57a</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">0c9b2c0e</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">b67bc56f</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">17ceed04</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">c56ed416</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">838a868a</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">4457e0b9</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">a274b4c9</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">24027a67</td></tr><tr ><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">52d9d7fe</td></tr><tr ><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">97a9e012</td></tr><tr ><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">a3c37e13</td></tr><tr ><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">3baa0660</td></tr><tr ><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">645f49d5</td></tr><tr ><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">390faed6</td></tr><tr ><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">110e0165</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">6cca7a6a</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">c64fbf31</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">02dca1b8</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">b0b5a058</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">2e59e133</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">dd2f23b0</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">95fa0ee8</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">4da03f6c</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">baa38df5</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">3e22c4b6</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">dec57c39</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">b3e98839</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">692ce828</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">9a544393</td></tr></tbody></table></div><div class="prev-next-up-buttons-container">Navigation<table class="prev-next-up-buttons"><tr ><td >Next</td><td ><a class="next-button" href="file:///Users/jake/Documents/personal/site/docs/src/utils/array.ts.html">array.ts</a></td></tr><tr ><td >Up</td><td ><a class="up-button" href="file:///Users/jake/Documents/personal/site/docs/src/utils.html">utils</a></td></tr></table></div></div></div></div></body></html>
+</code></pre></article></main><div class="article-rhs-container"><div class="article-rhs"><div class="git-history-table-container"><span class="git-history-table-title">Revisions</span><table class="git-history-table"><thead ><tr ><th >Date</th><th >Hash</th></tr></thead><tbody ><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">3de0cb40</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">b23a3674</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">6dd5f2db</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">5eebe57a</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">0c9b2c0e</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">b67bc56f</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">17ceed04</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">c56ed416</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">838a868a</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">4457e0b9</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">a274b4c9</td></tr><tr ><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">24027a67</td></tr><tr ><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">52d9d7fe</td></tr><tr ><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">97a9e012</td></tr><tr ><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">a3c37e13</td></tr><tr ><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">3baa0660</td></tr><tr ><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">645f49d5</td></tr><tr ><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">390faed6</td></tr><tr ><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">110e0165</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">6cca7a6a</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">c64fbf31</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">02dca1b8</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">b0b5a058</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">2e59e133</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">dd2f23b0</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">95fa0ee8</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">4da03f6c</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">baa38df5</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">3e22c4b6</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">dec57c39</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">b3e98839</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">692ce828</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">9a544393</td></tr></tbody></table></div><div class="prev-next-up-buttons-container">Navigation<table class="prev-next-up-buttons"><tr ><td >Next</td><td ><a class="next-button" href="file:///Users/jake/Documents/personal/site/docs/src/utils/array.ts.html">array.ts</a></td></tr><tr ><td >Up</td><td ><a class="up-button" href="file:///Users/jake/Documents/personal/site/docs/src/utils.html">utils</a></td></tr></table></div></div></div></div></body></html>
