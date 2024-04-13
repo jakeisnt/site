@@ -194,20 +194,18 @@ class Path {
    * Move the file or directory at this path to another path.
    * If the path is not a subdir of this path, throw an error.
    */
-  move(fromPath: Path | string, toPath: Path | string) {
-    const from = Path.create(fromPath);
-    const to = Path.create(toPath);
-
-    console.log("moving from ", { from: from.toString(), to: to.toString() });
-
-    // if (!this.contains(from)) {
-    //   throw new Error(
-    //     `Cannot move ${from.toString()} to ${to.toString()} because it is not a subdirectory of ${this.toString()}`
-    //   );
-    // }
+  move(
+    fromPath: Path | string,
+    toPath: Path | string,
+    { force = false }: { force: boolean } = {
+      force: false,
+    }
+  ) {
+    console.log("moving from ", { from: fromPath, to: toPath });
 
     try {
-      execSync(`mv ${from.pathString} ${to.pathString}`, {
+      // Avoid normalizing the paths by using the originals provided
+      execSync(`rsync -av --delete ${fromPath} ${toPath}`, {
         cwd: this.toString(),
       });
     } catch (e) {
