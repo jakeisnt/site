@@ -63,7 +63,7 @@ const makeDependencies = (
       const file = readFile(linkStringToFile(dep.src, settings), settings);
       res.push(file);
     } catch (e) {
-      console.warn(`Dependency file ${dep.src} doesn't exist`);
+      // console.warn(`Dependency file ${dep.src} doesn't exist`);
     }
   });
 
