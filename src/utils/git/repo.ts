@@ -36,7 +36,6 @@ class Repo {
    * Run a command from this git repository's root.
    */
   runCmd(command: string) {
-    console.log("running cmd with cwd", this.path.toString());
     const cmdResult = execSync(command, { cwd: this.path.toString() });
     return cmdResult.toString();
   }
