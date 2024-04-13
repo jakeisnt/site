@@ -47,6 +47,7 @@ function commitFolderToBranch({
   console.log("pushing build");
   console.log("we are on branch ", repo.currentBranch());
   repo.addAll();
+  repo.status();
   repo.commit();
   repo.push();
   repo.status();
