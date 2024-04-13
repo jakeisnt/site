@@ -17,7 +17,7 @@ const renderArticle = ({
 }: PageSettings & {
   articleHtml: PageSyntax;
   file: TextFile;
-  children: () => void;
+  children;
 }): PageSyntax => {
   const title = file.name;
 
