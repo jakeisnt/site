@@ -199,16 +199,7 @@ class Path {
     toPath: Path | string,
     { force = false }: { force: boolean } = { force: false }
   ) {
-    const from = Path.create(fromPath);
-    const to = Path.create(toPath);
-
-    console.log("moving from ", { from: from.toString(), to: to.toString() });
-
-    // if (!this.contains(from)) {
-    //   throw new Error(
-    //     `Cannot move ${from.toString()} to ${to.toString()} because it is not a subdirectory of ${this.toString()}`
-    //   );
-    // }
+    console.log("moving from ", { from: fromPath, to: toPath });
 
     try {
       // Avoid normalizing the paths by using the originals provided
