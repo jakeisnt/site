@@ -20,15 +20,22 @@ function html(...args: PageSyntax[]) {
   let dependencies: Dependency[] = [];
   build(args, buffer, dependencies);
 
-  return buffer.join("");
+  return {
+    dependsOn: dependencies,
+    body: buffer.join(""),
+  };
 }
 
 /**
  * Render a PageSyntax node to an HTML page string.
  * Include front matter that configures the document as a whole.
  */
-function htmlPage(...args: PageSyntax[]): string {
-  return `<!DOCTYPE html>${html(...args)}`;
+function htmlPage(...args: PageSyntax[]) {
+  const { dependsOn, body } = html(...args);
+  return {
+    dependsOn,
+    body: `<!DOCTYPE html>${body}`,
+  };
 }
 
 /**

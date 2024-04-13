@@ -33,11 +33,6 @@ const buildSiteFromFile = (
 
   const dependencies = file.dependencies(settings);
 
-  console.log(
-    "File dependencies",
-    dependencies.map((d) => d.path.toString())
-  );
-
   dependencies
     .filter((f) => !filesSeenSoFar.has(f.path.toString()))
     .forEach((dependencyFile) => {

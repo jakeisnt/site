@@ -1,8 +1,6 @@
 import { readFile } from "../file";
 import { htmlPage } from "./dsl";
-import { getTagLink, findTags } from "./parseDSL";
-import type { PageSyntax, HtmlNode } from "../types/html";
-import { isArray } from "../utils/array";
+import type { PageSyntax, Dependency } from "../types/html";
 import { File } from "../file/classes";
 
 /**
@@ -50,6 +48,28 @@ type HtmlPageSettings = {
   sourceDir: string;
 };
 
+const makeDependencies = (
+  dependencies: Dependency[],
+  settings: HtmlPageSettings
+): File[] => {
+  const res: File[] = [];
+
+  dependencies.forEach((dep) => {
+    if (!isInternalLink(dep.src, settings)) {
+      return;
+    }
+
+    try {
+      const file = readFile(linkStringToFile(dep.src, settings), settings);
+      res.push(file);
+    } catch (e) {
+      console.warn(`Dependency file ${dep.src} doesn't exist`);
+    }
+  });
+
+  return res;
+};
+
 /**
  * An HTML AST builder.
  * May or may not be assocaited with a file.
@@ -74,30 +94,21 @@ class HtmlPage {
   // Produces these dependencies as Files.
   dependencies(settings = this.currentBuildSettings) {
     if (!this.cachedDependencies) {
-      this.cachedDependencies = findTags(this.pageStructure, [
-        "a",
-        "img",
-        "script",
-        "link",
-      ])
-        .map((n: HtmlNode) => {
-          if (isArray(n)) {
-            return getTagLink(n);
-          }
-          getTagLink;
-        })
-        .filter((v) => v)
-        .filter((f) => f && isInternalLink(f, settings))
-        .map((f) => f && linkStringToFile(f, settings))
-        .map((f) => (f ? readFile(f, settings) : undefined))
-        .filter((f) => !!f) as File[];
+      this.toString();
     }
 
     return this.cachedDependencies;
   }
 
   toString() {
-    return htmlPage(this.pageStructure);
+    const { dependsOn, body } = htmlPage(this.pageStructure);
+
+    this.cachedDependencies = makeDependencies(
+      dependsOn,
+      this.currentBuildSettings
+    );
+
+    return body;
   }
 }
 
