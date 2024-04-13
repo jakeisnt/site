@@ -1,0 +1,207 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"></meta><title>spawnNeko.ts / Jake Chvatal</title><meta property="og:title" content="spawnNeko.ts"></meta><meta property="og:type" content="website"></meta><meta property="og:url" content="https://jake.isnt.online"></meta><meta property="og:site_name" content="Jake Chvatal"></meta><meta name="keywords" content="jake"></meta><meta name="author" content="Jake Chvatal"></meta><meta name="robots" content="index,follow"></meta><meta name="description" content="hi"></meta><meta name="theme-color" media="(prefers-color-scheme: light)" content="white"></meta><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111"></meta><link rel="icon" type="image/x-icon" href="/Users/jake/Documents/personal/site/favicons/favicon.ico"></link><link rel="apple-touch-icon" href="/Users/jake/Documents/personal/site/favicons/apple-touch-icon.png"></link><link rel="stylesheet" type="text/css" href="/resources/style.css" id="/resources/style.css"></link><link rel="stylesheet" type="text/css" href="/resources/global.css" id="/resources/global.css"></link><script src="/resources/lib.js" id="/resources/lib.js" type="module"></script><link rel="stylesheet" type="text/css" href="/resources/elements.css" id="/resources/elements.css"></link><link rel="manifest" href="/resources/manifest.json"></link><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css" id="dark-theme-highlight"></link><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css" id="light-theme-highlight"></link><script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" id="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" type=""></script><script src="/resources/elements.js" id="/resources/elements.js" type="module" defer="true"></script></head><body><link rel="stylesheet" href="/components/Sidebar/sidebar.css"></link><div class="sidebar"><div class="url-path"><b>jake.</b><span> / </span><a href="https://jake.isnt.online/components/index.html">components</a><span> / </span><a href="https://jake.isnt.online/components/Neko/index.html">Neko</a><span> / </span><b>spawnNeko.ts</b></div><script src="/components/ToggleDarkMode/toggle-dark-mode.js" type="module"></script><link rel="stylesheet" href="/components/ToggleDarkMode/toggle-dark-mode.css"></link><div class="toggle-dark-mode-container"><button class="toggle-dark-mode"></button></div></div><div class="site-body"><main><article class="wikipage"><h1 class="title-top">spawnNeko.ts</h1><pre><code class="language-ts has-raw-code">import { create, runOnDesktop } from &quot;../../resources/lib&quot;;
+
+// TODO:
+// Go to a specific place to sleep
+// Sit next to the left or right of the cursor, whichever is closer
+// Sit next to/on/around links if they are hovered
+
+const neko = () =&gt; {
+  function createNekoImage() {
+    return create(&quot;img&quot;, {
+      src: currentAnimation[0],
+      width: &quot;32px&quot;,
+      height: &quot;32px&quot;,
+      alt: &quot;🐱&quot;,
+      id: &quot;neko&quot;,
+    });
+  }
+
+  function timestamp() {
+    return new Date().getTime();
+  }
+
+  const neko: HTMLElement = document.querySelector(&quot;.neko&quot;);
+  const nekoBed = document.querySelector(&quot;.neko-bed&quot;);
+
+  const nekoUrl = &quot;/components/neko/assets/&quot;;
+
+  const Neko = {
+    yawn: [nekoUrl + &quot;yawn1.png&quot;, nekoUrl + &quot;yawn2.png&quot;],
+    wash: [nekoUrl + &quot;wash1.png&quot;, nekoUrl + &quot;wash2.png&quot;],
+    awake: [nekoUrl + &quot;awake.png&quot;, nekoUrl + &quot;awake.png&quot;],
+    sleep: [nekoUrl + &quot;sleep1.png&quot;, nekoUrl + &quot;sleep2.png&quot;],
+    scratch: [nekoUrl + &quot;scratch1.png&quot;, nekoUrl + &quot;scratch2.png&quot;],
+
+    up: [nekoUrl + &quot;up1.png&quot;, nekoUrl + &quot;up2.png&quot;],
+    down: [nekoUrl + &quot;down1.png&quot;, nekoUrl + &quot;down2.png&quot;],
+    left: [nekoUrl + &quot;left1.png&quot;, nekoUrl + &quot;left2.png&quot;],
+    right: [nekoUrl + &quot;right1.png&quot;, nekoUrl + &quot;right2.png&quot;],
+    upLeft: [nekoUrl + &quot;upleft1.png&quot;, nekoUrl + &quot;upleft2.png&quot;],
+    upRight: [nekoUrl + &quot;upright1.png&quot;, nekoUrl + &quot;upright2.png&quot;],
+    downLeft: [nekoUrl + &quot;downleft1.png&quot;, nekoUrl + &quot;downleft2.png&quot;],
+    downRight: [nekoUrl + &quot;downright1.png&quot;, nekoUrl + &quot;downright2.png&quot;],
+  };
+
+  const idleLevelKeys = [
+    &quot;awake&quot;,
+    &quot;awake&quot;,
+    &quot;awake&quot;,
+    &quot;awake&quot;,
+    &quot;awake&quot;,
+    &quot;yawn&quot;,
+    &quot;awake&quot;,
+    &quot;scratch&quot;,
+    &quot;wash&quot;,
+    &quot;awake&quot;,
+    &quot;yawn&quot;,
+    &quot;sleep&quot;,
+  ];
+
+  const Direction = {
+    left: &quot;left&quot;,
+    right: &quot;right&quot;,
+    up: &quot;up&quot;,
+    down: &quot;down&quot;,
+    downLeft: &quot;downLeft&quot;,
+    downRight: &quot;downRight&quot;,
+    upLeft: &quot;upLeft&quot;,
+    upRight: &quot;upRight&quot;,
+    still: &quot;awake&quot;,
+  };
+
+  const mouseTolerance = 5;
+  const nekoStepLength = 16;
+  const animationSpeed = 200;
+  var lastMouseMoved;
+
+  let currentX;
+  let currentY;
+  let mouseX;
+  let mouseY;
+
+  const distanceFromCursorX = -30;
+  const distanceFromCursorY = 10;
+
+  let currentAnimation = Neko.sleep;
+
+  const nekoImage = createNekoImage();
+
+  document.addEventListener(&quot;mousemove&quot;, function (e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    lastMouseMoved = timestamp();
+  });
+
+  function animate(first = true) {
+    if (currentAnimation) {
+      nekoImage.setAttribute(&quot;src&quot;, currentAnimation[first ? 0 : 1]);
+    }
+
+    setTimeout(() =&gt; animate(!first), animationSpeed);
+  }
+
+  function setAnimation(anim) {
+    // console.log(&quot;Neko: &quot;, anim);
+    currentAnimation = Neko[anim];
+  }
+
+  function determineDirection(x, y) {
+    if (x === 0 &amp;&amp; y === 0) {
+      return Direction.still;
+    }
+
+    if (x === 0) {
+      return y &gt; 0 ? Direction.down : Direction.up;
+    }
+
+    if (y === 0) {
+      return x &gt; 0 ? Direction.right : Direction.left;
+    }
+
+    if (x &gt; 0 &amp;&amp; y &gt; 0) {
+      return Direction.downRight;
+    }
+
+    if (x &gt; 0 &amp;&amp; y &lt; 0) {
+      return Direction.upRight;
+    }
+
+    if (x &lt; 0 &amp;&amp; y &gt; 0) {
+      return Direction.downLeft;
+    }
+
+    if (x &lt; 0 &amp;&amp; y &lt; 0) {
+      return Direction.upLeft;
+    }
+  }
+
+  function moveInX() {
+    if (mouseX - currentX - distanceFromCursorX &gt; nekoStepLength) {
+      return nekoStepLength;
+    } else if (mouseX - currentX - distanceFromCursorX &lt; nekoStepLength * -1) {
+      return -nekoStepLength;
+    } else {
+      return 0;
+    }
+  }
+
+  function moveInY() {
+    if (mouseY - currentY - distanceFromCursorY &gt; nekoStepLength) {
+      return nekoStepLength;
+    } else if (mouseY - currentY - distanceFromCursorY &lt; nekoStepLength * -1) {
+      return -nekoStepLength;
+    } else {
+      return 0;
+    }
+  }
+
+  function moveNeko(x: number, y: number) {
+    currentX += x;
+    currentY += y;
+    neko.style.left = currentX + &quot;px&quot;;
+    neko.style.top = currentY + &quot;px&quot;;
+  }
+
+  let idleLevel = 0;
+  let nekoAwake = false;
+
+  function nekoEventLoop() {
+    const x = moveInX();
+    const y = moveInY();
+    if (nekoAwake &amp;&amp; (x !== 0 || y !== 0)) {
+      // if we can move, we&#x27;re moving!
+      // console.log(&quot;moving&quot;, x, y);
+      idleLevel = 0;
+      moveNeko(x, y);
+      setAnimation(determineDirection(x, y));
+    } else {
+      // if we can&#x27;t move, we&#x27;re idle
+      // console.log(&quot;idle&quot;, idleLevel);
+      if (idleLevel &lt; idleLevelKeys.length - 1) {
+        idleLevel++;
+        setAnimation(idleLevelKeys[idleLevel]);
+      }
+    }
+
+    setTimeout(nekoEventLoop, animationSpeed);
+  }
+
+  neko.addEventListener(&quot;click&quot;, function (e: MouseEvent) {
+    if (!nekoAwake) {
+      currentX = e.clientX - 32;
+      currentY = e.clientY - 32;
+    }
+
+    nekoAwake = true;
+    idleLevel = 0;
+    setAnimation(&quot;awake&quot;);
+    nekoEventLoop();
+  });
+
+  neko.appendChild(nekoImage);
+  animate();
+};
+
+runOnDesktop(neko);
+</code></pre></article></main><div class="article-rhs-container"><div class="article-rhs"><div class="git-history-table-container"><span class="git-history-table-title">Revisions</span><table class="git-history-table"><thead><tr><th>Date</th><th>Hash</th></tr></thead><tbody><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">02dca1b8</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">3e22c4b6</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">7b151c5f</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">c9690be3</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">9a544393</td></tr></tbody></table></div><div class="prev-next-up-buttons-container">Navigation<table class="prev-next-up-buttons"><tr><td>Next</td><td><a class="next-button" href="https://jake.isnt.online/components/Neko/neko.css.html">neko.css</a></td></tr><tr><td>Up</td><td><a class="up-button" href="https://jake.isnt.online/components/Neko.html">Neko</a></td></tr></table></div></div></div></div></body></html>
