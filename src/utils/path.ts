@@ -197,12 +197,8 @@ class Path {
   move(
     fromPath: Path | string,
     toPath: Path | string,
-    {
-      force = false,
-      recursive = false,
-    }: { force: boolean; recursive: boolean } = {
+    { force = false }: { force: boolean } = {
       force: false,
-      recursive: false,
     }
   ) {
     console.log("moving from ", { from: fromPath, to: toPath });
@@ -210,9 +206,7 @@ class Path {
     try {
       // Avoid normalizing the paths by using the originals provided
       execSync(
-        `mv ${force || recursive ? "-" : ""}${force ? "f" : ""}${
-          recursive ? "R" : ""
-        } ${fromPath} ${toPath}`,
+        `mv ${force ? "--" : ""}${force ? "force" : ""} ${fromPath} ${toPath}`,
         {
           cwd: this.toString(),
         }
