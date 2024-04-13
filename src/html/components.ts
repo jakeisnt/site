@@ -1,6 +1,6 @@
 import { Path } from "utils/path";
 import { sourceDir } from "../constants";
-import type { PageSyntax } from "../types/html";
+import type { Dependency, PageSyntax } from "../types/html";
 
 // Support the Component interface.
 // Resolves dependencies automatically and allows partial page refresh.
@@ -21,10 +21,6 @@ const getDependency = (path: Path): PageSyntax => {
     default:
       throw new Error(`Unknown extension: ${extension}`);
   }
-};
-
-type Dependency = {
-  src: string;
 };
 
 /**
@@ -65,12 +61,15 @@ const requireComponent = (name: string) => {
  * @param args arguments to pass to that component.
  * @returns the component
  */
-const component = (name: string, args?: Object): PageSyntax => {
+const component = (
+  name: string,
+  args?: Object
+): { dependsOn: Dependency[]; body: PageSyntax } => {
   const componentFunction = requireComponent(name);
   const { dependsOn, body } = componentFunction(args);
   const componentWithDependencies = [makeDependencyHeader(dependsOn), body];
 
-  return componentWithDependencies;
+  return { dependsOn, body: componentWithDependencies };
 };
 
 export { component };
