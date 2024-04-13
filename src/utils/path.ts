@@ -22,7 +22,10 @@ const removePostfixedSlash = (pathString: string) => {
 class Path {
   // These params are immutable, so it's safe to store both
   // and access them directly.
-  private pathArray: string[] = [];
+  public pathArray: string[] = [];
+  public relativePathArray: string[] = [];
+
+  public relativePathString: String = "";
   private pathString: string = "";
 
   /**
@@ -35,14 +38,22 @@ class Path {
   constructor(pathString: string) {
     let normalizedPath = pathLibrary.normalize(pathString);
 
+    let absolutePath = normalizedPath;
     if (!pathLibrary.isAbsolute(normalizedPath)) {
-      normalizedPath = pathLibrary.resolve(process.cwd(), normalizedPath);
+      absolutePath = pathLibrary.resolve(process.cwd(), normalizedPath);
     }
 
     normalizedPath = removePostfixedSlash(normalizedPath);
+    absolutePath = removePostfixedSlash(absolutePath);
 
-    this.pathString = normalizedPath;
-    this.pathArray = normalizedPath
+    this.relativePathString = normalizedPath;
+    this.relativePathArray = normalizedPath
+      .split("/")
+      .slice(1)
+      .filter((p) => p.length);
+
+    this.pathString = absolutePath;
+    this.pathArray = absolutePath
       .split("/")
       .slice(1)
       .filter((p) => p.length);
@@ -231,6 +242,10 @@ class Path {
 
     let resultingPathString = this.pathString;
     if (otherPath) {
+      if (otherPath.toString() === resultingPathString) {
+        resultingPathString = "";
+      }
+
       resultingPathString = resultingPathString.replace(
         `${otherPath.toString()}`,
         ""

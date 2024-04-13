@@ -1,13 +1,21 @@
+import { Path } from "../../src/utils/path";
+
 const PATH_DELIMITER = " / ";
 
 const collectFolderPaths = (
-  pathList,
-  title,
-  curPath,
-  { rootUrl, sourceDir }
+  pathList: string[],
+  title: string,
+  {
+    rootUrl,
+    sourceDir,
+  }: {
+    rootUrl: string;
+    sourceDir: string;
+  },
+  curPath?: any
 ) => {
   if (curPath === undefined) {
-    return collectFolderPaths(pathList, title, "", { rootUrl, sourceDir });
+    return collectFolderPaths(pathList, title, { rootUrl, sourceDir }, "");
   }
 
   if (!pathList?.[1]) {
@@ -25,16 +33,32 @@ const collectFolderPaths = (
   return [
     ["span", PATH_DELIMITER],
     ["a", { href: `${rootUrl}${nextCurPath}/index.html` }, firstPath],
-    ...collectFolderPaths(restPaths, title, nextCurPath, {
-      rootUrl,
-      sourceDir,
-    }),
+    ...collectFolderPaths(
+      restPaths,
+      title,
+      {
+        rootUrl,
+        sourceDir,
+      },
+      nextCurPath
+    ),
   ];
 };
 
-const makeSidebar = ({ path, title, sourceDir, rootUrl }) => {
-  const pathList = path.relativeTo(sourceDir).pathArray;
-  const folderPaths = collectFolderPaths(pathList, title, undefined, {
+const makeSidebar = ({
+  path,
+  title,
+  sourceDir,
+  rootUrl,
+}: {
+  path: Path;
+  title: string;
+  sourceDir: string;
+  rootUrl: string;
+}) => {
+  const pathList = path.relativeTo(sourceDir).relativePathArray;
+
+  const folderPaths = collectFolderPaths(pathList, title, {
     rootUrl,
     sourceDir,
   });
