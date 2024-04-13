@@ -3,6 +3,7 @@ import ts from "typescript";
 import { readFile } from "../index";
 import { Path } from "../../utils/path";
 import TypescriptFile from "./ts";
+import type { PageSettings } from "../../types/site";
 
 const tsToJs = (tsText: string) => {
   const options = { compilerOptions: { module: ts.ModuleKind.ESNext } };
@@ -16,6 +17,20 @@ class JavascriptFile extends SourceFile {
     return require(this.path.toString());
   }
 
+  // Write both the .js file and the file without an extension as JS
+  write(config: PageSettings) {
+    const { sourceDir, targetDir } = config;
+
+    const targetPath = this.path.relativeTo(sourceDir, targetDir);
+    targetPath.writeString(this.text);
+
+    const targetNonJSPath = targetPath.replaceExtension("");
+    console.log(targetNonJSPath.toString());
+    targetNonJSPath.writeString(this.text);
+
+    return this;
+  }
+
   // override the create behavior to create the parent
   static create(filePath: Path): JavascriptFile {
     if (filePath.exists()) {
@@ -24,17 +39,23 @@ class JavascriptFile extends SourceFile {
 
     // if this file doesn't exist, try making the typescript file.
     const tsPath = filePath.replaceExtension("ts");
+
+    // the backup file
     const newFile = readFile(tsPath) as TypescriptFile;
     const sourceFile = newFile.clone();
 
     sourceFile.write = (config) => {
       const { sourceDir, targetDir } = config;
 
+      // Writes the javascript file
       const targetPath = sourceFile.path.relativeTo(sourceDir, targetDir);
-
       targetPath.writeString(sourceFile.text);
 
-      // also write the previous file
+      // write the javascript file without an extension
+      const noExtensionPath = targetPath.replaceExtension();
+      noExtensionPath.writeString(sourceFile.text);
+
+      // Writes the typescript file
       newFile.write(config);
 
       return sourceFile;
