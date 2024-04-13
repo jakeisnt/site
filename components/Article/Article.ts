@@ -1,20 +1,24 @@
-import type { PageSyntax } from "../../types/html";
-import type { PageSettings } from "../../types/site";
-import TextFile from "./text";
+import type { PageSyntax } from "../../src/types/html";
+import type { PageSettings } from "../../src/types/site";
+import TextFile from "../../src/file/classes/text";
 
 /**
  * Render an 'article' using some standard style configuration.
  * An article is usually a source code file.
  */
 const renderArticle = ({
-  articleHtml,
+  children,
   file,
   siteName,
   rootUrl,
   sourceDir,
   resourcesDir,
   faviconsDir,
-}: PageSettings & { articleHtml: PageSyntax; file: TextFile }): PageSyntax => {
+}: PageSettings & {
+  articleHtml: PageSyntax;
+  file: TextFile;
+  children: () => void;
+}): PageSyntax => {
   const title = file.name;
 
   return [
@@ -32,7 +36,7 @@ const renderArticle = ({
             "article",
             { class: "wikipage" },
             ["h1", { class: "title-top" }, title],
-            articleHtml,
+            children,
           ],
         ],
         [
@@ -50,4 +54,9 @@ const renderArticle = ({
   ];
 };
 
-export { renderArticle };
+const Article = (args) => ({
+  dependsOn: [],
+  body: renderArticle(args),
+});
+
+export default Article;

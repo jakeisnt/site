@@ -57,13 +57,17 @@ function buildTag(
   tagName: string,
   attributes: HtmlAttributes,
   buffer: string[],
-  // build the children
-  buildContents: (buffer: string[]) => void
+  list: HtmlNode,
+  index: number
 ) {
   const isComponent = tagName[0] === tagName[0].toUpperCase();
 
   if (isComponent) {
-    buildComponent(tagName, attributes, buffer);
+    buildComponent(
+      tagName,
+      { ...attributes, children: list?.slice(index) },
+      buffer
+    );
     return;
   }
 
@@ -73,7 +77,7 @@ function buildTag(
   buffer.push(">");
 
   // Build the contents of the tag - an arbitrary array of elements.
-  buildContents(buffer);
+  buildRest(list, index, buffer);
 
   // Close the tag: </ tag >
   buffer.push("</", tagName, ">");
@@ -104,9 +108,7 @@ function build(list: HtmlNode, buffer: string[]) {
       index += 1;
     }
 
-    buildTag(tagName, attributesToUse, buffer, (buffer: string[]) =>
-      buildRest(list, index, buffer)
-    );
+    buildTag(tagName, attributesToUse, buffer, list, index);
   } else {
     // if we don't have a tag, we know we have an array of tags. Process those.
     buildRest(list, index, buffer);
