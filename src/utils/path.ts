@@ -205,7 +205,7 @@ class Path {
 
     try {
       // Avoid normalizing the paths by using the originals provided
-      execSync(`rsync -av --delete  ${fromPath} ${toPath}`, {
+      execSync(`rsync -av --delete ${fromPath} ${toPath}`, {
         cwd: this.toString(),
       });
     } catch (e) {
