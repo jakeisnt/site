@@ -43,13 +43,10 @@ function htmlPage(...args: PageSyntax[]) {
  * @param attrs the attributes to build into the JS.
  * @param buffer buffer to queue the changes to.
  */
-function buildAttributes(
-  attrs: HtmlAttributes,
-  buffer: string[],
-  dependencies: Dependency[]
-) {
+function buildAttributes(attrs: HtmlAttributes, dependencies: Dependency[]) {
+  const buffer: string[] = [];
   for (var key in attrs) {
-    buffer.push(" ", key, '="', attrs[key]?.toString(), '"');
+    buffer.push(`${key}="${attrs[key]?.toString()}"`);
   }
 
   if (attrs.href) {
@@ -59,6 +56,8 @@ function buildAttributes(
   if (attrs.src) {
     dependencies.push({ src: attrs.src });
   }
+
+  return buffer.join(" ");
 }
 
 /**
@@ -102,15 +101,13 @@ function buildTag(
   }
 
   // Create the start of the tag: <tag { .. attrs .. }>
-  buffer.push("<", tagName);
-  buildAttributes(attributes, buffer, dependencies);
-  buffer.push(">");
+  buffer.push(`<${tagName} ${buildAttributes(attributes, dependencies)}>`);
 
   // Build the contents of the tag - an arbitrary array of elements.
   buildRest(list, index, buffer, dependencies);
 
   // Close the tag: </ tag >
-  buffer.push("</", tagName, ">");
+  buffer.push(`</${tagName}>`);
 }
 
 /**
