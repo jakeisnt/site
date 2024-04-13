@@ -1,7 +1,8 @@
 import TextFile from "./text";
 import { HtmlPage } from "../../html";
 import type { PageSettings } from "../../types/site";
-import { escapeHtml } from "../../html/utils";
+// import { escapeHtml } from "../../html/utils";
+import treeSitter from "tree-sitter-highlight";
 
 // if it's a source code file, we want to:
 // - render both to 'file.$ext' and 'file.$ext.html'
@@ -24,7 +25,8 @@ const renderSourceFile = ({
       [
         "code",
         { class: `language-${file.extension} has-raw-code` },
-        escapeHtml(file.text),
+        treeSitter.highlight(file.text, treeSitter.Language.JS),
+        // escapeHtml(file.text),
       ],
     ],
   ];

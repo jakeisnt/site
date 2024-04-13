@@ -279,3 +279,33 @@ button.inset:hover {
   font-size: 14px;
   color: var(--subtle-text);
 }
+
+/** syntax highlighting */
+.keyword {
+  color: purple;
+}
+
+.function {
+  color: blue;
+}
+
+.type {
+  color: pink;
+}
+
+.string {
+  color: green;
+}
+
+.number {
+  color: brown;
+}
+
+.operator {
+  color: gray;
+}
+
+.comment {
+  color: rgb(72, 72, 72);
+}
+
