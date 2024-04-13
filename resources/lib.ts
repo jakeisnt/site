@@ -1,6 +1,5 @@
 import type {
   HtmlAttributes,
-  HtmlNode,
   HtmlTag,
   HtmlTerminalNode,
 } from "../src/types/html";

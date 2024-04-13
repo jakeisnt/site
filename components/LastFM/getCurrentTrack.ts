@@ -1,4 +1,4 @@
-import { create, create2, get, $ } from "/resources/lib.js";
+import { create, create2, get, $ } from "/resources/lib";
 
 /* OLD SCHOOL CURRENT PLAYING STUFF */
 /* source: https://gist.github.com/trisweb/2c0c94273f653c81f34dbe8e85ad30e7 via https://www.trisweb.com/ */
@@ -20,7 +20,7 @@ var recentTracksUrl =
 const LFM_TIMEOUT = 1000 * 60; // 1 minute
 
 const lastfm = () => {
-  var nowPlayingNode: HTMLElement | null = null;
+  let nowPlayingNode: HTMLElement | null = null;
 
   function getNowPlaying() {
     get(recentTracksUrl, (response) => {
@@ -90,18 +90,20 @@ const lastfm = () => {
       nowPlayingNode
     );
 
-    const currently = track["@attr"] && track["@attr"].nowplaying == "true";
+    // const currently = track["@attr"] && track["@attr"].nowplaying == "true";
 
-    nowPlayingNode.appendChild(getMetadata(track));
+    if (nowPlayingNode) {
+      nowPlayingNode.appendChild(getMetadata(track));
 
-    // const metadata = create('div', {
-    //   class: 'np-metadata',
-    //   innerHTML: getMetadata(track, currently),
-    // }, nowPlayingNode);
+      // const metadata = create('div', {
+      //   class: 'np-metadata',
+      //   innerHTML: getMetadata(track, currently),
+      // }, nowPlayingNode);
 
-    setTimeout(() => {
-      nowPlayingNode.setAttribute("class", "now-playing loaded");
-    }, 100);
+      setTimeout(() => {
+        nowPlayingNode?.setAttribute("class", "now-playing loaded");
+      }, 100);
+    }
   }
 
   getNowPlaying();
