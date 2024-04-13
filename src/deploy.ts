@@ -3,7 +3,6 @@
 
 import type { Repo } from "./utils/git";
 import { Path } from "./utils/path";
-import { exit } from "process";
 
 function commitFolderToBranch({
   repo,
@@ -28,7 +27,7 @@ function commitFolderToBranch({
 
   // TODO: code should make sure 'production' branch is fetched.
   // it wasn't fetched! or the variable was not defined?
-  repo.path.move(folderToCommit, tmpDir);
+  repo.path.move(folderToCommit, tmpDir, { force: true });
   repo.checkout(targetBranch);
   repo.status();
 
@@ -40,7 +39,8 @@ function commitFolderToBranch({
 
   Path.create(tmpDir).move(
     `${tmpDir}/*`,
-    `${Path.create(folderToCommit).parent.toString()}/`
+    `${Path.create(folderToCommit).parent.toString()}/`,
+    { force: true }
   );
   repo.status();
 

@@ -194,7 +194,11 @@ class Path {
    * Move the file or directory at this path to another path.
    * If the path is not a subdir of this path, throw an error.
    */
-  move(fromPath: Path | string, toPath: Path | string) {
+  move(
+    fromPath: Path | string,
+    toPath: Path | string,
+    { force = false }: { force: boolean } = { force: false }
+  ) {
     const from = Path.create(fromPath);
     const to = Path.create(toPath);
 
@@ -207,7 +211,7 @@ class Path {
     // }
 
     try {
-      execSync(`mv ${from.pathString} ${to.pathString}`, {
+      execSync(`mv ${force ? "-f" : ""} ${from.pathString} ${to.pathString}`, {
         cwd: this.toString(),
       });
     } catch (e) {
