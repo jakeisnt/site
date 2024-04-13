@@ -1,7 +1,7 @@
 import TextFile from "./text";
 import { HtmlPage } from "../../html";
 import type { PageSettings } from "../../types/site";
-// import { escapeHtml } from "../../html/utils";
+import { escapeHtml } from "../../html/utils";
 import treeSitter from "tree-sitter-highlight";
 
 // if it's a source code file, we want to:
@@ -13,7 +13,9 @@ import treeSitter from "tree-sitter-highlight";
 const renderSourceFile = ({
   file,
   ...settings
-}: PageSettings & { file: any }) => {
+}: PageSettings & { file: SourceFile }) => {
+  const language = treeSitter.Language?.[file.extension?.toUpperCase()];
+
   return [
     "Article",
     {
@@ -25,8 +27,9 @@ const renderSourceFile = ({
       [
         "code",
         { class: `language-${file.extension} has-raw-code` },
-        treeSitter.highlight(file.text, treeSitter.Language.JS),
-        // escapeHtml(file.text),
+        language
+          ? treeSitter.highlight(file.text, language)
+          : escapeHtml(file.text),
       ],
     ],
   ];
