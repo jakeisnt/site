@@ -1,0 +1,118 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"></meta><title>repofile.ts / Jake Chvatal</title><meta property="og:title" content="repofile.ts"></meta><meta property="og:type" content="website"></meta><meta property="og:url" content="file:///Users/jake/Documents/personal/site/docs"></meta><meta property="og:site_name" content="Jake Chvatal"></meta><meta name="keywords" content="jake"></meta><meta name="author" content="Jake Chvatal"></meta><meta name="robots" content="index,follow"></meta><meta name="description" content="hi"></meta><meta name="theme-color" media="(prefers-color-scheme: light)" content="white"></meta><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111"></meta><link rel="icon" type="image/x-icon" href="/Users/jake/Documents/personal/site/favicons/favicon.ico"></link><link rel="apple-touch-icon" href="/Users/jake/Documents/personal/site/favicons/apple-touch-icon.png"></link><link rel="stylesheet" type="text/css" href="/resources/style.css" id="/resources/style.css"></link><link rel="stylesheet" type="text/css" href="/resources/global.css" id="/resources/global.css"></link><script src="/resources/lib.js" id="/resources/lib.js" type="module"></script><link rel="stylesheet" type="text/css" href="/resources/elements.css" id="/resources/elements.css"></link><link rel="manifest" href="/resources/manifest.json"></link><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css" id="dark-theme-highlight"></link><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css" id="light-theme-highlight"></link><script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" id="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" type=""></script><script src="/resources/elements.js" id="/resources/elements.js" type="module" defer="true"></script></head><body><link rel="stylesheet" href="/components/Sidebar/sidebar.css"></link><div class="sidebar"><div class="url-path"><b>jake.</b><span> / </span><a href="file:///Users/jake/Documents/personal/site/docs/src/index.html">src</a><span> / </span><a href="file:///Users/jake/Documents/personal/site/docs/src/utils/index.html">utils</a><span> / </span><a href="file:///Users/jake/Documents/personal/site/docs/src/utils/git/index.html">git</a><span> / </span><b>repofile.ts</b></div><script src="/components/ToggleDarkMode/toggle-dark-mode.js" type="module"></script><link rel="stylesheet" href="/components/ToggleDarkMode/toggle-dark-mode.css"></link><div class="toggle-dark-mode-container"><button class="toggle-dark-mode"></button></div></div><div class="site-body"><main><article class="wikipage"><h1 class="title-top">repofile.ts</h1><pre><code class="language-ts has-raw-code">import type { Repo } from &quot;.&quot;;
+import type { Path } from &quot;../path&quot;;
+import RepoCommit from &quot;./commit&quot;;
+import logger from &quot;utils/log&quot;;
+
+/**
+ * A file we know to be in a git repository.
+ */
+class RepoFile {
+  // the path to the file
+  path: Path;
+  // the repo this file is in
+  private repo: Repo;
+
+  constructor(repo: Repo, path: Path) {
+    this.repo = repo;
+    this.path = path;
+  }
+
+  static create(repo: Repo, path: Path) {
+    const file = new RepoFile(repo, path);
+    return file;
+  }
+
+  /**
+   * Get the link to this file in git history at a particular commit
+   * @param longHash the specific hash to link to
+   */
+  // historyLink(longHash: string) {
+  //   return this.repo.historyLink(longHash, this.path);
+  // }
+
+  // is the file ignored by the repo?
+  // TODO this does not work ofc
+  isIgnored() {
+    return [&quot;.git&quot;, &quot;node_modules&quot;].includes(this.path.name);
+  }
+
+  // get the last commit that cared about this file
+  get lastLog() {
+    // don&#x27;t bother if the file is ignored
+    if (this.isIgnored()) {
+      return null;
+    }
+
+    const command = `git log -1 --full-history --pretty=&quot;format:%h %H %ad %ct&quot; --date default --date=format:&#x27;%Y-%m-%d&#x27; ${this.path.toString()}`;
+    try {
+      const stdout = this.repo.runCmd(command);
+      if (stdout) {
+        const [line] = stdout.split(&quot;\n&quot;);
+        const [shortHash, longHash, commitDate, timestamp] = line.split(&quot; &quot;);
+        return RepoCommit.create({
+          shortHash,
+          longHash,
+          commitDate,
+          timestamp: parseInt(timestamp, 10),
+          repo: this.repo,
+        });
+      } else {
+        logger.git(
+          `git log command failed on path ${this.path.toString()}. It&#x27;s likely that no commit history was found for the path.`
+        );
+        return null;
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Get the full git log of changes to this file
+   */
+  get log() {
+    if (this.isIgnored()) {
+      return [];
+    }
+
+    const command = `git log --all --full-history --pretty=&quot;format:%h %H %ad&quot; --date default --date=format:&#x27;%Y-%m-%d&#x27; ${this.path.toString()}`;
+    try {
+      const stdout = this.repo.runCmd(command);
+      if (stdout) {
+        return stdout.split(&quot;\n&quot;).map((line: string) =&gt; {
+          const [shortHash, longHash, commitDate] = line.split(&quot; &quot;);
+          return RepoCommit.create({
+            shortHash,
+            longHash,
+            commitDate,
+            timestamp: 0,
+            repo: this.repo,
+          });
+        });
+      } else {
+        logger.git(
+          `git log command failed on path ${this.path.toString()}. It&#x27;s likely that no commit history was found for the path.`
+        );
+        return [];
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Get the last timestamp of this file.
+   */
+  get lastTimestamp() {
+    const command = `git log -1 --pretty=format:%ct --follow -- ${this.path.toString()}`;
+    try {
+      const stdout = this.repo.runCmd(command);
+      return parseInt(stdout, 10);
+    } catch (error) {
+      throw error;
+    }
+  }
+}
+
+export default RepoFile;
+</code></pre></article></main><div class="article-rhs-container"><div class="article-rhs"><div class="git-history-table-container"><span class="git-history-table-title">Revisions</span><table class="git-history-table"><thead><tr><th>Date</th><th>Hash</th></tr></thead><tbody><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">d3ab8b31</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">a3c37e13</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">3baa0660</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">bce55469</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">110e0165</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">02dca1b8</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">692ce828</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">9a544393</td></tr></tbody></table></div><div class="prev-next-up-buttons-container">Navigation<table class="prev-next-up-buttons"><tr><td>Next</td><td><a class="next-button" href="file:///Users/jake/Documents/personal/site/docs/src/utils/git/repo.ts.html">repo.ts</a></td></tr><tr><td>Up</td><td><a class="up-button" href="file:///Users/jake/Documents/personal/site/docs/src/utils/git.html">git</a></td></tr></table></div></div></div></div></body></html>

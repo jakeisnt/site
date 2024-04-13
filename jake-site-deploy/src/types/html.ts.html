@@ -1,0 +1,107 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"></meta><title>html.ts / Jake Chvatal</title><meta property="og:title" content="html.ts"></meta><meta property="og:type" content="website"></meta><meta property="og:url" content="file:///Users/jake/Documents/personal/site/docs"></meta><meta property="og:site_name" content="Jake Chvatal"></meta><meta name="keywords" content="jake"></meta><meta name="author" content="Jake Chvatal"></meta><meta name="robots" content="index,follow"></meta><meta name="description" content="hi"></meta><meta name="theme-color" media="(prefers-color-scheme: light)" content="white"></meta><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111"></meta><link rel="icon" type="image/x-icon" href="/Users/jake/Documents/personal/site/favicons/favicon.ico"></link><link rel="apple-touch-icon" href="/Users/jake/Documents/personal/site/favicons/apple-touch-icon.png"></link><link rel="stylesheet" type="text/css" href="/resources/style.css" id="/resources/style.css"></link><link rel="stylesheet" type="text/css" href="/resources/global.css" id="/resources/global.css"></link><script src="/resources/lib.js" id="/resources/lib.js" type="module"></script><link rel="stylesheet" type="text/css" href="/resources/elements.css" id="/resources/elements.css"></link><link rel="manifest" href="/resources/manifest.json"></link><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css" id="dark-theme-highlight"></link><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css" id="light-theme-highlight"></link><script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" id="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" type=""></script><script src="/resources/elements.js" id="/resources/elements.js" type="module" defer="true"></script></head><body><link rel="stylesheet" href="/components/Sidebar/sidebar.css"></link><div class="sidebar"><div class="url-path"><b>jake.</b><span> / </span><a href="file:///Users/jake/Documents/personal/site/docs/src/index.html">src</a><span> / </span><a href="file:///Users/jake/Documents/personal/site/docs/src/types/index.html">types</a><span> / </span><b>html.ts</b></div><script src="/components/ToggleDarkMode/toggle-dark-mode.js" type="module"></script><link rel="stylesheet" href="/components/ToggleDarkMode/toggle-dark-mode.css"></link><div class="toggle-dark-mode-container"><button class="toggle-dark-mode"></button></div></div><div class="site-body"><main><article class="wikipage"><h1 class="title-top">html.ts</h1><pre><code class="language-ts has-raw-code">// All tags supported by the browser.
+// @ts-ignore
+type NativeHtmlTag =
+  | &quot;html&quot;
+  | &quot;body&quot;
+  | &quot;div&quot;
+  | &quot;img&quot;
+  | &quot;a&quot;
+  | &quot;h1&quot;
+  | &quot;h2&quot;
+  | &quot;h3&quot;
+  | &quot;h4&quot;
+  | &quot;h5&quot;
+  | &quot;h6&quot;
+  | &quot;button&quot;
+  | &quot;script&quot;
+  | &quot;link&quot;
+  | &quot;meta&quot;
+  | &quot;table&quot;
+  | &quot;tr&quot;
+  | &quot;td&quot;
+  | &quot;p&quot;
+  | &quot;span&quot;
+  | &quot;ul&quot;
+  | &quot;li&quot;
+  | &quot;ol&quot;
+  | &quot;form&quot;
+  | &quot;input&quot;
+  | &quot;label&quot;
+  | &quot;select&quot;
+  | &quot;option&quot;
+  | &quot;textarea&quot;
+  | &quot;header&quot;
+  | &quot;footer&quot;
+  | &quot;main&quot;
+  | &quot;nav&quot;
+  | &quot;section&quot;
+  | &quot;article&quot;
+  | &quot;aside&quot;
+  | &quot;figure&quot;
+  | &quot;figcaption&quot;
+  | &quot;canvas&quot;
+  | &quot;audio&quot;
+  | &quot;video&quot;
+  | &quot;source&quot;
+  | &quot;track&quot;
+  | &quot;embed&quot;
+  | &quot;object&quot;
+  | &quot;param&quot;
+  | &quot;iframe&quot;
+  | &quot;picture&quot;
+  | &quot;svg&quot;
+  | &quot;path&quot;
+  | &quot;g&quot;;
+
+// Any acceptable tag, including components.
+type HtmlTag = string;
+
+// A generic HTML attribute.
+// Doesn&#x27;t type specific tag names.
+// Allows passing anything.
+type GenericAttribute = { [key: string]: any };
+
+type HtmlAttributes = GenericAttribute &amp; {
+  src?: string;
+  href?: string;
+  class?: string;
+  role?: string;
+  id?: string;
+};
+
+// HTML nodes that are never rendered.
+// These should be discarded if found in the tree.
+type FalsyHtmlNode = undefined | null;
+
+type HtmlTerminalNode = string | FalsyHtmlNode;
+
+// An HTML node available to our DSL.
+type HtmlNode = string | HtmlTagNode | HtmlNode[] | HtmlTerminalNode;
+
+// A compound HTML tag.
+// Optionally allows the user to configure the HTML with attributes.
+type HtmlTagNode =
+  | [HtmlTag]
+  | [HtmlTag, ...HtmlNode[]]
+  | [HtmlTag, HtmlAttributes, ...HtmlNode[]]
+  // NOTE: this should be the same type as the above.
+  // but typescript is having trouble reading it?
+  | [HtmlTag, HtmlAttributes, ...string[]];
+
+type PageSyntax = HtmlNode;
+
+// A dependency on another file.
+type Dependency = {
+  src: string;
+};
+
+export type {
+  HtmlTag,
+  PageSyntax,
+  HtmlNode,
+  HtmlTagNode,
+  HtmlAttributes,
+  HtmlTerminalNode,
+  Dependency,
+};
+</code></pre></article></main><div class="article-rhs-container"><div class="article-rhs"><div class="git-history-table-container"><span class="git-history-table-title">Revisions</span><table class="git-history-table"><thead><tr><th>Date</th><th>Hash</th></tr></thead><tbody><tr><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">c1bd8543</td></tr><tr><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">c7508525</td></tr><tr><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">e5f68a85</td></tr><tr><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">2b9b3c64</td></tr><tr><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">cd584b50</td></tr><tr><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">96b0c066</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">a3c37e13</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">3baa0660</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">bce55469</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">390faed6</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">110e0165</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">216698d1</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">3a28fba7</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">b53e2351</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">c64fbf31</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">02dca1b8</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">475e09ab</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">175f29ec</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">2214e8fd</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">3e22c4b6</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">dec57c39</td></tr></tbody></table></div><div class="prev-next-up-buttons-container">Navigation<table class="prev-next-up-buttons"><tr><td>Next</td><td><a class="next-button" href="file:///Users/jake/Documents/personal/site/docs/src/types/ascii.ts.html">ascii.ts</a></td></tr><tr><td>Up</td><td><a class="up-button" href="file:///Users/jake/Documents/personal/site/docs/src/types.html">types</a></td></tr></table></div></div></div></div></body></html>
