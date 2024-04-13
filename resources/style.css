@@ -56,9 +56,13 @@ blockquote.article-quote p::after {
   white-space: nowrap;
 }
 
-.file-date-tr, .commit-date-tr {
+.file-date-tr, .file-date-untracked-tr, .commit-date-tr {
   color: var(--subtle-text);
   opacity: 0.9;
+}
+
+.file-date-untracked-tr {
+  color: var(--warning-text);
 }
 
 .site-body {
@@ -143,5 +147,3 @@ blockquote.article-quote p::after {
   border-left: 2px solid var(--highlight);
   border-right: 2px solid var(--highlight);
 }
-
-/*# sourceMappingURL=style.css.map */

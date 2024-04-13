@@ -157,7 +157,7 @@ pre code {
   font-size: 14px;
   background-color: var(--quote-background) !important;
   min-height: 36px;
-  text-color: var(--subtle-text);
+  min-width: 70ch;
 }
 
 code:hover {
@@ -168,7 +168,8 @@ code:hover {
 @media only screen and (max-width: 500px) {
   pre code {
     margin-left: -1rem;
-    width: calc(100% + 1rem);
+    min-width: calc(100% + 1rem);
+    max-width: calc(100% + 1rem);
   }
 }
 /* Links */
@@ -268,5 +269,3 @@ button.inset:hover {
   font-size: 14px;
   color: var(--subtle-text);
 }
-
-/*# sourceMappingURL=elements.css.map */

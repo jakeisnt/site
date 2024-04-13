@@ -1,0 +1,87 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"></meta><title>deploy.ts / Jake Chvatal</title><meta property="og:title" content="deploy.ts"></meta><meta property="og:type" content="website"></meta><meta property="og:url" content="file:///Users/jake/Documents/personal/site/docs"></meta><meta property="og:site_name" content="Jake Chvatal"></meta><meta name="keywords" content="jake"></meta><meta name="author" content="Jake Chvatal"></meta><meta name="robots" content="index,follow"></meta><meta name="description" content="hi"></meta><meta name="theme-color" media="(prefers-color-scheme: light)" content="white"></meta><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111"></meta><link rel="icon" type="image/x-icon" href="/Users/jake/Documents/personal/site/favicons/favicon.ico"></link><link rel="apple-touch-icon" href="/Users/jake/Documents/personal/site/favicons/apple-touch-icon.png"></link><link rel="stylesheet" type="text/css" href="/resources/style.css" id="/resources/style.css"></link><link rel="stylesheet" type="text/css" href="/resources/global.css" id="/resources/global.css"></link><script src="/resources/lib.js" id="/resources/lib.js" type="module"></script><link rel="stylesheet" type="text/css" href="/resources/elements.css" id="/resources/elements.css"></link><link rel="manifest" href="/resources/manifest.json"></link><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css" id="dark-theme-highlight"></link><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css" id="light-theme-highlight"></link><script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" id="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" type=""></script><script src="/resources/elements.js" id="/resources/elements.js" type="module" defer="true"></script></head><body><link rel="stylesheet" href="/components/Sidebar/sidebar.css"></link><div class="sidebar"><div class="url-path"><b>jake.</b><span> / </span><a href="file:///Users/jake/Documents/personal/site/docs/src/index.html">src</a><span> / </span><b>deploy.ts</b></div><script src="/components/ToggleDarkMode/toggle-dark-mode.js" type="module"></script><link rel="stylesheet" href="/components/ToggleDarkMode/toggle-dark-mode.css"></link><div class="toggle-dark-mode-container"><button class="toggle-dark-mode"></button></div></div><div class="site-body"><main><article class="wikipage"><h1 class="title-top">deploy.ts</h1><pre><code class="language-ts has-raw-code">// this file manages deployment to an external service
+// right now its just github pages lol
+
+import type { Repo } from &quot;./utils/git&quot;;
+import { Path } from &quot;./utils/path&quot;;
+import { exit } from &quot;process&quot;;
+
+function commitFolderToBranch({
+  repo,
+  folderToCommit,
+  targetBranch,
+}: {
+  repo: Repo;
+  folderToCommit: string;
+  targetBranch: string;
+}) {
+  const tmpDir = &quot;/tmp/jake-site-deploy&quot;;
+
+  const currentBranch = repo.currentBranch();
+
+  console.log(&quot;current branch&quot;, currentBranch);
+
+  console.log(&quot;saving current changes&quot;);
+  repo.addAll();
+  repo.stash();
+
+  console.log(&quot;copying deployment to tmp dir&quot;);
+
+  // TODO: code should make sure &#x27;production&#x27; branch is fetched.
+  // it wasn&#x27;t fetched! or the variable was not defined?
+  repo.path.move(folderToCommit, tmpDir);
+  repo.checkout(targetBranch);
+  repo.status();
+
+  console.log(&quot;removing all untracked files&quot;);
+  repo.removeUntracked();
+  repo.status();
+
+  console.log(&quot;moving tmp dir contents to root&quot;);
+
+  Path.create(tmpDir).move(
+    tmpDir,
+    `${Path.create(folderToCommit).parent.toString()}/`
+  );
+  repo.status();
+
+  console.log(&quot;pushing build&quot;);
+  console.log(&quot;we are on branch &quot;, repo.currentBranch());
+  repo.addAll();
+  repo.commit();
+  repo.push();
+  repo.status();
+
+  console.log(&quot;restoring working branch&quot;);
+  repo.checkout(currentBranch);
+  repo.status();
+
+  console.log(&quot;removing untracked&quot;);
+  repo.removeUntracked();
+  repo.status();
+
+  console.log(&quot;removing deployment dir&quot;);
+  // TODO: file.removeDir(folderToCommit, repo);
+  console.log(&quot;moving tmp dir to deployment dir&quot;);
+  // TODO: file.move(tmpDir, folderToCommit, repo);
+
+  repo.stashPop();
+}
+
+async function deploy({
+  currentRepo,
+  deploymentBranch,
+  targetDir,
+}: {
+  currentRepo: Repo;
+  deploymentBranch: string;
+  targetDir: string;
+}) {
+  commitFolderToBranch({
+    repo: currentRepo,
+    targetBranch: deploymentBranch,
+    folderToCommit: targetDir,
+  });
+}
+
+export { deploy };
+</code></pre></article></main><div class="article-rhs-container"><div class="article-rhs"><div class="git-history-table-container"><span class="git-history-table-title">Revisions</span><table class="git-history-table"><thead><tr><th>Date</th><th>Hash</th></tr></thead><tbody><tr><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">a385263a</td></tr><tr><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">72206d15</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">a3c37e13</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">645f49d5</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">110e0165</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">02dca1b8</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">3e22c4b6</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">9a544393</td></tr></tbody></table></div><div class="prev-next-up-buttons-container">Navigation<table class="prev-next-up-buttons"><tr><td>Previous</td><td><a class="prev-button" href="file:///Users/jake/Documents/personal/site/docs/src/index.ts.html">index.ts</a></td></tr><tr><td>Next</td><td><a class="next-button" href="file:///Users/jake/Documents/personal/site/docs/src/pages.html">pages</a></td></tr><tr><td>Up</td><td><a class="up-button" href="file:///Users/jake/Documents/personal/site/docs/src.html">src</a></td></tr></table></div></div></div></div></body></html>

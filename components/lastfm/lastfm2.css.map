@@ -1,7 +1,0 @@
-{
-"version": 3,
-"mappings": "AAAA,UAAW;EACP,KAAK,EAAE,IAAI;;AAGf,WAAY;EACR,KAAK,EAAE,IAAI",
-"sources": ["../../../components/lastfm/lastfm2.scss"],
-"names": [],
-"file": "lastfm2.css"
-}

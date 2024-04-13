@@ -1,0 +1,76 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"></meta><title>components.ts / Jake Chvatal</title><meta property="og:title" content="components.ts"></meta><meta property="og:type" content="website"></meta><meta property="og:url" content="file:///Users/jake/Documents/personal/site/docs"></meta><meta property="og:site_name" content="Jake Chvatal"></meta><meta name="keywords" content="jake"></meta><meta name="author" content="Jake Chvatal"></meta><meta name="robots" content="index,follow"></meta><meta name="description" content="hi"></meta><meta name="theme-color" media="(prefers-color-scheme: light)" content="white"></meta><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111"></meta><link rel="icon" type="image/x-icon" href="/Users/jake/Documents/personal/site/favicons/favicon.ico"></link><link rel="apple-touch-icon" href="/Users/jake/Documents/personal/site/favicons/apple-touch-icon.png"></link><link rel="stylesheet" type="text/css" href="/resources/style.css" id="/resources/style.css"></link><link rel="stylesheet" type="text/css" href="/resources/global.css" id="/resources/global.css"></link><script src="/resources/lib.js" id="/resources/lib.js" type="module"></script><link rel="stylesheet" type="text/css" href="/resources/elements.css" id="/resources/elements.css"></link><link rel="manifest" href="/resources/manifest.json"></link><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css" id="dark-theme-highlight"></link><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css" id="light-theme-highlight"></link><script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" id="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" type=""></script><script src="/resources/elements.js" id="/resources/elements.js" type="module" defer="true"></script></head><body><link rel="stylesheet" href="/components/Sidebar/sidebar.css"></link><div class="sidebar"><div class="url-path"><b>jake.</b><span> / </span><a href="file:///Users/jake/Documents/personal/site/docs/src/index.html">src</a><span> / </span><a href="file:///Users/jake/Documents/personal/site/docs/src/html/index.html">html</a><span> / </span><b>components.ts</b></div><script src="/components/ToggleDarkMode/toggle-dark-mode.js" type="module"></script><link rel="stylesheet" href="/components/ToggleDarkMode/toggle-dark-mode.css"></link><div class="toggle-dark-mode-container"><button class="toggle-dark-mode"></button></div></div><div class="site-body"><main><article class="wikipage"><h1 class="title-top">components.ts</h1><pre><code class="language-ts has-raw-code">import { Path } from &quot;utils/path&quot;;
+import { sourceDir } from &quot;../constants&quot;;
+import type { Dependency, PageSyntax } from &quot;../types/html&quot;;
+
+// Support the Component interface.
+// Resolves dependencies automatically and allows partial page refresh.
+
+/**
+ * Convert a Path-specified dependency into an HTML tag.
+ * Usually used to pull them into frontmatter.
+ */
+const getDependency = (path: Path): PageSyntax =&gt; {
+  const extension = path.extension;
+  switch (extension) {
+    case &quot;js&quot;:
+      return [&quot;script&quot;, { src: path.toString(), type: &quot;module&quot; }];
+    case &quot;css&quot;:
+      return [&quot;link&quot;, { rel: &quot;stylesheet&quot;, href: path.toString() }];
+    case &quot;scss&quot;:
+      return getDependency(path.replaceExtension(&quot;css&quot;));
+    default:
+      throw new Error(`Unknown extension: ${extension}`);
+  }
+};
+
+/**
+ * Construct a dependency header with a list of source configurations.
+ */
+const makeDependencyHeader = (dependencies: Dependency[]): PageSyntax =&gt; {
+  if (dependencies.length === 0) {
+    return null;
+  }
+
+  return dependencies.map(({ src }) =&gt; {
+    return getDependency(Path.create(src));
+  });
+};
+
+const componentCache: { [key: string]: Function } = {};
+
+/**
+ * Require a component from disk.
+ * @param name name of the component
+ */
+const requireComponent = (name: string) =&gt; {
+  const maybeComponent = componentCache[name];
+  if (maybeComponent) {
+    return maybeComponent;
+  }
+  const rootPath = sourceDir;
+  const componentFunction =
+    require(`${rootPath}/components/${name}/${name}.js`).default;
+
+  componentCache[name] = componentFunction;
+  return componentFunction;
+};
+
+/**
+ * Render a JS component.
+ * @param name the name of the component
+ * @param args arguments to pass to that component.
+ * @returns the component
+ */
+const component = (
+  name: string,
+  args?: Object
+): { dependsOn: Dependency[]; body: PageSyntax } =&gt; {
+  const componentFunction = requireComponent(name);
+  const { dependsOn, body } = componentFunction(args);
+  const componentWithDependencies = [makeDependencyHeader(dependsOn), body];
+
+  return { dependsOn, body: componentWithDependencies };
+};
+
+export { component };
+</code></pre></article></main><div class="article-rhs-container"><div class="article-rhs"><div class="git-history-table-container"><span class="git-history-table-title">Revisions</span><table class="git-history-table"><thead><tr><th>Date</th><th>Hash</th></tr></thead><tbody><tr><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">c1bd8543</td></tr><tr><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">c7508525</td></tr><tr><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">e5f68a85</td></tr><tr><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">42642b3f</td></tr><tr><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">9d003d1c</td></tr><tr><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">0cc854b2</td></tr><tr><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">9e07e97f</td></tr><tr><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">455b2836</td></tr><tr><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">c575dbe2</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">a3c37e13</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">645f49d5</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">110e0165</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">b53e2351</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">02dca1b8</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">175f29ec</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">7b151c5f</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">d8dbd3f7</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">796f78c6</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">9a544393</td></tr></tbody></table></div><div class="prev-next-up-buttons-container">Navigation<table class="prev-next-up-buttons"><tr><td>Next</td><td><a class="next-button" href="file:///Users/jake/Documents/personal/site/docs/src/html/utils.ts.html">utils.ts</a></td></tr><tr><td>Up</td><td><a class="up-button" href="file:///Users/jake/Documents/personal/site/docs/src/html.html">html</a></td></tr></table></div></div></div></div></body></html>

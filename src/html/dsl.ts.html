@@ -1,0 +1,211 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"></meta><title>dsl.ts / Jake Chvatal</title><meta property="og:title" content="dsl.ts"></meta><meta property="og:type" content="website"></meta><meta property="og:url" content="file:///Users/jake/Documents/personal/site/docs"></meta><meta property="og:site_name" content="Jake Chvatal"></meta><meta name="keywords" content="jake"></meta><meta name="author" content="Jake Chvatal"></meta><meta name="robots" content="index,follow"></meta><meta name="description" content="hi"></meta><meta name="theme-color" media="(prefers-color-scheme: light)" content="white"></meta><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111"></meta><link rel="icon" type="image/x-icon" href="/Users/jake/Documents/personal/site/favicons/favicon.ico"></link><link rel="apple-touch-icon" href="/Users/jake/Documents/personal/site/favicons/apple-touch-icon.png"></link><link rel="stylesheet" type="text/css" href="/resources/style.css" id="/resources/style.css"></link><link rel="stylesheet" type="text/css" href="/resources/global.css" id="/resources/global.css"></link><script src="/resources/lib.js" id="/resources/lib.js" type="module"></script><link rel="stylesheet" type="text/css" href="/resources/elements.css" id="/resources/elements.css"></link><link rel="manifest" href="/resources/manifest.json"></link><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css" id="dark-theme-highlight"></link><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css" id="light-theme-highlight"></link><script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" id="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" type=""></script><script src="/resources/elements.js" id="/resources/elements.js" type="module" defer="true"></script></head><body><link rel="stylesheet" href="/components/Sidebar/sidebar.css"></link><div class="sidebar"><div class="url-path"><b>jake.</b><span> / </span><a href="file:///Users/jake/Documents/personal/site/docs/src/index.html">src</a><span> / </span><a href="file:///Users/jake/Documents/personal/site/docs/src/html/index.html">html</a><span> / </span><b>dsl.ts</b></div><script src="/components/ToggleDarkMode/toggle-dark-mode.js" type="module"></script><link rel="stylesheet" href="/components/ToggleDarkMode/toggle-dark-mode.css"></link><div class="toggle-dark-mode-container"><button class="toggle-dark-mode"></button></div></div><div class="site-body"><main><article class="wikipage"><h1 class="title-top">dsl.ts</h1><pre><code class="language-ts has-raw-code">// a hiccup-like HTML domain specific language
+// inspired by https://gist.github.com/hns/654226
+
+import { isArray } from &quot;utils/array&quot;;
+import { component } from &quot;./components&quot;;
+import type {
+  PageSyntax,
+  HtmlAttributes,
+  HtmlTag,
+  HtmlNode,
+  Dependency,
+} from &quot;../types/html&quot;;
+import { isHtmlAttributes } from &quot;./parseDSL&quot;;
+
+/**
+ * Convert HTML to a string.
+ */
+function html(...args: PageSyntax[]) {
+  let buffer: string[] = [];
+  let dependencies: Dependency[] = [];
+  build(args, buffer, dependencies);
+
+  return {
+    dependsOn: dependencies,
+    body: buffer.join(&quot;&quot;),
+  };
+}
+
+/**
+ * Render a PageSyntax node to an HTML page string.
+ * Include front matter that configures the document as a whole.
+ */
+function htmlPage(...args: PageSyntax[]) {
+  const { dependsOn, body } = html(...args);
+  return {
+    dependsOn,
+    body: `&lt;!DOCTYPE html&gt;${body}`,
+  };
+}
+
+/**
+ * Build the HTML attributes between the tag.
+ * @param attrs the attributes to build into the JS.
+ * @param buffer buffer to queue the changes to.
+ */
+function buildAttributes(
+  attrs: HtmlAttributes,
+  buffer: string[],
+  dependencies: Dependency[]
+) {
+  for (var key in attrs) {
+    buffer.push(&quot; &quot;, key, &#x27;=&quot;&#x27;, attrs[key]?.toString(), &#x27;&quot;&#x27;);
+  }
+
+  if (attrs.href) {
+    dependencies.push({ src: attrs.href });
+  }
+
+  if (attrs.src) {
+    dependencies.push({ src: attrs.src });
+  }
+}
+
+/**
+ * Build a custom component.
+ * @param name the name of the component
+ * @param args the arguments to the component
+ */
+function buildComponent(
+  name: string,
+  args: object,
+  buffer: string[],
+  dependencies: Dependency[]
+) {
+  const { dependsOn, body } = component(name, args);
+  build(body, buffer, dependencies);
+  dependencies.push(...dependsOn);
+}
+
+/**
+ * Build a single HTML tag.
+ * The callback proceeds to build the rest of the page sequentially.
+ */
+function buildTag(
+  tagName: string,
+  attributes: HtmlAttributes,
+  buffer: string[],
+  dependencies: Dependency[],
+  list: HtmlNode,
+  index: number
+) {
+  const isComponent = tagName[0] === tagName[0].toUpperCase();
+
+  if (isComponent) {
+    buildComponent(
+      tagName,
+      { ...attributes, children: list?.slice(index) },
+      buffer,
+      dependencies
+    );
+    return;
+  }
+
+  // Create the start of the tag: &lt;tag { .. attrs .. }&gt;
+  buffer.push(&quot;&lt;&quot;, tagName);
+  buildAttributes(attributes, buffer, dependencies);
+  buffer.push(&quot;&gt;&quot;);
+
+  // Build the contents of the tag - an arbitrary array of elements.
+  buildRest(list, index, buffer, dependencies);
+
+  // Close the tag: &lt;/ tag &gt;
+  buffer.push(&quot;&lt;/&quot;, tagName, &quot;&gt;&quot;);
+}
+
+/**
+ * Build an HTML configuration from the list of nodes,
+ * adding the stringified representation to the buffer.
+ */
+function build(list: HtmlNode, buffer: string[], dependencies: Dependency[]) {
+  let index = 0;
+
+  let nextElement = list?.[index];
+
+  // if our next element is the start of an HTML tag:
+  if (typeof nextElement === &quot;string&quot;) {
+    // split the tag to get potential `id` or `class` syntax from the tag name.
+    const [tagName, attr] = splitTag(nextElement);
+    index += 1;
+
+    let attributesToUse = attr;
+    nextElement = list?.[index];
+
+    // If, after the tag, we have more attributes,
+    // merge them with the attributes we found when splitting the tag.
+    if (isHtmlAttributes(nextElement)) {
+      attributesToUse = mergeAttributes(attr, nextElement);
+      index += 1;
+    }
+
+    buildTag(tagName, attributesToUse, buffer, dependencies, list, index);
+  } else {
+    // if we don&#x27;t have a tag, we know we have an array of tags. Process those.
+    buildRest(list, index, buffer, dependencies);
+  }
+}
+
+/**
+ * Build an arbitrary HTML node.
+ * @param list the HTML node(s) to process.
+ * @param index our current index into the HTML node list.
+ * @param buffer our output string buffer.
+ */
+function buildRest(
+  list: HtmlNode,
+  index: number,
+  buffer: string[],
+  dependencies: Dependency[]
+) {
+  const length = list?.length ?? 0;
+
+  while (index &lt; length) {
+    var item = list?.[index++];
+    if (isArray(item)) {
+      build(item, buffer, dependencies);
+    } else {
+      // NOTE: The information is not encompassed in the type (yet)
+      // but it&#x27;s possible for anything in the tree to be undefined.
+      // This makes it easier for us to use conditionals and return falsy
+      // elements if the item isn&#x27;t truthy for some reason.
+      item ? buffer.push(item.toString()) : undefined;
+    }
+  }
+}
+
+/**
+ * Merge the `class` properties of HTML attributes objects.
+ * @param attr1 the attributes to merge into.
+ * @param attr2 the attributes to merge into attr1.
+ * @returns a compbined set of HTML attributes
+ */
+function mergeAttributes(attr1: HtmlAttributes, attr2: HtmlAttributes) {
+  for (var key in attr2) {
+    if (!attr1.hasOwnProperty(key)) {
+      attr1[key] = attr2[key];
+    } else if (key === &quot;class&quot;) {
+      attr1[key] += &quot; &quot; + attr2[key];
+    }
+  }
+
+  return attr1;
+}
+
+/**
+ * Split a tag name into the tag followed by some attributes.
+ * This allows us to support Hiccup-like configuration such as:
+ * &#x27;div.className#htmlId&#x27; -&gt; &lt;div class=&quot;className&quot; id=&quot;htmlId&quot;&gt; ... &lt;/div&gt;
+ *
+ * @param tag the tag name to split out
+ * @returns the tag name and corresponding HTML attributes to set -- if any.
+ */
+function splitTag(tag: string): [HtmlTag, HtmlAttributes] {
+  let attr: HtmlAttributes = {};
+  let match = tag.match(/([^\s\.#]+)(?:#([^\s\.#]+))?(?:\.([^\s#]+))?/);
+  if (match?.[2]) attr.id = match[2];
+  if (match?.[3]) attr.class = match[3].replace(/\./g, &quot; &quot;);
+  return [match?.[1] as HtmlTag, attr];
+}
+
+export { html, htmlPage };
+</code></pre></article></main><div class="article-rhs-container"><div class="article-rhs"><div class="git-history-table-container"><span class="git-history-table-title">Revisions</span><table class="git-history-table"><thead><tr><th>Date</th><th>Hash</th></tr></thead><tbody><tr><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">c1bd8543</td></tr><tr><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">c82b4cdc</td></tr><tr><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">c7508525</td></tr><tr><td class="commit-date-tr">2024-04-13</td><td class="commit-link-tr">e905627e</td></tr><tr><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">52d9d7fe</td></tr><tr><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">3d9a8dbc</td></tr><tr><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">482adad1</td></tr><tr><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">cd584b50</td></tr><tr><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">b6fb3e87</td></tr><tr><td class="commit-date-tr">2024-04-12</td><td class="commit-link-tr">45b481d9</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">63ea65a9</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">4ff9f210</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">e33b913d</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">1c282740</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">a3c37e13</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">645f49d5</td></tr><tr><td class="commit-date-tr">2024-04-01</td><td class="commit-link-tr">110e0165</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">3a28fba7</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">02dca1b8</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">b87b432b</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">4da03f6c</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">175f29ec</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">3e22c4b6</td></tr><tr><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">9a544393</td></tr></tbody></table></div><div class="prev-next-up-buttons-container">Navigation<table class="prev-next-up-buttons"><tr><td>Previous</td><td><a class="prev-button" href="file:///Users/jake/Documents/personal/site/docs/src/html/index.ts.html">index.ts</a></td></tr><tr><td>Up</td><td><a class="up-button" href="file:///Users/jake/Documents/personal/site/docs/src/html.html">html</a></td></tr></table></div></div></div></div></body></html>

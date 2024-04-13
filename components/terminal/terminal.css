@@ -1,11 +1,11 @@
 .terminal {
-  height: 40%;
-  position: absolute;
-  right: 1em;
-  top: 1em;
-  max-width: 40em;
-  border: 2px solid var(--highlight);
-  z-index: 10;
+    height: 40%;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    max-width: 40em;
+    border: 2px solid var(--highlight);
+    z-index: 10;
 }
 
 @media only screen and (max-width: 500px) {
@@ -16,5 +16,3 @@
     padding-bottom: 5em;
   }
 }
-
-/*# sourceMappingURL=terminal.css.map */

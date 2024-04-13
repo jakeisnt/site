@@ -1,4 +1,4 @@
-@use '../style/core';
+@use 'style/core';
 
 /* Overrides of default HTML components */
 
@@ -162,7 +162,7 @@ pre code {
   font-size: 14px;
   background-color: var(--quote-background) !important;
   min-height: 36px;
-  text-color: var(--subtle-text);
+  min-width: 70ch;
 }
 
 code:hover {
@@ -172,8 +172,10 @@ code:hover {
 
 @media only screen and (max-width: 500px) {
   pre code {
+    $width: calc(100% + 1rem);
     margin-left: -1rem;
-    width: calc(100% + 1rem);
+    min-width: $width;
+    max-width: $width;
   }
 }
 
@@ -216,13 +218,17 @@ button:hover {
   transition: background-color 0.075s ease-in;
 }
 
-button.inset {
-  display: block;
-  position: absolute;
-  content: 'after';
-  background-color: var(--quote-background-border);
+.insetButtonPanel {
   right: 6px;
   top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: absolute;
+}
+
+button.inset {
+  background-color: var(--quote-background-border);
   font-family: 'Inter', sans-serif;
   font-size: 12px;
   opacity: 0.8;
@@ -238,7 +244,7 @@ button.inset:hover {
   display: block;
   position: absolute;
   background-color: var(--quote-background-border);
-  right: 0px;
+  right: 0;
   bottom: 0;
   font-family: 'Inter', sans-serif;
   font-size: 12px;
