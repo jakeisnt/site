@@ -197,15 +197,26 @@ class Path {
   move(
     fromPath: Path | string,
     toPath: Path | string,
-    { force = false }: { force: boolean } = { force: false }
+    {
+      force = false,
+      recursive = false,
+    }: { force: boolean; recursive: boolean } = {
+      force: false,
+      recursive: false,
+    }
   ) {
     console.log("moving from ", { from: fromPath, to: toPath });
 
     try {
       // Avoid normalizing the paths by using the originals provided
-      execSync(`mv ${force ? "-f" : ""} ${fromPath} ${toPath}`, {
-        cwd: this.toString(),
-      });
+      execSync(
+        `mv ${force || recursive ? "-" : ""}${force ? "f" : ""}${
+          recursive ? "R" : ""
+        } ${fromPath} ${toPath}`,
+        {
+          cwd: this.toString(),
+        }
+      );
     } catch (e) {
       console.log("error moving directory", e);
     }
