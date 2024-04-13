@@ -33,7 +33,6 @@ const buildSiteFromFile = (
 
   const dependencies = file.dependencies(settings);
 
-  // Write all of the dependencies of the file (that we haven't seen yet) to disk.
   dependencies
     .filter((f) => !filesSeenSoFar.has(f.path.toString()))
     .forEach((dependencyFile) => {

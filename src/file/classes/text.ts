@@ -1,6 +1,5 @@
 import { HtmlPage } from "../../html";
 import File from "./file";
-import { renderArticle } from "./utils";
 import type { PageSettings } from "../../types/site";
 import type { HtmlNode } from "../../types/html";
 import { escapeHtml } from "../../html/utils";
@@ -11,20 +10,21 @@ const renderTextFile = ({
 }: PageSettings & {
   file: TextFile;
 }) => {
-  const articleHtml: HtmlNode = [
-    "pre",
+  return [
+    "Article",
+    {
+      file,
+      ...config,
+    },
     [
-      "code",
-      { class: `language-${file.extension} has-raw-code` },
-      escapeHtml(file.text),
-    ] as HtmlNode,
+      "pre",
+      [
+        "code",
+        { class: `language-${file.extension} has-raw-code` },
+        escapeHtml(file.text),
+      ] as HtmlNode,
+    ],
   ];
-
-  return renderArticle({
-    file,
-    articleHtml,
-    ...config,
-  });
 };
 
 /**

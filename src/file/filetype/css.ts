@@ -42,7 +42,7 @@ class CSSFile extends SourceFile {
       return new CSSFile(filePath);
     }
 
-    // if this file doesn't exist, try making the scss file.
+    // If this file doesn't exist, try making the scss file.
     const scssPath = filePath.replaceExtension("scss");
 
     // make the scss file
@@ -59,6 +59,7 @@ class CSSFile extends SourceFile {
       const { sourceDir, targetDir } = config;
 
       const targetPath = sourceFile.path.relativeTo(sourceDir, targetDir);
+
       targetPath.writeString(sourceFile.text);
 
       // also write the previous file

@@ -54,6 +54,8 @@ const getFiletypeMap = () => {
   return newFiletypeMap;
 };
 
+const fileCache: { [key: string]: File } = {};
+
 /**
  * Given the source path of a file, return the appropriate file class.
  * @param {string} incomingPath - The source path of the file.
@@ -66,7 +68,6 @@ const readFile = (
   incomingPath: string | Path,
   options?: { sourceDir: string; fallbackSourceDir?: string }
 ): File => {
-  logger.file(`Reading file at ${incomingPath.toString()}`);
   if (!filetypeMap) {
     filetypeMap = getFiletypeMap();
   }
@@ -83,16 +84,20 @@ const readFile = (
 
   const extension = path.extension;
 
-  if (!extension || !(extension in filetypeMap)) {
-    console.log(
-      `We don't have a filetype mapping for files with extension ${extension}. Assuming plaintext for file at path '${path.toString()}'.`
-    );
+  if (!fileCache[path.toString()]) {
+    if (!extension || !(extension in filetypeMap)) {
+      console.log(
+        `We don't have a filetype mapping for files with extension ${extension}. Assuming plaintext for file at path '${path.toString()}'.`
+      );
 
-    return TextFile.create(path);
+      fileCache[path.toString()] = TextFile.create(path);
+    } else {
+      const FiletypeClass = filetypeMap[extension];
+      fileCache[path.toString()] = FiletypeClass.create(path);
+    }
   }
 
-  const FiletypeClass = filetypeMap[extension];
-  return FiletypeClass.create(path);
+  return fileCache[path.toString()];
 };
 
 export { readFile };

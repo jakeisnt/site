@@ -90,6 +90,11 @@ type HtmlTagNode =
 
 type PageSyntax = HtmlNode;
 
+// A dependency on another file.
+type Dependency = {
+  src: string;
+};
+
 export type {
   HtmlTag,
   PageSyntax,
@@ -97,4 +102,5 @@ export type {
   HtmlTagNode,
   HtmlAttributes,
   HtmlTerminalNode,
+  Dependency,
 };

@@ -27,6 +27,26 @@ class JavascriptFile extends SourceFile {
     const newFile = readFile(tsPath) as TypescriptFile;
     const sourceFile = newFile.clone();
 
+    sourceFile.write = (config) => {
+      const { sourceDir, targetDir } = config;
+
+      const targetPath = sourceFile.path.relativeTo(sourceDir, targetDir);
+
+      targetPath.writeString(sourceFile.text);
+
+      // also write the previous file
+      newFile.write(config);
+
+      return sourceFile;
+    };
+
+    // the path of this new source file needs to resolve to the old path
+    Object.defineProperty(sourceFile, "path", {
+      get() {
+        return filePath;
+      },
+    });
+
     Object.defineProperty(sourceFile, "text", {
       get() {
         return tsToJs(newFile.text);
