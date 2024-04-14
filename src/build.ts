@@ -1,6 +1,7 @@
 import { readFile } from "./file";
 import type { PageSettings } from "./types/site";
 import { File } from "./file/classes";
+import { Path } from "./utils/path";
 
 /**
  * Recursively build a website, starting with
@@ -28,9 +29,8 @@ const buildFromPath = (settings: PageSettings) => {
   const { sourceDir, targetDir, ignorePaths } = settings;
 
   // Start off from the root, source dir,
-  // Pootstrap the process by reading the root file as HTML.
-  const dir = readFile(sourceDir.toString() + "/index.html", settings);
-
+  // Bootstrap the process by reading the root file as HTML.
+  const dir = readFile(Path.create(sourceDir).join("/index.html"), settings);
   console.log("Starting with", dir.path.toString());
 
   // If we've already seen a file path, we should ignore it.

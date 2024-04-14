@@ -64,15 +64,12 @@ const fileCache: { [key: string]: File } = {};
  * @param {Object} options - Additional options.
  * @returns {Object} The appropriate file class.
  */
-const readFile = (incomingPath: string | Path, options: PageSettings): File => {
+const readFile = (path: Path, options: PageSettings): File => {
   if (!filetypeMap) {
     filetypeMap = getFiletypeMap(options);
   }
 
-  const { sourceDir, fallbackSourceDir } = options ?? {};
-
-  // Get the file extension
-  let path = Path.create(incomingPath);
+  const { sourceDir, fallbackSourceDir } = options;
 
   // If the path doesn't exist, try it against a fallback
   if (!path.exists() && sourceDir && fallbackSourceDir) {

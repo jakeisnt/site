@@ -47,7 +47,7 @@ const directoryServer = ({
   try {
     if (fallbackDirPath) {
       fallbackDir = readFile(
-        fallbackDirPath,
+        Path.create(fallbackDirPath),
         pageSettings
       ) as unknown as Directory;
     }

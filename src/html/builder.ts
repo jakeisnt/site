@@ -3,6 +3,7 @@ import { htmlPage } from "./dsl";
 import type { PageSyntax, Dependency } from "../types/html";
 import { File } from "../file/classes";
 import type { PageSettings } from "../types/site";
+import { Path } from "../utils/path";
 
 /**
  * Is the link string that we are provided internal?
@@ -40,8 +41,7 @@ const linkStringToFile = (
     .replace("http://", "")
     .replace("https://", "");
 
-  // path the now-local url to the source dir
-  return sourceDir.toString().concat(linkWithoutRoot);
+  return Path.create(sourceDir.toString().concat(linkWithoutRoot));
 };
 
 const makeDependencies = (

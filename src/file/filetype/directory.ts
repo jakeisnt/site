@@ -187,11 +187,12 @@ class Directory extends File {
     return relativeToSource.toString() + "/index.html";
   }
 
+  /**
+   * Create this directory if it doesn't yet exist.
+   */
   write(config: PageSettings) {
     const { sourceDir, targetDir } = config;
 
-    // first, make sure the corresponding directory exists.
-    // this is e.g. '/site/docs/' and mkdir /site/docs/
     const targetPath = this.path.relativeTo(sourceDir, targetDir);
     targetPath.make({ isDirectory: true });
 
