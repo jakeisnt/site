@@ -18,9 +18,6 @@ class HTMLFile extends SourceFile {
     const targetPath = this.path.relativeTo(sourceDir, targetDir);
     targetPath.writeString(this.text(config));
 
-    // write the fake file if it exists also
-    // this.fakeFileOf?.write(config);
-
     return this;
   }
 
@@ -54,6 +51,7 @@ class HTMLFile extends SourceFile {
       (f: SourceFile) => f?.asHtml?.(cfg)?.toString(),
       {
         extension: "html",
+        addExtension: true,
         mimeType: "text/html",
       },
       (file, settings: PageSettings) => {

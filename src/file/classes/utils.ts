@@ -10,9 +10,12 @@ const wrapFile = (
   getText: (source: SourceFile) => string,
   {
     extension,
+    addExtension = false,
     mimeType: mimeTypeArgument,
   }: {
     extension: string;
+    // append the extension instead of replacing it
+    addExtension?: boolean;
     mimeType?: string;
   },
   getDependencies: (
@@ -23,7 +26,10 @@ const wrapFile = (
   const wrappingFile = sourceFile.clone();
 
   wrappingFile.fakeFileOf = sourceFile;
-  wrappingFile.path = sourceFile.path.replaceExtension(extension);
+  wrappingFile.path =
+    sourceFile.path[addExtension ? "addExtension" : "replaceExtension"](
+      extension
+    );
 
   wrappingFile.write = (config: PageSettings) => {
     console.log("writing file", wrappingFile.path.toString());
