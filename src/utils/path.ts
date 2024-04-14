@@ -313,9 +313,9 @@ class Path {
    * creating the file if it doesn't exist.
    */
   writeString(str: string) {
-    if (this.isDirectory({ noFSOperation: true })) {
-      throw new Error("Cannot write a string to a non-directory file");
-    }
+    // if (this.isDirectory({ noFSOperation: true })) {
+    //   throw new Error("Cannot write a string to a non-directory file");
+    // }
     this.make();
     fs.writeFileSync(this.pathString, str);
   }
