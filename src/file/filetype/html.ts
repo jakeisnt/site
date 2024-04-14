@@ -55,15 +55,19 @@ class HTMLFile extends SourceFile {
 
     // sourceFile.read = (...args) => prevFile?.asHtml?.(...args).toString() ?? "";
 
-    return wrapFile(prevFile, (f) => f.asHtml().toString(), path, {
-      extension: "html",
-      mimeType: "text/html",
-    });
-
-    sourceFile.dependencies = (settings: PageSettings) => {
-      // @ts-ignore
-      return prevFile?.asHtml?.(settings)?.dependencies() ?? [];
-    };
+    return wrapFile(
+      prevFile,
+      (f) => f.asHtml().toString(),
+      path,
+      {
+        extension: "html",
+        mimeType: "text/html",
+      },
+      (file, settings: PageSettings) => {
+        // @ts-ignore
+        return file?.asHtml?.(settings)?.dependencies() ?? [];
+      }
+    );
   }
 
   /**

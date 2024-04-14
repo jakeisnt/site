@@ -2,6 +2,7 @@ import { Path } from "../../utils/path";
 
 import type { PageSettings } from "../../types/site";
 import { SourceFile } from ".";
+import type { Dependency } from "../../types/html";
 
 /**
  * Convert a file, wrapping that a file in a parent.
@@ -20,7 +21,10 @@ const wrapFile = (
     mimeType: string;
     isDirectory?: boolean;
   },
-  getDependencies = () => []
+  getDependencies: (
+    source: SourceFile,
+    settings: PageSettings
+  ) => File[] = () => []
 ) => {
   const wrappingFile = sourceFile.clone();
 
@@ -41,6 +45,10 @@ const wrapFile = (
     sourceFile.write(config);
 
     return wrappingFile;
+  };
+
+  wrappingFile.dependencies = (settings: PageSettings) => {
+    return getDependencies(sourceFile, settings);
   };
 
   Object.defineProperty(wrappingFile, "text", {
