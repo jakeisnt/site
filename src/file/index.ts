@@ -25,7 +25,7 @@ const getFiletypeMap = () => {
 
   const newFiletypeMap: FiletypeMap = {};
 
-  // problem: to bootstrap the process, we need to know what class
+  // Problem: to bootstrap the process, we need to know what class
   // a file is before we can create it. but we need to create it
   dir
     .contents({ omitNonJSFiles: true })

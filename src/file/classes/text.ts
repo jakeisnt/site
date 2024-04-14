@@ -6,8 +6,8 @@ import type { PageSettings } from "../../types/site";
  * Represents any file that can be read as a UTF-8 string.
  */
 class TextFile extends File {
-  // the string contents of the file
-  protected asString: string | undefined;
+  // The string contents of the file
+  protected asString?: string;
 
   read() {
     this.asString = this.path.readString();
