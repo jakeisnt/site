@@ -3,15 +3,6 @@ import { readFile } from "../index";
 import { Path } from "../../utils/path";
 import TypescriptFile from "./ts";
 import type { PageSettings } from "../../types/site";
-import { wrapFile } from "../classes/utils";
-
-const transpiler = new Bun.Transpiler({
-  loader: "ts",
-});
-
-const tsToJs = (tsFile: TypescriptFile) => {
-  return transpiler.transformSync(tsFile.text);
-};
 
 class JavascriptFile extends SourceFile {
   static filetypes = ["js"];
@@ -34,20 +25,20 @@ class JavascriptFile extends SourceFile {
     return this;
   }
 
-  // override the create behavior to create the parent
+  /**
+   * Create this file if it exists.
+   * Otherwise, dispatch to a compile source and convert it.
+   */
   static create(filePath: Path): JavascriptFile {
     if (filePath.exists()) {
       return new JavascriptFile(filePath);
     }
 
-    const tsPath = filePath.replaceExtension("ts");
     // If we don't have the JS file, try grabbing the TS file.
+    const tsPath = filePath.replaceExtension("ts");
     const typescriptFile = readFile(tsPath) as TypescriptFile;
 
-    return wrapFile(typescriptFile, tsToJs, tsPath, {
-      extension: "js",
-      mimeType: "text/javascript",
-    }) as JavascriptFile;
+    return typescriptFile.asJSFile();
   }
 }
 
