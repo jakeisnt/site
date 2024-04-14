@@ -1,4 +1,4 @@
-import { SourceFile } from "file/classes";
+import { File, SourceFile } from "file/classes";
 import JavascriptFile from "./js";
 
 import { wrapFile } from "../classes/utils";
@@ -8,7 +8,7 @@ const transpiler = new Bun.Transpiler({
   loader: "ts",
 });
 
-const tsToJs = (tsFile: SourceFile, cfg: PageSettings) => {
+const tsToJs = (tsFile: File, cfg: PageSettings) => {
   return transpiler.transformSync(tsFile.text(cfg));
 };
 

@@ -1,13 +1,13 @@
 import type { PageSettings } from "../../types/site";
-import { File, SourceFile } from ".";
+import { File } from ".";
 
 /**
  * Convert a file, wrapping that a file in a parent.
  * The parent file dispatches to a cloned child file for info.
  */
 const wrapFile = (
-  sourceFile: SourceFile, // the ts file
-  getText: (source: SourceFile) => string,
+  sourceFile: File, // the ts file
+  getText: (source: File) => string,
   {
     extension,
     addExtension = false,
@@ -18,10 +18,7 @@ const wrapFile = (
     addExtension?: boolean;
     mimeType?: string;
   },
-  getDependencies: (
-    source: SourceFile,
-    settings: PageSettings
-  ) => File[] = () => []
+  getDependencies: (source: File, settings: PageSettings) => File[] = () => []
 ) => {
   const wrappingFile = sourceFile.clone();
 
@@ -34,16 +31,17 @@ const wrapFile = (
   wrappingFile.write = (config: PageSettings) => {
     const { sourceDir, targetDir } = config;
 
-    // Write the wrapping file
-    const targetPath = wrappingFile.path.relativeTo(sourceDir, targetDir);
-    targetPath.writeString(wrappingFile.text(config));
-
-    // write the javascript file without an extension
-    // const noExtensionPath = targetPath.replaceExtension();
-    // noExtensionPath.writeString(sourceFile.text);
-
     // Write the source file
+    // This has to be done first - the target file could be dependent
     sourceFile.write(config);
+
+    // Write the wrapping file
+    let targetPath = wrappingFile.path.relativeTo(sourceDir, targetDir);
+    if (sourceFile.isDirectory() && extension === "html") {
+      // Convert file with name `x/folder.html` to name `x/folder/index.html`
+      targetPath = targetPath.replaceExtension().join("/index.html");
+    }
+    targetPath.writeString(wrappingFile.text(config));
 
     return wrappingFile;
   };

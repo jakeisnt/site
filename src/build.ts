@@ -41,6 +41,10 @@ const buildFromPath = (settings: PageSettings) => {
     ...(ignorePaths ?? []),
     ...(ignorePaths ?? []).map((p) => p + ".html"),
     targetDir.toString(),
+    // hardcode in the .git ignore path so i dont fuck up
+    // sourceDir + "/.git",
+    // sourceDir + "/.direnv",
+    // sourceDir + "/node_modules",
     targetDir.toString() + ".html",
     targetDir.toString() + "/index.html",
   ]);

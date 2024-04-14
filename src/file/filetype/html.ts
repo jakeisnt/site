@@ -48,7 +48,9 @@ class HTMLFile extends SourceFile {
 
     return wrapFile(
       prevFile as SourceFile,
-      (f: SourceFile) => f?.asHtml?.(cfg)?.toString(),
+      // the function is available on all children of the file
+      // @ts-ignore
+      (f: File) => f?.asHtml?.(cfg)?.toString() ?? "",
       {
         extension: "html",
         addExtension: true,

@@ -1,4 +1,4 @@
-import { SourceFile } from "file/classes";
+import { File, SourceFile } from "file/classes";
 import * as sass from "sass";
 const { pathToFileURL } = require("url");
 import { wrapFile } from "../classes/utils";
@@ -8,7 +8,7 @@ import type { PageSettings } from "../../types/site";
 /**
  * Convert provided SCSS text to a CSS string.
  */
-const scssToCss = (scssFile: SourceFile, cfg: PageSettings) => {
+const scssToCss = (scssFile: File, cfg: PageSettings) => {
   const result = sass.compileString(scssFile.text(cfg), {
     sourceMap: false,
     importers: [
