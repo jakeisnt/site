@@ -181,10 +181,7 @@ class Path {
    * Copy the file or directory at this path to another path.
    * If the path is not a subdir of this path, throw an error.
    */
-  copy(fromPath: Path | string, toPath: Path | string) {
-    const from = Path.create(fromPath);
-    const to = Path.create(toPath);
-
+  copy(from: Path, to: Path) {
     // TODO: this would be a good safeguard to add, but it doesn't work?
     // if (!this.contains(from)) {
     //   throw new Error(
@@ -205,13 +202,7 @@ class Path {
    * Move the file or directory at this path to another path.
    * If the path is not a subdir of this path, throw an error.
    */
-  move(
-    fromPath: Path | string,
-    toPath: Path | string,
-    { force = false }: { force: boolean } = {
-      force: false,
-    }
-  ) {
+  move(fromPath: Path | string, toPath: Path | string) {
     console.log("moving from ", { from: fromPath, to: toPath });
 
     try {
