@@ -7,7 +7,9 @@ test("Create a normalized absolute path", () => {
 });
 
 test("Create a relative path", () => {
-  expect(Path.create("./test")).toEqual(Path.create(process.cwd() + "/test"));
+  expect(Path.create("./test").pathArray).toEqual(
+    Path.create(process.cwd() + "/test").pathArray
+  );
 });
 
 test("Get the parent of a path", () => {
