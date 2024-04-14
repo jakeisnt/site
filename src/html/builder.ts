@@ -97,7 +97,7 @@ class HtmlPage {
       this.toString();
     }
 
-    return this.cachedDependencies;
+    return this.cachedDependencies ?? [];
   }
 
   toString() {

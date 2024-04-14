@@ -1,8 +1,7 @@
 import { Path } from "../../utils/path";
 
 import type { PageSettings } from "../../types/site";
-import { SourceFile } from ".";
-import type { Dependency } from "../../types/html";
+import { File, SourceFile } from ".";
 
 /**
  * Convert a file, wrapping that a file in a parent.
