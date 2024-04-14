@@ -19,7 +19,6 @@ class JavascriptFile extends SourceFile {
     targetPath.writeString(this.text);
 
     const targetNonJSPath = targetPath.replaceExtension();
-    console.log(targetNonJSPath.toString());
     targetNonJSPath.writeString(this.text);
 
     return this;
