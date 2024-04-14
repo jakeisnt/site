@@ -16,10 +16,10 @@ class HTMLFile extends SourceFile {
   write(config: PageSettings) {
     const { sourceDir, targetDir } = config;
     const targetPath = this.path.relativeTo(sourceDir, targetDir);
-    targetPath.writeString(this.serve(config).contents);
+    targetPath.writeString(this.text(config));
 
     // write the fake file if it exists also
-    this.fakeFileOf?.write(config);
+    // this.fakeFileOf?.write(config);
 
     return this;
   }
@@ -51,7 +51,7 @@ class HTMLFile extends SourceFile {
 
     return wrapFile(
       prevFile as SourceFile,
-      (f: SourceFile) => f.asHtml(cfg).toString(),
+      (f: SourceFile) => f?.asHtml?.(cfg)?.toString(),
       {
         extension: "html",
         mimeType: "text/html",

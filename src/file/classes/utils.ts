@@ -12,7 +12,7 @@ const wrapFile = (
     extension,
     mimeType: mimeTypeArgument,
   }: {
-    extension?: string;
+    extension: string;
     mimeType?: string;
   },
   getDependencies: (
@@ -26,11 +26,14 @@ const wrapFile = (
   wrappingFile.path = sourceFile.path.replaceExtension(extension);
 
   wrappingFile.write = (config: PageSettings) => {
+    console.log("writing file", wrappingFile.path.toString());
     const { sourceDir, targetDir } = config;
 
     // Write the wrapping file
-    const targetPath = sourceFile.path.relativeTo(sourceDir, targetDir);
-    targetPath.writeString(sourceFile.text(config));
+    const targetPath = wrappingFile.path.relativeTo(sourceDir, targetDir);
+
+    console.log(targetPath.toString());
+    targetPath.writeString(wrappingFile.text(config));
 
     // write the javascript file without an extension
     // const noExtensionPath = targetPath.replaceExtension();
