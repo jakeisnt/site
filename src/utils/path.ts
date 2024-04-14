@@ -267,6 +267,13 @@ class Path {
   }
 
   /**
+   * Accepts the extension WITHOUT a prefixed period
+   */
+  addExtension(extension: string) {
+    return new Path(`${this.toString()}.${extension}`);
+  }
+
+  /**
    * Replace the path's extension with a new one.
    * @argument extension the extension WITHOUT a prefixed period
    * if undefined, the extension is dropped
