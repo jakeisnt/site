@@ -15,24 +15,6 @@ const prop = (key: string, value: string): PageSyntax => {
 };
 
 /**
- * Construct a script tags with provided options.
- */
-const script = (src: string, opts?: HtmlAttributes): PageSyntax => {
-  return ["script", { src, id: src, type: "module", ...opts }];
-};
-
-/**
- * Construct a style tag with provided options and an optional body.
- */
-const css = (src: string, opts?: HtmlAttributes, body?: string) => {
-  return [
-    "link",
-    { rel: "stylesheet", type: "text/css", href: src, id: src, ...opts },
-    body,
-  ];
-};
-
-/**
  * Provided an icon directory, configure page icons of the front matter.
  */
 const favicons = (iconDir: string) => {
@@ -98,37 +80,37 @@ const openGraphHeaders = ({
 // header we can use for every page
 const header = ({
   title,
+  targetDir,
   rootUrl,
   siteName,
-  resourcesDir: maybeResource,
-  faviconsDir: maybeFaviconsDir,
+  resourcesDir,
+  faviconsDir,
 }): PageSyntax => {
-  const resourcesDir = maybeResource ?? "/resources";
-  const faviconsDir = maybeFaviconsDir ?? resourcesDir + "/favicon";
-
+  console.log(resourcesDir, faviconsDir);
   return [
     "head",
     ["meta", { charset: "utf-8" }],
     ["title", `${title} / ${siteName}`],
-    ...openGraphHeaders({ title, rootUrl, siteName }),
+    openGraphHeaders({ title, rootUrl, siteName }),
     meta("keywords", "jake"),
     meta("author", "Jake Chvatal"),
     meta("robots", "index,follow"),
     meta("description", "hi"),
-    ...theme(),
-    ...(resourcesDir ? favicons(faviconsDir) : []),
-    css("/resources/style.css"),
-    css("/resources/global.css"),
-    script("/resources/lib.js"),
-    css("/resources/elementsstyle.css"),
+    theme(),
+    favicons(faviconsDir),
     // TODO: generate manifest.
-    ["link", { rel: "manifest", href: "/resources/manifest.json" }],
-    script("/resources/elements.js", { defer: true }),
+    // ["link", { rel: "manifest", href: "/resources/manifest.json" }],
   ];
 };
 
 const Header = (args) => ({
-  dependsOn: [],
+  dependsOn: [
+    { src: "/resources/style.css" },
+    { src: "/resources/global.css" },
+    { src: "/resources/elementsstyle.css" },
+    { src: "/resources/lib.js" },
+    { src: "/resources/elements.js", defer: true },
+  ],
   body: header(args),
 });
 
