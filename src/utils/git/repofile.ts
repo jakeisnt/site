@@ -30,10 +30,15 @@ class RepoFile {
   //   return this.repo.historyLink(longHash, this.path);
   // }
 
-  // is the file ignored by the repo?
-  // TODO this does not work ofc
+  /**
+   * Is the file ignored by the repo?
+   * SHORTCUT: This obviously is not well thought out.
+   */
   isIgnored() {
-    return [".git", "node_modules"].includes(this.path.name);
+    return (
+      this.path.pathArray.includes(".git") ||
+      this.path.pathArray.includes("node_modules")
+    );
   }
 
   // get the last commit that cared about this file

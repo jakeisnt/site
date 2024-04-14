@@ -28,6 +28,9 @@ class Path {
   public relativePathString: String = "";
   private pathString: string = "";
 
+  private doesFileExist?: boolean = undefined;
+  private lstats?: fs.Stats = undefined;
+
   /**
    * Construct a Path.
    * Do not call this directly.
@@ -254,7 +257,11 @@ class Path {
    * Does the file at this path exist?
    */
   exists() {
-    return fs.existsSync(this.pathString);
+    if (this.doesFileExist === undefined) {
+      this.doesFileExist = fs.existsSync(this.pathString);
+    }
+
+    return this.doesFileExist;
   }
 
   /**
@@ -292,13 +299,17 @@ class Path {
       return !extension;
     }
 
-    if (!this.exists()) {
-      throw new Error(
-        `Cannot check if a path is a directory if it doesn't exist. Was looking for path: ${this.pathString}`
-      );
+    // if (!this.exists()) {
+    //   throw new Error(
+    //     `Cannot check if a path is a directory if it doesn't exist. Was looking for path: ${this.pathString}`
+    //   );
+    // }
+
+    if (!this.lstats) {
+      this.lstats = fs.lstatSync(this.pathString);
     }
 
-    return fs.lstatSync(this.pathString).isDirectory();
+    return this.lstats.isDirectory();
   }
 
   // read this path as a utf8 string
