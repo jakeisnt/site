@@ -30,7 +30,7 @@ class HTMLFile extends SourceFile {
   static create(filePath: Path, cfg: PageSettings) {
     // if we have the html, just return it
     if (filePath.exists()) {
-      return new HTMLFile(filePath);
+      return new HTMLFile(filePath, cfg);
     }
 
     // Otherwise, try to get the non-html version of the file.
@@ -45,34 +45,6 @@ class HTMLFile extends SourceFile {
       const directoryPath = filePath.parent;
       prevFile = readFile(directoryPath, cfg);
     }
-
-    // may have to overwrite '.read' instead of '.text'
-    // so we have access to the run configuration.
-    // alternatively we need `.text` to always accept the run configuration.
-    // let's go with the latter.
-
-    // this is good!
-    // this lets us augment page settings to configure global behavior.
-    // it also allows us to cache ts transpilation. :3
-
-    // we also need `wrapFile` to retrieve dependencies! that should be an argument.
-
-    // another idea:
-
-    // rather than doing this in the 'target' file,
-    // this conversion should be done in the source file.
-
-    // i.e. if i am a typescript file, i should have to implement a
-    // .toJSFile() function that handles this.
-
-    // that way, the responsibility to convert is on the source file,
-    // not the target file. never the target file.
-    // this is what `asHtml` does for us and why we require it.
-
-    // this isn't really type safe,
-    // as we don't know what the parent file is,
-    // but maybe we can add some information to the source class
-    // to tell us what is provided by the target.
 
     return wrapFile(
       prevFile as SourceFile,

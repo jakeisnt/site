@@ -9,11 +9,12 @@ import type { PageSettings } from "../../types/site";
 class File {
   // the full path to the file
   public path: Path;
+  public cachedConfig: PageSettings;
 
   /**
    * Construct a file.
    */
-  constructor(pathArg: Path) {
+  constructor(pathArg: Path, cfg: PageSettings) {
     const filePath = Path.create(pathArg);
 
     if (!filePath.exists()) {
@@ -23,10 +24,11 @@ class File {
     }
 
     this.path = filePath;
+    this.cachedConfig = cfg;
   }
 
   static create(path: Path, cfg: PageSettings) {
-    return new this(path);
+    return new this(path, cfg);
   }
 
   /**

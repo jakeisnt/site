@@ -17,14 +17,14 @@ class TextFile extends File {
   /**
    * Write a file to a path at the provided config location.
    */
-  write(config: PageSettings) {
+  write(config: PageSettings = this.cachedConfig) {
     const { sourceDir, targetDir } = config;
     const targetPath = this.path.relativeTo(sourceDir, targetDir);
     targetPath.writeString(this.serve(config).contents);
     return this;
   }
 
-  text(config: PageSettings): string {
+  text(config?: PageSettings): string {
     if (!this.asString) {
       this.read();
     }
@@ -33,7 +33,7 @@ class TextFile extends File {
   }
 
   toString() {
-    return this.text;
+    return this.text(this.cachedConfig);
   }
 
   asHtml(settings: PageSettings) {

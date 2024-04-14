@@ -39,7 +39,7 @@ class JavascriptFile extends SourceFile {
    */
   static create(filePath: Path, cfg: PageSettings): JavascriptFile {
     if (filePath.exists()) {
-      return new JavascriptFile(filePath);
+      return new JavascriptFile(filePath, cfg);
     }
 
     // The algorithm has to work like so:

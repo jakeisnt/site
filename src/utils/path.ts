@@ -290,8 +290,7 @@ class Path {
   isDirectory({ noFSOperation } = { noFSOperation: false }) {
     if (noFSOperation) {
       const extension = this.pathString.split(".")[1];
-
-      return extension ? false : true;
+      return !extension;
     }
 
     if (!this.exists()) {
