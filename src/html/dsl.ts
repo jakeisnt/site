@@ -39,7 +39,8 @@ function html(syn: PageSyntax) {
 function htmlPage(syn: PageSyntax, cfg: PageSettings) {
   const { dependsOn, body } = html(syn);
 
-  config = cfg;
+  console.log("cfg for page", { cfg });
+  config = { ...cfg };
 
   return {
     dependsOn,

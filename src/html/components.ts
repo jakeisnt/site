@@ -29,10 +29,9 @@ const getDependency = (path: Path, etc: object = {}): PageSyntax => {
   }
 };
 
-const getDependency2 = (
-  { src, ...rest }: { src: Path },
-  { sourceDir, targetDir }: PageSettings
-) => {
+const getDependency2 = (dep: { src: Path }, cfg: PageSettings) => {
+  const { src, ...rest } = dep;
+  const { sourceDir, targetDir } = cfg;
   const resolvingPath = src.relativeTo(sourceDir, targetDir);
   return getDependency(resolvingPath, rest);
 };
