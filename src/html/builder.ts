@@ -101,7 +101,10 @@ class HtmlPage {
   }
 
   toString() {
-    const { dependsOn, body } = htmlPage(this.pageStructure);
+    const { dependsOn, body } = htmlPage(
+      this.pageStructure,
+      this.currentBuildSettings
+    );
 
     this.cachedDependencies = makeDependencies(
       dependsOn,

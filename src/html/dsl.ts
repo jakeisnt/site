@@ -11,14 +11,20 @@ import type {
   Dependency,
 } from "../types/html";
 import { isHtmlAttributes } from "./parseDSL";
+import type { PageSettings } from "../types/site";
+
+// SHORTCUT:
+// Cheeky way of having page settings available everywhere in this file.
+// Allows us to properly resolve dependencies and respect the target dir.
+let config: PageSettings;
 
 /**
  * Convert HTML to a string.
  */
-function html(...args: PageSyntax[]) {
+function html(syn: PageSyntax) {
   let buffer: string[] = [];
   let dependencies: Dependency[] = [];
-  build(args, buffer, dependencies);
+  build(syn, buffer, dependencies);
 
   return {
     dependsOn: dependencies,
@@ -30,8 +36,11 @@ function html(...args: PageSyntax[]) {
  * Render a PageSyntax node to an HTML page string.
  * Include front matter that configures the document as a whole.
  */
-function htmlPage(...args: PageSyntax[]) {
-  const { dependsOn, body } = html(...args);
+function htmlPage(syn: PageSyntax, cfg: PageSettings) {
+  const { dependsOn, body } = html(syn);
+
+  config = cfg;
+
   return {
     dependsOn,
     body: `<!DOCTYPE html>${body}`,
@@ -77,7 +86,7 @@ function buildComponent(
   buffer: string[],
   dependencies: Dependency[]
 ) {
-  const { dependsOn, body } = component(name, args);
+  const { dependsOn, body } = component(name, args, config);
   build(body, buffer, dependencies);
   dependencies.push(...dependsOn);
 }
