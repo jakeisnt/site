@@ -51,13 +51,17 @@ class HTMLFile extends SourceFile {
     // alternatively we need `.text` to always accept the run configuration.
     // let's go with the latter.
 
+    // this is good!
+    // this lets us augment page settings to configure global behavior.
+    // it also allows us to cache ts transpilation. :3
+
     // we also need `wrapFile` to retrieve dependencies! that should be an argument.
 
     // sourceFile.read = (...args) => prevFile?.asHtml?.(...args).toString() ?? "";
 
     return wrapFile(
       prevFile,
-      (f) => f.asHtml().toString(),
+      (f, cfg) => f.asHtml(cfg).toString(),
       path,
       {
         extension: "html",
