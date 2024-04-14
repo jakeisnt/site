@@ -89,8 +89,6 @@ const directoryServer = ({
         pathToUse = Path.create(path.parent.toString() + ".html");
       }
 
-      console.log("Finding file: ", dir.path.toString(), pathToUse.toString());
-
       // we look for a directory with .html,
       // then fall back to types.html
 

@@ -28,8 +28,7 @@ class HTMLFile extends SourceFile {
    * Create an HTML file from path.
    */
   static create(filePath: Path, cfg: PageSettings) {
-    console.log("does file path exist?", filePath.toString());
-    // if we have the html, just return it
+    // If we have the html, just return it
     if (filePath.exists()) {
       return new HTMLFile(filePath, cfg);
     }

@@ -72,6 +72,17 @@ class File {
   }
 
   /**
+   * By default, files haven o text.
+   *
+   * Maybe I'll discover a way to render as text at some point.
+   * This is necessary because overrides for serve() rely on overriding this.text
+   * so that e.g. an HTML file can return '' for the text
+   */
+  text(cfg: PageSettings) {
+    return "";
+  }
+
+  /**
    * Get the parent directory of this file.
    */
   directory(cfg?: PageSettings): Directory {
@@ -144,11 +155,11 @@ class File {
   }
 
   /**
-   * Serve the file.
-   * By default, this should serve the file as a binary?
+   * Serve the file as HTML.
+   * By default, assume the file has some text output and try to get that.
    */
-  serve(args: PageSettings): { contents: string; mimeType: string } {
-    throw new Error("File.serve() is not implemented");
+  serve(args: PageSettings) {
+    return { contents: this.text(args), mimeType: this.mimeType };
   }
 
   /**
