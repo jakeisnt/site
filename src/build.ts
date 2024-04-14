@@ -25,13 +25,11 @@ const buildSiteFromFile = (
 
   const dependencies = file.dependencies(settings);
 
-  Promise.all([
-    dependencies
-      .filter((f) => !filesSeenSoFar.has(f.path.toString()))
-      .map(async (dependencyFile) => {
-        buildSiteFromFile(dependencyFile, settings, filesSeenSoFar);
-      }),
-  ]);
+  dependencies
+    .filter((f) => !filesSeenSoFar.has(f.path.toString()))
+    .map((dependencyFile) => {
+      buildSiteFromFile(dependencyFile, settings, filesSeenSoFar);
+    });
 };
 
 // build a website from a path to a directory.
