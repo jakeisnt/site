@@ -6,6 +6,18 @@ import TextFile from "file/classes/text";
 import JavascriptFile from "./filetype/js";
 import type { PageSettings } from "../types/site";
 
+/**
+ * Fun utility for cacheing stuff
+ */
+const fileCache: { [key: string]: File } = {};
+
+const withCache = (path: Path, makeFile: (p: Path) => File) => {
+  if (!fileCache[path.toString()]) {
+    fileCache[path.toString()] = makeFile(path);
+  }
+  return fileCache[path.toString()];
+};
+
 /*
  * A standard interface for interacting with files.
  *
@@ -86,8 +98,6 @@ const getFiletypeMap = (cfg: PageSettings) => {
   return newFiletypeMap;
 };
 
-const fileCache: { [key: string]: File } = {};
-
 /**
  * Given the source path of a file, return the appropriate file class.
  * @param {string} incomingPath - The source path of the file.
@@ -99,29 +109,30 @@ const readFile = (path: Path, options: PageSettings): File => {
     filetypeMap = getFiletypeMap(options);
   }
 
-  const { sourceDir, fallbackSourceDir } = options;
+  // const { sourceDir, fallbackSourceDir } = options;
 
   // If the path doesn't exist, try it against a fallback
-  if (!path.exists() && sourceDir && fallbackSourceDir) {
-    path = path.relativeTo(sourceDir, fallbackSourceDir);
-  }
+  // NOTE: This is probably the source of our weird cascading file issues.
+  // This cascading should not happen here.
+  // Commenting out for now.
+  // if (!path.exists() && sourceDir && fallbackSourceDir) {
+  //   path = path.relativeTo(sourceDir, fallbackSourceDir);
+  // }
 
-  const extension = path.extension;
+  return withCache(path, (path: Path) => {
+    const extension = path.extension;
 
-  if (!fileCache[path.toString()]) {
     if (!extension || !(extension in filetypeMap)) {
       console.log(
         `We don't have a filetype mapping for files with extension ${extension}. Assuming plaintext for file at path '${path.toString()}'.`
       );
 
-      fileCache[path.toString()] = TextFile.create(path, options);
+      return TextFile.create(path, options);
     } else {
       const FiletypeClass = filetypeMap[extension];
-      fileCache[path.toString()] = FiletypeClass.create(path, options);
+      return FiletypeClass.create(path, options);
     }
-  }
-
-  return fileCache[path.toString()];
+  });
 };
 
 export { readFile };
