@@ -74,9 +74,12 @@ class File {
   /**
    * Get the parent directory of this file.
    */
-  directory(cfg: PageSettings): Directory {
+  directory(cfg?: PageSettings): Directory {
     // A `parent` file, by definition, is a directory that contains this one.
-    return readFile(this.path.parent, cfg) as unknown as Directory;
+    return readFile(
+      this.path.parent,
+      this.cachedConfig
+    ) as unknown as Directory;
   }
 
   /**
@@ -108,7 +111,7 @@ class File {
       return rootUrl + "/index.html";
     }
 
-    return rootUrl + relativeToSource.replaceExtension("html");
+    return rootUrl + relativeToSource + ".html"; //  relativeToSource.replaceExtension("html");
   }
 
   get repo() {

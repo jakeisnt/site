@@ -11,11 +11,9 @@ const wrapFile = (
   {
     extension,
     mimeType: mimeTypeArgument,
-    isDirectory = false,
   }: {
-    extension: string;
+    extension?: string;
     mimeType?: string;
-    isDirectory?: boolean;
   },
   getDependencies: (
     source: SourceFile,
@@ -49,6 +47,7 @@ const wrapFile = (
   };
 
   wrappingFile.text = () => getText(sourceFile);
+  wrappingFile.isDirectory = () => sourceFile.isDirectory();
 
   Object.defineProperty(wrappingFile, "mimeType", {
     get() {
@@ -62,11 +61,11 @@ const wrapFile = (
     },
   });
 
-  Object.defineProperty(wrappingFile, "isDirectory", {
-    get() {
-      return isDirectory;
-    },
-  });
+  console.log(
+    "files and paths",
+    sourceFile.path.toString(),
+    wrappingFile.path.toString()
+  );
 
   return wrappingFile; // the js file
 };

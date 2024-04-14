@@ -37,9 +37,10 @@ class HTMLFile extends SourceFile {
     // Otherwise, try to get the non-html version of the file.
     // if the path is a directory, this won't work;
     // we then get the containing directory if this fails.
-    const path = filePath.replaceExtension();
 
-    console.log("fetching path ", path.toString());
+    // NOTE: This is a special case.
+    // To solve this in a systemic way, we'll need to
+    const path = filePath.replaceExtension();
 
     let prevFile: File;
     try {

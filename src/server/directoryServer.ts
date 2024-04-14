@@ -89,13 +89,16 @@ const directoryServer = ({
         pathToUse = Path.create(path.parent.toString() + ".html");
       }
 
-      log.debug("Finding file: ", dir.toString(), pathToUse.toString());
+      console.log("Finding file: ", dir.path.toString(), pathToUse.toString());
+
+      // we look for a directory with .html,
+      // then fall back to types.html
+
       let file = dir.findFile(pathToUse, pageSettings);
       if (!file) {
         // if we can't find the file, attempt to find it in a fallback directory.
         file = fallbackDir?.findFile(pathToUse, pageSettings);
       }
-
       if (!file) {
         return new Response("Not found", { status: 404 });
       }

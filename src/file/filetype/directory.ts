@@ -127,7 +127,7 @@ class Directory extends File {
    * @param {boolean} omitNonJSFiles - Flag to bootstrap the setup. The 'readFile' function dispatches based on this flag to force JavaScript files.
    */
   contents(
-    cfg: PageSettings,
+    cfg?: PageSettings,
     { omitNonJSFiles = false }: { omitNonJSFiles: boolean } = {
       omitNonJSFiles: false,
     }
@@ -140,7 +140,7 @@ class Directory extends File {
         if (childPath.extension !== "js" && childPath.extension !== "ts") {
           return undefined;
         } else {
-          return readJSFile(childPath, cfg);
+          return readJSFile(childPath, this.cachedConfig);
         }
       });
 
