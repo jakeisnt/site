@@ -1,5 +1,5 @@
 import TextFile from "../../src/file/classes/text";
-import { escapeHtml } from "../../src/html/utils";
+import { escapeHTML } from "bun";
 import treeSitter from "tree-sitter-highlight";
 
 const SourceBlock = ({ file }: { file: TextFile }) => ({
@@ -25,7 +25,7 @@ const SourceBlock = ({ file }: { file: TextFile }) => ({
         { class: `language-${file.extension} has-raw-code` },
         language
           ? treeSitter.highlight(file.text, language)
-          : escapeHtml(file.text),
+          : escapeHTML(file.text),
       ],
     ];
   })(),
