@@ -3,38 +3,27 @@ import type { PageSettings } from "./types/site";
 import { File } from "./file/classes";
 
 /**
- * Given a relative path, build the whole file tree as static html.
+ * Recursively build a website, starting with
+ * the provided file and building all of its dependencies.
  */
 const buildSiteFromFile = (
   file: File,
   settings: PageSettings,
   filesSeenSoFar: Set<string>
 ) => {
-  const dependencyPath = file.path.toString();
+  if (filesSeenSoFar.has(file.path.toString())) return;
+  filesSeenSoFar.add(file.path.toString());
 
-  // if we've already seen this file, we don't need to build it again.
-  if (filesSeenSoFar.has(dependencyPath)) {
-    return;
-  }
-
-  // register that we've seen the file so we don't build it again.
-  filesSeenSoFar.add(dependencyPath);
-
-  // write the file to disk. (note: may need more context.)
   file.write(settings);
 
-  const dependencies = file.dependencies(settings);
-
-  dependencies
-    .filter((f) => !filesSeenSoFar.has(f.path.toString()))
-    .map((dependencyFile) => {
-      buildSiteFromFile(dependencyFile, settings, filesSeenSoFar);
-    });
+  file.dependencies(settings).map((dependencyFile) => {
+    buildSiteFromFile(dependencyFile, settings, filesSeenSoFar);
+  });
 };
 
-// build a website from a path to a directory.
-// requires:
-// { siteName, rootUrl, sourceDir, targetDir }
+/**
+ * Build a site from a configuration.
+ */
 const buildFromPath = (settings: PageSettings) => {
   const { sourceDir, targetDir, ignorePaths } = settings;
 
@@ -44,9 +33,9 @@ const buildFromPath = (settings: PageSettings) => {
 
   console.log("Starting with", dir.path.toString());
 
-  // if we've already seen a file path, we should ignore it.
-  // ignore paths the user is provided and the target dir --
-  // the target dir could be a subdirectory of the source dir,
+  // If we've already seen a file path, we should ignore it.
+  // Ignore paths the user is provided and the target dir --
+  // the target dir could be a subdirectory of the source dir
   // and we don't want to build the site into itself.
   const filePathsSeenSoFar = new Set([
     ...(ignorePaths ?? []),
