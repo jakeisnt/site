@@ -14,7 +14,6 @@ import {
 } from "./constants";
 
 const localhostUrl = `http://localhost`;
-const wsLocalhostUrl = `ws://localhost`;
 const devWebsocketPath = "/__devsocket";
 
 // paths to ignore by default from the website we build
@@ -98,7 +97,7 @@ const serve = (incomingPaths?: string[]) => {
       url: localhostUrl,
       port: localPort,
       siteName: "Jake Chvatal",
-      devWebsocketUrl: devWebsocketPath,
+      websocketPath: devWebsocketPath,
     });
   }
 
@@ -108,11 +107,10 @@ const serve = (incomingPaths?: string[]) => {
   else {
     singleFileServer({
       url: localhostUrl,
-      localPort,
-      absolutePathToFile: path.toString(),
+      port: localPort,
+      absolutePathToFile: path,
       siteName: "Jake Chvatal",
-      devWebsocketPath,
-      wsLocalhostUrl,
+      websocketPath: devWebsocketPath,
     });
   }
 };

@@ -4,6 +4,10 @@ import { expect, test } from "bun:test";
 const PAGE_SETTINGS = {
   rootUrl: "http://localhost:3000",
   sourceDir: "/",
+  siteName: "Jake Chvatal",
+  targetDir: "/",
+  resourcesDir: "/",
+  faviconsDir: "/",
 };
 
 test("Create an HtmlPage", () => {

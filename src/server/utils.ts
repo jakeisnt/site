@@ -1,5 +1,6 @@
 import File from "../file/classes/file";
 import type { PageSettings } from "../types/site";
+import { Path } from "../utils/path";
 
 /**
  * Format a URL with the URL, port, and path.
@@ -24,16 +25,15 @@ const withoutUrl = (fullPath: string, url: string) => fullPath.replace(url, "");
  */
 const injectHotReload = ({
   htmlString,
-  devWebsocketUrl,
+  websocketPath,
 }: {
   htmlString: string;
-  devWebsocketUrl: string;
+  websocketPath: string;
 }) => {
-  const wsUrl = devWebsocketUrl;
   const script = `
     <script>
       console.log('hot reload script loaded');
-      const socket = new WebSocket('${wsUrl}');
+      const socket = new WebSocket('${websocketPath}');
       socket.addEventListener('message', function (event) {
         console.log('Received message from server ', event.data);
         window.location.reload();
@@ -53,11 +53,11 @@ const makeFileResponse = (
     siteName,
     sourceDir,
     rootUrl,
-    devWebsocketUrl,
+    websocketPath,
     resourcesDir,
     faviconsDir,
     targetDir,
-  }: PageSettings & { devWebsocketUrl: string }
+  }: PageSettings & { websocketPath: string }
 ) => {
   const { contents, mimeType } = file.serve({
     siteName,
@@ -70,7 +70,7 @@ const makeFileResponse = (
 
   let responseText =
     mimeType === "text/html"
-      ? injectHotReload({ htmlString: contents, devWebsocketUrl })
+      ? injectHotReload({ htmlString: contents, websocketPath })
       : contents;
 
   return new Response(responseText, {
@@ -85,4 +85,36 @@ const makeFileResponse = (
   });
 };
 
-export { withoutUrl, formatUrl, makeFileResponse };
+/**
+ * Format page settings according to the provided arguments.
+ */
+const getPageSettings = ({
+  url,
+  port,
+  siteName,
+  absolutePathToDirectory,
+  fallbackDirPath,
+}: {
+  url: string;
+  port: number;
+  siteName: string;
+  absolutePathToDirectory: Path;
+  fallbackDirPath: string;
+}): PageSettings => {
+  const sourceDir = absolutePathToDirectory.toString();
+  const rootUrl = formatUrl({ url, port });
+  const resourcesDir = `${sourceDir}/resources`;
+  const faviconsDir = `${sourceDir}/favicons`;
+
+  return {
+    siteName,
+    sourceDir,
+    fallbackSourceDir: fallbackDirPath,
+    faviconsDir,
+    resourcesDir,
+    rootUrl,
+    targetDir: absolutePathToDirectory.toString() + "/docs",
+  };
+};
+
+export { withoutUrl, formatUrl, makeFileResponse, getPageSettings };

@@ -1,56 +1,47 @@
-import { formatUrl, makeFileResponse } from "./utils";
+import { makeFileResponse } from "./utils";
 import { createServer } from "./createServer";
 import { readFile } from "../file";
 import log from "utils/log";
+import { getPageSettings } from "./utils";
+import type { Path } from "../utils/path";
 
 /**
  * A hot-reloading single file server.
  */
 const singleFileServer = ({
   url,
-  localPort,
+  port,
   absolutePathToFile,
   siteName,
-  wsLocalhostUrl,
-  devWebsocketPath,
+  websocketPath,
 }: {
   url: string;
-  localPort: number;
-  absolutePathToFile: string;
+  port: number;
+  absolutePathToFile: Path;
   siteName: string;
-  wsLocalhostUrl: string;
-  devWebsocketPath: string;
+  websocketPath: string;
 }) => {
-  const file = readFile(absolutePathToFile);
-  const devUrl = formatUrl({ url, port: localPort });
+  const sourceDir = absolutePathToFile.parent;
 
-  const devWebsocketUrl = formatUrl({
-    url: wsLocalhostUrl,
-    port: localPort,
-    path: devWebsocketPath,
+  const settings = getPageSettings({
+    url,
+    port,
+    siteName,
+    absolutePathToDirectory: sourceDir,
+    fallbackDirPath: sourceDir.toString(),
   });
+
+  const file = readFile(absolutePathToFile, settings);
 
   // TODO: hunt down the websocket type and use it properly
   let wsClientConnection: any = null;
 
-  const sourceDir = file.path.parent.toString();
-  const resourcesDir = `${sourceDir}/resources`;
-  const faviconsDir = `${sourceDir}/favicons`;
-
   createServer({
     url,
-    port: localPort,
-    websocketPath: devWebsocketPath,
+    port,
+    websocketPath,
     onRequest: () => {
-      return makeFileResponse(file, {
-        siteName,
-        sourceDir,
-        devUrl,
-        devWebsocketUrl,
-        resourcesDir,
-        faviconsDir,
-        targetDir: sourceDir,
-      });
+      return makeFileResponse(file, { ...settings, websocketPath });
     },
     onSocketConnected: (ws) => {
       log.network("socket connected");

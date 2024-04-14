@@ -72,9 +72,9 @@ class File {
   /**
    * Get the parent directory of this file.
    */
-  directory(): Directory {
+  directory(cfg: PageSettings): Directory {
     // A `parent` file, by definition, is a directory that contains this one.
-    return readFile(this.path.parent) as unknown as Directory;
+    return readFile(this.path.parent, cfg) as unknown as Directory;
   }
 
   /**

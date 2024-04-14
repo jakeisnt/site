@@ -2,44 +2,12 @@ import { Path } from "../utils/path";
 
 import log from "utils/log";
 
-import { formatUrl, makeFileResponse } from "./utils";
+import { makeFileResponse } from "./utils";
 import { readFile } from "../file";
 import { createServer } from "./createServer";
 import Directory from "../file/filetype/directory";
 import { homePage } from "../pages/home";
-import type { PageSettings } from "../types/site";
-
-/**
- * Format page settings according to the provided arguments.
- */
-const getPageSettings = ({
-  url,
-  port,
-  siteName,
-  absolutePathToDirectory,
-  fallbackDirPath,
-}: {
-  url: string;
-  port: number;
-  siteName: string;
-  absolutePathToDirectory: Path;
-  fallbackDirPath: string;
-}): PageSettings => {
-  const sourceDir = absolutePathToDirectory.toString();
-  const devUrl = formatUrl({ url, port });
-  const resourcesDir = `${sourceDir}/resources`;
-  const faviconsDir = `${sourceDir}/favicons`;
-
-  return {
-    siteName,
-    sourceDir,
-    fallbackSourceDir: fallbackDirPath,
-    faviconsDir,
-    resourcesDir,
-    rootUrl: devUrl,
-    targetDir: absolutePathToDirectory.toString() + "/docs",
-  };
-};
+import { getPageSettings } from "./utils";
 
 /**
  * Serve the files in a directory.
@@ -52,14 +20,14 @@ const directoryServer = ({
   url,
   port,
   siteName,
-  devWebsocketUrl,
+  websocketPath,
 }: {
   absolutePathToDirectory: Path;
   fallbackDirPath: string;
   url: string;
   port: number;
   siteName: string;
-  devWebsocketUrl: string;
+  websocketPath: string;
 }) => {
   let pageSettings = getPageSettings({
     url,
@@ -104,7 +72,7 @@ const directoryServer = ({
   createServer({
     url,
     port,
-    websocketPath: devWebsocketUrl,
+    websocketPath,
     onRequest: ({ path }: { path: Path }) => {
       let pathToUse = Path.create(path);
 
@@ -113,7 +81,7 @@ const directoryServer = ({
       if (["", "/", "/index", "/index.html"].includes(pathToUse.toString())) {
         return makeFileResponse(homePage(), {
           ...pageSettings,
-          devWebsocketUrl,
+          websocketPath,
         });
       }
 
@@ -123,17 +91,17 @@ const directoryServer = ({
       }
 
       log.debug("Finding file: ", dir.toString(), pathToUse.toString());
-      let file = dir.findFile(pathToUse);
+      let file = dir.findFile(pathToUse, pageSettings);
       if (!file) {
         // if we can't find the file, attempt to find it in a fallback directory.
-        file = fallbackDir?.findFile(pathToUse);
+        file = fallbackDir?.findFile(pathToUse, pageSettings);
       }
 
       if (!file) {
         return new Response("Not found", { status: 404 });
       }
 
-      return makeFileResponse(file, { ...pageSettings, devWebsocketUrl });
+      return makeFileResponse(file, { ...pageSettings, websocketPath });
     },
 
     onSocketConnected: (ws) => {

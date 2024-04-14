@@ -21,7 +21,7 @@ type FiletypeMap = { [key: string]: typeof File };
 let filetypeMap: FiletypeMap;
 
 // obtain a map of file to filetype
-const getFiletypeMap = () => {
+const getFiletypeMap = (cfg: PageSettings) => {
   // bootstrap the process; we know we have a directory
   const dir = new Directory(Path.create(__dirname + "/filetype/"));
 
@@ -30,7 +30,7 @@ const getFiletypeMap = () => {
   // Problem: to bootstrap the process, we need to know what class
   // a file is before we can create it. but we need to create it
   dir
-    .contents({ omitNonJSFiles: true })
+    .contents(cfg, { omitNonJSFiles: true })
     .map((file: File) => {
       // because we have a js file, we know we can require it
       const fileClass = (file as JavascriptFile).require();
@@ -66,7 +66,7 @@ const fileCache: { [key: string]: File } = {};
  */
 const readFile = (incomingPath: string | Path, options: PageSettings): File => {
   if (!filetypeMap) {
-    filetypeMap = getFiletypeMap();
+    filetypeMap = getFiletypeMap(options);
   }
 
   const { sourceDir, fallbackSourceDir } = options ?? {};

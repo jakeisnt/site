@@ -102,15 +102,16 @@ class Directory extends File {
   private enumeratedDependencies: File[] | undefined = undefined;
   private enumeratedHtml: HtmlPage | undefined = undefined;
 
-  // recursively fetch and flatten the file tree
-  // the result should contain no directories
-  tree() {
-    const myContents = this.contents();
+  /**
+   * Recursively fetch and flatten the file tree.
+   */
+  tree(cfg: PageSettings) {
+    const myContents = this.contents(cfg);
     const childFiles: File[] = [];
 
     myContents.forEach((file) => {
       if (file.isDirectory()) {
-        childFiles.push(...file.tree());
+        childFiles.push(...file.tree(cfg));
       } else {
         childFiles.push(file);
       }
@@ -126,6 +127,7 @@ class Directory extends File {
    * @param {boolean} omitNonJSFiles - Flag to bootstrap the setup. The 'readFile' function dispatches based on this flag to force JavaScript files.
    */
   contents(
+    cfg: PageSettings,
     { omitNonJSFiles = false }: { omitNonJSFiles: boolean } = {
       omitNonJSFiles: false,
     }
@@ -160,7 +162,7 @@ class Directory extends File {
       return this.enumeratedContents;
     }
 
-    const fileContents = this.path.readDirectory().map((v) => readFile(v));
+    const fileContents = this.path.readDirectory().map((v) => readFile(v, cfg));
     this.enumeratedContents = fileContents;
     return fileContents;
   }
@@ -169,11 +171,11 @@ class Directory extends File {
    * Given a file path relative to this directory,
    * find the relevant source file.
    */
-  findFile(relativePath: Path) {
+  findFile(relativePath: Path, cfg: PageSettings) {
     const path = this.path.join(relativePath);
 
     try {
-      return readFile(path);
+      return readFile(path, cfg);
     } catch (e) {
       return null;
     }
@@ -219,7 +221,7 @@ class Directory extends File {
    */
   asHtml(settings: PageSettings) {
     if (!this.enumeratedHtml) {
-      const files = this.contents();
+      const files = this.contents(settings);
       const page = directoryToHtml(this, {
         files,
         ...settings,

@@ -2,6 +2,7 @@ import { readFile } from "../file";
 import { htmlPage } from "./dsl";
 import type { PageSyntax, Dependency } from "../types/html";
 import { File } from "../file/classes";
+import type { PageSettings } from "../types/site";
 
 /**
  * Is the link string that we are provided internal?
@@ -43,14 +44,9 @@ const linkStringToFile = (
   return sourceDir.toString().concat(linkWithoutRoot);
 };
 
-type HtmlPageSettings = {
-  rootUrl: string;
-  sourceDir: string;
-};
-
 const makeDependencies = (
   dependencies: Dependency[],
-  settings: HtmlPageSettings
+  settings: PageSettings
 ): File[] => {
   const res: File[] = [];
 
@@ -76,15 +72,15 @@ const makeDependencies = (
  */
 class HtmlPage {
   private pageStructure: PageSyntax;
-  private currentBuildSettings: HtmlPageSettings;
+  private currentBuildSettings: PageSettings;
   private cachedDependencies: File[] | undefined;
 
-  constructor(pageSyntax: PageSyntax, settings: HtmlPageSettings) {
+  constructor(pageSyntax: PageSyntax, settings: PageSettings) {
     this.pageStructure = pageSyntax;
     this.currentBuildSettings = settings;
   }
 
-  static create(pageSyntax: PageSyntax, settings: HtmlPageSettings) {
+  static create(pageSyntax: PageSyntax, settings: PageSettings) {
     return new this(pageSyntax, settings);
   }
 

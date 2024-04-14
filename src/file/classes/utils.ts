@@ -31,7 +31,7 @@ const wrapFile = (
 
     // Write the wrapping file
     const targetPath = sourceFile.path.relativeTo(sourceDir, targetDir);
-    targetPath.writeString(sourceFile.text);
+    targetPath.writeString(sourceFile.text(config));
 
     // write the javascript file without an extension
     // const noExtensionPath = targetPath.replaceExtension();

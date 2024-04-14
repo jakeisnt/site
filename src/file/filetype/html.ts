@@ -27,7 +27,7 @@ class HTMLFile extends SourceFile {
   /**
    * Create an HTML file from path.
    */
-  static create(filePath: Path) {
+  static create(filePath: Path, cfg: PageSettings) {
     // if we have the html, just return it
     if (filePath.exists()) {
       return new HTMLFile(filePath);
@@ -40,10 +40,10 @@ class HTMLFile extends SourceFile {
 
     let prevFile: File;
     try {
-      prevFile = readFile(path);
+      prevFile = readFile(path, cfg);
     } catch (e) {
       const directoryPath = filePath.parent;
-      prevFile = readFile(directoryPath);
+      prevFile = readFile(directoryPath, cfg);
     }
 
     // may have to overwrite '.read' instead of '.text'
@@ -75,8 +75,8 @@ class HTMLFile extends SourceFile {
     // to tell us what is provided by the target.
 
     return wrapFile(
-      prevFile,
-      (f, cfg) => f.asHtml(cfg).toString(),
+      prevFile as SourceFile,
+      (f: SourceFile) => f.asHtml(cfg).toString(),
       {
         extension: "html",
         mimeType: "text/html",
