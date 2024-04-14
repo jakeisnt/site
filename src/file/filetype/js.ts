@@ -1,13 +1,15 @@
 import { SourceFile } from "file/classes";
-import ts from "typescript";
 import { readFile } from "../index";
 import { Path } from "../../utils/path";
 import TypescriptFile from "./ts";
 import type { PageSettings } from "../../types/site";
 
+const transpiler = new Bun.Transpiler({
+  loader: "ts",
+});
+
 const tsToJs = (tsText: string) => {
-  const options = { compilerOptions: { module: ts.ModuleKind.ESNext } };
-  return ts.transpileModule(tsText, options).outputText;
+  return transpiler.transformSync(tsText);
 };
 
 class JavascriptFile extends SourceFile {
