@@ -32,13 +32,10 @@ const wrapFile = (
     );
 
   wrappingFile.write = (config: PageSettings) => {
-    console.log("writing file", wrappingFile.path.toString());
     const { sourceDir, targetDir } = config;
 
     // Write the wrapping file
     const targetPath = wrappingFile.path.relativeTo(sourceDir, targetDir);
-
-    console.log(targetPath.toString());
     targetPath.writeString(wrappingFile.text(config));
 
     // write the javascript file without an extension
