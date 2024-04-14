@@ -120,7 +120,7 @@ const header = ({
     css("/resources/style.css"),
     css("/resources/global.css"),
     script("/resources/lib.js"),
-    css("/resources/elements.css"),
+    css("/resources/elementsstyle.css"),
     // TODO: generate manifest.
     ["link", { rel: "manifest", href: "/resources/manifest.json" }],
     script("/resources/elements.js", { defer: true }),

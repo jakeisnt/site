@@ -1,10 +1,19 @@
-const findFileIndex = (files, file) => {
+import type File from "../../src/file/classes/file";
+
+const findFileIndex = (files: File[], file: File) => {
   return files.findIndex((f) => f.equals(file));
 };
 
-const prevNextUpHtml = ({ file, rootUrl, sourceDir }) => {
-  const dir = file.directory;
-
+const prevNextUpHtml = ({
+  file,
+  rootUrl,
+  sourceDir,
+}: {
+  file: File;
+  rootUrl: string;
+  sourceDir: string;
+}) => {
+  const dir = file.directory();
   const contents = dir.contents();
 
   const curFileIndex = findFileIndex(contents, file);
@@ -59,7 +68,7 @@ const prevNextUpHtml = ({ file, rootUrl, sourceDir }) => {
           "td",
           [
             "a",
-            { class: "up-button", href: dir.htmlUrl({ rootUrl, sourceDir }) },
+            { class: "up-button", href: dir.htmlUrl({ sourceDir }) },
             dir.name,
           ],
         ],

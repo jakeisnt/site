@@ -27,7 +27,7 @@ function commitFolderToBranch({
 
   // TODO: code should make sure 'production' branch is fetched.
   // it wasn't fetched! or the variable was not defined?
-  repo.path.move(folderToCommit, tmpDir, { force: true, recursive: true });
+  repo.path.move(folderToCommit, tmpDir, { force: true });
   repo.checkout(targetBranch);
   repo.status();
 
@@ -40,7 +40,7 @@ function commitFolderToBranch({
   Path.create(tmpDir).move(
     `${tmpDir}/*`,
     `${Path.create(folderToCommit).parent.toString()}/`,
-    { force: true, recursive: true }
+    { force: true }
   );
   repo.status();
 

@@ -44,7 +44,13 @@ function htmlPage(...args: PageSyntax[]) {
  * @param buffer buffer to queue the changes to.
  */
 function buildAttributes(attrs: HtmlAttributes, dependencies: Dependency[]) {
-  const buffer: string[] = [];
+  if (!attrs || Object.keys(attrs).length === 0) {
+    return "";
+  }
+
+  // The buffer starts with an empty string so the `.join`
+  // operation prefixes the attributes with a space if they exist!
+  const buffer: string[] = [""];
   for (var key in attrs) {
     buffer.push(`${key}="${attrs[key]?.toString()}"`);
   }
@@ -101,7 +107,7 @@ function buildTag(
   }
 
   // Create the start of the tag: <tag { .. attrs .. }>
-  buffer.push(`<${tagName} ${buildAttributes(attributes, dependencies)}>`);
+  buffer.push(`<${tagName}${buildAttributes(attributes, dependencies)}>`);
 
   // Build the contents of the tag - an arbitrary array of elements.
   buildRest(list, index, buffer, dependencies);

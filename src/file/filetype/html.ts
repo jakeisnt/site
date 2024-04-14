@@ -3,6 +3,7 @@ import { readFile } from "file";
 import { Path } from "utils/path";
 import type { PageSettings } from "../../types/site";
 import { File } from "file/classes";
+import { wrapFile } from "../classes/utils";
 
 class HTMLFile extends SourceFile {
   static filetypes = ["html", "htm", "svg"];
@@ -15,10 +16,7 @@ class HTMLFile extends SourceFile {
   write(config: PageSettings) {
     const { sourceDir, targetDir } = config;
     const targetPath = this.path.relativeTo(sourceDir, targetDir);
-    targetPath.writeString(this.serve(config).contents);
-
-    // write the fake file if it exists also
-    this.fakeFileOf?.write(config);
+    targetPath.writeString(this.text(config));
 
     return this;
   }
@@ -26,87 +24,43 @@ class HTMLFile extends SourceFile {
   /**
    * Create an HTML file from path.
    */
-  static create(filePath: Path) {
-    // if we have the html, just return it
+  static create(filePath: Path, cfg: PageSettings) {
+    // If we have the html, just return it
     if (filePath.exists()) {
-      return new HTMLFile(filePath);
+      return new HTMLFile(filePath, cfg);
     }
 
-    // otherwise, try to get the non-html version of the file.
+    // Otherwise, try to get the non-html version of the file.
     // if the path is a directory, this won't work;
     // we then get the containing directory if this fails.
-    const path = Path.create(filePath.toString().replace(".html", ""));
-    const directoryPath = filePath.parent;
+
+    // NOTE: This is a special case.
+    // To solve this in a systemic way, we'll need to
+    const path = filePath.replaceExtension();
 
     let prevFile: File;
     try {
-      prevFile = readFile(path);
+      prevFile = readFile(path, cfg);
     } catch (e) {
-      prevFile = readFile(directoryPath);
+      const directoryPath = filePath.parent;
+      prevFile = readFile(directoryPath, cfg);
     }
 
-    const sourceFile = prevFile.clone();
-
-    // now, we override the new file to act like an html file.
-    // NOTE: all of the question marks are hacks.
-    // some files are too eagerly linked as html,
-    // so we ignore them and create spurious html here with no contents.
-    // like image files.
-    // really, those files should not be linked to as html at all.
-
-    // @ts-ignore
-    sourceFile.fakeFileOf = prevFile;
-    // @ts-ignore
-    sourceFile.asHtml = prevFile.asHtml;
-    // @ts-ignore
-    sourceFile.read = (...args) => prevFile?.asHtml?.(...args).toString() ?? "";
-
-    sourceFile.write = (config: PageSettings) => {
-      const { sourceDir, targetDir } = config;
-
-      const targetPath = sourceFile.path.relativeTo(sourceDir, targetDir);
-      targetPath.writeString(sourceFile.serve(config)?.contents ?? "");
-
-      // also write the previous file
-      prevFile.write(config);
-
-      return sourceFile;
-    };
-
-    sourceFile.serve = (config: PageSettings) => {
+    return wrapFile(
+      prevFile as SourceFile,
+      // the function is available on all children of the file
       // @ts-ignore
-      const contents = prevFile?.asHtml?.(config).toString() ?? "";
-      return { contents, mimeType: "text/html" };
-    };
-
-    sourceFile.dependencies = (settings: PageSettings) => {
-      // @ts-ignore
-      return prevFile?.asHtml?.(settings)?.dependencies() ?? [];
-    };
-
-    // the path of this new source file needs to resolve to the html path
-    Object.defineProperty(sourceFile, "path", {
-      get() {
-        return filePath;
+      (f: File) => f?.asHtml?.(cfg)?.toString() ?? "",
+      {
+        extension: "html",
+        addExtension: true,
+        mimeType: "text/html",
       },
-    });
-
-    // the path of this new source file needs to resolve to the html path
-    Object.defineProperty(sourceFile, "isDirectory", {
-      get() {
-        return false;
-      },
-    });
-
-    // the mime type of this new source file needs to be html
-    Object.defineProperty(sourceFile, "mimeType", {
-      get() {
-        return "text/html";
-      },
-    });
-
-    // produce this new source file.
-    return sourceFile;
+      (file, settings: PageSettings) => {
+        // @ts-ignore
+        return file?.asHtml?.(settings)?.dependencies() ?? [];
+      }
+    );
   }
 
   /**

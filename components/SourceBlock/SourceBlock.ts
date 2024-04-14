@@ -24,8 +24,8 @@ const SourceBlock = ({ file }: { file: TextFile }) => ({
         "code",
         { class: `language-${file.extension} has-raw-code` },
         language
-          ? treeSitter.highlight(file.text, language)
-          : escapeHTML(file.text),
+          ? treeSitter.highlight(file.text(), language)
+          : escapeHTML(file.text()),
       ],
     ];
   })(),

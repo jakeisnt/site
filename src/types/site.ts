@@ -1,6 +1,6 @@
 type PageSettings = {
   rootUrl: string;
-  siteName?: string;
+  siteName: string;
   sourceDir: string;
   targetDir: string;
   resourcesDir: string;

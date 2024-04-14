@@ -6,8 +6,8 @@ import type { PageSettings } from "../../types/site";
  * Represents any file that can be read as a UTF-8 string.
  */
 class TextFile extends File {
-  // the string contents of the file
-  protected asString: string | undefined;
+  // The string contents of the file
+  protected asString?: string;
 
   read() {
     this.asString = this.path.readString();
@@ -17,14 +17,14 @@ class TextFile extends File {
   /**
    * Write a file to a path at the provided config location.
    */
-  write(config: PageSettings) {
+  write(config: PageSettings = this.cachedConfig) {
     const { sourceDir, targetDir } = config;
     const targetPath = this.path.relativeTo(sourceDir, targetDir);
     targetPath.writeString(this.serve(config).contents);
     return this;
   }
 
-  get text(): string {
+  text(config?: PageSettings): string {
     if (!this.asString) {
       this.read();
     }
@@ -33,7 +33,7 @@ class TextFile extends File {
   }
 
   toString() {
-    return this.text;
+    return this.text(this.cachedConfig);
   }
 
   asHtml(settings: PageSettings) {
@@ -44,7 +44,7 @@ class TextFile extends File {
   }
 
   serve(settings: PageSettings) {
-    return { contents: this.text, mimeType: this.mimeType };
+    return { contents: this.text(settings), mimeType: this.mimeType };
   }
 }
 
