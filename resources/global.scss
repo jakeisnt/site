@@ -31,6 +31,7 @@
 }
 
 @mixin dark-theme {
+  @include colors;
   --highlight: #4C5669;
   --quote-background: #222;
   --quote-background-border: #333;

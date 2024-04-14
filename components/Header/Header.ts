@@ -123,20 +123,6 @@ const header = ({
     css("/resources/elements.css"),
     // TODO: generate manifest.
     ["link", { rel: "manifest", href: "/resources/manifest.json" }],
-
-    css(
-      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css",
-      { id: "dark-theme-highlight" }
-    ),
-    css(
-      "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css",
-      { id: "light-theme-highlight" }
-    ),
-    script(
-      "https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js",
-      { type: null }
-    ),
-
     script("/resources/elements.js", { defer: true }),
   ];
 };

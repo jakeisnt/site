@@ -279,3 +279,46 @@ button.inset:hover {
   font-size: 14px;
   color: var(--subtle-text);
 }
+
+/** syntax highlighting */
+.keyword {
+  color: var(--purple);
+}
+
+.function {
+  color: var(--blue);
+}
+
+.type {
+  color: var(--darkblue);
+}
+
+.string {
+  color: var(--green);
+}
+
+.number {
+  color: var(--red);
+}
+
+.operator {
+  color: gray;
+}
+
+.comment {
+  color: rgb(72, 72, 72);
+  font-style: italic;
+}
+
+.punctuation {
+  color: var(--darkblue);
+}
+
+.variable {
+  color: var(--red);
+}
+
+.string {
+  color: var(--green);
+}
+
