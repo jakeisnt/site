@@ -57,7 +57,22 @@ class HTMLFile extends SourceFile {
 
     // we also need `wrapFile` to retrieve dependencies! that should be an argument.
 
-    // sourceFile.read = (...args) => prevFile?.asHtml?.(...args).toString() ?? "";
+    // another idea:
+
+    // rather than doing this in the 'target' file,
+    // this conversion should be done in the source file.
+
+    // i.e. if i am a typescript file, i should have to implement a
+    // .toJSFile() function that handles this.
+
+    // that way, the responsibility to convert is on the source file,
+    // not the target file. never the target file.
+    // this is what `asHtml` does for us and why we require it.
+
+    // this isn't really type safe,
+    // as we don't know what the parent file is,
+    // but maybe we can add some information to the source class
+    // to tell us what is provided by the target.
 
     return wrapFile(
       prevFile,
