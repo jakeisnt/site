@@ -95,7 +95,7 @@ type PageSyntax = HtmlNode;
 
 // A dependency on another file.
 type Dependency = {
-  src: Path;
+  src: string;
 };
 
 export type {

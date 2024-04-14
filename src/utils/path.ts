@@ -1,7 +1,6 @@
 import pathLibrary from "path";
 import { execSync } from "./cmd";
 import fs from "fs";
-import logger from "./log";
 import mime from "mime";
 import { Repo } from "./git";
 
@@ -224,7 +223,10 @@ class Path {
    * REMOVE 'maybeOtherPath' from this path's string.
    * If 'maypeReplaceWithPath' is defined, append it.
    */
-  relativeTo(maybeOtherPath: Path | string, maybeReplaceWithPath = "") {
+  relativeTo(
+    maybeOtherPath: Path | string,
+    maybeReplaceWithPath: Path | string = ""
+  ) {
     const otherPath = Path.create(maybeOtherPath);
     const replaceWith = maybeReplaceWithPath.toString();
 

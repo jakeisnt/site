@@ -1,7 +1,6 @@
 import { readFile } from "./file";
 import type { PageSettings } from "./types/site";
 import { File } from "./file/classes";
-import { Path } from "./utils/path";
 import { homePage } from "./pages/home";
 
 /**
@@ -30,15 +29,15 @@ const buildFromPath = (settings: PageSettings) => {
   const { sourceDir, targetDir, ignorePaths } = settings;
 
   // Write the root file
-  const rootFile = Path.create(targetDir + "/index.html");
+  const rootFile = targetDir.join("/index.html");
   rootFile.writeString(homePage(settings).serve(settings).contents);
 
   // Read the rest of the repo under `source`.
-  const cfg = { ...settings, targetDir: targetDir + "/source" };
+  const cfg = { ...settings, targetDir: targetDir.join("/source") };
 
   // Start off from the root, source dir,
   // Bootstrap the process by reading the root file as HTML.
-  const dir = readFile(Path.create(sourceDir + "/index.html"), cfg);
+  const dir = readFile(sourceDir.join("/index.html"), cfg);
   console.log("Starting with", dir.path.toString());
 
   // If we've already seen a file path, we should ignore it.

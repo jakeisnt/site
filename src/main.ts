@@ -1,7 +1,6 @@
 // entrypoint of the program; this is the cli
 
 import { deploy } from "./deploy";
-import { sourceDir } from "./constants";
 import { cli } from "utils/cli";
 import { buildFromPath } from "./build.js";
 import { singleFileServer, directoryServer } from "./server";
@@ -11,8 +10,27 @@ import { siteName, deploymentBranch, localPort } from "./constants";
 const localhostUrl = `http://localhost`;
 const devWebsocketPath = "/__devsocket";
 
+const sourceDir = Path.create("./");
+const targetDir = sourceDir.join("/docs");
+const fallbackSourceDir = sourceDir;
+const rootUrl = "http://localhost:3000";
+const resourcesDir = Path.create(sourceDir.toString() + "/resources");
+const faviconsDir = Path.create(sourceDir.toString() + "/favicons");
 // paths to ignore by default from the website we build
-const commonIgnorePaths = [".git", "node_modules"];
+const ignorePaths = [".git", "node_modules"].map(
+  (p) => sourceDir.toString() + "/" + p
+);
+
+const cfg = {
+  siteName,
+  sourceDir,
+  targetDir,
+  fallbackSourceDir,
+  rootUrl,
+  resourcesDir,
+  faviconsDir,
+  ignorePaths,
+};
 
 /**
  * Build a website from the incoming paths.
@@ -20,24 +38,7 @@ const commonIgnorePaths = [".git", "node_modules"];
  * Usage: site build ./ ./docs ./ http://localhost:3000
  */
 const build = () => {
-  const sourceDir = "./";
-  const targetDir = Path.create(sourceDir.toString() + "/docs");
-  const fallbackSourceDir = sourceDir;
-  const rootUrl = "http://localhost:3000";
-  const resourcesDir = Path.create(sourceDir.toString() + "/resources");
-  const faviconsDir = Path.create(sourceDir.toString() + "/favicons");
-
-  buildFromPath({
-    siteName,
-    rootUrl,
-    sourceDir: sourceDir.toString(),
-    fallbackSourceDir: fallbackSourceDir.toString(),
-    targetDir: targetDir.toString(),
-    // 'ignorePaths' are expected to be absolute
-    ignorePaths: commonIgnorePaths.map((p) => sourceDir.toString() + "/" + p),
-    resourcesDir: resourcesDir.toString(),
-    faviconsDir: faviconsDir.toString(),
-  });
+  buildFromPath(cfg);
 };
 
 /**

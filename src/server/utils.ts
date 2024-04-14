@@ -99,12 +99,12 @@ const getPageSettings = ({
   port: number;
   siteName: string;
   absolutePathToDirectory: Path;
-  fallbackDirPath: string;
+  fallbackDirPath: Path;
 }): PageSettings => {
-  const sourceDir = absolutePathToDirectory.toString();
+  const sourceDir = absolutePathToDirectory;
   const rootUrl = formatUrl({ url, port });
-  const resourcesDir = `${sourceDir}/resources`;
-  const faviconsDir = `${sourceDir}/favicons`;
+  const resourcesDir = sourceDir.join("/resources");
+  const faviconsDir = sourceDir.join("/favicons");
 
   return {
     siteName,
@@ -113,7 +113,7 @@ const getPageSettings = ({
     faviconsDir,
     resourcesDir,
     rootUrl,
-    targetDir: absolutePathToDirectory.toString() + "/docs",
+    targetDir: absolutePathToDirectory.join("/docs"),
   };
 };
 

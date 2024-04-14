@@ -33,7 +33,7 @@ const isInternalLink = (l: string, { rootUrl }: { rootUrl: string }) => {
  */
 const linkStringToFile = (
   l: string,
-  { rootUrl, sourceDir }: { rootUrl: string; sourceDir: string }
+  { rootUrl, sourceDir }: { rootUrl: string; sourceDir: Path }
 ) => {
   // remove the leading rootUrl from the link if it exists
   const linkWithoutRoot = l
@@ -41,7 +41,7 @@ const linkStringToFile = (
     .replace("http://", "")
     .replace("https://", "");
 
-  return Path.create(sourceDir.toString().concat(linkWithoutRoot));
+  return sourceDir.join(linkWithoutRoot);
 };
 
 const makeDependencies = (
@@ -55,7 +55,7 @@ const makeDependencies = (
       return;
     }
 
-    if (dep.src === settings.targetDir) {
+    if (settings.targetDir.equals(dep.src)) {
       return;
     }
 

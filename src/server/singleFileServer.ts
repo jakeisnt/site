@@ -28,7 +28,7 @@ const singleFileServer = ({
     port,
     siteName,
     absolutePathToDirectory: sourceDir,
-    fallbackDirPath: sourceDir.toString(),
+    fallbackDirPath: sourceDir,
   });
 
   const file = readFile(absolutePathToFile, settings);

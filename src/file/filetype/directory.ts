@@ -20,7 +20,7 @@ const folderIndexPageTable = ({
 }: {
   files: File[];
   rootUrl: string;
-  sourceDir: string;
+  sourceDir: Path;
 }): PageSyntax => {
   return [
     "div",
@@ -161,7 +161,7 @@ class Directory extends File {
     const fileContents = this.path
       .readDirectory()
       // SHORTCUT: Fixes a bug where the site creates itself infinitely
-      .filter((v) => v.toString() !== this.cachedConfig.targetDir)
+      .filter((v) => !v.equals(this.cachedConfig.targetDir))
       .map((v) => readFile(v, this.cachedConfig));
 
     this.enumeratedContents = fileContents;
@@ -182,7 +182,7 @@ class Directory extends File {
     }
   }
 
-  htmlUrl({ sourceDir }: { sourceDir: string }) {
+  htmlUrl({ rootUrl, sourceDir }: { rootUrl: string; sourceDir: Path }) {
     const relativeToSource = this.path.relativeTo(sourceDir);
     return relativeToSource.toString() + "/index.html";
   }

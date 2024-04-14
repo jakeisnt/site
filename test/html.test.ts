@@ -1,13 +1,14 @@
 import { HtmlPage } from "html";
 import { expect, test } from "bun:test";
+import { Path } from "../src/utils/path";
 
 const PAGE_SETTINGS = {
   rootUrl: "http://localhost:3000",
-  sourceDir: "/",
+  sourceDir: Path.create("/"),
   siteName: "Jake Chvatal",
-  targetDir: "/",
-  resourcesDir: "/",
-  faviconsDir: "/",
+  targetDir: Path.create("/"),
+  resourcesDir: Path.create("/"),
+  faviconsDir: Path.create("/"),
 };
 
 test("Create an HtmlPage", () => {
