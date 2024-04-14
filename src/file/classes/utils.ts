@@ -61,12 +61,6 @@ const wrapFile = (
     },
   });
 
-  console.log(
-    "files and paths",
-    sourceFile.path.toString(),
-    wrappingFile.path.toString()
-  );
-
   return wrappingFile; // the js file
 };
 
