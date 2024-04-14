@@ -18,7 +18,7 @@ class CSSFile extends SourceFile {
    */
   static create(filePath: Path, cfg: PageSettings) {
     if (filePath.exists()) {
-      return new CSSFile(filePath);
+      return new CSSFile(filePath, cfg);
     }
 
     // If this file doesn't exist, try making the scss file

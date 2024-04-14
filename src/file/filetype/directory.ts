@@ -9,8 +9,8 @@ import { Path } from "../../utils/path";
 /**
  * Read a javascript file to string.
  */
-const readJSFile = (path: Path) => {
-  return new JSFile(path);
+const readJSFile = (path: Path, cfg: PageSettings) => {
+  return new JSFile(path, cfg);
 };
 
 const folderIndexPageTable = ({
@@ -140,7 +140,7 @@ class Directory extends File {
         if (childPath.extension !== "js" && childPath.extension !== "ts") {
           return undefined;
         } else {
-          return readJSFile(childPath);
+          return readJSFile(childPath, cfg);
         }
       });
 

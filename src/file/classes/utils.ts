@@ -25,6 +25,7 @@ const wrapFile = (
   const wrappingFile = sourceFile.clone();
 
   wrappingFile.fakeFileOf = sourceFile;
+  wrappingFile.path = sourceFile.path.replaceExtension(extension);
 
   wrappingFile.write = (config: PageSettings) => {
     const { sourceDir, targetDir } = config;
@@ -52,13 +53,6 @@ const wrapFile = (
   Object.defineProperty(wrappingFile, "mimeType", {
     get() {
       return mimeTypeArgument ?? wrappingFile.path.mimeType;
-    },
-  });
-
-  // the path of this new source file needs to resolve to the old path
-  Object.defineProperty(wrappingFile, "path", {
-    get() {
-      return sourceFile.path.replaceExtension(extension);
     },
   });
 

@@ -76,10 +76,9 @@ const directoryServer = ({
     onRequest: ({ path }: { path: Path }) => {
       let pathToUse = Path.create(path);
 
-      console.log(pathToUse.toString());
       // If we request the root, serve up the home page
       if (["", "/", "/index", "/index.html"].includes(pathToUse.toString())) {
-        return makeFileResponse(homePage(), {
+        return makeFileResponse(homePage(pageSettings), {
           ...pageSettings,
           websocketPath,
         });

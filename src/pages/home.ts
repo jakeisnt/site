@@ -73,8 +73,8 @@ class HomePage extends TextFile {
   }
 }
 
-const homePage = () => {
-  return new HomePage(Path.create(""));
+const homePage = (cfg: PageSettings) => {
+  return new HomePage(Path.create(""), cfg);
 };
 
 export { homePage };

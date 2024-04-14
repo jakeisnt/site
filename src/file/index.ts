@@ -23,7 +23,7 @@ let filetypeMap: FiletypeMap;
 // obtain a map of file to filetype
 const getFiletypeMap = (cfg: PageSettings) => {
   // bootstrap the process; we know we have a directory
-  const dir = new Directory(Path.create(__dirname + "/filetype/"));
+  const dir = new Directory(Path.create(__dirname + "/filetype/"), cfg);
 
   const newFiletypeMap: FiletypeMap = {};
 
