@@ -108,7 +108,7 @@ class File {
       return rootUrl + "/index.html";
     }
 
-    return rootUrl + relativeToSource.toString() + ".html";
+    return rootUrl + relativeToSource.replaceExtension("html");
   }
 
   get repo() {
