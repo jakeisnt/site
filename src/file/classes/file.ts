@@ -122,7 +122,7 @@ class File {
       return rootUrl + "/index.html";
     }
 
-    return rootUrl + relativeToSource + ".html"; //  relativeToSource.replaceExtension("html");
+    return rootUrl + relativeToSource.replaceExtension("html").toString();
   }
 
   get repo() {
