@@ -25,19 +25,6 @@ const getDependency = ({ src: path, ...etc }: { src: Path }): PageSyntax => {
   }
 };
 
-/**
- * Construct a dependency header with a list of source configurations.
- */
-const makeDependencyHeader = (dependencies: Dependency[]): PageSyntax => {
-  if (dependencies.length === 0) {
-    return null;
-  }
-
-  return dependencies.map((dep) => {
-    return getDependency({ ...dep, src: Path.create(dep.src) });
-  });
-};
-
 const componentCache: { [key: string]: Function } = {};
 
 /**
@@ -57,6 +44,10 @@ const requireComponent = (name: string) => {
   return componentFunction;
 };
 
+const parseDependencies = (deps: Dependency[]) => {
+  return deps.map((dep) => ({ ...dep, src: Path.create(dep.src) }));
+};
+
 /**
  * Render a JS component.
  * @param name the name of the component
@@ -68,8 +59,10 @@ const component = (
   args?: Object
 ): { dependsOn: Dependency[]; body: PageSyntax } => {
   const componentFunction = requireComponent(name);
-  const { dependsOn, body } = componentFunction(args);
-  const componentWithDependencies = [makeDependencyHeader(dependsOn), body];
+  const { dependsOnRaw, body } = componentFunction(args);
+
+  const dependsOn = parseDependencies(dependsOnRaw);
+  const componentWithDependencies = [dependsOn.map(getDependency), body];
 
   return { dependsOn, body: componentWithDependencies };
 };

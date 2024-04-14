@@ -1,4 +1,7 @@
 // All tags supported by the browser.
+
+import type { Path } from "../utils/path";
+
 // @ts-ignore
 type NativeHtmlTag =
   | "html"
@@ -92,7 +95,7 @@ type PageSyntax = HtmlNode;
 
 // A dependency on another file.
 type Dependency = {
-  src: string;
+  src: Path;
 };
 
 export type {
