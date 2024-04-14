@@ -13,7 +13,7 @@ import type { PageSettings } from "../types/site";
  * Places the dependencies where we expect them to be.
  * That is -- relative to targetDir.
  */
-const getDependency = (path: Path, etc: Object): PageSyntax => {
+const getDependency = (path: Path, etc: object = {}): PageSyntax => {
   const extension = path.extension;
   switch (extension) {
     case "js":
@@ -72,7 +72,7 @@ const component = (
   config: PageSettings
 ): { dependsOn: Dependency[]; body: PageSyntax } => {
   const componentFunction = requireComponent(name);
-  const { dependsOnRaw, body } = componentFunction(args);
+  const { dependsOn: dependsOnRaw, body } = componentFunction(args);
 
   const dependsOn = parseDependencies(dependsOnRaw);
   const componentWithDependencies = [
@@ -80,7 +80,7 @@ const component = (
     body,
   ];
 
-  return { dependsOn, body: componentWithDependencies };
+  return { dependsOn: dependsOnRaw, body: componentWithDependencies };
 };
 
 export { component };
