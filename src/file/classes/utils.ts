@@ -10,7 +10,7 @@ const wrapFile = (
   getText: (source: SourceFile) => string,
   {
     extension,
-    mimeType = sourceFile.path.mimeType,
+    mimeType: mimeTypeArgument,
     isDirectory = false,
   }: {
     extension: string;
@@ -47,17 +47,11 @@ const wrapFile = (
     return getDependencies(sourceFile, settings);
   };
 
-  Object.defineProperty(wrappingFile, "text", {
-    get() {
-      // There's an inneficiency. We compile on the fly every time.
-      // This can be cached!
-      return getText(sourceFile);
-    },
-  });
+  wrappingFile.text = () => getText(sourceFile);
 
   Object.defineProperty(wrappingFile, "mimeType", {
     get() {
-      return mimeType;
+      return mimeTypeArgument ?? wrappingFile.path.mimeType;
     },
   });
 
