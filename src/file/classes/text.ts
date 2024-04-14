@@ -1,31 +1,6 @@
 import { HtmlPage } from "../../html";
 import File from "./file";
 import type { PageSettings } from "../../types/site";
-import type { HtmlNode } from "../../types/html";
-import { escapeHtml } from "../../html/utils";
-
-const renderTextFile = ({
-  file,
-  ...config
-}: PageSettings & {
-  file: TextFile;
-}) => {
-  return [
-    "Article",
-    {
-      file,
-      ...config,
-    },
-    [
-      "pre",
-      [
-        "code",
-        { class: `language-${file.extension} has-raw-code` },
-        escapeHtml(file.text),
-      ] as HtmlNode,
-    ],
-  ];
-};
 
 /**
  * Represents any file that can be read as a UTF-8 string.
@@ -62,11 +37,10 @@ class TextFile extends File {
   }
 
   asHtml(settings: PageSettings) {
-    const page = renderTextFile({
-      file: this,
-      ...settings,
-    });
-    return HtmlPage.create(page, settings);
+    return HtmlPage.create(
+      ["Article", { file: this, ...settings }, ["SourceBlock", { file: this }]],
+      settings
+    );
   }
 
   serve(settings: PageSettings) {

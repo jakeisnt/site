@@ -1,44 +1,6 @@
 import TextFile from "./text";
 import { HtmlPage } from "../../html";
 import type { PageSettings } from "../../types/site";
-import { escapeHtml } from "../../html/utils";
-import treeSitter from "tree-sitter-highlight";
-import type { PageSyntax } from "../../types/html";
-
-// if it's a source code file, we want to:
-// - render both to 'file.$ext' and 'file.$ext.html'
-// - hide 'file.$ext' from the index
-// - show 'file.$ext.html' in the index, looking like 'file.$ext'
-// same args as above fn, but without the articleHtml.
-
-const renderSourceFile = ({
-  file,
-  ...settings
-}: PageSettings & { file: SourceFile }): PageSyntax => {
-  // This is a quick way to snag the language;
-  // we access the enum member with an uppercase version of the file extension.
-  // It's fine.
-  // @ts-ignore
-  const language = treeSitter.Language?.[file.extension?.toUpperCase()];
-
-  return [
-    "Article",
-    {
-      file,
-      ...settings,
-    },
-    [
-      "pre",
-      [
-        "code",
-        { class: `language-${file.extension} has-raw-code` },
-        language
-          ? treeSitter.highlight(file.text, language)
-          : escapeHtml(file.text),
-      ],
-    ],
-  ];
-};
 
 /**
  * A source code file.
@@ -54,12 +16,10 @@ class SourceFile extends TextFile {
   public fakeFileOf: SourceFile | undefined;
 
   asHtml(settings: PageSettings) {
-    const page = renderSourceFile({
-      file: this,
-      ...settings,
-    });
-
-    return HtmlPage.create(page, settings);
+    return HtmlPage.create(
+      ["Article", { file: this, ...settings }, ["SourceBlock", { file: this }]],
+      settings
+    );
   }
 }
 
