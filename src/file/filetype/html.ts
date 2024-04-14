@@ -28,6 +28,7 @@ class HTMLFile extends SourceFile {
    * Create an HTML file from path.
    */
   static create(filePath: Path, cfg: PageSettings) {
+    console.log("does file path exist?", filePath.toString());
     // if we have the html, just return it
     if (filePath.exists()) {
       return new HTMLFile(filePath, cfg);
@@ -36,7 +37,9 @@ class HTMLFile extends SourceFile {
     // Otherwise, try to get the non-html version of the file.
     // if the path is a directory, this won't work;
     // we then get the containing directory if this fails.
-    const path = Path.create(filePath.toString().replace(".html", ""));
+    const path = filePath.replaceExtension();
+
+    console.log("fetching path ", path.toString());
 
     let prevFile: File;
     try {
