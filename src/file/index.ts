@@ -16,6 +16,11 @@ import type { PageSettings } from "../types/site";
  * and associate them with their filetype names.
  */
 
+// key: a file extension
+// value: a list of files that can compile to that file extension
+// by invoking a function with that extension's name
+const compileMap: { [key: string]: (typeof File)[] } = {};
+
 type FiletypeMap = { [key: string]: typeof File };
 
 let filetypeMap: FiletypeMap;
@@ -50,6 +55,10 @@ const getFiletypeMap = (cfg: PageSettings) => {
         }
 
         newFiletypeMap[fileType] = fileClass;
+      });
+
+      fileClass.targets?.forEach((target: string) => {
+        compileMap[target] = (compileMap?.[target] ?? []).concat(fileClass);
       });
     });
 
