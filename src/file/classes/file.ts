@@ -25,7 +25,7 @@ class File {
     this.path = filePath;
   }
 
-  static create(path: Path) {
+  static create(path: Path, cfg: PageSettings) {
     return new this(path);
   }
 
@@ -72,9 +72,9 @@ class File {
   /**
    * Get the parent directory of this file.
    */
-  get directory(): Directory {
+  directory(): Directory {
     // A `parent` file, by definition, is a directory that contains this one.
-    return readFile(this.path.parent) as any as Directory;
+    return readFile(this.path.parent) as unknown as Directory;
   }
 
   /**

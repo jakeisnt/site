@@ -3,7 +3,7 @@ const findFileIndex = (files, file) => {
 };
 
 const prevNextUpHtml = ({ file, rootUrl, sourceDir }) => {
-  const dir = file.directory;
+  const dir = file.directory();
 
   const contents = dir.contents();
 

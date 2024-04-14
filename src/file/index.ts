@@ -1,18 +1,20 @@
 import { Path } from "utils/path";
 import File from "./classes/file";
 
-import logger from "utils/log";
 import Directory from "./filetype/directory";
 import TextFile from "file/classes/text";
 import JavascriptFile from "./filetype/js";
+import type { PageSettings } from "../types/site";
 
-// this file should be a standard interface for interacting with files.
-//
-// you should be able to create a file with a path string
-// and the specific file class should handle the rest.
-
-// import all the files from the 'filetype' directory
-// and associate them with their filetype names
+/*
+ * A standard interface for interacting with files.
+ *
+ * Create a file with the provided path string
+ * and the specific file class should handle the rest.
+ *
+ * Import all the files from the 'filetype' directory
+ * and associate them with their filetype names.
+ */
 
 type FiletypeMap = { [key: string]: typeof File };
 
@@ -60,14 +62,9 @@ const fileCache: { [key: string]: File } = {};
  * Given the source path of a file, return the appropriate file class.
  * @param {string} incomingPath - The source path of the file.
  * @param {Object} options - Additional options.
- * @param {string} options.sourceDir - The source directory.
- * @param {string} options.fallbackSourceDir - The fallback source directory.
  * @returns {Object} The appropriate file class.
  */
-const readFile = (
-  incomingPath: string | Path,
-  options?: { sourceDir: string; fallbackSourceDir?: string }
-): File => {
+const readFile = (incomingPath: string | Path, options: PageSettings): File => {
   if (!filetypeMap) {
     filetypeMap = getFiletypeMap();
   }
@@ -90,10 +87,10 @@ const readFile = (
         `We don't have a filetype mapping for files with extension ${extension}. Assuming plaintext for file at path '${path.toString()}'.`
       );
 
-      fileCache[path.toString()] = TextFile.create(path);
+      fileCache[path.toString()] = TextFile.create(path, options);
     } else {
       const FiletypeClass = filetypeMap[extension];
-      fileCache[path.toString()] = FiletypeClass.create(path);
+      fileCache[path.toString()] = FiletypeClass.create(path, options);
     }
   }
 

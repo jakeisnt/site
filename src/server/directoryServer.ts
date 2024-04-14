@@ -7,6 +7,39 @@ import { readFile } from "../file";
 import { createServer } from "./createServer";
 import Directory from "../file/filetype/directory";
 import { homePage } from "../pages/home";
+import type { PageSettings } from "../types/site";
+
+/**
+ * Format page settings according to the provided arguments.
+ */
+const getPageSettings = ({
+  url,
+  port,
+  siteName,
+  absolutePathToDirectory,
+  fallbackDirPath,
+}: {
+  url: string;
+  port: number;
+  siteName: string;
+  absolutePathToDirectory: Path;
+  fallbackDirPath: string;
+}): PageSettings => {
+  const sourceDir = absolutePathToDirectory.toString();
+  const devUrl = formatUrl({ url, port });
+  const resourcesDir = `${sourceDir}/resources`;
+  const faviconsDir = `${sourceDir}/favicons`;
+
+  return {
+    siteName,
+    sourceDir,
+    fallbackSourceDir: fallbackDirPath,
+    faviconsDir,
+    resourcesDir,
+    rootUrl: devUrl,
+    targetDir: absolutePathToDirectory.toString() + "/docs",
+  };
+};
 
 /**
  * Serve the files in a directory.
@@ -28,20 +61,27 @@ const directoryServer = ({
   siteName: string;
   devWebsocketUrl: string;
 }) => {
-  const dir = readFile(absolutePathToDirectory, {
-    sourceDir: absolutePathToDirectory.toString(),
-    fallbackSourceDir: fallbackDirPath,
-  }) as unknown as Directory;
+  let pageSettings = getPageSettings({
+    url,
+    port,
+    siteName,
+    absolutePathToDirectory,
+    fallbackDirPath,
+  });
 
-  const devUrl = formatUrl({ url, port });
+  const dir = readFile(
+    absolutePathToDirectory,
+    pageSettings
+  ) as unknown as Directory;
+
   let fallbackDir: Directory;
 
   try {
     if (fallbackDirPath) {
-      fallbackDir = readFile(fallbackDirPath, {
-        sourceDir: absolutePathToDirectory.toString(),
-        fallbackSourceDir: fallbackDirPath,
-      }) as unknown as Directory;
+      fallbackDir = readFile(
+        fallbackDirPath,
+        pageSettings
+      ) as unknown as Directory;
     }
   } catch (e: any) {
     log.debug("Error finding fallback dir:", e.message);
@@ -53,9 +93,13 @@ const directoryServer = ({
     );
   }
 
-  const sourceDir = dir.path.toString();
-  const resourcesDir = `${sourceDir}/resources`;
-  const faviconsDir = `${sourceDir}/favicons`;
+  pageSettings = getPageSettings({
+    url,
+    port,
+    siteName,
+    absolutePathToDirectory: dir.path,
+    fallbackDirPath,
+  });
 
   createServer({
     url,
@@ -68,13 +112,8 @@ const directoryServer = ({
       // If we request the root, serve up the home page
       if (["", "/", "/index", "/index.html"].includes(pathToUse.toString())) {
         return makeFileResponse(homePage(), {
-          sourceDir: dir.path.toString(),
-          siteName,
-          devUrl,
+          ...pageSettings,
           devWebsocketUrl,
-          resourcesDir,
-          faviconsDir,
-          targetDir: sourceDir,
         });
       }
 
@@ -94,15 +133,7 @@ const directoryServer = ({
         return new Response("Not found", { status: 404 });
       }
 
-      return makeFileResponse(file, {
-        siteName,
-        sourceDir,
-        devUrl,
-        devWebsocketUrl,
-        resourcesDir,
-        faviconsDir,
-        targetDir: sourceDir,
-      });
+      return makeFileResponse(file, { ...pageSettings, devWebsocketUrl });
     },
 
     onSocketConnected: (ws) => {

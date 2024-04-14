@@ -1,21 +1,20 @@
 import { SourceFile } from "file/classes";
-
-import { sourceDir } from "../../constants";
 import * as sass from "sass";
 const { pathToFileURL } = require("url");
 import { wrapFile } from "../classes/utils";
 import type CSSFile from "./css";
+import type { PageSettings } from "../../types/site";
 
 /**
  * Convert provided SCSS text to a CSS string.
  */
-const scssToCss = (scssFile: SourceFile) => {
-  const result = sass.compileString(scssFile.text, {
+const scssToCss = (scssFile: SourceFile, cfg: PageSettings) => {
+  const result = sass.compileString(scssFile.text(cfg), {
     sourceMap: false,
     importers: [
       {
         findFileUrl(url) {
-          const nextUrl = new URL(url, pathToFileURL(`${sourceDir}/`));
+          const nextUrl = new URL(url, pathToFileURL(`${cfg.sourceDir}/`));
           return nextUrl;
         },
       },
@@ -29,8 +28,8 @@ class SCSSFile extends SourceFile {
   public static filetypes = ["scss", "sass"];
   public static targets = ["css"];
 
-  css() {
-    return wrapFile(this, scssToCss, {
+  css(cfg: PageSettings) {
+    return wrapFile(this, (f) => scssToCss(f, cfg), {
       extension: "css",
     }) as CSSFile;
   }

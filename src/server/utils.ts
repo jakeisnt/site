@@ -1,4 +1,5 @@
 import File from "../file/classes/file";
+import type { PageSettings } from "../types/site";
 
 /**
  * Format a URL with the URL, port, and path.
@@ -51,24 +52,16 @@ const makeFileResponse = (
   {
     siteName,
     sourceDir,
-    devUrl,
+    rootUrl,
     devWebsocketUrl,
     resourcesDir,
     faviconsDir,
     targetDir,
-  }: {
-    siteName: string;
-    sourceDir: string;
-    devUrl: string;
-    devWebsocketUrl: string;
-    resourcesDir: string;
-    faviconsDir: string;
-    targetDir: string;
-  }
+  }: PageSettings & { devWebsocketUrl: string }
 ) => {
   const { contents, mimeType } = file.serve({
     siteName,
-    rootUrl: devUrl,
+    rootUrl,
     sourceDir,
     targetDir,
     resourcesDir,

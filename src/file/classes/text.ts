@@ -24,7 +24,7 @@ class TextFile extends File {
     return this;
   }
 
-  get text(): string {
+  text(config: PageSettings): string {
     if (!this.asString) {
       this.read();
     }
@@ -44,7 +44,7 @@ class TextFile extends File {
   }
 
   serve(settings: PageSettings) {
-    return { contents: this.text, mimeType: this.mimeType };
+    return { contents: this.text(settings), mimeType: this.mimeType };
   }
 }
 

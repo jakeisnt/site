@@ -21,14 +21,14 @@ class JavascriptFile extends SourceFile {
    * Also write an equivalent file without an extension
    * to support imports like `import lib from 'lib'`.
    */
-  write(config: PageSettings) {
-    const { sourceDir, targetDir } = config;
+  write(cfg: PageSettings) {
+    const { sourceDir, targetDir } = cfg;
 
     const targetPath = this.path.relativeTo(sourceDir, targetDir);
-    targetPath.writeString(this.text);
+    targetPath.writeString(this.text(cfg));
 
     const targetNonJSPath = targetPath.replaceExtension();
-    targetNonJSPath.writeString(this.text);
+    targetNonJSPath.writeString(this.text(cfg));
 
     return this;
   }
@@ -37,7 +37,7 @@ class JavascriptFile extends SourceFile {
    * Create this file if it exists.
    * Otherwise, dispatch to a compile source and convert it.
    */
-  static create(filePath: Path): JavascriptFile {
+  static create(filePath: Path, cfg: PageSettings): JavascriptFile {
     if (filePath.exists()) {
       return new JavascriptFile(filePath);
     }
@@ -65,7 +65,7 @@ class JavascriptFile extends SourceFile {
     const tsPath = filePath.replaceExtension("ts");
     const typescriptFile = readFile(tsPath) as TypescriptFile;
 
-    return typescriptFile.js();
+    return typescriptFile.js(cfg);
   }
 }
 
