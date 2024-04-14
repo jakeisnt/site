@@ -234,10 +234,20 @@ class Directory extends File {
   }
 
   /**
+   * This file has no text.
+   * Maybe I'll discover a way to render as text at some point.
+   * This is necessary because overrides for serve() rely on overriding this.text
+   * so that e.g. an HTML file can return '' for the text
+   */
+  text(cfg: PageSettings) {
+    return "";
+  }
+
+  /**
    * Serve the directory as HTML.
    */
   serve(args: PageSettings) {
-    return { contents: this.asHtml(args).toString(), mimeType: this.mimeType };
+    return { contents: this.text(args), mimeType: this.mimeType };
   }
 
   /**
