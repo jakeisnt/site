@@ -41,7 +41,7 @@ class JavascriptFile extends SourceFile {
     const tsPath = filePath.replaceExtension("ts");
     const typescriptFile = readFile(tsPath) as TypescriptFile;
 
-    return typescriptFile.asJSFile();
+    return typescriptFile.js();
   }
 }
 

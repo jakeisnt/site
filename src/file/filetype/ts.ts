@@ -15,7 +15,7 @@ class TypescriptFile extends SourceFile {
   public static filetypes = ["ts"];
   public static targets = ["js"];
 
-  asJSFile() {
+  js() {
     return wrapFile(this, tsToJs, this.path, {
       extension: "js",
       mimeType: "text/javascript",
