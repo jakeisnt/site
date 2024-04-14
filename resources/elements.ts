@@ -1,7 +1,5 @@
 import { create, all } from "./lib";
 
-declare var hljs: any | undefined;
-
 /* enhancements to native html elements */
 
 /**
@@ -48,8 +46,6 @@ const loadCodeBlocks = () => {
       codeContainer
     );
 
-    console.log(label);
-
     if (codeBlock.classList[1] === "has-raw-code") {
       const rawCodeURL = codeBlock.classList[2];
       const rawCode = create(
@@ -65,13 +61,7 @@ const loadCodeBlocks = () => {
         },
         buttonCodeContainer
       );
-
-      console.log(rawCode);
     }
-  });
-
-  all(codeBlocks).forEach((block) => {
-    hljs.highlightElement(block);
   });
 };
 
