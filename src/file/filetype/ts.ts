@@ -13,6 +13,7 @@ const tsToJs = (tsFile: SourceFile) => {
 
 class TypescriptFile extends SourceFile {
   public static filetypes = ["ts"];
+  public static targets = ["js"];
 
   asJSFile() {
     return wrapFile(this, tsToJs, this.path, {

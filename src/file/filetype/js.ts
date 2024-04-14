@@ -35,6 +35,9 @@ class JavascriptFile extends SourceFile {
     }
 
     // If we don't have the JS file, try grabbing the TS file.
+
+    // Really, though, this file should not have to know what can compile to it.
+    // We need to register that in the source file somehow.
     const tsPath = filePath.replaceExtension("ts");
     const typescriptFile = readFile(tsPath) as TypescriptFile;
 

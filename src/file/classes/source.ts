@@ -15,6 +15,11 @@ class SourceFile extends TextFile {
   // reading SCSS as CSS, etc.
   public fakeFileOf?: SourceFile;
 
+  // The source file types that this file represents
+  public static filetypes: string[] = [];
+  // The supported target file types of this file, if any
+  public static targets: string[] = [];
+
   asHtml(settings: PageSettings) {
     return HtmlPage.create(
       ["Article", { file: this, ...settings }, ["SourceBlock", { file: this }]],
