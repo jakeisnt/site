@@ -26,6 +26,9 @@ test("replaceExtension", () => {
   expect(Path.create("/a/b/c.js").replaceExtension("ts")).toEqual(
     Path.create("/a/b/c.ts")
   );
+  expect(Path.create("/a/b/c.js.html").replaceExtension()).toEqual(
+    Path.create("/a/b/c.js")
+  );
 });
 
 test("relativeTo poop", () => {

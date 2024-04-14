@@ -269,7 +269,8 @@ class Path {
   /**
    * Replace the path's extension with a new one.
    * @argument extension the extension WITHOUT a prefixed period
-   * if undefined, extension is dropped
+   * if undefined, the extension is dropped
+   * if the path has multiple extensions, the last one is dropped
    */
   replaceExtension(extension?: string) {
     let newPathWithExtension = this.pathString;
@@ -277,7 +278,7 @@ class Path {
       newPathWithExtension += `.${extension}`;
     } else {
       newPathWithExtension = newPathWithExtension.replace(
-        /\.\S+$/,
+        /\.[a-zA-Z0-9]+$/,
         extension ? `.${extension}` : ""
       );
     }
