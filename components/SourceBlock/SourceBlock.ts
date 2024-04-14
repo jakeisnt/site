@@ -5,7 +5,10 @@ import treeSitter from "tree-sitter-highlight";
 const SourceBlock = ({ file }: { file: TextFile }) => ({
   dependsOn: [
     {
-      src: "/components/SourceBlock/source-block.scss",
+      src: "/components/SourceBlock/source-block.css",
+    },
+    {
+      src: "/components/SourceBlock/load-code-blocks.js",
     },
   ],
   body: (() => {
