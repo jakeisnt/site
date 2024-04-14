@@ -55,6 +55,10 @@ const makeDependencies = (
       return;
     }
 
+    if (dep.src === settings.targetDir) {
+      return;
+    }
+
     try {
       const file = readFile(linkStringToFile(dep.src, settings), settings);
       res.push(file);

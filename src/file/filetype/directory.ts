@@ -144,10 +144,6 @@ class Directory extends File {
         }
       });
 
-      // this .filter() is not working with typescript,
-      // so we use a forEach to iterate instead
-      // return maybeJSFiles.filter((f) => !!f);
-
       const retFiles: File[] = [];
       maybeJSFiles.forEach((f) => {
         if (f) {
@@ -164,6 +160,8 @@ class Directory extends File {
 
     const fileContents = this.path
       .readDirectory()
+      // SHORTCUT: Fixes a bug where the site creates itself infinitely
+      .filter((v) => v.toString() !== this.cachedConfig.targetDir)
       .map((v) => readFile(v, this.cachedConfig));
 
     this.enumeratedContents = fileContents;

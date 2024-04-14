@@ -27,8 +27,8 @@ const buildSiteFromFile = (
 const buildFromPath = (settings: PageSettings) => {
   const { sourceDir, targetDir, ignorePaths } = settings;
 
-  // start off from the root, source dir,
-  // bootstrap by reading the root file as HTML
+  // Start off from the root, source dir,
+  // Pootstrap the process by reading the root file as HTML.
   const dir = readFile(sourceDir.toString() + "/index.html", settings);
 
   console.log("Starting with", dir.path.toString());
@@ -42,9 +42,9 @@ const buildFromPath = (settings: PageSettings) => {
     ...(ignorePaths ?? []).map((p) => p + ".html"),
     targetDir.toString(),
     // hardcode in the .git ignore path so i dont fuck up
-    // sourceDir + "/.git",
-    // sourceDir + "/.direnv",
-    // sourceDir + "/node_modules",
+    sourceDir + "/.git",
+    sourceDir + "/.direnv",
+    sourceDir + "/node_modules",
     targetDir.toString() + ".html",
     targetDir.toString() + "/index.html",
   ]);
