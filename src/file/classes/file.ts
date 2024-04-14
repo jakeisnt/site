@@ -10,10 +10,22 @@ class File {
   // the full path to the file
   public path: Path;
 
+  // The page settings config used within this file's lifetime
+  public cachedConfig: PageSettings;
+
+  // If this file is 'pretending' to be another file,
+  // the file that this was wrapped around is accessible here.
+
+  // This allows us to pull tricks like asking questions about a
+  // javascript file when the actual file is written in typescript,
+  // converting configuration files into others on the fly,
+  // reading SCSS as CSS, etc.
+  public fakeFileOf?: File;
+
   /**
    * Construct a file.
    */
-  constructor(pathArg: Path) {
+  constructor(pathArg: Path, cfg: PageSettings) {
     const filePath = Path.create(pathArg);
 
     if (!filePath.exists()) {
@@ -23,10 +35,11 @@ class File {
     }
 
     this.path = filePath;
+    this.cachedConfig = cfg;
   }
 
-  static create(path: Path) {
-    return new this(path);
+  static create(path: Path, cfg: PageSettings) {
+    return new this(path, cfg);
   }
 
   /**
@@ -70,11 +83,25 @@ class File {
   }
 
   /**
+   * By default, files haven o text.
+   *
+   * Maybe I'll discover a way to render as text at some point.
+   * This is necessary because overrides for serve() rely on overriding this.text
+   * so that e.g. an HTML file can return '' for the text
+   */
+  text(cfg: PageSettings) {
+    return "";
+  }
+
+  /**
    * Get the parent directory of this file.
    */
-  get directory(): Directory {
+  directory(cfg?: PageSettings): Directory {
     // A `parent` file, by definition, is a directory that contains this one.
-    return readFile(this.path.parent) as any as Directory;
+    return readFile(
+      this.path.parent,
+      this.cachedConfig
+    ) as unknown as Directory;
   }
 
   /**
@@ -97,16 +124,7 @@ class File {
   // if provided a directory, get the url to the directory with index.html postfixed (?)
   htmlUrl({ rootUrl, sourceDir }: { rootUrl: string; sourceDir: string }) {
     const relativeToSource = this.path.relativeTo(sourceDir);
-
-    const isRootPath =
-      !relativeToSource.toString().length ||
-      relativeToSource?.toString() === "/";
-
-    if (isRootPath) {
-      return rootUrl + "/index.html";
-    }
-
-    return rootUrl + relativeToSource.toString() + ".html";
+    return rootUrl + relativeToSource.addExtension("html");
   }
 
   get repo() {
@@ -139,11 +157,11 @@ class File {
   }
 
   /**
-   * Serve the file.
-   * By default, this should serve the file as a binary?
+   * Serve the file as HTML.
+   * By default, assume the file has some text output and try to get that.
    */
-  serve(args: PageSettings): { contents: string; mimeType: string } {
-    throw new Error("File.serve() is not implemented");
+  serve(args: PageSettings) {
+    return { contents: this.text(args), mimeType: this.mimeType };
   }
 
   /**

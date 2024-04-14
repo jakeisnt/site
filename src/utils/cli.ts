@@ -97,9 +97,9 @@ class CLI {
 
   printHelp() {
     console.log(
-      `${bold(this.name)}${this.description ? `: ${this.description}` : ""}`
+      `${bold(this.name)}${this.description ? `: ${this.description}` : ""}\n`
     );
-    console.log(``);
+
     const maxNameLength = this.options.reduce(
       (max, o) => Math.max(max, o.name.length),
       0
@@ -109,8 +109,6 @@ class CLI {
       const spaces = makeSpaces(maxNameLength - o.name.length);
       console.log(`  ${color(o.name, "blue")} ${spaces} ${o.description}`);
     });
-
-    console.log(``);
   }
 }
 

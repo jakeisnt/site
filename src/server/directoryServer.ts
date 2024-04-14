@@ -2,11 +2,12 @@ import { Path } from "../utils/path";
 
 import log from "utils/log";
 
-import { formatUrl, makeFileResponse } from "./utils";
+import { makeFileResponse } from "./utils";
 import { readFile } from "../file";
 import { createServer } from "./createServer";
 import Directory from "../file/filetype/directory";
 import { homePage } from "../pages/home";
+import { getPageSettings } from "./utils";
 
 /**
  * Serve the files in a directory.
@@ -19,29 +20,36 @@ const directoryServer = ({
   url,
   port,
   siteName,
-  devWebsocketUrl,
+  websocketPath,
 }: {
   absolutePathToDirectory: Path;
   fallbackDirPath: string;
   url: string;
   port: number;
   siteName: string;
-  devWebsocketUrl: string;
+  websocketPath: string;
 }) => {
-  const dir = readFile(absolutePathToDirectory, {
-    sourceDir: absolutePathToDirectory.toString(),
-    fallbackSourceDir: fallbackDirPath,
-  }) as unknown as Directory;
+  let pageSettings = getPageSettings({
+    url,
+    port,
+    siteName,
+    absolutePathToDirectory,
+    fallbackDirPath,
+  });
 
-  const devUrl = formatUrl({ url, port });
+  const dir = readFile(
+    absolutePathToDirectory,
+    pageSettings
+  ) as unknown as Directory;
+
   let fallbackDir: Directory;
 
   try {
     if (fallbackDirPath) {
-      fallbackDir = readFile(fallbackDirPath, {
-        sourceDir: absolutePathToDirectory.toString(),
-        fallbackSourceDir: fallbackDirPath,
-      }) as unknown as Directory;
+      fallbackDir = readFile(
+        fallbackDirPath,
+        pageSettings
+      ) as unknown as Directory;
     }
   } catch (e: any) {
     log.debug("Error finding fallback dir:", e.message);
@@ -53,28 +61,26 @@ const directoryServer = ({
     );
   }
 
-  const sourceDir = dir.path.toString();
-  const resourcesDir = `${sourceDir}/resources`;
-  const faviconsDir = `${sourceDir}/favicons`;
+  pageSettings = getPageSettings({
+    url,
+    port,
+    siteName,
+    absolutePathToDirectory: dir.path,
+    fallbackDirPath,
+  });
 
   createServer({
     url,
     port,
-    websocketPath: devWebsocketUrl,
+    websocketPath,
     onRequest: ({ path }: { path: Path }) => {
       let pathToUse = Path.create(path);
 
-      console.log(pathToUse.toString());
       // If we request the root, serve up the home page
       if (["", "/", "/index", "/index.html"].includes(pathToUse.toString())) {
-        return makeFileResponse(homePage(), {
-          sourceDir: dir.path.toString(),
-          siteName,
-          devUrl,
-          devWebsocketUrl,
-          resourcesDir,
-          faviconsDir,
-          targetDir: sourceDir,
+        return makeFileResponse(homePage(pageSettings), {
+          ...pageSettings,
+          websocketPath,
         });
       }
 
@@ -83,26 +89,19 @@ const directoryServer = ({
         pathToUse = Path.create(path.parent.toString() + ".html");
       }
 
-      log.debug("Finding file: ", dir.toString(), pathToUse.toString());
-      let file = dir.findFile(pathToUse);
+      // we look for a directory with .html,
+      // then fall back to types.html
+
+      let file = dir.findFile(pathToUse, pageSettings);
       if (!file) {
         // if we can't find the file, attempt to find it in a fallback directory.
-        file = fallbackDir?.findFile(pathToUse);
+        file = fallbackDir?.findFile(pathToUse, pageSettings);
       }
-
       if (!file) {
         return new Response("Not found", { status: 404 });
       }
 
-      return makeFileResponse(file, {
-        siteName,
-        sourceDir,
-        devUrl,
-        devWebsocketUrl,
-        resourcesDir,
-        faviconsDir,
-        targetDir: sourceDir,
-      });
+      return makeFileResponse(file, { ...pageSettings, websocketPath });
     },
 
     onSocketConnected: (ws) => {

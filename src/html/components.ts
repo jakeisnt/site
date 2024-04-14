@@ -14,6 +14,8 @@ const getDependency = (path: Path): PageSyntax => {
   switch (extension) {
     case "js":
       return ["script", { src: path.toString(), type: "module" }];
+    case "ts":
+      return getDependency(path.replaceExtension("js"));
     case "css":
       return ["link", { rel: "stylesheet", href: path.toString() }];
     case "scss":

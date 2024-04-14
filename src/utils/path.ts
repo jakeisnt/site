@@ -267,9 +267,17 @@ class Path {
   }
 
   /**
+   * Accepts the extension WITHOUT a prefixed period
+   */
+  addExtension(extension: string) {
+    return new Path(`${this.toString()}.${extension}`);
+  }
+
+  /**
    * Replace the path's extension with a new one.
    * @argument extension the extension WITHOUT a prefixed period
-   * if undefined, extension is dropped
+   * if undefined, the extension is dropped
+   * if the path has multiple extensions, the last one is dropped
    */
   replaceExtension(extension?: string) {
     let newPathWithExtension = this.pathString;
@@ -277,7 +285,7 @@ class Path {
       newPathWithExtension += `.${extension}`;
     } else {
       newPathWithExtension = newPathWithExtension.replace(
-        /\.\S+$/,
+        /\.[a-zA-Z0-9]+$/,
         extension ? `.${extension}` : ""
       );
     }
@@ -290,8 +298,7 @@ class Path {
   isDirectory({ noFSOperation } = { noFSOperation: false }) {
     if (noFSOperation) {
       const extension = this.pathString.split(".")[1];
-
-      return extension ? false : true;
+      return !extension;
     }
 
     if (!this.exists()) {
@@ -311,9 +318,11 @@ class Path {
   /**
    * Write a string to the file at this path,
    * creating the file if it doesn't exist.
-   *
    */
   writeString(str: string) {
+    // if (this.isDirectory({ noFSOperation: true })) {
+    //   throw new Error("Cannot write a string to a non-directory file");
+    // }
     this.make();
     fs.writeFileSync(this.pathString, str);
   }

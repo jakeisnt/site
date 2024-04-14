@@ -1,14 +1,14 @@
 import TextFile from "../../src/file/classes/text";
-import { escapeHtml } from "../../src/html/utils";
+import { escapeHTML } from "bun";
 import treeSitter from "tree-sitter-highlight";
 
 const SourceBlock = ({ file }: { file: TextFile }) => ({
   dependsOn: [
     {
-      src: "/components/SourceBlock/source-block.css",
+      src: "/components/SourceBlock/source-block.scss",
     },
     {
-      src: "/components/SourceBlock/load-code-blocks.js",
+      src: "/components/SourceBlock/load-code-blocks.ts",
     },
   ],
   body: (() => {
@@ -24,8 +24,8 @@ const SourceBlock = ({ file }: { file: TextFile }) => ({
         "code",
         { class: `language-${file.extension} has-raw-code` },
         language
-          ? treeSitter.highlight(file.text, language)
-          : escapeHtml(file.text),
+          ? treeSitter.highlight(file.text(), language)
+          : escapeHTML(file.text()),
       ],
     ];
   })(),

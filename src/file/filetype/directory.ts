@@ -9,8 +9,8 @@ import { Path } from "../../utils/path";
 /**
  * Read a javascript file to string.
  */
-const readJSFile = (path: Path) => {
-  return new JSFile(path);
+const readJSFile = (path: Path, cfg: PageSettings) => {
+  return new JSFile(path, cfg);
 };
 
 const folderIndexPageTable = ({
@@ -102,15 +102,16 @@ class Directory extends File {
   private enumeratedDependencies: File[] | undefined = undefined;
   private enumeratedHtml: HtmlPage | undefined = undefined;
 
-  // recursively fetch and flatten the file tree
-  // the result should contain no directories
-  tree() {
-    const myContents = this.contents();
+  /**
+   * Recursively fetch and flatten the file tree.
+   */
+  tree(cfg: PageSettings) {
+    const myContents = this.contents(cfg);
     const childFiles: File[] = [];
 
     myContents.forEach((file) => {
       if (file.isDirectory()) {
-        childFiles.push(...file.tree());
+        childFiles.push(...file.tree(cfg));
       } else {
         childFiles.push(file);
       }
@@ -126,6 +127,7 @@ class Directory extends File {
    * @param {boolean} omitNonJSFiles - Flag to bootstrap the setup. The 'readFile' function dispatches based on this flag to force JavaScript files.
    */
   contents(
+    cfg?: PageSettings,
     { omitNonJSFiles = false }: { omitNonJSFiles: boolean } = {
       omitNonJSFiles: false,
     }
@@ -138,13 +140,9 @@ class Directory extends File {
         if (childPath.extension !== "js" && childPath.extension !== "ts") {
           return undefined;
         } else {
-          return readJSFile(childPath);
+          return readJSFile(childPath, this.cachedConfig);
         }
       });
-
-      // this .filter() is not working with typescript,
-      // so we use a forEach to iterate instead
-      // return maybeJSFiles.filter((f) => !!f);
 
       const retFiles: File[] = [];
       maybeJSFiles.forEach((f) => {
@@ -160,7 +158,12 @@ class Directory extends File {
       return this.enumeratedContents;
     }
 
-    const fileContents = this.path.readDirectory().map((v) => readFile(v));
+    const fileContents = this.path
+      .readDirectory()
+      // SHORTCUT: Fixes a bug where the site creates itself infinitely
+      .filter((v) => v.toString() !== this.cachedConfig.targetDir)
+      .map((v) => readFile(v, this.cachedConfig));
+
     this.enumeratedContents = fileContents;
     return fileContents;
   }
@@ -169,14 +172,19 @@ class Directory extends File {
    * Given a file path relative to this directory,
    * find the relevant source file.
    */
-  findFile(relativePath: Path) {
+  findFile(relativePath: Path, cfg: PageSettings) {
     const path = this.path.join(relativePath);
 
     try {
-      return readFile(path);
+      return readFile(path, cfg);
     } catch (e) {
       return null;
     }
+  }
+
+  htmlUrl({ sourceDir }: { sourceDir: string }) {
+    const relativeToSource = this.path.relativeTo(sourceDir);
+    return relativeToSource.toString() + "/index.html";
   }
 
   write(config: PageSettings) {
@@ -219,7 +227,7 @@ class Directory extends File {
    */
   asHtml(settings: PageSettings) {
     if (!this.enumeratedHtml) {
-      const files = this.contents();
+      const files = this.contents(settings);
       const page = directoryToHtml(this, {
         files,
         ...settings,
@@ -229,13 +237,6 @@ class Directory extends File {
     }
 
     return this.enumeratedHtml;
-  }
-
-  /**
-   * Serve the directory as HTML.
-   */
-  serve(args: PageSettings) {
-    return { contents: this.asHtml(args).toString(), mimeType: this.mimeType };
   }
 
   /**

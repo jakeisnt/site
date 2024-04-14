@@ -1,43 +1,40 @@
-import { create, all } from "/resources/lib";
-/**
- * Improve code blocks with button interactivity
- */
-var loadCodeBlocks = function () {
-    var codeBlocks = "pre code";
-    all(codeBlocks).forEach(function (codeBlock) {
-        var codeContainer = codeBlock.parentElement;
-        if (!codeContainer) {
-            console.log("Couldn't find a code container. Running away!");
-            return;
+import {create, all} from "/resources/lib";
+const loadCodeBlocks = () => {
+  const codeBlocks = "pre code";
+  all(codeBlocks).forEach((codeBlock) => {
+    const codeContainer = codeBlock.parentElement;
+    if (!codeContainer) {
+      console.log(`Couldn't find a code container. Running away!`);
+      return;
+    }
+    codeContainer.style.position = "relative";
+    const buttonCodeContainer = create("div", { class: "insetButtonPanel" }, codeContainer);
+    const btn = create("button", {
+      class: "inset",
+      innerText: "Copy",
+      onclick: (e) => {
+        const codeContents = codeBlock.innerText;
+        navigator.clipboard.writeText(codeContents);
+      }
+    }, buttonCodeContainer);
+    const label = create("div", {
+      class: "label inset",
+      innerText: codeBlock.classList[0].replace("language-", "")
+    }, codeContainer);
+    if (codeBlock.classList[1] === "has-raw-code") {
+      const rawCodeURL = codeBlock.classList[2];
+      const rawCode = create("button", {
+        class: "inset",
+        innerText: "Raw",
+        href: rawCodeURL,
+        onclick: (e) => {
+          console.log("opening window", rawCodeURL);
+          window.open(rawCodeURL, "_blank");
         }
-        codeContainer.style.position = "relative";
-        var buttonCodeContainer = create("div", { class: "insetButtonPanel" }, codeContainer);
-        var btn = create("button", {
-            class: "inset",
-            innerText: "Copy",
-            onclick: function (e) {
-                var codeContents = codeBlock.innerText;
-                navigator.clipboard.writeText(codeContents);
-            },
-        }, buttonCodeContainer);
-        var label = create("div", {
-            class: "label inset",
-            innerText: codeBlock.classList[0].replace("language-", ""),
-        }, codeContainer);
-        if (codeBlock.classList[1] === "has-raw-code") {
-            var rawCodeURL_1 = codeBlock.classList[2];
-            var rawCode = create("button", {
-                class: "inset",
-                innerText: "Raw",
-                href: rawCodeURL_1,
-                onclick: function (e) {
-                    console.log("opening window", rawCodeURL_1);
-                    window.open(rawCodeURL_1, "_blank");
-                },
-            }, buttonCodeContainer);
-        }
-    });
+      }, buttonCodeContainer);
+    }
+  });
 };
-document.addEventListener("DOMContentLoaded", function (event) {
-    loadCodeBlocks();
+document.addEventListener("DOMContentLoaded", (event) => {
+  loadCodeBlocks();
 });
