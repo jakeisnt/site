@@ -3,6 +3,8 @@ import type { Path } from "../path";
 import RepoCommit from "./commit";
 import logger from "utils/log";
 
+const ignoredDirectories = new Set([".git", ".direnv", "node_modules"]);
+
 /**
  * A file we know to be in a git repository.
  */
@@ -35,9 +37,8 @@ class RepoFile {
    * SHORTCUT: This obviously is not well thought out.
    */
   isIgnored() {
-    return (
-      this.path.pathArray.includes(".git") ||
-      this.path.pathArray.includes("node_modules")
+    return this.path.pathArray.some((pathval) =>
+      ignoredDirectories.has(pathval)
     );
   }
 
