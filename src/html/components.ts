@@ -9,17 +9,17 @@ import type { Dependency, PageSyntax } from "../types/html";
  * Convert a Path-specified dependency into an HTML tag.
  * Usually used to pull them into frontmatter.
  */
-const getDependency = (path: Path): PageSyntax => {
+const getDependency = ({ src: path, ...etc }: { src: Path }): PageSyntax => {
   const extension = path.extension;
   switch (extension) {
     case "js":
-      return ["script", { src: path.toString(), type: "module" }];
+      return ["script", { src: path.toString(), type: "module", ...etc }];
     case "ts":
-      return getDependency(path.replaceExtension("js"));
+      return getDependency({ src: path.replaceExtension("js"), ...etc });
     case "css":
-      return ["link", { rel: "stylesheet", href: path.toString() }];
+      return ["link", { rel: "stylesheet", href: path.toString(), ...etc }];
     case "scss":
-      return getDependency(path.replaceExtension("css"));
+      return getDependency({ src: path.replaceExtension("css"), ...etc });
     default:
       throw new Error(`Unknown extension: ${extension}`);
   }
@@ -33,8 +33,8 @@ const makeDependencyHeader = (dependencies: Dependency[]): PageSyntax => {
     return null;
   }
 
-  return dependencies.map(({ src }) => {
-    return getDependency(Path.create(src));
+  return dependencies.map((dep) => {
+    return getDependency({ ...dep, src: Path.create(dep.src) });
   });
 };
 
