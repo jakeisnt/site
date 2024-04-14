@@ -37,10 +37,8 @@ function html(syn: PageSyntax) {
  * Include front matter that configures the document as a whole.
  */
 function htmlPage(syn: PageSyntax, cfg: PageSettings) {
+  config = cfg;
   const { dependsOn, body } = html(syn);
-
-  console.log("cfg for page", { cfg });
-  config = { ...cfg };
 
   return {
     dependsOn,
@@ -220,4 +218,4 @@ function splitTag(tag: string): [HtmlTag, HtmlAttributes] {
   return [match?.[1] as HtmlTag, attr];
 }
 
-export { html, htmlPage };
+export { htmlPage };
