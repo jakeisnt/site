@@ -184,6 +184,11 @@ class Directory extends File {
     }
   }
 
+  htmlUrl({ sourceDir }: { sourceDir: string }) {
+    const relativeToSource = this.path.relativeTo(sourceDir);
+    return relativeToSource.toString() + "/index.html";
+  }
+
   write(config: PageSettings) {
     const { sourceDir, targetDir } = config;
 

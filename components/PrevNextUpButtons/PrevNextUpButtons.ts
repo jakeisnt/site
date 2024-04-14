@@ -68,7 +68,7 @@ const prevNextUpHtml = ({
           "td",
           [
             "a",
-            { class: "up-button", href: dir.htmlUrl({ rootUrl, sourceDir }) },
+            { class: "up-button", href: dir.htmlUrl({ sourceDir }) },
             dir.name,
           ],
         ],

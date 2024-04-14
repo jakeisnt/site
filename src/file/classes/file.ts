@@ -113,15 +113,6 @@ class File {
   // if provided a directory, get the url to the directory with index.html postfixed (?)
   htmlUrl({ rootUrl, sourceDir }: { rootUrl: string; sourceDir: string }) {
     const relativeToSource = this.path.relativeTo(sourceDir);
-
-    const isRootPath =
-      !relativeToSource.toString().length ||
-      relativeToSource?.toString() === "/";
-
-    if (isRootPath) {
-      return rootUrl + "/index.html";
-    }
-
     return rootUrl + relativeToSource.addExtension("html");
   }
 
