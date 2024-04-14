@@ -123,7 +123,7 @@ class Path {
 
     if (ext) {
       return ext;
-    } else if (this.exists() && this.isDirectory()) {
+    } else if (this.isDirectory()) {
       return "dir";
     }
 
@@ -299,17 +299,11 @@ class Path {
       return !extension;
     }
 
-    // if (!this.exists()) {
-    //   throw new Error(
-    //     `Cannot check if a path is a directory if it doesn't exist. Was looking for path: ${this.pathString}`
-    //   );
-    // }
-
     if (!this.lstats) {
       this.lstats = fs.lstatSync(this.pathString);
     }
 
-    return this.lstats.isDirectory();
+    return this.lstats?.isDirectory();
   }
 
   // read this path as a utf8 string
