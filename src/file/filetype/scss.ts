@@ -30,7 +30,7 @@ class SCSSFile extends SourceFile {
   public static targets = ["css"];
 
   css() {
-    return wrapFile(this, scssToCss, this.path, {
+    return wrapFile(this, scssToCss, {
       extension: "css",
       mimeType: "text/css",
     }) as CSSFile;

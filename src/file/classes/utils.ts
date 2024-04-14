@@ -1,5 +1,3 @@
-import { Path } from "../../utils/path";
-
 import type { PageSettings } from "../../types/site";
 import { File, SourceFile } from ".";
 
@@ -10,7 +8,6 @@ import { File, SourceFile } from ".";
 const wrapFile = (
   sourceFile: SourceFile, // the ts file
   getText: (source: SourceFile) => string,
-  path: Path,
   {
     extension,
     mimeType,
@@ -67,13 +64,13 @@ const wrapFile = (
   // the path of this new source file needs to resolve to the old path
   Object.defineProperty(wrappingFile, "path", {
     get() {
-      return path.replaceExtension(extension);
+      return sourceFile.path.replaceExtension(extension);
     },
   });
 
   Object.defineProperty(wrappingFile, "require", {
     get() {
-      return require(path.toString());
+      return require(sourceFile.path.toString());
     },
   });
 

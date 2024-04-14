@@ -77,7 +77,6 @@ class HTMLFile extends SourceFile {
     return wrapFile(
       prevFile,
       (f, cfg) => f.asHtml(cfg).toString(),
-      path,
       {
         extension: "html",
         mimeType: "text/html",
