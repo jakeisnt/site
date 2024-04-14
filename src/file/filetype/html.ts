@@ -3,6 +3,7 @@ import { readFile } from "file";
 import { Path } from "utils/path";
 import type { PageSettings } from "../../types/site";
 import { File } from "file/classes";
+import { wrapFile } from "../classes/utils";
 
 class HTMLFile extends SourceFile {
   static filetypes = ["html", "htm", "svg"];
@@ -32,81 +33,37 @@ class HTMLFile extends SourceFile {
       return new HTMLFile(filePath);
     }
 
-    // otherwise, try to get the non-html version of the file.
+    // Otherwise, try to get the non-html version of the file.
     // if the path is a directory, this won't work;
     // we then get the containing directory if this fails.
     const path = Path.create(filePath.toString().replace(".html", ""));
-    const directoryPath = filePath.parent;
 
     let prevFile: File;
     try {
       prevFile = readFile(path);
     } catch (e) {
+      const directoryPath = filePath.parent;
       prevFile = readFile(directoryPath);
     }
 
-    const sourceFile = prevFile.clone();
+    // may have to overwrite '.read' instead of '.text'
+    // so we have access to the run configuration.
+    // alternatively we need `.text` to always accept the run configuration.
+    // let's go with the latter.
 
-    // now, we override the new file to act like an html file.
-    // NOTE: all of the question marks are hacks.
-    // some files are too eagerly linked as html,
-    // so we ignore them and create spurious html here with no contents.
-    // like image files.
-    // really, those files should not be linked to as html at all.
+    // we also need `wrapFile` to retrieve dependencies! that should be an argument.
 
-    // @ts-ignore
-    sourceFile.fakeFileOf = prevFile;
-    // @ts-ignore
-    sourceFile.asHtml = prevFile.asHtml;
-    // @ts-ignore
-    sourceFile.read = (...args) => prevFile?.asHtml?.(...args).toString() ?? "";
+    // sourceFile.read = (...args) => prevFile?.asHtml?.(...args).toString() ?? "";
 
-    sourceFile.write = (config: PageSettings) => {
-      const { sourceDir, targetDir } = config;
-
-      const targetPath = sourceFile.path.relativeTo(sourceDir, targetDir);
-      targetPath.writeString(sourceFile.serve(config)?.contents ?? "");
-
-      // also write the previous file
-      prevFile.write(config);
-
-      return sourceFile;
-    };
-
-    sourceFile.serve = (config: PageSettings) => {
-      // @ts-ignore
-      const contents = prevFile?.asHtml?.(config).toString() ?? "";
-      return { contents, mimeType: "text/html" };
-    };
+    return wrapFile(prevFile, (f) => f.asHtml().toString(), path, {
+      extension: "html",
+      mimeType: "text/html",
+    });
 
     sourceFile.dependencies = (settings: PageSettings) => {
       // @ts-ignore
       return prevFile?.asHtml?.(settings)?.dependencies() ?? [];
     };
-
-    // the path of this new source file needs to resolve to the html path
-    Object.defineProperty(sourceFile, "path", {
-      get() {
-        return filePath;
-      },
-    });
-
-    // the path of this new source file needs to resolve to the html path
-    Object.defineProperty(sourceFile, "isDirectory", {
-      get() {
-        return false;
-      },
-    });
-
-    // the mime type of this new source file needs to be html
-    Object.defineProperty(sourceFile, "mimeType", {
-      get() {
-        return "text/html";
-      },
-    });
-
-    // produce this new source file.
-    return sourceFile;
   }
 
   /**
