@@ -377,7 +377,6 @@ class Path {
    * producing the conjunction of the two.
    */
   join(nextPart: Path | string) {
-    logger.file("Joining path", this.pathString, "with", nextPart.toString());
     return new Path(this.pathString + nextPart.toString());
   }
 
