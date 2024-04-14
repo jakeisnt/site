@@ -162,7 +162,10 @@ class Directory extends File {
       return this.enumeratedContents;
     }
 
-    const fileContents = this.path.readDirectory().map((v) => readFile(v, cfg));
+    const fileContents = this.path
+      .readDirectory()
+      .map((v) => readFile(v, this.cachedConfig));
+
     this.enumeratedContents = fileContents;
     return fileContents;
   }
