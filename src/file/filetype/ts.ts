@@ -18,7 +18,6 @@ class TypescriptFile extends SourceFile {
   js() {
     return wrapFile(this, tsToJs, {
       extension: "js",
-      mimeType: "text/javascript",
     }) as JavascriptFile;
   }
 }

@@ -32,7 +32,6 @@ class SCSSFile extends SourceFile {
   css() {
     return wrapFile(this, scssToCss, {
       extension: "css",
-      mimeType: "text/css",
     }) as CSSFile;
   }
 }

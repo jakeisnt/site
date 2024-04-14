@@ -10,11 +10,11 @@ const wrapFile = (
   getText: (source: SourceFile) => string,
   {
     extension,
-    mimeType,
+    mimeType = sourceFile.path.mimeType,
     isDirectory = false,
   }: {
     extension: string;
-    mimeType: string;
+    mimeType?: string;
     isDirectory?: boolean;
   },
   getDependencies: (
