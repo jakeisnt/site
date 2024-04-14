@@ -12,12 +12,8 @@ const collectFolderPaths = (
     rootUrl: string;
     sourceDir: string;
   },
-  curPath?: any
+  curPath: string = ""
 ) => {
-  if (curPath === undefined) {
-    return collectFolderPaths(pathList, title, { rootUrl, sourceDir }, "");
-  }
-
   if (!pathList?.[1]) {
     return [
       ["span", PATH_DELIMITER],

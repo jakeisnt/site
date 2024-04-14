@@ -1,40 +1,40 @@
-<!DOCTYPE html><html ><head ><meta charset="utf-8"></meta><title >hypothesis.ts / Jake Chvatal</title><meta property="og:title" content="hypothesis.ts"></meta><meta property="og:type" content="website"></meta><meta property="og:url" content="https://jake.isnt.online"></meta><meta property="og:site_name" content="Jake Chvatal"></meta><meta name="keywords" content="jake"></meta><meta name="author" content="Jake Chvatal"></meta><meta name="robots" content="index,follow"></meta><meta name="description" content="hi"></meta><meta name="theme-color" media="(prefers-color-scheme: light)" content="white"></meta><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111"></meta><link rel="icon" type="image/x-icon" href="/Users/jake/Documents/personal/site/favicons/favicon.ico"></link><link rel="apple-touch-icon" href="/Users/jake/Documents/personal/site/favicons/apple-touch-icon.png"></link><link rel="stylesheet" type="text/css" href="/resources/style.css" id="/resources/style.css"></link><link rel="stylesheet" type="text/css" href="/resources/global.css" id="/resources/global.css"></link><script src="/resources/lib.js" id="/resources/lib.js" type="module"></script><link rel="stylesheet" type="text/css" href="/resources/elements.css" id="/resources/elements.css"></link><link rel="manifest" href="/resources/manifest.json"></link><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/nord.min.css" id="dark-theme-highlight"></link><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-light.min.css" id="light-theme-highlight"></link><script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" id="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js" type="undefined"></script><script src="/resources/elements.js" id="/resources/elements.js" type="module" defer="true"></script></head><body ><link rel="stylesheet" href="/components/Sidebar/sidebar.css"></link><div class="sidebar"><div class="url-path"><b >jake.</b><span > / </span><a href="https://jake.isnt.online/components/index.html">components</a><span > / </span><a href="https://jake.isnt.online/components/Hypothesis/index.html">Hypothesis</a><span > / </span><b >hypothesis.ts</b></div><script src="/components/ToggleDarkMode/toggle-dark-mode.js" type="module"></script><link rel="stylesheet" href="/components/ToggleDarkMode/toggle-dark-mode.css"></link><div class="toggle-dark-mode-container"><button class="toggle-dark-mode"></button></div></div><div class="site-body"><main ><article class="wikipage"><h1 class="title-top">hypothesis.ts</h1><pre ><code class="language-ts has-raw-code">import { dynLoad, print } from &quot;../../resources/lib&quot;;
+<!DOCTYPE html><html ><head ><meta charset="utf-8"></meta><title >hypothesis.ts / Jake Chvatal</title><meta property="og:title" content="hypothesis.ts"></meta><meta property="og:type" content="website"></meta><meta property="og:url" content="https://jake.isnt.online"></meta><meta property="og:site_name" content="Jake Chvatal"></meta><meta name="keywords" content="jake"></meta><meta name="author" content="Jake Chvatal"></meta><meta name="robots" content="index,follow"></meta><meta name="description" content="hi"></meta><meta name="theme-color" media="(prefers-color-scheme: light)" content="white"></meta><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111"></meta><link rel="icon" type="image/x-icon" href="/Users/jake/Documents/personal/site/favicons/favicon.ico"></link><link rel="apple-touch-icon" href="/Users/jake/Documents/personal/site/favicons/apple-touch-icon.png"></link><link rel="stylesheet" type="text/css" href="/resources/style.css" id="/resources/style.css"></link><link rel="stylesheet" type="text/css" href="/resources/global.css" id="/resources/global.css"></link><script src="/resources/lib.js" id="/resources/lib.js" type="module"></script><link rel="stylesheet" type="text/css" href="/resources/elements.css" id="/resources/elements.css"></link><link rel="manifest" href="/resources/manifest.json"></link><script src="/resources/elements.js" id="/resources/elements.js" type="module" defer="true"></script></head><body ><link rel="stylesheet" href="/components/Sidebar/sidebar.css"></link><div class="sidebar"><div class="url-path"><b >jake.</b><span > / </span><a href="https://jake.isnt.online/components/index.html">components</a><span > / </span><a href="https://jake.isnt.online/components/Hypothesis/index.html">Hypothesis</a><span > / </span><b >hypothesis.ts</b></div><script src="/components/ToggleDarkMode/toggle-dark-mode.js" type="module"></script><link rel="stylesheet" href="/components/ToggleDarkMode/toggle-dark-mode.css"></link><div class="toggle-dark-mode-container"><button class="toggle-dark-mode"></button></div></div><div class="site-body"><main ><article class="wikipage"><h1 class="title-top">hypothesis.ts</h1><pre ><code class="language-ts has-raw-code"><span class="keyword">import</span> <span class="punctuation bracket">{</span> <span class="variable">dynLoad</span><span class="punctuation delimiter">,</span> <span class="variable">print</span> <span class="punctuation bracket">}</span> <span class="keyword">from</span> <span class="string">&quot;../../resources/lib&quot;</span><span class="punctuation delimiter">;</span>
 
-(() =&gt; {
-  var __PS_MV_REG = [];
+<span class="punctuation bracket">(</span><span class="punctuation bracket">(</span><span class="punctuation bracket">)</span> <span class="operator">=&gt;</span> <span class="punctuation bracket">{</span>
+  <span class="keyword">var</span> <span class="constant">__PS_MV_REG</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="punctuation bracket">]</span><span class="punctuation delimiter">;</span>
 
-  function loadHypothesis() {
-    __PS_MV_REG = [];
-    return document.body.appendChild(
-      dynLoad(&quot;https://hypothes.is/embed.js&quot;, &quot;hypothesis&quot;)
-    );
-  }
+  <span class="keyword">function</span> <span class="function">loadHypothesis</span><span class="punctuation bracket">(</span><span class="punctuation bracket">)</span> <span class="punctuation bracket">{</span>
+    <span class="constant">__PS_MV_REG</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="punctuation bracket">]</span><span class="punctuation delimiter">;</span>
+    <span class="keyword">return</span> <span class="variable builtin">document</span><span class="punctuation delimiter">.</span><span class="property">body</span><span class="punctuation delimiter">.</span><span class="function method">appendChild</span><span class="punctuation bracket">(</span>
+      <span class="function">dynLoad</span><span class="punctuation bracket">(</span><span class="string">&quot;https://hypothes.is/embed.js&quot;</span><span class="punctuation delimiter">,</span> <span class="string">&quot;hypothesis&quot;</span><span class="punctuation bracket">)</span>
+    <span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+  <span class="punctuation bracket">}</span>
 
-  function hypothesisAnnotatorLink() {
-    return document.querySelector(&#x27;link[type=&quot;application/annotator+html&quot;]&#x27;);
-  }
+  <span class="keyword">function</span> <span class="function">hypothesisAnnotatorLink</span><span class="punctuation bracket">(</span><span class="punctuation bracket">)</span> <span class="punctuation bracket">{</span>
+    <span class="keyword">return</span> <span class="variable builtin">document</span><span class="punctuation delimiter">.</span><span class="function method">querySelector</span><span class="punctuation bracket">(</span><span class="string">&#39;link[type=&quot;application/annotator+html&quot;]&#39;</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+  <span class="punctuation bracket">}</span>
 
-  function unloadHypothesis(annotatorLink) {
-    if (annotatorLink) {
-      var destroyEvent = new Event(&quot;destroy&quot;);
-      __PS_MV_REG = [];
-      return annotatorLink.dispatchEvent(destroyEvent);
-    }
-  }
+  <span class="keyword">function</span> <span class="function">unloadHypothesis</span><span class="punctuation bracket">(</span><span class="variable parameter">annotatorLink</span><span class="punctuation bracket">)</span> <span class="punctuation bracket">{</span>
+    <span class="keyword">if</span> <span class="punctuation bracket">(</span><span class="variable parameter">annotatorLink</span><span class="punctuation bracket">)</span> <span class="punctuation bracket">{</span>
+      <span class="keyword">var</span> <span class="variable">destroyEvent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="type">Event</span><span class="punctuation bracket">(</span><span class="string">&quot;destroy&quot;</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+      <span class="constant">__PS_MV_REG</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="punctuation bracket">]</span><span class="punctuation delimiter">;</span>
+      <span class="keyword">return</span> <span class="variable parameter">annotatorLink</span><span class="punctuation delimiter">.</span><span class="function method">dispatchEvent</span><span class="punctuation bracket">(</span><span class="variable">destroyEvent</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="punctuation bracket">}</span>
+  <span class="punctuation bracket">}</span>
 
-  function toggleHypothesis() {
-    print(&quot;loading hypothesis&quot;);
-    var annotatorLink = hypothesisAnnotatorLink();
-    print(&quot;trying to print annotator link&quot;);
-    print(annotatorLink);
-    __PS_MV_REG = [];
-    return annotatorLink ? unloadHypothesis(annotatorLink) : loadHypothesis();
-  }
+  <span class="keyword">function</span> <span class="function">toggleHypothesis</span><span class="punctuation bracket">(</span><span class="punctuation bracket">)</span> <span class="punctuation bracket">{</span>
+    <span class="function">print</span><span class="punctuation bracket">(</span><span class="string">&quot;loading hypothesis&quot;</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="keyword">var</span> <span class="variable">annotatorLink</span> <span class="operator">=</span> <span class="function">hypothesisAnnotatorLink</span><span class="punctuation bracket">(</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="function">print</span><span class="punctuation bracket">(</span><span class="string">&quot;trying to print annotator link&quot;</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="function">print</span><span class="punctuation bracket">(</span><span class="variable">annotatorLink</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+    <span class="constant">__PS_MV_REG</span> <span class="operator">=</span> <span class="punctuation bracket">[</span><span class="punctuation bracket">]</span><span class="punctuation delimiter">;</span>
+    <span class="keyword">return</span> <span class="variable">annotatorLink</span> ? <span class="function">unloadHypothesis</span><span class="punctuation bracket">(</span><span class="variable">annotatorLink</span><span class="punctuation bracket">)</span> : <span class="function">loadHypothesis</span><span class="punctuation bracket">(</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
+  <span class="punctuation bracket">}</span>
 
-  // (function () {
-  //     var hypothesisDoc = document.getElementById(&#x27;hypothesis-checkbox&#x27;);
-  //     __PS_MV_REG = [];
-  //     return hypothesisDoc.checked ? loadHypothesis() : null;
-  // })();
-})();
+  <span class="comment">// (function () {</span>
+  <span class="comment">//     var hypothesisDoc = document.getElementById(&#39;hypothesis-checkbox&#39;);</span>
+  <span class="comment">//     __PS_MV_REG = [];</span>
+  <span class="comment">//     return hypothesisDoc.checked ? loadHypothesis() : null;</span>
+  <span class="comment">// })();</span>
+<span class="punctuation bracket">}</span><span class="punctuation bracket">)</span><span class="punctuation bracket">(</span><span class="punctuation bracket">)</span><span class="punctuation delimiter">;</span>
 </code></pre></article></main><div class="article-rhs-container"><div class="article-rhs"><div class="git-history-table-container"><span class="git-history-table-title">Revisions</span><table class="git-history-table"><thead ><tr ><th >Date</th><th >Hash</th></tr></thead><tbody ><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">02dca1b8</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">3e22c4b6</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">b3e98839</td></tr><tr ><td class="commit-date-tr">2024-03-31</td><td class="commit-link-tr">9a544393</td></tr></tbody></table></div><div class="prev-next-up-buttons-container">Navigation<table class="prev-next-up-buttons"><tr ><td >Up</td><td ><a class="up-button" href="https://jake.isnt.online/components/Hypothesis.html">Hypothesis</a></td></tr></table></div></div></div></div></body></html>

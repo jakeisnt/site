@@ -2,6 +2,8 @@ import TextFile from "./text";
 import { HtmlPage } from "../../html";
 import type { PageSettings } from "../../types/site";
 import { escapeHtml } from "../../html/utils";
+import treeSitter from "tree-sitter-highlight";
+import type { PageSyntax } from "../../types/html";
 
 // if it's a source code file, we want to:
 // - render both to 'file.$ext' and 'file.$ext.html'
@@ -12,7 +14,13 @@ import { escapeHtml } from "../../html/utils";
 const renderSourceFile = ({
   file,
   ...settings
-}: PageSettings & { file: any }) => {
+}: PageSettings & { file: SourceFile }): PageSyntax => {
+  // This is a quick way to snag the language;
+  // we access the enum member with an uppercase version of the file extension.
+  // It's fine.
+  // @ts-ignore
+  const language = treeSitter.Language?.[file.extension?.toUpperCase()];
+
   return [
     "Article",
     {
@@ -24,7 +32,9 @@ const renderSourceFile = ({
       [
         "code",
         { class: `language-${file.extension} has-raw-code` },
-        escapeHtml(file.text),
+        language
+          ? treeSitter.highlight(file.text, language)
+          : escapeHtml(file.text),
       ],
     ],
   ];

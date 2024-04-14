@@ -25,7 +25,6 @@ var loadCodeBlocks = function () {
             class: "label inset",
             innerText: codeBlock.classList[0].replace("language-", ""),
         }, codeContainer);
-        console.log(label);
         if (codeBlock.classList[1] === "has-raw-code") {
             var rawCodeURL_1 = codeBlock.classList[2];
             var rawCode = create("button", {
@@ -37,11 +36,7 @@ var loadCodeBlocks = function () {
                     window.open(rawCodeURL_1, "_blank");
                 },
             }, buttonCodeContainer);
-            console.log(rawCode);
         }
-    });
-    all(codeBlocks).forEach(function (block) {
-        hljs.highlightElement(block);
     });
 };
 var loadHeadings = function () {

@@ -4,6 +4,14 @@
 :root {
   /* Inform the browser that color schemes are available. */
   color-scheme: light dark;
+  --black: rgb(0, 0, 0);
+  --orange: rgb(230, 159, 0);
+  --blue: rgb(86, 180, 233);
+  --green: rgb(0, 158, 115);
+  --yellow: rgb(240, 228, 66);
+  --darkblue: rgb(0, 114, 178);
+  --red: rgb(219, 94, 0);
+  --purple: rgb(204, 121, 167);
   --highlight: #4C5669;
   --quote-background: #222;
   --quote-background-border: #333;
@@ -41,6 +49,14 @@
 }
 
 .dark-theme {
+  --black: rgb(0, 0, 0);
+  --orange: rgb(230, 159, 0);
+  --blue: rgb(86, 180, 233);
+  --green: rgb(0, 158, 115);
+  --yellow: rgb(240, 228, 66);
+  --darkblue: rgb(0, 114, 178);
+  --red: rgb(219, 94, 0);
+  --purple: rgb(204, 121, 167);
   --highlight: #4C5669;
   --quote-background: #222;
   --quote-background-border: #333;
@@ -80,6 +96,14 @@
 }
 @media (prefers-color-scheme: dark) {
   :root {
+    --black: rgb(0, 0, 0);
+    --orange: rgb(230, 159, 0);
+    --blue: rgb(86, 180, 233);
+    --green: rgb(0, 158, 115);
+    --yellow: rgb(240, 228, 66);
+    --darkblue: rgb(0, 114, 178);
+    --red: rgb(219, 94, 0);
+    --purple: rgb(204, 121, 167);
     --highlight: #4C5669;
     --quote-background: #222;
     --quote-background-border: #333;
