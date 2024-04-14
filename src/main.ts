@@ -6,12 +6,7 @@ import { cli } from "utils/cli";
 import { buildFromPath } from "./build.js";
 import { singleFileServer, directoryServer } from "./server";
 import { Path } from "utils/path";
-import {
-  sourceDir as SITE_DIRECTORY,
-  siteName,
-  deploymentBranch,
-  localPort,
-} from "./constants";
+import { siteName, deploymentBranch, localPort } from "./constants";
 
 const localhostUrl = `http://localhost`;
 const devWebsocketPath = "/__devsocket";
@@ -24,25 +19,11 @@ const commonIgnorePaths = [".git", "node_modules"];
  *
  * Usage: site build ./ ./docs ./ http://localhost:3000
  */
-const build = (incomingPaths?: string[]) => {
-  const paths = incomingPaths?.length ? incomingPaths : ["."];
-
-  if (!paths[0]) {
-    throw new Error(`No source directory provided. Exiting!`);
-  }
-
-  const sourceDir = Path.create(paths[0]);
-
-  const targetDir = paths[1]
-    ? Path.create(paths[1])
-    : Path.create(sourceDir.toString() + "/docs");
-
-  const fallbackSourceDir = paths[2]
-    ? Path.create(paths[2])
-    : Path.create(SITE_DIRECTORY);
-
-  const rootUrl = paths[3] ?? "file://" + targetDir.toString();
-
+const build = () => {
+  const sourceDir = "./";
+  const targetDir = Path.create(sourceDir.toString() + "/docs");
+  const fallbackSourceDir = sourceDir;
+  const rootUrl = "http://localhost:3000";
   const resourcesDir = Path.create(sourceDir.toString() + "/resources");
   const faviconsDir = Path.create(sourceDir.toString() + "/favicons");
 
