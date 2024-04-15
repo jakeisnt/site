@@ -231,7 +231,7 @@ class Path {
 
     if (!this.pathString.startsWith(otherPath.toString())) {
       throw new Error(
-        `Path we are removing is no present on the current path. Was looking for path: ${this.pathString} relative to ${maybeOtherPath}`
+        `Path we are removing is not present on the current path. Was looking for path: ${this.pathString} relative to ${maybeOtherPath}`
       );
     }
 

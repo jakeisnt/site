@@ -104,11 +104,11 @@ const header = ({
 
 const Header = (args) => ({
   dependsOn: [
-    { src: "/resources/style.css" },
-    { src: "/resources/global.css" },
-    { src: "/resources/elementsstyle.css" },
-    { src: "/resources/lib.js" },
-    { src: "/resources/elements.js", defer: true },
+    { src: "resources/style.css" },
+    { src: "resources/global.css" },
+    { src: "resources/elementsstyle.css" },
+    { src: "resources/lib.js" },
+    { src: "resources/elements.js", defer: true },
   ],
   body: header(args),
 });

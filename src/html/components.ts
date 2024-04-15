@@ -78,10 +78,7 @@ const requireComponent = (name: string) => {
 // we expect paths like /resources/a and /resources/b,
 // then chop those up here.
 const parseDependencies = (deps: Dependency[]) => {
-  return deps.map((dep) => ({
-    ...dep,
-    src: Path.create(dep.src.startsWith("/") ? dep.src.slice(1) : dep.src),
-  }));
+  return deps.map((dep) => ({ ...dep, src: Path.create(dep.src) }));
 };
 
 /**
