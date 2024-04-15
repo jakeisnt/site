@@ -292,6 +292,10 @@ class Path {
       return !extension;
     }
 
+    if (!this.exists()) {
+      throw new Error(`File ${this.toString()} doesnt exist`);
+    }
+
     if (!this.lstats) {
       this.lstats = fs.lstatSync(this.pathString);
     }

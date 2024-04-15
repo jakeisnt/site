@@ -45,7 +45,7 @@ const makeHomePage = (settings: PageSettings) => {
             [
               "p",
               "On nights and weekends, I ",
-              ["a", { class: "internal", href: "/pages/index.html" }, "write"],
+              ["a", { class: "internal", href: "/src/index.html" }, "write"],
               ", take ",
               [
                 "a",

@@ -18,6 +18,7 @@ const prop = (key: string, value: string): PageSyntax => {
  * Provided an icon directory, configure page icons of the front matter.
  */
 const favicons = (iconDir: string) => {
+  return [];
   return [
     [
       "link",

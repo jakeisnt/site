@@ -41,7 +41,7 @@ const linkStringToFile = (
     .replace("http://", "")
     .replace("https://", "");
 
-  return sourceDir.join(linkWithoutRoot);
+  return sourceDir.join(`/${linkWithoutRoot}`);
 };
 
 const makeDependencies = (
