@@ -49,28 +49,16 @@ const injectHotReload = ({
  */
 const makeFileResponse = (
   file: File,
-  {
-    siteName,
-    sourceDir,
-    rootUrl,
-    websocketPath,
-    resourcesDir,
-    faviconsDir,
-    targetDir,
-  }: PageSettings & { websocketPath: string }
+  cfg: PageSettings & { websocketPath: string }
 ) => {
-  const { contents, mimeType } = file.serve({
-    siteName,
-    rootUrl,
-    sourceDir,
-    targetDir,
-    resourcesDir,
-    faviconsDir,
-  });
+  const { contents, mimeType } = file.serve(cfg);
 
   let responseText =
     mimeType === "text/html"
-      ? injectHotReload({ htmlString: contents, websocketPath })
+      ? injectHotReload({
+          htmlString: contents,
+          websocketPath: cfg.websocketPath,
+        })
       : contents;
 
   return new Response(responseText, {
@@ -92,16 +80,15 @@ const getPageSettings = ({
   url,
   port,
   siteName,
-  absolutePathToDirectory,
+  sourceDir,
   fallbackDirPath,
 }: {
   url: string;
   port: number;
   siteName: string;
-  absolutePathToDirectory: Path;
+  sourceDir: Path;
   fallbackDirPath: Path;
 }): PageSettings => {
-  const sourceDir = absolutePathToDirectory;
   const rootUrl = formatUrl({ url, port });
   const resourcesDir = sourceDir.join("/resources");
   const faviconsDir = sourceDir.join("/favicons");
@@ -113,7 +100,7 @@ const getPageSettings = ({
     faviconsDir,
     resourcesDir,
     rootUrl,
-    targetDir: sourceDir,
+    targetDir: sourceDir.join("/source"),
   };
 };
 

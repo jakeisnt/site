@@ -27,11 +27,13 @@ const singleFileServer = ({
     url,
     port,
     siteName,
-    absolutePathToDirectory: sourceDir,
+    sourceDir,
     fallbackDirPath: sourceDir,
   });
 
   const file = readFile(absolutePathToFile, settings);
+
+  if (!file) return;
 
   // TODO: hunt down the websocket type and use it properly
   let wsClientConnection: any = null;
@@ -43,6 +45,7 @@ const singleFileServer = ({
     onRequest: () => {
       return makeFileResponse(file, { ...settings, websocketPath });
     },
+
     onSocketConnected: (ws) => {
       log.network("socket connected");
       wsClientConnection = ws;

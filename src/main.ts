@@ -74,11 +74,11 @@ const serve = (incomingPaths?: string[]) => {
   // becomes the root of a tree we serve
   if (path.isDirectory({ noFSOperation: true })) {
     directoryServer({
-      absolutePathToDirectory: path,
+      siteName,
+      sourceDir,
       fallbackDirPath: sourceDir,
       url: localhostUrl,
       port: localPort,
-      siteName: "Jake Chvatal",
       websocketPath: devWebsocketPath,
     });
   }
@@ -91,7 +91,7 @@ const serve = (incomingPaths?: string[]) => {
       url: localhostUrl,
       port: localPort,
       absolutePathToFile: path,
-      siteName: "Jake Chvatal",
+      siteName,
       websocketPath: devWebsocketPath,
     });
   }
