@@ -9,14 +9,16 @@ import type { PageSettings } from "../types/site";
 /**
  * Fun utility for cacheing stuff
  */
-// const fileCache: { [key: string]: File } = {};
-
+const cache = false;
+const fileCache: { [key: string]: File } = {};
 const withCache = (path: Path, makeFile: (p: Path) => File | undefined) => {
-  return makeFile(path);
-  // if (!fileCache[path.toString()]) {
-  //   fileCache[path.toString()] = makeFile(path);
-  // }
-  // return fileCache[path.toString()];
+  if (!cache) return makeFile(path);
+  if (!fileCache[path.toString()]) {
+    const res = makeFile(path);
+    if (!res) return;
+    fileCache[path.toString()] = res;
+  }
+  return fileCache[path.toString()];
 };
 
 /*
@@ -33,29 +35,7 @@ const withCache = (path: Path, makeFile: (p: Path) => File | undefined) => {
 // value: a list of extensions that can compile to that file extension
 // by invoking a function with that extension's name
 const compileMap: { [key: string]: string[] } = {};
-
 type FiletypeMap = { [key: string]: typeof File };
-
-// The algorithm has to work like so:
-// 1. try to create() a file.
-// 2. if success, return that file.
-// 3. if the file can't be found,
-//    collect a list of all file types that include this file's extension
-//    in their `targets` array.
-// 4. For each of those files,
-//    swap our current file path with the extension of that file type and
-//    attempt to create() it.
-//    notice that this is a recursive call to the function: goes to (1).
-//
-//    we take the first file that fits. there is no specified precedence.
-//    notably, this means it is not allowed to have two files with the same name but different extensions
-//    that support the same compilation target,
-//    in a directory, because those will conflict and one will take precedense
-
-// If we don't have the JS file, try grabbing the TS file.
-
-// Really, though, this file should not have to know what can compile to it.
-// We need to register that in the source file somehow.
 
 let filetypeMap: FiletypeMap;
 
@@ -128,16 +108,6 @@ const getFiletypeClass = (path: Path, cfg: PageSettings) => {
  * @returns {Object} The appropriate file class.
  */
 const readFile = (path: Path, options: PageSettings): File | undefined => {
-  // const { sourceDir, fallbackSourceDir } = options;
-
-  // If the path doesn't exist, try it against a fallback
-  // NOTE: This is probably the source of our weird cascading file issues.
-  // This cascading should not happen here.
-  // Commenting out for now.
-  // if (!path.exists() && sourceDir && fallbackSourceDir) {
-  //   path = path.relativeTo(sourceDir, fallbackSourceDir);
-  // }
-
   let maybeFile = withCache(path, (path: Path) => {
     const FiletypeClass = getFiletypeClass(path, options);
     return FiletypeClass.create(path, options);
@@ -147,14 +117,16 @@ const readFile = (path: Path, options: PageSettings): File | undefined => {
     return maybeFile;
   }
 
-  // if we couldn't find the file at all, upgrade it
+  // if we couldn't find the file at all, promote to a source file.
   const targetExtension = path.extension ?? "dir";
   for (const sourceExtension of compileMap[targetExtension]) {
     const nextPath = path.replaceExtension(sourceExtension);
     const sourceFile = readFile(nextPath, options);
 
+    // Our custom standardizes on using target extension to index.
     // @ts-ignore
-    return sourceFile?.[sourceExtension]?.(options);
+    const res = sourceFile?.[targetExtension]?.(options);
+    if (res) return res;
   }
 };
 
