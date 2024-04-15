@@ -13,17 +13,35 @@ import type { PageSettings } from "../types/site";
  * Places the dependencies where we expect them to be.
  * That is -- relative to targetDir.
  */
-const getDependency = (path: Path, etc: object = {}): PageSyntax => {
+const getDependency = (
+  path: Path,
+  etc: object = {},
+  cfg: PageSettings
+): PageSyntax => {
   const extension = path.extension;
   switch (extension) {
-    case "js":
-      return ["script", { type: "module", ...etc, src: path.toString() }];
     case "ts":
-      return getDependency(path.replaceExtension("js"), etc);
-    case "css":
-      return ["link", { rel: "stylesheet", ...etc, href: path.toString() }];
+      return getDependency(path.replaceExtension("js"), etc, cfg);
+    case "js":
+      return [
+        "script",
+        {
+          type: "module",
+          ...etc,
+          src: path.toString().replace(cfg.sourceDir.toString(), ""),
+        },
+      ];
     case "scss":
-      return getDependency(path.replaceExtension("css"), etc);
+      return getDependency(path.replaceExtension("css"), etc, cfg);
+    case "css":
+      return [
+        "link",
+        {
+          rel: "stylesheet",
+          ...etc,
+          href: path.toString().replace(cfg.sourceDir.toString(), ""),
+        },
+      ];
     default:
       throw new Error(`Unknown extension: ${extension}`);
   }
@@ -33,7 +51,8 @@ const getDependency2 = (dep: { src: Path }, cfg: PageSettings) => {
   const { src, ...rest } = dep;
   const { sourceDir, targetDir } = cfg;
   const resolvingPath = src.relativeTo(sourceDir, targetDir);
-  return getDependency(resolvingPath, rest);
+
+  return getDependency(resolvingPath, rest, cfg);
 };
 
 const componentCache: { [key: string]: Function } = {};

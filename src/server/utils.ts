@@ -113,7 +113,7 @@ const getPageSettings = ({
     faviconsDir,
     resourcesDir,
     rootUrl,
-    targetDir: absolutePathToDirectory.join("/docs"),
+    targetDir: sourceDir,
   };
 };
 
