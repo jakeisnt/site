@@ -22,6 +22,15 @@ class File {
   // reading SCSS as CSS, etc.
   public fakeFileOf?: File;
 
+  // The source file types that this file represents.
+  public static filetypes: string[] = [];
+
+  // The supported target file types of this file, if any.
+  // If a file class supports a specific target <t>,
+  // the file must also have a function <t>() to call
+  // that produces a file with the type of that target.
+  public static targets: string[] = [];
+
   /**
    * Construct a file.
    */

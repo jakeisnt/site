@@ -75,7 +75,7 @@ const getFiletypeMap = (cfg: PageSettings) => {
       // default to using the raw 'fileClass' if there is no default export (?)
       return fileClass?.default ?? fileClass;
     })
-    .forEach((fileClass) => {
+    .forEach((fileClass: typeof File) => {
       if (!fileClass.filetypes) {
         throw new Error(
           `Filetype ${fileClass.name} does not have a 'filetypes' property`
@@ -91,7 +91,9 @@ const getFiletypeMap = (cfg: PageSettings) => {
       });
 
       fileClass.targets?.forEach((target: string) => {
-        compileMap[target] = (compileMap?.[target] ?? []).concat(fileClass);
+        compileMap[target] = (compileMap?.[target] ?? []).concat(
+          fileClass.filetypes
+        );
       });
     });
 

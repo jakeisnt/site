@@ -86,7 +86,6 @@ const header = ({
   resourcesDir,
   faviconsDir,
 }): PageSyntax => {
-  console.log(resourcesDir, faviconsDir);
   return [
     "head",
     ["meta", { charset: "utf-8" }],
