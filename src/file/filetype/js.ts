@@ -1,7 +1,5 @@
 import { SourceFile } from "file/classes";
-import { readFile } from "../index";
 import { Path } from "../../utils/path";
-import TypescriptFile from "./ts";
 import type { PageSettings } from "../../types/site";
 
 class JavascriptFile extends SourceFile {
@@ -37,15 +35,10 @@ class JavascriptFile extends SourceFile {
    * Create this file if it exists.
    * Otherwise, dispatch to a compile source and convert it.
    */
-  static create(filePath: Path, cfg: PageSettings): JavascriptFile {
+  static create(filePath: Path, cfg: PageSettings): JavascriptFile | undefined {
     if (filePath.exists()) {
       return new JavascriptFile(filePath, cfg);
     }
-
-    const tsPath = filePath.replaceExtension("ts");
-    const typescriptFile = readFile(tsPath, cfg) as TypescriptFile;
-
-    return typescriptFile.js(cfg);
   }
 }
 

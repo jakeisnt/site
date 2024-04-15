@@ -9,13 +9,14 @@ import type { PageSettings } from "../types/site";
 /**
  * Fun utility for cacheing stuff
  */
-const fileCache: { [key: string]: File } = {};
+// const fileCache: { [key: string]: File } = {};
 
-const withCache = (path: Path, makeFile: (p: Path) => File) => {
-  if (!fileCache[path.toString()]) {
-    fileCache[path.toString()] = makeFile(path);
-  }
-  return fileCache[path.toString()];
+const withCache = (path: Path, makeFile: (p: Path) => File | undefined) => {
+  return makeFile(path);
+  // if (!fileCache[path.toString()]) {
+  //   fileCache[path.toString()] = makeFile(path);
+  // }
+  // return fileCache[path.toString()];
 };
 
 /*
@@ -109,7 +110,7 @@ const getFiletypeClass = (path: Path, cfg: PageSettings) => {
   }
 
   const extension = path.extension;
-  if (!extension || !(extension in filetypeMap)) {
+  if (!extension || !filetypeMap[extension]) {
     console.log(
       `We don't have a filetype mapping for files with extension ${extension}. Assuming plaintext for file at path '${path.toString()}'.`
     );
@@ -148,14 +149,12 @@ const readFile = (path: Path, options: PageSettings): File | undefined => {
 
   // if we couldn't find the file at all, upgrade it
   const targetExtension = path.extension ?? "dir";
-  for (const sourceExtension in compileMap[targetExtension]) {
+  for (const sourceExtension of compileMap[targetExtension]) {
     const nextPath = path.replaceExtension(sourceExtension);
-
     const sourceFile = readFile(nextPath, options);
 
-    // found typescript bug?: says we are indexing by number
     // @ts-ignore
-    return sourceFile?.[sourceExtension]?.();
+    return sourceFile?.[sourceExtension]?.(options);
   }
 };
 

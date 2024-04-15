@@ -47,7 +47,7 @@ class File {
     this.cachedConfig = cfg;
   }
 
-  static create(path: Path, cfg: PageSettings) {
+  static create(path: Path, cfg: PageSettings): File | undefined {
     return new this(path, cfg);
   }
 
