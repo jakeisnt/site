@@ -38,6 +38,7 @@ const buildFromPath = (settings: PageSettings) => {
   // Start off from the root, source dir,
   // Bootstrap the process by reading the root file as HTML.
   const dir = readFile(sourceDir.join("/index.html"), cfg);
+  if (!dir) return;
   console.log("Starting with", dir.path.toString());
 
   // If we've already seen a file path, we should ignore it.
