@@ -228,7 +228,6 @@ class Path {
     maybeReplaceWithPath: Path | string = ""
   ) {
     const otherPath = Path.create(maybeOtherPath);
-    const replaceWith = maybeReplaceWithPath.toString();
 
     if (!this.pathString.startsWith(otherPath.toString())) {
       throw new Error(
@@ -238,18 +237,10 @@ class Path {
 
     let resultingPathString = this.pathString;
     if (otherPath) {
-      if (otherPath.toString() === resultingPathString) {
-        resultingPathString = "";
-      }
-
       resultingPathString = resultingPathString.replace(
-        `${otherPath.toString()}`,
-        ""
+        otherPath.toString(),
+        maybeReplaceWithPath?.toString() ?? ""
       );
-    }
-
-    if (maybeReplaceWithPath) {
-      resultingPathString = replaceWith.toString() + resultingPathString;
     }
 
     return Path.create(resultingPathString);

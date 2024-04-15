@@ -100,7 +100,7 @@ const getPageSettings = ({
     faviconsDir,
     resourcesDir,
     rootUrl,
-    targetDir: sourceDir.join("/source"),
+    targetDir: sourceDir,
   };
 };
 
