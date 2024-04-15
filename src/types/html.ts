@@ -1,7 +1,5 @@
 // All tags supported by the browser.
 
-import type { Path } from "../utils/path";
-
 // @ts-ignore
 type NativeHtmlTag =
   | "html"

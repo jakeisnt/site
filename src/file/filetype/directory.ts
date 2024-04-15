@@ -121,6 +121,26 @@ class Directory extends File {
   }
 
   /**
+    // Special case for the js files: make sure they all exist.
+    // Don't cache this because we only want the default full dir cached.
+   */
+  jsFileContents() {
+    const jsPaths = this.path.readDirectory();
+
+    const retFiles: File[] = [];
+
+    jsPaths.forEach((childPath: Path) => {
+      if (childPath.extension !== "js" && childPath.extension !== "ts") {
+        return;
+      }
+      const maybeJSFile = readJSFile(childPath, this.cachedConfig);
+      if (maybeJSFile) retFiles.push(maybeJSFile);
+    });
+
+    return retFiles;
+  }
+
+  /**
    * Get all the files in the immediate directory.
    * This is not treated as a property and is not cached due to the possibility of files changing.
    *
@@ -132,26 +152,8 @@ class Directory extends File {
       omitNonJSFiles: false,
     }
   ): File[] {
-    // special case for the js files: make sure they all exist.
-    // don't cache this because we only want the default full dir cached.
     if (omitNonJSFiles) {
-      const jsPaths = this.path.readDirectory();
-      const maybeJSFiles = jsPaths.map((childPath: Path) => {
-        if (childPath.extension !== "js" && childPath.extension !== "ts") {
-          return undefined;
-        } else {
-          return readJSFile(childPath, this.cachedConfig);
-        }
-      });
-
-      const retFiles: File[] = [];
-      maybeJSFiles.forEach((f) => {
-        if (f) {
-          retFiles.push(f);
-        }
-      });
-
-      return retFiles;
+      return this.jsFileContents();
     }
 
     if (this.enumeratedContents) {
@@ -162,7 +164,8 @@ class Directory extends File {
       .readDirectory()
       // SHORTCUT: Fixes a bug where the site creates itself infinitely
       .filter((v) => !v.equals(this.cachedConfig.targetDir))
-      .map((v) => readFile(v, this.cachedConfig));
+      .map((v) => readFile(v, this.cachedConfig))
+      .filter((v): v is File => v !== undefined);
 
     this.enumeratedContents = fileContents;
     return fileContents;
