@@ -29,9 +29,9 @@ const withCache = (path: Path, makeFile: (p: Path) => File) => {
  */
 
 // key: a file extension
-// value: a list of files that can compile to that file extension
+// value: a list of extensions that can compile to that file extension
 // by invoking a function with that extension's name
-const compileMap: { [key: string]: (typeof File)[] } = {};
+const compileMap: { [key: string]: string[] } = {};
 
 type FiletypeMap = { [key: string]: typeof File };
 
@@ -99,16 +99,32 @@ const getFiletypeMap = (cfg: PageSettings) => {
 };
 
 /**
+ * Determine which file type class to use for our path.
+ */
+const getFiletypeClass = (path: Path, cfg: PageSettings) => {
+  if (!filetypeMap) {
+    filetypeMap = getFiletypeMap(cfg);
+  }
+
+  const extension = path.extension;
+  if (!extension || !(extension in filetypeMap)) {
+    console.log(
+      `We don't have a filetype mapping for files with extension ${extension}. Assuming plaintext for file at path '${path.toString()}'.`
+    );
+
+    return TextFile;
+  }
+
+  return filetypeMap[extension];
+};
+
+/**
  * Given the source path of a file, return the appropriate file class.
  * @param {string} incomingPath - The source path of the file.
  * @param {Object} options - Additional options.
  * @returns {Object} The appropriate file class.
  */
-const readFile = (path: Path, options: PageSettings): File => {
-  if (!filetypeMap) {
-    filetypeMap = getFiletypeMap(options);
-  }
-
+const readFile = (path: Path, options: PageSettings): File | undefined => {
   // const { sourceDir, fallbackSourceDir } = options;
 
   // If the path doesn't exist, try it against a fallback
@@ -119,20 +135,26 @@ const readFile = (path: Path, options: PageSettings): File => {
   //   path = path.relativeTo(sourceDir, fallbackSourceDir);
   // }
 
-  return withCache(path, (path: Path) => {
-    const extension = path.extension;
-
-    if (!extension || !(extension in filetypeMap)) {
-      console.log(
-        `We don't have a filetype mapping for files with extension ${extension}. Assuming plaintext for file at path '${path.toString()}'.`
-      );
-
-      return TextFile.create(path, options);
-    } else {
-      const FiletypeClass = filetypeMap[extension];
-      return FiletypeClass.create(path, options);
-    }
+  let maybeFile = withCache(path, (path: Path) => {
+    const FiletypeClass = getFiletypeClass(path, options);
+    return FiletypeClass.create(path, options);
   });
+
+  if (maybeFile) {
+    return maybeFile;
+  }
+
+  // if we couldn't find the file at all, upgrade it
+  const targetExtension = path.extension ?? "dir";
+  for (const sourceExtension in compileMap[targetExtension]) {
+    const nextPath = path.replaceExtension(sourceExtension);
+
+    const sourceFile = readFile(nextPath, options);
+
+    // found typescript bug?: says we are indexing by number
+    // @ts-ignore
+    return sourceFile?.[sourceExtension]?.();
+  }
 };
 
 export { readFile };
