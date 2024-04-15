@@ -122,7 +122,7 @@ class Path {
 
     if (ext) {
       return ext;
-    } else if (this.isDirectory()) {
+    } else if (this.exists() && this.isDirectory()) {
       return "dir";
     }
 
