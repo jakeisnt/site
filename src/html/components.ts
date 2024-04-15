@@ -67,8 +67,8 @@ const requireComponent = (name: string) => {
     return maybeComponent;
   }
   const rootPath = sourceDir;
-  const componentFunction =
-    require(`${rootPath}/components/${name}/${name}.js`).default;
+  const componentDir = `${rootPath}/components/${name}`;
+  const componentFunction = require(`${componentDir}/${name}.js`).default;
 
   componentCache[name] = componentFunction;
   return componentFunction;
