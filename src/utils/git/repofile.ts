@@ -3,6 +3,8 @@ import type { Path } from "../path";
 import RepoCommit from "./commit";
 import logger from "utils/log";
 
+const ignoredDirectories = new Set([".git", ".direnv", "node_modules"]);
+
 /**
  * A file we know to be in a git repository.
  */
@@ -30,10 +32,14 @@ class RepoFile {
   //   return this.repo.historyLink(longHash, this.path);
   // }
 
-  // is the file ignored by the repo?
-  // TODO this does not work ofc
+  /**
+   * Is the file ignored by the repo?
+   * SHORTCUT: This obviously is not well thought out.
+   */
   isIgnored() {
-    return [".git", "node_modules"].includes(this.path.name);
+    return this.path.pathArray.some((pathval) =>
+      ignoredDirectories.has(pathval)
+    );
   }
 
   // get the last commit that cared about this file

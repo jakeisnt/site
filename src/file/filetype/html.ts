@@ -34,20 +34,18 @@ class HTMLFile extends SourceFile {
     // if the path is a directory, this won't work;
     // we then get the containing directory if this fails.
 
-    // NOTE: This is a special case.
-    // To solve this in a systemic way, we'll need to
+    // NOTE: This logic is a special case.
+    // Other transformations should not be implemented this way.
     const path = filePath.replaceExtension();
-
-    let prevFile: File;
-    try {
-      prevFile = readFile(path, cfg);
-    } catch (e) {
+    let prevFile = readFile(path, cfg);
+    if (!prevFile) {
       const directoryPath = filePath.parent;
       prevFile = readFile(directoryPath, cfg);
     }
+    if (!prevFile) return;
 
     return wrapFile(
-      prevFile as SourceFile,
+      prevFile,
       // the function is available on all children of the file
       // @ts-ignore
       (f: File) => f?.asHtml?.(cfg)?.toString() ?? "",

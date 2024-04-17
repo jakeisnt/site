@@ -1,6 +1,4 @@
 import { SourceFile } from "file/classes";
-import { readFile } from "file";
-import SCSSFile from "./scss";
 import type { Path } from "../../utils/path";
 import type { PageSettings } from "../../types/site";
 
@@ -20,12 +18,6 @@ class CSSFile extends SourceFile {
     if (filePath.exists()) {
       return new CSSFile(filePath, cfg);
     }
-
-    // If this file doesn't exist, try making the scss file
-    const scssPath = filePath.replaceExtension("scss");
-    const prevFile = readFile(scssPath, cfg) as SCSSFile;
-
-    return prevFile.css(cfg);
   }
 }
 

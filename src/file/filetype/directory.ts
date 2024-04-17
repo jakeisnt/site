@@ -3,8 +3,9 @@ import JSFile from "./js.js";
 import { readFile } from "file";
 import HtmlPage from "../../html/builder";
 import type { PageSettings } from "../../types/site";
-import type { HtmlNode, PageSyntax } from "../../types/html";
+import type { PageSyntax } from "../../types/html";
 import { Path } from "../../utils/path";
+import type { URL } from "../../utils/url.js";
 
 /**
  * Read a javascript file to string.
@@ -13,59 +14,11 @@ const readJSFile = (path: Path, cfg: PageSettings) => {
   return new JSFile(path, cfg);
 };
 
-const folderIndexPageTable = ({
-  files,
-  rootUrl,
-  sourceDir,
-}: {
-  files: File[];
-  rootUrl: string;
-  sourceDir: string;
-}): PageSyntax => {
-  return [
-    "div",
-    { class: "folder-index-page-table" },
-    [
-      "table",
-      files.map((childFile) => {
-        const lastLog = childFile.lastLog;
-
-        return [
-          "tr",
-          ["td", { class: "file-hash-tr" }, lastLog?.shortHash],
-          [
-            "td",
-            { class: "file-name-tr" },
-            [
-              "a",
-              {
-                href: childFile.htmlUrl({
-                  rootUrl,
-                  sourceDir,
-                }),
-              },
-              childFile.name,
-            ],
-          ],
-          ["td", { class: "file-type-tr" }, childFile.extension],
-          [
-            "td",
-            {
-              class: lastLog?.date ? "file-date-tr" : "file-date-untracked-tr",
-            },
-            lastLog?.date ?? "untracked",
-          ],
-        ];
-      }) as HtmlNode[],
-    ],
-  ];
-};
-
 const directoryToHtml = (
   dir: Directory,
   {
     files,
-    rootUrl,
+    url,
     siteName,
     sourceDir,
     resourcesDir,
@@ -76,18 +29,14 @@ const directoryToHtml = (
 
   return [
     "html",
-    ["Header", { title, siteName, rootUrl, resourcesDir, faviconsDir }],
+    ["Header", { title, siteName, url, resourcesDir, faviconsDir }],
     [
       "body",
-      ["Sidebar", { path: dir.path, title, sourceDir, rootUrl }],
+      ["Sidebar", { path: dir.path, title, sourceDir, url }],
       [
         "div",
         { class: "site-body" },
-        [
-          "main",
-          folderIndexPageTable({ files, rootUrl, sourceDir }),
-          ["ScrollUp"],
-        ],
+        ["main", ["FolderIndex", { files, url, sourceDir }], ["ScrollUp"]],
       ],
     ],
   ];
@@ -121,6 +70,26 @@ class Directory extends File {
   }
 
   /**
+    // Special case for the js files: make sure they all exist.
+    // Don't cache this because we only want the default full dir cached.
+   */
+  jsFileContents() {
+    const jsPaths = this.path.readDirectory();
+
+    const retFiles: File[] = [];
+
+    jsPaths.forEach((childPath: Path) => {
+      if (childPath.extension !== "js" && childPath.extension !== "ts") {
+        return;
+      }
+      const maybeJSFile = readJSFile(childPath, this.cachedConfig);
+      if (maybeJSFile) retFiles.push(maybeJSFile);
+    });
+
+    return retFiles;
+  }
+
+  /**
    * Get all the files in the immediate directory.
    * This is not treated as a property and is not cached due to the possibility of files changing.
    *
@@ -132,26 +101,8 @@ class Directory extends File {
       omitNonJSFiles: false,
     }
   ): File[] {
-    // special case for the js files: make sure they all exist.
-    // don't cache this because we only want the default full dir cached.
     if (omitNonJSFiles) {
-      const jsPaths = this.path.readDirectory();
-      const maybeJSFiles = jsPaths.map((childPath: Path) => {
-        if (childPath.extension !== "js" && childPath.extension !== "ts") {
-          return undefined;
-        } else {
-          return readJSFile(childPath, this.cachedConfig);
-        }
-      });
-
-      const retFiles: File[] = [];
-      maybeJSFiles.forEach((f) => {
-        if (f) {
-          retFiles.push(f);
-        }
-      });
-
-      return retFiles;
+      return this.jsFileContents();
     }
 
     if (this.enumeratedContents) {
@@ -161,8 +112,9 @@ class Directory extends File {
     const fileContents = this.path
       .readDirectory()
       // SHORTCUT: Fixes a bug where the site creates itself infinitely
-      .filter((v) => v.toString() !== this.cachedConfig.targetDir)
-      .map((v) => readFile(v, this.cachedConfig));
+      .filter((v) => !v.equals(this.cachedConfig.targetDir))
+      .map((v) => readFile(v, this.cachedConfig))
+      .filter((v): v is File => v !== undefined);
 
     this.enumeratedContents = fileContents;
     return fileContents;
@@ -182,16 +134,17 @@ class Directory extends File {
     }
   }
 
-  htmlUrl({ sourceDir }: { sourceDir: string }) {
+  htmlUrl({ url, sourceDir }: { url: URL; sourceDir: Path }) {
     const relativeToSource = this.path.relativeTo(sourceDir);
-    return relativeToSource.toString() + "/index.html";
+    return `${relativeToSource}/index.html`;
   }
 
+  /**
+   * Create this directory if it doesn't yet exist.
+   */
   write(config: PageSettings) {
     const { sourceDir, targetDir } = config;
 
-    // first, make sure the corresponding directory exists.
-    // this is e.g. '/site/docs/' and mkdir /site/docs/
     const targetPath = this.path.relativeTo(sourceDir, targetDir);
     targetPath.make({ isDirectory: true });
 

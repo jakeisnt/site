@@ -1,4 +1,5 @@
 // All tags supported by the browser.
+
 // @ts-ignore
 type NativeHtmlTag =
   | "html"

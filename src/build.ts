@@ -1,6 +1,7 @@
 import { readFile } from "./file";
 import type { PageSettings } from "./types/site";
 import { File } from "./file/classes";
+import { homePage } from "./pages/home";
 
 /**
  * Recursively build a website, starting with
@@ -27,10 +28,17 @@ const buildSiteFromFile = (
 const buildFromPath = (settings: PageSettings) => {
   const { sourceDir, targetDir, ignorePaths } = settings;
 
-  // Start off from the root, source dir,
-  // Pootstrap the process by reading the root file as HTML.
-  const dir = readFile(sourceDir.toString() + "/index.html", settings);
+  // Write the root file
+  const rootFile = targetDir.join("/index.html");
+  rootFile.writeString(homePage(settings).serve(settings).contents);
 
+  // Read the rest of the repo under `source`.
+  const cfg = { ...settings, targetDir: targetDir.join("/source") };
+
+  // Start off from the root, source dir,
+  // Bootstrap the process by reading the root file as HTML.
+  const dir = readFile(sourceDir.join("/index.html"), cfg);
+  if (!dir) return;
   console.log("Starting with", dir.path.toString());
 
   // If we've already seen a file path, we should ignore it.
@@ -49,7 +57,7 @@ const buildFromPath = (settings: PageSettings) => {
     targetDir.toString() + "/index.html",
   ]);
 
-  buildSiteFromFile(dir, settings, filePathsSeenSoFar);
+  buildSiteFromFile(dir, cfg, filePathsSeenSoFar);
 };
 
 export { buildFromPath };

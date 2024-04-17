@@ -1,7 +1,6 @@
 import { create, all } from "./lib";
 
 /* enhancements to native html elements */
-
 const loadHeadings = () => {
   /* Allow users to copy links from headings */
   const headings = "h1, h2, h3, h4, h5, h6";

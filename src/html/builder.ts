@@ -3,15 +3,18 @@ import { htmlPage } from "./dsl";
 import type { PageSyntax, Dependency } from "../types/html";
 import { File } from "../file/classes";
 import type { PageSettings } from "../types/site";
+import { Path } from "../utils/path";
+import { URL } from "../utils/url";
 
 /**
  * Is the link string that we are provided internal?
- * @param l the link to reference
+ * @param link the link to reference
  * @param settings page settings configuration
- * @returns
  */
-const isInternalLink = (l: string, { rootUrl }: { rootUrl: string }) => {
-  if (l.includes(rootUrl)) {
+const isInternalLink = (link: string | URL, { url }: { url: URL }) => {
+  const l = link.toString();
+
+  if (l.toString().includes(url.toString())) {
     return true;
   }
 
@@ -31,43 +34,46 @@ const isInternalLink = (l: string, { rootUrl }: { rootUrl: string }) => {
  * @param settings page settings to carry
  */
 const linkStringToFile = (
-  l: string,
-  { rootUrl, sourceDir }: { rootUrl: string; sourceDir: string }
+  l: string | URL,
+  { url, sourceDir }: { url: URL; sourceDir: Path }
 ) => {
   // remove the leading rootUrl from the link if it exists
   const linkWithoutRoot = l
-    .replace(rootUrl, "")
+    .toString()
+    .replace(url.toString(), "")
     .replace("http://", "")
     .replace("https://", "");
 
-  // path the now-local url to the source dir
-  return sourceDir.toString().concat(linkWithoutRoot);
+  return sourceDir.join(`/${linkWithoutRoot}`);
 };
 
 const makeDependencies = (
   dependencies: Dependency[],
   settings: PageSettings
 ): File[] => {
-  const res: File[] = [];
+  const dependencyFiles: File[] = [];
 
   dependencies.forEach((dep) => {
-    if (!isInternalLink(dep.src, settings)) {
+    // TODO: We can manage / push external dependencies here also.
+    // Reading an external dependency is no different from reading file or something;
+    // maybe we create some `Dependency` class to manage all of them!
+
+    const source = dep.src.toString();
+    if (!isInternalLink(source, settings)) {
       return;
     }
 
-    if (dep.src === settings.targetDir) {
+    if (settings.targetDir.equals(source)) {
       return;
     }
 
-    try {
-      const file = readFile(linkStringToFile(dep.src, settings), settings);
-      res.push(file);
-    } catch (e) {
-      // console.warn(`Dependency file ${dep.src} doesn't exist`);
-    }
+    const file = readFile(linkStringToFile(source, settings), settings);
+    if (!file) return;
+
+    dependencyFiles.push(file);
   });
 
-  return res;
+  return dependencyFiles;
 };
 
 /**
@@ -101,7 +107,10 @@ class HtmlPage {
   }
 
   toString() {
-    const { dependsOn, body } = htmlPage(this.pageStructure);
+    const { dependsOn, body } = htmlPage(
+      this.pageStructure,
+      this.currentBuildSettings
+    );
 
     this.cachedDependencies = makeDependencies(
       dependsOn,

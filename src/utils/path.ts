@@ -1,7 +1,6 @@
 import pathLibrary from "path";
 import { execSync } from "./cmd";
 import fs from "fs";
-import logger from "./log";
 import mime from "mime";
 import { Repo } from "./git";
 
@@ -27,6 +26,9 @@ class Path {
 
   public relativePathString: String = "";
   private pathString: string = "";
+
+  private doesFileExist?: boolean = undefined;
+  private lstats?: fs.Stats = undefined;
 
   /**
    * Construct a Path.
@@ -181,10 +183,7 @@ class Path {
    * Copy the file or directory at this path to another path.
    * If the path is not a subdir of this path, throw an error.
    */
-  copy(fromPath: Path | string, toPath: Path | string) {
-    const from = Path.create(fromPath);
-    const to = Path.create(toPath);
-
+  copy(from: Path, to: Path) {
     // TODO: this would be a good safeguard to add, but it doesn't work?
     // if (!this.contains(from)) {
     //   throw new Error(
@@ -205,13 +204,7 @@ class Path {
    * Move the file or directory at this path to another path.
    * If the path is not a subdir of this path, throw an error.
    */
-  move(
-    fromPath: Path | string,
-    toPath: Path | string,
-    { force = false }: { force: boolean } = {
-      force: false,
-    }
-  ) {
+  move(fromPath: Path | string, toPath: Path | string) {
     console.log("moving from ", { from: fromPath, to: toPath });
 
     try {
@@ -230,30 +223,24 @@ class Path {
    * REMOVE 'maybeOtherPath' from this path's string.
    * If 'maypeReplaceWithPath' is defined, append it.
    */
-  relativeTo(maybeOtherPath: Path | string, maybeReplaceWithPath = "") {
+  relativeTo(
+    maybeOtherPath: Path | string,
+    maybeReplaceWithPath: Path | string = ""
+  ) {
     const otherPath = Path.create(maybeOtherPath);
-    const replaceWith = maybeReplaceWithPath.toString();
 
     if (!this.pathString.startsWith(otherPath.toString())) {
       throw new Error(
-        `Path we are removing is no present on the current path. Was looking for path: ${this.pathString} relative to ${maybeOtherPath}`
+        `Path we are removing is not present on the current path. Was looking for path: ${this.pathString} relative to ${maybeOtherPath}`
       );
     }
 
     let resultingPathString = this.pathString;
     if (otherPath) {
-      if (otherPath.toString() === resultingPathString) {
-        resultingPathString = "";
-      }
-
       resultingPathString = resultingPathString.replace(
-        `${otherPath.toString()}`,
-        ""
+        otherPath.toString(),
+        maybeReplaceWithPath?.toString() ?? ""
       );
-    }
-
-    if (maybeReplaceWithPath) {
-      resultingPathString = replaceWith.toString() + resultingPathString;
     }
 
     return Path.create(resultingPathString);
@@ -263,7 +250,11 @@ class Path {
    * Does the file at this path exist?
    */
   exists() {
-    return fs.existsSync(this.pathString);
+    if (this.doesFileExist === undefined) {
+      this.doesFileExist = fs.existsSync(this.pathString);
+    }
+
+    return this.doesFileExist;
   }
 
   /**
@@ -302,12 +293,14 @@ class Path {
     }
 
     if (!this.exists()) {
-      throw new Error(
-        `Cannot check if a path is a directory if it doesn't exist. Was looking for path: ${this.pathString}`
-      );
+      throw new Error(`File ${this.toString()} doesnt exist`);
     }
 
-    return fs.lstatSync(this.pathString).isDirectory();
+    if (!this.lstats) {
+      this.lstats = fs.lstatSync(this.pathString);
+    }
+
+    return this.lstats?.isDirectory();
   }
 
   // read this path as a utf8 string
@@ -381,7 +374,6 @@ class Path {
    * producing the conjunction of the two.
    */
   join(nextPart: Path | string) {
-    logger.file("Joining path", this.pathString, "with", nextPart.toString());
     return new Path(this.pathString + nextPart.toString());
   }
 
@@ -448,9 +440,6 @@ class Path {
   /**
    * Watch this file for any action.
    * Invoke a callback listener if the file changes.
-   *
-   * NOTE: We currently don't listen for file change events.
-   * Those cause this to fail because we pass `this` through.
    */
   watch(callback: Function) {
     if (!this.exists()) {

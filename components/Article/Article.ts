@@ -12,6 +12,7 @@ const renderArticle = ({
   siteName,
   rootUrl,
   sourceDir,
+  targetDir,
   resourcesDir,
   faviconsDir,
 }: PageSettings & {
@@ -23,7 +24,10 @@ const renderArticle = ({
 
   return [
     "html",
-    ["Header", { title, rootUrl, siteName, resourcesDir, faviconsDir }],
+    [
+      "Header",
+      { title, targetDir, rootUrl, siteName, resourcesDir, faviconsDir },
+    ],
     [
       "body",
       ["Sidebar", { path: file.path, title, rootUrl, sourceDir }],

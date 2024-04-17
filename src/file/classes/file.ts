@@ -2,6 +2,7 @@ import { Path } from "../../utils/path";
 import { readFile } from "file";
 import Directory from "../filetype/directory";
 import type { PageSettings } from "../../types/site";
+import type { URL } from "../../utils/url";
 
 /**
  * Any file on the system.
@@ -22,6 +23,15 @@ class File {
   // reading SCSS as CSS, etc.
   public fakeFileOf?: File;
 
+  // The source file types that this file represents.
+  public static filetypes: string[] = [];
+
+  // The supported target file types of this file, if any.
+  // If a file class supports a specific target <t>,
+  // the file must also have a function <t>() to call
+  // that produces a file with the type of that target.
+  public static targets: string[] = [];
+
   /**
    * Construct a file.
    */
@@ -38,7 +48,7 @@ class File {
     this.cachedConfig = cfg;
   }
 
-  static create(path: Path, cfg: PageSettings) {
+  static create(path: Path, cfg: PageSettings): File | undefined {
     return new this(path, cfg);
   }
 
@@ -120,11 +130,12 @@ class File {
     return this;
   }
 
-  // get the url to the html page with this file
-  // if provided a directory, get the url to the directory with index.html postfixed (?)
-  htmlUrl({ rootUrl, sourceDir }: { rootUrl: string; sourceDir: string }) {
+  /**
+   * Get the url to the html page with this file
+   */
+  htmlUrl({ url, sourceDir }: { url: URL; sourceDir: Path }) {
     const relativeToSource = this.path.relativeTo(sourceDir);
-    return rootUrl + relativeToSource.addExtension("html");
+    return `${url}${relativeToSource.addExtension("html")}`;
   }
 
   get repo() {
@@ -168,11 +179,9 @@ class File {
    * Watch the file, attaching an event listener to pick up on file events.
    */
   watch(callback: (eventType: string, file: File) => void) {
-    const closeWatcher = this.path.watch(
-      (eventType: string, filename: string) => {
-        callback(eventType, this);
-      }
-    );
+    const closeWatcher = this.path.watch((eventType: string) => {
+      callback(eventType, this);
+    });
 
     return closeWatcher;
   }

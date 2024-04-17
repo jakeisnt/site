@@ -1,14 +1,6 @@
 import { HtmlPage } from "html";
 import { expect, test } from "bun:test";
-
-const PAGE_SETTINGS = {
-  rootUrl: "http://localhost:3000",
-  sourceDir: "/",
-  siteName: "Jake Chvatal",
-  targetDir: "/",
-  resourcesDir: "/",
-  faviconsDir: "/",
-};
+import { PAGE_SETTINGS } from "./testConstants";
 
 test("Create an HtmlPage", () => {
   // create just html
@@ -31,10 +23,7 @@ test("Create an HtmlPage with a table", () => {
         "body",
         [
           "table",
-          [
-            "tr",
-            ["td", ["a", { href: "http://localhost:3000" }, "hello world"]],
-          ],
+          ["tr", ["td", ["a", { href: PAGE_SETTINGS.url }, "hello world"]]],
         ],
       ],
     ],
@@ -42,7 +31,7 @@ test("Create an HtmlPage with a table", () => {
   );
 
   expect(page.toString()).toEqual(
-    '<!DOCTYPE html><html><body><table><tr><td><a href="http://localhost:3000">hello world</a></td></tr></table></body></html>'
+    `<!DOCTYPE html><html><body><table><tr><td><a href="${PAGE_SETTINGS.url}">hello world</a></td></tr></table></body></html>`
   );
 });
 
@@ -55,11 +44,11 @@ test("Create an HtmlPage with a tag, href, etc..", () => {
         "body",
         [
           "a",
-          { href: "http://localhost:3000" },
+          { href: PAGE_SETTINGS.url },
           "hello world",
-          ["img", { src: "http://localhost:3000" }],
-          ["script", { src: "http://localhost:3000" }],
-          ["link", { href: "http://localhost:3000" }],
+          ["img", { src: PAGE_SETTINGS.url }],
+          ["script", { src: PAGE_SETTINGS.url }],
+          ["link", { href: PAGE_SETTINGS.url }],
         ],
       ],
     ],
@@ -67,7 +56,7 @@ test("Create an HtmlPage with a tag, href, etc..", () => {
   );
 
   expect(page.toString()).toEqual(
-    '<!DOCTYPE html><html><body><a href="http://localhost:3000">hello world<img src="http://localhost:3000"></img><script src="http://localhost:3000"></script><link href="http://localhost:3000"></link></a></body></html>'
+    `<!DOCTYPE html><html><body><a href="${PAGE_SETTINGS.url}">hello world<img src="${PAGE_SETTINGS.url}"></img><script src="${PAGE_SETTINGS.url}"></script><link href="${PAGE_SETTINGS.url}"></link></a></body></html>`
   );
 });
 

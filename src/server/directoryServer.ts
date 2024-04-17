@@ -1,5 +1,6 @@
 import { Path } from "../utils/path";
 
+import type { PageSettings } from "../types/site";
 import log from "utils/log";
 
 import { makeFileResponse } from "./utils";
@@ -7,48 +8,25 @@ import { readFile } from "../file";
 import { createServer } from "./createServer";
 import Directory from "../file/filetype/directory";
 import { homePage } from "../pages/home";
-import { getPageSettings } from "./utils";
 
 /**
- * Serve the files in a directory.
- * @param {*} absolutePathToDirectory primary directory we should source files from.
- * @param {*} fallbackDirPath path to directory we should fall back to serving.
+ * Load the specified source files from disk,
+ * bootstrapping the source finding process.
  */
-const directoryServer = ({
-  absolutePathToDirectory,
-  fallbackDirPath,
-  url,
-  port,
-  siteName,
-  websocketPath,
-}: {
-  absolutePathToDirectory: Path;
-  fallbackDirPath: string;
-  url: string;
-  port: number;
-  siteName: string;
-  websocketPath: string;
-}) => {
-  let pageSettings = getPageSettings({
-    url,
-    port,
-    siteName,
-    absolutePathToDirectory,
-    fallbackDirPath,
-  });
-
-  const dir = readFile(
-    absolutePathToDirectory,
-    pageSettings
-  ) as unknown as Directory;
-
-  let fallbackDir: Directory;
+const findSource = (
+  settings: PageSettings
+): {
+  fallbackDir?: Directory;
+  dir: Directory;
+} => {
+  const dir = readFile(settings.sourceDir, settings) as unknown as Directory;
+  let fallbackDir: Directory | undefined;
 
   try {
-    if (fallbackDirPath) {
+    if (settings.fallbackSourceDir) {
       fallbackDir = readFile(
-        fallbackDirPath,
-        pageSettings
+        settings.fallbackSourceDir,
+        settings
       ) as unknown as Directory;
     }
   } catch (e: any) {
@@ -56,55 +34,52 @@ const directoryServer = ({
   }
 
   if (!dir.isDirectory()) {
-    throw new Error(
-      `Received path '${absolutePathToDirectory}' is not a directory`
-    );
+    throw new Error(`Received path '${settings.sourceDir}' is not a directory`);
   }
 
-  pageSettings = getPageSettings({
-    url,
-    port,
-    siteName,
-    absolutePathToDirectory: dir.path,
-    fallbackDirPath,
-  });
+  return { dir, fallbackDir };
+};
+
+/**
+ * Serve the files in a directory.
+ */
+const directoryServer = (settings: PageSettings) => {
+  let pageSettings = settings;
+  const { dir, fallbackDir } = findSource(settings);
+  pageSettings = { ...settings, sourceDir: dir.path };
 
   createServer({
-    url,
-    port,
-    websocketPath,
+    ...settings,
     onRequest: ({ path }: { path: Path }) => {
-      let pathToUse = Path.create(path);
+      let pathToUse = path;
 
-      // If we request the root, serve up the home page
+      // If we request the root, serve up the home page. Hardcoded.
       if (["", "/", "/index", "/index.html"].includes(pathToUse.toString())) {
-        return makeFileResponse(homePage(pageSettings), {
-          ...pageSettings,
-          websocketPath,
-        });
+        return makeFileResponse(homePage(pageSettings), pageSettings);
       }
 
-      if (path.name === "index.html") {
-        // if the path is a directory, serve the parent like an html file
-        pathToUse = Path.create(path.parent.toString() + ".html");
-      }
-
-      // we look for a directory with .html,
-      // then fall back to types.html
+      // Otherwise:
+      // - Replace the target dir with the source dir where we're looking.
+      //   Allows the target dir to be an arbitrary subdomain of the source,
+      //   and to to patch back to the source path from the target.
+      pathToUse = Path.create(
+        path.toString().startsWith("/") ? path.toString().slice(1) : path
+      ).relativeTo(pageSettings.targetDir, pageSettings.sourceDir);
 
       let file = dir.findFile(pathToUse, pageSettings);
       if (!file) {
-        // if we can't find the file, attempt to find it in a fallback directory.
+        // If we can't find the file, attempt to find it in a fallback directory.
         file = fallbackDir?.findFile(pathToUse, pageSettings);
       }
+
       if (!file) {
         return new Response("Not found", { status: 404 });
       }
 
-      return makeFileResponse(file, { ...pageSettings, websocketPath });
+      return makeFileResponse(file, pageSettings);
     },
 
-    onSocketConnected: (ws) => {
+    onSocketConnected: (ws: WebSocket) => {
       log.hotReload("hot reload socket connected");
     },
   });

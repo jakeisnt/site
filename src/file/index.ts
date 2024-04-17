@@ -6,6 +6,21 @@ import TextFile from "file/classes/text";
 import JavascriptFile from "./filetype/js";
 import type { PageSettings } from "../types/site";
 
+/**
+ * Fun utility for cacheing stuff
+ */
+const cache = false;
+const fileCache: { [key: string]: File } = {};
+const withCache = (path: Path, makeFile: (p: Path) => File | undefined) => {
+  if (!cache) return makeFile(path);
+  if (!fileCache[path.toString()]) {
+    const res = makeFile(path);
+    if (!res) return;
+    fileCache[path.toString()] = res;
+  }
+  return fileCache[path.toString()];
+};
+
 /*
  * A standard interface for interacting with files.
  *
@@ -16,6 +31,10 @@ import type { PageSettings } from "../types/site";
  * and associate them with their filetype names.
  */
 
+// key: a file extension
+// value: a list of extensions that can compile to that file extension
+// by invoking a function with that extension's name
+const compileMap: { [key: string]: string[] } = {};
 type FiletypeMap = { [key: string]: typeof File };
 
 let filetypeMap: FiletypeMap;
@@ -37,7 +56,7 @@ const getFiletypeMap = (cfg: PageSettings) => {
       // default to using the raw 'fileClass' if there is no default export (?)
       return fileClass?.default ?? fileClass;
     })
-    .forEach((fileClass) => {
+    .forEach((fileClass: typeof File) => {
       if (!fileClass.filetypes) {
         throw new Error(
           `Filetype ${fileClass.name} does not have a 'filetypes' property`
@@ -51,12 +70,36 @@ const getFiletypeMap = (cfg: PageSettings) => {
 
         newFiletypeMap[fileType] = fileClass;
       });
+
+      fileClass.targets?.forEach((target: string) => {
+        compileMap[target] = (compileMap?.[target] ?? []).concat(
+          fileClass.filetypes
+        );
+      });
     });
 
   return newFiletypeMap;
 };
 
-const fileCache: { [key: string]: File } = {};
+/**
+ * Determine which file type class to use for our path.
+ */
+const getFiletypeClass = (path: Path, cfg: PageSettings) => {
+  if (!filetypeMap) {
+    filetypeMap = getFiletypeMap(cfg);
+  }
+
+  const extension = path.extension;
+  if (!extension || !filetypeMap[extension]) {
+    console.log(
+      `We don't have a filetype mapping for files with extension ${extension}. Assuming plaintext for file at path '${path.toString()}'.`
+    );
+
+    return TextFile;
+  }
+
+  return filetypeMap[extension];
+};
 
 /**
  * Given the source path of a file, return the appropriate file class.
@@ -64,37 +107,35 @@ const fileCache: { [key: string]: File } = {};
  * @param {Object} options - Additional options.
  * @returns {Object} The appropriate file class.
  */
-const readFile = (incomingPath: string | Path, options: PageSettings): File => {
-  if (!filetypeMap) {
-    filetypeMap = getFiletypeMap(options);
+const readFile = (path: Path, options: PageSettings): File | undefined => {
+  let maybeFile = withCache(path, (path: Path) => {
+    const FiletypeClass = getFiletypeClass(path, options);
+    return FiletypeClass.create(path, options);
+  });
+
+  if (maybeFile) {
+    return maybeFile;
   }
 
-  const { sourceDir, fallbackSourceDir } = options ?? {};
+  // if we couldn't find the file at all, promote to a source file.
+  const targetExtension = path.extension;
 
-  // Get the file extension
-  let path = Path.create(incomingPath);
-
-  // If the path doesn't exist, try it against a fallback
-  if (!path.exists() && sourceDir && fallbackSourceDir) {
-    path = path.relativeTo(sourceDir, fallbackSourceDir);
+  // If we have no target extension and can't find teh file, assume it's a directory
+  // Lop off the /index at the end
+  if (!targetExtension) {
+    console.log("snagging parent", path.parent.toString());
+    return readFile(path.parent, options);
   }
 
-  const extension = path.extension;
+  for (const sourceExtension of compileMap[targetExtension]) {
+    const nextPath = path.replaceExtension(sourceExtension);
+    const sourceFile = readFile(nextPath, options);
 
-  if (!fileCache[path.toString()]) {
-    if (!extension || !(extension in filetypeMap)) {
-      console.log(
-        `We don't have a filetype mapping for files with extension ${extension}. Assuming plaintext for file at path '${path.toString()}'.`
-      );
-
-      fileCache[path.toString()] = TextFile.create(path, options);
-    } else {
-      const FiletypeClass = filetypeMap[extension];
-      fileCache[path.toString()] = FiletypeClass.create(path, options);
-    }
+    // Our custom standardizes on using target extension to index.
+    // @ts-ignore
+    const res = sourceFile?.[targetExtension]?.(options);
+    if (res) return res;
   }
-
-  return fileCache[path.toString()];
 };
 
 export { readFile };

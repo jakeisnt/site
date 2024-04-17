@@ -1,47 +1,42 @@
-import { File } from "./file/classes";
+// @ts-nocheck
 
 /**
  * Settings that are necessary for the app to run.
  * Only 'main.js' should import this file.
  */
 
-const sourceDir = "/Users/jake/Documents/personal/site";
-const siteName = "Jake Chvatal";
-const deploymentBranch = "production";
-const targetDir = sourceDir + "/docs";
-const localPort = 4242;
+// declare how the site is configured
+// const sitePaths = [
+//   { folder: "resources", forceRebuild: true },
+//   { folder: "components" },
+//   { folder: "src", forceRebuild: true },
+//   { folder: "style", forceRebuild: true },
+// ];
 
-const sitePaths = [
-  { folder: "resources", forceRebuild: true },
-  { folder: "components" },
-  { folder: "src", forceRebuild: true },
-  { folder: "style", forceRebuild: true },
-];
+// const wikiPaths = [
+//   {
+//     folder: "pages",
+//     sortBy: (v: File) => v.lastLog?.commitDate,
+//   },
+//   {
+//     folder: "scripts",
+//     sortBy: (v: File) => v.lastLog?.commitDate,
+//   },
+//   {
+//     folder: "journals",
+//     sortBy: "name",
+//   },
+// ];
 
-const wikiPaths = [
-  {
-    folder: "pages",
-    sortBy: (v: File) => v.lastLog?.commitDate,
-  },
-  {
-    folder: "scripts",
-    sortBy: (v: File) => v.lastLog?.commitDate,
-  },
-  {
-    folder: "journals",
-    sortBy: "name",
-  },
-];
+// const sources = [
+//   { dir: sourceDir, paths: sitePaths },
+//   { dir: "/home/jake/wiki", paths: wikiPaths },
+// ];
 
-const sources = [
-  { dir: sourceDir, paths: sitePaths },
-  { dir: "/home/jake/wiki", paths: wikiPaths },
-];
-
-const website = {
-  sources,
-  target: targetDir,
-};
+// const website = {
+//   sources,
+//   target: targetDir,
+// };
 
 // @ts-ignore
 const profiles = [
@@ -131,7 +126,4 @@ const personal = {
   },
 };
 
-// @ts-ignore
-const lastModifiedFile = "docs/last-modified.txt";
-
-export { website, deploymentBranch, targetDir, sourceDir, localPort, siteName };
+export { website };
