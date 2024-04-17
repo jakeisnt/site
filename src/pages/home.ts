@@ -5,11 +5,11 @@ import type { PageSyntax } from "../types/html";
 import type { PageSettings } from "../types/site";
 
 const makeHomePage = (settings: PageSettings) => {
-  const { rootUrl, sourceDir, siteName, resourcesDir, faviconsDir } = settings;
+  const { url, sourceDir, siteName, resourcesDir, faviconsDir } = settings;
   const title = "index";
   const htmlText: PageSyntax = [
     "html",
-    ["Header", { title, rootUrl, siteName, resourcesDir, faviconsDir }],
+    ["Header", { title, url, siteName, resourcesDir, faviconsDir }],
     [
       "body",
       [
@@ -17,7 +17,7 @@ const makeHomePage = (settings: PageSettings) => {
         {
           path: Path.create(sourceDir),
           title,
-          rootUrl,
+          url,
           sourceDir,
         },
       ],

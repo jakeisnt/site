@@ -58,22 +58,22 @@ const theme = (): PageSyntax[] => {
 /**
  * Generate open graph headers for this website
  * @param title the title of this specific page.
- * @param rootUrl the root URL that the site will be hosted on
+ * @param url the root URL that the site will be hosted on
  * @param siteName the name of the website as a whole.
  */
 const openGraphHeaders = ({
   title,
-  rootUrl,
+  url,
   siteName = title,
 }: {
   title: string;
-  rootUrl: string;
+  url: string;
   siteName?: string;
 }): PageSyntax[] => {
   return [
     prop("og:title", title),
     prop("og:type", "website"),
-    prop("og:url", rootUrl),
+    prop("og:url", url),
     prop("og:site_name", siteName),
   ];
 };
@@ -82,7 +82,7 @@ const openGraphHeaders = ({
 const header = ({
   title,
   targetDir,
-  rootUrl,
+  url,
   siteName,
   resourcesDir,
   faviconsDir,
@@ -91,7 +91,7 @@ const header = ({
     "head",
     ["meta", { charset: "utf-8" }],
     ["title", `${title} / ${siteName}`],
-    openGraphHeaders({ title, rootUrl, siteName }),
+    openGraphHeaders({ title, url, siteName }),
     meta("keywords", "jake"),
     meta("author", "Jake Chvatal"),
     meta("robots", "index,follow"),

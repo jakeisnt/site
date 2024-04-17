@@ -1,7 +1,6 @@
 import type { Path } from "../utils/path";
 
 type PageSettings = {
-  rootUrl: string;
   siteName: string;
   sourceDir: Path;
   targetDir: Path;

@@ -15,11 +15,11 @@ const readJSFile = (path: Path, cfg: PageSettings) => {
 
 const folderIndexPageTable = ({
   files,
-  rootUrl,
+  url,
   sourceDir,
 }: {
   files: File[];
-  rootUrl: string;
+  url: string;
   sourceDir: Path;
 }): PageSyntax => {
   return [
@@ -40,7 +40,7 @@ const folderIndexPageTable = ({
               "a",
               {
                 href: childFile.htmlUrl({
-                  rootUrl,
+                  url,
                   sourceDir,
                 }),
               },
@@ -65,7 +65,7 @@ const directoryToHtml = (
   dir: Directory,
   {
     files,
-    rootUrl,
+    url,
     siteName,
     sourceDir,
     resourcesDir,
@@ -76,18 +76,14 @@ const directoryToHtml = (
 
   return [
     "html",
-    ["Header", { title, siteName, rootUrl, resourcesDir, faviconsDir }],
+    ["Header", { title, siteName, url, resourcesDir, faviconsDir }],
     [
       "body",
-      ["Sidebar", { path: dir.path, title, sourceDir, rootUrl }],
+      ["Sidebar", { path: dir.path, title, sourceDir, url }],
       [
         "div",
         { class: "site-body" },
-        [
-          "main",
-          folderIndexPageTable({ files, rootUrl, sourceDir }),
-          ["ScrollUp"],
-        ],
+        ["main", folderIndexPageTable({ files, url, sourceDir }), ["ScrollUp"]],
       ],
     ],
   ];
@@ -185,7 +181,7 @@ class Directory extends File {
     }
   }
 
-  htmlUrl({ rootUrl, sourceDir }: { rootUrl: string; sourceDir: Path }) {
+  htmlUrl({ url, sourceDir }: { url: string; sourceDir: Path }) {
     const relativeToSource = this.path.relativeTo(sourceDir);
     return relativeToSource.toString() + "/index.html";
   }

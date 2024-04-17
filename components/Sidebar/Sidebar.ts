@@ -6,10 +6,10 @@ const collectFolderPaths = (
   pathList: string[],
   title: string,
   {
-    rootUrl,
+    url,
     sourceDir,
   }: {
-    rootUrl: string;
+    url: string;
     sourceDir: string;
   },
   curPath: string = ""
@@ -28,16 +28,8 @@ const collectFolderPaths = (
 
   return [
     ["span", PATH_DELIMITER],
-    ["a", { href: `${rootUrl}${nextCurPath}/index.html` }, firstPath],
-    ...collectFolderPaths(
-      restPaths,
-      title,
-      {
-        rootUrl,
-        sourceDir,
-      },
-      nextCurPath
-    ),
+    ["a", { href: `${url}${nextCurPath}/index.html` }, firstPath],
+    ...collectFolderPaths(restPaths, title, { url, sourceDir }, nextCurPath),
   ];
 };
 
@@ -45,17 +37,17 @@ const makeSidebar = ({
   path,
   title,
   sourceDir,
-  rootUrl,
+  url,
 }: {
   path: Path;
   title: string;
   sourceDir: string;
-  rootUrl: string;
+  url: string;
 }) => {
   const pathList = path.relativeTo(sourceDir).relativePathArray;
 
   const folderPaths = collectFolderPaths(pathList, title, {
-    rootUrl,
+    url,
     sourceDir,
   });
 

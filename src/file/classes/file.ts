@@ -131,9 +131,9 @@ class File {
 
   // get the url to the html page with this file
   // if provided a directory, get the url to the directory with index.html postfixed (?)
-  htmlUrl({ rootUrl, sourceDir }: { rootUrl: string; sourceDir: Path }) {
+  htmlUrl({ url, sourceDir }: { url: string; sourceDir: Path }) {
     const relativeToSource = this.path.relativeTo(sourceDir);
-    return rootUrl + relativeToSource.addExtension("html");
+    return url + relativeToSource.addExtension("html");
   }
 
   get repo() {

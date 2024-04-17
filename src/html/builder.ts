@@ -11,8 +11,8 @@ import { Path } from "../utils/path";
  * @param settings page settings configuration
  * @returns
  */
-const isInternalLink = (l: string, { rootUrl }: { rootUrl: string }) => {
-  if (l.includes(rootUrl)) {
+const isInternalLink = (l: string, { url }: { url: string }) => {
+  if (l.includes(url)) {
     return true;
   }
 
@@ -33,11 +33,11 @@ const isInternalLink = (l: string, { rootUrl }: { rootUrl: string }) => {
  */
 const linkStringToFile = (
   l: string,
-  { rootUrl, sourceDir }: { rootUrl: string; sourceDir: Path }
+  { url, sourceDir }: { url: string; sourceDir: Path }
 ) => {
   // remove the leading rootUrl from the link if it exists
   const linkWithoutRoot = l
-    .replace(rootUrl, "")
+    .replace(url, "")
     .replace("http://", "")
     .replace("https://", "");
 
