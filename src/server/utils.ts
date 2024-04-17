@@ -20,7 +20,7 @@ const formatUrl = ({
 const withoutUrl = (fullPath: string, url: string) => fullPath.replace(url, "");
 
 /**
- * inject a hot reload script into the body iof an html string.
+ * inject a hot reload script into the body of an html string.
  */
 const injectHotReload = ({
   htmlString,
