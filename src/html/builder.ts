@@ -57,15 +57,17 @@ const makeDependencies = (
     // TODO: We can manage / push external dependencies here also.
     // Reading an external dependency is no different from reading file or something;
     // maybe we create some `Dependency` class to manage all of them!
-    if (!isInternalLink(dep.src, settings)) {
+
+    const source = dep.src.toString();
+    if (!isInternalLink(source, settings)) {
       return;
     }
 
-    if (settings.targetDir.equals(dep.src)) {
+    if (settings.targetDir.equals(source)) {
       return;
     }
 
-    const file = readFile(linkStringToFile(dep.src, settings), settings);
+    const file = readFile(linkStringToFile(source, settings), settings);
     if (!file) return;
 
     dependencyFiles.push(file);
