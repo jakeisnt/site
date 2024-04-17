@@ -32,10 +32,7 @@ test("Create an HtmlPage with a table", () => {
         "body",
         [
           "table",
-          [
-            "tr",
-            ["td", ["a", { href: "http://localhost:3000" }, "hello world"]],
-          ],
+          ["tr", ["td", ["a", { href: PAGE_SETTINGS.rootUrl }, "hello world"]]],
         ],
       ],
     ],
@@ -43,7 +40,7 @@ test("Create an HtmlPage with a table", () => {
   );
 
   expect(page.toString()).toEqual(
-    '<!DOCTYPE html><html><body><table><tr><td><a href="http://localhost:3000">hello world</a></td></tr></table></body></html>'
+    `<!DOCTYPE html><html><body><table><tr><td><a href="${PAGE_SETTINGS.rootUrl}">hello world</a></td></tr></table></body></html>`
   );
 });
 
@@ -56,11 +53,11 @@ test("Create an HtmlPage with a tag, href, etc..", () => {
         "body",
         [
           "a",
-          { href: "http://localhost:3000" },
+          { href: PAGE_SETTINGS.rootUrl },
           "hello world",
-          ["img", { src: "http://localhost:3000" }],
-          ["script", { src: "http://localhost:3000" }],
-          ["link", { href: "http://localhost:3000" }],
+          ["img", { src: PAGE_SETTINGS.rootUrl }],
+          ["script", { src: PAGE_SETTINGS.rootUrl }],
+          ["link", { href: PAGE_SETTINGS.rootUrl }],
         ],
       ],
     ],
@@ -68,7 +65,7 @@ test("Create an HtmlPage with a tag, href, etc..", () => {
   );
 
   expect(page.toString()).toEqual(
-    '<!DOCTYPE html><html><body><a href="http://localhost:3000">hello world<img src="http://localhost:3000"></img><script src="http://localhost:3000"></script><link href="http://localhost:3000"></link></a></body></html>'
+    `<!DOCTYPE html><html><body><a href="${PAGE_SETTINGS.rootUrl}">hello world<img src="${PAGE_SETTINGS.rootUrl}"></img><script src="${PAGE_SETTINGS.rootUrl}"></script><link href="${PAGE_SETTINGS.rootUrl}"></link></a></body></html>`
   );
 });
 

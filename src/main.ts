@@ -9,9 +9,8 @@ import { siteName, deploymentBranch, localPort } from "./constants";
 
 const localhostUrl = `http://localhost`;
 const devWebsocketPath = "/__devsocket";
-
 const sourceDir = Path.create("./");
-const targetDir = sourceDir.join("/docs");
+const targetDir = sourceDir; // sourceDir.join("/docs");
 const fallbackSourceDir = sourceDir;
 const rootUrl = "http://localhost:3000";
 const resourcesDir = Path.create(sourceDir.toString() + "/resources");
