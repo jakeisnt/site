@@ -27,8 +27,7 @@ const singleFileServer = (absolutePathToFile: Path, settings: PageSettings) => {
   file.watch((eventType) => {
     if (eventType === "change") {
       log.hotReload("File changed. Reloading...");
-      // Re-read the file into memory.
-      // Only one file to worry about!
+      // Re-read the file into memory
       file.read();
       wsClientConnection?.send("reload");
     }

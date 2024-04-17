@@ -440,9 +440,6 @@ class Path {
   /**
    * Watch this file for any action.
    * Invoke a callback listener if the file changes.
-   *
-   * NOTE: We currently don't listen for file change events.
-   * Those cause this to fail because we pass `this` through.
    */
   watch(callback: Function) {
     if (!this.exists()) {
