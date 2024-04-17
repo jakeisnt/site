@@ -130,8 +130,9 @@ class File {
     return this;
   }
 
-  // get the url to the html page with this file
-  // if provided a directory, get the url to the directory with index.html postfixed (?)
+  /**
+   * Get the url to the html page with this file
+   */
   htmlUrl({ url, sourceDir }: { url: URL; sourceDir: Path }) {
     const relativeToSource = this.path.relativeTo(sourceDir);
     return `${url}${relativeToSource.addExtension("html")}`;
@@ -178,11 +179,9 @@ class File {
    * Watch the file, attaching an event listener to pick up on file events.
    */
   watch(callback: (eventType: string, file: File) => void) {
-    const closeWatcher = this.path.watch(
-      (eventType: string, filename: string) => {
-        callback(eventType, this);
-      }
-    );
+    const closeWatcher = this.path.watch((eventType: string) => {
+      callback(eventType, this);
+    });
 
     return closeWatcher;
   }
