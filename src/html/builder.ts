@@ -49,9 +49,12 @@ const makeDependencies = (
   dependencies: Dependency[],
   settings: PageSettings
 ): File[] => {
-  const res: File[] = [];
+  const dependencyFiles: File[] = [];
 
   dependencies.forEach((dep) => {
+    // TODO: We can manage / push external dependencies here also.
+    // Reading an external dependency is no different from reading file or something;
+    // maybe we create some `Dependency` class to manage all of them!
     if (!isInternalLink(dep.src, settings)) {
       return;
     }
@@ -63,10 +66,10 @@ const makeDependencies = (
     const file = readFile(linkStringToFile(dep.src, settings), settings);
     if (!file) return;
 
-    res.push(file);
+    dependencyFiles.push(file);
   });
 
-  return res;
+  return dependencyFiles;
 };
 
 /**
