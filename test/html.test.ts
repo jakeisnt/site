@@ -4,11 +4,11 @@ import { Path } from "../src/utils/path";
 
 const PAGE_SETTINGS = {
   rootUrl: "http://localhost:3000",
-  sourceDir: Path.create("/"),
+  sourceDir: Path.create("./"),
   siteName: "Jake Chvatal",
-  targetDir: Path.create("/"),
-  resourcesDir: Path.create("/"),
-  faviconsDir: Path.create("/"),
+  targetDir: Path.create("./"),
+  resourcesDir: Path.create("./"),
+  faviconsDir: Path.create("./"),
 };
 
 test("Create an HtmlPage", () => {
