@@ -1,6 +1,5 @@
 import File from "../file/classes/file";
 import type { PageSettings } from "../types/site";
-import { Path } from "../utils/path";
 
 /**
  * Format a URL with the URL, port, and path.
@@ -73,35 +72,4 @@ const makeFileResponse = (
   });
 };
 
-/**
- * Format page settings according to the provided arguments.
- */
-const getPageSettings = ({
-  url,
-  port,
-  siteName,
-  sourceDir,
-  fallbackDirPath,
-}: {
-  url: string;
-  port: number;
-  siteName: string;
-  sourceDir: Path;
-  fallbackDirPath: Path;
-}): PageSettings => {
-  const rootUrl = formatUrl({ url, port });
-  const resourcesDir = sourceDir.join("/resources");
-  const faviconsDir = sourceDir.join("/favicons");
-
-  return {
-    siteName,
-    sourceDir,
-    fallbackSourceDir: fallbackDirPath,
-    faviconsDir,
-    resourcesDir,
-    rootUrl,
-    targetDir: sourceDir,
-  };
-};
-
-export { withoutUrl, formatUrl, makeFileResponse, getPageSettings };
+export { withoutUrl, formatUrl, makeFileResponse };

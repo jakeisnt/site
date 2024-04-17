@@ -2,49 +2,24 @@ import { makeFileResponse } from "./utils";
 import { createServer } from "./createServer";
 import { readFile } from "../file";
 import log from "utils/log";
-import { getPageSettings } from "./utils";
+import type { PageSettings } from "../types/site";
 import type { Path } from "../utils/path";
 
 /**
  * A hot-reloading single file server.
  */
 const singleFileServer = ({
-  url,
-  port,
   absolutePathToFile,
-  siteName,
-  websocketPath,
-}: {
-  url: string;
-  port: number;
-  absolutePathToFile: Path;
-  siteName: string;
-  websocketPath: string;
-}) => {
-  const sourceDir = absolutePathToFile.parent;
-
-  const settings = getPageSettings({
-    url,
-    port,
-    siteName,
-    sourceDir,
-    fallbackDirPath: sourceDir,
-  });
-
+  ...settings
+}: PageSettings & { absolutePathToFile: Path }) => {
   const file = readFile(absolutePathToFile, settings);
-
   if (!file) return;
 
-  // TODO: hunt down the websocket type and use it properly
-  let wsClientConnection: any = null;
+  let wsClientConnection: WebSocket;
 
   createServer({
-    url,
-    port,
-    websocketPath,
-    onRequest: () => {
-      return makeFileResponse(file, { ...settings, websocketPath });
-    },
+    ...settings,
+    onRequest: () => makeFileResponse(file, settings),
 
     onSocketConnected: (ws) => {
       log.network("socket connected");
@@ -52,10 +27,11 @@ const singleFileServer = ({
     },
   });
 
-  file.watch((eventType, curFile) => {
+  file.watch((eventType) => {
     if (eventType === "change") {
       log.hotReload("File changed. Reloading...");
-      // re-read the file into memory
+      // Re-read the file into memory.
+      // Only one file to worry about!
       file.read();
       wsClientConnection?.send("reload");
     }

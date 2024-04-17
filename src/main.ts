@@ -30,9 +30,12 @@ const makeConfig = () => {
     targetDir,
     fallbackSourceDir,
     fallbackDirPath: fallbackSourceDir,
-    rootUrl,
+
     url,
+    host,
     port,
+    rootUrl,
+
     resourcesDir,
     faviconsDir,
     ignorePaths,
@@ -64,7 +67,7 @@ const deploy = () => {
   siteDeploy({
     currentRepo,
     deploymentBranch: "production",
-    targetDir: Path.create("./docs").toString(),
+    targetDir: cfg.targetDir.toString(),
   });
 };
 

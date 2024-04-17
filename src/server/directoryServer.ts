@@ -1,5 +1,6 @@
 import { Path } from "../utils/path";
 
+import type { PageSettings } from "../types/site";
 import log from "utils/log";
 
 import { makeFileResponse } from "./utils";
@@ -7,43 +8,25 @@ import { readFile } from "../file";
 import { createServer } from "./createServer";
 import Directory from "../file/filetype/directory";
 import { homePage } from "../pages/home";
-import { getPageSettings } from "./utils";
 
 /**
  * Serve the files in a directory.
  * @param {*} absolutePathToDirectory primary directory we should source files from.
  * @param {*} fallbackDirPath path to directory we should fall back to serving.
  */
-const directoryServer = ({
-  sourceDir,
-  fallbackDirPath,
-  url,
-  port,
-  siteName,
-  websocketPath,
-}: {
-  sourceDir: Path;
-  fallbackDirPath: Path;
-  url: string;
-  port: number;
-  siteName: string;
-  websocketPath: string;
-}) => {
-  let pageSettings = getPageSettings({
-    url,
-    port,
-    siteName,
-    sourceDir,
-    fallbackDirPath,
-  });
+const directoryServer = (settings: PageSettings) => {
+  let pageSettings = settings;
 
-  const dir = readFile(sourceDir, pageSettings) as unknown as Directory;
+  const dir = readFile(
+    settings.sourceDir,
+    pageSettings
+  ) as unknown as Directory;
   let fallbackDir: Directory;
 
   try {
-    if (fallbackDirPath) {
+    if (settings.fallbackSourceDir) {
       fallbackDir = readFile(
-        Path.create(fallbackDirPath),
+        settings.fallbackSourceDir,
         pageSettings
       ) as unknown as Directory;
     }
@@ -52,30 +35,19 @@ const directoryServer = ({
   }
 
   if (!dir.isDirectory()) {
-    throw new Error(`Received path '${sourceDir}' is not a directory`);
+    throw new Error(`Received path '${settings.sourceDir}' is not a directory`);
   }
 
-  pageSettings = getPageSettings({
-    url,
-    port,
-    siteName,
-    sourceDir: dir.path,
-    fallbackDirPath,
-  });
+  pageSettings = { ...settings, sourceDir: dir.path };
 
   createServer({
-    url,
-    port,
-    websocketPath,
+    ...settings,
     onRequest: ({ path }: { path: Path }) => {
       let pathToUse = path;
 
       // If we request the root, serve up the home page. Hardcoded.
       if (["", "/", "/index", "/index.html"].includes(pathToUse.toString())) {
-        return makeFileResponse(homePage(pageSettings), {
-          ...pageSettings,
-          websocketPath,
-        });
+        return makeFileResponse(homePage(pageSettings), pageSettings);
       }
 
       // Otherwise, we get a bit fancy.
@@ -96,10 +68,10 @@ const directoryServer = ({
         return new Response("Not found", { status: 404 });
       }
 
-      return makeFileResponse(file, { ...pageSettings, websocketPath });
+      return makeFileResponse(file, pageSettings);
     },
 
-    onSocketConnected: (ws) => {
+    onSocketConnected: (ws: WebSocket) => {
       log.hotReload("hot reload socket connected");
     },
   });
