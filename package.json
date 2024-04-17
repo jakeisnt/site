@@ -7,9 +7,9 @@
     "dev": "bun run --hot src/main.ts"
   },
   "dependencies": {
-    "mime": "^4.0.0",
+    "mime": "^4.0.1",
     "ohm-js": "^17.1.0",
-    "sass": "^1.69.4",
+    "sass": "^1.75.0",
     "tree-sitter-highlight": "^1.0.1"
   },
   "devDependencies": {
