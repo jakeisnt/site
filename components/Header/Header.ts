@@ -1,4 +1,4 @@
-import { PageSyntax, HtmlAttributes } from "../../src/types/html";
+import { PageSyntax } from "../../src/types/html";
 
 /**
  * Construct a meta tag with a name and content.

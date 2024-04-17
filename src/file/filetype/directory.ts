@@ -14,54 +14,6 @@ const readJSFile = (path: Path, cfg: PageSettings) => {
   return new JSFile(path, cfg);
 };
 
-const folderIndexPageTable = ({
-  files,
-  url,
-  sourceDir,
-}: {
-  files: File[];
-  url: URL;
-  sourceDir: Path;
-}): PageSyntax => {
-  return [
-    "div",
-    { class: "folder-index-page-table" },
-    [
-      "table",
-      files.map((childFile) => {
-        const lastLog = childFile.lastLog;
-
-        return [
-          "tr",
-          ["td", { class: "file-hash-tr" }, lastLog?.shortHash],
-          [
-            "td",
-            { class: "file-name-tr" },
-            [
-              "a",
-              {
-                href: childFile.htmlUrl({
-                  url,
-                  sourceDir,
-                }),
-              },
-              childFile.name,
-            ],
-          ],
-          ["td", { class: "file-type-tr" }, childFile.extension],
-          [
-            "td",
-            {
-              class: lastLog?.date ? "file-date-tr" : "file-date-untracked-tr",
-            },
-            lastLog?.date ?? "untracked",
-          ],
-        ];
-      }) as HtmlNode[],
-    ],
-  ];
-};
-
 const directoryToHtml = (
   dir: Directory,
   {
@@ -84,7 +36,7 @@ const directoryToHtml = (
       [
         "div",
         { class: "site-body" },
-        ["main", folderIndexPageTable({ files, url, sourceDir }), ["ScrollUp"]],
+        ["main", ["FolderIndex", { files, url, sourceDir }], ["ScrollUp"]],
       ],
     ],
   ];

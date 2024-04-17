@@ -15,8 +15,8 @@ const makeConfig = () => {
   const sourceDir = Path.create("./");
   const targetDir = sourceDir; // sourceDir.join("/docs");
   const fallbackSourceDir = sourceDir;
-  const resourcesDir = Path.create(sourceDir.toString() + "/resources");
-  const faviconsDir = Path.create(sourceDir.toString() + "/favicons");
+  const resourcesDir = sourceDir.join("/resources");
+  const faviconsDir = sourceDir.join("/favicons");
 
   // paths to ignore by default from the website we build
   const ignorePaths = [".git", "node_modules"].map(
