@@ -8,13 +8,14 @@ import { Path } from "utils/path";
 
 const makeConfig = () => {
   const siteName = "Jake Chvatal";
-  const url = `http://localhost`;
+  const host = `http://localhost`;
+  const url = `http://${host}`;
   const port = 4242;
   const websocketPath = "/__devsocket";
   const sourceDir = Path.create("./");
   const targetDir = sourceDir; // sourceDir.join("/docs");
   const fallbackSourceDir = sourceDir;
-  const rootUrl = "http://localhost:4242";
+  const rootUrl = `http://${url}:${port}`;
   const resourcesDir = Path.create(sourceDir.toString() + "/resources");
   const faviconsDir = Path.create(sourceDir.toString() + "/favicons");
 
