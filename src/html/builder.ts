@@ -8,12 +8,13 @@ import { URL } from "../utils/url";
 
 /**
  * Is the link string that we are provided internal?
- * @param l the link to reference
+ * @param link the link to reference
  * @param settings page settings configuration
- * @returns
  */
-const isInternalLink = (l: string, { url }: { url: URL }) => {
-  if (l.includes(url.toString())) {
+const isInternalLink = (link: string | URL, { url }: { url: URL }) => {
+  const l = link.toString();
+
+  if (l.toString().includes(url.toString())) {
     return true;
   }
 
@@ -33,11 +34,12 @@ const isInternalLink = (l: string, { url }: { url: URL }) => {
  * @param settings page settings to carry
  */
 const linkStringToFile = (
-  l: string,
+  l: string | URL,
   { url, sourceDir }: { url: URL; sourceDir: Path }
 ) => {
   // remove the leading rootUrl from the link if it exists
   const linkWithoutRoot = l
+    .toString()
     .replace(url.toString(), "")
     .replace("http://", "")
     .replace("https://", "");
