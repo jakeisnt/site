@@ -8,10 +8,7 @@ import type { Path } from "../utils/path";
 /**
  * A hot-reloading single file server.
  */
-const singleFileServer = ({
-  absolutePathToFile,
-  ...settings
-}: PageSettings & { absolutePathToFile: Path }) => {
+const singleFileServer = (absolutePathToFile: Path, settings: PageSettings) => {
   const file = readFile(absolutePathToFile, settings);
   if (!file) return;
 

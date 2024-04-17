@@ -10,24 +10,23 @@ import Directory from "../file/filetype/directory";
 import { homePage } from "../pages/home";
 
 /**
- * Serve the files in a directory.
- * @param {*} absolutePathToDirectory primary directory we should source files from.
- * @param {*} fallbackDirPath path to directory we should fall back to serving.
+ * Load the specified source files from disk,
+ * bootstrapping the source finding process.
  */
-const directoryServer = (settings: PageSettings) => {
-  let pageSettings = settings;
-
-  const dir = readFile(
-    settings.sourceDir,
-    pageSettings
-  ) as unknown as Directory;
-  let fallbackDir: Directory;
+const findSource = (
+  settings: PageSettings
+): {
+  fallbackDir?: Directory;
+  dir: Directory;
+} => {
+  const dir = readFile(settings.sourceDir, settings) as unknown as Directory;
+  let fallbackDir: Directory | undefined;
 
   try {
     if (settings.fallbackSourceDir) {
       fallbackDir = readFile(
         settings.fallbackSourceDir,
-        pageSettings
+        settings
       ) as unknown as Directory;
     }
   } catch (e: any) {
@@ -38,6 +37,15 @@ const directoryServer = (settings: PageSettings) => {
     throw new Error(`Received path '${settings.sourceDir}' is not a directory`);
   }
 
+  return { dir, fallbackDir };
+};
+
+/**
+ * Serve the files in a directory.
+ */
+const directoryServer = (settings: PageSettings) => {
+  let pageSettings = settings;
+  const { dir, fallbackDir } = findSource(settings);
   pageSettings = { ...settings, sourceDir: dir.path };
 
   createServer({
@@ -50,17 +58,17 @@ const directoryServer = (settings: PageSettings) => {
         return makeFileResponse(homePage(pageSettings), pageSettings);
       }
 
-      // Otherwise, we get a bit fancy.
-      // Replace the target dir with the source dir where we're looking.
-      // This allows the target dir to be an arbitrary subdomain of the source,
-      // and allows us to patch back to the source path from the target.
+      // Otherwise:
+      // - Replace the target dir with the source dir where we're looking.
+      //   Allows the target dir to be an arbitrary subdomain of the source,
+      //   and to to patch back to the source path from the target.
       pathToUse = Path.create(
         path.toString().startsWith("/") ? path.toString().slice(1) : path
       ).relativeTo(pageSettings.targetDir, pageSettings.sourceDir);
 
       let file = dir.findFile(pathToUse, pageSettings);
       if (!file) {
-        // if we can't find the file, attempt to find it in a fallback directory.
+        // If we can't find the file, attempt to find it in a fallback directory.
         file = fallbackDir?.findFile(pathToUse, pageSettings);
       }
 

@@ -81,15 +81,10 @@ const serve = (incomingPaths?: string[]) => {
   const paths = incomingPaths?.length ? incomingPaths : ["."];
   const path = Path.create(paths[0]);
 
-  // If we were provided a directory,
-  // serve the directoriy and its contents recursively.
   if (path.isDirectory({ noFSOperation: true })) {
     directoryServer(cfg);
-  }
-
-  // Otherwise, we serve the file that was pointed to from all paths.
-  else {
-    singleFileServer({ ...cfg, absolutePathToFile: path });
+  } else {
+    singleFileServer(path, cfg);
   }
 };
 
