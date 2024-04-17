@@ -1,6 +1,6 @@
 // entrypoint of the program; this is the cli
 
-import { deploy } from "./deploy";
+import { deploy as siteDeploy } from "./deploy";
 import { cli } from "utils/cli";
 import { buildFromPath } from "./build.js";
 import { singleFileServer, directoryServer } from "./server";
@@ -16,6 +16,7 @@ const fallbackSourceDir = sourceDir;
 const rootUrl = "http://localhost:3000";
 const resourcesDir = Path.create(sourceDir.toString() + "/resources");
 const faviconsDir = Path.create(sourceDir.toString() + "/favicons");
+
 // paths to ignore by default from the website we build
 const ignorePaths = [".git", "node_modules"].map(
   (p) => sourceDir.toString() + "/" + p
@@ -34,17 +35,14 @@ const cfg = {
 
 /**
  * Build a website from the incoming paths.
- *
- * Usage: site build ./ ./docs ./ http://localhost:3000
+ * Usage: `site build`
  */
-const build = () => {
-  buildFromPath(cfg);
-};
+const build = () => buildFromPath(cfg);
 
 /**
  * Deploy the current website.
  */
-const deployWebsite = () => {
+const deploy = () => {
   const currentRepo = Path.create(".").repo;
 
   if (!currentRepo) {
@@ -54,7 +52,7 @@ const deployWebsite = () => {
     return;
   }
 
-  deploy({
+  siteDeploy({
     currentRepo,
     deploymentBranch,
     targetDir: Path.create("./docs").toString(),
@@ -66,12 +64,13 @@ const deployWebsite = () => {
  * @param {*} incomingPaths a list of paths to serve from.
  */
 const serve = (incomingPaths?: string[]) => {
+  // TODO: Framework should handle type-based argument casting
+  //   and convert to names when possible.
   const paths = incomingPaths?.length ? incomingPaths : ["."];
-
   const path = Path.create(paths[0]);
 
-  // if we were provided a dir, that directory
-  // becomes the root of a tree we serve
+  // If we were provided a directory,
+  // serve the directoriy and its contents recursively.
   if (path.isDirectory({ noFSOperation: true })) {
     directoryServer({
       siteName,
@@ -83,9 +82,7 @@ const serve = (incomingPaths?: string[]) => {
     });
   }
 
-  // otherwise, we serve just the file that was pointed to from all paths
-  // this is mostly useless because html files can't pull in resources, for ex.,
-  // but it's good for testing the parsing and interpretation of new file types.
+  // Otherwise, we serve the file that was pointed to from all paths.
   else {
     singleFileServer({
       url: localhostUrl,
@@ -101,7 +98,7 @@ const app = cli("site")
   .describe("compiles the website")
   .option("deploy")
   .describe("deploy the website")
-  .action(deployWebsite)
+  .action(deploy)
   .option("build")
   .describe("build the website")
   .action(build)
