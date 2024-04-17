@@ -1,5 +1,4 @@
 import { Path } from "utils/path";
-import { sourceDir } from "../constants";
 import type { Dependency, PageSyntax } from "../types/html";
 import type { PageSettings } from "../types/site";
 
@@ -59,9 +58,8 @@ const componentCache: { [key: string]: Function } = {};
 
 /**
  * Require a component from disk.
- * @param name name of the component
  */
-const requireComponent = (name: string) => {
+const requireComponent = (name: string, sourceDir: Path) => {
   const maybeComponent = componentCache[name];
   if (maybeComponent) {
     return maybeComponent;
@@ -92,7 +90,7 @@ const component = (
   args: Object | undefined,
   config: PageSettings
 ): { dependsOn: Dependency[]; body: PageSyntax } => {
-  const componentFunction = requireComponent(name);
+  const componentFunction = requireComponent(name, config.sourceDir);
   const { dependsOn: dependsOnRaw, body } = componentFunction(args);
 
   const dependsOn = parseDependencies(dependsOnRaw);

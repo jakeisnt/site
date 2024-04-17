@@ -4,6 +4,10 @@ import { Path } from "../src/utils/path";
 
 const PAGE_SETTINGS = {
   rootUrl: "http://localhost:3000",
+  url: "http://localhost:3000",
+  host: "localhost",
+  port: 3000,
+  websocketPath: "/__devsocket",
   sourceDir: Path.create("./"),
   siteName: "Jake Chvatal",
   targetDir: Path.create("./"),
