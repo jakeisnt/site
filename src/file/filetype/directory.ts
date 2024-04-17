@@ -5,6 +5,7 @@ import HtmlPage from "../../html/builder";
 import type { PageSettings } from "../../types/site";
 import type { HtmlNode, PageSyntax } from "../../types/html";
 import { Path } from "../../utils/path";
+import type { URL } from "../../utils/url.js";
 
 /**
  * Read a javascript file to string.
@@ -19,7 +20,7 @@ const folderIndexPageTable = ({
   sourceDir,
 }: {
   files: File[];
-  url: string;
+  url: URL;
   sourceDir: Path;
 }): PageSyntax => {
   return [
@@ -181,9 +182,9 @@ class Directory extends File {
     }
   }
 
-  htmlUrl({ url, sourceDir }: { url: string; sourceDir: Path }) {
+  htmlUrl({ url, sourceDir }: { url: URL; sourceDir: Path }) {
     const relativeToSource = this.path.relativeTo(sourceDir);
-    return relativeToSource.toString() + "/index.html";
+    return `${relativeToSource}/index.html`;
   }
 
   /**

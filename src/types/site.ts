@@ -1,4 +1,5 @@
 import type { Path } from "../utils/path";
+import type { URL } from "../utils/url";
 
 type PageSettings = {
   siteName: string;
@@ -8,11 +9,7 @@ type PageSettings = {
   faviconsDir: Path;
   fallbackSourceDir?: Path;
   ignorePaths?: string[];
-
-  // likely only used for serving, maybe not for local dev
-  url: string;
-  host: string;
-  port: number;
+  url: URL;
   websocketPath: string;
 };
 

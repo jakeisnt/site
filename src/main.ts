@@ -2,15 +2,14 @@
 
 import { deploy as siteDeploy } from "./deploy";
 import { cli } from "utils/cli";
-import { buildFromPath } from "./build.js";
+import { buildFromPath } from "./build";
 import { singleFileServer, directoryServer } from "./server";
 import { Path } from "utils/path";
+import { URL } from "./utils/url";
 
 const makeConfig = () => {
   const siteName = "Jake Chvatal";
-  const host = `localhost`;
-  const port = 4242;
-  const url = `http://${host}:${port}`;
+  const url = URL.create(`http://localhost:4242`);
 
   const websocketPath = "/__devsocket";
   const sourceDir = Path.create("./");
@@ -32,8 +31,6 @@ const makeConfig = () => {
     fallbackDirPath: fallbackSourceDir,
 
     url,
-    host,
-    port,
 
     resourcesDir,
     faviconsDir,

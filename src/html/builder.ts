@@ -4,6 +4,7 @@ import type { PageSyntax, Dependency } from "../types/html";
 import { File } from "../file/classes";
 import type { PageSettings } from "../types/site";
 import { Path } from "../utils/path";
+import { URL } from "../utils/url";
 
 /**
  * Is the link string that we are provided internal?
@@ -11,8 +12,8 @@ import { Path } from "../utils/path";
  * @param settings page settings configuration
  * @returns
  */
-const isInternalLink = (l: string, { url }: { url: string }) => {
-  if (l.includes(url)) {
+const isInternalLink = (l: string, { url }: { url: URL }) => {
+  if (l.includes(url.toString())) {
     return true;
   }
 
@@ -33,11 +34,11 @@ const isInternalLink = (l: string, { url }: { url: string }) => {
  */
 const linkStringToFile = (
   l: string,
-  { url, sourceDir }: { url: string; sourceDir: Path }
+  { url, sourceDir }: { url: URL; sourceDir: Path }
 ) => {
   // remove the leading rootUrl from the link if it exists
   const linkWithoutRoot = l
-    .replace(url, "")
+    .replace(url.toString(), "")
     .replace("http://", "")
     .replace("https://", "");
 

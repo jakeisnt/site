@@ -2,22 +2,10 @@ import File from "../file/classes/file";
 import type { PageSettings } from "../types/site";
 
 /**
- * Format a URL with the URL, port, and path.
- */
-const formatUrl = ({
-  url,
-  port,
-  path,
-}: {
-  url: string;
-  port: number;
-  path?: string;
-}) => `${url}${port ? ":" + port : ""}${path ?? ""}`;
-
-/**
  * Remove the full path from the URL.
  */
-const withoutUrl = (fullPath: string, url: string) => fullPath.replace(url, "");
+const withoutUrl = (fullPath: string, url: URL) =>
+  fullPath.replace(url.toString(), "");
 
 /**
  * inject a hot reload script into the body of an html string.
@@ -72,4 +60,4 @@ const makeFileResponse = (
   });
 };
 
-export { withoutUrl, formatUrl, makeFileResponse };
+export { withoutUrl, makeFileResponse };

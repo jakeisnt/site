@@ -2,6 +2,7 @@ import { Path } from "../../utils/path";
 import { readFile } from "file";
 import Directory from "../filetype/directory";
 import type { PageSettings } from "../../types/site";
+import type { URL } from "../../utils/url";
 
 /**
  * Any file on the system.
@@ -131,9 +132,9 @@ class File {
 
   // get the url to the html page with this file
   // if provided a directory, get the url to the directory with index.html postfixed (?)
-  htmlUrl({ url, sourceDir }: { url: string; sourceDir: Path }) {
+  htmlUrl({ url, sourceDir }: { url: URL; sourceDir: Path }) {
     const relativeToSource = this.path.relativeTo(sourceDir);
-    return url + relativeToSource.addExtension("html");
+    return `${url}${relativeToSource.addExtension("html")}`;
   }
 
   get repo() {
