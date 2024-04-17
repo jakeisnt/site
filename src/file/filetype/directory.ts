@@ -3,7 +3,7 @@ import JSFile from "./js.js";
 import { readFile } from "file";
 import HtmlPage from "../../html/builder";
 import type { PageSettings } from "../../types/site";
-import type { HtmlNode, PageSyntax } from "../../types/html";
+import type { PageSyntax } from "../../types/html";
 import { Path } from "../../utils/path";
 import type { URL } from "../../utils/url.js";
 
