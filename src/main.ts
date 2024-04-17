@@ -5,32 +5,41 @@ import { cli } from "utils/cli";
 import { buildFromPath } from "./build.js";
 import { singleFileServer, directoryServer } from "./server";
 import { Path } from "utils/path";
-import { siteName, deploymentBranch, localPort } from "./constants";
 
-const localhostUrl = `http://localhost`;
-const devWebsocketPath = "/__devsocket";
-const sourceDir = Path.create("./");
-const targetDir = sourceDir; // sourceDir.join("/docs");
-const fallbackSourceDir = sourceDir;
-const rootUrl = "http://localhost:3000";
-const resourcesDir = Path.create(sourceDir.toString() + "/resources");
-const faviconsDir = Path.create(sourceDir.toString() + "/favicons");
+const makeConfig = () => {
+  const siteName = "Jake Chvatal";
+  const url = `http://localhost`;
+  const port = 4242;
+  const websocketPath = "/__devsocket";
+  const sourceDir = Path.create("./");
+  const targetDir = sourceDir; // sourceDir.join("/docs");
+  const fallbackSourceDir = sourceDir;
+  const rootUrl = "http://localhost:4242";
+  const resourcesDir = Path.create(sourceDir.toString() + "/resources");
+  const faviconsDir = Path.create(sourceDir.toString() + "/favicons");
 
-// paths to ignore by default from the website we build
-const ignorePaths = [".git", "node_modules"].map(
-  (p) => sourceDir.toString() + "/" + p
-);
+  // paths to ignore by default from the website we build
+  const ignorePaths = [".git", "node_modules"].map(
+    (p) => sourceDir.toString() + "/" + p
+  );
 
-const cfg = {
-  siteName,
-  sourceDir,
-  targetDir,
-  fallbackSourceDir,
-  rootUrl,
-  resourcesDir,
-  faviconsDir,
-  ignorePaths,
+  return {
+    siteName,
+    sourceDir,
+    targetDir,
+    fallbackSourceDir,
+    fallbackDirPath: fallbackSourceDir,
+    rootUrl,
+    url,
+    port,
+    resourcesDir,
+    faviconsDir,
+    ignorePaths,
+    websocketPath,
+  };
 };
+
+const cfg = makeConfig();
 
 /**
  * Build a website from the incoming paths.
@@ -53,7 +62,7 @@ const deploy = () => {
 
   siteDeploy({
     currentRepo,
-    deploymentBranch,
+    deploymentBranch: "production",
     targetDir: Path.create("./docs").toString(),
   });
 };
@@ -71,25 +80,12 @@ const serve = (incomingPaths?: string[]) => {
   // If we were provided a directory,
   // serve the directoriy and its contents recursively.
   if (path.isDirectory({ noFSOperation: true })) {
-    directoryServer({
-      siteName,
-      sourceDir,
-      fallbackDirPath: sourceDir,
-      url: localhostUrl,
-      port: localPort,
-      websocketPath: devWebsocketPath,
-    });
+    directoryServer(cfg);
   }
 
   // Otherwise, we serve the file that was pointed to from all paths.
   else {
-    singleFileServer({
-      url: localhostUrl,
-      port: localPort,
-      absolutePathToFile: path,
-      siteName,
-      websocketPath: devWebsocketPath,
-    });
+    singleFileServer({ ...cfg, absolutePathToFile: path });
   }
 };
 
