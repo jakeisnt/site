@@ -120,20 +120,6 @@ class Directory extends File {
     return fileContents;
   }
 
-  /**
-   * Given a file path relative to this directory,
-   * find the relevant source file.
-   */
-  findFile(relativePath: Path, cfg: PageSettings) {
-    const path = this.path.join(relativePath);
-
-    try {
-      return readFile(path, cfg);
-    } catch (e) {
-      return null;
-    }
-  }
-
   htmlUrl({ url, sourceDir }: { url: URL; sourceDir: Path }) {
     const relativeToSource = this.path.relativeTo(sourceDir);
     return `${relativeToSource}/index.html`;

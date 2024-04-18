@@ -20,24 +20,47 @@ const findSource = (
   dir: Directory;
 } => {
   const dir = readFile(settings.sourceDir, settings) as unknown as Directory;
-  let fallbackDir: Directory | undefined;
-
-  try {
-    if (settings.fallbackSourceDir) {
-      fallbackDir = readFile(
-        settings.fallbackSourceDir,
-        settings
-      ) as unknown as Directory;
-    }
-  } catch (e: any) {
-    log.debug("Error finding fallback dir:", e.message);
-  }
 
   if (!dir.isDirectory()) {
     throw new Error(`Received path '${settings.sourceDir}' is not a directory`);
   }
 
-  return { dir, fallbackDir };
+  return { dir };
+};
+
+/**
+ * Is the path the root?
+ */
+const isRootPath = (path: Path, settings: PageSettings) => {
+  return (
+    path.equals(settings.sourceDir) ||
+    ["", "/", "/index", "/index.html"].includes(path.toString())
+  );
+};
+
+/**
+ * Format the path provided to be a nice + friendly absolute path
+ * @param path
+ * @param settings
+ */
+const formatPath = (path: Path, settings: PageSettings) => {
+  // Otherwise:
+  // - Replace the target dir with the source dir where we're looking.
+  //   Allows the target dir to be an arbitrary subdomain of the source,
+  //   and to to patch back to the source path from the target.
+
+  // if the path is in the target dir, swap it
+  if (path.toString().startsWith(settings.targetDir.toString())) {
+    return Path.create(
+      path
+        .toString()
+        .replace(settings.targetDir.toString(), settings.sourceDir.toString())
+    );
+  } else {
+    // otherwise, prepend the source dir to it
+    const newPath = settings.sourceDir.toString() + path.toString();
+    return Path.create(newPath);
+  }
 };
 
 /**
@@ -45,7 +68,7 @@ const findSource = (
  */
 const directoryServer = (settings: PageSettings) => {
   let pageSettings = settings;
-  const { dir, fallbackDir } = findSource(settings);
+  const { dir } = findSource(settings);
   pageSettings = { ...settings, sourceDir: dir.path };
 
   createServer({
@@ -54,23 +77,12 @@ const directoryServer = (settings: PageSettings) => {
       let pathToUse = path;
 
       // If we request the root, serve up the home page. Hardcoded.
-      if (["", "/", "/index", "/index.html"].includes(pathToUse.toString())) {
+      if (isRootPath(pathToUse, settings)) {
         return makeFileResponse(homePage(pageSettings), pageSettings);
       }
 
-      // Otherwise:
-      // - Replace the target dir with the source dir where we're looking.
-      //   Allows the target dir to be an arbitrary subdomain of the source,
-      //   and to to patch back to the source path from the target.
-      pathToUse = Path.create(
-        path.toString().startsWith("/") ? path.toString().slice(1) : path
-      ).relativeTo(pageSettings.targetDir, pageSettings.sourceDir);
-
-      let file = dir.findFile(pathToUse, pageSettings);
-      if (!file) {
-        // If we can't find the file, attempt to find it in a fallback directory.
-        file = fallbackDir?.findFile(pathToUse, pageSettings);
-      }
+      pathToUse = formatPath(pathToUse, pageSettings);
+      let file = readFile(pathToUse, pageSettings);
 
       if (!file) {
         return new Response("Not found", { status: 404 });

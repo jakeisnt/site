@@ -5,6 +5,30 @@ import type { PageSettings } from "../../types/site";
 import { File } from "file/classes";
 import { wrapFile } from "../classes/utils";
 
+/**
+ * Find an HTML parent file at the provided path.
+ *
+ * Path example resolutions:
+ * - src/file.html -> src/file
+ * - src/file.html -> src/file.html if the file exists
+ * - src/file.js.html -> src/file.js
+ * - src/index.html -> src.html for directories
+ */
+const findHtmlParentFile = (path: Path) => {
+  // If we have the HTML file, use it!
+  if (path.exists()) {
+    return path;
+  }
+
+  // If we're fetching the index.html file, redirect to the parent.
+  if (path.name === "index.html") {
+    return path.parent;
+  }
+
+  // Otherwise, lop off the `.html` extension and continue.
+  return path.replaceExtension();
+};
+
 class HTMLFile extends SourceFile {
   static filetypes = ["html", "htm", "svg"];
 
@@ -23,12 +47,13 @@ class HTMLFile extends SourceFile {
 
     // NOTE: This logic is a special case.
     // Other transformations should not be implemented this way.
-    const path = filePath.replaceExtension();
+    const path = findHtmlParentFile(filePath);
+
     let prevFile = readFile(path, cfg);
-    if (!prevFile) {
-      const directoryPath = filePath.parent;
-      prevFile = readFile(directoryPath, cfg);
-    }
+    // if (!prevFile) {
+    //   const directoryPath = filePath.parent;
+    //   prevFile = readFile(directoryPath, cfg);
+    // }
     if (!prevFile) return;
 
     return wrapFile(

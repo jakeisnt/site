@@ -74,7 +74,7 @@ class File {
 
   // the title of the file does not
   get title() {
-    return this.name.split(".")[0];
+    return this.path.title;
   }
 
   // the name of a file includes the extension

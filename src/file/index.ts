@@ -93,6 +93,8 @@ const getFiletypeClass = (path: Path, cfg: PageSettings) => {
  * @returns {Object} The appropriate file class.
  */
 const readFile = (path: Path, options: PageSettings): File | undefined => {
+  console.log("readFile", { path: path.toString() });
+
   const FiletypeClass = getFiletypeClass(path, options);
 
   let maybeFile = FiletypeClass.create(path, options);
@@ -104,7 +106,7 @@ const readFile = (path: Path, options: PageSettings): File | undefined => {
   // If we have no target extension and can't find the file, assume it's a directory
   // Lop off the /index at the end
   if (!targetExtension) {
-    console.log("snagging parent", path.parent.toString());
+    console.log("Snagging parent", path.parent.toString());
     return readFile(path.parent, options);
   }
 

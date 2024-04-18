@@ -1,4 +1,4 @@
-import { create, all } from "resources/lib";
+import { create, all } from "/resources/lib";
 
 /**
  * Improve code blocks with button interactivity

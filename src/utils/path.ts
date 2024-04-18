@@ -105,6 +105,12 @@ class Path {
   }
 
   /**
+   * Get the title of this file, NOT including the extension.
+   */
+  get title() {
+    return this.name.split(".")[0];
+  }
+  /**
    * Get the mimeType of this file based on its path string.
    */
   get mimeType() {
@@ -236,13 +242,13 @@ class Path {
     }
 
     let resultingPathString = this.pathString;
+
     if (otherPath) {
       resultingPathString = resultingPathString.replace(
         otherPath.toString(),
-        maybeReplaceWithPath?.toString() ?? ""
+        maybeReplaceWithPath.toString()
       );
     }
-
     return Path.create(resultingPathString);
   }
 
@@ -374,7 +380,7 @@ class Path {
    * producing the conjunction of the two.
    */
   join(nextPart: Path | string) {
-    return new Path(this.pathString + nextPart.toString());
+    return Path.create(this.pathString + nextPart.toString());
   }
 
   /**
