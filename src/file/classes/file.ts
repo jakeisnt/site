@@ -135,7 +135,9 @@ class File {
    */
   htmlUrl({ url, sourceDir }: { url: URL; sourceDir: Path }) {
     const relativeToSource = this.path.relativeTo(sourceDir);
-    return `${url}${relativeToSource.addExtension("html")}`;
+    return `${url.toString().slice(0, -1)}${relativeToSource.addExtension(
+      "html"
+    )}`;
   }
 
   get repo() {
