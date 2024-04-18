@@ -6,21 +6,6 @@ import TextFile from "file/classes/text";
 import JavascriptFile from "./filetype/js";
 import type { PageSettings } from "../types/site";
 
-/**
- * Fun utility for cacheing stuff
- */
-const cache = false;
-const fileCache: { [key: string]: File } = {};
-const withCache = (path: Path, makeFile: (p: Path) => File | undefined) => {
-  if (!cache) return makeFile(path);
-  if (!fileCache[path.toString()]) {
-    const res = makeFile(path);
-    if (!res) return;
-    fileCache[path.toString()] = res;
-  }
-  return fileCache[path.toString()];
-};
-
 /*
  * A standard interface for interacting with files.
  *
@@ -108,19 +93,15 @@ const getFiletypeClass = (path: Path, cfg: PageSettings) => {
  * @returns {Object} The appropriate file class.
  */
 const readFile = (path: Path, options: PageSettings): File | undefined => {
-  let maybeFile = withCache(path, (path: Path) => {
-    const FiletypeClass = getFiletypeClass(path, options);
-    return FiletypeClass.create(path, options);
-  });
+  const FiletypeClass = getFiletypeClass(path, options);
 
-  if (maybeFile) {
-    return maybeFile;
-  }
+  let maybeFile = FiletypeClass.create(path, options);
+  if (maybeFile) return maybeFile;
 
-  // if we couldn't find the file at all, promote to a source file.
+  // if we couldn't find the file at all, promote it to a source file.
   const targetExtension = path.extension;
 
-  // If we have no target extension and can't find teh file, assume it's a directory
+  // If we have no target extension and can't find the file, assume it's a directory
   // Lop off the /index at the end
   if (!targetExtension) {
     console.log("snagging parent", path.parent.toString());
