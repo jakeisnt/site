@@ -94,11 +94,9 @@ const getFiletypeClass = (path: Path, cfg: PageSettings) => {
  */
 const readFile = (path: Path, options: PageSettings): File | undefined => {
   const FiletypeClass = getFiletypeClass(path, options);
-  let maybeFile = FiletypeClass.create(path, options);
 
-  if (maybeFile) {
-    return maybeFile;
-  }
+  let maybeFile = FiletypeClass.create(path, options);
+  if (maybeFile) return maybeFile;
 
   // if we couldn't find the file at all, promote it to a source file.
   const targetExtension = path.extension;
