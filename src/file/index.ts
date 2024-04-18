@@ -5,21 +5,7 @@ import Directory from "./filetype/directory";
 import TextFile from "file/classes/text";
 import JavascriptFile from "./filetype/js";
 import type { PageSettings } from "../types/site";
-
-/**
- * Fun utility for cacheing stuff
- */
-const cache = false;
-const fileCache: { [key: string]: File } = {};
-const withCache = (path: Path, makeFile: (p: Path) => File | undefined) => {
-  if (!cache) return makeFile(path);
-  if (!fileCache[path.toString()]) {
-    const res = makeFile(path);
-    if (!res) return;
-    fileCache[path.toString()] = res;
-  }
-  return fileCache[path.toString()];
-};
+import { withCache } from "../utils/cache";
 
 /*
  * A standard interface for interacting with files.
