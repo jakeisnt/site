@@ -39,6 +39,31 @@ const isRootPath = (path: Path, settings: PageSettings) => {
 };
 
 /**
+ * Format the path provided to be a nice + friendly absolute path
+ * @param path
+ * @param settings
+ */
+const formatPath = (path: Path, settings: PageSettings) => {
+  // Otherwise:
+  // - Replace the target dir with the source dir where we're looking.
+  //   Allows the target dir to be an arbitrary subdomain of the source,
+  //   and to to patch back to the source path from the target.
+
+  // if the path is in the target dir, swap it
+  if (path.toString().startsWith(settings.targetDir.toString())) {
+    return Path.create(
+      path
+        .toString()
+        .replace(settings.targetDir.toString(), settings.sourceDir.toString())
+    );
+  } else {
+    // otherwise, prepend the source dir to it
+    const newPath = settings.sourceDir.toString() + path.toString();
+    return Path.create(newPath);
+  }
+};
+
+/**
  * Serve the files in a directory.
  */
 const directoryServer = (settings: PageSettings) => {
@@ -56,17 +81,7 @@ const directoryServer = (settings: PageSettings) => {
         return makeFileResponse(homePage(pageSettings), pageSettings);
       }
 
-      pathToUse = path;
-
-      // Otherwise:
-      // - Replace the target dir with the source dir where we're looking.
-      //   Allows the target dir to be an arbitrary subdomain of the source,
-      //   and to to patch back to the source path from the target.
-      // pathToUse = pathToUse.relativeTo(
-      //   pageSettings.targetDir,
-      //   pageSettings.sourceDir
-      // );
-
+      pathToUse = formatPath(pathToUse, pageSettings);
       let file = readFile(pathToUse, pageSettings);
 
       if (!file) {
