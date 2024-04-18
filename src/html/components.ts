@@ -12,7 +12,7 @@ import type { PageSettings } from "../types/site";
  * Places the dependencies where we expect them to be.
  * That is -- relative to targetDir.
  */
-const getDependency = (
+const getDependencyHelp = (
   path: Path,
   etc: object = {},
   cfg: PageSettings
@@ -20,7 +20,7 @@ const getDependency = (
   const extension = path.extension;
   switch (extension) {
     case "ts":
-      return getDependency(path.replaceExtension("js"), etc, cfg);
+      return getDependencyHelp(path.replaceExtension("js"), etc, cfg);
     case "js":
       return [
         "script",
@@ -31,7 +31,7 @@ const getDependency = (
         },
       ];
     case "scss":
-      return getDependency(path.replaceExtension("css"), etc, cfg);
+      return getDependencyHelp(path.replaceExtension("css"), etc, cfg);
     case "css":
       return [
         "link",
@@ -46,12 +46,12 @@ const getDependency = (
   }
 };
 
-const getDependency2 = (dep: { src: Path }, cfg: PageSettings) => {
+/**
+ * `getDependency` with a nicer arg structure.
+ */
+const getDependency = (dep: { src: Path }, cfg: PageSettings) => {
   const { src, ...rest } = dep;
-  const { sourceDir, targetDir } = cfg;
-  const resolvingPath = src.relativeTo(sourceDir, targetDir);
-
-  return getDependency(resolvingPath, rest, cfg);
+  return getDependencyHelp(src, rest, cfg);
 };
 
 const componentCache: { [key: string]: Function } = {};
@@ -95,7 +95,7 @@ const component = (
 
   const dependsOn = parseDependencies(dependsOnRaw);
   const componentWithDependencies = [
-    dependsOn.map((v) => getDependency2(v, config)),
+    dependsOn.map((v) => getDependency(v, config)),
     body,
   ];
 
