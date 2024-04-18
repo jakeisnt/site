@@ -9,18 +9,6 @@ class HTMLFile extends SourceFile {
   static filetypes = ["html", "htm", "svg"];
 
   /**
-   * Write a file to a path at the provided config location.
-   * When writing the html file, also write the non-html file if the file was faked.
-   */
-  write(config: PageSettings) {
-    const { sourceDir, targetDir } = config;
-    const targetPath = this.path.relativeTo(sourceDir, targetDir);
-    targetPath.writeString(this.text(config));
-
-    return this;
-  }
-
-  /**
    * Create an HTML file from path.
    */
   static create(filePath: Path, cfg: PageSettings) {
