@@ -380,7 +380,7 @@ class Path {
    * producing the conjunction of the two.
    */
   join(nextPart: Path | string) {
-    return new Path(this.pathString + nextPart.toString());
+    return Path.create(this.pathString + nextPart.toString());
   }
 
   /**

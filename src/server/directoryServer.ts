@@ -56,14 +56,16 @@ const directoryServer = (settings: PageSettings) => {
         return makeFileResponse(homePage(pageSettings), pageSettings);
       }
 
+      pathToUse = path;
+
       // Otherwise:
       // - Replace the target dir with the source dir where we're looking.
       //   Allows the target dir to be an arbitrary subdomain of the source,
       //   and to to patch back to the source path from the target.
-      pathToUse = pathToUse.relativeTo(
-        pageSettings.targetDir,
-        pageSettings.sourceDir
-      );
+      // pathToUse = pathToUse.relativeTo(
+      //   pageSettings.targetDir,
+      //   pageSettings.sourceDir
+      // );
 
       let file = readFile(pathToUse, pageSettings);
 
