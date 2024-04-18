@@ -33,7 +33,6 @@ class JavascriptFile extends SourceFile {
 
   /**
    * Create this file if it exists.
-   * Otherwise, dispatch to a compile source and convert it.
    */
   static create(filePath: Path, cfg: PageSettings): JavascriptFile | undefined {
     if (filePath.exists()) {

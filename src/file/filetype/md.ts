@@ -1,13 +1,13 @@
 import { TextFile } from "file/classes";
 import type { PageSettings } from "../../types/site";
 
-// TODO
 const fileHasTitle = (fileString: string) => {
   return fileString.indexOf("# ") === 0;
 };
 
-// after the article is in some html ast form, get more info from it
-// @ts-ignore
+/**
+ * Render the markdown article as HTML.
+ */
 const renderArticle = (
   mdArticle: any,
   config: PageSettings & { title: string; siteName: string }

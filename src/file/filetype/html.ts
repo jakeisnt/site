@@ -10,8 +10,7 @@ class HTMLFile extends SourceFile {
 
   /**
    * Write a file to a path at the provided config location.
-   * When writing the html file,
-   * we also write the non-html file if the file was faked.
+   * When writing the html file, also write the non-html file if the file was faked.
    */
   write(config: PageSettings) {
     const { sourceDir, targetDir } = config;

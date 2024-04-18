@@ -43,7 +43,7 @@ const directoryToHtml = (
 };
 
 /**
- * Represents a directory, which is a file that contains other files.
+ * A directory - a file that contains other files.
  */
 class Directory extends File {
   static filetypes = ["dir"];
