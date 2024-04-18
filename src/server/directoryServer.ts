@@ -53,8 +53,16 @@ const directoryServer = (settings: PageSettings) => {
     onRequest: ({ path }: { path: Path }) => {
       let pathToUse = path;
 
+      console.log("SERVING PATH...............", {
+        path: pathToUse.toString(),
+      });
+
       // If we request the root, serve up the home page. Hardcoded.
-      if (["", "/", "/index", "/index.html"].includes(pathToUse.toString())) {
+      if (
+        pathToUse.equals(pageSettings.sourceDir) ||
+        ["", "/", "/index", "/index.html"].includes(pathToUse.toString())
+      ) {
+        console.log("making home page");
         return makeFileResponse(homePage(pageSettings), pageSettings);
       }
 

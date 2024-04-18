@@ -105,6 +105,12 @@ class Path {
   }
 
   /**
+   * Get the title of this file, NOT including the extension.
+   */
+  get title() {
+    return this.name.split(".")[0];
+  }
+  /**
    * Get the mimeType of this file based on its path string.
    */
   get mimeType() {
