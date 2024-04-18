@@ -242,13 +242,13 @@ class Path {
     }
 
     let resultingPathString = this.pathString;
+
     if (otherPath) {
       resultingPathString = resultingPathString.replace(
         otherPath.toString(),
-        maybeReplaceWithPath?.toString() ?? ""
+        maybeReplaceWithPath.toString()
       );
     }
-
     return Path.create(resultingPathString);
   }
 
