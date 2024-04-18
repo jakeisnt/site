@@ -122,7 +122,7 @@ class Directory extends File {
 
   htmlUrl({ url, sourceDir }: { url: URL; sourceDir: Path }) {
     const relativeToSource = this.path.relativeTo(sourceDir);
-    return `${relativeToSource}/index.html`;
+    return `${url.toString().slice(0, -1)}${relativeToSource}/index.html`;
   }
 
   /**

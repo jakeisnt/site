@@ -3,9 +3,9 @@
 // That's what that does!
 import { findTags } from "html";
 
-const makePageMap = ({ articleHtml, file, rootDir, sourceDir }) => {
+const makePageMap = ({ articleHtml, file, url, sourceDir }) => {
   const tags = findTags(articleHtml, ["h1", "h2", "h3", "h4", "h5", "h6"]);
-  const link = file.htmlUrl({ rootDir, sourceDir });
+  const link = file.htmlUrl({ url, sourceDir });
 
   return [
     "div",

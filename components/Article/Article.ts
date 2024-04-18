@@ -10,7 +10,7 @@ const renderArticle = ({
   children,
   file,
   siteName,
-  rootUrl,
+  url,
   sourceDir,
   targetDir,
   resourcesDir,
@@ -24,13 +24,10 @@ const renderArticle = ({
 
   return [
     "html",
-    [
-      "Header",
-      { title, targetDir, rootUrl, siteName, resourcesDir, faviconsDir },
-    ],
+    ["Header", { title, targetDir, url, siteName, resourcesDir, faviconsDir }],
     [
       "body",
-      ["Sidebar", { path: file.path, title, rootUrl, sourceDir }],
+      ["Sidebar", { path: file.path, title, url, sourceDir }],
       [
         "div",
         { class: "site-body" },
@@ -50,7 +47,7 @@ const renderArticle = ({
             "div",
             { class: "article-rhs" },
             ["GitHistoryTable", { file }],
-            ["PrevNextUpButtons", { file, rootUrl, sourceDir }],
+            ["PrevNextUpButtons", { file, url, sourceDir }],
           ],
         ],
       ],

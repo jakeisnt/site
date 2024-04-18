@@ -93,8 +93,6 @@ const getFiletypeClass = (path: Path, cfg: PageSettings) => {
  * @returns {Object} The appropriate file class.
  */
 const readFile = (path: Path, options: PageSettings): File | undefined => {
-  console.log("readFile", { path: path.toString() });
-
   const FiletypeClass = getFiletypeClass(path, options);
 
   let maybeFile = FiletypeClass.create(path, options);
