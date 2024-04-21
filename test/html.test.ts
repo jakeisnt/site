@@ -5,12 +5,12 @@ import { PAGE_SETTINGS } from "./testConstants";
 test("Create an HtmlPage", () => {
   // create just html
   const page = HtmlPage.create(
-    ["html", ["body", ["h1", "hello world"]]],
+    ["html", { lang: "en" }, ["body", ["h1", "hello world"]]],
     PAGE_SETTINGS
   );
 
   expect(page.toString()).toEqual(
-    "<!DOCTYPE html><html><body><h1>hello world</h1></body></html>"
+    `<!DOCTYPE html><html lang="en"><body><h1>hello world</h1></body></html>`
   );
 });
 

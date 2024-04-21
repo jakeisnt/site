@@ -9,6 +9,7 @@ const makeHomePage = (settings: PageSettings) => {
   const title = "index";
   const htmlText: PageSyntax = [
     "html",
+    { lang: "en" },
     ["Header", { title, url, siteName, resourcesDir, faviconsDir }],
     [
       "body",

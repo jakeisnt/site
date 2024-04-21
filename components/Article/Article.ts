@@ -24,6 +24,7 @@ const renderArticle = ({
 
   return [
     "html",
+    { lang: "en" },
     ["Header", { title, targetDir, url, siteName, resourcesDir, faviconsDir }],
     [
       "body",

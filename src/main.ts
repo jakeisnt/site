@@ -13,7 +13,7 @@ const makeConfig = () => {
 
   const websocketPath = "/__devsocket";
   const sourceDir = Path.create("./");
-  const targetDir = sourceDir; // sourceDir.join("/docs");
+  const targetDir = sourceDir.join("/docs");
   const fallbackSourceDir = sourceDir;
   const resourcesDir = sourceDir.join("/resources");
   const faviconsDir = sourceDir.join("/favicons");

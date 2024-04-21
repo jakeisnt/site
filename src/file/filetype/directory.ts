@@ -29,6 +29,7 @@ const directoryToHtml = (
 
   return [
     "html",
+    { lang: "en" },
     ["Header", { title, siteName, url, resourcesDir, faviconsDir }],
     [
       "body",

@@ -16,6 +16,7 @@ const renderArticle = (
 
   return [
     "html",
+    { lang: "en" },
     ["header", config],
     [
       "body",
