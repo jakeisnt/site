@@ -7,15 +7,15 @@
     "dev": "bun run --hot src/main.ts"
   },
   "dependencies": {
-    "mime": "^4.0.1",
+    "mime": "^4.0.4",
     "ohm-js": "^17.1.0",
-    "sass": "^1.75.0",
+    "sass": "^1.77.8",
     "tree-sitter-highlight": "^1.0.1"
   },
   "devDependencies": {
-    "@types/bun": "^1.0.12",
+    "@types/bun": "^1.1.6",
     "@types/mime": "^4.0.0",
-    "@types/node": "^20.12.2",
-    "typescript": "^5.4.3"
+    "@types/node": "^20.14.10",
+    "typescript": "^5.5.3"
   }
 }
