@@ -81,6 +81,11 @@ const directoryServer = (settings: PageSettings) => {
       }
 
       pathToUse = formatPath(pathToUse, pageSettings);
+      console.log({
+        path: path.toString(),
+        pth2: pathToUse.toString(),
+      });
+
       let file = readFile(pathToUse, pageSettings);
 
       if (!file) {

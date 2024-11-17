@@ -103,20 +103,18 @@ const readFile = (
 ): File | undefined => {
   const path = Path.create(pathArg).normalize();
 
-  if (!path.exists()) {
-    return undefined;
-  }
-
   const FiletypeClass = getFiletypeClass(path, cfg);
+
+  console.log(`trying ${FiletypeClass.name} file type for path ${path}`);
 
   let maybeFile = FiletypeClass.create(path, cfg);
   if (maybeFile) return maybeFile;
 
-  // if we couldn't find the file at all, promote it to a source file.
+  // If we couldn't find the file at all, promote it to a source file.
   const targetExtension = path.extension;
 
-  // If we have no target extension and can't find the file, assume it's a directory
-  // Lop off the /index at the end
+  // If we have no target extension and can't find the file, assume it's a directory.
+  // Lop off the /index at the end.
   if (!targetExtension) {
     console.log("Snagging parent", path.parent.toString());
     return readFile(path.parent, cfg);
@@ -124,6 +122,7 @@ const readFile = (
 
   for (const sourceExtension of compileMap[targetExtension]) {
     const nextPath = path.replaceExtension(sourceExtension);
+    console.log(`trying ${sourceExtension} file type for path ${nextPath}`);
     const sourceFile = readFile(nextPath, cfg);
 
     // Our custom standardizes on using target extension to index.
