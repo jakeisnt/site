@@ -44,23 +44,22 @@ const isRootPath = (path: Path, settings: PageSettings) => {
  * @param settings
  */
 const formatPath = (path: Path, settings: PageSettings) => {
-  // Otherwise:
-  // - Replace the target dir with the source dir where we're looking.
-  //   Allows the target dir to be an arbitrary subdomain of the source,
-  //   and to to patch back to the source path from the target.
+  // If path already starts with sourceDir, return as-is
+  if (path.toString().startsWith(settings.sourceDir.toString())) {
+    return path;
+  }
 
-  // if the path is in the target dir, swap it
+  // If path starts with targetDir, swap targetDir with sourceDir
   if (path.toString().startsWith(settings.targetDir.toString())) {
     return Path.create(
       path
         .toString()
         .replace(settings.targetDir.toString(), settings.sourceDir.toString())
     );
-  } else {
-    // otherwise, prepend the source dir to it
-    const newPath = settings.sourceDir.toString() + path.toString();
-    return Path.create(newPath);
   }
+
+  // Otherwise, prepend sourceDir
+  return Path.create(settings.sourceDir.toString() + path.toString());
 };
 
 /**

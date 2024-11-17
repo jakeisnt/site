@@ -149,9 +149,10 @@ class Directory extends File {
    */
   dependencies(settings: PageSettings) {
     if (!this.enumeratedDependencies) {
-      this.enumeratedDependencies = this.asHtml(settings)?.dependencies();
+      this.enumeratedDependencies = this.contents(settings).flatMap(file => 
+        file.isDirectory() ? file.dependencies(settings) : [file]
+      );
     }
-
     return this.enumeratedDependencies;
   }
 

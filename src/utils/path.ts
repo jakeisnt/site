@@ -461,6 +461,12 @@ class Path {
 
     return () => watcher.close();
   }
+
+  normalize() {
+    return Path.create(
+      pathLibrary.normalize(this.toString())
+    );
+  }
 }
 
 export { Path };
