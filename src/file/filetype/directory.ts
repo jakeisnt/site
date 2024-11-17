@@ -147,9 +147,9 @@ class Directory extends File {
    * SHORTCUT: the dependencies of a directory in general are not html-ified.
    * That's a quick hack we use here to bootstrap building files.
    */
-  dependencies(settings: PageSettings) {
+  dependencies(settings: PageSettings): File[] {
     if (!this.enumeratedDependencies) {
-      this.enumeratedDependencies = this.contents(settings).flatMap(file => 
+      this.enumeratedDependencies = this.contents(settings).flatMap((file) =>
         file.isDirectory() ? file.dependencies(settings) : [file]
       );
     }

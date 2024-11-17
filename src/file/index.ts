@@ -74,6 +74,11 @@ const getFiletypeClass = (path: Path, cfg: PageSettings) => {
     filetypeMap = getFiletypeMap(cfg);
   }
 
+  console.log({
+    filetypeMap,
+    compileMap,
+  });
+
   const extension = path.extension;
   if (!extension || !filetypeMap[extension]) {
     console.log(
@@ -122,9 +127,14 @@ const readFile = (
     const sourceFile = readFile(nextPath, cfg);
 
     // Our custom standardizes on using target extension to index.
-    // @ts-ignore
-    const res = sourceFile?.[targetExtension]?.(cfg);
-    if (res) return res;
+    const res = sourceFile?.hasOwnProperty(targetExtension)
+      ? (sourceFile as any)[targetExtension]?.(cfg)
+      : undefined;
+
+    if (!res)
+      console.warn(`No result from ${targetExtension} for file ${path}`);
+
+    return res;
   }
 };
 

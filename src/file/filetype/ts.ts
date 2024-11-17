@@ -1,26 +1,28 @@
-import { File, SourceFile } from "file/classes";
-import JavascriptFile from "./js";
-
-import { wrapFile } from "../classes/utils";
+import { SourceFile } from "../classes";
 import type { PageSettings } from "../../types/site";
+import type JSFile from "./js";
+import { wrapFile } from "../classes/utils";
+import * as ts from "typescript";
 
-const transpiler = new Bun.Transpiler({
-  loader: "ts",
-});
-
-const tsToJs = (tsFile: File, cfg: PageSettings) => {
-  return transpiler.transformSync(tsFile.text(cfg));
+const tsToJs = (tsFile: SourceFile, cfg: PageSettings) => {
+  const result = ts.transpileModule(tsFile.text(cfg), {
+    compilerOptions: {
+      module: ts.ModuleKind.ESNext,
+      target: ts.ScriptTarget.ESNext,
+    }
+  });
+  return result.outputText;
 };
 
-class TypescriptFile extends SourceFile {
-  public static filetypes = ["ts"];
+class TSFile extends SourceFile {
+  public static filetypes = ["ts", "tsx"];
   public static targets = ["js"];
 
-  js(cfg: PageSettings) {
-    return wrapFile(this, (f) => tsToJs(f, cfg), {
+  js(cfg: PageSettings): JSFile {
+    return wrapFile(this, (f) => tsToJs(f as SourceFile, cfg), {
       extension: "js",
-    }) as JavascriptFile;
+    }) as JSFile;
   }
 }
 
-export default TypescriptFile;
+export default TSFile;
