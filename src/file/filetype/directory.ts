@@ -158,7 +158,7 @@ class Directory extends File {
   /**
    * This is a directory, so we return true.
    */
-  isDirectory() {
+  isDirectory(): this is Directory {
     return true;
   }
 

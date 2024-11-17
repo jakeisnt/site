@@ -51,7 +51,12 @@ const wrapFile = (
   };
 
   wrappingFile.text = () => getText(sourceFile);
-  wrappingFile.isDirectory = () => sourceFile.isDirectory();
+
+  Object.defineProperty(wrappingFile, "isDirectory", {
+    value: function () {
+      return sourceFile.isDirectory();
+    },
+  });
 
   Object.defineProperty(wrappingFile, "mimeType", {
     get() {
