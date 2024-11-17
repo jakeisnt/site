@@ -1,6 +1,6 @@
 import { File, SourceFile } from "file/classes";
 import * as sass from "sass";
-const { pathToFileURL } = require("url");
+import { pathToFileURL } from "url";
 import { wrapFile } from "../classes/utils";
 import type CSSFile from "./css";
 import type { PageSettings } from "../../types/site";
@@ -13,7 +13,7 @@ const cssCache = new Map<string, string>();
  */
 const scssToCss = (scssFile: File, cfg: PageSettings) => {
   const cacheKey = `${scssFile.path}:${scssFile.lastTimestamp}`;
-  
+
   if (cssCache.has(cacheKey)) {
     return cssCache.get(cacheKey)!;
   }
@@ -23,7 +23,10 @@ const scssToCss = (scssFile: File, cfg: PageSettings) => {
     importers: [
       {
         findFileUrl(url) {
-          const nextUrl = new URL(url, pathToFileURL(`${cfg.sourceDir}/`));
+          const nextUrl = new URL(
+            url,
+            pathToFileURL(`${cfg.sourceDir}/`).toString()
+          );
           return nextUrl;
         },
       },
