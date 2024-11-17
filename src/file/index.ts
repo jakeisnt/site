@@ -92,10 +92,19 @@ const getFiletypeClass = (path: Path, cfg: PageSettings) => {
  * @param {Object} options - Additional options.
  * @returns {Object} The appropriate file class.
  */
-const readFile = (path: Path, options: PageSettings): File | undefined => {
-  const FiletypeClass = getFiletypeClass(path, options);
+const readFile = (
+  pathArg: Path | string,
+  cfg: PageSettings
+): File | undefined => {
+  const path = Path.create(pathArg).normalize();
 
-  let maybeFile = FiletypeClass.create(path, options);
+  if (!path.exists()) {
+    return undefined;
+  }
+
+  const FiletypeClass = getFiletypeClass(path, cfg);
+
+  let maybeFile = FiletypeClass.create(path, cfg);
   if (maybeFile) return maybeFile;
 
   // if we couldn't find the file at all, promote it to a source file.
@@ -105,16 +114,16 @@ const readFile = (path: Path, options: PageSettings): File | undefined => {
   // Lop off the /index at the end
   if (!targetExtension) {
     console.log("Snagging parent", path.parent.toString());
-    return readFile(path.parent, options);
+    return readFile(path.parent, cfg);
   }
 
   for (const sourceExtension of compileMap[targetExtension]) {
     const nextPath = path.replaceExtension(sourceExtension);
-    const sourceFile = readFile(nextPath, options);
+    const sourceFile = readFile(nextPath, cfg);
 
     // Our custom standardizes on using target extension to index.
     // @ts-ignore
-    const res = sourceFile?.[targetExtension]?.(options);
+    const res = sourceFile?.[targetExtension]?.(cfg);
     if (res) return res;
   }
 };

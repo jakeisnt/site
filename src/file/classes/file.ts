@@ -36,11 +36,12 @@ class File {
    * Construct a file.
    */
   constructor(pathArg: Path, cfg: PageSettings) {
-    const filePath = Path.create(pathArg);
+    // Normalize the path when creating a File
+    const filePath = Path.create(pathArg).normalize();
 
     if (!filePath.exists()) {
       throw new Error(
-        `from File constructor: File at path '${pathArg}' does not exist`
+        `from File constructor: File at path '${filePath}' does not exist`
       );
     }
 
