@@ -8,9 +8,9 @@ const makeHomePage = (settings: PageSettings) => {
   const { url, sourceDir, siteName, resourcesDir, faviconsDir } = settings;
   const title = "index";
   const htmlText: PageSyntax = [
-    ["html",
+    "html",
     { lang: "en" },
-    ["head", ["Header", { title, url, siteName, resourcesDir, faviconsDir }]],
+    ["Header", { title, url, siteName, resourcesDir, faviconsDir }],
     [
       "body",
       [

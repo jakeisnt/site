@@ -20,9 +20,9 @@ function runOnDesktop(fn: () => void) {
 /**
  * Create an html element with attributes and append it to a parent element
  */
-function createParent(
-  elementName: HtmlTag,
-  attributes: HtmlAttributes = {},
+function createParent<T extends HtmlTag>(
+  elementName: T,
+  attributes: HtmlAttributes<T> | {} = {},
   {
     parent,
     children,
@@ -60,17 +60,17 @@ function createParent(
   return elem;
 }
 
-function create(
-  elementName: HtmlTag,
-  attributes: HtmlAttributes,
+function create<T extends HtmlTag>(
+  elementName: T,
+  attributes: HtmlAttributes<T>,
   parent?: HTMLElement
 ) {
   return createParent(elementName, attributes, { parent });
 }
 
-function create2(
-  elementName: HtmlTag,
-  attributes: HtmlAttributes,
+function create2<T extends HtmlTag>(
+  elementName: T,
+  attributes: HtmlAttributes<T>,
   ...children: (HTMLElement | HtmlTerminalNode)[]
 ) {
   return createParent(elementName, attributes, {
@@ -106,7 +106,8 @@ function req(url: string, method: HttpMethod, then: Function) {
 
 const get = (url: string, then: Function) => req(url, "GET", then);
 
-const $ = (selector: string): HTMLElement | undefined => document.querySelector(selector) as HTMLElement ?? undefined;
+const $ = (selector: string): HTMLElement | undefined =>
+  (document.querySelector(selector) as HTMLElement) ?? undefined;
 const all = (selector: string) =>
   Array.from(document.querySelectorAll(selector));
 

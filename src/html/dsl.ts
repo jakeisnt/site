@@ -6,6 +6,7 @@ import { component } from "./components";
 import type {
   PageSyntax,
   HtmlAttributes,
+  NativeHtmlTag,
   HtmlTag,
   HtmlNode,
   Dependency,
@@ -51,7 +52,10 @@ function htmlPage(syn: PageSyntax, cfg: PageSettings) {
  * @param attrs the attributes to build into the JS.
  * @param buffer buffer to queue the changes to.
  */
-function buildAttributes(attrs: HtmlAttributes, dependencies: Dependency[]) {
+function buildAttributes<T extends HtmlTag>(
+  attrs: HtmlAttributes<T>,
+  dependencies: Dependency[]
+) {
   if (!attrs || Object.keys(attrs).length === 0) {
     return "";
   }
@@ -62,12 +66,11 @@ function buildAttributes(attrs: HtmlAttributes, dependencies: Dependency[]) {
   for (var key in attrs) {
     buffer.push(`${key}="${attrs[key]?.toString()}"`);
   }
-
-  if (attrs.href) {
+  if ("href" in attrs && attrs.href) {
     dependencies.push({ src: attrs.href });
   }
 
-  if (attrs.src) {
+  if ("src" in attrs && attrs.src) {
     dependencies.push({ src: attrs.src });
   }
 
@@ -90,15 +93,15 @@ function buildComponent(
   dependencies.push(...dependsOn);
 }
 
-type ValidHtmlTag = keyof HTMLElementTagNameMap;
-
 /**
  * Build a single HTML tag.
  * The callback proceeds to build the rest of the page sequentially.
+ *
+ * TODO: Is this type corect? No.
  */
-function buildTag(
-  tagName: ValidHtmlTag,
-  attributes: HtmlAttributes,
+function buildTag<T extends NativeHtmlTag>(
+  tagName: T | string,
+  attributes: HtmlAttributes<T | string>,
   buffer: string[],
   dependencies: Dependency[],
   list: HtmlNode,
@@ -195,11 +198,15 @@ function buildRest(
  * @param attr2 the attributes to merge into attr1.
  * @returns a compbined set of HTML attributes
  */
-function mergeAttributes(attr1: HtmlAttributes, attr2: HtmlAttributes) {
+function mergeAttributes<T extends HtmlTag>(
+  attr1: HtmlAttributes<T>,
+  attr2: HtmlAttributes<T>
+) {
   for (var key in attr2) {
     if (!attr1.hasOwnProperty(key)) {
       attr1[key] = attr2[key];
     } else if (key === "class") {
+      // @ts-ignore
       attr1[key] += " " + attr2[key];
     }
   }
@@ -215,10 +222,13 @@ function mergeAttributes(attr1: HtmlAttributes, attr2: HtmlAttributes) {
  * @param tag the tag name to split out
  * @returns the tag name and corresponding HTML attributes to set -- if any.
  */
-function splitTag(tag: string): [HtmlTag, HtmlAttributes] {
-  let attr: HtmlAttributes = {};
+function splitTag(tag: HtmlTag): [HtmlTag, HtmlAttributes<HtmlTag>] {
+  let attr: HtmlAttributes<HtmlTag> = {};
   let match = tag.match(/([^\s\.#]+)(?:#([^\s\.#]+))?(?:\.([^\s#]+))?/);
+  // SHORTCUT: binding these attributes works on any tag, right?
+  // @ts-ignore
   if (match?.[2]) attr.id = match[2];
+  // @ts-ignore
   if (match?.[3]) attr.class = match[3].replace(/\./g, " ");
   return [match?.[1] as HtmlTag, attr];
 }

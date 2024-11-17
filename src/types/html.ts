@@ -1,74 +1,20 @@
 // All tags supported by the browser.
 
 // @ts-ignore
-type NativeHtmlTag =
-  | "html"
-  | "body"
-  | "div"
-  | "img"
-  | "a"
-  | "h1"
-  | "h2"
-  | "h3"
-  | "h4"
-  | "h5"
-  | "h6"
-  | "button"
-  | "script"
-  | "link"
-  | "meta"
-  | "table"
-  | "tr"
-  | "td"
-  | "p"
-  | "span"
-  | "ul"
-  | "li"
-  | "ol"
-  | "form"
-  | "input"
-  | "label"
-  | "select"
-  | "option"
-  | "textarea"
-  | "header"
-  | "footer"
-  | "main"
-  | "nav"
-  | "section"
-  | "article"
-  | "aside"
-  | "figure"
-  | "figcaption"
-  | "canvas"
-  | "audio"
-  | "video"
-  | "source"
-  | "track"
-  | "embed"
-  | "object"
-  | "param"
-  | "iframe"
-  | "picture"
-  | "svg"
-  | "path"
-  | "g";
+type NativeHtmlTag = keyof HTMLElementTagNameMap;
 
 // Any acceptable tag, including components.
-type HtmlTag = keyof HTMLElementTagNameMap;
+type HtmlTag = NativeHtmlTag | string;
 
 // A generic HTML attribute.
 // Doesn't type specific tag names.
 // Allows passing anything.
 type GenericAttribute = { [key: string]: any };
 
-type HtmlAttributes = GenericAttribute & {
-  src?: string;
-  href?: string;
-  class?: string;
-  role?: string;
-  id?: string;
-};
+// A generic HTML attribute for a specific tag.
+type HtmlAttributes<T extends HtmlTag> = T extends keyof HTMLElementTagNameMap
+  ? Partial<HTMLElementTagNameMap[T]>
+  : GenericAttribute;
 
 // HTML nodes that are never rendered.
 // These should be discarded if found in the tree.
@@ -84,10 +30,14 @@ type HtmlNode = string | HtmlTagNode | HtmlNode[] | HtmlTerminalNode;
 type HtmlTagNode =
   | [HtmlTag]
   | [HtmlTag, ...HtmlNode[]]
-  | [HtmlTag, HtmlAttributes, ...HtmlNode[]]
+  | [HtmlTag, HtmlAttributes<HtmlTag>, ...HtmlNode[]]
   // NOTE: this should be the same type as the above.
   // but typescript is having trouble reading it?
-  | [HtmlTag, HtmlAttributes, ...string[]];
+  | [HtmlTag, HtmlAttributes<HtmlTag>, ...string[]]
+  | [NativeHtmlTag]
+  | [NativeHtmlTag, ...HtmlNode[]]
+  | [NativeHtmlTag, HtmlAttributes<NativeHtmlTag>, ...HtmlNode[]]
+  | [NativeHtmlTag, HtmlAttributes<NativeHtmlTag>, ...string[]];
 
 type PageSyntax = HtmlNode;
 
@@ -97,6 +47,7 @@ type Dependency = {
 };
 
 export type {
+  NativeHtmlTag,
   HtmlTag,
   PageSyntax,
   HtmlNode,

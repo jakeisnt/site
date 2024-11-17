@@ -10,7 +10,7 @@ const loadHeadings = () => {
     const btn = create("button", {
       className: "inlineText",
       innerText: "#",
-      onclick: (e) => {
+      onclick: (e: MouseEvent) => {
         console.log(e.target);
         const url = window.location.origin + window.location.pathname;
         const link = `${url}#${headingId}`;
