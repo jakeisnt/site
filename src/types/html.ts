@@ -55,7 +55,7 @@ type NativeHtmlTag =
   | "g";
 
 // Any acceptable tag, including components.
-type HtmlTag = string;
+type HtmlTag = keyof HTMLElementTagNameMap;
 
 // A generic HTML attribute.
 // Doesn't type specific tag names.
@@ -74,7 +74,7 @@ type HtmlAttributes = GenericAttribute & {
 // These should be discarded if found in the tree.
 type FalsyHtmlNode = undefined | null;
 
-type HtmlTerminalNode = string | FalsyHtmlNode;
+type HtmlTerminalNode = Node | string | FalsyHtmlNode;
 
 // An HTML node available to our DSL.
 type HtmlNode = string | HtmlTagNode | HtmlNode[] | HtmlTerminalNode;

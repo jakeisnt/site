@@ -90,12 +90,14 @@ function buildComponent(
   dependencies.push(...dependsOn);
 }
 
+type ValidHtmlTag = keyof HTMLElementTagNameMap;
+
 /**
  * Build a single HTML tag.
  * The callback proceeds to build the rest of the page sequentially.
  */
 function buildTag(
-  tagName: string,
+  tagName: ValidHtmlTag,
   attributes: HtmlAttributes,
   buffer: string[],
   dependencies: Dependency[],
@@ -107,7 +109,10 @@ function buildTag(
   if (isComponent) {
     buildComponent(
       tagName,
-      { ...attributes, children: list?.slice(index) },
+      {
+        ...attributes,
+        children: Array.isArray(list) ? list.slice(index) : [list],
+      },
       buffer,
       dependencies
     );
@@ -131,7 +136,7 @@ function buildTag(
 function build(list: HtmlNode, buffer: string[], dependencies: Dependency[]) {
   let index = 0;
 
-  let nextElement = list?.[index];
+  let nextElement = Array.isArray(list) ? list[index] : list;
 
   // if our next element is the start of an HTML tag:
   if (typeof nextElement === "string") {
@@ -140,7 +145,7 @@ function build(list: HtmlNode, buffer: string[], dependencies: Dependency[]) {
     index += 1;
 
     let attributesToUse = attr;
-    nextElement = list?.[index];
+    nextElement = Array.isArray(list) ? list[index] : list;
 
     // If, after the tag, we have more attributes,
     // merge them with the attributes we found when splitting the tag.
@@ -168,10 +173,10 @@ function buildRest(
   buffer: string[],
   dependencies: Dependency[]
 ) {
-  const length = list?.length ?? 0;
+  const length = Array.isArray(list) ? list.length : 0;
 
   while (index < length) {
-    var item = list?.[index++];
+    var item = Array.isArray(list) ? list[index++] : list;
     if (isArray(item)) {
       build(item, buffer, dependencies);
     } else {

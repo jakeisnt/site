@@ -28,7 +28,7 @@ function createParent(
     children,
   }: {
     parent?: HTMLElement;
-    children?: HtmlTerminalNode[];
+    children?: (HTMLElement | HtmlTerminalNode)[];
   }
 ) {
   const elem = document.createElement(elementName);
@@ -71,7 +71,7 @@ function create(
 function create2(
   elementName: HtmlTag,
   attributes: HtmlAttributes,
-  ...children: HtmlTerminalNode[]
+  ...children: (HTMLElement | HtmlTerminalNode)[]
 ) {
   return createParent(elementName, attributes, {
     children,
@@ -79,7 +79,6 @@ function create2(
 }
 
 var httpRequest: XMLHttpRequest;
-
 type HttpMethod = "GET" | "POST";
 
 function req(url: string, method: HttpMethod, then: Function) {
@@ -107,7 +106,7 @@ function req(url: string, method: HttpMethod, then: Function) {
 
 const get = (url: string, then: Function) => req(url, "GET", then);
 
-const $ = (selector: string) => document.querySelector(selector);
+const $ = (selector: string): HTMLElement | undefined => document.querySelector(selector) as HTMLElement ?? undefined;
 const all = (selector: string) =>
   Array.from(document.querySelectorAll(selector));
 
