@@ -30,7 +30,7 @@ const tagName = ([name]: HtmlTagNode) => name;
 const tagAttributes = <T extends HtmlTag>([, attributes]: HtmlTagNode):
   | HtmlAttributes<T>
   | undefined => {
-  return isHtmlAttributes(attributes) ? attributes : undefined;
+  return isHtmlAttributes<T>(attributes) ? attributes : undefined;
 };
 
 /**
