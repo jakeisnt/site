@@ -74,11 +74,6 @@ const getFiletypeClass = (path: Path, cfg: PageSettings) => {
     filetypeMap = getFiletypeMap(cfg);
   }
 
-  console.log({
-    filetypeMap,
-    compileMap,
-  });
-
   const extension = path.extension;
   if (!extension || !filetypeMap[extension]) {
     console.log(
@@ -105,10 +100,15 @@ const readFile = (
 
   const FiletypeClass = getFiletypeClass(path, cfg);
 
-  console.log(`trying ${FiletypeClass.name} file type for path ${path}`);
+  console.log(
+    `[readFile] Trying ${FiletypeClass.name} file type for path ${path}`
+  );
 
   let maybeFile = FiletypeClass.create(path, cfg);
-  if (maybeFile) return maybeFile;
+  if (maybeFile) {
+    console.log(`[readFile] Found file ${FiletypeClass.name} for path ${path}`);
+    return maybeFile;
+  }
 
   // If we couldn't find the file at all, promote it to a source file.
   const targetExtension = path.extension;
@@ -116,13 +116,15 @@ const readFile = (
   // If we have no target extension and can't find the file, assume it's a directory.
   // Lop off the /index at the end.
   if (!targetExtension) {
-    console.log("Snagging parent", path.parent.toString());
+    console.log(`[readFile] No extension, snagging parent path ${path.parent}`);
     return readFile(path.parent, cfg);
   }
 
   for (const sourceExtension of compileMap[targetExtension]) {
     const nextPath = path.replaceExtension(sourceExtension);
-    console.log(`trying ${sourceExtension} file type for path ${nextPath}`);
+    console.log(
+      `[readFile] Trying ${sourceExtension} file type for path ${nextPath}`
+    );
     const sourceFile = readFile(nextPath, cfg);
 
     // Our custom standardizes on using target extension to index.
@@ -131,7 +133,9 @@ const readFile = (
       : undefined;
 
     if (!res)
-      console.warn(`No result from ${targetExtension} for file ${path}`);
+      console.warn(
+        `[readFile] No result from ${targetExtension} for file ${path}`
+      );
 
     return res;
   }

@@ -1,7 +1,7 @@
 const ToggleDarkMode = () => ({
   dependsOn: [
     {
-      src: "components/ToggleDarkMode/toggle-dark-mode.js",
+      src: "components/ToggleDarkMode/toggle-dark-mode.ts",
     },
     {
       src: "components/ToggleDarkMode/toggle-dark-mode.css",

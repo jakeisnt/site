@@ -9,8 +9,9 @@ const tsToJs = (tsFile: SourceFile, cfg: PageSettings) => {
     compilerOptions: {
       module: ts.ModuleKind.ESNext,
       target: ts.ScriptTarget.ESNext,
-    }
+    },
   });
+
   return result.outputText;
 };
 
