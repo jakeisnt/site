@@ -4,7 +4,7 @@ const ToggleDarkMode = () => ({
       src: "components/ToggleDarkMode/toggle-dark-mode.ts",
     },
     {
-      src: "components/ToggleDarkMode/toggle-dark-mode.css",
+      src: "components/ToggleDarkMode/toggle-dark-mode.scss",
     },
   ],
   body: [
