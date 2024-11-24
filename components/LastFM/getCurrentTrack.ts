@@ -70,7 +70,7 @@ const lastfm = () => {
     }
 
     nowPlayingNode = create(
-      "div",
+      "a",
       {
         className: "now-playing",
         href: track.url,
@@ -83,8 +83,8 @@ const lastfm = () => {
       "img",
       {
         className: "np-image",
-        width: "128",
-        height: "128",
+        width: 128,
+        height: 128,
         src: track.image.slice(-1)[0]["#text"],
       },
       nowPlayingNode
