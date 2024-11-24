@@ -15,9 +15,32 @@ const tsToJs = (tsFile: SourceFile, cfg: PageSettings) => {
   return result.outputText;
 };
 
-class TSFile extends SourceFile {
-  public static filetypes = ["ts", "tsx"];
-  public static targets = ["js"];
+class TypeScriptFile extends SourceFile {
+  static filetypes = ["ts", "tsx", "js", "jsx"];
+
+  static create(filePath: Path, cfg: PageSettings) {
+    // If requesting a .js file, try to find the .ts version
+    if (filePath.extension === "js" || filePath.extension === "jsx") {
+      const tsPath = filePath.replaceExtension("ts");
+      if (tsPath.exists()) {
+        return new TypeScriptFile(tsPath, cfg);
+      }
+      // Also try .tsx for jsx files
+      if (filePath.extension === "jsx") {
+        const tsxPath = filePath.replaceExtension("tsx");
+        if (tsxPath.exists()) {
+          return new TypeScriptFile(tsxPath, cfg);
+        }
+      }
+      return null;
+    }
+
+    // Normal .ts file handling
+    if (filePath.exists()) {
+      return new TypeScriptFile(filePath, cfg);
+    }
+    return null;
+  }
 
   js(cfg: PageSettings): JSFile {
     return wrapFile(this, (f) => tsToJs(f as SourceFile, cfg), {
@@ -26,4 +49,4 @@ class TSFile extends SourceFile {
   }
 }
 
-export default TSFile;
+export default TypeScriptFile;
