@@ -4,9 +4,19 @@ This is the index of my personal website found [here](https://jake.isnt.online).
 It can be thought of as a projection of my wiki and github repos!
 100% score on the [Lighthouse audit](https://www.foo.software/lighthouse).
 
+## Deprecation
+This idea is worth exploring further, but the code - as it stands - isn't useful.
+jake.isnt.online was supposed to be adaptive, but statically first; and once the
+whole website can be generated statically, as an artifact, then make it more dynamic,
+introduce components, make it *move*.
+
+I've since realized (through [https://img.jake.kitchen](img.jake.kitchen) and other product building experiences) that it's far more difficult to make a snapshot move; freezing a living system at a point is much, much easier than constructing a fixed artifact and slowly making it move.
+
+The idea behind this framework -- and the way its build system works, with continuous on-the-fly interpretation and immediate conversion, is still worth exploring -- but the iteration in this repository is not currently up to par.
+
 ## Goals
 - Personal landing page with links
-- No external resources loaded 
+- No external resources loaded
 - SEO Optimized
 - Ten packets (to load instantly)
 
